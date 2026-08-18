@@ -1,0 +1,22 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id            String   @id @default(cuid())
+  name          String
+  email         String
+  countryCode   String
+  countryName   String
+  phone         String
+  company       String
+  opportunity   String   @db.Text
+  hearAbout     String
+  fileName      String?
+  createdAt     DateTime @default(now())
+}
