@@ -3,30 +3,37 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight, Sparkles } from "lucide-react";
 
+/* ===============================================================
+   CONTENT
+   Design and layout are unchanged from the original Zero Friction
+   Enterprise section — only the copy has been swapped for the
+   Technical Competencies & Service Capabilities content.
+================================================================ */
+
 const pillars = [
   {
-    title: "Zero Vulnerability",
-    body: "Reduce exposure through continuous attack-surface monitoring, automated compliance controls, and detection that stops threats before they escalate.",
+    title: "Enterprise Product Engineering",
+    body: "We design, build, and ship end-to-end enterprise products — pairing proven engineering practice with AI-powered frameworks to deliver scalable growth and measurable performance.",
   },
   {
-    title: "Zero Backlog",
-    body: "Clear every bottleneck from requirement to release, so nothing waits in a queue, stalls between sprints, or gets deprioritized.",
+    title: "SaaS Product Engineering",
+    body: "From fintech and healthcare to e-commerce and enterprise platforms, we've delivered SaaS products for Fortune 500 companies, with a track record in building complex, scalable solutions.",
   },
   {
-    title: "Zero Tickets",
-    body: "Resolve incidents at the root with AIOps-driven anomaly detection and self-healing infrastructure, long before they reach a support queue.",
+    title: "Enterprise AI/ML, Gen AI & LLM Engineering",
+    body: "We turn workflows into intelligent, scalable systems — reducing manual effort, accelerating decisions, and delivering automation tailored to your business outcomes.",
   },
   {
-    title: "Zero Tech Debt",
-    body: "Refactor, decouple, and modernize legacy estates, so engineers spend less time on maintenance and more time shipping value.",
+    title: "Data Engineering & Data Science",
+    body: "Our certified data engineers build robust, reliable data infrastructure, while our data scientists surface the insights and patterns that drive smarter, faster decision-making.",
   },
   {
-    title: "Zero Defects",
-    body: "Build quality into every stage of the lifecycle with AI-led engineering that catches issues early and stops defects before they reach production.",
+    title: "Legacy Software Modernization",
+    body: "We assess your existing systems, build a tailored modernization roadmap, and transition you to a scalable, future-ready platform with minimal operational disruption.",
   },
   {
-    title: "Zero License",
-    body: "Replace per-seat SaaS with agentic, AI-native capability your enterprise can build, own, and scale without a renewal ceiling.",
+    title: "DevOps & Quality Engineering",
+    body: "We accelerate product delivery with seamless DevOps integration and test automation, so every release ships faster without compromising on quality.",
   },
 ];
 
@@ -132,22 +139,20 @@ export default function ZeroFrictionSection() {
         {/* Sticky left panel: text, then the glow circle sits right below it */}
         <div className="lg:sticky lg:top-32 lg:h-fit">
           <h2 className="text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">
-            Enterprise Progress, Rewritten: The Zero Friction Enterprise™
+            Technical Competencies & Service Capabilities
           </h2>
           <p className="mt-6 text-lg font-medium text-slate-200">
-            Driving friction toward zero across the estate, from where
-            enterprises are to where they want to be
+            Engineering depth across every layer of the enterprise stack,
+            from product to platform to data
           </p>
           <p className="mt-6 text-[15px] leading-relaxed text-slate-400">
-            Peak performance is rarely lost in one place. Operational and
-            technological resistance gathers across the estate—across
-            systems, processes, and teams—making the climb steeper. Zero
-            Friction Enterprise™ drives that friction toward zero, with
-            agentic AI extending the pursuit across a growing set of focus
-            areas, founded on infinite trust spanning data readiness,
-            security, governance, and observability. And Zerovity™,
-            Hexaware&apos;s AI delivery layer, provides the single governed
-            command center across the estate.
+            Building resilient, scalable technology takes more than a single
+            specialism — it takes engineering, AI, data, and quality working
+            together as one system. Our technical competencies span
+            end-to-end product engineering, enterprise AI/ML and Gen AI,
+            data engineering and data science, legacy modernization, and
+            DevOps and quality engineering, so every capability your
+            enterprise needs is covered under one roof.
           </p>
 
           <div className="mt-12">
@@ -162,8 +167,8 @@ export default function ZeroFrictionSection() {
           ))}
 
           <p className="sm:col-span-2 mt-4 text-lg text-slate-300">
-            Each pillar removes a drag point. Together, they create an
-            enterprise that compounds momentum.
+            Each competency strengthens the next. Together, they give the
+            enterprise a single, compounding engineering advantage.
           </p>
         </div>
       </div>

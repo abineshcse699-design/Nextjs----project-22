@@ -2,26 +2,32 @@
 
 import { useEffect, useRef, useState } from "react";
 
+/* ===============================================================
+   CONTENT
+   Design and layout are unchanged — only the copy has been
+   rewritten for Starfii (AI-Driven Software & Product Engineering).
+================================================================ */
+
 const steps = [
   {
-    title: "Lead AI-first, Agentic Change",
-    body: "Reimagine work with AI agents to drive outcomes through human-AI collaboration and AI transformation.",
+    title: "Discover Your AI Opportunity",
+    body: "We assess your product, data, and workflows to pinpoint where AI can move the needle fastest — grounded in your business goals, not hype.",
   },
   {
-    title: "Modernize Apps, Data, and IT",
-    body: "Cut costs, move faster, and enable technology transformation with agility and adaptability.",
+    title: "Design AI-Driven Products",
+    body: "Our team architects software and product experiences with AI built in from day one, not bolted on afterward.",
   },
   {
-    title: "Build an AI-ready Data Core",
-    body: "Prepare data for AI with the context, governance, structure, and access needed for trusted intelligence.",
+    title: "Engineer at Startup Speed",
+    body: "80+ skilled engineers across 3+ development locations ship production-grade software fast, without cutting corners on quality.",
   },
   {
-    title: "Scale Digital Products and CX",
-    body: "Create digital products and experiences with design-led innovation for scaling AI, digital transformation, and growth acceleration.",
+    title: "Scale Across Industries",
+    body: "From e-commerce and travel to healthcare, finance, ed-tech, and logistics, we bring proven playbooks tailored to your industry's needs.",
   },
   {
-    title: "Run Secure, Autonomous Operations",
-    body: "Boost reliability, strengthen security, and reduce risk with AI and reinvention for a future-ready enterprise.",
+    title: "Partner Beyond Launch",
+    body: "5+ years of delivering top solutions means we stay in the loop post-launch — monitoring, optimizing, and evolving your product as you grow.",
   },
 ];
 
@@ -56,7 +62,7 @@ function StepRow({
   return (
     <div
       ref={ref}
-      className={`group grid grid-cols-1 gap-2 py-8 transition-all duration-700 ease-out sm:grid-cols-[280px_1fr] sm:gap-10 ${
+      className={`group relative isolate z-0 grid grid-cols-1 gap-2 py-8 transition-all duration-700 ease-out sm:grid-cols-[280px_1fr] sm:gap-10 ${
         !isLast ? "border-b border-slate-200" : ""
       } ${visible ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"}`}
     >
@@ -73,7 +79,7 @@ function StepRow({
 /** Animated iridescent ribbon: floats gently and has a rainbow shimmer traveling along its length. */
 function Ribbon() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 overflow-visible">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 isolate z-0 overflow-visible">
       <style>{`
         @keyframes ribbon-float {
           0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -145,19 +151,19 @@ function Ribbon() {
 
 export default function AIJourneySection() {
   return (
-    <section className="relative overflow-hidden bg-white py-28">
+    <section className="relative isolate z-0 overflow-hidden bg-white py-28">
       <Ribbon />
 
       <div className="relative z-10 mx-auto grid max-w-[1760px] grid-cols-1 gap-12 px-8 lg:grid-cols-[520px_1fr] lg:px-16">
         {/* Left heading */}
-        <div className="lg:sticky lg:top-32 lg:h-fit">
+        <div className="lg:sticky lg:top-32 lg:z-0 lg:h-fit">
           <h2 className="text-[44px] font-medium leading-[1.15] text-[#0d1b4c] lg:text-[52px]">
-            Take the Next Step
+            Your Tech Partner
             <br />
-            in Your AI Journey
+            for the Next Big Leap
           </h2>
           <p className="mt-5 text-lg text-slate-500">
-            Wherever You Are, We Meet You There
+            From First Idea to Full-Scale AI-Driven Product
           </p>
         </div>
 

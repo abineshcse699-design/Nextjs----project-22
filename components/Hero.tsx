@@ -1,5 +1,4 @@
 import { ArrowUpRight } from "lucide-react";
-import Navbar from "./Navbar";
 
 export default function Hero() {
   return (
@@ -11,25 +10,29 @@ export default function Hero() {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <Navbar />
+      {/* Navbar was removed from here — it now lives in app/layout.tsx
+          as a direct child of <body>. Rendering it inside this
+          `isolate` section was exactly what let later sections paint
+          on top of it while scrolling. Don't re-add <Navbar /> here. */}
 
       {/* Copy */}
       <div className="relative z-10 mx-auto flex h-full max-w-[1760px] flex-col justify-center px-8 pb-24 pt-[160px] lg:px-16 lg:pt-[180px]">
         <h1 className="max-w-3xl text-[44px] font-medium leading-[1.1] text-white sm:text-[56px] lg:text-[68px]">
-          Zero Friction. Infinite
+          AI-Driven Software And
+
           <br />
-          Momentum.
+       Product Engineering
         </h1>
 
         <p className="mt-6 max-w-lg text-lg text-slate-200/90">
-          Eliminate every gap between your enterprise and peak performance.
+         Scalable, High-Performance Solutions Customized for Your Business!
         </p>
 
         <a
           href="#contact"
           className="mt-8 flex w-fit items-center gap-2 rounded-xl bg-white px-6 py-4 text-[15px] font-semibold text-[#3B2FE0] transition-transform hover:scale-[1.03]"
         >
-          Contact Now
+        Request Your POC Now!
           <ArrowUpRight size={18} strokeWidth={2.5} />
         </a>
       </div>

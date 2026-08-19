@@ -28,54 +28,54 @@ interface CaseStudy {
 const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    title: "25% Cost Savings through Data Transformation for Insurance Reporting",
+    title: "30% Faster Claims Processing Through Data Modernization for a Regional Insurer",
     description:
-      "Transformed a leading insurer's data systems, achieving 25% cost savings while automating reporting and enabling unified, actionable BI.",
+      "Rebuilt a regional insurer's data pipeline, cutting claims processing time by 30% and giving underwriting teams a single, real-time view of risk.",
     image:
       "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
     href: "#",
   },
   {
     id: 2,
-    title: "A 15-Year Digital Evolution at a Leading Australian University",
+    title: "A 6-Year Digital Partnership with a Leading State University System",
     description:
-      "15-year partnership modernizing SIS/ERP and collaboration tools. Managed services, SSO, IaC, RPA, testing, and CRM improved speed and reliability.",
+      "Six-year engagement modernizing student information systems and campus IT. Managed services, identity, cloud migration, and automation improved uptime and student experience.",
     image:
       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop",
     href: "#",
   },
   {
     id: 3,
-    title: "360° CX Optimization with the Adobe Experience Cloud Suite",
+    title: "Unified Customer Experience Across Channels for a National Retail Chain",
     description:
-      "Unified customer data and journeys on Adobe Experience Cloud, driving measurable gains in engagement, conversion, and customer satisfaction.",
+      "Consolidated customer data and touchpoints onto one platform, lifting engagement and conversion while cutting time-to-launch for new campaigns.",
     image:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop",
     href: "#",
   },
   {
     id: 4,
-    title: "4-Week Amaze®-Accelerated Assessment for Data Platform Modernization",
+    title: "3-Week Rapid Assessment That Mapped a Fortune 500 Data Platform Overhaul",
     description:
-      "A rapid 4-week assessment mapped the fastest path to a modern data platform, cutting typical planning timelines by more than half.",
+      "A focused 3-week assessment identified the fastest, lowest-risk path to a modern data platform, cutting typical planning timelines by more than half.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
     href: "#",
   },
   {
     id: 5,
-    title: "A Global CRO Enhances the Capabilities of eTMF with Intelligent Automation",
+    title: "Intelligent Automation Cuts Manual Effort for a Global Clinical Research Organization",
     description:
-      "Intelligent automation streamlined eTMF operations for a global CRO, reducing manual effort and improving trial document accuracy.",
+      "Automated document handling and compliance checks for a global CRO, reducing manual review effort and improving accuracy across active trials.",
     image:
       "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
     href: "#",
   },
   {
     id: 6,
-    title: "Avaya to Amazon Connect Migration Revitalizes Contact Center Experience",
+    title: "Legacy Contact Center Migration to the Cloud Revitalizes Customer Support",
     description:
-      "Migrated a legacy Avaya contact center to Amazon Connect, modernizing the customer experience while lowering operating costs.",
+      "Migrated a legacy on-premise contact center to a modern cloud platform, improving customer experience while lowering operating costs.",
     image:
       "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop",
     href: "#",

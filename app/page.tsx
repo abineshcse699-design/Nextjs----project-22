@@ -7,6 +7,7 @@ import GlanceSection from "@/components/GlanceSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
 import HexawareNewsSection from "@/components/HexawareNewsSection";
 import ConnectFormSection from "@/components/ConnectFormSection";
+import TechnicalCompetenciesSection from "@/components/TechnicalCompetenciesSection";
 
 export default function Home() {
   return (
@@ -18,8 +19,9 @@ export default function Home() {
       <AwardsSection />
       <GlanceSection />
       <CaseStudiesSection />
-      <HexawareNewsSection/>
-      <ConnectFormSection/>
+      <HexawareNewsSection />
+      <ConnectFormSection />
+      {/* <TechnicalCompetenciesSection></TechnicalCompetenciesSection> */}
       {/* rest of your page sections go here */}
     </main>
   );

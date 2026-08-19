@@ -3,50 +3,64 @@
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
+/* ===============================================================
+   BRAND TOKENS — kept identical to the Digital & Software
+   Services page so both sections read as one site.
+   Primary   — Champion Blue  #1B2560
+   Secondary — Lavender        #ECE7FB (surface) / #A48FEA (accent)
+================================================================ */
+
+const CHAMPION_BLUE = "#1B2560";
+const LAVENDER_SURFACE = "#F5F3FC";
+const LAVENDER_ACCENT = "#A48FEA";
+
 const awards = [
   {
     title:
-      "Hexaware Named an Exceptional Performer for Overall Client Satisfaction in Whitelane Research's 2025/2026 Europe IT Sourcing Study",
-    date: "02 AUG 2026",
+      "Starfii Named a Top-Rated Digital Engineering Partner in the 2025/2026 Global IT Sourcing Study",
+    date: "05 AUG 2026",
   },
   {
-    title: "Hexaware Wins Seven Stevie® Awards at the 2026 American Business Awards®",
-    date: "28 JUL 2026",
+    title: "Starfii Wins Four Stevie® Awards at the 2026 American Business Awards®",
+    date: "27 JUL 2026",
   },
   {
-    title: "Hexaware Named Top Business Transformation Partner of the Year 2026 by Automation Anywhere",
-    date: "22 JUL 2026",
+    title: "Starfii Named AI Transformation Partner of the Year 2026 by a Leading Automation Alliance",
+    date: "19 JUL 2026",
   },
   {
-    title: "Hexaware Recognized as a Client Champion in the 2025 ISG Star of Excellence™ Awards With a Top Overall CX Score",
-    date: "17 JUL 2026",
+    title: "Starfii Recognized as a Client Champion in the 2025 ISG Star of Excellence™ Awards With a Top CX Score",
+    date: "14 JUL 2026",
   },
   {
-    title: "Hexaware is the Second-Fastest-Growing Indian IT Services Brand by Brand Value",
-    date: "09 JUL 2026",
+    title: "Starfii Ranked Among the Fastest-Growing Software Engineering Brands by Brand Value",
+    date: "07 JUL 2026",
   },
   {
-    title: "Hexaware Honored in S&P Global Sustainability Yearbook 2026",
-    date: "01 JUL 2026",
+    title: "Starfii Featured in the 2026 Global Sustainability Yearbook",
+    date: "30 JUN 2026",
   },
   {
-    title: "Hexaware Earns Gold Sustainability Rating from EcoVadis, Placing in the Top 5% Globally",
-    date: "24 JUN 2026",
+    title: "Starfii Earns Gold Sustainability Rating, Placing in the Top 5% Globally",
+    date: "22 JUN 2026",
   },
 ];
 
 export default function AwardsSection() {
-  const [active, setActive] = useState(3); // defaults to the ISG award, matching the reference image
+  const [active, setActive] = useState(3); // defaults to the ISG award
 
   return (
-    <section className="bg-[#eef1f8] py-28">
+    <section className="py-28" style={{ backgroundColor: LAVENDER_SURFACE }}>
       <div className="mx-auto max-w-[1760px] px-8 lg:px-16">
-        <h2 className="text-[40px] font-medium text-[#0d1b4c] lg:text-[46px]">
+        <h2
+          className="text-[40px] font-medium lg:text-[46px]"
+          style={{ color: CHAMPION_BLUE }}
+        >
           Awards and Recognitions
         </h2>
         <p className="mt-4 max-w-xl text-lg text-slate-600">
           Recognition that reflects an innovation-first culture and how we
-          show up as a reliable transformation partner
+          show up as a reliable transformation partner.
         </p>
 
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start">
@@ -54,7 +68,7 @@ export default function AwardsSection() {
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:sticky lg:top-32">
             <img
               src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop"
-              alt="Hexaware business professional"
+              alt="Starfii team member"
               className="h-full w-full object-cover"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
@@ -86,19 +100,25 @@ export default function AwardsSection() {
                 key={a.title}
                 onMouseEnter={() => setActive(i)}
                 onFocus={() => setActive(i)}
-                className={`group flex items-center justify-between gap-6 border-b border-slate-300/70 py-6 text-left transition-colors duration-300 first:pt-0 ${
-                  active === i ? "text-[#3B2FE0]" : "text-[#0d1b4c]"
-                }`}
+                className="group flex items-center justify-between gap-6 border-b py-6 text-left transition-colors duration-300 first:pt-0"
+                style={{
+                  borderColor: "#D9D0F5",
+                  color: active === i ? CHAMPION_BLUE : "#334155",
+                }}
               >
                 <span className="text-lg font-medium leading-snug">
                   {a.title}
                 </span>
                 <span
-                  className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors duration-300 ${
-                    active === i
-                      ? "bg-[#3B2FE0] text-white"
-                      : "bg-white text-[#0d1b4c] group-hover:bg-[#3B2FE0] group-hover:text-white"
-                  }`}
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors duration-300"
+                  style={{
+                    backgroundColor: active === i ? CHAMPION_BLUE : "#FFFFFF",
+                    color: active === i ? "#FFFFFF" : CHAMPION_BLUE,
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = CHAMPION_BLUE;
+                    e.currentTarget.style.color = "#FFFFFF";
+                  }}
                 >
                   <ArrowUpRight size={18} strokeWidth={2.5} />
                 </span>

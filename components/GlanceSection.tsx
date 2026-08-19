@@ -4,34 +4,32 @@ import { useEffect, useRef, useState } from "react";
 
 const stats = [
   {
-    prefix: "$",
-    value: 1.5,
-    decimals: 1,
-    suffix: "B+",
-    label:
-      "Annual revenue driven by long-term client partnerships across 12+ industries",
-  },
-  {
     prefix: "",
-    value: 33,
-    decimals: 0,
-    suffix: "K+",
-    label:
-      "Hexawarians who build, transform, run, and optimize technology and operations",
-  },
-  {
-    prefix: "",
-    value: 68,
-    decimals: 0,
-    suffix: "",
-    label: "Global offices creating impact for clients and communities worldwide",
-  },
-  {
-    prefix: "",
-    value: 33,
+    value: 3,
     decimals: 0,
     suffix: "+",
-    label: "Years of technology leadership helping enterprises navigate change",
+    label: "Development Locations",
+  },
+  {
+    prefix: "",
+    value: 80,
+    decimals: 0,
+    suffix: "+",
+    label: "Skilled Professionals Driving Innovation",
+  },
+  {
+    prefix: "",
+    value: 20,
+    decimals: 0,
+    suffix: "+",
+    label: "Successful Partnerships with Industry Leaders",
+  },
+  {
+    prefix: "",
+    value: 5,
+    decimals: 0,
+    suffix: "+",
+    label: "Years of Experience Delivering Top Solutions",
   },
 ];
 
@@ -67,13 +65,13 @@ function StatBlock({
 }: (typeof stats)[number] & { active: boolean }) {
   const display = useCountUp(value, decimals, active);
   return (
-    <div>
-      <div className="text-[52px] font-light leading-none text-[#0d1b4c] lg:text-[60px]">
+    <div className="flex items-start gap-4">
+      <div className="whitespace-nowrap text-[44px] font-bold leading-none text-white lg:text-[50px]">
         {prefix}
         {display}
         {suffix}
       </div>
-      <p className="mt-4 max-w-[240px] text-[15px] leading-relaxed text-slate-600">
+      <p className="max-w-[180px] pt-2 text-[15px] leading-snug text-slate-400">
         {label}
       </p>
     </div>
@@ -101,21 +99,18 @@ export default function GlanceSection() {
   }, []);
 
   return (
-    <section className="bg-white py-28">
+    <section ref={ref} className="bg-[#1a1a1a] py-24">
       <div className="mx-auto max-w-[1760px] px-8 lg:px-16">
-        <div
-          ref={ref}
-          className="rounded-3xl bg-gradient-to-br from-white via-[#f5f8ff] to-[#eef4ff] px-10 py-16 shadow-[0_20px_60px_rgba(59,47,224,0.08)] lg:px-16"
-        >
-          <h2 className="text-[40px] font-medium text-[#0d1b4c] lg:text-[46px]">
-            Hexaware at a Glance
-          </h2>
+        <h2 className="max-w-xl text-[42px] font-bold leading-[1.15] text-white lg:text-[48px]">
+          Your Tech Partner for
+          <br />
+          the Next Big Leap
+        </h2>
 
-          <div className="mt-16 grid grid-cols-1 gap-12 sm:grid-cols-2 lg:grid-cols-4">
-            {stats.map((s) => (
-              <StatBlock key={s.label} {...s} active={active} />
-            ))}
-          </div>
+        <div className="mt-20 grid grid-cols-2 gap-x-10 gap-y-14 sm:grid-cols-4">
+          {stats.map((s) => (
+            <StatBlock key={s.label} {...s} active={active} />
+          ))}
         </div>
       </div>
     </section>

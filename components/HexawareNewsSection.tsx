@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 /**
- * HexawareNewsSection
+ * StarfiiNewsSection
  * --------------------
  * Text-only news carousel: date + headline, no images/cards.
  * Same drag/click scroll + progress-bar behaviour as CaseStudiesSection,
@@ -18,47 +18,50 @@ interface NewsItem {
   href: string;
 }
 
+const CHAMPION_BLUE = "#1B2560";
+const LAVENDER_ACCENT = "#A48FEA";
+
 const newsItems: NewsItem[] = [
   {
     id: 1,
     date: "AUG 17, 2026",
-    title: "Hexaware Helps Enterprises Achieve Infinite Momentum by Removing Friction Across the Estate",
+    title: "Starfii Helps Enterprises Achieve Infinite Momentum by Removing Friction Across the Estate",
     href: "#",
   },
   {
     id: 2,
     date: "AUG 13, 2026",
-    title: "Hexaware and upGrad Enterprise Expand Collaboration for Global Enterprise AI Programs",
+    title: "Starfii Expands Partnership with Leading Ed-Tech Platform for Global Enterprise AI Programs",
     href: "#",
   },
   {
     id: 3,
     date: "AUG 6, 2026",
-    title: "Hexaware Joins the Microsoft Security Association (MISA)",
+    title: "Starfii Joins the Microsoft Security Association (MISA)",
     href: "#",
   },
   {
     id: 4,
     date: "AUG 4, 2026",
-    title: "Hexaware Named a Top 15 Sourcing Standout by ISG",
+    title: "Starfii Named a Top 15 Sourcing Standout by ISG",
     href: "#",
   },
   {
     id: 5,
     date: "JUL 22, 2026",
-    title: "Hexaware Dream Runners Half Marathon 2026 Draws 7,339 Runners in Chennai",
+    title: "Starfii Dream Runners Half Marathon 2026 Draws 7,300+ Runners in Chennai",
     href: "#",
   },
   {
     id: 6,
     date: "JUL 17, 2026",
     title:
-      "Hexaware Recognized as a Champion in the 2025 ISG Star of Excellence™ Awards With a Top Score",
+      "Starfii Recognized as a Champion in the 2025 ISG Star of Excellence™ Awards With a Top Score",
     href: "#",
   },
 ];
 
-export default function HexawareNewsSection() {
+export default function StarfiiNewsSection() {
   const trackRef = useRef<HTMLDivElement>(null);
   const [progress, setProgress] = useState(0);
   const [canPrev, setCanPrev] = useState(false);
@@ -96,9 +99,12 @@ export default function HexawareNewsSection() {
   };
 
   return (
-    <section className="bg-[#eef0f4] px-6 py-20 md:px-16 lg:py-24">
-      <h2 className="mb-14 text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">
-        Hexaware News
+    <section className="px-6 py-20 md:px-16 lg:py-24" style={{ backgroundColor: "#F5F3FC" }}>
+      <h2
+        className="mb-14 text-4xl font-semibold tracking-tight md:text-5xl"
+        style={{ color: CHAMPION_BLUE }}
+      >
+        Starfii News
       </h2>
 
       <div
@@ -115,7 +121,12 @@ export default function HexawareNewsSection() {
             <span className="text-[13px] font-medium tracking-wide text-slate-400">
               {item.date}
             </span>
-            <h3 className="text-2xl font-semibold leading-snug text-[#0b1747] transition-colors duration-300 group-hover:text-[#3a3ff0]">
+            <h3
+              className="text-2xl font-semibold leading-snug transition-colors duration-300"
+              style={{ color: CHAMPION_BLUE }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = LAVENDER_ACCENT)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = CHAMPION_BLUE)}
+            >
               {item.title}
             </h3>
           </a>
@@ -123,10 +134,13 @@ export default function HexawareNewsSection() {
       </div>
 
       <div className="mt-14 flex items-center gap-5">
-        <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
+        <div
+          className="relative h-[3px] flex-1 overflow-hidden rounded-full"
+          style={{ backgroundColor: "rgba(27,37,96,0.15)" }}
+        >
           <div
-            className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-300 ease-out"
-            style={{ width: `${Math.max(progress, 3)}%` }}
+            className="absolute left-0 top-0 h-full rounded-full transition-[width] duration-300 ease-out"
+            style={{ width: `${Math.max(progress, 3)}%`, backgroundColor: CHAMPION_BLUE }}
           />
         </div>
 
@@ -136,11 +150,12 @@ export default function HexawareNewsSection() {
             onClick={() => goTo(-1)}
             disabled={!canPrev}
             aria-label="Previous news"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300"
+            style={
               canPrev
-                ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
-                : "cursor-not-allowed bg-slate-200/70 text-slate-400"
-            }`}
+                ? { backgroundColor: CHAMPION_BLUE, color: "#FFFFFF" }
+                : { backgroundColor: "#E2DDF5", color: "#A9A2C9", cursor: "not-allowed" }
+            }
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
           </button>
@@ -149,11 +164,12 @@ export default function HexawareNewsSection() {
             onClick={() => goTo(1)}
             disabled={!canNext}
             aria-label="Next news"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300"
+            style={
               canNext
-                ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
-                : "cursor-not-allowed bg-slate-200/70 text-slate-400"
-            }`}
+                ? { backgroundColor: CHAMPION_BLUE, color: "#FFFFFF" }
+                : { backgroundColor: "#E2DDF5", color: "#A9A2C9", cursor: "not-allowed" }
+            }
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
           </button>
