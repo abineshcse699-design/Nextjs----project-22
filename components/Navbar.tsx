@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
   ChevronDown,
-  Search,
-  Sparkles,
   MessageSquare,
   ArrowUpRight,
   Play,
@@ -32,13 +30,25 @@ const MENUS_WITH_CONTENT = [
   "Careers",
 ];
 
+/* ===============================================================
+   DESIGN TOKENS
+================================================================ */
+const T = {
+  ink: "text-[#14163B]",
+  inkBg: "bg-[#0C0E2A]",
+  primary: "text-[#3B2FE0]",
+  primaryBg: "bg-[#3B2FE0]",
+  primaryHoverBg: "hover:bg-[#2E24B8]",
+  muted: "text-[#5B5D78]",
+  border: "border-[#E4E4EF]",
+  panelBg: "bg-[#FAFAFD]",
+};
+
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  /* ---------------- Close timer helpers ---------------- */
 
   function clearCloseTimer() {
     if (closeTimer.current) {
@@ -49,7 +59,6 @@ export default function Navbar() {
 
   function openMenu(item: string) {
     clearCloseTimer();
-
     if (MENUS_WITH_CONTENT.includes(item)) {
       setActiveMenu(item);
     } else {
@@ -59,25 +68,17 @@ export default function Navbar() {
 
   function scheduleClose() {
     clearCloseTimer();
-
     closeTimer.current = setTimeout(() => {
       setActiveMenu(null);
     }, 180);
   }
 
-  /* ---------------- Scroll detection ---------------- */
-
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-
     handleScroll();
-
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearCloseTimer();
@@ -85,196 +86,123 @@ export default function Navbar() {
   }, []);
 
   return (
-    <>
-      {/* =========================================================
-          FIXED / STICKY NAVBAR
-          This component must be rendered as a direct child of
-          <body> in app/layout.tsx (as a sibling of {children}) —
-          NOT nested inside Hero or any other section. Sections use
-          `isolate` to contain their own scroll-in animations, and
-          if Navbar were rendered inside one of those sections, its
-          z-index would be trapped inside that section's stacking
-          context and a later section could paint above it.
-      ========================================================= */}
-      <header
-        onMouseLeave={scheduleClose}
-        className="fixed inset-x-0 top-0 z-[2147483647] isolate block"
-      >
-        {/* This layer ALWAYS stays visible */}
-        <div
+    /* =========================================================
+       FLOATING NAVBAR — centered pill with a visible gap on both
+       sides and a small top gap, exactly like the reference: the
+       hero background shows through the strip above/around it,
+       and the white bar itself is centered with equal left/right
+       margins (not edge-to-edge).
+
+       Must render as a direct child of <body> in app/layout.tsx
+       (a sibling of {children}), never nested inside a section.
+       Hero.tsx has no spacer, so its background starts at y=0
+       and shows through the gap around this floating bar.
+    ========================================================= */
+    <header
+      onMouseLeave={scheduleClose}
+      className="fixed inset-x-0 top-0 z-[2147483647] isolate"
+    >
+      <div className="mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16">
+        <nav
           className={`
-            relative z-[99999] w-full bg-white
+            relative w-full rounded-2xl border border-white/40 bg-white
             transition-shadow duration-300
-            ${isScrolled ? "shadow-[0_4px_20px_rgba(15,23,42,0.08)]" : ""}
+            ${
+              isScrolled
+                ? "shadow-[0_16px_36px_rgba(10,14,40,0.22)]"
+                : "shadow-[0_10px_28px_rgba(10,14,40,0.16)]"
+            }
           `}
         >
-          <nav
-            className={`
-              relative mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8
-              transition-[padding] duration-300
-              ${isScrolled ? "py-2" : "py-4"}
-            `}
-          >
-            <div
-              className={`
-                relative
-                z-[99999]
-                flex
-                min-h-[58px]
-                items-center
-                justify-between
-                rounded-2xl
-                bg-white
-                px-6
-                py-3.5
-                shadow-[0_12px_40px_rgba(15,23,42,0.14)]
-                transition-shadow
-                duration-300
-                lg:px-8
-                ${isScrolled ? "shadow-[0_8px_28px_rgba(15,23,42,0.18)]" : ""}
-              `}
-            >
-              {/* Logo */}
-              <div className="flex items-center gap-8 lg:gap-10">
+          <div className="relative flex h-[70px] items-center justify-between px-5 lg:px-7">
+            {/* Logo + primary nav */}
+            <div className="flex items-center gap-10 lg:gap-12">
+              <a href="/" className="flex items-center gap-2.5 shrink-0">
                 <span
-                  className="
-                    -skew-x-[8deg]
-                    whitespace-nowrap
-                    text-[23px]
-                    font-black
-                    italic
-                    tracking-tight
-                    text-[#3B2FE0]
-                    lg:text-[25px]
-                  "
+                  className={`
+                    flex h-8 w-8 items-center justify-center rounded-md
+                    text-[13px] font-bold text-white
+                    ${T.primaryBg}
+                  `}
                 >
-                  STARFII
+                  S
                 </span>
+                <span
+                  className={`text-[21px] font-bold tracking-tight ${T.ink}`}
+                >
+                  Starfii
+                </span>
+              </a>
 
-                {/* Navigation */}
-                <ul className="hidden items-center gap-6 lg:flex xl:gap-7">
-                  {navItems.map((item) => {
-                    const isActive = activeMenu === item;
-
-                    return (
-                      <li
-                        key={item}
-                        className="relative"
-                        onMouseEnter={() => openMenu(item)}
+              <ul className="hidden items-center gap-1 lg:flex">
+                {navItems.map((item) => {
+                  const isActive = activeMenu === item;
+                  return (
+                    <li
+                      key={item}
+                      className="relative"
+                      onMouseEnter={() => openMenu(item)}
+                    >
+                      <button
+                        type="button"
+                        className={`
+                          group flex items-center gap-1 whitespace-nowrap
+                          rounded-md px-3 py-2 text-[16px] font-medium
+                          transition-colors duration-150
+                          ${
+                            isActive
+                              ? `${T.primary} bg-[#F2F1FD]`
+                              : `${T.ink} hover:bg-[#F5F5F9]`
+                          }
+                        `}
                       >
-                        <button
-                          type="button"
+                        {item}
+                        <ChevronDown
+                          size={16}
+                          strokeWidth={2.25}
                           className={`
-                            group
-                            flex
-                            items-center
-                            gap-1.5
-                            whitespace-nowrap
-                            text-[15px]
-                            font-medium
-                            transition-colors
-                            duration-200
-                            ${
-                              isActive
-                                ? "text-[#3B2FE0]"
-                                : "text-slate-800 hover:text-[#3B2FE0]"
-                            }
+                            transition-transform duration-150
+                            ${isActive ? "rotate-180" : "text-[#8A8CA6]"}
                           `}
-                        >
-                          {item}
-
-                          <ChevronDown
-                            size={16}
-                            strokeWidth={2}
-                            className={`
-                              transition-transform duration-200
-                              ${
-                                isActive
-                                  ? "rotate-180 text-[#3B2FE0]"
-                                  : "text-slate-500 group-hover:text-[#3B2FE0]"
-                              }
-                            `}
-                          />
-                        </button>
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-
-              {/* Right side */}
-              <div className="flex items-center gap-5 lg:gap-6">
-                <button
-                  type="button"
-                  aria-label="AI search"
-                  className="relative hidden text-slate-700 sm:block"
-                >
-                  <Search size={19} strokeWidth={2} />
-
-                  <Sparkles
-                    size={9}
-                    className="absolute -right-1 -top-1 text-[#3B2FE0]"
-                    fill="#3B2FE0"
-                  />
-                </button>
-
-                <button
-                  type="button"
-                  className="
-                    hidden
-                    whitespace-nowrap
-                    text-[15px]
-                    font-medium
-                    text-slate-800
-                    sm:block
-                  "
-                >
-                  Investor
-                </button>
-
-                <button
-                  type="button"
-                  aria-label="Chat with us"
-                  className="
-                    flex
-                    h-11
-                    w-11
-                    shrink-0
-                    items-center
-                    justify-center
-                    rounded-lg
-                    bg-[#3B2FE0]
-                    text-white
-                  "
-                >
-                  <MessageSquare size={18} strokeWidth={2} />
-                </button>
-              </div>
+                        />
+                      </button>
+                    </li>
+                  );
+                })}
+              </ul>
             </div>
 
-            {/* Mega menu */}
-            {activeMenu && (
-              <div
-                onMouseEnter={clearCloseTimer}
-                onMouseLeave={scheduleClose}
-                className="
-                  absolute
-                  left-4
-                  right-4
-                  top-full
-                  z-[99998]
-                  mt-2
-                  overflow-hidden
-                  rounded-2xl
-                  border
-                  border-slate-100
-                  bg-white
-                  p-8
-                  shadow-[0_20px_60px_rgba(15,23,42,0.18)]
-                  lg:left-8
-                  lg:right-8
-                "
+            {/* Right side */}
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                className={`
+                  flex h-10 items-center gap-2 rounded-md px-5
+                  text-[15px] font-semibold text-white
+                  transition-colors duration-150
+                  ${T.primaryBg} ${T.primaryHoverBg}
+                `}
               >
+                <MessageSquare size={16} strokeWidth={2.25} />
+                <span className="hidden sm:inline">Talk to us</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Mega menu — same rounded pill width as the nav bar
+              above it, with a small gap, matching the floating
+              card look end-to-end. */}
+          {activeMenu && (
+            <div
+              onMouseEnter={clearCloseTimer}
+              onMouseLeave={scheduleClose}
+              className={`
+                absolute left-0 right-0 top-full z-[99998] mt-2
+                overflow-hidden rounded-2xl border ${T.border} bg-white
+                shadow-[0_16px_40px_rgba(10,14,40,0.18)]
+              `}
+            >
+              <div className="px-6 py-10 lg:px-10">
                 {activeMenu === "Services" && <ServicesMenu />}
                 {activeMenu === "Platforms" && <PlatformsMenu />}
                 {activeMenu === "Industries" && <IndustriesMenu />}
@@ -286,31 +214,85 @@ export default function Navbar() {
                 {activeMenu === "About" && <AboutMenu />}
                 {activeMenu === "Careers" && <CareersMenu />}
               </div>
-            )}
-          </nav>
-        </div>
-      </header>
+            </div>
+          )}
+        </nav>
+      </div>
+    </header>
+  );
+}
 
-      {/* =========================================================
-          NAVBAR SPACER
-          Prevents fixed navbar from covering the first section.
-          Height matches the navbar's *tallest* state (py-4, un-scrolled)
-          so there's never a gap or overlap as isScrolled toggles.
-      ========================================================= */}
-      <div className="h-[82px] sm:h-[96px]" aria-hidden="true" />
-    </>
+/* ---------------- Shared bits ---------------- */
+
+function Eyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+      {children}
+    </p>
+  );
+}
+
+function ColumnTitle({ children }: { children: React.ReactNode }) {
+  return (
+    <h3 className={`mb-4 text-[13px] font-semibold uppercase tracking-[0.06em] text-[#8A8CA6]`}>
+      {children}
+    </h3>
+  );
+}
+
+function LinkItem({ href = "#", children }: { href?: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className={`block text-[14.5px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
+    >
+      {children}
+    </a>
+  );
+}
+
+function FeaturedCard({
+  eyebrow,
+  title,
+  blurb,
+  dark = true,
+}: {
+  eyebrow: string;
+  title: string;
+  blurb?: string;
+  dark?: boolean;
+}) {
+  return (
+    <div
+      className={`
+        overflow-hidden rounded-lg border ${T.border}
+        ${dark ? `${T.inkBg} text-white` : "bg-white"}
+        p-6
+      `}
+    >
+      <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${dark ? "text-white/60" : T.muted}`}>
+        {eyebrow}
+      </p>
+      <h4 className="mt-3 text-[19px] font-semibold leading-snug">{title}</h4>
+      {blurb && (
+        <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-white/70" : T.muted}`}>
+          {blurb}
+        </p>
+      )}
+      <a
+        href="#"
+        className={`mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold ${dark ? "text-white" : T.primary}`}
+      >
+        Learn more
+        <ArrowUpRight size={15} />
+      </a>
+    </div>
   );
 }
 
 /* ===============================================================
    SERVICES
-   NOTE: "services" is now a list of {label, href} objects instead
-   of plain strings, so each service can route to its own page.
-   Only "Digital & Software" has a real destination right now
-   (/services/digital-software) — give me the rest of your real
-   route slugs and I'll wire them up the same way.
 ================================================================ */
-
 function ServicesMenu() {
   const services = [
     { label: "Digital & Software", href: "/services/digital-software" },
@@ -339,100 +321,44 @@ function ServicesMenu() {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.4fr_0.9fr]">
-      {/* Services */}
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.5fr_0.9fr]">
       <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Services
-        </h3>
-
-        <ul className="space-y-3">
-          {services.map((service) => (
-            <li key={service.label}>
-              <a
-                href={service.href}
-                className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-              >
-                {service.label}
-              </a>
-            </li>
+        <ColumnTitle>Services</ColumnTitle>
+        <div className="space-y-3.5">
+          {services.map((s) => (
+            <LinkItem key={s.label} href={s.href}>
+              {s.label}
+            </LinkItem>
           ))}
-        </ul>
+        </div>
       </div>
 
-      {/* Offerings */}
       <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Offerings
-        </h3>
-
-        <div className="grid grid-cols-2 gap-x-8">
-          <ul className="space-y-3">
-            {offeringsLeft.map((offering) => (
-              <li key={offering}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {offering}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="space-y-3">
-            {offeringsRight.map((offering) => (
-              <li key={offering}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {offering}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <ColumnTitle>Offerings</ColumnTitle>
+        <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
+          {offeringsLeft.map((o) => (
+            <LinkItem key={o}>{o}</LinkItem>
+          ))}
+          {offeringsRight.map((o) => (
+            <LinkItem key={o}>{o}</LinkItem>
+          ))}
         </div>
 
-        {/* Editor's pick */}
-        <div className="mt-6 flex items-center justify-between gap-4 rounded-xl bg-slate-100 p-5">
-          <p className="text-[15px] font-medium text-slate-800">
+        <div className={`mt-6 flex items-center justify-between gap-4 rounded-lg ${T.panelBg} border ${T.border} p-4`}>
+          <p className={`text-[14px] font-medium ${T.ink}`}>
             Editor&apos;s pick: Who owns your AI&apos;s memory?
           </p>
-
-          <button
-            type="button"
-            className="shrink-0 rounded-lg bg-[#3B2FE0] px-5 py-2.5 text-[14px] font-medium text-white transition-transform hover:scale-105"
-          >
-            Know More
-          </button>
+          <a href="#" className={`shrink-0 text-[13.5px] font-semibold ${T.primary}`}>
+            Read →
+          </a>
         </div>
       </div>
 
-      {/* Featured */}
-      <div className="overflow-hidden rounded-xl bg-gradient-to-br from-[#3B2FE0] to-[#4A6CF7] p-6 text-white">
-        <p className="text-[13px] font-medium text-white/80">
-          Featured Publication
-        </p>
-
-        <h4 className="mt-2 text-[20px] font-semibold leading-snug">
-          Agentic AI, Proven Across 100+ Case Studies
-        </h4>
-
-        <div className="mt-4 aspect-[16/10] overflow-hidden rounded-lg bg-black/20" />
-
-        <p className="mt-4 text-[14px] leading-relaxed text-white/85">
-          Real results: lower costs, faster delivery, agentic AI at work.
-        </p>
-
-        <a
-          href="#"
-          className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white"
-        >
-          Know More
-          <ArrowUpRight size={16} />
-        </a>
-      </div>
+      <FeaturedCard
+        eyebrow="Featured Publication"
+        title="Agentic AI, Proven Across 100+ Case Studies"
+        blurb="Real results: lower costs, faster delivery, agentic AI at work."
+      />
     </div>
   );
 }
@@ -440,89 +366,45 @@ function ServicesMenu() {
 /* ===============================================================
    PLATFORMS
 ================================================================ */
-
 function PlatformsMenu() {
   const platforms = [
-    {
-      name: "RapidX®",
-      desc: "Create direct, tailored paths for your teams to develop against any need",
-      image:
-        "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Tensai®",
-      desc: "Automate your essential processes to increase quality and efficiency",
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Amaze®",
-      desc: "Speed up and steady your product, platform, process, and data journey to the cloud",
-      image:
-        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=800&auto=format&fit=crop",
-    },
-    {
-      name: "Agentverse™",
-      desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes",
-      image:
-        "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop",
-    },
+    { name: "RapidX®", desc: "Create direct, tailored paths for your teams to develop against any need" },
+    { name: "Tensai®", desc: "Automate your essential processes to increase quality and efficiency" },
+    { name: "Amaze®", desc: "Speed up and steady your product, platform, process, and data journey to the cloud" },
+    { name: "Agentverse™", desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes" },
   ];
 
   return (
     <div>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {platforms.map((platform) => (
-          <div key={platform.name}>
-            <div className="aspect-[16/10] overflow-hidden rounded-xl bg-slate-200">
-              <img
-                src={platform.image}
-                alt={platform.name}
-                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-
-            <h4 className="mt-4 text-[19px] font-semibold text-slate-900">
-              {platform.name}
-            </h4>
-
-            <p className="mt-2 text-[14px] leading-relaxed text-slate-600">
-              {platform.desc}
-            </p>
-
-            <a
-              href="#"
-              className="mt-3 inline-flex items-center gap-1.5 text-[14px] font-medium text-[#3B2FE0]"
-            >
-              Learn More
-              <ArrowUpRight size={15} />
+      <ColumnTitle>Platforms</ColumnTitle>
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        {platforms.map((p) => (
+          <div key={p.name} className={`border-l-2 ${T.border} pl-4`}>
+            <h4 className={`text-[17px] font-semibold ${T.ink}`}>{p.name}</h4>
+            <p className={`mt-2 text-[13.5px] leading-relaxed ${T.muted}`}>{p.desc}</p>
+            <a href="#" className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}>
+              Learn more
+              <ArrowUpRight size={14} />
             </a>
           </div>
         ))}
       </div>
 
-      {/* Zerovity */}
-      <div className="mt-8 flex flex-col gap-4 rounded-2xl bg-[#0B1130] p-6 text-white sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex items-center gap-4">
-          <div className="h-14 w-14 shrink-0 rounded-full bg-gradient-to-br from-[#3B2FE0] to-[#8B5CF6]" />
-
-          <div>
-            <h4 className="text-[20px] font-semibold">Zerovity™</h4>
-          </div>
+      <div className={`mt-8 flex flex-col gap-4 rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}>
+        <div>
+          <h4 className="text-[18px] font-semibold">Zerovity™</h4>
+          <p className="mt-1.5 max-w-xl text-[13.5px] leading-relaxed text-white/70">
+            Captures how your applications actually work, then applies that
+            understanding across maintenance, modernization, and
+            transformation — the platform behind the Zero Friction
+            Enterprise™.
+          </p>
         </div>
-
-        <p className="max-w-xl text-[14px] leading-relaxed text-white/80">
-          Zerovity™ captures how your applications actually work, then
-          applies that understanding across maintenance, modernization,
-          and transformation. Explore the platform behind Starfii&apos;s
-          Zero Friction Enterprise™.
-        </p>
-
         <a
           href="#"
-          className="inline-flex shrink-0 items-center gap-1.5 text-[15px] font-medium text-white"
+          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-white/10 px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-white/15"
         >
-          Learn More
+          Learn more
           <ArrowUpRight size={16} />
         </a>
       </div>
@@ -533,86 +415,30 @@ function PlatformsMenu() {
 /* ===============================================================
    INDUSTRIES
 ================================================================ */
-
 function IndustriesMenu() {
   const industriesLeft = [
-    "Banking",
-    "Consumer Goods",
-    "Education & Institutions",
-    "Energy & Utilities",
-    "Financial Services",
-    "Healthcare",
-    "Insurance",
-    "Life Sciences",
-    "Manufacturing",
+    "Banking", "Consumer Goods", "Education & Institutions", "Energy & Utilities",
+    "Financial Services", "Healthcare", "Insurance", "Life Sciences", "Manufacturing",
   ];
-
   const industriesRight = [
-    "Private Equity",
-    "Professional Services",
-    "Public Sector",
-    "Retail",
-    "Technology, Products & Platforms",
-    "Telecom",
-    "Transportation & Logistics",
-    "Travel & Hospitality",
+    "Private Equity", "Professional Services", "Public Sector", "Retail",
+    "Technology, Products & Platforms", "Telecom", "Transportation & Logistics", "Travel & Hospitality",
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr]">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1fr]">
       <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Industries
-        </h3>
-
-        <div className="grid grid-cols-2 gap-x-10">
-          <ul className="space-y-3">
-            {industriesLeft.map((industry) => (
-              <li key={industry}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {industry}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="space-y-3">
-            {industriesRight.map((industry) => (
-              <li key={industry}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {industry}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <ColumnTitle>Industries</ColumnTitle>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
+          {industriesLeft.map((i) => (
+            <LinkItem key={i}>{i}</LinkItem>
+          ))}
+          {industriesRight.map((i) => (
+            <LinkItem key={i}>{i}</LinkItem>
+          ))}
         </div>
       </div>
-
-      <div className="overflow-hidden rounded-xl bg-gradient-to-br from-[#0B1E4D] to-[#123A8F] p-6 text-white">
-        <p className="text-[13px] font-medium text-white/80">
-          Featured insight
-        </p>
-
-        <h4 className="mt-2 text-[22px] font-semibold leading-snug">
-          How gen AI makes supply chains decide faster.
-        </h4>
-
-        <div className="mt-4 aspect-[16/10] overflow-hidden rounded-lg bg-black/20" />
-
-        <a
-          href="#"
-          className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white"
-        >
-          Learn More
-          <ArrowUpRight size={16} />
-        </a>
-      </div>
+      <FeaturedCard eyebrow="Featured Insight" title="How gen AI makes supply chains decide faster." />
     </div>
   );
 }
@@ -620,83 +446,30 @@ function IndustriesMenu() {
 /* ===============================================================
    SERVICE NOW
 ================================================================ */
-
 function ServiceNowMenu() {
-  const capabilitiesLeft = [
-    "IT Service Management (ITSM)",
-    "IT Operations Management (ITOM)",
-    "Customer Service Management (CSM)",
-  ];
-
-  const capabilitiesRight = [
-    "HR Service Delivery (HRSD)",
-    "Source-to-Pay Operations",
-    "App Engine Studio",
-  ];
+  const capabilitiesLeft = ["IT Service Management (ITSM)", "IT Operations Management (ITOM)", "Customer Service Management (CSM)"];
+  const capabilitiesRight = ["HR Service Delivery (HRSD)", "Source-to-Pay Operations", "App Engine Studio"];
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.6fr_1fr]">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1fr]">
       <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Service Now
-        </h3>
-
-        <p className="mb-6 max-w-lg text-[15px] leading-relaxed text-slate-600">
+        <ColumnTitle>ServiceNow</ColumnTitle>
+        <p className={`mb-6 max-w-lg text-[14.5px] leading-relaxed ${T.muted}`}>
           As a certified ServiceNow implementation partner, we help
           enterprises design, build, and run ServiceNow workflows that
           connect IT, customer service, and HR operations on a single
           platform.
         </p>
-
-        <div className="grid grid-cols-2 gap-x-10">
-          <ul className="space-y-3">
-            {capabilitiesLeft.map((item) => (
-              <li key={item}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
-
-          <ul className="space-y-3">
-            {capabilitiesRight.map((item) => (
-              <li key={item}>
-                <a
-                  href="#"
-                  className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-                >
-                  {item}
-                </a>
-              </li>
-            ))}
-          </ul>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
+          {capabilitiesLeft.map((c) => (
+            <LinkItem key={c}>{c}</LinkItem>
+          ))}
+          {capabilitiesRight.map((c) => (
+            <LinkItem key={c}>{c}</LinkItem>
+          ))}
         </div>
       </div>
-
-      <div className="overflow-hidden rounded-xl bg-gradient-to-br from-[#3B2FE0] to-[#4A6CF7] p-6 text-white">
-        <p className="text-[13px] font-medium text-white/80">
-          Featured Insight
-        </p>
-
-        <h4 className="mt-2 text-[20px] font-semibold leading-snug">
-          How Starfii and ServiceNow FSO Are Reimagining Insurance
-          Servicing
-        </h4>
-
-        <div className="mt-4 aspect-[16/10] overflow-hidden rounded-lg bg-black/20" />
-
-        <a
-          href="#"
-          className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white"
-        >
-          Learn More
-          <ArrowUpRight size={16} />
-        </a>
-      </div>
+      <FeaturedCard eyebrow="Featured Insight" title="How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing" />
     </div>
   );
 }
@@ -704,64 +477,43 @@ function ServiceNowMenu() {
 /* ===============================================================
    ZERO FRICTION ENTERPRISE
 ================================================================ */
-
 function ZeroFrictionMenu() {
   const leversLeft = ["Zero Tech Debt", "Zero Vulnerability", "Zero Defects"];
-
   const leversRight = ["Zero Backlog", "Zero Tickets", "Zero License"];
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.3fr]">
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.3fr]">
       <div>
-        <h3 className="text-[20px] font-semibold text-[#3B2FE0]">
-          The Zero Friction Enterprise™
-        </h3>
-
-        <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
-          Close the gaps that slow change with AI-led delivery designed
-          to help enterprises move with greater speed, control, and scale.
+        <h3 className={`text-[19px] font-semibold ${T.ink}`}>The Zero Friction Enterprise™</h3>
+        <p className={`mt-3 text-[14.5px] leading-relaxed ${T.muted}`}>
+          Close the gaps that slow change with AI-led delivery designed to
+          help enterprises move with greater speed, control, and scale.
         </p>
-
-        <a
-          href="#"
-          className="mt-3 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
-        >
-          Learn More
+        <a href="#" className={`mt-3 inline-flex items-center gap-1.5 text-[14.5px] font-semibold ${T.primary}`}>
+          Learn more
           <ArrowUpRight size={15} />
         </a>
 
-        <hr className="my-6 border-slate-200" />
+        <hr className={`my-6 ${T.border}`} />
 
-        <p className="mb-4 text-[15px] font-medium text-slate-800">
-          The levers that make Zero Friction possible:
-        </p>
-
-        <div className="grid grid-cols-2 gap-x-10">
-          <ul className="space-y-3">
-            {leversLeft.map((lever) => (
-              <li key={lever} className="text-[15px] text-slate-700">
-                {lever}
-              </li>
-            ))}
-          </ul>
-
-          <ul className="space-y-3">
-            {leversRight.map((lever) => (
-              <li key={lever} className="text-[15px] text-slate-700">
-                {lever}
-              </li>
-            ))}
-          </ul>
+        <ColumnTitle>The levers that make it possible</ColumnTitle>
+        <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
+          {leversLeft.map((l) => (
+            <p key={l} className={`text-[14.5px] ${T.ink}`}>{l}</p>
+          ))}
+          {leversRight.map((l) => (
+            <p key={l} className={`text-[14.5px] ${T.ink}`}>{l}</p>
+          ))}
         </div>
       </div>
 
-      <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-gradient-to-br from-[#0B1130] to-[#0F1F4D]">
+      <div className={`relative aspect-[16/9] overflow-hidden rounded-lg border ${T.border} ${T.inkBg}`}>
         <button
           type="button"
           aria-label="Play video"
-          className="absolute left-1/2 top-1/2 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
+          className="absolute left-1/2 top-1/2 flex h-14 w-14 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white transition-transform hover:scale-105"
         >
-          <Play size={24} className="ml-1 text-[#3B2FE0]" fill="#3B2FE0" />
+          <Play size={20} className={T.primary} fill="currentColor" />
         </button>
       </div>
     </div>
@@ -771,72 +523,33 @@ function ZeroFrictionMenu() {
 /* ===============================================================
    INSIGHTS
 ================================================================ */
-
 function InsightsMenu() {
   const articles = [
-    {
-      label: "Featured Insight",
-      title:
-        "What's Changed in Microsoft Fabric for Responsible AI at Scale",
-      gradient: "from-[#0B63F6] via-[#3B82F6] to-[#22C55E]",
-    },
-    {
-      label: "Featured Insight",
-      title:
-        "How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing",
-      gradient: "from-[#334155] via-[#475569] to-[#64748B]",
-    },
+    { label: "Featured Insight", title: "What's Changed in Microsoft Fabric for Responsible AI at Scale" },
+    { label: "Featured Insight", title: "How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing" },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {/* Insights Hub */}
-      <div className="flex flex-col justify-between overflow-hidden rounded-xl bg-[#0B0F2E] p-8 text-white">
-        <div className="mx-auto flex h-40 w-40 items-center justify-center rounded-full border border-[#3B82F6]/40">
-          <div className="h-28 w-28 rounded-full border-2 border-[#3B82F6] shadow-[0_0_40px_rgba(59,130,246,0.6)]" />
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+      <div className={`flex flex-col justify-between rounded-lg ${T.inkBg} p-8 text-white`}>
+        <div>
+          <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">Insights Hub</p>
+          <h4 className="mt-3 text-[22px] font-semibold leading-tight">Discover what&apos;s next in your sector</h4>
         </div>
-
-        <div className="mt-6 text-center">
-          <p className="text-[13px] text-white/70">Insights Hub</p>
-
-          <h4 className="mt-2 text-[26px] font-semibold leading-tight">
-            Discover What&apos;s Next in Your Sector
-          </h4>
-
-          <a
-            href="#"
-            className="mt-4 inline-flex items-center gap-1.5 text-[15px] font-medium text-white"
-          >
-            Learn More
-            <ArrowUpRight size={16} />
-          </a>
-        </div>
+        <a href="#" className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
+          Learn more
+          <ArrowUpRight size={16} />
+        </a>
       </div>
 
-      {/* Articles */}
-      {articles.map((article) => (
-        <div key={article.title} className="overflow-hidden rounded-xl">
-          <div
-            className={`aspect-[16/10] w-full bg-gradient-to-br ${article.gradient}`}
-          />
-
-          <div className="pt-4">
-            <p className="text-[14px] font-medium text-[#3B2FE0]">
-              {article.label}
-            </p>
-
-            <h4 className="mt-2 text-[19px] font-semibold leading-snug text-slate-900">
-              {article.title}
-            </h4>
-
-            <a
-              href="#"
-              className="mt-4 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
-            >
-              Learn More
-              <ArrowUpRight size={16} />
-            </a>
-          </div>
+      {articles.map((a) => (
+        <div key={a.title} className={`rounded-lg border ${T.border} p-6`}>
+          <Eyebrow>{a.label}</Eyebrow>
+          <h4 className={`mt-3 text-[17px] font-semibold leading-snug ${T.ink}`}>{a.title}</h4>
+          <a href="#" className={`mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}>
+            Learn more
+            <ArrowUpRight size={16} />
+          </a>
         </div>
       ))}
     </div>
@@ -846,104 +559,55 @@ function InsightsMenu() {
 /* ===============================================================
    ABOUT
 ================================================================ */
-
 function AboutMenu() {
   const whoWeAre = ["About Starfii", "Leadership", "Partners", "Locations"];
-
-  const purposeImpact = [
-    "Diversity, Equity & Inclusion",
-    "Environmental, Social & Governance",
-    "Corporate Social Responsibility",
-  ];
-
+  const purposeImpact = ["Diversity, Equity & Inclusion", "Environmental, Social & Governance", "Corporate Social Responsibility"];
   const updates = ["Newsroom", "Events", "Awards & Recognitions"];
 
   return (
-    <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1fr_1fr_0.8fr]">
-      {/* Who We Are */}
+    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr_1fr_0.8fr]">
       <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Who We Are
-        </h3>
-
-        <ul className="space-y-3">
-          {whoWeAre.map((item) => (
-            <li key={item}>
-              <a
-                href="#"
-                className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-              >
-                {item}
-              </a>
-            </li>
+        <ColumnTitle>Who We Are</ColumnTitle>
+        <div className="space-y-3.5">
+          {whoWeAre.map((i) => (
+            <LinkItem key={i}>{i}</LinkItem>
           ))}
-        </ul>
-      </div>
-
-      {/* Purpose & Impact */}
-      <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Purpose & Impact
-        </h3>
-
-        <ul className="space-y-3">
-          {purposeImpact.map((item) => (
-            <li key={item}>
-              <a
-                href="#"
-                className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Updates */}
-      <div>
-        <h3 className="mb-4 text-[19px] font-semibold text-[#3B2FE0]">
-          Updates & Highlights
-        </h3>
-
-        <ul className="space-y-3">
-          {updates.map((item) => (
-            <li key={item}>
-              <a
-                href="#"
-                className="text-[15px] text-slate-700 transition-colors hover:text-[#3B2FE0]"
-              >
-                {item}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      {/* Annual Report */}
-      <div className="relative overflow-hidden rounded-xl bg-slate-800">
-        <div className="flex aspect-[3/4] flex-col justify-between p-4">
-          <div>
-            <p className="text-[13px] font-black italic tracking-tight text-white">
-              STARFII
-            </p>
-
-            <p className="mt-8 text-[15px] font-medium leading-snug text-white">
-              Artificial Intelligence Led
-              <br />
-              <span className="text-[#7FB7FF]">Human Intelligence</span>
-              <br />
-              Perfected
-            </p>
-          </div>
         </div>
+      </div>
 
-        <div className="absolute -bottom-4 -right-4 flex h-24 w-24 flex-col items-center justify-center rounded-full bg-[#3B2FE0] text-center text-[13px] font-semibold leading-tight text-white shadow-lg">
+      <div>
+        <ColumnTitle>Purpose & Impact</ColumnTitle>
+        <div className="space-y-3.5">
+          {purposeImpact.map((i) => (
+            <LinkItem key={i}>{i}</LinkItem>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <ColumnTitle>Updates & Highlights</ColumnTitle>
+        <div className="space-y-3.5">
+          {updates.map((i) => (
+            <LinkItem key={i}>{i}</LinkItem>
+          ))}
+        </div>
+      </div>
+
+      <div className={`relative overflow-hidden rounded-lg ${T.inkBg}`}>
+        <div className="flex aspect-[3/4] flex-col justify-between p-5">
+          <p className="text-[13px] font-bold tracking-tight text-white">Starfii</p>
+          <p className="text-[14.5px] font-medium leading-snug text-white">
+            Artificial Intelligence Led
+            <br />
+            <span className="text-[#8FA8FF]">Human Intelligence</span>
+            <br />
+            Perfected
+          </p>
+        </div>
+        <div className={`absolute bottom-4 right-4 rounded-md ${T.primaryBg} px-3 py-2 text-center text-[11px] font-semibold leading-tight text-white`}>
           Annual
           <br />
-          Report
-          <br />
-          2025
+          Report 2025
         </div>
       </div>
     </div>
@@ -953,73 +617,32 @@ function AboutMenu() {
 /* ===============================================================
    CAREERS
 ================================================================ */
-
 function CareersMenu() {
   const cards = [
-    {
-      title: "Why Join Starfii?",
-      desc: "Build your career with opportunities to learn, grow, and contribute.",
-    },
-    {
-      title: "Programs & Learning",
-      desc: "Empowering Growth Through Learning and Development",
-    },
-  ];
-
-  const avatarColors = [
-    "from-pink-400 to-rose-500",
-    "from-amber-400 to-orange-500",
-    "from-slate-400 to-slate-600",
-    "from-indigo-400 to-blue-500",
-    "from-teal-400 to-emerald-500",
+    { title: "Why Join Starfii?", desc: "Build your career with opportunities to learn, grow, and contribute." },
+    { title: "Programs & Learning", desc: "Empowering growth through learning and development." },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
-      {/* Career cards */}
+    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
       {cards.map((card) => (
-        <div key={card.title} className="rounded-xl bg-slate-50 p-6">
-          <h4 className="text-[20px] font-semibold text-[#3B2FE0]">
-            {card.title}
-          </h4>
-
-          <p className="mt-3 text-[15px] leading-relaxed text-slate-600">
-            {card.desc}
-          </p>
-
-          <a
-            href="#"
-            className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
-          >
-            Know More
+        <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
+          <h4 className={`text-[18px] font-semibold ${T.ink}`}>{card.title}</h4>
+          <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{card.desc}</p>
+          <a href="#" className={`mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}>
+            Know more
             <ArrowUpRight size={16} />
           </a>
         </div>
       ))}
 
-      {/* Jobs Portal */}
-      <div className="rounded-xl bg-gradient-to-br from-[#3B2FE0] to-[#4A6CF7] p-6 text-white">
-        <h4 className="text-[20px] font-semibold">Jobs Portal</h4>
-
-        <p className="mt-3 text-[15px] leading-relaxed text-white/90">
-          Ready to own your game with Starfii? Look for open positions
-          now!
+      <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
+        <h4 className="text-[18px] font-semibold">Jobs Portal</h4>
+        <p className="mt-2.5 text-[14.5px] leading-relaxed text-white/70">
+          Ready to own your game with Starfii? Look for open positions now.
         </p>
-
-        <div className="mt-6 flex -space-x-3">
-          {avatarColors.map((gradient, index) => (
-            <div
-              key={index}
-              className={`h-10 w-10 rounded-full border-2 border-white bg-gradient-to-br ${gradient}`}
-            />
-          ))}
-        </div>
-
-        <a
-          href="#"
-          className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-white"
-        >
-          Know More
+        <a href="#" className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
+          Know more
           <ArrowUpRight size={16} />
         </a>
       </div>

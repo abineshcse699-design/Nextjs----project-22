@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, RotateCw, Volume2, Upload, ArrowUpRight } from "lucide-react";
+import { ChevronDown, ArrowUpRight } from "lucide-react";
 
 /**
  * ConnectFormSection
@@ -9,8 +9,9 @@ import { ChevronDown, RotateCw, Volume2, Upload, ArrowUpRight } from "lucide-rea
  * "Your Goals Are Closer Than You Think." lead-capture form:
  * Name / Email, searchable Country-code select + Phone + Company,
  * opportunity textarea, "how did you hear about us" select,
- * RFP/RFI file upload, a lightweight canvas captcha, consent checkbox,
- * and a submit button.
+ * consent checkbox, and a submit button.
+ *
+ * (File upload and captcha have been removed.)
  *
  * Wire up onSubmitLead (below) to your real API route / CRM endpoint.
  */
@@ -99,15 +100,6 @@ const HEAR_ABOUT_OPTIONS = [
   "Other",
 ];
 
-function generateCaptcha(length = 6) {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789";
-  let out = "";
-  for (let i = 0; i < length; i++) {
-    out += chars[Math.floor(Math.random() * chars.length)];
-  }
-  return out;
-}
-
 export default function ConnectFormSection() {
   const [form, setForm] = useState({
     name: "",
@@ -116,7 +108,6 @@ export default function ConnectFormSection() {
     company: "",
     opportunity: "",
     hearAbout: "",
-    captchaInput: "",
     consent: false,
   });
 
@@ -125,15 +116,9 @@ export default function ConnectFormSection() {
   const [countrySearch, setCountrySearch] = useState("");
   const countryBoxRef = useRef<HTMLDivElement>(null);
 
-  const [fileName, setFileName] = useState<string | null>(null);
-  const [captcha, setCaptcha] = useState("");
   const [status, setStatus] = useState<"idle" | "error" | "success">("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [countryTouched, setCountryTouched] = useState(false);
-
-  useEffect(() => {
-    setCaptcha(generateCaptcha());
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
@@ -153,19 +138,6 @@ export default function ConnectFormSection() {
     );
   }, [countrySearch]);
 
-  const refreshCaptcha = () => {
-    setCaptcha(generateCaptcha());
-    setForm((f) => ({ ...f, captchaInput: "" }));
-  };
-
-  const playCaptcha = () => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const utterance = new SpeechSynthesisUtterance(captcha.split("").join(" "));
-    utterance.rate = 0.8;
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("idle");
@@ -180,12 +152,6 @@ export default function ConnectFormSection() {
     if (!form.consent) {
       setErrorMessage("Please accept the privacy policy to continue.");
       setStatus("error");
-      return;
-    }
-    if (form.captchaInput.trim() !== captcha) {
-      setErrorMessage("The characters you entered don't match. Please try again.");
-      setStatus("error");
-      refreshCaptcha();
       return;
     }
 
@@ -342,61 +308,6 @@ export default function ConnectFormSection() {
               ))}
             </select>
             <ChevronDown className="pointer-events-none absolute right-4 top-1/2 h-5 w-5 -translate-y-1/2 text-[#3a3ff0]" />
-          </div>
-
-          <div>
-            <label className="mb-2 block text-base text-[#0b1747]">
-              Upload your RFP/RFI document (maximum file size: 10 MB)
-            </label>
-            <label className="flex w-full cursor-pointer items-center justify-between rounded-xl bg-[#eef0f4] px-5 py-5 text-base text-slate-400 outline-none ring-1 ring-transparent transition hover:ring-[#3a3ff0]">
-              <span className={fileName ? "text-[#0b1747]" : ""}>
-                {fileName ?? "Accepted file formats: .xlsx, .xls, .doc, .docx, .pdf, .rtf, .zip, .rar"}
-              </span>
-              <Upload className="h-5 w-5 shrink-0 text-[#3a3ff0]" />
-              <input
-                type="file"
-                accept=".xlsx,.xls,.doc,.docx,.pdf,.rtf,.zip,.rar"
-                className="hidden"
-                onChange={(e) => setFileName(e.target.files?.[0]?.name ?? null)}
-              />
-            </label>
-          </div>
-
-          <div className="flex flex-col gap-3 sm:flex-row sm:items-stretch">
-            <div className="flex h-28 w-full items-center justify-center gap-3 rounded-xl bg-[#dbe7fb] px-5 sm:w-72">
-              <span
-                className="select-none text-3xl font-semibold italic tracking-wider text-[#2b3fbf]"
-                style={{ letterSpacing: "0.08em" }}
-              >
-                {captcha}
-              </span>
-              <div className="ml-auto flex flex-col gap-2">
-                <button
-                  type="button"
-                  onClick={refreshCaptcha}
-                  aria-label="Refresh captcha"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0b1747] shadow-sm transition hover:bg-slate-50"
-                >
-                  <RotateCw className="h-5 w-5" />
-                </button>
-                <button
-                  type="button"
-                  onClick={playCaptcha}
-                  aria-label="Play captcha audio"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white text-[#0b1747] shadow-sm transition hover:bg-slate-50"
-                >
-                  <Volume2 className="h-5 w-5" />
-                </button>
-              </div>
-            </div>
-            <input
-              type="text"
-              placeholder="Enter captcha*"
-              required
-              value={form.captchaInput}
-              onChange={(e) => setForm((f) => ({ ...f, captchaInput: e.target.value }))}
-              className="w-full rounded-xl bg-[#eef0f4] px-5 py-5 text-base text-[#0b1747] placeholder:text-slate-400 outline-none ring-1 ring-transparent transition focus:ring-[#3a3ff0]"
-            />
           </div>
 
           <label className="flex items-start gap-3 text-base text-[#0b1747]">

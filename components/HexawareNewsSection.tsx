@@ -7,6 +7,13 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
  * StarfiiNewsSection
  * --------------------
  * Text-only news carousel: date + headline, no images/cards.
+ * Colors sampled directly from the Hexaware reference screenshot:
+ *   section bg    #EEEFF4
+ *   heading/text  #07125E
+ *   date text     #8088A7
+ *   progress fill #3C2CDA
+ *   progress track#CBD0E5
+ *   disabled btn  #E2E5EF / text #A9A2C9
  * Same drag/click scroll + progress-bar behaviour as CaseStudiesSection,
  * so it feels consistent with the rest of the page.
  */
@@ -18,8 +25,14 @@ interface NewsItem {
   href: string;
 }
 
-const CHAMPION_BLUE = "#1B2560";
-const LAVENDER_ACCENT = "#A48FEA";
+const HEADING_COLOR = "#07125E";
+const DATE_COLOR = "#8088A7";
+const ACCENT_PROGRESS = "#3C2CDA";
+const PROGRESS_TRACK = "#CBD0E5";
+const SECTION_BG = "#EEEFF4";
+const BTN_DISABLED_BG = "#E2E5EF";
+const BTN_DISABLED_TEXT = "#A9A2C9";
+const HOVER_ACCENT = "#A48FEA";
 
 const newsItems: NewsItem[] = [
   {
@@ -99,10 +112,10 @@ export default function StarfiiNewsSection() {
   };
 
   return (
-    <section className="px-6 py-20 md:px-16 lg:py-24" style={{ backgroundColor: "#F5F3FC" }}>
+    <section className="px-6 py-20 md:px-16 lg:py-24" style={{ backgroundColor: SECTION_BG }}>
       <h2
-        className="mb-14 text-4xl font-semibold tracking-tight md:text-5xl"
-        style={{ color: CHAMPION_BLUE }}
+        className="mb-14 text-4xl font-medium tracking-tight md:text-5xl"
+        style={{ color: HEADING_COLOR }}
       >
         Starfii News
       </h2>
@@ -118,14 +131,17 @@ export default function StarfiiNewsSection() {
             data-news-card
             className="group flex w-[260px] shrink-0 snap-start flex-col gap-4 sm:w-[320px]"
           >
-            <span className="text-[13px] font-medium tracking-wide text-slate-400">
+            <span
+              className="text-[14px] font-normal tracking-wide"
+              style={{ color: DATE_COLOR }}
+            >
               {item.date}
             </span>
             <h3
-              className="text-2xl font-semibold leading-snug transition-colors duration-300"
-              style={{ color: CHAMPION_BLUE }}
-              onMouseEnter={(e) => (e.currentTarget.style.color = LAVENDER_ACCENT)}
-              onMouseLeave={(e) => (e.currentTarget.style.color = CHAMPION_BLUE)}
+              className="text-[24px] font-medium leading-snug transition-colors duration-300"
+              style={{ color: HEADING_COLOR }}
+              onMouseEnter={(e) => (e.currentTarget.style.color = HOVER_ACCENT)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = HEADING_COLOR)}
             >
               {item.title}
             </h3>
@@ -136,11 +152,11 @@ export default function StarfiiNewsSection() {
       <div className="mt-14 flex items-center gap-5">
         <div
           className="relative h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: "rgba(27,37,96,0.15)" }}
+          style={{ backgroundColor: PROGRESS_TRACK }}
         >
           <div
             className="absolute left-0 top-0 h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{ width: `${Math.max(progress, 3)}%`, backgroundColor: CHAMPION_BLUE }}
+            style={{ width: `${Math.max(progress, 3)}%`, backgroundColor: ACCENT_PROGRESS }}
           />
         </div>
 
@@ -153,8 +169,8 @@ export default function StarfiiNewsSection() {
             className="flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300"
             style={
               canPrev
-                ? { backgroundColor: CHAMPION_BLUE, color: "#FFFFFF" }
-                : { backgroundColor: "#E2DDF5", color: "#A9A2C9", cursor: "not-allowed" }
+                ? { backgroundColor: ACCENT_PROGRESS, color: "#FFFFFF" }
+                : { backgroundColor: BTN_DISABLED_BG, color: BTN_DISABLED_TEXT, cursor: "not-allowed" }
             }
           >
             <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
@@ -167,8 +183,8 @@ export default function StarfiiNewsSection() {
             className="flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300"
             style={
               canNext
-                ? { backgroundColor: CHAMPION_BLUE, color: "#FFFFFF" }
-                : { backgroundColor: "#E2DDF5", color: "#A9A2C9", cursor: "not-allowed" }
+                ? { backgroundColor: ACCENT_PROGRESS, color: "#FFFFFF" }
+                : { backgroundColor: BTN_DISABLED_BG, color: BTN_DISABLED_TEXT, cursor: "not-allowed" }
             }
           >
             <ChevronRight className="h-5 w-5" strokeWidth={2.25} />

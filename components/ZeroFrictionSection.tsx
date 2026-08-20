@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 
 /* ===============================================================
    CONTENT
@@ -86,47 +86,48 @@ function PillarCard({ title, body }: { title: string; body: string }) {
   );
 }
 
-function GlowCircle() {
+/* ===============================================================
+   PortraitCircle — uses the uploaded photo, masked into a circle,
+   with the same dotted-halo + thin gradient ring treatment as
+   before. Put the photo file at /public/images/hero-portrait.jpg
+   in your project (or change PHOTO_SRC below to wherever you host
+   it / your CMS URL).
+================================================================ */
+
+const PHOTO_SRC = "/hero-portrait.jpg";
+
+function PortraitCircle() {
   return (
-    <div className="relative mx-auto flex h-[420px] w-[420px] items-center justify-center">
-      {/* dotted halo */}
+    <div className="relative mx-auto flex h-[480px] w-[480px] items-center justify-center">
+      {/* soft dotted field */}
       <div
-        className="absolute inset-0 rounded-full opacity-40"
+        className="absolute inset-0 rounded-full opacity-25"
         style={{
           backgroundImage:
-            "radial-gradient(rgba(255,255,255,0.35) 1px, transparent 1px)",
-          backgroundSize: "16px 16px",
-          maskImage: "radial-gradient(circle, black 60%, transparent 75%)",
+            "radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px)",
+          backgroundSize: "20px 20px",
+          maskImage: "radial-gradient(circle, black 40%, transparent 85%)",
           WebkitMaskImage:
-            "radial-gradient(circle, black 60%, transparent 75%)",
+            "radial-gradient(circle, black 40%, transparent 85%)",
         }}
       />
 
-      {/* outer gradient ring */}
+      {/* the actual photo, masked into a circle, with a soft glow behind it */}
       <div
-        className="absolute h-[360px] w-[360px] animate-[spin_14s_linear_infinite] rounded-full p-[1.5px]"
+        className="relative h-[360px] w-[360px] overflow-hidden rounded-full border border-white/50"
         style={{
-          background:
-            "conic-gradient(from 200deg, #6d5bff, #a855f7, #ec4899, #6d5bff)",
+          boxShadow:
+            "0 0 110px 20px rgba(139,92,246,0.35), 0 0 40px 6px rgba(168,85,247,0.3)",
         }}
       >
-        <div className="h-full w-full rounded-full bg-[#050510]" />
-      </div>
-
-      {/* glowing purple core */}
-      <div
-        className="relative flex h-[290px] w-[290px] items-center justify-center rounded-full border border-white/70"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 30%, #8b5cf6, #4c1d95 60%, #0f0a24 100%)",
-          boxShadow: "0 0 90px 10px rgba(139,92,246,0.55)",
-        }}
-      >
-        <Sparkles
-          size={60}
-          strokeWidth={1.5}
-          className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.9)]"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={PHOTO_SRC}
+          alt="Portrait"
+          className="h-full w-full object-cover"
         />
+        {/* subtle dark-to-transparent overlay so it blends with the section bg */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050510]/40 via-transparent to-transparent" />
       </div>
     </div>
   );
@@ -136,7 +137,7 @@ export default function ZeroFrictionSection() {
   return (
     <section className="bg-[#050510] py-24">
       <div className="mx-auto grid max-w-[1760px] grid-cols-1 gap-16 px-8 lg:grid-cols-[520px_1fr] lg:px-16">
-        {/* Sticky left panel: text, then the glow circle sits right below it */}
+        {/* Sticky left panel: text, then the portrait circle sits right below it */}
         <div className="lg:sticky lg:top-32 lg:h-fit">
           <h2 className="text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">
             Technical Competencies & Service Capabilities
@@ -156,7 +157,7 @@ export default function ZeroFrictionSection() {
           </p>
 
           <div className="mt-12">
-            <GlowCircle />
+            <PortraitCircle />
           </div>
         </div>
 

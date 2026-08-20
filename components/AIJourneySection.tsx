@@ -4,8 +4,6 @@ import { useEffect, useRef, useState } from "react";
 
 /* ===============================================================
    CONTENT
-   Design and layout are unchanged — only the copy has been
-   rewritten for Starfii (AI-Driven Software & Product Engineering).
 ================================================================ */
 
 const steps = [
@@ -62,85 +60,152 @@ function StepRow({
   return (
     <div
       ref={ref}
-      className={`group relative isolate z-0 grid grid-cols-1 gap-2 py-8 transition-all duration-700 ease-out sm:grid-cols-[280px_1fr] sm:gap-10 ${
-        !isLast ? "border-b border-slate-200" : ""
+      className={`group relative isolate z-0 grid grid-cols-1 gap-2 py-9 transition-all duration-700 ease-out sm:grid-cols-[300px_1fr] sm:gap-14 ${
+        !isLast ? "border-b border-[#0d1b4c]/10" : ""
       } ${visible ? "translate-x-0 opacity-100" : "-translate-x-6 opacity-0"}`}
     >
-      <h3 className="text-[26px] font-medium leading-snug text-[#0d1b4c] transition-colors duration-300 group-hover:text-[#3B2FE0]">
+      <h3 className="text-[27px] font-medium leading-snug text-[#0d1b4c] transition-colors duration-300 group-hover:text-[#3B2FE0]">
         {title}
       </h3>
-      <p className="self-center text-[16px] leading-relaxed text-slate-600">
+      <p className="self-center text-[16.5px] leading-relaxed text-slate-600">
         {body}
       </p>
     </div>
   );
 }
 
-/** Animated iridescent ribbon: floats gently and has a rainbow shimmer traveling along its length. */
+/**
+ * Full-bleed flowing ribbon: a glossy 3D tube that sweeps up from
+ * the bottom-left corner, S-curves through the middle of the section,
+ * and exits near the top-right — with a rainbow-iridescent tip that
+ * fades into a satin blue/white body, a bright highlight running
+ * along its top edge, and a soft shadow underneath for a rounded,
+ * cylindrical (glass-pipe) look, matching the reference recording.
+ */
 function Ribbon() {
+  // Center path: bottom-left tip → rises through the middle →
+  // gentle S-bend → exits top-right. Highlight/shadow paths below
+  // are the same curve, offset a few px up/down to fake tube volume.
+  const CENTER =
+    "M -150 980 C 220 860, 480 640, 720 560 C 1000 470, 1120 260, 1280 170 C 1400 105, 1540 150, 1660 280 C 1760 385, 1860 320, 2050 150";
+  const HILITE =
+    "M -150 968 C 220 848, 480 626, 720 544 C 1000 452, 1120 244, 1280 154 C 1400 90, 1540 134, 1660 262 C 1760 366, 1860 302, 2050 134";
+  const SHADOW =
+    "M -150 996 C 220 878, 480 658, 720 580 C 1000 492, 1120 280, 1280 190 C 1400 124, 1540 170, 1660 300 C 1760 406, 1860 340, 2050 168";
+
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 isolate z-0 overflow-visible">
+    <div className="pointer-events-none absolute inset-0 isolate z-0 overflow-hidden">
       <style>{`
         @keyframes ribbon-float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-16px) rotate(-0.6deg); }
+          0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+          50% { transform: translate3d(0, -20px, 0) rotate(-0.3deg); }
         }
         @keyframes ribbon-shimmer {
-          0% { stroke-dashoffset: 1400; }
+          0% { stroke-dashoffset: 2600; }
           100% { stroke-dashoffset: 0; }
         }
-        .ribbon-wrap { animation: ribbon-float 9s ease-in-out infinite; }
+        .ribbon-wrap { animation: ribbon-float 12s ease-in-out infinite; }
         .ribbon-shimmer-path {
-          stroke-dasharray: 260 1200;
-          animation: ribbon-shimmer 5s linear infinite;
+          stroke-dasharray: 260 2400;
+          animation: ribbon-shimmer 6.5s linear infinite;
         }
       `}</style>
 
       <svg
-        className="ribbon-wrap h-[420px] w-[1300px] max-w-none lg:h-[460px] lg:w-[1500px]"
-        viewBox="0 0 1500 460"
+        className="ribbon-wrap absolute -left-[6%] -bottom-[12%] h-[130%] w-[112%] min-w-[1400px]"
+        viewBox="0 0 1900 1000"
         fill="none"
+        preserveAspectRatio="xMidYMax slice"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="ribbonGrad" x1="0%" y1="40%" x2="100%" y2="60%">
+          {/* body color: rainbow tip fading into satin blue/white */}
+          <linearGradient id="tubeBody" x1="0%" y1="95%" x2="90%" y2="5%">
             <stop offset="0%" stopColor="#3B2FE0" stopOpacity="0" />
-            <stop offset="14%" stopColor="#2563eb" />
-            <stop offset="30%" stopColor="#06b6d4" />
-            <stop offset="46%" stopColor="#a855f7" />
-            <stop offset="58%" stopColor="#ec4899" />
-            <stop offset="68%" stopColor="#f59e0b" />
-            <stop offset="80%" stopColor="#60a5fa" />
-            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0" />
+            <stop offset="6%" stopColor="#f59e0b" />
+            <stop offset="14%" stopColor="#ec4899" />
+            <stop offset="24%" stopColor="#a855f7" />
+            <stop offset="36%" stopColor="#06b6d4" />
+            <stop offset="52%" stopColor="#3b82f6" />
+            <stop offset="70%" stopColor="#7fb0fb" />
+            <stop offset="88%" stopColor="#cfe1ff" />
+            <stop offset="100%" stopColor="#eef4ff" stopOpacity="0" />
           </linearGradient>
-          <filter id="ribbonBlur" x="-30%" y="-30%" width="160%" height="160%">
-            <feGaussianBlur stdDeviation="10" />
+          <linearGradient id="tubeGlow" x1="0%" y1="95%" x2="90%" y2="5%">
+            <stop offset="0%" stopColor="#60a5fa" stopOpacity="0" />
+            <stop offset="18%" stopColor="#60a5fa" stopOpacity="0.4" />
+            <stop offset="55%" stopColor="#93c5fd" stopOpacity="0.55" />
+            <stop offset="85%" stopColor="#dbeafe" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#dbeafe" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="tubeHighlight" x1="0%" y1="95%" x2="90%" y2="5%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0" />
+            <stop offset="10%" stopColor="#fff7e6" stopOpacity="0.9" />
+            <stop offset="30%" stopColor="#ffffff" stopOpacity="0.95" />
+            <stop offset="60%" stopColor="#ffffff" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+          <linearGradient id="tubeShadow" x1="0%" y1="95%" x2="90%" y2="5%">
+            <stop offset="0%" stopColor="#1e3a8a" stopOpacity="0" />
+            <stop offset="15%" stopColor="#1e3a8a" stopOpacity="0.35" />
+            <stop offset="55%" stopColor="#1e3a8a" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#1e3a8a" stopOpacity="0" />
+          </linearGradient>
+          <filter id="blurWide" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="30" />
+          </filter>
+          <filter id="blurSoft" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="6" />
+          </filter>
+          <filter id="blurTiny" x="-40%" y="-40%" width="180%" height="180%">
+            <feGaussianBlur stdDeviation="2.5" />
           </filter>
         </defs>
 
-        {/* soft glow underlayer */}
+        {/* wide ambient glow underneath the whole tube */}
         <path
-          d="M -100 380 C 250 350, 460 200, 720 180 S 1180 70, 1500 -60"
-          stroke="url(#ribbonGrad)"
-          strokeWidth="80"
+          d={CENTER}
+          stroke="url(#tubeGlow)"
+          strokeWidth="230"
           strokeLinecap="round"
-          filter="url(#ribbonBlur)"
-          opacity="0.5"
-        />
-        {/* mid band */}
-        <path
-          d="M -100 380 C 250 350, 460 200, 720 180 S 1180 70, 1500 -60"
-          stroke="url(#ribbonGrad)"
-          strokeWidth="30"
-          strokeLinecap="round"
+          filter="url(#blurWide)"
           opacity="0.85"
         />
-        {/* bright travelling shimmer core */}
+
+        {/* tube body — the main satin/glass fill */}
+        <path
+          d={CENTER}
+          stroke="url(#tubeBody)"
+          strokeWidth="58"
+          strokeLinecap="round"
+          filter="url(#blurSoft)"
+          opacity="0.95"
+        />
+
+        {/* underside shadow, offset slightly below center, for depth */}
+        <path
+          d={SHADOW}
+          stroke="url(#tubeShadow)"
+          strokeWidth="22"
+          strokeLinecap="round"
+          filter="url(#blurSoft)"
+        />
+
+        {/* top-edge glossy highlight, offset slightly above center */}
+        <path
+          d={HILITE}
+          stroke="url(#tubeHighlight)"
+          strokeWidth="9"
+          strokeLinecap="round"
+          filter="url(#blurTiny)"
+        />
+
+        {/* crisp bright travelling shimmer along the highlight line */}
         <path
           className="ribbon-shimmer-path"
-          d="M -100 380 C 250 350, 460 200, 720 180 S 1180 70, 1500 -60"
+          d={HILITE}
           stroke="white"
-          strokeWidth="4"
+          strokeWidth="3"
           strokeLinecap="round"
           opacity="0.95"
         />
@@ -151,24 +216,25 @@ function Ribbon() {
 
 export default function AIJourneySection() {
   return (
-    <section className="relative isolate z-0 overflow-hidden bg-white py-28">
+    <section className="relative isolate z-0 overflow-hidden bg-white py-32">
       <Ribbon />
 
-      <div className="relative z-10 mx-auto grid max-w-[1760px] grid-cols-1 gap-12 px-8 lg:grid-cols-[520px_1fr] lg:px-16">
+      <div className="relative z-10 mx-auto grid max-w-[1900px] grid-cols-1 gap-14 px-8 lg:grid-cols-[480px_1fr] lg:gap-20 lg:px-20">
         {/* Left heading */}
         <div className="lg:sticky lg:top-32 lg:z-0 lg:h-fit">
-          <h2 className="text-[44px] font-medium leading-[1.15] text-[#0d1b4c] lg:text-[52px]">
-            Your Tech Partner
+          <h2 className="text-[46px] font-medium leading-[1.15] text-[#0d1b4c] lg:text-[54px]">
+            Take the Next Step
             <br />
-            for the Next Big Leap
+            in Your AI Journey
           </h2>
           <p className="mt-5 text-lg text-slate-500">
-            From First Idea to Full-Scale AI-Driven Product
+            Wherever You Are, We Meet You There
           </p>
         </div>
 
-        {/* Right card with rows */}
-        <div className="rounded-3xl bg-gradient-to-br from-white via-[#f5f8ff] to-[#eef4ff] px-10 shadow-[0_20px_60px_rgba(59,47,224,0.08)]">
+        {/* Right list — sits directly on the ribbon background,
+            no card container, matching the reference exactly */}
+        <div className="relative z-10">
           {steps.map((s, i) => (
             <StepRow
               key={s.title}

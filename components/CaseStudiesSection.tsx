@@ -116,7 +116,7 @@ export default function CaseStudiesSection() {
     const el = trackRef.current;
     if (!el) return;
     const card = el.querySelector<HTMLElement>("[data-card]");
-    const gap = 24;
+    const gap = 32;
     const step = card ? card.offsetWidth + gap : el.clientWidth * 0.85;
     el.scrollBy({ left: direction * step, behavior: "smooth" });
   };
@@ -124,7 +124,7 @@ export default function CaseStudiesSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] px-6 py-20 md:px-16 lg:py-28">
       {/* copy */}
-      <div className="mx-auto mb-12 max-w-2xl md:mx-0">
+      <div className="mx-auto mb-14 max-w-2xl md:mx-0">
         <h2 className="text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">
           Real Results, Real Impact
         </h2>
@@ -135,20 +135,22 @@ export default function CaseStudiesSection() {
         </p>
       </div>
 
-      {/* carousel track */}
+      {/* carousel track — cards scaled up (wider + taller image) from the
+          original 260/300px version, everything else (snap, hover morph,
+          progress bar, arrows) behaves exactly the same */}
       <div
         ref={trackRef}
-        className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-2"
+        className="no-scrollbar flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-2"
       >
         {caseStudies.map((study) => (
           <a
             key={study.id}
             href={study.href}
             data-card
-            className="group relative flex w-[260px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[300px]"
+            className="group relative flex w-[80%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-96px)/4)]"
           >
             {/* image morphs away on hover, revealing the description below */}
-            <div className="h-[190px] w-full overflow-hidden bg-slate-900 transition-[height] duration-500 ease-out group-hover:h-0">
+            <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900 transition-[height] duration-500 ease-out group-hover:h-0">
               <img
                 src={study.image}
                 alt={study.title}
@@ -156,20 +158,20 @@ export default function CaseStudiesSection() {
               />
             </div>
 
-            <div className="flex flex-1 flex-col gap-3 p-5">
+            <div className="flex flex-1 flex-col gap-3.5 p-7">
               <span className="text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
                 CASE STUDY
               </span>
-              <h3 className="line-clamp-3 text-[17px] font-semibold leading-snug text-[#0b1747]">
+              <h3 className="line-clamp-3 text-[20px] font-semibold leading-snug text-[#0b1747]">
                 {study.title}
               </h3>
 
               {/* description: collapsed by default, expands smoothly on hover */}
-              <p className="grid grid-rows-[0fr] text-[14px] leading-relaxed text-slate-500 opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
+              <p className="grid grid-rows-[0fr] text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
                 <span className="overflow-hidden">{study.description}</span>
               </p>
 
-              <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[15px] font-medium text-[#4b5fed] transition-colors group-hover:text-[#37409e]">
+              <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed] transition-colors group-hover:text-[#37409e]">
                 Learn More
                 <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </span>
@@ -179,7 +181,7 @@ export default function CaseStudiesSection() {
       </div>
 
       {/* progress bar + nav arrows */}
-      <div className="mt-10 flex items-center gap-5">
+      <div className="mt-12 flex items-center gap-5">
         <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
           <div
             className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-300 ease-out"

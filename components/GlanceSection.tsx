@@ -65,13 +65,13 @@ function StatBlock({
 }: (typeof stats)[number] & { active: boolean }) {
   const display = useCountUp(value, decimals, active);
   return (
-    <div className="flex items-start gap-4">
-      <div className="whitespace-nowrap text-[44px] font-bold leading-none text-white lg:text-[50px]">
+    <div className="flex flex-col">
+      <div className="whitespace-nowrap text-[56px] font-light leading-none text-[#0b1747] lg:text-[64px]">
         {prefix}
         {display}
         {suffix}
       </div>
-      <p className="max-w-[180px] pt-2 text-[15px] leading-snug text-slate-400">
+      <p className="mt-4 max-w-[220px] text-[15px] leading-relaxed text-[#4a5578]">
         {label}
       </p>
     </div>
@@ -99,9 +99,9 @@ export default function GlanceSection() {
   }, []);
 
   return (
-    <section ref={ref} className="bg-[#1a1a1a] py-24">
+    <section ref={ref} className="bg-white py-24">
       <div className="mx-auto max-w-[1760px] px-8 lg:px-16">
-        <h2 className="max-w-xl text-[42px] font-bold leading-[1.15] text-white lg:text-[48px]">
+        <h2 className="max-w-xl text-[42px] font-medium leading-[1.15] text-[#0b1747] lg:text-[48px]">
           Your Tech Partner for
           <br />
           the Next Big Leap
