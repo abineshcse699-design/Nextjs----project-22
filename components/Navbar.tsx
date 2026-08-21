@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   ChevronDown,
@@ -29,6 +30,12 @@ const MENUS_WITH_CONTENT = [
   "About",
   "Careers",
 ];
+
+// Nav items that should navigate to their own dedicated page on click.
+// The mega-menu still opens on hover as a preview — clicking goes to the page.
+const NAV_HREFS: Record<string, string> = {
+  "Service Now": "/servicenow",
+};
 
 /* ===============================================================
    DESIGN TOKENS
@@ -86,18 +93,6 @@ export default function Navbar() {
   }, []);
 
   return (
-    /* =========================================================
-       FLOATING NAVBAR — centered pill with a visible gap on both
-       sides and a small top gap, exactly like the reference: the
-       hero background shows through the strip above/around it,
-       and the white bar itself is centered with equal left/right
-       margins (not edge-to-edge).
-
-       Must render as a direct child of <body> in app/layout.tsx
-       (a sibling of {children}), never nested inside a section.
-       Hero.tsx has no spacer, so its background starts at y=0
-       and shows through the gap around this floating bar.
-    ========================================================= */
     <header
       onMouseLeave={scheduleClose}
       className="fixed inset-x-0 top-0 z-[2147483647] isolate"
@@ -137,35 +132,53 @@ export default function Navbar() {
               <ul className="hidden items-center gap-1 lg:flex">
                 {navItems.map((item) => {
                   const isActive = activeMenu === item;
+                  const href = NAV_HREFS[item];
+
+                  const triggerClasses = `
+                    group flex items-center gap-1 whitespace-nowrap
+                    rounded-md px-3 py-2 text-[16px] font-medium
+                    transition-colors duration-150
+                    ${
+                      isActive
+                        ? `${T.primary} bg-[#F2F1FD]`
+                        : `${T.ink} hover:bg-[#F5F5F9]`
+                    }
+                  `;
+
+                  const chevron = MENUS_WITH_CONTENT.includes(item) && (
+                    <ChevronDown
+                      size={16}
+                      strokeWidth={2.25}
+                      className={`
+                        transition-transform duration-150
+                        ${isActive ? "rotate-180" : "text-[#8A8CA6]"}
+                      `}
+                    />
+                  );
+
                   return (
                     <li
                       key={item}
                       className="relative"
                       onMouseEnter={() => openMenu(item)}
                     >
-                      <button
-                        type="button"
-                        className={`
-                          group flex items-center gap-1 whitespace-nowrap
-                          rounded-md px-3 py-2 text-[16px] font-medium
-                          transition-colors duration-150
-                          ${
-                            isActive
-                              ? `${T.primary} bg-[#F2F1FD]`
-                              : `${T.ink} hover:bg-[#F5F5F9]`
-                          }
-                        `}
-                      >
-                        {item}
-                        <ChevronDown
-                          size={16}
-                          strokeWidth={2.25}
-                          className={`
-                            transition-transform duration-150
-                            ${isActive ? "rotate-180" : "text-[#8A8CA6]"}
-                          `}
-                        />
-                      </button>
+                      {href ? (
+                        // Clickable nav item: hover still previews the mega
+                        // menu, click navigates to the item's own page.
+                        <Link
+                          href={href}
+                          onClick={() => setActiveMenu(null)}
+                          className={triggerClasses}
+                        >
+                          {item}
+                          {chevron}
+                        </Link>
+                      ) : (
+                        <button type="button" className={triggerClasses}>
+                          {item}
+                          {chevron}
+                        </button>
+                      )}
                     </li>
                   );
                 })}
@@ -189,9 +202,7 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mega menu — same rounded pill width as the nav bar
-              above it, with a small gap, matching the floating
-              card look end-to-end. */}
+          {/* Mega menu */}
           {activeMenu && (
             <div
               onMouseEnter={clearCloseTimer}
@@ -256,11 +267,13 @@ function FeaturedCard({
   title,
   blurb,
   dark = true,
+  href = "#",
 }: {
   eyebrow: string;
   title: string;
   blurb?: string;
   dark?: boolean;
+  href?: string;
 }) {
   return (
     <div
@@ -280,7 +293,7 @@ function FeaturedCard({
         </p>
       )}
       <a
-        href="#"
+        href={href}
         className={`mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold ${dark ? "text-white" : T.primary}`}
       >
         Learn more
@@ -299,10 +312,10 @@ function ServicesMenu() {
     { label: "Data & Analytics", href: "/services/data-analytics" },
     { label: "Digital IT Operations", href: "/services/digital-it-operations" },
     { label: "Cloud", href: "/services/cloud" },
-    { label: "Enterprise Platforms Services", href: "#" },
-    { label: "Business Process Services", href: "#" },
-    { label: "Artificial Intelligence", href: "#" },
-    { label: "Global Capability Centers", href: "#" },
+    { label: "Enterprise Platforms Services", href: "/services/enterprise-platform-services" },
+    { label: "Business Process Services", href: "/services/business-process-services" },
+    { label: "Artificial Intelligence", href: "/services/artificial-intelligence" },
+    { label: "Global Capability Centers", href: "/services/global-capability-centers" },
   ];
 
   const offeringsLeft = [
@@ -417,12 +430,25 @@ function PlatformsMenu() {
 ================================================================ */
 function IndustriesMenu() {
   const industriesLeft = [
-    "Banking", "Consumer Goods", "Education & Institutions", "Energy & Utilities",
-    "Financial Services", "Healthcare", "Insurance", "Life Sciences", "Manufacturing",
+    { label: "Banking", href: "/industries/banking" },
+    { label: "Consumer Goods", href: "/industries/consumer-goods" },
+    { label: "Education & Institutions", href: "/industries/education-institutions" },
+    { label: "Energy & Utilities", href: "/industries/energy-utilities" },
+    { label: "Financial Services", href: "/industries/financial-services" },
+    { label: "Healthcare", href: "/industries/healthcare" },
+    { label: "Insurance", href: "/industries/insurance" },
+    { label: "Life Sciences", href: "/industries/life-sciences" },
+    { label: "Manufacturing", href: "/industries/manufacturing" },
   ];
   const industriesRight = [
-    "Private Equity", "Professional Services", "Public Sector", "Retail",
-    "Technology, Products & Platforms", "Telecom", "Transportation & Logistics", "Travel & Hospitality",
+    { label: "Private Equity", href: "/industries/private-equity" },
+    { label: "Professional Services", href: "/industries/professional-services" },
+    { label: "Public Sector", href: "/industries/public-sector" },
+    { label: "Retail", href: "/industries/retail" },
+    { label: "Technology, Products & Platforms", href: "/industries/technology-products-platforms" },
+    { label: "Telecom", href: "/industries/telecom" },
+    { label: "Transportation & Logistics", href: "/industries/transportation-logistics" },
+    { label: "Travel & Hospitality", href: "/industries/travel-hospitality" },
   ];
 
   return (
@@ -431,10 +457,10 @@ function IndustriesMenu() {
         <ColumnTitle>Industries</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
           {industriesLeft.map((i) => (
-            <LinkItem key={i}>{i}</LinkItem>
+            <LinkItem key={i.label} href={i.href}>{i.label}</LinkItem>
           ))}
           {industriesRight.map((i) => (
-            <LinkItem key={i}>{i}</LinkItem>
+            <LinkItem key={i.label} href={i.href}>{i.label}</LinkItem>
           ))}
         </div>
       </div>
@@ -444,11 +470,19 @@ function IndustriesMenu() {
 }
 
 /* ===============================================================
-   SERVICE NOW
+   SERVICE NOW (mega-menu preview — full page lives at /servicenow)
 ================================================================ */
 function ServiceNowMenu() {
-  const capabilitiesLeft = ["IT Service Management (ITSM)", "IT Operations Management (ITOM)", "Customer Service Management (CSM)"];
-  const capabilitiesRight = ["HR Service Delivery (HRSD)", "Source-to-Pay Operations", "App Engine Studio"];
+  const capabilitiesLeft = [
+    { label: "IT Service Management (ITSM)", href: "/servicenow#itsm" },
+    { label: "IT Operations Management (ITOM)", href: "/servicenow#itom" },
+    { label: "Customer Service Management (CSM)", href: "/servicenow#csm" },
+  ];
+  const capabilitiesRight = [
+    { label: "HR Service Delivery (HRSD)", href: "/servicenow#hrsd" },
+    { label: "Source-to-Pay Operations", href: "/servicenow#s2p" },
+    { label: "App Engine Studio", href: "/servicenow#aes" },
+  ];
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1fr]">
@@ -462,14 +496,25 @@ function ServiceNowMenu() {
         </p>
         <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
           {capabilitiesLeft.map((c) => (
-            <LinkItem key={c}>{c}</LinkItem>
+            <LinkItem key={c.label} href={c.href}>{c.label}</LinkItem>
           ))}
           {capabilitiesRight.map((c) => (
-            <LinkItem key={c}>{c}</LinkItem>
+            <LinkItem key={c.label} href={c.href}>{c.label}</LinkItem>
           ))}
         </div>
+        <Link
+          href="/servicenow"
+          className={`mt-6 inline-flex items-center gap-1.5 text-[14.5px] font-semibold ${T.primary}`}
+        >
+          View our ServiceNow practice
+          <ArrowUpRight size={15} />
+        </Link>
       </div>
-      <FeaturedCard eyebrow="Featured Insight" title="How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing" />
+      <FeaturedCard
+        eyebrow="Featured Insight"
+        title="How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing"
+        href="/servicenow"
+      />
     </div>
   );
 }
