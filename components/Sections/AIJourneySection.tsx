@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useEffect, useRef, useState } from "react";
@@ -159,7 +158,7 @@ export default function AIJourneySection() {
     >
       {/* =====================================================
           VIDEO BACKGROUND
-          338847.mp4
+          bb.mp4
       ====================================================== */}
       <div className="pointer-events-none absolute inset-0 z-0">
         <video
@@ -180,10 +179,13 @@ export default function AIJourneySection() {
           aria-hidden="true"
         >
           <source
-            src="/videos/338847.mp4"
+            src="/videos/bb.mp4"
             type="video/mp4"
           />
         </video>
+
+        {/* Dark overlay so text stays readable over the video */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
 
       {/* =====================================================

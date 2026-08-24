@@ -21,7 +21,7 @@ export default function Home() {
       <GlanceSection />
       <CaseStudiesSection />
       {/* <Casestude></Casestude> */}
-      <HexawareNewsSection />
+      {/* <HexawareNewsSection /> */}
       <ConnectFormSection />
       {/* <TechnicalCompetenciesSection></TechnicalCompetenciesSection> */}
       {/* rest of your page sections go here */}

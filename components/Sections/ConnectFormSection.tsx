@@ -1,8 +1,7 @@
-
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Check, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowUpRight, Check, ChevronDown } from "lucide-react";
 
 /* =========================================================
    COUNTRY DATA
@@ -93,10 +92,13 @@ const HEAR_ABOUT_OPTIONS = [
 ];
 
 /* =========================================================
-   INPUT COMPONENT
+   FIELD COMPONENT
+   Each field is numbered like a line item on a spec sheet —
+   the form reads as an ordered brief, not a generic card.
 ========================================================= */
 
 function Field({
+  index,
   label,
   placeholder,
   value,
@@ -104,6 +106,7 @@ function Field({
   type = "text",
   required = false,
 }: {
+  index: string;
   label: string;
   placeholder: string;
   value: string;
@@ -113,9 +116,15 @@ function Field({
 }) {
   return (
     <div className="group">
-      <label className="mb-2.5 block text-[13px] font-medium tracking-wide text-[#172554]">
-        {label}
-        {required && <span className="ml-1 text-[#4F46E5]">*</span>}
+      <label className="mb-2 flex items-baseline gap-2.5">
+        <span className="font-mono text-[11px] text-slate-400">
+          {index}
+        </span>
+
+        <span className="text-[13px] font-medium tracking-wide text-[#172554]">
+          {label}
+          {required && <span className="ml-1 text-[#4F46E5]">*</span>}
+        </span>
       </label>
 
       <input
@@ -127,23 +136,18 @@ function Field({
         className="
           h-[58px]
           w-full
-          rounded-2xl
-          border
+          border-b-2
           border-slate-200
-          bg-slate-50/70
-          px-5
+          bg-transparent
+          px-1
           text-[15px]
           text-[#0F172A]
           outline-none
-          transition-all
-          duration-300
+          transition-colors
+          duration-200
           placeholder:text-slate-400
           hover:border-slate-300
-          hover:bg-white
           focus:border-[#4F46E5]
-          focus:bg-white
-          focus:ring-4
-          focus:ring-[#4F46E5]/10
         "
       />
     </div>
@@ -234,14 +238,14 @@ export default function ConnectFormSection() {
 
     if (!country) {
       setCountryTouched(true);
-      setErrorMessage("Please select a country code.");
+      setErrorMessage("Select a country code to continue.");
       setStatus("error");
       return;
     }
 
     if (!form.consent) {
       setErrorMessage(
-        "Please accept the privacy policy to continue."
+        "Accept the privacy policy to send your brief."
       );
       setStatus("error");
       return;
@@ -272,51 +276,14 @@ export default function ConnectFormSection() {
       id="form"
       className="
         relative
-        overflow-hidden
-        bg-[#F6F7FB]
-        px-5
+        bg-[#FAFAF8]
+        px-6
         py-20
-        sm:px-8
-        md:px-12
+        sm:px-10
         lg:px-16
         lg:py-28
-        xl:px-20
       "
     >
-      {/* =====================================================
-          BACKGROUND DECORATION
-      ====================================================== */}
-
-      <div
-        aria-hidden
-        className="
-          pointer-events-none
-          absolute
-          -left-40
-          top-10
-          h-[500px]
-          w-[500px]
-          rounded-full
-          bg-indigo-300/20
-          blur-[120px]
-        "
-      />
-
-      <div
-        aria-hidden
-        className="
-          pointer-events-none
-          absolute
-          -right-40
-          bottom-0
-          h-[500px]
-          w-[500px]
-          rounded-full
-          bg-violet-300/20
-          blur-[130px]
-        "
-      />
-
       {/* =====================================================
           MAIN CONTAINER
       ====================================================== */}
@@ -325,24 +292,26 @@ export default function ConnectFormSection() {
         className="
           relative
           mx-auto
-          max-w-[1440px]
+          max-w-[1520px]
           overflow-hidden
-          rounded-[32px]
+          rounded-md
+          border
+          border-slate-200
           bg-white
-          shadow-[0_30px_100px_rgba(15,23,42,0.10)]
+          shadow-[0_1px_2px_rgba(15,23,42,0.04)]
           lg:grid
           lg:grid-cols-[0.82fr_1.18fr]
         "
       >
         {/* ===================================================
-            LEFT BRAND PANEL
+            LEFT PANEL — the brief
         ==================================================== */}
 
         <div
           className="
             relative
             overflow-hidden
-            bg-[#080D2B]
+            bg-[#0B0E1A]
             px-7
             py-12
             sm:px-10
@@ -353,7 +322,7 @@ export default function ConnectFormSection() {
             xl:px-16
           "
         >
-          {/* Grid texture */}
+          {/* Fine grid texture — quiet, no glow */}
 
           <div
             aria-hidden
@@ -361,74 +330,23 @@ export default function ConnectFormSection() {
               pointer-events-none
               absolute
               inset-0
-              opacity-[0.08]
-              [background-image:linear-gradient(rgba(255,255,255,.35)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.35)_1px,transparent_1px)]
-              [background-size:44px_44px]
-            "
-          />
-
-          {/* Glow */}
-
-          <div
-            aria-hidden
-            className="
-              pointer-events-none
-              absolute
-              -right-32
-              -top-32
-              h-[420px]
-              w-[420px]
-              rounded-full
-              bg-indigo-500/30
-              blur-[110px]
-            "
-          />
-
-          <div
-            aria-hidden
-            className="
-              pointer-events-none
-              absolute
-              -bottom-40
-              -left-20
-              h-[380px]
-              w-[380px]
-              rounded-full
-              bg-violet-600/20
-              blur-[110px]
+              opacity-[0.05]
+              [background-image:linear-gradient(rgba(255,255,255,.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.4)_1px,transparent_1px)]
+              [background-size:40px_40px]
             "
           />
 
           <div className="relative z-10 flex h-full flex-col">
-            {/* Badge */}
+            {/* Status line */}
 
-            <div
-              className="
-                inline-flex
-                w-fit
-                items-center
-                gap-2
-                rounded-full
-                border
-                border-white/15
-                bg-white/[0.07]
-                px-4
-                py-2
-                backdrop-blur-md
-              "
-            >
-              <Sparkles className="h-3.5 w-3.5 text-violet-300" />
+            <div className="flex items-center gap-2.5">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#A78BFA] opacity-60" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#A78BFA]" />
+              </span>
 
-              <span
-                className="
-                  text-[11px]
-                  font-medium
-                  uppercase
-                  tracking-[0.2em]
-                  text-white/70
-                "
-              >
-                Connect With Us
+              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/50">
+                Accepting new briefs
               </span>
             </div>
 
@@ -438,19 +356,18 @@ export default function ConnectFormSection() {
               className="
                 mt-8
                 max-w-[520px]
-                text-[42px]
+                font-serif
+                text-[40px]
                 font-medium
-                leading-[1.04]
-                tracking-[-0.035em]
+                leading-[1.08]
+                tracking-[-0.02em]
                 text-white
-                sm:text-[52px]
-                lg:text-[56px]
-                xl:text-[62px]
+                sm:text-[48px]
+                lg:text-[52px]
               "
             >
-              Your Goals Are
-              <br />
-              <span className="text-violet-300">
+              Your Goals Are{" "}
+              <span className="italic text-[#A78BFA]">
                 Closer
               </span>{" "}
               Than You Think.
@@ -458,51 +375,59 @@ export default function ConnectFormSection() {
 
             <p
               className="
-                mt-7
-                max-w-[470px]
+                mt-6
+                max-w-[440px]
                 text-[15px]
                 leading-7
-                text-white/60
+                text-white/55
                 sm:text-base
               "
             >
-              Tell us what you are building, where you want
-              to go, and what is standing in the way. Our team
-              will help you find the right path forward.
+              Tell us what you are building, where you want to
+              go, and what is standing in the way. A real
+              engineer reads every brief.
             </p>
 
-            {/* Bottom info */}
+            {/* Index of what happens next — a genuine sequence */}
 
             <div className="mt-auto hidden pt-16 lg:block">
               <div className="h-px w-full bg-white/10" />
 
-              <div className="mt-7 grid grid-cols-2 gap-8">
-                <div>
-                  <p className="text-2xl font-semibold text-white">
-                    01
-                  </p>
+              <div className="divide-y divide-white/10">
+                {[
+                  {
+                    n: "01",
+                    text: "Share the brief — what you're building and where it's stuck.",
+                  },
+                  {
+                    n: "02",
+                    text: "We reply within one business day, from an engineer, not a bot.",
+                  },
+                  {
+                    n: "03",
+                    text: "We scope a pilot before you make any long commitment.",
+                  },
+                ].map((item) => (
+                  <div
+                    key={item.n}
+                    className="flex items-baseline gap-4 py-5"
+                  >
+                    <span className="font-mono text-xs text-white/30">
+                      {item.n}
+                    </span>
 
-                  <p className="mt-1 text-sm text-white/45">
-                    Share your challenge
-                  </p>
-                </div>
-
-                <div>
-                  <p className="text-2xl font-semibold text-white">
-                    02
-                  </p>
-
-                  <p className="mt-1 text-sm text-white/45">
-                    Start the conversation
-                  </p>
-                </div>
+                    <span className="text-sm leading-6 text-white/65">
+                      {item.text}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
 
         {/* ===================================================
-            RIGHT FORM PANEL
+            RIGHT PANEL — the form
         ==================================================== */}
 
         <div
@@ -521,17 +446,17 @@ export default function ConnectFormSection() {
           {/* Small top heading */}
 
           <div className="mb-9">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#4F46E5]">
-              Connect Now
+            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-[#4F46E5]">
+              Project brief
             </p>
 
-            <h3 className="mt-2 text-2xl font-semibold tracking-tight text-[#0B1747]">
-              Let's build something meaningful.
+            <h3 className="mt-3 font-serif text-2xl font-medium tracking-tight text-[#0B1747]">
+              Tell us what you&apos;re building.
             </h3>
 
             <p className="mt-2 text-sm leading-6 text-slate-500">
-              Fill in the details below and our team will get
-              back to you.
+              Six fields, two minutes. Every brief gets a
+              reply from someone who can actually build it.
             </p>
           </div>
 
@@ -547,6 +472,7 @@ export default function ConnectFormSection() {
 
             <div className="grid gap-5 sm:grid-cols-2">
               <Field
+                index="01"
                 label="Name"
                 placeholder="Your full name"
                 required
@@ -560,6 +486,7 @@ export default function ConnectFormSection() {
               />
 
               <Field
+                index="02"
                 label="Email address"
                 placeholder="you@company.com"
                 type="email"
@@ -574,23 +501,24 @@ export default function ConnectFormSection() {
               />
             </div>
 
-            {/* Phone + Company */}
+            {/* Phone + Country */}
 
             <div>
-              <label className="mb-2.5 block text-[13px] font-medium tracking-wide text-[#172554]">
-                Phone number
-                <span className="ml-1 text-[#4F46E5]">
-                  *
+              <label className="mb-2 flex items-baseline gap-2.5">
+                <span className="font-mono text-[11px] text-slate-400">
+                  03
+                </span>
+
+                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
+                  Phone number
+                  <span className="ml-1 text-[#4F46E5]">*</span>
                 </span>
               </label>
 
               <div className="grid gap-4 sm:grid-cols-[190px_1fr]">
                 {/* Country */}
 
-                <div
-                  ref={countryBoxRef}
-                  className="relative"
-                >
+                <div ref={countryBoxRef} className="relative">
                   <button
                     type="button"
                     onClick={() => {
@@ -603,27 +531,23 @@ export default function ConnectFormSection() {
                       w-full
                       items-center
                       justify-between
-                      rounded-2xl
-                      border
-                      bg-slate-50/70
-                      px-5
+                      border-b-2
+                      bg-transparent
+                      px-1
                       text-left
                       text-[15px]
                       outline-none
-                      transition-all
-                      duration-300
-                      hover:bg-white
+                      transition-colors
+                      duration-200
                       ${
                         countryOpen
-                          ? "border-[#4F46E5] bg-white ring-4 ring-[#4F46E5]/10"
+                          ? "border-[#4F46E5]"
                           : countryTouched && !country
                           ? "border-red-400"
-                          : "border-slate-200"
+                          : "border-slate-200 hover:border-slate-300"
                       }
                       ${
-                        country
-                          ? "text-[#0F172A]"
-                          : "text-slate-400"
+                        country ? "text-[#0F172A]" : "text-slate-400"
                       }
                     `}
                   >
@@ -641,11 +565,7 @@ export default function ConnectFormSection() {
                         shrink-0
                         text-[#4F46E5]
                         transition-transform
-                        ${
-                          countryOpen
-                            ? "rotate-180"
-                            : ""
-                        }
+                        ${countryOpen ? "rotate-180" : ""}
                       `}
                     />
                   </button>
@@ -660,7 +580,7 @@ export default function ConnectFormSection() {
                         w-full
                         min-w-[280px]
                         overflow-hidden
-                        rounded-2xl
+                        rounded-md
                         border
                         border-slate-200
                         bg-white
@@ -672,15 +592,13 @@ export default function ConnectFormSection() {
                           autoFocus
                           value={countrySearch}
                           onChange={(e) =>
-                            setCountrySearch(
-                              e.target.value
-                            )
+                            setCountrySearch(e.target.value)
                           }
                           placeholder="Search country..."
                           className="
                             h-10
                             w-full
-                            rounded-xl
+                            rounded
                             bg-slate-50
                             px-3
                             text-sm
@@ -701,9 +619,7 @@ export default function ConnectFormSection() {
                         )}
 
                         {filteredCountries.map((c) => (
-                          <li
-                            key={`${c.code}-${c.name}`}
-                          >
+                          <li key={`${c.code}-${c.name}`}>
                             <button
                               type="button"
                               onClick={() => {
@@ -716,7 +632,7 @@ export default function ConnectFormSection() {
                                 w-full
                                 items-center
                                 justify-between
-                                rounded-xl
+                                rounded
                                 px-3
                                 py-2.5
                                 text-left
@@ -755,29 +671,25 @@ export default function ConnectFormSection() {
                   className="
                     h-[58px]
                     w-full
-                    rounded-2xl
-                    border
+                    border-b-2
                     border-slate-200
-                    bg-slate-50/70
-                    px-5
+                    bg-transparent
+                    px-1
                     text-[15px]
                     text-[#0F172A]
                     outline-none
-                    transition-all
+                    transition-colors
+                    duration-200
                     placeholder:text-slate-400
                     hover:border-slate-300
-                    hover:bg-white
                     focus:border-[#4F46E5]
-                    focus:bg-white
-                    focus:ring-4
-                    focus:ring-[#4F46E5]/10
                   "
                 />
               </div>
 
               {countryTouched && !country && (
                 <p className="mt-2 text-xs text-red-500">
-                  Please select a country code.
+                  Select a country code to continue.
                 </p>
               )}
             </div>
@@ -785,6 +697,7 @@ export default function ConnectFormSection() {
             {/* Company */}
 
             <Field
+              index="04"
               label="Company"
               placeholder="Your company name"
               required
@@ -800,17 +713,21 @@ export default function ConnectFormSection() {
             {/* Opportunity */}
 
             <div>
-              <label className="mb-2.5 block text-[13px] font-medium tracking-wide text-[#172554]">
-                Tell us about your opportunity
-                <span className="ml-1 text-[#4F46E5]">
-                  *
+              <label className="mb-2 flex items-baseline gap-2.5">
+                <span className="font-mono text-[11px] text-slate-400">
+                  05
+                </span>
+
+                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
+                  Tell us about your opportunity
+                  <span className="ml-1 text-[#4F46E5]">*</span>
                 </span>
               </label>
 
               <textarea
                 required
                 rows={5}
-                placeholder="Tell us what you're looking to build, improve, or solve..."
+                placeholder="What are you looking to build, improve, or solve..."
                 value={form.opportunity}
                 onChange={(e) =>
                   setForm((f) => ({
@@ -822,24 +739,20 @@ export default function ConnectFormSection() {
                   min-h-[145px]
                   w-full
                   resize-none
-                  rounded-2xl
-                  border
+                  border-b-2
                   border-slate-200
-                  bg-slate-50/70
-                  px-5
-                  py-4
+                  bg-transparent
+                  px-1
+                  py-2
                   text-[15px]
                   leading-6
                   text-[#0F172A]
                   outline-none
-                  transition-all
+                  transition-colors
+                  duration-200
                   placeholder:text-slate-400
                   hover:border-slate-300
-                  hover:bg-white
                   focus:border-[#4F46E5]
-                  focus:bg-white
-                  focus:ring-4
-                  focus:ring-[#4F46E5]/10
                 "
               />
             </div>
@@ -847,10 +760,14 @@ export default function ConnectFormSection() {
             {/* How did you hear */}
 
             <div>
-              <label className="mb-2.5 block text-[13px] font-medium tracking-wide text-[#172554]">
-                How did you hear about us?
-                <span className="ml-1 text-[#4F46E5]">
-                  *
+              <label className="mb-2 flex items-baseline gap-2.5">
+                <span className="font-mono text-[11px] text-slate-400">
+                  06
+                </span>
+
+                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
+                  How did you hear about us?
+                  <span className="ml-1 text-[#4F46E5]">*</span>
                 </span>
               </label>
 
@@ -868,22 +785,18 @@ export default function ConnectFormSection() {
                     h-[58px]
                     w-full
                     appearance-none
-                    rounded-2xl
-                    border
+                    border-b-2
                     border-slate-200
-                    bg-slate-50/70
-                    px-5
-                    pr-12
+                    bg-transparent
+                    px-1
+                    pr-8
                     text-[15px]
                     text-[#0F172A]
                     outline-none
-                    transition-all
+                    transition-colors
+                    duration-200
                     hover:border-slate-300
-                    hover:bg-white
                     focus:border-[#4F46E5]
-                    focus:bg-white
-                    focus:ring-4
-                    focus:ring-[#4F46E5]/10
                   "
                 >
                   <option value="" disabled>
@@ -891,10 +804,7 @@ export default function ConnectFormSection() {
                   </option>
 
                   {HEAR_ABOUT_OPTIONS.map((option) => (
-                    <option
-                      key={option}
-                      value={option}
-                    >
+                    <option key={option} value={option}>
                       {option}
                     </option>
                   ))}
@@ -904,7 +814,7 @@ export default function ConnectFormSection() {
                   className="
                     pointer-events-none
                     absolute
-                    right-5
+                    right-1
                     top-1/2
                     h-4
                     w-4
@@ -917,7 +827,7 @@ export default function ConnectFormSection() {
 
             {/* Consent */}
 
-            <label className="flex cursor-pointer items-start gap-3">
+            <label className="flex cursor-pointer items-start gap-3 pt-1">
               <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
                 <input
                   type="checkbox"
@@ -947,13 +857,13 @@ export default function ConnectFormSection() {
                     w-5
                     items-center
                     justify-center
-                    rounded-md
+                    rounded-[4px]
                     border
                     border-slate-300
                     bg-white
                     transition
-                    peer-checked:border-[#4F46E5]
-                    peer-checked:bg-[#4F46E5]
+                    peer-checked:border-[#0B0E1A]
+                    peer-checked:bg-[#0B0E1A]
                   "
                 >
                   {form.consent && (
@@ -963,8 +873,8 @@ export default function ConnectFormSection() {
               </span>
 
               <span className="text-[13px] leading-5 text-slate-500">
-                By checking this box, you consent us to store
-                and process the information provided in
+                By checking this box, you consent to us storing
+                and processing the information above, in
                 accordance with our{" "}
                 <a
                   href="/privacy-policy"
@@ -986,15 +896,15 @@ export default function ConnectFormSection() {
             {/* Status */}
 
             {status === "error" && (
-              <div className="rounded-xl border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
+              <div className="rounded-md border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
                 {errorMessage}
               </div>
             )}
 
             {status === "success" && (
-              <div className="rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
-                Thanks — we've received your message and
-                will be in touch shortly.
+              <div className="rounded-md border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
+                Brief received — expect a reply within one
+                business day.
               </div>
             )}
 
@@ -1007,30 +917,31 @@ export default function ConnectFormSection() {
                   group
                   inline-flex
                   h-[58px]
+                  w-full
                   items-center
                   justify-center
-                  gap-3
-                  rounded-2xl
-                  bg-[#4F46E5]
-                  px-8
-                  text-[15px]
-                  font-semibold
+                  gap-2.5
+                  rounded-md
+                  bg-[#0B0E1A]
+                  font-mono
+                  text-[13px]
+                  font-medium
+                  uppercase
+                  tracking-[0.15em]
                   text-white
-                  shadow-[0_12px_30px_rgba(79,70,229,0.25)]
                   transition-all
                   duration-300
-                  hover:-translate-y-0.5
-                  hover:bg-[#4338CA]
-                  hover:shadow-[0_18px_40px_rgba(79,70,229,0.30)]
-                  active:translate-y-0
+                  hover:bg-[#4F46E5]
+                  sm:w-auto
+                  sm:px-9
                 "
               >
-                Start a Conversation
+                Send project brief
 
                 <ArrowUpRight
                   className="
-                    h-5
-                    w-5
+                    h-4
+                    w-4
                     transition-transform
                     duration-300
                     group-hover:translate-x-0.5
@@ -1045,4 +956,3 @@ export default function ConnectFormSection() {
     </section>
   );
 }
-

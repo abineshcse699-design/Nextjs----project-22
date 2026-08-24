@@ -7,6 +7,8 @@ import {
   MessageSquare,
   ArrowUpRight,
   Play,
+  Menu,
+  X,
 } from "lucide-react";
 
 const navItems = [
@@ -42,6 +44,10 @@ const T = {
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [mobileActiveMenu, setMobileActiveMenu] = useState<string | null>(
+    null
+  );
 
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -80,12 +86,30 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  useEffect(() => {
+    function closeOnDesktop() {
+      if (window.innerWidth >= 1024) {
+        setMobileOpen(false);
+        setMobileActiveMenu(null);
+      }
+    }
+    window.addEventListener("resize", closeOnDesktop);
+    return () => window.removeEventListener("resize", closeOnDesktop);
+  }, []);
+
   return (
     <header
       onMouseLeave={scheduleClose}
       className="fixed inset-x-0 top-0 z-[2147483647] isolate"
     >
-      <div className="mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16">
+      <div className="mx-auto max-w-[1520px] px-6 pt-4 sm:px-8 md:px-10 lg:px-12 xl:px-16">
         <nav
           className={`
             relative w-full rounded-2xl border border-white/40 bg-white
@@ -97,13 +121,13 @@ export default function Navbar() {
             }
           `}
         >
-          <div className="relative flex h-[84px] items-center justify-between gap-6 px-6 lg:px-8">
+          <div className="relative flex h-[76px] items-center justify-between gap-6 px-5 lg:h-[84px] lg:px-8">
             {/* Logo */}
             <a href="/" className="flex shrink-0 items-center">
               <img
                 src="/starfii_logo_black.svg"
                 alt="Starfii"
-                className="h-11 w-auto lg:h-12"
+                className="h-10 w-auto lg:h-12"
               />
             </a>
 
@@ -156,19 +180,98 @@ export default function Navbar() {
               <button
                 type="button"
                 className={`
-                  flex h-12 items-center gap-2 rounded-md px-6
-                  text-[16px] font-semibold text-white
+                  flex h-11 items-center gap-2 rounded-md px-5
+                  text-[15px] font-semibold text-white
                   transition-colors duration-150
+                  lg:h-12 lg:px-6 lg:text-[16px]
                   ${T.primaryBg} ${T.primaryHoverBg}
                 `}
               >
-                <MessageSquare size={18} strokeWidth={2.25} />
+                <MessageSquare size={18} strokeWidth={2.25} className="shrink-0" />
                 <span className="hidden sm:inline">Talk to us</span>
+              </button>
+
+              {/* Mobile menu toggle — only shown below the lg breakpoint,
+                  where the centered nav list is hidden. Without this
+                  button, nav items disappear with nothing to replace
+                  them once the viewport drops under 1024px. */}
+              <button
+                type="button"
+                onClick={() => {
+                  setMobileOpen((v) => !v);
+                  setMobileActiveMenu(null);
+                }}
+                aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                aria-expanded={mobileOpen}
+                className={`
+                  flex h-11 w-11 shrink-0 items-center justify-center
+                  rounded-md border ${T.border} ${T.ink}
+                  transition-colors duration-150
+                  hover:bg-[#F5F5F9]
+                  lg:hidden
+                `}
+              >
+                {mobileOpen ? (
+                  <X size={20} strokeWidth={2.25} />
+                ) : (
+                  <Menu size={20} strokeWidth={2.25} />
+                )}
               </button>
             </div>
           </div>
 
-          {/* Mega menu */}
+          {/* Mobile nav panel — accordion of the same sections used
+              in the desktop mega menu, stacked for a narrow viewport. */}
+          {mobileOpen && (
+            <div className="max-h-[calc(100dvh-96px)] overflow-y-auto border-t border-[#E4E4EF] lg:hidden">
+              <ul className="divide-y divide-[#E4E4EF] px-2 py-2">
+                {navItems.map((item) => {
+                  const isOpen = mobileActiveMenu === item;
+
+                  return (
+                    <li key={item}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setMobileActiveMenu((current) =>
+                            current === item ? null : item
+                          )
+                        }
+                        className={`
+                          flex w-full items-center justify-between
+                          rounded-md px-4 py-3.5 text-left text-[16px]
+                          font-medium transition-colors duration-150
+                          ${isOpen ? `${T.primary} bg-[#F2F1FD]` : `${T.ink}`}
+                        `}
+                      >
+                        {item}
+                        <ChevronDown
+                          size={18}
+                          strokeWidth={2.25}
+                          className={`
+                            shrink-0 transition-transform duration-150
+                            ${isOpen ? "rotate-180" : "text-[#8A8CA6]"}
+                          `}
+                        />
+                      </button>
+
+                      {isOpen && (
+                        <div className="px-2 pb-5 pt-1">
+                          {item === "Services" && <ServicesMenu />}
+                          {item === "Platforms" && <PlatformsMenu />}
+                          {item === "Industries" && <IndustriesMenu />}
+                          {item === "About" && <AboutMenu />}
+                          {item === "Careers" && <CareersMenu />}
+                        </div>
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          {/* Mega menu — desktop only */}
           {activeMenu && (
             <div
               onMouseEnter={clearCloseTimer}
@@ -277,7 +380,7 @@ function ServicesMenu() {
     { label: "Business Process Services", href: "/services/business-process-services" },
     { label: "Artificial Intelligence", href: "/services/artificial-intelligence" },
     { label: "Global Capability Centers", href: "/services/global-capability-centers" },
-    { label: "Service Now", href: "/servicenow" },
+    { label: "Service Now", href: "/services/servicenow" },
   ];
 
   const offeringsLeft = [
