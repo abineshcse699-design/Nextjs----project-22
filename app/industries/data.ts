@@ -1,5 +1,5 @@
 // app/industries/data.ts
-import type { IndustryContent } from "@/app/IndustryPageTemplate/IndustryPageTemplate";
+import type { IndustryContent } from "@/app/industries/IndustryPageTemplate/IndustryPageTemplate";
 
 export const industries: Record<string, IndustryContent> = {
   banking: {

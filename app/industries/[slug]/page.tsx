@@ -1,7 +1,7 @@
 // app/industries/[slug]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import IndustryPageTemplate from "@/app/IndustryPageTemplate/IndustryPageTemplate";
+import IndustryPageTemplate from "@/app/industries/IndustryPageTemplate/IndustryPageTemplate";
 import { industries } from "@/app/industries/data";
 
 type Props = {

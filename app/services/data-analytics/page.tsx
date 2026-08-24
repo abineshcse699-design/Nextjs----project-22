@@ -1,4 +1,4 @@
-import DataAnalyticsServicesSection from "@/components/DataAnalyticsServicesSection";
+import DataAnalyticsServicesSection from "@/components/Sections/DataAnalyticsServicesSection";
 
 export default function DataAnalyticsPage() {
   return <DataAnalyticsServicesSection />;
