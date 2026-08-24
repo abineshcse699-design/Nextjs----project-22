@@ -19,6 +19,7 @@ export default function Home() {
       <AwardsSection />
       <GlanceSection />
       <CaseStudiesSection />
+      {/* <Casestude></Casestude> */}
       <HexawareNewsSection />
       <ConnectFormSection />
       {/* <TechnicalCompetenciesSection></TechnicalCompetenciesSection> */}
