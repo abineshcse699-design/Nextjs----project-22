@@ -14,11 +14,11 @@ const T = {
   accentOnDark: "text-[#8FA8FF]",
 };
 
-// ✅ Now matches ONLY the navbar's outer wrapper padding
-// (app/layout.tsx navbar wrapper: mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16)
+// ✅ Matches the navbar's outer wrapper EXACTLY:
+// Navbar.tsx wrapper: mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 // This makes content start EXACTLY where the white rounded navbar box starts,
-// and end EXACTLY where it ends — not where the logo text sits.
-const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+// and end EXACTLY where it ends — at every breakpoint, on any screen width.
+const ALIGN = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
 
 export type IndustryStat = { value: string; label: string };
 export type IndustryCapability = { title: string; description: string };

@@ -24,8 +24,8 @@ const T = {
   panelBg: "bg-[#FAFAFD]",
 };
 
-// ✅ Matches navbar's outer wrapper exactly: max-w-[1520px] px-6 sm:px-10 lg:px-16
-const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+// ✅ Matches navbar's outer wrapper exactly: max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
+const ALIGN = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
 
 const useCases = [
   { name: "Predictive Maintenance", detail: "Failure prediction models for manufacturing and industrial equipment." },

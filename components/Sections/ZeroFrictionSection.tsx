@@ -134,7 +134,10 @@ function PortraitCircle() {
 export default function ZeroFrictionSection() {
   return (
     <section className="relative overflow-hidden bg-[#050510] py-20 lg:py-24">
-      <div className="relative z-10 mx-auto grid max-w-[1760px] grid-cols-1 gap-14 px-8 lg:grid-cols-[520px_1fr] lg:gap-16 lg:px-16">
+      {/* Container width/padding matched to the navbar's outer wrapper
+          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this section's
+          content lines up under the same edges as the nav. */}
+      <div className="relative z-10 mx-auto grid max-w-[1830px] grid-cols-1 gap-14 px-4 sm:px-6 md:px-8 lg:grid-cols-[520px_1fr] lg:gap-16 lg:px-10 xl:px-12">
         {/* LEFT CONTENT */}
         <div className="lg:sticky lg:top-32 lg:h-fit">
           <h2 className="text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">

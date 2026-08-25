@@ -190,6 +190,9 @@ export default function AIJourneySection() {
 
       {/* =====================================================
           MAIN CONTENT
+          Container width/padding matched to the navbar's outer
+          wrapper (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this
+          section's content lines up under the same edges as the nav.
       ====================================================== */}
       <div
         className="
@@ -197,14 +200,16 @@ export default function AIJourneySection() {
           z-10
           mx-auto
           grid
-          max-w-[1900px]
+          max-w-[1830px]
           grid-cols-1
           gap-14
-          px-6
-          sm:px-8
+          px-4
+          sm:px-6
+          md:px-8
           lg:grid-cols-[480px_1fr]
           lg:gap-20
-          lg:px-20
+          lg:px-10
+          xl:px-12
         "
       >
         {/* =====================================================

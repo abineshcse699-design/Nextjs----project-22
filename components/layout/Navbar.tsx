@@ -74,6 +74,16 @@ export default function Navbar() {
     }, 180);
   }
 
+  // Closing the mega menu / mobile panel on navigation (i.e. once a link
+  // inside it is actually clicked) matters just as much as opening it —
+  // otherwise the panel stays pinned open over the page it just routed to.
+  function closeAllMenus() {
+    clearCloseTimer();
+    setActiveMenu(null);
+    setMobileOpen(false);
+    setMobileActiveMenu(null);
+  }
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -109,7 +119,7 @@ export default function Navbar() {
       onMouseLeave={scheduleClose}
       className="fixed inset-x-0 top-0 z-[2147483647] isolate"
     >
-      <div className="mx-auto max-w-[1520px] px-6 pt-4 sm:px-8 md:px-10 lg:px-12 xl:px-16">
+      <div className="mx-auto max-w-[1830px] px-4 pt-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <nav
           className={`
             relative w-full rounded-2xl border border-white/40 bg-white
@@ -153,7 +163,7 @@ export default function Navbar() {
                       size={17}
                       strokeWidth={2.25}
                       className={`
-                        transition-transform duration-150
+                        transition-transform duration-200 ease-out
                         ${isActive ? "rotate-180" : "text-[#8A8CA6]"}
                       `}
                     />
@@ -211,86 +221,173 @@ export default function Navbar() {
                   lg:hidden
                 `}
               >
-                {mobileOpen ? (
-                  <X size={20} strokeWidth={2.25} />
-                ) : (
-                  <Menu size={20} strokeWidth={2.25} />
-                )}
+                {/* Crossfaded + rotated icon swap instead of an instant
+                    Menu/X replacement — both icons stay mounted and
+                    animate opacity/rotation/scale against each other. */}
+                <span className="relative flex h-5 w-5 items-center justify-center">
+                  <Menu
+                    size={20}
+                    strokeWidth={2.25}
+                    className={`
+                      absolute transition-all duration-300 ease-out
+                      ${
+                        mobileOpen
+                          ? "rotate-90 scale-75 opacity-0"
+                          : "rotate-0 scale-100 opacity-100"
+                      }
+                    `}
+                  />
+                  <X
+                    size={20}
+                    strokeWidth={2.25}
+                    className={`
+                      absolute transition-all duration-300 ease-out
+                      ${
+                        mobileOpen
+                          ? "rotate-0 scale-100 opacity-100"
+                          : "-rotate-90 scale-75 opacity-0"
+                      }
+                    `}
+                  />
+                </span>
               </button>
             </div>
           </div>
 
           {/* Mobile nav panel — accordion of the same sections used
-              in the desktop mega menu, stacked for a narrow viewport. */}
-          {mobileOpen && (
-            <div className="max-h-[calc(100dvh-96px)] overflow-y-auto border-t border-[#E4E4EF] lg:hidden">
-              <ul className="divide-y divide-[#E4E4EF] px-2 py-2">
-                {navItems.map((item) => {
-                  const isOpen = mobileActiveMenu === item;
+              in the desktop mega menu, stacked for a narrow viewport.
+              Always mounted; height animates via the grid-rows trick
+              (0fr -> 1fr) so it grows/shrinks smoothly instead of
+              popping in/out with the old `mobileOpen && <div>` gate. */}
+          <div
+            className={`
+              grid overflow-hidden lg:hidden
+              transition-[grid-template-rows] duration-300 ease-out
+              ${mobileOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+            `}
+          >
+            <div className="min-h-0">
+              <div
+                className={`
+                  max-h-[calc(100dvh-96px)] overflow-y-auto
+                  border-t ${T.border}
+                  transition-opacity duration-300 ease-out
+                  ${mobileOpen ? "opacity-100 delay-75" : "opacity-0"}
+                `}
+              >
+                <ul className="divide-y divide-[#E4E4EF] px-2 py-2">
+                  {navItems.map((item) => {
+                    const isOpen = mobileActiveMenu === item;
 
-                  return (
-                    <li key={item}>
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setMobileActiveMenu((current) =>
-                            current === item ? null : item
-                          )
-                        }
-                        className={`
-                          flex w-full items-center justify-between
-                          rounded-md px-4 py-3.5 text-left text-[16px]
-                          font-medium transition-colors duration-150
-                          ${isOpen ? `${T.primary} bg-[#F2F1FD]` : `${T.ink}`}
-                        `}
-                      >
-                        {item}
-                        <ChevronDown
-                          size={18}
-                          strokeWidth={2.25}
+                    return (
+                      <li key={item}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setMobileActiveMenu((current) =>
+                              current === item ? null : item
+                            )
+                          }
                           className={`
-                            shrink-0 transition-transform duration-150
-                            ${isOpen ? "rotate-180" : "text-[#8A8CA6]"}
+                            flex w-full items-center justify-between
+                            rounded-md px-4 py-3.5 text-left text-[16px]
+                            font-medium transition-colors duration-150
+                            ${isOpen ? `${T.primary} bg-[#F2F1FD]` : `${T.ink}`}
                           `}
-                        />
-                      </button>
+                        >
+                          {item}
+                          <ChevronDown
+                            size={18}
+                            strokeWidth={2.25}
+                            className={`
+                              shrink-0 transition-transform duration-250 ease-out
+                              ${isOpen ? "rotate-180" : "text-[#8A8CA6]"}
+                            `}
+                          />
+                        </button>
 
-                      {isOpen && (
-                        <div className="px-2 pb-5 pt-1">
-                          {item === "Services" && <ServicesMenu />}
-                          {item === "Platforms" && <PlatformsMenu />}
-                          {item === "Industries" && <IndustriesMenu />}
-                          {item === "About" && <AboutMenu />}
-                          {item === "Careers" && <CareersMenu />}
+                        {/* Same grid-rows height animation as the outer
+                            mobile panel, applied per-item so opening one
+                            section eases open instead of snapping. */}
+                        <div
+                          className={`
+                            grid overflow-hidden
+                            transition-[grid-template-rows] duration-250 ease-out
+                            ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}
+                          `}
+                        >
+                          <div className="min-h-0 overflow-hidden">
+                            <div
+                              className={`
+                                px-2 pb-5 pt-1
+                                transition-opacity duration-200 ease-out
+                                ${isOpen ? "opacity-100 delay-100" : "opacity-0"}
+                              `}
+                            >
+                              {item === "Services" && (
+                                <ServicesMenu onNavigate={closeAllMenus} />
+                              )}
+                              {item === "Platforms" && (
+                                <PlatformsMenu onNavigate={closeAllMenus} />
+                              )}
+                              {item === "Industries" && (
+                                <IndustriesMenu onNavigate={closeAllMenus} />
+                              )}
+                              {item === "About" && (
+                                <AboutMenu onNavigate={closeAllMenus} />
+                              )}
+                              {item === "Careers" && (
+                                <CareersMenu onNavigate={closeAllMenus} />
+                              )}
+                            </div>
+                          </div>
                         </div>
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          )}
-
-          {/* Mega menu — desktop only */}
-          {activeMenu && (
-            <div
-              onMouseEnter={clearCloseTimer}
-              onMouseLeave={scheduleClose}
-              className={`
-                absolute left-0 right-0 top-full z-[99998] mt-2
-                overflow-hidden rounded-2xl border ${T.border} bg-white
-                shadow-[0_16px_40px_rgba(10,14,40,0.18)]
-              `}
-            >
-              <div className="px-6 py-10 lg:px-10">
-                {activeMenu === "Services" && <ServicesMenu />}
-                {activeMenu === "Platforms" && <PlatformsMenu />}
-                {activeMenu === "Industries" && <IndustriesMenu />}
-                {activeMenu === "About" && <AboutMenu />}
-                {activeMenu === "Careers" && <CareersMenu />}
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             </div>
-          )}
+          </div>
+
+          {/* Mega menu — desktop only. Always mounted; visibility is
+              driven by opacity/translate/pointer-events so it can
+              animate out instead of vanishing the instant activeMenu
+              clears (the old `{activeMenu && <div>}` had no exit
+              transition at all). */}
+          <div
+            onMouseEnter={clearCloseTimer}
+            onMouseLeave={scheduleClose}
+            className={`
+              absolute left-0 right-0 top-full z-[99998] mt-2
+              overflow-hidden rounded-2xl border ${T.border} bg-white
+              shadow-[0_16px_40px_rgba(10,14,40,0.18)]
+              transition-all duration-300 ease-out
+              ${
+                activeMenu
+                  ? "translate-y-0 scale-100 opacity-100"
+                  : "pointer-events-none -translate-y-2 scale-[0.98] opacity-0"
+              }
+            `}
+          >
+            <div className="px-6 py-10 lg:px-10">
+              {activeMenu === "Services" && (
+                <ServicesMenu onNavigate={closeAllMenus} />
+              )}
+              {activeMenu === "Platforms" && (
+                <PlatformsMenu onNavigate={closeAllMenus} />
+              )}
+              {activeMenu === "Industries" && (
+                <IndustriesMenu onNavigate={closeAllMenus} />
+              )}
+              {activeMenu === "About" && (
+                <AboutMenu onNavigate={closeAllMenus} />
+              )}
+              {activeMenu === "Careers" && (
+                <CareersMenu onNavigate={closeAllMenus} />
+              )}
+            </div>
+          </div>
         </nav>
       </div>
     </header>
@@ -315,14 +412,35 @@ function ColumnTitle({ children }: { children: React.ReactNode }) {
   );
 }
 
-function LinkItem({ href = "#", children }: { href?: string; children: React.ReactNode }) {
+/*
+  LinkItem now supports opening in a new tab via `newTab`.
+  When newTab is true we set target="_blank" and the safe
+  rel="noopener noreferrer" (prevents the new tab from getting
+  a handle back to window.opener). onClick still fires so the
+  mega menu / mobile panel closes even though navigation happens
+  in a separate tab.
+*/
+function LinkItem({
+  href = "#",
+  onClick,
+  newTab = false,
+  children,
+}: {
+  href?: string;
+  onClick?: () => void;
+  newTab?: boolean;
+  children: React.ReactNode;
+}) {
   return (
-    <a
+    <Link
       href={href}
+      onClick={onClick}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noopener noreferrer" : undefined}
       className={`block text-[15.5px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 
@@ -332,12 +450,16 @@ function FeaturedCard({
   blurb,
   dark = true,
   href = "#",
+  onClick,
+  newTab = false,
 }: {
   eyebrow: string;
   title: string;
   blurb?: string;
   dark?: boolean;
   href?: string;
+  onClick?: () => void;
+  newTab?: boolean;
 }) {
   return (
     <div
@@ -356,13 +478,16 @@ function FeaturedCard({
           {blurb}
         </p>
       )}
-      <a
+      <Link
         href={href}
+        onClick={onClick}
+        target={newTab ? "_blank" : undefined}
+        rel={newTab ? "noopener noreferrer" : undefined}
         className={`mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold ${dark ? "text-white" : T.primary}`}
       >
         Learn more
         <ArrowUpRight size={15} />
-      </a>
+      </Link>
     </div>
   );
 }
@@ -370,7 +495,7 @@ function FeaturedCard({
 /* ===============================================================
    SERVICES  (Service Now now lives here as a list item)
 ================================================================ */
-function ServicesMenu() {
+function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const services = [
     { label: "Digital & Software", href: "/services/digital-software" },
     { label: "Data & Analytics", href: "/services/data-analytics" },
@@ -404,7 +529,7 @@ function ServicesMenu() {
         <ColumnTitle>Services</ColumnTitle>
         <div className="space-y-3.5">
           {services.map((s) => (
-            <LinkItem key={s.label} href={s.href}>
+            <LinkItem key={s.label} href={s.href} onClick={onNavigate}>
               {s.label}
             </LinkItem>
           ))}
@@ -415,10 +540,10 @@ function ServicesMenu() {
         <ColumnTitle>Offerings</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
           {offeringsLeft.map((o) => (
-            <LinkItem key={o}>{o}</LinkItem>
+            <LinkItem key={o} onClick={onNavigate}>{o}</LinkItem>
           ))}
           {offeringsRight.map((o) => (
-            <LinkItem key={o}>{o}</LinkItem>
+            <LinkItem key={o} onClick={onNavigate}>{o}</LinkItem>
           ))}
         </div>
 
@@ -436,6 +561,7 @@ function ServicesMenu() {
         eyebrow="Featured Publication"
         title="Agentic AI, Proven Across 100+ Case Studies"
         blurb="Real results: lower costs, faster delivery, agentic AI at work."
+        onClick={onNavigate}
       />
     </div>
   );
@@ -444,7 +570,7 @@ function ServicesMenu() {
 /* ===============================================================
    PLATFORMS
 ================================================================ */
-function PlatformsMenu() {
+function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     { name: "RapidX®", desc: "Create direct, tailored paths for your teams to develop against any need" },
     { name: "Tensai®", desc: "Automate your essential processes to increase quality and efficiency" },
@@ -493,7 +619,7 @@ function PlatformsMenu() {
 /* ===============================================================
    INDUSTRIES
 ================================================================ */
-function IndustriesMenu() {
+function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const industriesLeft = [
     { label: "Banking", href: "/industries/banking" },
     { label: "Consumer Goods", href: "/industries/consumer-goods" },
@@ -522,25 +648,51 @@ function IndustriesMenu() {
         <ColumnTitle>Industries</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
           {industriesLeft.map((i) => (
-            <LinkItem key={i.label} href={i.href}>{i.label}</LinkItem>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate}>{i.label}</LinkItem>
           ))}
           {industriesRight.map((i) => (
-            <LinkItem key={i.label} href={i.href}>{i.label}</LinkItem>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate}>{i.label}</LinkItem>
           ))}
         </div>
       </div>
-      <FeaturedCard eyebrow="Featured Insight" title="How gen AI makes supply chains decide faster." />
+      <FeaturedCard
+        eyebrow="Featured Insight"
+        title="How gen AI makes supply chains decide faster."
+        onClick={onNavigate}
+      />
     </div>
   );
 }
 
 /* ===============================================================
    ABOUT
+   Routes now match the actual folder casing under /app/About/*
+   (About, About/leadership, About/partners, About/locations,
+   About/dei, About/esg, About/csr, About/newsroom, About/events,
+   About/awards — see the file tree). Since Next.js routes are
+   case-sensitive, "/about/dei" would 404 while the real page lives
+   at "/About/dei" — that mismatch is why those links weren't going
+   anywhere. Every item also opens in a new tab (newTab prop below).
 ================================================================ */
-function AboutMenu() {
-  const whoWeAre = ["About Starfii", "Leadership", "Partners", "Locations"];
-  const purposeImpact = ["Diversity, Equity & Inclusion", "Environmental, Social & Governance", "Corporate Social Responsibility"];
-  const updates = ["Newsroom", "Events", "Awards & Recognitions"];
+function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
+  const whoWeAre = [
+    { label: "About Starfii", href: "/About" },
+    { label: "Leadership", href: "/About/leadership" },
+    { label: "Partners", href: "/About/partners" },
+    { label: "Locations", href: "/About/locations" },
+  ];
+  const purposeImpact = [
+    { label: "Diversity, Equity & Inclusion", href: "/About/dei" },
+    { label: "Environmental, Social & Governance", href: "/About/esg" },
+    { label: "Corporate Social Responsibility", href: "/About/csr" },
+  ];
+
+  const updates = [
+    { label: "Newsroom", href: "/About/newsroom" },
+    { label: "Events", href: "/About/events" },
+    { label: "Awards & Recognitions", href: "/About/awards" },
+  ];
+
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr_1fr_0.8fr]">
@@ -548,7 +700,9 @@ function AboutMenu() {
         <ColumnTitle>Who We Are</ColumnTitle>
         <div className="space-y-3.5">
           {whoWeAre.map((i) => (
-            <LinkItem key={i}>{i}</LinkItem>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+              {i.label}
+            </LinkItem>
           ))}
         </div>
       </div>
@@ -557,7 +711,9 @@ function AboutMenu() {
         <ColumnTitle>Purpose & Impact</ColumnTitle>
         <div className="space-y-3.5">
           {purposeImpact.map((i) => (
-            <LinkItem key={i}>{i}</LinkItem>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+              {i.label}
+            </LinkItem>
           ))}
         </div>
       </div>
@@ -566,12 +722,20 @@ function AboutMenu() {
         <ColumnTitle>Updates & Highlights</ColumnTitle>
         <div className="space-y-3.5">
           {updates.map((i) => (
-            <LinkItem key={i}>{i}</LinkItem>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+              {i.label}
+            </LinkItem>
           ))}
         </div>
       </div>
 
-      <div className={`relative overflow-hidden rounded-lg ${T.inkBg}`}>
+      <Link
+        href="/About"
+        onClick={onNavigate}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`relative block overflow-hidden rounded-lg ${T.inkBg}`}
+      >
         <div className="flex aspect-[3/4] flex-col justify-between p-5">
           <p className="text-[13px] font-bold tracking-tight text-white">Starfii</p>
           <p className="text-[14.5px] font-medium leading-snug text-white">
@@ -587,7 +751,7 @@ function AboutMenu() {
           <br />
           Report 2025
         </div>
-      </div>
+      </Link>
     </div>
   );
 }
@@ -595,7 +759,8 @@ function AboutMenu() {
 /* ===============================================================
    CAREERS
 ================================================================ */
-function CareersMenu() {
+
+function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
   const cards = [
     { title: "Why Join Starfii?", desc: "Build your career with opportunities to learn, grow, and contribute." },
     { title: "Programs & Learning", desc: "Empowering growth through learning and development." },

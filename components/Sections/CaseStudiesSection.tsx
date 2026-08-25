@@ -122,100 +122,107 @@ export default function CaseStudiesSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] px-6 py-20 md:px-16 lg:py-28">
-      {/* copy */}
-      <div className="mx-auto mb-14 max-w-2xl md:mx-0">
-        <h2 className="text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">
-          Real Results, Real Impact
-        </h2>
-        <p className="mt-4 text-lg leading-relaxed text-slate-600">
-          We help enterprises like yours unlock unparalleled value. Explore
-          our case studies to discover how an end-to-end transformation
-          partner delivers.
-        </p>
-      </div>
-
-      {/* carousel track — cards scaled up (wider + taller image) from the
-          original 260/300px version, everything else (snap, hover morph,
-          progress bar, arrows) behaves exactly the same */}
-      <div
-        ref={trackRef}
-        className="no-scrollbar flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-2"
-      >
-        {caseStudies.map((study) => (
-          <a
-            key={study.id}
-            href={study.href}
-            data-card
-            className="group relative flex w-[80%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-96px)/4)]"
-          >
-            {/* image morphs away on hover, revealing the description below */}
-            <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900 transition-[height] duration-500 ease-out group-hover:h-0">
-              <img
-                src={study.image}
-                alt={study.title}
-                className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
-              />
-            </div>
-
-            <div className="flex flex-1 flex-col gap-3.5 p-7">
-              <span className="text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
-                CASE STUDY
-              </span>
-              <h3 className="line-clamp-3 text-[20px] font-semibold leading-snug text-[#0b1747]">
-                {study.title}
-              </h3>
-
-              {/* description: collapsed by default, expands smoothly on hover */}
-              <p className="grid grid-rows-[0fr] text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
-                <span className="overflow-hidden">{study.description}</span>
-              </p>
-
-              <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed] transition-colors group-hover:text-[#37409e]">
-                Learn More
-                <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-
-      {/* progress bar + nav arrows */}
-      <div className="mt-12 flex items-center gap-5">
-        <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
-          <div
-            className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-300 ease-out"
-            style={{ width: `${Math.max(progress, 3)}%` }}
-          />
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
+      {/* Container width/padding matched to the navbar's outer wrapper
+          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this section's
+          content — heading, carousel, and progress bar — lines up
+          under the same edges as the nav. Padding used to sit directly
+          on the <section>; it now lives on this wrapper instead. */}
+      <div className="mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        {/* copy */}
+        <div className="mb-14 max-w-2xl">
+          <h2 className="text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">
+            Real Results, Real Impact
+          </h2>
+          <p className="mt-4 text-lg leading-relaxed text-slate-600">
+            We help enterprises like yours unlock unparalleled value. Explore
+            our case studies to discover how an end-to-end transformation
+            partner delivers.
+          </p>
         </div>
 
-        <div className="flex shrink-0 items-center gap-3">
-          <button
-            type="button"
-            onClick={() => goTo(-1)}
-            disabled={!canPrev}
-            aria-label="Previous case studies"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
-              canPrev
-                ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
-                : "cursor-not-allowed bg-slate-200/70 text-slate-400"
-            }`}
-          >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
-          </button>
-          <button
-            type="button"
-            onClick={() => goTo(1)}
-            disabled={!canNext}
-            aria-label="Next case studies"
-            className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
-              canNext
-                ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
-                : "cursor-not-allowed bg-slate-200/70 text-slate-400"
-            }`}
-          >
-            <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
-          </button>
+        {/* carousel track — cards scaled up (wider + taller image) from the
+            original 260/300px version, everything else (snap, hover morph,
+            progress bar, arrows) behaves exactly the same */}
+        <div
+          ref={trackRef}
+          className="no-scrollbar flex snap-x snap-mandatory gap-8 overflow-x-auto scroll-smooth pb-2"
+        >
+          {caseStudies.map((study) => (
+            <a
+              key={study.id}
+              href={study.href}
+              data-card
+              className="group relative flex w-[80%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-96px)/4)]"
+            >
+              {/* image morphs away on hover, revealing the description below */}
+              <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900 transition-[height] duration-500 ease-out group-hover:h-0">
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col gap-3.5 p-7">
+                <span className="text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
+                  CASE STUDY
+                </span>
+                <h3 className="line-clamp-3 text-[20px] font-semibold leading-snug text-[#0b1747]">
+                  {study.title}
+                </h3>
+
+                {/* description: collapsed by default, expands smoothly on hover */}
+                <p className="grid grid-rows-[0fr] text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-500 ease-out group-hover:grid-rows-[1fr] group-hover:opacity-100">
+                  <span className="overflow-hidden">{study.description}</span>
+                </p>
+
+                <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed] transition-colors group-hover:text-[#37409e]">
+                  Learn More
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+
+        {/* progress bar + nav arrows */}
+        <div className="mt-12 flex items-center gap-5">
+          <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
+            <div
+              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-300 ease-out"
+              style={{ width: `${Math.max(progress, 3)}%` }}
+            />
+          </div>
+
+          <div className="flex shrink-0 items-center gap-3">
+            <button
+              type="button"
+              onClick={() => goTo(-1)}
+              disabled={!canPrev}
+              aria-label="Previous case studies"
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+                canPrev
+                  ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
+                  : "cursor-not-allowed bg-slate-200/70 text-slate-400"
+              }`}
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
+            </button>
+            <button
+              type="button"
+              onClick={() => goTo(1)}
+              disabled={!canNext}
+              aria-label="Next case studies"
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+                canNext
+                  ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
+                  : "cursor-not-allowed bg-slate-200/70 text-slate-400"
+              }`}
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -230,5 +237,4 @@ export default function CaseStudiesSection() {
       `}</style>
     </section>
   );
-
 }

@@ -1,7 +1,43 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowUpRight, Check, ChevronDown } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  Clock,
+  Lock,
+  UserCheck,
+} from "lucide-react";
+import { Geist, Inter } from "next/font/google";
+
+/* =========================================================
+   FONTS
+   Geist Sans → headings, field labels, buttons, the metric.
+   Inter      → body copy, input values, helper/status text.
+========================================================= */
+
+const geist = Geist({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-heading",
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+});
+
+/* =========================================================
+   DESIGN TOKENS
+   A quiet, formal product palette — one deep indigo accent,
+   everything else neutral slate. No gradients, no glow.
+========================================================= */
+
+const BORDER = "#E2E8F0";
+const ACCENT = "#4338CA";
+const PANEL = "#F8FAFC";
 
 /* =========================================================
    COUNTRY DATA
@@ -91,14 +127,69 @@ const HEAR_ABOUT_OPTIONS = [
   "Other",
 ];
 
+const EXPECTATIONS = [
+  {
+    icon: Clock,
+    title: "Reply within one business day",
+    body: "A real engineer reads every brief and responds directly — no queue, no auto-reply.",
+  },
+  {
+    icon: UserCheck,
+    title: "A scoped pilot before commitment",
+    body: "We propose a small, bounded first engagement so both sides can evaluate fit early.",
+  },
+  {
+    icon: Lock,
+    title: "Your information stays confidential",
+    body: "Shared only with the team assigned to your brief, per our privacy policy.",
+  },
+];
+
 /* =========================================================
-   FIELD COMPONENT
-   Each field is numbered like a line item on a spec sheet —
-   the form reads as an ordered brief, not a generic card.
+   FIELD COMPONENTS
+   Standard bordered inputs, labels in Geist Sans, values in
+   Inter — the vocabulary of a product settings form rather
+   than an editorial spec sheet.
 ========================================================= */
 
+function Label({
+  children,
+  required,
+}: {
+  children: React.ReactNode;
+  required?: boolean;
+}) {
+  return (
+    <label
+      className={`mb-2 block text-[13.5px] font-medium text-[#334155] ${geist.className}`}
+    >
+      {children}
+      {required && <span className="ml-1 text-[#4338CA]">*</span>}
+    </label>
+  );
+}
+
+const inputClasses = `
+  h-12
+  w-full
+  rounded-lg
+  border
+  border-slate-300
+  bg-white
+  px-3.5
+  text-[15px]
+  text-[#0F172A]
+  outline-none
+  transition-colors
+  duration-150
+  placeholder:text-slate-400
+  hover:border-slate-400
+  focus:border-[#4338CA]
+  focus:ring-4
+  focus:ring-[#4338CA]/10
+`;
+
 function Field({
-  index,
   label,
   placeholder,
   value,
@@ -106,7 +197,6 @@ function Field({
   type = "text",
   required = false,
 }: {
-  index: string;
   label: string;
   placeholder: string;
   value: string;
@@ -115,40 +205,15 @@ function Field({
   required?: boolean;
 }) {
   return (
-    <div className="group">
-      <label className="mb-2 flex items-baseline gap-2.5">
-        <span className="font-mono text-[11px] text-slate-400">
-          {index}
-        </span>
-
-        <span className="text-[13px] font-medium tracking-wide text-[#172554]">
-          {label}
-          {required && <span className="ml-1 text-[#4F46E5]">*</span>}
-        </span>
-      </label>
-
+    <div className={inter.className}>
+      <Label required={required}>{label}</Label>
       <input
         type={type}
         required={required}
         value={value}
         placeholder={placeholder}
         onChange={(e) => onChange(e.target.value)}
-        className="
-          h-[58px]
-          w-full
-          border-b-2
-          border-slate-200
-          bg-transparent
-          px-1
-          text-[15px]
-          text-[#0F172A]
-          outline-none
-          transition-colors
-          duration-200
-          placeholder:text-slate-400
-          hover:border-slate-300
-          focus:border-[#4F46E5]
-        "
+        className={inputClasses}
       />
     </div>
   );
@@ -178,9 +243,9 @@ export default function ConnectFormSection() {
   const [countrySearch, setCountrySearch] = useState("");
   const countryBoxRef = useRef<HTMLDivElement>(null);
 
-  const [status, setStatus] = useState<
-    "idle" | "error" | "success"
-  >("idle");
+  const [status, setStatus] = useState<"idle" | "error" | "success">(
+    "idle"
+  );
 
   const [errorMessage, setErrorMessage] = useState("");
   const [countryTouched, setCountryTouched] = useState(false);
@@ -202,10 +267,7 @@ export default function ConnectFormSection() {
     document.addEventListener("mousedown", handleClickOutside);
 
     return () =>
-      document.removeEventListener(
-        "mousedown",
-        handleClickOutside
-      );
+      document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   /* =========================================================
@@ -228,9 +290,7 @@ export default function ConnectFormSection() {
      SUBMIT
   ========================================================= */
 
-  const handleSubmit = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setStatus("idle");
@@ -244,9 +304,7 @@ export default function ConnectFormSection() {
     }
 
     if (!form.consent) {
-      setErrorMessage(
-        "Accept the privacy policy to send your brief."
-      );
+      setErrorMessage("Accept the privacy policy to send your brief.");
       setStatus("error");
       return;
     }
@@ -258,13 +316,8 @@ export default function ConnectFormSection() {
 
       await fetch("/api/lead", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...form,
-          country,
-        }),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, country }),
       });
     */
 
@@ -274,683 +327,394 @@ export default function ConnectFormSection() {
   return (
     <section
       id="form"
-      className="
-        relative
-        bg-[#FAFAF8]
-        px-6
-        py-20
-        sm:px-10
-        lg:px-16
-        lg:py-28
-      "
+      className="relative bg-white px-4 py-24 sm:px-6 md:px-8 lg:px-10 lg:py-32 xl:px-12"
     >
-      {/* =====================================================
-          MAIN CONTAINER
-      ====================================================== */}
+      <div className="mx-auto max-w-[1830px]">
+        {/* =================================================
+            SECTION HEADER
+        ================================================== */}
 
-      <div
-        className="
-          relative
-          mx-auto
-          max-w-[1520px]
-          overflow-hidden
-          rounded-md
-          border
-          border-slate-200
-          bg-white
-          shadow-[0_1px_2px_rgba(15,23,42,0.04)]
-          lg:grid
-          lg:grid-cols-[0.82fr_1.18fr]
-        "
-      >
-        {/* ===================================================
-            LEFT PANEL — the brief
-        ==================================================== */}
+        <div className="mb-14 max-w-2xl lg:mb-16">
+          <p
+            className={`text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4338CA] ${geist.className}`}
+          >
+            Get in touch
+          </p>
 
-        <div
-          className="
-            relative
-            overflow-hidden
-            bg-[#0B0E1A]
-            px-7
-            py-12
-            sm:px-10
-            sm:py-14
-            lg:min-h-[760px]
-            lg:px-12
-            lg:py-16
-            xl:px-16
-          "
-        >
-          {/* Fine grid texture — quiet, no glow */}
+          <h2
+            className={`mt-4 text-[36px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0F172A] sm:text-[42px] ${geist.className}`}
+          >
+            Tell us what you&apos;re building
+          </h2>
 
-          <div
-            aria-hidden
-            className="
-              pointer-events-none
-              absolute
-              inset-0
-              opacity-[0.05]
-              [background-image:linear-gradient(rgba(255,255,255,.4)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.4)_1px,transparent_1px)]
-              [background-size:40px_40px]
-            "
-          />
-
-          <div className="relative z-10 flex h-full flex-col">
-            {/* Status line */}
-
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#A78BFA] opacity-60" />
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#A78BFA]" />
-              </span>
-
-              <span className="font-mono text-[11px] uppercase tracking-[0.25em] text-white/50">
-                Accepting new briefs
-              </span>
-            </div>
-
-            {/* Heading */}
-
-            <h2
-              className="
-                mt-8
-                max-w-[520px]
-                font-serif
-                text-[40px]
-                font-medium
-                leading-[1.08]
-                tracking-[-0.02em]
-                text-white
-                sm:text-[48px]
-                lg:text-[52px]
-              "
-            >
-              Your Goals Are{" "}
-              <span className="italic text-[#A78BFA]">
-                Closer
-              </span>{" "}
-              Than You Think.
-            </h2>
-
-            <p
-              className="
-                mt-6
-                max-w-[440px]
-                text-[15px]
-                leading-7
-                text-white/55
-                sm:text-base
-              "
-            >
-              Tell us what you are building, where you want to
-              go, and what is standing in the way. A real
-              engineer reads every brief.
-            </p>
-
-            {/* Index of what happens next — a genuine sequence */}
-
-            <div className="mt-auto hidden pt-16 lg:block">
-              <div className="h-px w-full bg-white/10" />
-
-              <div className="divide-y divide-white/10">
-                {[
-                  {
-                    n: "01",
-                    text: "Share the brief — what you're building and where it's stuck.",
-                  },
-                  {
-                    n: "02",
-                    text: "We reply within one business day, from an engineer, not a bot.",
-                  },
-                  {
-                    n: "03",
-                    text: "We scope a pilot before you make any long commitment.",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.n}
-                    className="flex items-baseline gap-4 py-5"
-                  >
-                    <span className="font-mono text-xs text-white/30">
-                      {item.n}
-                    </span>
-
-                    <span className="text-sm leading-6 text-white/65">
-                      {item.text}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <p className={`mt-4 text-[16px] leading-7 text-[#64748B] ${inter.className}`}>
+            Share a few details about your team and the problem you&apos;re
+            solving. We&apos;ll route it to an engineer who can speak to it
+            directly.
+          </p>
         </div>
 
-        {/* ===================================================
-            RIGHT PANEL — the form
-        ==================================================== */}
+        {/* =================================================
+            MAIN GRID
+        ================================================== */}
 
-        <div
-          className="
-            relative
-            bg-white
-            px-6
-            py-10
-            sm:px-10
-            sm:py-12
-            lg:px-12
-            lg:py-14
-            xl:px-16
-          "
-        >
-          {/* Small top heading */}
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[340px_1fr] lg:gap-16">
+          {/* ===============================================
+              LEFT — what to expect
+          ================================================ */}
 
-          <div className="mb-9">
-            <p className="font-mono text-[11px] font-medium uppercase tracking-[0.25em] text-[#4F46E5]">
-              Project brief
-            </p>
+          <div className="lg:sticky lg:top-32 lg:h-fit">
+            <div
+              className="rounded-xl border p-7"
+              style={{ borderColor: BORDER, backgroundColor: PANEL }}
+            >
+              <p
+                className={`text-[44px] font-semibold leading-none tracking-[-0.02em] text-[#0F172A] ${geist.className}`}
+              >
+                &lt;24h
+              </p>
+              <p className={`mt-2 text-[14px] text-[#64748B] ${inter.className}`}>
+                Average time to first response
+              </p>
+            </div>
 
-            <h3 className="mt-3 font-serif text-2xl font-medium tracking-tight text-[#0B1747]">
-              Tell us what you&apos;re building.
-            </h3>
-
-            <p className="mt-2 text-sm leading-6 text-slate-500">
-              Six fields, two minutes. Every brief gets a
-              reply from someone who can actually build it.
-            </p>
+            <div className="mt-8 flex flex-col gap-7">
+              {EXPECTATIONS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div key={item.title} className="flex gap-4">
+                    <div
+                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
+                      style={{ borderColor: BORDER, color: ACCENT }}
+                    >
+                      <Icon size={17} strokeWidth={2} />
+                    </div>
+                    <div>
+                      <h4
+                        className={`text-[14.5px] font-semibold text-[#0F172A] ${geist.className}`}
+                      >
+                        {item.title}
+                      </h4>
+                      <p
+                        className={`mt-1 text-[13.5px] leading-relaxed text-[#64748B] ${inter.className}`}
+                      >
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
 
-          {/* =================================================
-              FORM
-          ================================================== */}
+          {/* ===============================================
+              RIGHT — the form
+          ================================================ */}
 
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col gap-6"
+          <div
+            className="rounded-xl border bg-white p-7 sm:p-9 lg:p-10"
+            style={{ borderColor: BORDER }}
           >
-            {/* Name + Email */}
+            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+              {/* Name + Email */}
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <Field
-                index="01"
-                label="Name"
-                placeholder="Your full name"
-                required
-                value={form.name}
-                onChange={(value) =>
-                  setForm((f) => ({
-                    ...f,
-                    name: value,
-                  }))
-                }
-              />
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field
+                  label="Full name"
+                  placeholder="Your full name"
+                  required
+                  value={form.name}
+                  onChange={(value) =>
+                    setForm((f) => ({ ...f, name: value }))
+                  }
+                />
 
-              <Field
-                index="02"
-                label="Email address"
-                placeholder="you@company.com"
-                type="email"
-                required
-                value={form.email}
-                onChange={(value) =>
-                  setForm((f) => ({
-                    ...f,
-                    email: value,
-                  }))
-                }
-              />
-            </div>
+                <Field
+                  label="Work email"
+                  placeholder="you@company.com"
+                  type="email"
+                  required
+                  value={form.email}
+                  onChange={(value) =>
+                    setForm((f) => ({ ...f, email: value }))
+                  }
+                />
+              </div>
 
-            {/* Phone + Country */}
+              {/* Phone + Country */}
 
-            <div>
-              <label className="mb-2 flex items-baseline gap-2.5">
-                <span className="font-mono text-[11px] text-slate-400">
-                  03
-                </span>
+              <div className={inter.className}>
+                <Label required>Phone number</Label>
 
-                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
-                  Phone number
-                  <span className="ml-1 text-[#4F46E5]">*</span>
-                </span>
-              </label>
+                <div className="grid gap-3 sm:grid-cols-[190px_1fr]">
+                  {/* Country */}
 
-              <div className="grid gap-4 sm:grid-cols-[190px_1fr]">
-                {/* Country */}
-
-                <div ref={countryBoxRef} className="relative">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setCountryOpen((value) => !value);
-                      setCountryTouched(true);
-                    }}
-                    className={`
-                      flex
-                      h-[58px]
-                      w-full
-                      items-center
-                      justify-between
-                      border-b-2
-                      bg-transparent
-                      px-1
-                      text-left
-                      text-[15px]
-                      outline-none
-                      transition-colors
-                      duration-200
-                      ${
-                        countryOpen
-                          ? "border-[#4F46E5]"
-                          : countryTouched && !country
-                          ? "border-red-400"
-                          : "border-slate-200 hover:border-slate-300"
-                      }
-                      ${
-                        country ? "text-[#0F172A]" : "text-slate-400"
-                      }
-                    `}
-                  >
-                    <span className="truncate">
-                      {country
-                        ? `${country.code} ${country.name}`
-                        : "Country code"}
-                    </span>
-
-                    <ChevronDown
+                  <div ref={countryBoxRef} className="relative">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setCountryOpen((value) => !value);
+                        setCountryTouched(true);
+                      }}
                       className={`
-                        ml-2
-                        h-4
-                        w-4
-                        shrink-0
-                        text-[#4F46E5]
-                        transition-transform
-                        ${countryOpen ? "rotate-180" : ""}
-                      `}
-                    />
-                  </button>
-
-                  {countryOpen && (
-                    <div
-                      className="
-                        absolute
-                        left-0
-                        top-[calc(100%+8px)]
-                        z-50
+                        flex
+                        h-12
                         w-full
-                        min-w-[280px]
-                        overflow-hidden
-                        rounded-md
+                        items-center
+                        justify-between
+                        rounded-lg
                         border
-                        border-slate-200
                         bg-white
-                        shadow-[0_20px_50px_rgba(15,23,42,0.15)]
-                      "
+                        px-3.5
+                        text-left
+                        text-[15px]
+                        outline-none
+                        transition-colors
+                        duration-150
+                        ${
+                          countryOpen
+                            ? "border-[#4338CA] ring-4 ring-[#4338CA]/10"
+                            : countryTouched && !country
+                            ? "border-red-400"
+                            : "border-slate-300 hover:border-slate-400"
+                        }
+                        ${country ? "text-[#0F172A]" : "text-slate-400"}
+                      `}
                     >
-                      <div className="border-b border-slate-100 p-2">
-                        <input
-                          autoFocus
-                          value={countrySearch}
-                          onChange={(e) =>
-                            setCountrySearch(e.target.value)
-                          }
-                          placeholder="Search country..."
-                          className="
-                            h-10
-                            w-full
-                            rounded
-                            bg-slate-50
-                            px-3
-                            text-sm
-                            text-slate-800
-                            outline-none
-                            ring-1
-                            ring-transparent
-                            focus:ring-[#4F46E5]/30
-                          "
-                        />
+                      <span className="truncate">
+                        {country
+                          ? `${country.code} ${country.name}`
+                          : "Country code"}
+                      </span>
+
+                      <ChevronDown
+                        className={`ml-2 h-4 w-4 shrink-0 text-[#4338CA] transition-transform ${
+                          countryOpen ? "rotate-180" : ""
+                        }`}
+                      />
+                    </button>
+
+                    {countryOpen && (
+                      <div className="absolute left-0 top-[calc(100%+8px)] z-50 w-full min-w-[280px] overflow-hidden rounded-lg border border-slate-200 bg-white shadow-[0_20px_50px_rgba(15,23,42,0.15)]">
+                        <div className="border-b border-slate-100 p-2">
+                          <input
+                            autoFocus
+                            value={countrySearch}
+                            onChange={(e) =>
+                              setCountrySearch(e.target.value)
+                            }
+                            placeholder="Search country..."
+                            className="h-10 w-full rounded-md bg-slate-50 px-3 text-sm text-slate-800 outline-none ring-1 ring-transparent focus:ring-[#4338CA]/30"
+                          />
+                        </div>
+
+                        <ul className="max-h-60 overflow-y-auto p-1.5">
+                          {filteredCountries.length === 0 && (
+                            <li className="px-3 py-3 text-sm text-slate-400">
+                              No countries found.
+                            </li>
+                          )}
+
+                          {filteredCountries.map((c) => (
+                            <li key={`${c.code}-${c.name}`}>
+                              <button
+                                type="button"
+                                onClick={() => {
+                                  setCountry(c);
+                                  setCountryOpen(false);
+                                  setCountrySearch("");
+                                }}
+                                className="flex w-full items-center justify-between rounded-md px-3 py-2.5 text-left text-sm text-[#0F172A] transition hover:bg-indigo-50"
+                              >
+                                <span>{c.name}</span>
+                                <span className="text-slate-400">
+                                  {c.code}
+                                </span>
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
+                    )}
+                  </div>
 
-                      <ul className="max-h-60 overflow-y-auto p-1.5">
-                        {filteredCountries.length === 0 && (
-                          <li className="px-3 py-3 text-sm text-slate-400">
-                            No countries found.
-                          </li>
-                        )}
+                  {/* Phone */}
 
-                        {filteredCountries.map((c) => (
-                          <li key={`${c.code}-${c.name}`}>
-                            <button
-                              type="button"
-                              onClick={() => {
-                                setCountry(c);
-                                setCountryOpen(false);
-                                setCountrySearch("");
-                              }}
-                              className="
-                                flex
-                                w-full
-                                items-center
-                                justify-between
-                                rounded
-                                px-3
-                                py-2.5
-                                text-left
-                                text-sm
-                                text-[#0F172A]
-                                transition
-                                hover:bg-indigo-50
-                              "
-                            >
-                              <span>{c.name}</span>
-
-                              <span className="text-slate-400">
-                                {c.code}
-                              </span>
-                            </button>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Phone number"
+                    value={form.phone}
+                    onChange={(e) =>
+                      setForm((f) => ({ ...f, phone: e.target.value }))
+                    }
+                    className={inputClasses}
+                  />
                 </div>
 
-                {/* Phone */}
-
-                <input
-                  type="tel"
-                  required
-                  placeholder="Phone number"
-                  value={form.phone}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      phone: e.target.value,
-                    }))
-                  }
-                  className="
-                    h-[58px]
-                    w-full
-                    border-b-2
-                    border-slate-200
-                    bg-transparent
-                    px-1
-                    text-[15px]
-                    text-[#0F172A]
-                    outline-none
-                    transition-colors
-                    duration-200
-                    placeholder:text-slate-400
-                    hover:border-slate-300
-                    focus:border-[#4F46E5]
-                  "
-                />
+                {countryTouched && !country && (
+                  <p className="mt-2 text-xs text-red-500">
+                    Select a country code to continue.
+                  </p>
+                )}
               </div>
 
-              {countryTouched && !country && (
-                <p className="mt-2 text-xs text-red-500">
-                  Select a country code to continue.
-                </p>
-              )}
-            </div>
+              {/* Company */}
 
-            {/* Company */}
-
-            <Field
-              index="04"
-              label="Company"
-              placeholder="Your company name"
-              required
-              value={form.company}
-              onChange={(value) =>
-                setForm((f) => ({
-                  ...f,
-                  company: value,
-                }))
-              }
-            />
-
-            {/* Opportunity */}
-
-            <div>
-              <label className="mb-2 flex items-baseline gap-2.5">
-                <span className="font-mono text-[11px] text-slate-400">
-                  05
-                </span>
-
-                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
-                  Tell us about your opportunity
-                  <span className="ml-1 text-[#4F46E5]">*</span>
-                </span>
-              </label>
-
-              <textarea
+              <Field
+                label="Company"
+                placeholder="Your company name"
                 required
-                rows={5}
-                placeholder="What are you looking to build, improve, or solve..."
-                value={form.opportunity}
-                onChange={(e) =>
-                  setForm((f) => ({
-                    ...f,
-                    opportunity: e.target.value,
-                  }))
+                value={form.company}
+                onChange={(value) =>
+                  setForm((f) => ({ ...f, company: value }))
                 }
-                className="
-                  min-h-[145px]
-                  w-full
-                  resize-none
-                  border-b-2
-                  border-slate-200
-                  bg-transparent
-                  px-1
-                  py-2
-                  text-[15px]
-                  leading-6
-                  text-[#0F172A]
-                  outline-none
-                  transition-colors
-                  duration-200
-                  placeholder:text-slate-400
-                  hover:border-slate-300
-                  focus:border-[#4F46E5]
-                "
               />
-            </div>
 
-            {/* How did you hear */}
+              {/* Opportunity */}
 
-            <div>
-              <label className="mb-2 flex items-baseline gap-2.5">
-                <span className="font-mono text-[11px] text-slate-400">
-                  06
+              <div className={inter.className}>
+                <Label required>Tell us about your opportunity</Label>
+                <textarea
+                  required
+                  rows={5}
+                  placeholder="What are you looking to build, improve, or solve..."
+                  value={form.opportunity}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      opportunity: e.target.value,
+                    }))
+                  }
+                  className={`${inputClasses} min-h-[140px] resize-none py-3 leading-6`}
+                />
+              </div>
+
+              {/* How did you hear */}
+
+              <div className={inter.className}>
+                <Label required>How did you hear about us?</Label>
+
+                <div className="relative">
+                  <select
+                    required
+                    value={form.hearAbout}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        hearAbout: e.target.value,
+                      }))
+                    }
+                    className={`${inputClasses} appearance-none pr-9`}
+                  >
+                    <option value="" disabled>
+                      Select an option
+                    </option>
+
+                    {HEAR_ABOUT_OPTIONS.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
+
+                  <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4338CA]" />
+                </div>
+              </div>
+
+              {/* Consent */}
+
+              <label
+                className={`flex cursor-pointer items-start gap-3 pt-1 ${inter.className}`}
+              >
+                <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
+                  <input
+                    type="checkbox"
+                    required
+                    checked={form.consent}
+                    onChange={(e) =>
+                      setForm((f) => ({
+                        ...f,
+                        consent: e.target.checked,
+                      }))
+                    }
+                    className="peer absolute inset-0 h-full w-full cursor-pointer opacity-0"
+                  />
+
+                  <span className="flex h-5 w-5 items-center justify-center rounded-[4px] border border-slate-300 bg-white transition peer-checked:border-[#4338CA] peer-checked:bg-[#4338CA]">
+                    {form.consent && (
+                      <Check className="h-3.5 w-3.5 text-white" />
+                    )}
+                  </span>
                 </span>
 
-                <span className="text-[13px] font-medium tracking-wide text-[#172554]">
-                  How did you hear about us?
-                  <span className="ml-1 text-[#4F46E5]">*</span>
+                <span className="text-[13.5px] leading-5 text-[#64748B]">
+                  By checking this box, you consent to us storing and
+                  processing the information above, in accordance with our{" "}
+                  <a
+                    href="/privacy-policy"
+                    className="font-medium text-[#4338CA] underline underline-offset-2 transition hover:text-[#3730A3]"
+                  >
+                    Privacy Policy
+                  </a>
+                  .
                 </span>
               </label>
 
-              <div className="relative">
-                <select
-                  required
-                  value={form.hearAbout}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      hearAbout: e.target.value,
-                    }))
-                  }
-                  className="
-                    h-[58px]
-                    w-full
-                    appearance-none
-                    border-b-2
-                    border-slate-200
-                    bg-transparent
-                    px-1
-                    pr-8
-                    text-[15px]
-                    text-[#0F172A]
-                    outline-none
-                    transition-colors
-                    duration-200
-                    hover:border-slate-300
-                    focus:border-[#4F46E5]
-                  "
+              {/* Status */}
+
+              {status === "error" && (
+                <div
+                  className={`rounded-lg border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-600 ${inter.className}`}
                 >
-                  <option value="" disabled>
-                    Select an option
-                  </option>
+                  {errorMessage}
+                </div>
+              )}
 
-                  {HEAR_ABOUT_OPTIONS.map((option) => (
-                    <option key={option} value={option}>
-                      {option}
-                    </option>
-                  ))}
-                </select>
+              {status === "success" && (
+                <div
+                  className={`rounded-lg border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600 ${inter.className}`}
+                >
+                  Brief received — expect a reply within one business day.
+                </div>
+              )}
 
-                <ChevronDown
-                  className="
-                    pointer-events-none
-                    absolute
-                    right-1
-                    top-1/2
-                    h-4
-                    w-4
-                    -translate-y-1/2
-                    text-[#4F46E5]
-                  "
-                />
-              </div>
-            </div>
+              {/* Submit */}
 
-            {/* Consent */}
-
-            <label className="flex cursor-pointer items-start gap-3 pt-1">
-              <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
-                <input
-                  type="checkbox"
-                  required
-                  checked={form.consent}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      consent: e.target.checked,
-                    }))
-                  }
-                  className="
-                    peer
-                    absolute
-                    inset-0
-                    h-full
+              <div className="pt-1">
+                <button
+                  type="submit"
+                  className={`
+                    group
+                    inline-flex
+                    h-12
                     w-full
-                    cursor-pointer
-                    opacity-0
-                  "
-                />
-
-                <span
-                  className="
-                    flex
-                    h-5
-                    w-5
                     items-center
                     justify-center
-                    rounded-[4px]
-                    border
-                    border-slate-300
-                    bg-white
-                    transition
-                    peer-checked:border-[#0B0E1A]
-                    peer-checked:bg-[#0B0E1A]
-                  "
+                    gap-2
+                    rounded-lg
+                    bg-[#4338CA]
+                    text-[15px]
+                    font-semibold
+                    text-white
+                    transition-colors
+                    duration-150
+                    hover:bg-[#3730A3]
+                    sm:w-auto
+                    sm:px-8
+                    ${geist.className}
+                  `}
                 >
-                  {form.consent && (
-                    <Check className="h-3.5 w-3.5 text-white" />
-                  )}
-                </span>
-              </span>
-
-              <span className="text-[13px] leading-5 text-slate-500">
-                By checking this box, you consent to us storing
-                and processing the information above, in
-                accordance with our{" "}
-                <a
-                  href="/privacy-policy"
-                  className="
-                    font-medium
-                    text-[#4F46E5]
-                    underline
-                    underline-offset-2
-                    transition
-                    hover:text-[#3730A3]
-                  "
-                >
-                  Privacy Policy
-                </a>
-                .
-              </span>
-            </label>
-
-            {/* Status */}
-
-            {status === "error" && (
-              <div className="rounded-md border border-red-100 bg-red-50 px-4 py-3 text-sm font-medium text-red-600">
-                {errorMessage}
+                  Send project brief
+                  <ArrowRight
+                    size={17}
+                    strokeWidth={2.25}
+                    className="transition-transform duration-150 group-hover:translate-x-0.5"
+                  />
+                </button>
               </div>
-            )}
-
-            {status === "success" && (
-              <div className="rounded-md border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-600">
-                Brief received — expect a reply within one
-                business day.
-              </div>
-            )}
-
-            {/* Submit */}
-
-            <div className="pt-1">
-              <button
-                type="submit"
-                className="
-                  group
-                  inline-flex
-                  h-[58px]
-                  w-full
-                  items-center
-                  justify-center
-                  gap-2.5
-                  rounded-md
-                  bg-[#0B0E1A]
-                  font-mono
-                  text-[13px]
-                  font-medium
-                  uppercase
-                  tracking-[0.15em]
-                  text-white
-                  transition-all
-                  duration-300
-                  hover:bg-[#4F46E5]
-                  sm:w-auto
-                  sm:px-9
-                "
-              >
-                Send project brief
-
-                <ArrowUpRight
-                  className="
-                    h-4
-                    w-4
-                    transition-transform
-                    duration-300
-                    group-hover:translate-x-0.5
-                    group-hover:-translate-y-0.5
-                  "
-                />
-              </button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </section>

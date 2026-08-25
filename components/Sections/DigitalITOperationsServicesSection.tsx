@@ -11,6 +11,11 @@ import {
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
+// Shared page-width wrapper — kept in sync with the navbar's own
+// max-width/padding so every section lines up with it exactly.
+const ALIGN =
+  "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+
 const keyTakeaways = [
   "Starfii runs IT operations that stay quiet when things are working and fast to react when they aren't.",
   "We combine AIOps, service management, and infrastructure operations into one connected model.",
@@ -108,7 +113,7 @@ export default function DigitalITOperationsServicesSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
 
-        <div className="mx-auto max-w-[1600px] px-8 py-24 lg:px-16 lg:py-32">
+        <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-[14px] font-medium"
@@ -148,7 +153,7 @@ export default function DigitalITOperationsServicesSection() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+      <div className={ALIGN}>
         <section className="mt-16">
           <div
             className="overflow-hidden rounded-2xl border"

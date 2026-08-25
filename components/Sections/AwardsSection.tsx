@@ -51,7 +51,10 @@ export default function AwardsSection() {
 
   return (
     <section className="py-28" style={{ backgroundColor: LAVENDER_SURFACE }}>
-      <div className="mx-auto max-w-[1760px] px-8 lg:px-16">
+      {/* Container width/padding matched to the navbar's outer wrapper
+          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this section's
+          content lines up under the same edges as the nav. */}
+      <div className="mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
         <h2
           className="text-[40px] font-medium lg:text-[46px]"
           style={{ color: CHAMPION_BLUE }}

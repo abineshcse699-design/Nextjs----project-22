@@ -11,6 +11,11 @@ import {
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
+// Shared page-width wrapper — kept in sync with the navbar's own
+// max-width/padding so every section lines up with it exactly.
+const ALIGN =
+  "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+
 const keyTakeaways = [
   "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",
   "We design data platforms, pipelines, and models that scale from a single business unit to the whole enterprise.",
@@ -97,7 +102,11 @@ export default function DataAnalyticsServicesSection() {
   const current = tabs[activeTab];
 
   return (
-    <main className="bg-white">
+    // pt-[92px] / lg:pt-[100px] added below to offset the fixed Navbar
+    // (16px outer top gap + 76px navbar height on mobile = 92px;
+    // 16px + 84px navbar height on lg = 100px), so the hero/breadcrumb
+    // no longer sits underneath the fixed navbar.
+    <main className="bg-white pt-[92px] lg:pt-[100px]">
       {/* ============================================================
           HERO
           NOTE: background image swapped to a softer office/workspace
@@ -115,7 +124,7 @@ export default function DataAnalyticsServicesSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40" />
         </div>
 
-        <div className="mx-auto max-w-[1600px] px-8 py-24 lg:px-16 lg:py-32">
+        <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-[14px] font-medium"
@@ -156,7 +165,7 @@ export default function DataAnalyticsServicesSection() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+      <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS
         ============================================================ */}

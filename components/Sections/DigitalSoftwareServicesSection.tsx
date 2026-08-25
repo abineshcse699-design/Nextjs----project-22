@@ -31,6 +31,11 @@ const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
+// Shared page-width wrapper — kept in sync with the navbar's own
+// max-width/padding so every section lines up with it exactly.
+const ALIGN =
+  "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+
 /* ===============================================================
    CONTENT
 ================================================================ */
@@ -718,7 +723,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
 
-        <div className="mx-auto max-w-[1600px] px-8 py-24 lg:px-16 lg:py-32">
+        <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-[14px] font-medium opacity-0"
@@ -764,7 +769,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+      <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS
         ============================================================ */}
@@ -882,7 +887,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           }}
         />
 
-        <div className="relative mx-auto max-w-[1600px] px-8 lg:px-16">
+        <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
             <h2 className="text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
               Our Services &amp; Consulting Capabilities
@@ -944,7 +949,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         </div>
       </section>
 
-      <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+      <div className={ALIGN}>
         {/* ============================================================
             TABBED DEEP-DIVE
         ============================================================ */}
@@ -1029,7 +1034,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           }}
         />
 
-        <div className="relative mx-auto max-w-[1600px] px-8 lg:px-16">
+        <div className={`relative ${ALIGN}`}>
           <Reveal>
             <h2 className="max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
               Impact Across Your Digital
@@ -1078,7 +1083,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           }}
         />
 
-        <div className="relative mx-auto max-w-[1600px] px-8 lg:px-16">
+        <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
             <Reveal>
               <h2 className="text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
@@ -1155,7 +1160,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
         }}
       >
-        <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+        <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <h2
               className="text-[36px] font-medium lg:text-[44px]"
@@ -1227,7 +1232,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           have intentionally different widths)
       ============================================================ */}
       <section className="bg-[#EEF0F7] py-24">
-        <div className="mx-auto max-w-[1600px] px-8 lg:px-16">
+        <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <h2
               className="max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"

@@ -1,6 +1,12 @@
 "use client";
 
+import { Poppins } from "next/font/google";
 import { useEffect, useRef, useState } from "react";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+});
 
 const stats = [
   {
@@ -33,22 +39,39 @@ const stats = [
   },
 ];
 
-function useCountUp(target: number, decimals: number, active: boolean) {
+function useCountUp(
+  target: number,
+  decimals: number,
+  active: boolean
+) {
   const [value, setValue] = useState(0);
 
   useEffect(() => {
     if (!active) return;
+
     const duration = 1400;
     const start = performance.now();
 
     let raf: number;
+
     const tick = (now: number) => {
-      const progress = Math.min((now - start) / duration, 1);
+      const progress = Math.min(
+        (now - start) / duration,
+        1
+      );
+
+      // Smooth ease-out animation
       const eased = 1 - Math.pow(1 - progress, 3);
+
       setValue(target * eased);
-      if (progress < 1) raf = requestAnimationFrame(tick);
+
+      if (progress < 1) {
+        raf = requestAnimationFrame(tick);
+      }
     };
+
     raf = requestAnimationFrame(tick);
+
     return () => cancelAnimationFrame(raf);
   }, [active, target]);
 
@@ -64,14 +87,42 @@ function StatBlock({
   active,
 }: (typeof stats)[number] & { active: boolean }) {
   const display = useCountUp(value, decimals, active);
+
   return (
     <div className="flex flex-col">
-      <div className="whitespace-nowrap text-[56px] font-light leading-none text-[#0b1747] lg:text-[64px]">
+      {/* Number */}
+      <div
+        className="
+          whitespace-nowrap
+          text-[72px]
+          font-light
+          leading-[0.95]
+          tracking-[-0.035em]
+          text-[#0b1747]
+          sm:text-[78px]
+          lg:text-[84px]
+          xl:text-[88px]
+        "
+      >
         {prefix}
         {display}
         {suffix}
       </div>
-      <p className="mt-4 max-w-[220px] text-[15px] leading-relaxed text-[#4a5578]">
+
+      {/* Description */}
+      <p
+        className="
+          mt-6
+          max-w-[320px]
+          text-[17px]
+          font-normal
+          leading-[1.5]
+          tracking-[-0.01em]
+          text-[#0b1747]
+          sm:text-[18px]
+          lg:text-[19px]
+        "
+      >
         {label}
       </p>
     </div>
@@ -84,7 +135,9 @@ export default function GlanceSection() {
 
   useEffect(() => {
     const node = ref.current;
+
     if (!node) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -92,24 +145,70 @@ export default function GlanceSection() {
           observer.disconnect();
         }
       },
-      { threshold: 0.4 }
+      {
+        threshold: 0.3,
+      }
     );
+
     observer.observe(node);
+
     return () => observer.disconnect();
   }, []);
 
   return (
-    <section ref={ref} className="bg-white py-24">
-      <div className="mx-auto max-w-[1760px] px-8 lg:px-16">
-        <h2 className="max-w-xl text-[42px] font-medium leading-[1.15] text-[#0b1747] lg:text-[48px]">
+    <section
+      ref={ref}
+      className={`${poppins.className} bg-white py-24 lg:py-28`}
+    >
+      <div
+        className="
+          mx-auto
+          max-w-[1830px]
+          px-4
+          sm:px-6
+          md:px-8
+          lg:px-10
+          xl:px-12
+        "
+      >
+        {/* Heading */}
+        <h2
+          className="
+            max-w-[800px]
+            text-[48px]
+            font-light
+            leading-[1.1]
+            tracking-[-0.03em]
+            text-[#0b1747]
+            sm:text-[54px]
+            lg:text-[62px]
+            xl:text-[68px]
+          "
+        >
           Your Tech Partner for
           <br />
           the Next Big Leap
         </h2>
 
-        <div className="mt-20 grid grid-cols-2 gap-x-10 gap-y-14 sm:grid-cols-4">
-          {stats.map((s) => (
-            <StatBlock key={s.label} {...s} active={active} />
+        {/* Stats */}
+        <div
+          className="
+            mt-24
+            grid
+            grid-cols-1
+            gap-y-16
+            sm:grid-cols-2
+            lg:grid-cols-4
+            lg:gap-x-12
+            xl:gap-x-20
+          "
+        >
+          {stats.map((stat) => (
+            <StatBlock
+              key={stat.label}
+              {...stat}
+              active={active}
+            />
           ))}
         </div>
       </div>

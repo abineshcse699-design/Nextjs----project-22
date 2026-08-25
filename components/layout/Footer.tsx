@@ -152,69 +152,76 @@ const socials: { label: string; href: string; icon: React.ReactNode }[] = [
 
 export default function Footer() {
   return (
-    <footer className="bg-gradient-to-b from-white to-[#dbe6fb] px-6 pb-8 pt-16 md:px-16 lg:pt-20">
-      <a href="/" className="inline-block" aria-label="Starfii home">
-        <img
-          src="/starfii_logo_black.svg"
-          alt="Starfii"
-          className="h-14 w-auto md:h-16"
-        />
-      </a>
+    <footer className="bg-gradient-to-b from-white to-[#dbe6fb] pb-8 pt-16 lg:pt-20">
+      {/* Container width/padding matched to the navbar's outer wrapper
+          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so the footer's
+          logo, link columns, and bottom bar line up under the same
+          edges as the nav. Padding used to sit directly on <footer>;
+          it now lives on this wrapper instead. */}
+      <div className="mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+        <a href="/" className="inline-block" aria-label="Starfii home">
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-14 w-auto md:h-16"
+          />
+        </a>
 
-      <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
-        {columns.map((col, i) => (
-          <div key={i}>
-            {col.title && (
-              <h3 className="mb-5 text-sm font-semibold tracking-wide text-[#0b1747]">
-                {col.title}
-              </h3>
-            )}
-            <ul className={`flex flex-col gap-5 ${!col.title ? "mt-9" : ""}`}>
-              {col.links.map((link) => (
-                <li key={link}>
-                  <a
-                    href="#"
-                    className="text-[15px] text-slate-500 transition-colors duration-200 hover:text-[#3a3ff0]"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
-
-      <hr className="my-10 border-t border-slate-300/60" />
-
-      <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-        <p className="text-sm text-slate-500">
-          © {new Date().getFullYear()} Starfii Technologies. All rights reserved.
-        </p>
-
-        <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
-          {legalLinks.map((link) => (
-            <a
-              key={link}
-              href="#"
-              className="transition-colors duration-200 hover:text-[#3a3ff0]"
-            >
-              {link}
-            </a>
+        <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
+          {columns.map((col, i) => (
+            <div key={i}>
+              {col.title && (
+                <h3 className="mb-5 text-sm font-semibold tracking-wide text-[#0b1747]">
+                  {col.title}
+                </h3>
+              )}
+              <ul className={`flex flex-col gap-5 ${!col.title ? "mt-9" : ""}`}>
+                {col.links.map((link) => (
+                  <li key={link}>
+                    <a
+                      href="#"
+                      className="text-[15px] text-slate-500 transition-colors duration-200 hover:text-[#3a3ff0]"
+                    >
+                      {link}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           ))}
         </div>
 
-        <div className="flex gap-3">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              aria-label={s.label}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3a3ff0] text-white transition-colors duration-200 hover:bg-[#2c30c9]"
-            >
-              {s.icon}
-            </a>
-          ))}
+        <hr className="my-10 border-t border-slate-300/60" />
+
+        <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+          <p className="text-sm text-slate-500">
+            © {new Date().getFullYear()} Starfii Technologies. All rights reserved.
+          </p>
+
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
+            {legalLinks.map((link) => (
+              <a
+                key={link}
+                href="#"
+                className="transition-colors duration-200 hover:text-[#3a3ff0]"
+              >
+                {link}
+              </a>
+            ))}
+          </div>
+
+          <div className="flex gap-3">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                aria-label={s.label}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3a3ff0] text-white transition-colors duration-200 hover:bg-[#2c30c9]"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </div>
       </div>
     </footer>

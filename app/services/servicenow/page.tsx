@@ -35,12 +35,10 @@ const primary = "#7C5CFC";
    section (hero, capabilities, outcomes, engagements, industries,
    process, why-starfii, faq, insights, cta) moves together.
 
-   If this still doesn't line up with your navbar, replace the
-   max-w-[...] and px-... values below with whatever your navbar's
-   own container/wrapper element uses, and everything on this page
-   will snap into alignment with it.
+   ✅ Matches navbar's outer wrapper exactly:
+   max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 ================================================================ */
-const CONTAINER = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+const CONTAINER = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
 
 /* ===============================================================
    REVEAL — scroll-triggered fade/rise. Respects reduced motion.
@@ -205,7 +203,7 @@ const CAPABILITIES = [
     icon: LayoutGrid,
     accent: "#22D3EE",
     title: "App Engine Studio",
-    desc: "Purpose-built apps for the workflows ServiceNow doesn\u2019t ship out of the box, built and governed on the same platform.",
+    desc: "Purpose-built apps for the workflows ServiceNow doesn't ship out of the box, built and governed on the same platform.",
     items: ["Custom Workflow Apps", "Low-Code / No-Code Studio", "Process Automation", "Platform Integration Hub"],
   },
 ];
@@ -233,7 +231,7 @@ const ENGAGEMENTS = [
 
 const PROCESS = [
   { number: "01", accent: "#8B7CFF", title: "Discover", desc: "We map how work actually moves through your teams today, not how the org chart says it should." },
-  { number: "02", accent: "#F45B9E", title: "Design", desc: "Workflows are designed around the modules you need and the outcomes you\u2019re after, not the other way round." },
+  { number: "02", accent: "#F45B9E", title: "Design", desc: "Workflows are designed around the modules you need and the outcomes you're after, not the other way round." },
   { number: "03", accent: "#F5B942", title: "Build & configure", desc: "Certified ServiceNow engineers configure, integrate, and test against your real systems and data." },
   { number: "04", accent: "#4EA1FF", title: "Adopt & scale", desc: "We stay on to support rollout, train your teams, and extend the platform as new workflows come up." },
 ];
@@ -313,7 +311,7 @@ const FAQS = [
   },
   {
     q: "Do we need a new ServiceNow license, or can you work with our existing one?",
-    a: "We work with your existing ServiceNow license and instance wherever possible. If your licensing doesn\u2019t cover the modules you need, we\u2019ll flag that during the Assess & Advise phase before any build work starts.",
+    a: "We work with your existing ServiceNow license and instance wherever possible. If your licensing doesn't cover the modules you need, we'll flag that during the Assess & Advise phase before any build work starts.",
   },
   {
     q: "Can you integrate ServiceNow with our existing systems?",
@@ -324,8 +322,8 @@ const FAQS = [
     a: "Yes. Our Support & Evolve engagement covers managed support, release upgrades, and ongoing configuration as your workflows and organization change.",
   },
   {
-    q: "How does this connect to Starfii\u2019s other platforms?",
-    a: "Our Zerovity\u2122 platform maps how your applications actually behave, which informs how we configure ServiceNow workflows, so the platform reflects how your systems really run, not just how they\u2019re documented.",
+    q: "How does this connect to Starfii's other platforms?",
+    a: "Our Zerovity™ platform maps how your applications actually behave, which informs how we configure ServiceNow workflows, so the platform reflects how your systems really run, not just how they're documented.",
   },
 ];
 
@@ -650,7 +648,7 @@ export default function ServiceNowPage() {
               Engagement Models
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              Work with us at whichever stage you\u2019re at.
+              Work with us at whichever stage you're at.
             </h2>
           </Reveal>
 
@@ -770,19 +768,19 @@ export default function ServiceNowPage() {
               ServiceNow work, built on an AI-led engineering practice.
             </h2>
             <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/55">
-              Your ServiceNow instance doesn\u2019t sit in isolation. Our
-              Zerovity\u2122 platform maps how your applications actually
+              Your ServiceNow instance doesn't sit in isolation. Our
+              Zerovity™ platform maps how your applications actually
               behave, so the workflows we configure reflect how your
-              systems really run, not just how they\u2019re documented.
+              systems really run, not just how they're documented.
             </p>
           </Reveal>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {[
               "Certified ServiceNow implementation partner",
-              "AI-led delivery through our Zero Friction Enterprise\u2122 approach",
+              "AI-led delivery through our Zero Friction Enterprise™ approach",
               "Engineers who configure, integrate, and support, not just consult",
-              "Delivery informed by Zerovity\u2122 and Tensai\u00ae, our own platforms",
+              "Delivery informed by Zerovity™ and Tensai®, our own platforms",
             ].map((point, i) => (
               <Reveal key={point} delay={i * 80}>
                 <div className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-200 hover:border-white/20">
@@ -871,7 +869,7 @@ export default function ServiceNowPage() {
                   Ready to put ServiceNow to work?
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-white/55">
-                  Tell us which workflows are slowing your teams down. We\u2019ll
+                  Tell us which workflows are slowing your teams down. We'll
                   show you how they fit inside a single ServiceNow instance.
                 </p>
               </div>
