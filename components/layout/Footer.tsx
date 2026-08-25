@@ -154,11 +154,11 @@ export default function Footer() {
   return (
     <footer className="bg-gradient-to-b from-white to-[#dbe6fb] pb-8 pt-16 lg:pt-20">
       {/* Container width/padding matched to the navbar's outer wrapper
-          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so the footer's
-          logo, link columns, and bottom bar line up under the same
-          edges as the nav. Padding used to sit directly on <footer>;
-          it now lives on this wrapper instead. */}
-      <div className="mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16) so the
+          footer's logo, link columns, and bottom bar line up under the
+          same edges as the nav. Padding used to sit directly on
+          <footer>; it now lives on this wrapper instead. */}
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
         <a href="/" className="inline-block" aria-label="Starfii home">
           <img
             src="/starfii_logo_black.svg"

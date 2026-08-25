@@ -119,7 +119,7 @@ export default function Navbar() {
       onMouseLeave={scheduleClose}
       className="fixed inset-x-0 top-0 z-[2147483647] isolate"
     >
-      <div className="mx-auto max-w-[1830px] px-4 pt-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+      <div className="mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16">
         <nav
           className={`
             relative w-full rounded-2xl border border-white/40 bg-white

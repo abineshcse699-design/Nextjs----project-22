@@ -2,18 +2,16 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  ArrowRight,
+  ArrowUpRight,
   Check,
   ChevronDown,
-  Clock,
-  Lock,
-  UserCheck,
+  Upload,
 } from "lucide-react";
 import { Geist, Inter } from "next/font/google";
 
 /* =========================================================
    FONTS
-   Geist Sans → headings, field labels, buttons, the metric.
+   Geist Sans → heading, labels, button.
    Inter      → body copy, input values, helper/status text.
 ========================================================= */
 
@@ -31,13 +29,16 @@ const inter = Inter({
 
 /* =========================================================
    DESIGN TOKENS
-   A quiet, formal product palette — one deep indigo accent,
-   everything else neutral slate. No gradients, no glow.
+   Matched to the reference design: soft filled lavender-gray
+   inputs with no visible border, deep indigo heading/label
+   color, and a lighter mid-purple submit button.
 ========================================================= */
 
-const BORDER = "#E2E8F0";
+const HEADING_INK = "#1B2560";
 const ACCENT = "#4338CA";
-const PANEL = "#F8FAFC";
+const SUBMIT_BG = "#8B7EF0";
+const SUBMIT_HOVER = "#7A6BEA";
+const FIELD_BG = "#ECEBF4";
 
 /* =========================================================
    COUNTRY DATA
@@ -127,77 +128,47 @@ const HEAR_ABOUT_OPTIONS = [
   "Other",
 ];
 
-const EXPECTATIONS = [
-  {
-    icon: Clock,
-    title: "Reply within one business day",
-    body: "A real engineer reads every brief and responds directly — no queue, no auto-reply.",
-  },
-  {
-    icon: UserCheck,
-    title: "A scoped pilot before commitment",
-    body: "We propose a small, bounded first engagement so both sides can evaluate fit early.",
-  },
-  {
-    icon: Lock,
-    title: "Your information stays confidential",
-    body: "Shared only with the team assigned to your brief, per our privacy policy.",
-  },
-];
+const ACCEPTED_FILE_TYPES =
+  ".xlsx,.xls,.doc,.docx,.pdf,.rtf,.zip,.rar";
+
+const MAX_FILE_SIZE_MB = 10;
 
 /* =========================================================
-   FIELD COMPONENTS
-   Standard bordered inputs, labels in Geist Sans, values in
-   Inter — the vocabulary of a product settings form rather
-   than an editorial spec sheet.
+   SHARED FILLED-INPUT STYLES
+   No visible border — a soft lavender-gray fill instead, with
+   an indigo focus ring, matching the reference design.
 ========================================================= */
 
-function Label({
-  children,
-  required,
-}: {
-  children: React.ReactNode;
-  required?: boolean;
-}) {
-  return (
-    <label
-      className={`mb-2 block text-[13.5px] font-medium text-[#334155] ${geist.className}`}
-    >
-      {children}
-      {required && <span className="ml-1 text-[#4338CA]">*</span>}
-    </label>
-  );
-}
-
-const inputClasses = `
-  h-12
+const filledInputClasses = `
+  h-14
   w-full
-  rounded-lg
+  rounded-xl
   border
-  border-slate-300
-  bg-white
-  px-3.5
+  border-transparent
+  px-4
   text-[15px]
-  text-[#0F172A]
+  text-[#1E1B3A]
   outline-none
   transition-colors
   duration-150
-  placeholder:text-slate-400
-  hover:border-slate-400
-  focus:border-[#4338CA]
+  placeholder:text-slate-500
+  focus:border-[#4338CA]/40
   focus:ring-4
   focus:ring-[#4338CA]/10
 `;
 
-function Field({
-  label,
+// Tailwind can't compile a class name built from a JS variable
+// (e.g. `bg-[${FIELD_BG}]`), so the fill color is applied inline
+// instead of as a dynamic arbitrary-value class.
+const filledInputStyle = { backgroundColor: FIELD_BG };
+
+function FilledField({
   placeholder,
   value,
   onChange,
   type = "text",
   required = false,
 }: {
-  label: string;
   placeholder: string;
   value: string;
   onChange: (value: string) => void;
@@ -205,17 +176,15 @@ function Field({
   required?: boolean;
 }) {
   return (
-    <div className={inter.className}>
-      <Label required={required}>{label}</Label>
-      <input
-        type={type}
-        required={required}
-        value={value}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e.target.value)}
-        className={inputClasses}
-      />
-    </div>
+    <input
+      type={type}
+      required={required}
+      value={value}
+      placeholder={placeholder}
+      onChange={(e) => onChange(e.target.value)}
+      style={filledInputStyle}
+      className={`${filledInputClasses} ${inter.className}`}
+    />
   );
 }
 
@@ -233,6 +202,9 @@ export default function ConnectFormSection() {
     hearAbout: "",
     consent: false,
   });
+
+  const [file, setFile] = useState<File | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const [country, setCountry] = useState<{
     code: string;
@@ -287,6 +259,25 @@ export default function ConnectFormSection() {
   }, [countrySearch]);
 
   /* =========================================================
+     FILE UPLOAD
+  ========================================================= */
+
+  function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const selected = e.target.files?.[0];
+
+    if (!selected) return;
+
+    if (selected.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
+      setErrorMessage(`File must be ${MAX_FILE_SIZE_MB} MB or smaller.`);
+      setStatus("error");
+      e.target.value = "";
+      return;
+    }
+
+    setFile(selected);
+  }
+
+  /* =========================================================
      SUBMIT
   ========================================================= */
 
@@ -314,11 +305,17 @@ export default function ConnectFormSection() {
 
       Example:
 
-      await fetch("/api/lead", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, country }),
-      });
+      const body = new FormData();
+      body.append("name", form.name);
+      body.append("email", form.email);
+      body.append("phone", form.phone);
+      body.append("company", form.company);
+      body.append("opportunity", form.opportunity);
+      body.append("hearAbout", form.hearAbout);
+      body.append("countryCode", country.code);
+      if (file) body.append("attachment", file);
+
+      await fetch("/api/lead", { method: "POST", body });
     */
 
     setStatus("success");
@@ -327,101 +324,63 @@ export default function ConnectFormSection() {
   return (
     <section
       id="form"
-      className="relative bg-white px-4 py-24 sm:px-6 md:px-8 lg:px-10 lg:py-32 xl:px-12"
+      className="relative bg-white py-24 lg:py-32"
     >
-      <div className="mx-auto max-w-[1830px]">
-        {/* =================================================
-            SECTION HEADER
-        ================================================== */}
-
-        <div className="mb-14 max-w-2xl lg:mb-16">
-          <p
-            className={`text-[13px] font-semibold uppercase tracking-[0.14em] text-[#4338CA] ${geist.className}`}
-          >
-            Get in touch
-          </p>
-
-          <h2
-            className={`mt-4 text-[36px] font-semibold leading-[1.15] tracking-[-0.02em] text-[#0F172A] sm:text-[42px] ${geist.className}`}
-          >
-            Tell us what you&apos;re building
-          </h2>
-
-          <p className={`mt-4 text-[16px] leading-7 text-[#64748B] ${inter.className}`}>
-            Share a few details about your team and the problem you&apos;re
-            solving. We&apos;ll route it to an engineer who can speak to it
-            directly.
-          </p>
-        </div>
-
-        {/* =================================================
-            MAIN GRID
-        ================================================== */}
-
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[340px_1fr] lg:gap-16">
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[380px_1fr] lg:gap-16">
           {/* ===============================================
-              LEFT — what to expect
+              LEFT — heading + decorative blob
           ================================================ */}
 
-          <div className="lg:sticky lg:top-32 lg:h-fit">
-            <div
-              className="rounded-xl border p-7"
-              style={{ borderColor: BORDER, backgroundColor: PANEL }}
-            >
-              <p
-                className={`text-[44px] font-semibold leading-none tracking-[-0.02em] text-[#0F172A] ${geist.className}`}
+          <div className="relative">
+            <div className="lg:sticky lg:top-32 lg:h-fit">
+              <h2
+                className={`text-[42px] font-medium leading-[1.15] tracking-[-0.02em] ${geist.className}`}
+                style={{ color: HEADING_INK }}
               >
-                &lt;24h
-              </p>
-              <p className={`mt-2 text-[14px] text-[#64748B] ${inter.className}`}>
-                Average time to first response
-              </p>
+                Your Goals Are Closer Than You Think.
+              </h2>
+
+              <a
+                href="#form"
+                className={`mt-5 inline-block text-[16px] font-medium ${inter.className}`}
+                style={{ color: HEADING_INK }}
+              >
+                Connect Now
+              </a>
             </div>
 
-            <div className="mt-8 flex flex-col gap-7">
-              {EXPECTATIONS.map((item) => {
-                const Icon = item.icon;
-                return (
-                  <div key={item.title} className="flex gap-4">
-                    <div
-                      className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border"
-                      style={{ borderColor: BORDER, color: ACCENT }}
-                    >
-                      <Icon size={17} strokeWidth={2} />
-                    </div>
-                    <div>
-                      <h4
-                        className={`text-[14.5px] font-semibold text-[#0F172A] ${geist.className}`}
-                      >
-                        {item.title}
-                      </h4>
-                      <p
-                        className={`mt-1 text-[13.5px] leading-relaxed text-[#64748B] ${inter.className}`}
-                      >
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            {/* Soft decorative gradient wash running the full height of
+                the left column along its edge — three overlapping color
+                blooms (blue near the top, pink/magenta at mid-height,
+                indigo-blue lower down) rather than one single blob, each
+                fading out toward the right and toward white. Purely
+                visual, no interaction; sits behind the sticky heading
+                since it isn't itself sticky. */}
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-y-0 left-0 -z-10 w-full max-w-[440px] opacity-90 blur-3xl"
+              style={{
+                background: `
+                  radial-gradient(42% 12% at 8% 6%, rgba(147,197,253,0.45), transparent 70%),
+                  radial-gradient(46% 16% at 6% 46%, rgba(236,72,153,0.32), transparent 70%),
+                  radial-gradient(48% 16% at 5% 78%, rgba(99,102,241,0.38), transparent 70%)
+                `,
+              }}
+            />
           </div>
 
           {/* ===============================================
               RIGHT — the form
           ================================================ */}
 
-          <div
-            className="rounded-xl border bg-white p-7 sm:p-9 lg:p-10"
-            style={{ borderColor: BORDER }}
-          >
-            <form onSubmit={handleSubmit} className="flex flex-col gap-6">
+          <div>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5">
               {/* Name + Email */}
 
               <div className="grid gap-5 sm:grid-cols-2">
-                <Field
-                  label="Full name"
-                  placeholder="Your full name"
+                <FilledField
+                  placeholder="Name*"
                   required
                   value={form.name}
                   onChange={(value) =>
@@ -429,9 +388,8 @@ export default function ConnectFormSection() {
                   }
                 />
 
-                <Field
-                  label="Work email"
-                  placeholder="you@company.com"
+                <FilledField
+                  placeholder="Email address*"
                   type="email"
                   required
                   value={form.email}
@@ -441,12 +399,17 @@ export default function ConnectFormSection() {
                 />
               </div>
 
-              {/* Phone + Country */}
+              {/* Country code label + Country / Phone / Company */}
 
-              <div className={inter.className}>
-                <Label required>Phone number</Label>
+              <div>
+                <p
+                  className={`mb-2 text-[13.5px] font-medium ${inter.className}`}
+                  style={{ color: HEADING_INK }}
+                >
+                  Country code*
+                </p>
 
-                <div className="grid gap-3 sm:grid-cols-[190px_1fr]">
+                <div className="grid gap-3 sm:grid-cols-[150px_1fr_1fr]">
                   {/* Country */}
 
                   <div ref={countryBoxRef} className="relative">
@@ -456,16 +419,15 @@ export default function ConnectFormSection() {
                         setCountryOpen((value) => !value);
                         setCountryTouched(true);
                       }}
+                      style={filledInputStyle}
                       className={`
                         flex
-                        h-12
+                        h-14
                         w-full
                         items-center
                         justify-between
-                        rounded-lg
-                        border
-                        bg-white
-                        px-3.5
+                        rounded-xl
+                        px-4
                         text-left
                         text-[15px]
                         outline-none
@@ -473,24 +435,24 @@ export default function ConnectFormSection() {
                         duration-150
                         ${
                           countryOpen
-                            ? "border-[#4338CA] ring-4 ring-[#4338CA]/10"
+                            ? "ring-4 ring-[#4338CA]/10"
                             : countryTouched && !country
-                            ? "border-red-400"
-                            : "border-slate-300 hover:border-slate-400"
+                            ? "ring-2 ring-red-300"
+                            : ""
                         }
-                        ${country ? "text-[#0F172A]" : "text-slate-400"}
+                        ${country ? "text-[#1E1B3A]" : "text-slate-500"}
+                        ${inter.className}
                       `}
                     >
                       <span className="truncate">
-                        {country
-                          ? `${country.code} ${country.name}`
-                          : "Country code"}
+                        {country ? country.code : "Country*"}
                       </span>
 
                       <ChevronDown
-                        className={`ml-2 h-4 w-4 shrink-0 text-[#4338CA] transition-transform ${
+                        className={`ml-2 h-4 w-4 shrink-0 transition-transform ${
                           countryOpen ? "rotate-180" : ""
                         }`}
+                        style={{ color: ACCENT }}
                       />
                     </button>
 
@@ -540,15 +502,25 @@ export default function ConnectFormSection() {
 
                   {/* Phone */}
 
-                  <input
+                  <FilledField
+                    placeholder="Phone number*"
                     type="tel"
                     required
-                    placeholder="Phone number"
                     value={form.phone}
-                    onChange={(e) =>
-                      setForm((f) => ({ ...f, phone: e.target.value }))
+                    onChange={(value) =>
+                      setForm((f) => ({ ...f, phone: value }))
                     }
-                    className={inputClasses}
+                  />
+
+                  {/* Company */}
+
+                  <FilledField
+                    placeholder="Company*"
+                    required
+                    value={form.company}
+                    onChange={(value) =>
+                      setForm((f) => ({ ...f, company: value }))
+                    }
                   />
                 </div>
 
@@ -559,74 +531,116 @@ export default function ConnectFormSection() {
                 )}
               </div>
 
-              {/* Company */}
-
-              <Field
-                label="Company"
-                placeholder="Your company name"
-                required
-                value={form.company}
-                onChange={(value) =>
-                  setForm((f) => ({ ...f, company: value }))
-                }
-              />
-
               {/* Opportunity */}
 
-              <div className={inter.className}>
-                <Label required>Tell us about your opportunity</Label>
-                <textarea
-                  required
-                  rows={5}
-                  placeholder="What are you looking to build, improve, or solve..."
-                  value={form.opportunity}
-                  onChange={(e) =>
-                    setForm((f) => ({
-                      ...f,
-                      opportunity: e.target.value,
-                    }))
-                  }
-                  className={`${inputClasses} min-h-[140px] resize-none py-3 leading-6`}
-                />
-              </div>
+              <textarea
+                required
+                rows={5}
+                placeholder="Tell us about your opportunity*"
+                value={form.opportunity}
+                onChange={(e) =>
+                  setForm((f) => ({
+                    ...f,
+                    opportunity: e.target.value,
+                  }))
+                }
+                style={filledInputStyle}
+                className={`${filledInputClasses} ${inter.className} min-h-[150px] resize-none py-4 leading-6`}
+              />
 
               {/* How did you hear */}
 
-              <div className={inter.className}>
-                <Label required>How did you hear about us?</Label>
+              <div className="relative">
+                <select
+                  required
+                  value={form.hearAbout}
+                  onChange={(e) =>
+                    setForm((f) => ({
+                      ...f,
+                      hearAbout: e.target.value,
+                    }))
+                  }
+                  style={filledInputStyle}
+                  className={`${filledInputClasses} ${inter.className} appearance-none pr-10 ${
+                    form.hearAbout ? "text-[#1E1B3A]" : "text-slate-500"
+                  }`}
+                >
+                  <option value="" disabled>
+                    How did you hear about us?*
+                  </option>
 
-                <div className="relative">
-                  <select
-                    required
-                    value={form.hearAbout}
-                    onChange={(e) =>
-                      setForm((f) => ({
-                        ...f,
-                        hearAbout: e.target.value,
-                      }))
-                    }
-                    className={`${inputClasses} appearance-none pr-9`}
-                  >
-                    <option value="" disabled>
-                      Select an option
+                  {HEAR_ABOUT_OPTIONS.map((option) => (
+                    <option key={option} value={option}>
+                      {option}
                     </option>
+                  ))}
+                </select>
 
-                    {HEAR_ABOUT_OPTIONS.map((option) => (
-                      <option key={option} value={option}>
-                        {option}
-                      </option>
-                    ))}
-                  </select>
+                <ChevronDown
+                  className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2"
+                  style={{ color: ACCENT }}
+                />
+              </div>
 
-                  <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#4338CA]" />
-                </div>
+              {/* RFP / RFI upload */}
+
+              <div>
+                <p
+                  className={`mb-2 text-[13.5px] font-medium ${inter.className}`}
+                  style={{ color: HEADING_INK }}
+                >
+                  Upload your RFP/RFI document (maximum file size:{" "}
+                  {MAX_FILE_SIZE_MB} MB)
+                </p>
+
+                <button
+                  type="button"
+                  onClick={() => fileInputRef.current?.click()}
+                  style={filledInputStyle}
+                  className={`
+                    flex
+                    h-14
+                    w-full
+                    items-center
+                    justify-between
+                    rounded-xl
+                    px-4
+                    text-left
+                    text-[15px]
+                    text-slate-500
+                    outline-none
+                    transition-colors
+                    duration-150
+                    hover:text-slate-600
+                    focus:ring-4
+                    focus:ring-[#4338CA]/10
+                    ${inter.className}
+                  `}
+                >
+                  <span className="truncate">
+                    {file
+                      ? file.name
+                      : "Accepted file formats: .xlsx, .xls, .doc, .docx, .pdf, .rtf, .zip, .rar"}
+                  </span>
+
+                  <Upload
+                    className="ml-3 h-4 w-4 shrink-0"
+                    style={{ color: ACCENT }}
+                  />
+                </button>
+
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept={ACCEPTED_FILE_TYPES}
+                  onChange={handleFileChange}
+                  className="hidden"
+                />
               </div>
 
               {/* Consent */}
 
-              <label
-                className={`flex cursor-pointer items-start gap-3 pt-1 ${inter.className}`}
-              >
+              <label className="flex cursor-pointer items-start gap-3 pt-1">
                 <span className="relative mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center">
                   <input
                     type="checkbox"
@@ -648,16 +662,19 @@ export default function ConnectFormSection() {
                   </span>
                 </span>
 
-                <span className="text-[13.5px] leading-5 text-[#64748B]">
-                  By checking this box, you consent to us storing and
-                  processing the information above, in accordance with our{" "}
+                <span
+                  className={`text-[15px] leading-6 text-[#1E1B3A] ${inter.className}`}
+                >
+                  By checking this box, you consent us to store and process
+                  the information provided in accordance with our terms of{" "}
                   <a
                     href="/privacy-policy"
-                    className="font-medium text-[#4338CA] underline underline-offset-2 transition hover:text-[#3730A3]"
+                    className="font-medium underline underline-offset-2"
+                    style={{ color: HEADING_INK }}
                   >
                     Privacy Policy
                   </a>
-                  .
+                  *
                 </span>
               </label>
 
@@ -687,29 +704,32 @@ export default function ConnectFormSection() {
                   className={`
                     group
                     inline-flex
-                    h-12
-                    w-full
+                    h-14
                     items-center
                     justify-center
                     gap-2
-                    rounded-lg
-                    bg-[#4338CA]
-                    text-[15px]
+                    rounded-xl
+                    px-8
+                    text-[16px]
                     font-semibold
                     text-white
                     transition-colors
                     duration-150
-                    hover:bg-[#3730A3]
-                    sm:w-auto
-                    sm:px-8
                     ${geist.className}
                   `}
+                  style={{ backgroundColor: SUBMIT_BG }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = SUBMIT_HOVER)
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = SUBMIT_BG)
+                  }
                 >
-                  Send project brief
-                  <ArrowRight
-                    size={17}
-                    strokeWidth={2.25}
-                    className="transition-transform duration-150 group-hover:translate-x-0.5"
+                  Submit
+                  <ArrowUpRight
+                    size={18}
+                    strokeWidth={2.5}
+                    className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   />
                 </button>
               </div>

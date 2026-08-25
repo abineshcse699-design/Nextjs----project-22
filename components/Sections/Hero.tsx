@@ -17,9 +17,9 @@ export default function Hero() {
       </div>
 
       {/* Hero Content — same max-w and px breakpoints as the navbar's
-          outer wrapper (mx-auto max-w-[1830px] px-4 ... xl:px-12) so the
-          heading/CTA lines up exactly under the logo/nav edges. */}
-      <div className="relative z-10 mx-auto max-w-[1830px] px-4 pt-[170px] sm:px-6 md:px-8 lg:px-10 lg:pt-[190px] xl:px-12">
+          outer wrapper (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16)
+          so the heading/CTA lines up exactly under the logo/nav edges. */}
+      <div className="relative z-10 mx-auto max-w-[1520px] px-6 pt-[170px] sm:px-10 lg:px-16 lg:pt-[190px]">
         <h1 className="max-w-2xl text-[44px] font-medium leading-[1.1] text-white sm:text-[56px] lg:text-[64px]">
           Zero Friction. Infinite
           <br />

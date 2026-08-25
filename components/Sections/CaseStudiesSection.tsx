@@ -124,11 +124,11 @@ export default function CaseStudiesSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
       {/* Container width/padding matched to the navbar's outer wrapper
-          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this section's
-          content — heading, carousel, and progress bar — lines up
-          under the same edges as the nav. Padding used to sit directly
-          on the <section>; it now lives on this wrapper instead. */}
-      <div className="mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12">
+          (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16) so this
+          section's content — heading, carousel, and progress bar —
+          lines up under the same edges as the nav. Padding used to sit
+          directly on the <section>; it now lives on this wrapper instead. */}
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
         {/* copy */}
         <div className="mb-14 max-w-2xl">
           <h2 className="text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">

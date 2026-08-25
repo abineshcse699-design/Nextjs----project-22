@@ -133,11 +133,51 @@ function PortraitCircle() {
 
 export default function ZeroFrictionSection() {
   return (
-    <section className="relative overflow-hidden bg-[#050510] py-20 lg:py-24">
+    <section className="relative isolate overflow-hidden py-20 lg:py-24">
+      {/* =====================================================
+          COLOR GRADE — BACKGROUND
+          Opens at #171335 — the exact color AIJourneySection
+          fades into at its bottom edge — so the two sections
+          share one continuous background with no visible seam.
+          Same restrained dusk palette (indigo -> plum ->
+          terracotta), carried a little further and then settled
+          back to near-black toward the bottom for a clean handoff
+          into whatever section follows.
+      ====================================================== */}
+      <div className="pointer-events-none absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[#171335]" />
+
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(125deg, #171335 0%, #241D4A 22%, #3A2A52 42%, #55344B 60%, #7A4B49 78%, #9C6650 92%, #B07B57 100%)",
+            opacity: 0.9,
+          }}
+        />
+
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(180deg, rgba(9,7,23,0) 0%, rgba(9,7,23,0.4) 60%, rgba(6,5,17,0.9) 100%)",
+          }}
+        />
+
+        {/* Soft glow behind the left copy, echoing the hero's bright sky patch */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(42% 50% at 10% 6%, rgba(255,214,180,0.14) 0%, rgba(255,214,180,0) 60%)",
+          }}
+        />
+      </div>
+
       {/* Container width/padding matched to the navbar's outer wrapper
-          (mx-auto max-w-[1830px] px-4 ... xl:px-12) so this section's
-          content lines up under the same edges as the nav. */}
-      <div className="relative z-10 mx-auto grid max-w-[1830px] grid-cols-1 gap-14 px-4 sm:px-6 md:px-8 lg:grid-cols-[520px_1fr] lg:gap-16 lg:px-10 xl:px-12">
+          (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16) so this
+          section's content lines up under the same edges as the nav. */}
+      <div className="relative z-10 mx-auto grid max-w-[1520px] grid-cols-1 gap-14 px-6 sm:px-10 lg:grid-cols-[520px_1fr] lg:gap-16 lg:px-16">
         {/* LEFT CONTENT */}
         <div className="lg:sticky lg:top-32 lg:h-fit">
           <h2 className="text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">
@@ -149,7 +189,7 @@ export default function ZeroFrictionSection() {
             from product to platform to data
           </p>
 
-          <p className="mt-6 text-[15px] leading-relaxed text-slate-400">
+          <p className="mt-6 text-[15px] leading-relaxed text-slate-300">
             Building resilient, scalable technology takes more than a single
             specialism — it takes engineering, AI, data, and quality working
             together as one system. Our technical competencies span
@@ -175,7 +215,7 @@ export default function ZeroFrictionSection() {
             />
           ))}
 
-          <p className="mt-4 text-lg text-slate-300 sm:col-span-2">
+          <p className="mt-4 text-lg text-slate-200 sm:col-span-2">
             Each competency strengthens the next. Together, they give the
             enterprise a single, compounding engineering advantage.
           </p>

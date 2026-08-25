@@ -163,12 +163,10 @@ export default function GlanceSection() {
       <div
         className="
           mx-auto
-          max-w-[1830px]
-          px-4
-          sm:px-6
-          md:px-8
-          lg:px-10
-          xl:px-12
+          max-w-[1520px]
+          px-6
+          sm:px-10
+          lg:px-16
         "
       >
         {/* Heading */}
