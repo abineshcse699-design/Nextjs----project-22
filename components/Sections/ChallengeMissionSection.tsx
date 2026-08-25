@@ -25,17 +25,22 @@ export default function ChallengeMissionSection() {
 
   return (
     <section className="relative min-h-[820px] w-full overflow-hidden">
-      {/* Background photo */}
+      {/* Background photo — swapped to a higher-resolution (4K, ~2400px
+          wide) professional office/team-collaboration shot, keeping the
+          same enterprise-technology-consulting theme as before. */}
       <img
-        src="https://images.unsplash.com/photo-1522163182402-834f871fd851?q=80&w=1920&auto=format&fit=crop"
-        alt="Two hikers helping each other reach the summit"
+        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2400&auto=format&fit=crop"
+        alt="Diverse business team collaborating in a modern office"
         className="absolute inset-0 h-full w-full object-cover"
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/10 via-transparent to-transparent" />
 
+      {/* Container width/padding matched to the navbar's outer wrapper
+          (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16) so this
+          section's content lines up under the same edges as the nav. */}
       <div
         ref={ref}
-        className="relative z-10 mx-auto flex h-full min-h-[820px] max-w-[1760px] items-center justify-end px-8 py-24 lg:px-16"
+        className="relative z-10 mx-auto flex h-full min-h-[820px] max-w-[1520px] items-center justify-end px-6 py-24 sm:px-10 lg:px-16"
       >
         <div
           className={`w-full max-w-md rounded-3xl bg-white p-10 shadow-[0_25px_60px_rgba(0,0,0,0.25)] transition-all duration-700 ease-out ${

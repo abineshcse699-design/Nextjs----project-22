@@ -584,7 +584,7 @@ export default function ConnectFormSection() {
 
               {/* RFP / RFI upload */}
 
-              <div>
+              {/* <div>
                 <p
                   className={`mb-2 text-[13.5px] font-medium ${inter.className}`}
                   style={{ color: HEADING_INK }}
@@ -636,7 +636,7 @@ export default function ConnectFormSection() {
                   onChange={handleFileChange}
                   className="hidden"
                 />
-              </div>
+              </div> */}
 
               {/* Consent */}
 

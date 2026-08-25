@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 
 export default function Hero() {
@@ -5,20 +6,20 @@ export default function Hero() {
     <section className="relative isolate min-h-[760px] w-full overflow-hidden bg-[#0b1224]">
       {/* Background */}
       <div aria-hidden="true" className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src="/d1.jpg"
           alt=""
-          className="h-full w-full object-cover"
+          fill
+          priority
+          quality={75}
+          sizes="100vw"
+          className="object-cover"
         />
 
-        {/* Light overlay — no dark fade at the bottom */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0b1224]/60 via-[#0b1224]/20 to-transparent" />
       </div>
 
-      {/* Hero Content — same max-w and px breakpoints as the navbar's
-          outer wrapper (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16)
-          so the heading/CTA lines up exactly under the logo/nav edges. */}
+      {/* Hero Content */}
       <div className="relative z-10 mx-auto max-w-[1520px] px-6 pt-[170px] sm:px-10 lg:px-16 lg:pt-[190px]">
         <h1 className="max-w-2xl text-[44px] font-medium leading-[1.1] text-white sm:text-[56px] lg:text-[64px]">
           Zero Friction. Infinite

@@ -38,7 +38,7 @@ const primary = "#7C5CFC";
    ✅ Matches navbar's outer wrapper exactly:
    max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 ================================================================ */
-const CONTAINER = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+const CONTAINER = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 /* ===============================================================
    REVEAL — scroll-triggered fade/rise. Respects reduced motion.

@@ -153,14 +153,14 @@ export default function CaseStudiesSection() {
               key={study.id}
               href={study.href}
               data-card
-              className="group relative flex w-[80%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-96px)/4)]"
+              className="group relative flex w-[80%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-all duration-500 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)] sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-96px)/4)]"
             >
               {/* image morphs away on hover, revealing the description below */}
               <div className="aspect-[4/3] w-full overflow-hidden bg-slate-900 transition-[height] duration-500 ease-out group-hover:h-0">
                 <img
                   src={study.image}
                   alt={study.title}
-                  className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
                 />
               </div>
 
@@ -179,7 +179,7 @@ export default function CaseStudiesSection() {
 
                 <span className="mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed] transition-colors group-hover:text-[#37409e]">
                   Learn More
-                  <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </span>
               </div>
             </a>
@@ -190,7 +190,7 @@ export default function CaseStudiesSection() {
         <div className="mt-12 flex items-center gap-5">
           <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
             <div
-              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-300 ease-out"
+              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-500 ease-out"
               style={{ width: `${Math.max(progress, 3)}%` }}
             />
           </div>
@@ -201,7 +201,7 @@ export default function CaseStudiesSection() {
               onClick={() => goTo(-1)}
               disabled={!canPrev}
               aria-label="Previous case studies"
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-500 ${
                 canPrev
                   ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
                   : "cursor-not-allowed bg-slate-200/70 text-slate-400"

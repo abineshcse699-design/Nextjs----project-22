@@ -187,19 +187,22 @@ export default function Navbar() {
 
             {/* Right side */}
             <div className="flex shrink-0 items-center gap-2">
-              <button
-                type="button"
-                className={`
-                  flex h-11 items-center gap-2 rounded-md px-5
-                  text-[15px] font-semibold text-white
-                  transition-colors duration-150
-                  lg:h-12 lg:px-6 lg:text-[16px]
-                  ${T.primaryBg} ${T.primaryHoverBg}
-                `}
-              >
-                <MessageSquare size={18} strokeWidth={2.25} className="shrink-0" />
-                <span className="hidden sm:inline">Talk to us</span>
-              </button>
+
+            <Link
+  href="/#form"
+  onClick={closeAllMenus}
+  className={`
+    flex h-11 items-center gap-2 rounded-md px-5
+    text-[15px] font-semibold text-white
+    transition-colors duration-150
+    lg:h-12 lg:px-6 lg:text-[16px]
+    ${T.primaryBg} ${T.primaryHoverBg}
+  `}
+>
+  <MessageSquare size={18} strokeWidth={2.25} className="shrink-0" />
+  <span className="hidden sm:inline">Talk to us</span>
+</Link>
+
 
               {/* Mobile menu toggle — only shown below the lg breakpoint,
                   where the centered nav list is hidden. Without this
@@ -693,14 +696,13 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
     { label: "Awards & Recognitions", href: "/About/awards" },
   ];
 
-
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1fr_1fr_0.8fr]">
       <div>
         <ColumnTitle>Who We Are</ColumnTitle>
         <div className="space-y-3.5">
           {whoWeAre.map((i) => (
-            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate}>
               {i.label}
             </LinkItem>
           ))}
@@ -711,7 +713,7 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
         <ColumnTitle>Purpose & Impact</ColumnTitle>
         <div className="space-y-3.5">
           {purposeImpact.map((i) => (
-            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate}>
               {i.label}
             </LinkItem>
           ))}
@@ -722,7 +724,7 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
         <ColumnTitle>Updates & Highlights</ColumnTitle>
         <div className="space-y-3.5">
           {updates.map((i) => (
-            <LinkItem key={i.label} href={i.href} onClick={onNavigate} newTab>
+            <LinkItem key={i.label} href={i.href} onClick={onNavigate}>
               {i.label}
             </LinkItem>
           ))}
@@ -732,8 +734,6 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
       <Link
         href="/About"
         onClick={onNavigate}
-        target="_blank"
-        rel="noopener noreferrer"
         className={`relative block overflow-hidden rounded-lg ${T.inkBg}`}
       >
         <div className="flex aspect-[3/4] flex-col justify-between p-5">
@@ -759,11 +759,18 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
 /* ===============================================================
    CAREERS
 ================================================================ */
-
 function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
   const cards = [
-    { title: "Why Join Starfii?", desc: "Build your career with opportunities to learn, grow, and contribute." },
-    { title: "Programs & Learning", desc: "Empowering growth through learning and development." },
+    {
+      title: "Why Join Starfii?",
+      desc: "Build your career with opportunities to learn, grow, and contribute.",
+      href: "/careers/why-join-starfii",
+    },
+    {
+      title: "Programs & Learning",
+      desc: "Empowering growth through learning and development.",
+      href: "/careers/programs-learning",
+    },
   ];
 
   return (
@@ -772,10 +779,14 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
         <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
           <h4 className={`text-[18px] font-semibold ${T.ink}`}>{card.title}</h4>
           <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{card.desc}</p>
-          <a href="#" className={`mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}>
+          <Link
+            href={card.href}
+            onClick={onNavigate}
+            className={`mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}
+          >
             Know more
             <ArrowUpRight size={16} />
-          </a>
+          </Link>
         </div>
       ))}
 
@@ -784,10 +795,14 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
         <p className="mt-2.5 text-[14.5px] leading-relaxed text-white/70">
           Ready to own your game with Starfii? Look for open positions now.
         </p>
-        <a href="#" className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
+        <Link
+          href="/careers/jobs"
+          onClick={onNavigate}
+          className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
+        >
           Know more
           <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </div>
     </div>
   );

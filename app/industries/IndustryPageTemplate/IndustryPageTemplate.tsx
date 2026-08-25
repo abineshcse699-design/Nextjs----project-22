@@ -18,7 +18,7 @@ const T = {
 // Navbar.tsx wrapper: mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 // This makes content start EXACTLY where the white rounded navbar box starts,
 // and end EXACTLY where it ends — at every breakpoint, on any screen width.
-const ALIGN = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 export type IndustryStat = { value: string; label: string };
 export type IndustryCapability = { title: string; description: string };

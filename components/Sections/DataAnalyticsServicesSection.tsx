@@ -13,8 +13,7 @@ const LAVENDER_ACCENT = "#A48FEA";
 
 // Shared page-width wrapper — kept in sync with the navbar's own
 // max-width/padding so every section lines up with it exactly.
-const ALIGN =
-  "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const keyTakeaways = [
   "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",

@@ -14,7 +14,7 @@ const T = {
 
 /* Same max-width + padding scale as the navbar's inner container, so
    every section on this page lines up edge-to-edge with the nav. */
-const CONTAINER = "mx-auto max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12";
+const CONTAINER = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 export const metadata = {
   title: "Partners | Starfii",
