@@ -512,18 +512,18 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   ];
 
   const offeringsLeft = [
-    "AI-native Contact Center",
-    "Cybersecurity",
-    "Enterprise Automation",
-    "Sustainability Services",
-    "Vibe Coding",
+    { label: "AI-native Contact Center", href: "/services/offerings/ai-native-contact-center" },
+    { label: "Enterprise Automation", href: "/services/offerings/enterprise-automation" },
+    { label: "Vibe Coding", href: "/services/offerings/vibe-coding" },
+    { label: "Digital Workplace", href: "/services/offerings/digital-workplace" },
+    { label: "Testing", href: "/services/offerings/testing" },
   ];
 
   const offeringsRight = [
-    "Application Services",
-    "Digital Workplace",
-    "Generative AI",
-    "Testing",
+    { label: "Cybersecurity", href: "/services/offerings/cybersecurity" },
+    { label: "Sustainability Services", href: "/services/offerings/sustainability-services" },
+    { label: "Application Services", href: "/services/offerings/application-services" },
+    { label: "Generative AI", href: "/services/offerings/generative-ai" },
   ];
 
   return (
@@ -543,10 +543,14 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
         <ColumnTitle>Offerings</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
           {offeringsLeft.map((o) => (
-            <LinkItem key={o} onClick={onNavigate}>{o}</LinkItem>
+            <LinkItem key={o.label} href={o.href} onClick={onNavigate}>
+              {o.label}
+            </LinkItem>
           ))}
           {offeringsRight.map((o) => (
-            <LinkItem key={o} onClick={onNavigate}>{o}</LinkItem>
+            <LinkItem key={o.label} href={o.href} onClick={onNavigate}>
+              {o.label}
+            </LinkItem>
           ))}
         </div>
 
@@ -575,10 +579,26 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 ================================================================ */
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
-    { name: "RapidX®", desc: "Create direct, tailored paths for your teams to develop against any need" },
-    { name: "Tensai®", desc: "Automate your essential processes to increase quality and efficiency" },
-    { name: "Amaze®", desc: "Speed up and steady your product, platform, process, and data journey to the cloud" },
-    { name: "Agentverse™", desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes" },
+    {
+      name: "RapidX®",
+      desc: "Create direct, tailored paths for your teams to develop against any need",
+      href: "/platform/rapidx",
+    },
+    {
+      name: "Tensai®",
+      desc: "Automate your essential processes to increase quality and efficiency",
+      href: "/platform/tensai",
+    },
+    {
+      name: "Amaze®",
+      desc: "Speed up and steady your product, platform, process, and data journey to the cloud",
+      href: "/platform/amaze",
+    },
+    {
+      name: "Agentverse™",
+      desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes",
+      href: "/platform/agentverse",
+    },
   ];
 
   return (
@@ -589,10 +609,14 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
           <div key={p.name} className={`border-l-2 ${T.border} pl-4`}>
             <h4 className={`text-[17px] font-semibold ${T.ink}`}>{p.name}</h4>
             <p className={`mt-2 text-[13.5px] leading-relaxed ${T.muted}`}>{p.desc}</p>
-            <a href="#" className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}>
+            <Link
+              href={p.href}
+              onClick={onNavigate}
+              className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}
+            >
               Learn more
               <ArrowUpRight size={14} />
-            </a>
+            </Link>
           </div>
         ))}
       </div>
@@ -607,13 +631,14 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
             Enterprise™.
           </p>
         </div>
-        <a
-          href="#"
+        <Link
+          href="/platform/zerovity"
+          onClick={onNavigate}
           className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-white/10 px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-white/15"
         >
           Learn more
           <ArrowUpRight size={16} />
-        </a>
+        </Link>
       </div>
     </div>
   );
