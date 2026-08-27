@@ -580,9 +580,9 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
-      name: "RapidX®",
-      desc: "Create direct, tailored paths for your teams to develop against any need",
-      href: "/platform/rapidx",
+      name: "Turbodev AI",
+      desc: "The revenue engine for Shopify brands — recover lost sales and grow profit from existing customers",
+      href: "/platform/turbodev-ai",
     },
     {
       name: "Tensai®",
