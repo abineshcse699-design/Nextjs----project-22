@@ -89,6 +89,7 @@ function StepRow({
       {/* STEP TITLE */}
       <h3
         className="
+          font-heading
           text-[25px]
           font-medium
           leading-[1.2]
@@ -105,6 +106,7 @@ function StepRow({
       {/* STEP DESCRIPTION */}
       <p
         className="
+          font-body
           self-center
           text-[16px]
           leading-[1.7]
@@ -250,6 +252,7 @@ export default function AIJourneySection() {
 
             <span
               className="
+                font-body
                 text-xs
                 font-medium
                 uppercase
@@ -264,6 +267,7 @@ export default function AIJourneySection() {
           {/* MAIN HEADING */}
           <h2
             className="
+              font-heading
               mt-6
               text-[42px]
               font-medium
@@ -282,6 +286,7 @@ export default function AIJourneySection() {
           {/* SUBTITLE */}
           <p
             className="
+              font-body
               mt-5
               max-w-[420px]
               text-base

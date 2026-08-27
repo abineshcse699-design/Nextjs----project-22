@@ -580,24 +580,28 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
-      name: "Turbodev AI",
+      name: "Turbodev ",
       desc: "The revenue engine for Shopify brands — recover lost sales and grow profit from existing customers",
       href: "/platform/turbodev-ai",
+      newTab: true,
     },
     {
       name: "Tensai®",
       desc: "Automate your essential processes to increase quality and efficiency",
       href: "/platform/tensai",
+      newTab: false,
     },
     {
       name: "Amaze®",
       desc: "Speed up and steady your product, platform, process, and data journey to the cloud",
       href: "/platform/amaze",
+      newTab: false,
     },
     {
       name: "Agentverse™",
       desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes",
       href: "/platform/agentverse",
+      newTab: false,
     },
   ];
 
@@ -612,6 +616,8 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
             <Link
               href={p.href}
               onClick={onNavigate}
+              target={p.newTab ? "_blank" : undefined}
+              rel={p.newTab ? "noopener noreferrer" : undefined}
               className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}
             >
               Learn more
@@ -643,7 +649,6 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
-
 /* ===============================================================
    INDUSTRIES
 ================================================================ */

@@ -82,17 +82,17 @@ function PillarCard({
             : "translate-y-10 opacity-0"
         }`}
     >
-      <h3 className="text-2xl font-semibold text-[#1a1150] transition-colors duration-300 group-hover:text-[#3B2FE0]">
+      <h3 className="font-heading text-2xl font-semibold text-[#1a1150] transition-colors duration-300 group-hover:text-[#3B2FE0]">
         {title}
       </h3>
 
-      <p className="mt-4 text-[15px] leading-relaxed text-slate-500">
+      <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-500">
         {body}
       </p>
 
       <a
         href="#"
-        className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
+        className="font-body mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
       >
         Know More
 
@@ -180,16 +180,16 @@ export default function ZeroFrictionSection() {
       <div className="relative z-10 mx-auto grid max-w-[1520px] grid-cols-1 gap-14 px-6 sm:px-10 lg:grid-cols-[520px_1fr] lg:gap-16 lg:px-16">
         {/* LEFT CONTENT */}
         <div className="lg:sticky lg:top-32 lg:h-fit">
-          <h2 className="text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">
+          <h2 className="font-heading text-[40px] font-medium leading-[1.15] text-white lg:text-[46px]">
             Technical Competencies & Service Capabilities
           </h2>
 
-          <p className="mt-6 text-lg font-medium text-slate-200">
+          <p className="font-body mt-6 text-lg font-medium text-slate-200">
             Engineering depth across every layer of the enterprise stack,
             from product to platform to data
           </p>
 
-          <p className="mt-6 text-[15px] leading-relaxed text-slate-300">
+          <p className="font-body mt-6 text-[15px] leading-relaxed text-slate-300">
             Building resilient, scalable technology takes more than a single
             specialism — it takes engineering, AI, data, and quality working
             together as one system. Our technical competencies span
@@ -215,7 +215,7 @@ export default function ZeroFrictionSection() {
             />
           ))}
 
-          <p className="mt-4 text-lg text-slate-200 sm:col-span-2">
+          <p className="font-body mt-4 text-lg text-slate-200 sm:col-span-2">
             Each competency strengthens the next. Together, they give the
             enterprise a single, compounding engineering advantage.
           </p>

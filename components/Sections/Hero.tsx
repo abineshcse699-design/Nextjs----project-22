@@ -20,20 +20,21 @@ export default function Hero() {
       </div>
 
       {/* Hero Content */}
-      <div className="relative z-10 mx-auto max-w-[1520px] px-6 pt-[170px] sm:px-10 lg:px-16 lg:pt-[190px]">
-        <h1 className="max-w-2xl text-[44px] font-medium leading-[1.1] text-white sm:text-[56px] lg:text-[64px]">
+       <div className="relative z-10 mx-auto max-w-[1520px] px-6 pt-[170px] sm:px-10 lg:px-16 lg:pt-[190px]">
+        <h1 className="font-heading max-w-2xl text-[44px] font-medium leading-[1.1] text-white sm:text-[56px] lg:text-[64px]">
           Zero Friction. Infinite
           <br />
           Momentum.
         </h1>
 
-        <p className="mt-6 max-w-lg text-lg text-slate-200/90">
+        <p className="font-body mt-6 max-w-lg text-lg text-slate-200/90">
           Eliminate every gap between your enterprise and peak performance.
         </p>
 
-        <a
+<a
+        
           href="#contact"
-          className="mt-8 flex w-fit items-center gap-2 rounded-xl bg-white px-6 py-4 text-[15px] font-semibold text-[#3B2FE0] transition-transform hover:scale-[1.03]"
+          className="font-body mt-8 flex w-fit items-center gap-2 rounded-xl bg-white px-6 py-4 text-[15px] font-semibold text-[#3B2FE0] transition-transform hover:scale-[1.03]"
         >
           Contact Now
           <ArrowUpRight size={18} strokeWidth={2.5} />

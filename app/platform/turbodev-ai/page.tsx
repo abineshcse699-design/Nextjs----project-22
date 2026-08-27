@@ -1,11 +1,11 @@
-import TurbodevAIPage from "./TurbodevAIClient";
+import TurbodevAIClient from "./TurbodevAIClient";
 
 export const metadata = {
-  title: "Turbodev AI | Starfii",
+  title: "Turbodev AI — Revenue Engine for Shopify Brands | Starfii",
   description:
-    "The Revenue Engine for Shopify Brands — recover lost sales, increase repeat orders, and grow profit from customers you've already paid for.",
+    "Turbodev recovers your lost sales, increases repeat orders, and grows profit from every customer — without spending more on ads or hiring a bigger team.",
 };
 
-export default function Page() {
-  return <TurbodevAIPage />;
+export default function TurbodevAIPage() {
+  return <TurbodevAIClient />;
 }

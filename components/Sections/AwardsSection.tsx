@@ -56,12 +56,12 @@ export default function AwardsSection() {
           section's content lines up under the same edges as the nav. */}
       <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
         <h2
-          className="text-[40px] font-medium lg:text-[46px]"
+          className="font-heading text-[40px] font-medium lg:text-[46px]"
           style={{ color: CHAMPION_BLUE }}
         >
           Awards and Recognitions
         </h2>
-        <p className="mt-4 max-w-xl text-lg text-slate-600">
+        <p className="font-body mt-4 max-w-xl text-lg text-slate-600">
           Recognition that reflects an innovation-first culture and how we
           show up as a reliable transformation partner.
         </p>
@@ -77,18 +77,18 @@ export default function AwardsSection() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
             <div className="absolute inset-x-0 bottom-0 p-8">
-              <p className="text-sm font-medium tracking-wide text-white/80">
+              <p className="font-body text-sm font-medium tracking-wide text-white/80">
                 {awards[active].date}
               </p>
               <h3
                 key={active}
-                className="mt-3 max-w-md text-2xl font-medium leading-snug text-white transition-opacity duration-500"
+                className="font-heading mt-3 max-w-md text-2xl font-medium leading-snug text-white transition-opacity duration-500"
               >
                 {awards[active].title}
               </h3>
               <a
                 href="#"
-                className="mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white hover:underline"
+                className="font-body mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white hover:underline"
               >
                 Learn More
                 <ArrowUpRight size={16} strokeWidth={2.5} />
@@ -109,7 +109,7 @@ export default function AwardsSection() {
                   color: active === i ? CHAMPION_BLUE : "#334155",
                 }}
               >
-                <span className="text-lg font-medium leading-snug">
+                <span className="font-body text-lg font-medium leading-snug">
                   {a.title}
                 </span>
                 <span
