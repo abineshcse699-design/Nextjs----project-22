@@ -4,33 +4,35 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 /* ===============================================================
-   CONTENT
+   CONTENT — SEO / AEO / GEO optimized
+   (Titles unchanged. Body copy rewritten with Starfii brand
+   mentions + target keywords for search & AI answer engines.)
 ================================================================ */
 
 const pillars = [
   {
     title: "Enterprise Product Engineering",
-    body: "We design, build, and ship end-to-end enterprise products — pairing proven engineering practice with AI-powered frameworks to deliver scalable growth and measurable performance.",
+    body: "Starfii is an enterprise product engineering company that designs, builds, and ships digital products end to end for global businesses. Our AI driven software development approach combines proven engineering practices with intelligent frameworks, helping enterprises achieve scalable growth, faster time to market, and measurable business performance.",
   },
   {
     title: "SaaS Product Engineering",
-    body: "From fintech and healthcare to e-commerce and enterprise platforms, we've delivered SaaS products for Fortune 500 companies, with a track record in building complex, scalable solutions.",
+    body: "As a trusted SaaS product engineering partner, Starfii builds custom SaaS platforms for fintech, healthcare, e commerce, and enterprise businesses. We have delivered SaaS software development for Fortune 500 companies, bringing deep expertise in building secure, complex, and highly scalable cloud based products.",
   },
   {
     title: "Enterprise AI/ML, Gen AI & LLM Engineering",
-    body: "We turn workflows into intelligent, scalable systems — reducing manual effort, accelerating decisions, and delivering automation tailored to your business outcomes.",
+    body: "Starfii specializes in enterprise AI/ML, Generative AI, and LLM engineering services that turn manual workflows into intelligent, automated systems. From custom AI model integration to Gen AI powered automation, we help businesses reduce operational costs, accelerate decision making, and unlock measurable ROI from artificial intelligence.",
   },
   {
     title: "Data Engineering & Data Science",
-    body: "Our certified data engineers build robust, reliable data infrastructure, while our data scientists surface the insights and patterns that drive smarter, faster decision-making.",
+    body: "Our certified data engineers and data scientists at Starfii build reliable, scalable data infrastructure and advanced analytics solutions. Through expert data engineering and data science services, we help enterprises uncover actionable insights, improve data quality, and enable smarter, faster, data driven decision making.",
   },
   {
     title: "Legacy Software Modernization",
-    body: "We assess your existing systems, build a tailored modernization roadmap, and transition you to a scalable, future-ready platform with minimal operational disruption.",
+    body: "Starfii offers legacy software modernization services from start to finish, beginning with a detailed assessment of your existing systems. We design a tailored modernization roadmap and migrate your business to a scalable, cloud ready, future proof platform, with minimal downtime and zero disruption to operations.",
   },
   {
     title: "DevOps & Quality Engineering",
-    body: "We accelerate product delivery with seamless DevOps integration and test automation, so every release ships faster without compromising on quality.",
+    body: "Starfii's DevOps and quality engineering services help businesses accelerate software delivery through seamless CI/CD integration and automated testing. Our DevOps consulting and QA engineering practices ensure every release ships faster, remains secure, and meets enterprise grade quality and compliance standards.",
   },
 ];
 
@@ -120,7 +122,7 @@ function PortraitCircle() {
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={PHOTO_SRC}
-        alt="AI and technology illustration"
+        alt="Starfii AI driven software and product engineering illustration"
         className="block h-auto w-full max-w-[520px] object-contain"
       />
     </div>
@@ -185,18 +187,23 @@ export default function ZeroFrictionSection() {
           </h2>
 
           <p className="font-body mt-6 text-lg font-medium text-slate-200">
-            Engineering depth across every layer of the enterprise stack,
-            from product to platform to data
+            Starfii delivers engineering depth across every layer of the
+            enterprise stack, from product engineering to cloud platforms
+            to enterprise data systems
           </p>
 
           <p className="font-body mt-6 text-[15px] leading-relaxed text-slate-300">
+            Starfii is an AI driven software and product engineering company
+            trusted by startups and Fortune 500 enterprises worldwide.
             Building resilient, scalable technology takes more than a single
-            specialism — it takes engineering, AI, data, and quality working
-            together as one system. Our technical competencies span
-            end-to-end product engineering, enterprise AI/ML and Gen AI,
-            data engineering and data science, legacy modernization, and
-            DevOps and quality engineering, so every capability your
-            enterprise needs is covered under one roof.
+            specialism. It takes software engineering, artificial
+            intelligence, data engineering, and quality assurance working
+            together as one system. Our core service capabilities span
+            end to end enterprise product engineering, SaaS product
+            engineering, Generative AI and LLM engineering, data engineering
+            and data science, legacy software modernization, and DevOps and
+            quality engineering, giving every enterprise the full technology
+            stack it needs under one roof.
           </p>
 
           {/* IMAGE */}
@@ -216,8 +223,9 @@ export default function ZeroFrictionSection() {
           ))}
 
           <p className="font-body mt-4 text-lg text-slate-200 sm:col-span-2">
-            Each competency strengthens the next. Together, they give the
-            enterprise a single, compounding engineering advantage.
+            Each Starfii service capability strengthens the next, combining
+            software engineering, AI, data, and quality engineering into a
+            single, compounding technology advantage for your enterprise.
           </p>
         </div>
       </div>

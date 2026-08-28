@@ -5,23 +5,23 @@ import { useEffect, useRef, useState } from "react";
 const steps = [
   {
     title: "Discover Your AI Opportunity",
-    body: "We assess your product, data, and workflows to pinpoint where AI can move the needle fastest — grounded in your business goals, not hype.",
+    body: "Every engagement starts with an AI opportunity assessment. Starfii's team audits your product, data, and workflows to find exactly where AI can move the needle fastest, grounded in real business goals instead of hype.",
   },
   {
-    title: "Design AI-Driven Products",
-    body: "Our team architects software and product experiences with AI built in from day one, not bolted on afterward.",
+    title: "Design AI Driven Products",
+    body: "As an AI-driven product engineering company, we architect software and product experiences with AI built in from day one, not bolted on afterward, so intelligence becomes core to the user experience, not an add on feature.",
   },
   {
     title: "Engineer at Startup Speed",
-    body: "80+ skilled engineers across 3+ development locations ship production-grade software fast, without cutting corners on quality.",
+    body: "80+ skilled software engineers across 3+ global development locations give Starfii the bandwidth to ship production-grade software fast, without cutting corners on code quality, security, or scalability.",
   },
   {
     title: "Scale Across Industries",
-    body: "From e-commerce and travel to healthcare, finance, ed-tech, and logistics, we bring proven playbooks tailored to your industry's needs.",
+    body: "E-commerce, travel, healthcare, fintech, ed-tech, and logistics businesses rely on Starfii's industry specific playbooks, proven software development frameworks tailored to each sector's compliance, scale, and customer needs.",
   },
   {
     title: "Partner Beyond Launch",
-    body: "5+ years of delivering top solutions means we stay in the loop post-launch — monitoring, optimizing, and evolving your product as you grow.",
+    body: "Backed by 5+ years of delivering enterprise grade solutions, Starfii stays engaged well past go live, monitoring performance, optimizing AI models, and evolving your product as your business grows.",
   },
 ];
 

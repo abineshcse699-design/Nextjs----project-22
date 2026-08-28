@@ -11,88 +11,97 @@ import {
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
-// Shared page-width wrapper — kept in sync with the navbar's own
+// Shared page-width wrapper, kept in sync with the navbar's own
 // max-width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Cloud Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
+// SEO note: this page maps directly to Starfii's real "Cloud
+// Engineering - AWS, Azure, GCP" service (see starfii.com/services).
+// Primary keyword targets woven into the copy below: "cloud
+// engineering services", "AWS Azure GCP consulting", "cloud
+// migration services", "cloud-native application development",
+// "multi-cloud architecture", "cloud cost optimization (FinOps)",
+// "cloud security & compliance", "DevOps CI/CD", "cloud operations
+// & SRE".
+
 const keyTakeaways = [
-  "Starfii helps enterprises move to the cloud on their terms — at the pace, cost, and risk level that fits the business.",
-  "We design cloud-native architectures on AWS, Azure, and GCP built for scale, resilience, and cost efficiency.",
-  "Our focus spans migration, modernization, cloud operations, and FinOps, wired together as one journey.",
-  "We treat cloud cost and security as first-class design constraints, not afterthoughts bolted on post-migration.",
+  "Starfii delivers end-to-end cloud engineering services, covering migration, cloud-native development, and ongoing operations across AWS, Azure, and GCP.",
+  "We design multi-cloud and hybrid cloud architecture built for scale, resilience, and cost efficiency, so you're never locked into a single vendor.",
+  "Our cloud services span migration, modernization, FinOps cost optimization, and DevOps automation, wired together as one connected journey.",
+  "We treat cloud security, compliance, and cost as first-class design constraints from day one, not afterthoughts bolted on post-migration.",
 ];
 
 const focusAreas = [
   {
-    title: "Cloud Migration",
-    body: "We assess workloads, plan the sequence, and migrate systems to the cloud with minimal disruption to the business.",
+    title: "Cloud Migration Services",
+    body: "We assess workloads, plan the migration sequence, and move systems to AWS, Azure, or GCP with minimal disruption to day-to-day business operations.",
   },
   {
-    title: "Cloud-Native Engineering",
-    body: "We design and build applications for the cloud from the ground up, using containers, microservices, and serverless where they fit.",
+    title: "Cloud-Native Application Development",
+    body: "We design and build applications for the cloud from the ground up, using containers, microservices, and serverless architecture where they deliver the most value.",
   },
   {
-    title: "Multi-Cloud & Hybrid Architecture",
-    body: "We architect across AWS, Azure, and GCP so workloads sit where they perform best, without locking you into a single vendor.",
+    title: "Multi-Cloud & Hybrid Cloud Architecture",
+    body: "We architect across AWS, Azure, and GCP so workloads run where they perform best, giving you multi-cloud flexibility without vendor lock-in.",
   },
   {
     title: "Cloud Security & Compliance",
-    body: "We build security and compliance controls into the cloud environment from day one, so growth doesn't outpace protection.",
+    body: "We build security and compliance controls into your cloud environment from day one, so infrastructure growth never outpaces data protection.",
   },
   {
-    title: "FinOps & Cost Optimization",
-    body: "We monitor and tune cloud spend continuously, so infrastructure costs stay predictable as usage scales.",
+    title: "FinOps & Cloud Cost Optimization",
+    body: "We monitor and tune cloud spend continuously through FinOps best practices, keeping infrastructure costs predictable as usage scales.",
   },
   {
-    title: "Cloud Operations & SRE",
-    body: "We run day-to-day cloud operations with site reliability practices, keeping uptime high and incidents rare.",
+    title: "Cloud Operations & Site Reliability Engineering (SRE)",
+    body: "We run day-to-day cloud operations with site reliability engineering practices, keeping uptime high and incidents rare across your environment.",
   },
   {
-    title: "DevOps & CI/CD",
-    body: "We build automated pipelines that get code to production faster and safer, with testing and rollback built in.",
+    title: "DevOps & CI/CD Automation",
+    body: "We build automated CI/CD pipelines that get code to production faster and safer, with testing, monitoring, and rollback built in.",
   },
   {
     title: "Data & AI Workloads on Cloud",
-    body: "We design cloud infrastructure purpose-built for data and AI workloads, so pipelines and models run efficiently at scale.",
+    body: "We design cloud infrastructure purpose-built for data engineering and AI/ML workloads, so pipelines and models run efficiently at scale.",
   },
 ];
 
 const tabs = [
   {
-    label: "Plan a Migration That Fits",
-    heading: "A migration roadmap sequenced around business risk, not just technical ease",
-    body: "We assess your workloads and build a migration plan that moves the right systems in the right order, so the business keeps running while the cloud gets built underneath it.",
+    label: "Migration: Plan a Move That Fits",
+    heading: "A cloud migration roadmap sequenced around business risk, not just technical ease",
+    body: "We assess your workloads and build a cloud migration plan that moves the right systems in the right order, so the business keeps running while the cloud foundation gets built underneath it.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Build Cloud-Native, Not Just Cloud-Hosted",
-    heading: "Applications designed for the cloud, not just moved onto it",
-    body: "We build with containers, microservices, and serverless where they genuinely help, so you get the elasticity and resilience the cloud is meant to offer.",
+    label: "Cloud-Native: Built For the Cloud",
+    heading: "Applications engineered for the cloud, not just moved onto it",
+    body: "We build with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Control Cost as You Scale",
+    label: "FinOps: Control Cost as You Scale",
     heading: "FinOps that keeps cloud spend predictable, not a surprise on the invoice",
-    body: "We monitor usage continuously and tune resources to match actual demand, so cost scales with the business instead of running ahead of it.",
+    body: "We monitor cloud usage continuously and right-size resources to match actual demand, so infrastructure cost scales with the business instead of running ahead of it.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Secure the Environment by Design",
-    heading: "Security built into the cloud architecture, not added after launch",
-    body: "We embed identity, network, and compliance controls into the environment from the start, so security scales alongside the workloads it protects.",
+    label: "Security: Secure by Design",
+    heading: "Cloud security built into the architecture, not added after launch",
+    body: "We embed identity, network, and compliance controls into the cloud environment from the start, so security scales alongside the workloads it protects.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Keep Operations Reliable",
-    heading: "Site reliability practices that keep uptime high as complexity grows",
-    body: "Our SRE-led operations teams monitor, automate, and respond to incidents across your cloud estate, so reliability holds steady as workloads multiply.",
+    label: "SRE: Keep Operations Reliable",
+    heading: "Site reliability engineering that keeps uptime high as complexity grows",
+    body: "Our SRE-led cloud operations team monitors, automates, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
@@ -136,7 +145,7 @@ export default function CloudServicesSection() {
         <div className="absolute inset-0 -z-10">
           <img
             src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1800&auto=format&fit=crop"
-            alt=""
+            alt="Cloud engineering team working on AWS, Azure, and GCP infrastructure"
             className="h-full w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
@@ -156,28 +165,28 @@ export default function CloudServicesSection() {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Cloud</span>
+            <span className="text-slate-500">Cloud Engineering</span>
           </nav>
 
           <h1
             className="mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            Cloud Engineering Built for Scale and Control
+            Cloud Engineering Services on AWS, Azure & GCP
           </h1>
 
           <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600">
-            Migrate, modernize, and run on AWS, Azure, and GCP with
+            Migrate, modernize, and run on AWS, Azure, and GCP with cloud
             architecture designed for performance, security, and cost
             control from day one.
           </p>
 
           <a
-            href="#connect"
+            href="/services#serviceconact"
             className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform hover:scale-[1.03]"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            Connect Now
+            Request Your POC Now
             <ArrowUpRight size={17} />
           </a>
         </div>
@@ -252,17 +261,21 @@ export default function CloudServicesSection() {
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises stay in control during cloud adoption by
                 sequencing migration around business risk, designing
-                cloud-native from the start, and treating cost and
-                security as ongoing practices, not one-time projects.
-                Starfii brings these together across AWS, Azure, and
-                GCP.
+                cloud-native applications from the start, and treating
+                cost and security as ongoing FinOps and compliance
+                practices, not one-time projects. Starfii brings these
+                together across{" "}
+                <a href="/services" className="underline" style={{ color: CHAMPION_BLUE }}>
+                  AWS, Azure, and GCP cloud engineering
+                </a>
+                .
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop"
-                alt="Engineers reviewing cloud infrastructure"
+                alt="Cloud engineers reviewing AWS and Azure infrastructure architecture"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -281,9 +294,13 @@ export default function CloudServicesSection() {
                 Capabilities
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
-                Migrate, build, and operate on the cloud with architecture
-                designed for scale, resilience, and predictable cost from
-                the outset.
+                Migrate, build, and operate on AWS, Azure, and GCP with
+                architecture designed for scale, resilience, and
+                predictable cost from the outset. See our full{" "}
+                <a href="/services" className="underline" style={{ color: LAVENDER_ACCENT }}>
+                  service offerings
+                </a>
+                .
               </p>
             </div>
 
@@ -304,7 +321,7 @@ export default function CloudServicesSection() {
                     {area.body}
                   </p>
                   <a
-                    href="#"
+                    href="/services"
                     className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                     style={{ color: LAVENDER_ACCENT }}
                   >
@@ -318,18 +335,18 @@ export default function CloudServicesSection() {
         </section>
 
         {/* ============================================================
-            TABBED DEEP-DIVE — auto-advancing tab list, fixed panel height
+            TABBED DEEP-DIVE, auto-advancing tab list, fixed panel height
         ============================================================ */}
         <section className="mt-24 pb-28">
           <h2
             className="text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Cloud Services
+            Cloud Services, Explained
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
+            {/* Left nav, autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -340,7 +357,7 @@ export default function CloudServicesSection() {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
-                    {/* Animated progress fill — only rendered on the active tab,
+                    {/* Animated progress fill, only rendered on the active tab,
                         remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
@@ -371,7 +388,7 @@ export default function CloudServicesSection() {
               })}
             </ul>
 
-            {/* Right panel — fixed height so the image never stretches
+            {/* Right panel, fixed height so the image never stretches
                 oversized on tabs with shorter text content */}
             <div
               key={activeTab}
@@ -404,3 +421,21 @@ export default function CloudServicesSection() {
     </main>
   );
 }
+
+/*
+  SEO checklist for this page (apply outside this component, since
+  it's a client component and can't export metadata):
+
+  1. Page <title>: "Cloud Engineering Services | AWS, Azure & GCP |
+     Starfii Technology" (under 60 chars).
+  2. Meta description: "Starfii delivers cloud engineering services on
+     AWS, Azure, and GCP, migration, cloud-native development,
+     FinOps, security, and DevOps automation for growing enterprises."
+  3. Internal links added in-page to /services, matching real nav
+     structure, for topical consistency with the rest of starfii.com.
+  4. One <h1> per page (done), with target keywords ("cloud
+     engineering services", "AWS Azure GCP") in the H1, first
+     paragraph, and multiple H2s/H3s.
+  5. Descriptive, keyword-relevant alt text added to all images
+     (previously empty on the hero image).
+*/

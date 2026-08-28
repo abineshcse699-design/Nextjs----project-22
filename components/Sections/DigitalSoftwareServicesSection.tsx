@@ -23,16 +23,16 @@ import {
 
 /* ===============================================================
    BRAND TOKENS
-   Primary  — Champion Blue  #1B2560
-   Secondary — Lavender       #ECE7FB (surface) / #A48FEA (accent)
+   Primary   Champion Blue  #1B2560
+   Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
-// Shared page-width wrapper — kept in sync with the navbar's own
-// max-width/padding so every section lines up with it exactly.
+// Shared page width wrapper, kept in sync with the navbar's own
+// max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Digital and Software Services" tab list
@@ -40,13 +40,15 @@ const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
+   SEO / AEO optimized: entity first statements ("Starfii is...",
+   "Starfii offers..."), keyword rich but natural, no hyphens.
 ================================================================ */
 
 const keyTakeaways: string[] = [
-  "Starfii is a Champion Blue-badged leader in digital products and AI-driven software engineering.",
-  "We design customer-centric digital experiences and modernize complex application portfolios.",
-  "Our focus spans product engineering, digital experience, and digital strategy consulting.",
-  "We turn ideas into scalable products through AI-led engineering and faster delivery cycles.",
+  "Starfii is an AI driven software and product engineering company trusted by enterprises and Fortune 500 brands worldwide.",
+  "We design customer focused digital experiences and modernize complex application portfolios for speed and scale.",
+  "Our core services span enterprise product engineering, SaaS product engineering, Generative AI and LLM engineering, and digital strategy consulting.",
+  "We turn ideas into scalable software products through AI led engineering, cloud engineering, and faster delivery cycles.",
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
@@ -54,62 +56,62 @@ type FocusArea = { title: string; body: string; tags: string[] };
 const focusAreas: FocusArea[] = [
   {
     title: "Enterprise Product Engineering",
-    body: "We co-create what's massive for our clients — from ideation through launch — with an exceptional AI framework that delivers breakthrough growth, value, and performance.",
+    body: "Starfii is an enterprise product engineering company that partners with clients from ideation through launch, combining AI driven software development with proven engineering practices to deliver breakthrough growth, value, and performance.",
     tags: ["WEB", "MOBILE", "SAAS"],
   },
   {
     title: "Enterprise AI/ML, Gen AI and LLM",
-    body: "We collaborate closely with you to define your business problem and identify the most suitable AI models to deliver solutions that effectively address your business challenges.",
+    body: "As a Generative AI and LLM engineering company, Starfii works closely with you to define the business problem and identify the right AI models, delivering enterprise AI/ML solutions that solve real business challenges.",
     tags: ["LLM", "GEN AI", "ML"],
   },
   {
     title: "SaaS Product Engineering",
-    body: "From fintech and healthcare to e-commerce and enterprise software, we've built SaaS products for leading Fortune 500 companies that demonstrate our capability on real projects.",
+    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS product engineering capability on real production projects.",
     tags: ["SAAS", "FINTECH", "HEALTHCARE"],
   },
   {
     title: "Data Engineering & Data Science",
-    body: "We help build your entire data infrastructure with certified data engineers, while our data scientists surface the insights and patterns behind better decision-making.",
+    body: "Our certified data engineers build your entire data infrastructure, while Starfii's data scientists apply data engineering and data science expertise to surface the insights that drive smarter, faster decisions.",
     tags: ["DATA", "BI", "ANALYTICS"],
   },
   {
     title: "Cloud Engineering – AWS, Azure, GCP",
-    body: "We specialize in delivering comprehensive cloud engineering services on leading platforms like AWS, Azure, and GCP, from design through maintenance and support.",
+    body: "Starfii delivers end to end cloud engineering services on AWS, Azure, and GCP, covering cloud architecture, migration, and managed support so your platform stays reliable, secure, and cost efficient.",
     tags: ["AWS", "AZURE", "GCP"],
   },
   {
     title: "Legacy Software Modernization",
-    body: "We work closely with you to assess your legacy systems, develop a migration plan, and ensure a smooth transition to a more future-proof platform.",
+    body: "Starfii's legacy software modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
     tags: ["MIGRATION", "APIS", "CLOUD"],
   },
   {
     title: "Reporting and Dashboard – BI",
-    body: "We help transform your data into actionable insights using Tableau and Power BI, so you can make informed decisions and drive business growth.",
+    body: "Starfii helps enterprises transform raw data into actionable insights using Tableau and Power BI, delivering business intelligence dashboards that support faster, more informed decisions and long term growth.",
     tags: ["TABLEAU", "POWER BI", "ANALYTICS"],
   },
   {
     title: "Automotive Engineering Services",
-    body: "We deliver end-to-end engineering solutions for the automotive industry, supporting the transition to the digital mobility ecosystem.",
+    body: "Starfii delivers automotive engineering services covering embedded software, connected vehicle platforms, and digital mobility solutions that support the industry's shift to smarter, software defined vehicles.",
     tags: ["AUTOMOTIVE", "MOBILITY", "ENGINEERING"],
   },
   {
     title: "Revenue Cycle Management Service",
-    body: "We assist healthcare organizations in streamlining the revenue cycle and patient care with HIPAA-compliant RCM services.",
+    body: "Starfii assists healthcare organizations with HIPAA compliant revenue cycle management services, streamlining billing, claims, and patient care workflows to improve cash flow and operational efficiency.",
     tags: ["HEALTHCARE", "RCM", "COMPLIANCE"],
   },
   {
     title: "Cybersecurity",
-    body: "We help build a robust and resilient cyber framework that protects your IT infrastructure against evolving threats.",
+    body: "Starfii's cybersecurity consulting services help build a resilient security framework that protects your cloud infrastructure and applications against evolving threats, backed by continuous risk monitoring.",
     tags: ["SECURITY", "RISK", "CLOUD"],
   },
   {
     title: "UI/UX Consulting",
-    body: "We design digital products that meaningfully balance what users need with what the business needs, so every screen earns its place.",
+    body: "Starfii's UI/UX consulting team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
     tags: ["UX", "UI", "DESIGN"],
   },
   {
     title: "DevOps & Quality Engineering",
-    body: "We help get your products to market faster with DevOps and test automation built into every stage of development.",
+    body: "Starfii's DevOps and quality engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
     tags: ["DEVOPS", "QA", "AUTOMATION"],
   },
 ];
@@ -124,36 +126,36 @@ type ServiceTab = {
 const tabs: ServiceTab[] = [
   {
     label: "Shape Product Vision Clearly",
-    heading: "Product-led thinking to shape and realize your product vision",
-    body: "We craft product and experience roadmaps that go beyond planning to bring your vision into reality. Every phase is clearly structured and strategically aligned, with digital solutions that support innovation and enable consistent progress.",
+    heading: "Product led thinking to shape and realize your product vision",
+    body: "Starfii crafts product and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Build Apps for Digital Markets",
     heading: "Applications engineered for how digital markets actually move",
-    body: "We build applications that adapt to shifting user expectations and market conditions, so your product stays competitive long after launch instead of needing a rebuild every cycle.",
+    body: "Starfii builds web and mobile applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Drive AI-led Software Results",
     heading: "AI embedded in delivery, not bolted on at the end",
-    body: "Our engineering teams build AI into the software delivery process itself — from requirements to release — so outcomes improve measurably, not just anecdotally.",
+    body: "Starfii's engineering teams build Generative AI and LLM capability into the software delivery process itself, from requirements to release, so outcomes improve measurably rather than anecdotally.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Modernize Legacy for Growth",
-    heading: "Modernization that clears the path for what's next",
-    body: "We assess your legacy estate, build a tailored modernization roadmap, and transition you to a scalable platform with minimal disruption to the business.",
+    heading: "Modernization that clears the path for what comes next",
+    body: "Starfii assesses your legacy technology estate, builds a tailored legacy software modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Embed AI Across Ecosystems",
     heading: "AI that works across your whole ecosystem, not one tool",
-    body: "We connect AI capability across your applications, data, and operations so intelligence compounds across the enterprise instead of living in a single silo.",
+    body: "Starfii connects enterprise AI capability across your applications, data, and operations so intelligence compounds across the business instead of living in a single silo or point solution.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
@@ -166,6 +168,8 @@ const ecosystemImpact: EcosystemImpact[] = [
   { title: "Product Engineering for Customer Value" },
   { title: "Composable Architecture for Scale" },
   { title: "Vibe Coding for Faster Delivery" },
+  { title: "Enterprise AI and LLM Integration" },
+  { title: "Cloud Engineering and DevOps Automation" },
 ];
 
 type IndustryAward = {
@@ -179,11 +183,11 @@ type IndustryAward = {
 const industryAwards: IndustryAward[] = [
   {
     year: "2026 Quadrant",
-    category: "Mainframes — Services and Solutions",
+    category: "Mainframes, Services and Solutions",
     subcategory: "Application Modernization Services",
     rank: "Leader, U.S.",
     description:
-      "Starfii Named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes – Services and Solutions 2026 U.S. Quadrant Report",
+      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our legacy software modernization expertise.",
   },
   {
     year: "2025 Quadrant",
@@ -191,7 +195,7 @@ const industryAwards: IndustryAward[] = [
     subcategory: "Design and Development",
     rank: "Leader, U.S.",
     description:
-      "Starfii Named a Leader in Design and Development (Products, Services and Experiences) in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report",
+      "Starfii named a Leader in Design and Development (Products, Services and Experiences) in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting our product engineering capability.",
   },
   {
     year: "2025 Quadrant",
@@ -199,7 +203,7 @@ const industryAwards: IndustryAward[] = [
     subcategory: "Migration and Modernization",
     rank: "Leader, U.S.",
     description:
-      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report",
+      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our cloud engineering and data engineering services.",
   },
 ];
 
@@ -209,32 +213,32 @@ const caseStudies: CaseStudy[] = [
   {
     image:
       "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Transforming Reinsurance Claims Management",
-    body: "Explore how we transformed insurance claims management with digital & software solutions using a low-code platform, automating workflows, improving efficiency, and enhancing service quality.",
+    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
+    body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
   },
   {
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Establishing a Modern Digital Banking Experience",
-    body: "See how we rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
+    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
+    body: "See how Starfii's SaaS product engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
   },
   {
     image:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Digital Transformation in Utilities with Microsoft Business Applications",
-    body: "Discover how Microsoft Business Applications helped a utilities provider modernize field operations and give teams real-time visibility across the grid.",
+    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
+    body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
   },
   {
     image:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Automating the Digital Mortgage Application Process: A Success Story",
-    body: "Learn how intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and auditable.",
+    title: "Starfii Automates the Digital Mortgage Application Process",
+    body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
   },
   {
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Scaling a SaaS Platform for a Fortune 500 Healthcare Provider",
-    body: "See how a composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or compliance.",
+    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
+    body: "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
   },
 ];
 
@@ -251,22 +255,22 @@ const insights: InsightPost[] = [
     image:
       "https://images.unsplash.com/photo-1620121684840-edffcfc4b878?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future-Ready Systems",
-    body: "Explore how generative AI is revolutionizing software development—accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation",
+      "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
+    body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
   },
   {
     large: false,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "AI-Powered Automation: Transforming Enterprise Software Delivery",
-    body: "Stop trading speed for quality. See how AI automation cuts test cycles 70%, boosts productivity 40%, and accelerates delivery.",
+    title: "AI Powered Automation: Transforming Enterprise Software Delivery",
+    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise software delivery.",
   },
   {
     large: false,
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
     title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
-    body: "Stop rebuilding for every channel. See how MACH architecture + agile practices enable modular products with 30% lower TCO.",
+    body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
   },
 ];
 
@@ -762,8 +766,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Turn ideas into scalable products and modern platforms with
-            AI-driven engineering and faster delivery cycles.
+            Starfii turns ideas into scalable software products and modern
+            platforms with AI driven engineering, enterprise product
+            engineering, and faster delivery cycles.
           </p>
 
           <a
@@ -833,7 +838,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             style={{ color: CHAMPION_BLUE }}
           >
             A leader in digital products and software engineering, Starfii
-            designs and engineers customer-centric digital experiences
+            designs and engineers customer focused digital experiences
             while modernizing complex application portfolios for speed and
             scale.
           </p>
@@ -859,12 +864,12 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises scale and optimize digital and software
-                operations by combining product thinking, AI-led
+                operations by combining product thinking, AI led
                 engineering, and scalable architectures. Starfii brings
-                these together to accelerate development, improve quality,
-                and modernize legacy systems — turning ideas into digital
-                experiences that users value and businesses depend on
-                every day.
+                these together to accelerate software development, improve
+                quality, and modernize legacy systems, turning ideas into
+                digital experiences that users value and businesses depend
+                on every day.
               </p>
             </div>
 
@@ -906,10 +911,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               Our Services &amp; Consulting Capabilities
             </h2>
             <p className="mt-5 text-[15px] leading-relaxed text-white/60">
-              Plan, design, and scale customer-centric digital products
-              and platforms with AI-led engineering, seamless
-              experiences, and modernization strategies that drive
-              speed, efficiency, and long-term business value.
+              Starfii plans, designs, and scales customer focused digital
+              products and platforms with AI led engineering, seamless
+              experiences, and modernization strategies that drive speed,
+              efficiency, and long term business value.
             </p>
           </Reveal>
 

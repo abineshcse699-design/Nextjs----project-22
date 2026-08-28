@@ -27,6 +27,16 @@ const T = {
 // ✅ Matches navbar's outer wrapper exactly: max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// SEO note: "Global Capability Centers" (GCC setup) is not currently
+// listed among Starfii's public services on starfii.com. This content
+// is written as a standalone offering; confirm it's a real, active
+// service line before linking it from /services or the main nav, so
+// the page doesn't send mixed signals to search engines about what
+// Starfii actually delivers. Primary keyword targets: "global
+// capability center setup", "GCC setup services", "offshore
+// development center", "captive center setup India", "GCC talent
+// strategy", "GCC governance model".
+
 const setupPhases = [
   { name: "Entity & Legal Setup", detail: "Company incorporation, statutory registrations, and compliance framework." },
   { name: "Talent Acquisition", detail: "Role definition, sourcing, and hiring for engineering, ops, and support functions." },
@@ -37,17 +47,17 @@ const setupPhases = [
 ];
 
 const capabilities = [
-  { icon: Building2, title: "Center Setup", desc: "Legal entity formation, facility selection, and infrastructure build-out, sequenced so the center is operational in months, not years." },
-  { icon: Users, title: "Talent Strategy", desc: "Role architecture and hiring plans matched to the skill mix your GCC actually needs — engineering, analytics, support, or finance." },
-  { icon: Scale, title: "Governance Design", desc: "Clear reporting structures and decision rights between HQ and the GCC, avoiding the ambiguity that stalls delivery early on." },
+  { icon: Building2, title: "Global Capability Center Setup", desc: "Legal entity formation, facility selection, and infrastructure build-out, sequenced so the center is operational in months, not years." },
+  { icon: Users, title: "GCC Talent Strategy", desc: "Role architecture and hiring plans matched to the skill mix your GCC actually needs, engineering, analytics, support, or finance." },
+  { icon: Scale, title: "GCC Governance Design", desc: "Clear reporting structures and decision rights between HQ and the GCC, avoiding the ambiguity that stalls delivery early on." },
   { icon: Rocket, title: "Scale-Up Support", desc: "Phased headcount and capability ramp-up plans, moving the center from cost-arbitrage to strategic delivery over time." },
-  { icon: ShieldCheck, title: "Compliance & Risk", desc: "Labor law, data residency, and information security compliance built into the center's operating model from setup." },
-  { icon: Network, title: "Managed Transition", desc: "For enterprises transferring existing work into the GCC, a structured knowledge-transfer plan with defined exit criteria." },
+  { icon: ShieldCheck, title: "Compliance & Risk Management", desc: "Labor law, data residency, and information security compliance built into the center's operating model from setup." },
+  { icon: Network, title: "Managed GCC Transition", desc: "For enterprises transferring existing work into the GCC, a structured knowledge-transfer plan with defined exit criteria." },
 ];
 
 const outcomes = [
-  { stat: "4–6 mo", label: "Typical timeline from entity setup to first hires onboarded" },
-  { stat: "30–45%", label: "Average operating cost reduction versus onshore delivery" },
+  { stat: "4 to 6 mo", label: "Typical timeline from entity setup to first hires onboarded" },
+  { stat: "30 to 45%", label: "Average operating cost reduction versus onshore delivery" },
   { stat: "100%", label: "Compliance coverage across local labor and data regulations" },
 ];
 
@@ -80,14 +90,15 @@ export default function GlobalCapabilityCentersPage() {
               <span className="text-white/75">Global Capability Centers</span>
             </nav>
             <h1 className="mt-6 max-w-xl text-[40px] font-bold leading-[1.1] text-white sm:text-[52px]">
-              Stand Up a{" "}
-              <span className="text-[#8FA8FF]">Global Capability Center</span>{" "}
+              Set Up a{" "}
+              <span className="text-[#8FA8FF]">Global Capability Center (GCC)</span>{" "}
               Without the First-Year Guesswork
             </h1>
             <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/70">
               From legal entity setup to your first hundred hires, we build
-              and stand up global capability centers — the entity, the team,
-              the governance, and the infrastructure — as one connected plan.
+              and stand up global capability centers, covering the entity,
+              the team, the governance, and the infrastructure, as one
+              connected plan.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a href="#talk-to-us" className={`inline-flex h-12 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}>
@@ -103,7 +114,7 @@ export default function GlobalCapabilityCentersPage() {
           <div className="hidden lg:block">
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/50">
-                Setup covers
+                GCC setup covers
               </p>
               <div className="mt-5 space-y-3">
                 {[
@@ -118,7 +129,7 @@ export default function GlobalCapabilityCentersPage() {
                 ))}
               </div>
               <div className="mt-6 border-t border-white/10 pt-6">
-                <p className="text-[28px] font-bold text-white">4–6 mo</p>
+                <p className="text-[28px] font-bold text-white">4 to 6 mo</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-white/55">
                   Typical timeline from entity setup to first hires onboarded
                 </p>
@@ -148,7 +159,7 @@ export default function GlobalCapabilityCentersPage() {
               One plan, not three vendors handing off badly
             </h2>
             <p className={`mt-5 text-[15.5px] leading-relaxed ${T.muted}`}>
-              GCC setups usually stall at the seams — the legal partner, the
+              GCC setups usually stall at the seams. The legal partner, the
               staffing firm, and the IT vendor each own a slice, and nobody
               owns the outcome. We run entity setup, hiring, infrastructure,
               and governance design as one accountable engagement.
@@ -157,7 +168,7 @@ export default function GlobalCapabilityCentersPage() {
               {[
                 "A single delivery lead accountable from incorporation through first hires",
                 "Hiring plans built around the roles the center actually needs, not generic headcount",
-                "Governance model defined before day one — decision rights, reporting, escalation",
+                "Governance model defined before day one, covering decision rights, reporting, and escalation",
                 "Data residency and labor-law compliance built into the setup, not audited after",
               ].map((point) => (
                 <li key={point} className="flex items-start gap-3">
@@ -177,7 +188,7 @@ export default function GlobalCapabilityCentersPage() {
             </h4>
             <p className="mt-3 text-[14px] leading-relaxed text-white/70">
               Best suited to organizations moving engineering, analytics, or
-              operations capacity closer to a growing talent market — not a
+              operations capacity closer to a growing talent market, not a
               short-term staffing fix.
             </p>
             <a href="#steps" className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
@@ -208,9 +219,9 @@ export default function GlobalCapabilityCentersPage() {
 
       {/* ===================== SETUP PHASES ===================== */}
       <section id="phases" className={`${ALIGN} py-20`}>
-        <h2 className={`text-[28px] font-bold ${T.ink}`}>What setup covers</h2>
+        <h2 className={`text-[28px] font-bold ${T.ink}`}>What GCC setup covers</h2>
         <p className={`mt-3 max-w-2xl text-[15px] leading-relaxed ${T.muted}`}>
-          Every workstream needed to take a GCC from decision to steady-state.
+          Every workstream needed to take a global capability center from decision to steady-state.
         </p>
         <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {setupPhases.map((p) => (
@@ -260,3 +271,25 @@ export default function GlobalCapabilityCentersPage() {
     </main>
   );
 }
+
+
+/*
+
+  SEO checklist for this page (apply outside this component, since
+  it's a client component and can't export metadata):
+
+  1. Page <title>: "Global Capability Center (GCC) Setup Services |
+     Starfii Technology" (under 60 chars).
+  2. Meta description: "Starfii sets up global capability centers end
+     to end, entity, hiring, governance, and infrastructure, as one
+     accountable engagement, typically in 4 to 6 months."
+  3. Confirm this is a real, active Starfii offering before linking
+     from /services or the main nav. It's not currently listed among
+     the public services on starfii.com, so treat this page as new
+     until confirmed, otherwise search engines may see it as
+     inconsistent with the rest of the site.
+
+*/
+
+
+

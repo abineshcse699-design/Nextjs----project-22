@@ -11,8 +11,8 @@ import {
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
-// Shared page-width wrapper — kept in sync with the navbar's own
-// max-width/padding so every section lines up with it exactly.
+// Shared page width wrapper, kept in sync with the navbar's own
+// max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Data & Analytics Services" tab list
@@ -21,42 +21,68 @@ const TAB_AUTOPLAY_MS = 4000;
 const keyTakeaways = [
   "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",
   "We design data platforms, pipelines, and models that scale from a single business unit to the whole enterprise.",
-  "Our focus spans data engineering, data science, analytics, and governance, wired together end to end.",
-  "We pair modern data architecture with AI-ready pipelines so analytics keeps up as the business changes.",
+  "Our data engineering and data science services span analytics and governance, wired together end to end.",
+  "We pair modern data architecture with AI ready pipelines so analytics keeps up as the business changes.",
 ];
 
 const focusAreas = [
   {
     title: "Data Engineering",
-    body: "We design and build resilient pipelines and data platforms with certified data engineers, so every downstream system works from clean, timely data.",
+    body: "Starfii's certified data engineers design and build resilient pipelines and data platforms, so every downstream system works from clean, timely, well governed data.",
   },
   {
     title: "Data Science & Advanced Analytics",
-    body: "Our data scientists build the models and surface the patterns behind better decisions, from forecasting to anomaly detection to recommendation.",
+    body: "Our data scientists build the models and surface the patterns behind better decisions, from demand forecasting to anomaly detection to product recommendation.",
   },
   {
     title: "Cloud Data Platforms",
-    body: "We architect and migrate data estates onto modern cloud platforms, built for scale, cost control, and near-real-time access.",
+    body: "Starfii architects and migrates data estates onto modern cloud data platforms on AWS, Azure, and GCP, built for scale, cost control, and near real time access.",
   },
   {
     title: "Data Governance & Quality",
-    body: "We put stewardship, lineage, and quality checks in place so data stays trustworthy as it moves across systems and teams.",
+    body: "We put stewardship, lineage, and data quality checks in place so your enterprise data stays trustworthy as it moves across systems and teams.",
   },
   {
-    title: "Reporting and Dashboards — BI",
-    body: "We turn raw data into actionable insight using Tableau and Power BI, so decision-makers see what matters without digging for it.",
+    title: "Reporting and Dashboards, BI",
+    body: "Starfii turns raw data into actionable business intelligence using Tableau and Power BI, so decision makers see what matters without digging for it.",
   },
   {
     title: "MDM & Data Integration",
-    body: "We consolidate fragmented sources into a single, reliable master record, so every team works from the same version of the truth.",
+    body: "We consolidate fragmented sources into a single, reliable master data record, so every team works from the same version of the truth.",
   },
   {
     title: "Generative AI on Enterprise Data",
-    body: "We connect gen AI and LLMs to your own data safely, so teams can query, summarize, and act on it in plain language.",
+    body: "Starfii connects Generative AI and LLMs to your own enterprise data safely, so teams can query, summarize, and act on it in plain language.",
   },
   {
     title: "Data Migration & Modernization",
-    body: "We move legacy warehouses and marts onto modern platforms with minimal disruption, closing the gap between old systems and new demands.",
+    body: "We move legacy warehouses and data marts onto modern cloud platforms with minimal disruption, closing the gap between old systems and new business demands.",
+  },
+];
+
+type CaseStudy = { title: string; body: string; tag: string; image: string };
+
+const caseStudies: CaseStudy[] = [
+  {
+    tag: "INSURANCE",
+    title: "Starfii Cuts Reporting Time by 40% for a Regional Insurance Carrier",
+    body: "Starfii's data engineering team consolidated claims, policy, and underwriting data into a single governed platform, replacing manual spreadsheets with real time dashboards trusted across the business.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    tag: "RETAIL",
+    title: "A Unified Customer Data Platform for a National Retail Chain",
+    body: "Starfii built a cloud data platform that merged siloed sales, loyalty, and marketing data, giving a national retailer a single customer view that lifted campaign conversion and cut reporting cycles from days to hours.",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    tag: "HEALTHCARE",
+    title: "Generative AI on Enterprise Data Speeds Clinical Reporting",
+    body: "Starfii connected Generative AI to a governed clinical data warehouse, letting analysts query patient outcome trends in plain language while keeping every result compliant and auditable.",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -64,35 +90,35 @@ const tabs = [
   {
     label: "Build a Single Source of Truth",
     heading: "One governed data foundation, not a dozen conflicting copies",
-    body: "We consolidate fragmented data sources into a governed platform, so every team — from finance to product — works from numbers everyone trusts.",
+    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Engineer Pipelines That Scale",
-    heading: "Pipelines built for the data volumes you'll have next year, not just today",
-    body: "Our engineering teams design ingestion and transformation pipelines that scale with the business, so growth doesn't mean rebuilding your data stack from scratch.",
+    heading: "Pipelines built for the data volumes you will have next year, not just today",
+    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Turn Data into Decisions",
     heading: "Analytics and dashboards people actually open",
-    body: "We design reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
+    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Modernize Legacy Data Estates",
     heading: "A clear path off aging warehouses and brittle ETL",
-    body: "We assess your existing data estate, build a modernization roadmap, and migrate you to a cloud-native platform with minimal disruption to reporting.",
+    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Apply AI to Your Own Data",
     heading: "Gen AI and machine learning grounded in your enterprise data",
-    body: "We connect models to your governed data safely, so predictions, summaries, and recommendations are grounded in what's actually true for your business.",
+    body: "Starfii connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in what is actually true for your business.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
@@ -174,8 +200,8 @@ export default function DataAnalyticsServicesSection() {
           </h1>
 
           <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600">
-            Turn scattered, siloed data into a governed platform that
-            powers faster, more confident decisions across the
+            Starfii turns scattered, siloed data into a governed platform
+            that powers faster, more confident decisions across the
             enterprise.
           </p>
 
@@ -242,7 +268,7 @@ export default function DataAnalyticsServicesSection() {
             style={{ color: CHAMPION_BLUE }}
           >
             A trusted data and analytics partner, Starfii builds governed
-            platforms and AI-ready pipelines that turn scattered
+            platforms and AI ready pipelines that turn scattered
             enterprise data into decisions your business can rely on.
           </p>
         </section>
@@ -264,11 +290,11 @@ export default function DataAnalyticsServicesSection() {
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises build trust in their data by combining strong
-                governance, scalable engineering, and analytics that
+                governance, scalable data engineering, and analytics that
                 answer real business questions. Starfii brings these
                 together to reduce data silos, speed up reporting, and
-                give every team a foundation of numbers they don't have
-                to second-guess.
+                give every team a foundation of numbers they do not have
+                to second guess.
               </p>
             </div>
 
@@ -297,9 +323,9 @@ export default function DataAnalyticsServicesSection() {
                 Capabilities
               </h2>
               <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
-                Plan, engineer, and govern data platforms that scale with
-                the business, so analytics and AI stay grounded in data
-                you can trust.
+                Starfii plans, engineers, and governs data platforms that
+                scale with the business, so analytics and AI stay
+                grounded in data you can trust.
               </p>
             </div>
 
@@ -330,6 +356,73 @@ export default function DataAnalyticsServicesSection() {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* ============================================================
+            CASE STUDIES  (new section)
+        ============================================================ */}
+        <section className="mt-24">
+          <div className="flex items-end justify-between">
+            <h2
+              className="text-[36px] font-medium leading-[1.15]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Data & Analytics
+              <br />
+              Case Studies
+            </h2>
+            <a
+              href="#"
+              className="hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              style={{ color: LAVENDER_ACCENT }}
+            >
+              View All Case Studies
+              <ArrowUpRight size={16} />
+            </a>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {caseStudies.map((study) => (
+              <div
+                key={study.title}
+                className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+                style={{ border: "1px solid #EDEAFB" }}
+              >
+                <div className="h-[180px] overflow-hidden">
+                  <img
+                    src={study.image}
+                    alt={study.title}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col p-7">
+                  <span
+                    className="text-[12px] font-semibold tracking-wide"
+                    style={{ color: LAVENDER_ACCENT }}
+                  >
+                    {study.tag}
+                  </span>
+                  <h3
+                    className="mt-2 text-[18px] font-semibold leading-snug"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
+                    {study.title}
+                  </h3>
+                  <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                    {study.body}
+                  </p>
+                  <a
+                    href="#"
+                    className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
+                    style={{ color: LAVENDER_ACCENT }}
+                  >
+                    Learn More
+                    <ArrowUpRight size={15} />
+                  </a>
+                </div>
+              </div>
+            ))}
           </div>
         </section>
 

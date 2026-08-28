@@ -25,6 +25,51 @@ import {
 } from "lucide-react";
 
 /* ===============================================================
+   NOTE ON SEO METADATA
+   ------------------------------------------------------------
+   This file is a Client Component ("use client"), so it cannot
+   export a `metadata` object directly (Next.js App Router only
+   reads `metadata` / `generateMetadata` from Server Components).
+
+   Create a sibling file at:  app/servicenow/layout.tsx  (Server
+   Component, no "use client") with the block below, so the
+   <title>, meta description, keywords and Open Graph tags are
+   emitted correctly for Google/Bing to index:
+
+   export const metadata = {
+     title:
+       "ServiceNow Implementation Partner | ITSM, ITOM, CSM & HRSD Services – Starfii",
+     description:
+       "Starfii is a certified ServiceNow implementation partner delivering ITSM, ITOM, CSM, HR Service Delivery, Source to Pay and App Engine Studio workflow solutions. AI led ServiceNow consulting, integration and managed support for enterprises.",
+     keywords: [
+       "ServiceNow implementation partner",
+       "ServiceNow consulting services",
+       "ServiceNow ITSM solutions",
+       "ServiceNow ITOM services",
+       "ServiceNow CSM implementation",
+       "ServiceNow HR Service Delivery",
+       "ServiceNow Source to Pay",
+       "ServiceNow App Engine Studio",
+       "certified ServiceNow partner",
+       "ServiceNow workflow automation",
+       "ServiceNow managed support",
+       "ServiceNow integration services",
+     ],
+     openGraph: {
+       title: "ServiceNow Implementation & Consulting Partner | Starfii",
+       description:
+         "Certified ServiceNow implementation partner for ITSM, ITOM, CSM, HRSD, Source to Pay and App Engine Studio. AI led workflow automation, integration and support.",
+       url: "https://www.starfii.com/servicenow",
+       siteName: "Starfii Technology",
+       type: "website",
+     },
+     alternates: {
+       canonical: "https://www.starfii.com/servicenow",
+     },
+   };
+================================================================ */
+
+/* ===============================================================
    DESIGN TOKENS
 ================================================================ */
 const primary = "#7C5CFC";
@@ -149,7 +194,10 @@ function GlowCard({
 }
 
 /* ===============================================================
-   DATA — capabilities
+   DATA — capabilities (titles + copy enriched with the ServiceNow
+   module keywords people actually search: "ITSM services",
+   "ServiceNow ITOM", "CSM implementation", "HR Service Delivery",
+   "Source to Pay", "App Engine Studio / low code")
 ================================================================ */
 const CAPABILITIES = [
   {
@@ -157,35 +205,35 @@ const CAPABILITIES = [
     number: "01",
     icon: Ticket,
     accent: "#8B7CFF",
-    title: "IT Service Management",
-    desc: "We replace scattered inboxes and spreadsheets with a governed workflow, so incidents get resolved faster and every change is auditable.",
-    items: ["Incident & Problem Management", "Change & Release Management", "Request Fulfilment", "Knowledge Base & Self-Service"],
+    title: "ServiceNow ITSM (IT Service Management)",
+    desc: "Our ServiceNow ITSM implementation replaces scattered inboxes and spreadsheets with a single governed workflow, so IT incidents get resolved faster, changes stay auditable, and service requests never fall through the cracks.",
+    items: ["Incident & Problem Management", "Change & Release Management", "Request Fulfilment", "Knowledge Base & Self Service Portal"],
   },
   {
     id: "itom",
     number: "02",
     icon: ServerCog,
     accent: "#F45B9E",
-    title: "IT Operations Management",
-    desc: "A live, dependency-aware view of your infrastructure, so your team catches degradation before customers ever notice it.",
-    items: ["Discovery & CMDB", "Event & Alert Management", "Service Mapping", "Cloud & Hybrid Insights"],
+    title: "ServiceNow ITOM (IT Operations Management)",
+    desc: "ServiceNow ITOM gives you a live, dependency aware view of your infrastructure and cloud estate, so your operations team spots service degradation and outages before customers ever notice.",
+    items: ["Discovery & CMDB", "Event & Alert Management", "Service Mapping", "Cloud & Hybrid Infrastructure Insights"],
   },
   {
     id: "csm",
     number: "03",
     icon: Headphones,
     accent: "#F5B942",
-    title: "Customer Service Management",
-    desc: "Support cases linked to the systems and orders behind them, so agents see full context and close cases on the first reply.",
-    items: ["Case Management", "Customer & Partner Portals", "Field Service Management", "Omnichannel Support"],
+    title: "ServiceNow CSM (Customer Service Management)",
+    desc: "With ServiceNow CSM implementation, support cases are linked directly to the systems and orders behind them, so agents see full customer context and resolve cases on the first reply, not the fifth.",
+    items: ["Case Management", "Customer & Partner Self Service Portals", "Field Service Management", "Omnichannel Customer Support"],
   },
   {
     id: "hrsd",
     number: "04",
     icon: Users,
     accent: "#4EA1FF",
-    title: "HR Service Delivery",
-    desc: "A single, self-service front door for employees, so HR spends less time on status updates and more on people.",
+    title: "ServiceNow HR Service Delivery (HRSD)",
+    desc: "ServiceNow HRSD creates a single, self service front door for every employee request, so your HR team spends less time answering status queries and more time on people strategy.",
     items: ["Employee Onboarding & Offboarding", "HR Case Management", "Employee Center Portal", "Document & Policy Management"],
   },
   {
@@ -193,8 +241,8 @@ const CAPABILITIES = [
     number: "05",
     icon: ShoppingCart,
     accent: "#34D399",
-    title: "Source-to-Pay Operations",
-    desc: "Procurement and payments run on one workflow, giving finance and vendors full visibility from request through to payment.",
+    title: "ServiceNow Source to Pay (S2P) Operations",
+    desc: "Our ServiceNow Source to Pay workflows run procurement and payments on one platform, giving finance teams and vendors complete visibility from purchase request through to final payment.",
     items: ["Requisition to Purchase Order", "Vendor & Contract Management", "Invoice Automation", "Spend Analytics & Reporting"],
   },
   {
@@ -202,9 +250,9 @@ const CAPABILITIES = [
     number: "06",
     icon: LayoutGrid,
     accent: "#22D3EE",
-    title: "App Engine Studio",
-    desc: "Purpose-built apps for the workflows ServiceNow doesn't ship out of the box, built and governed on the same platform.",
-    items: ["Custom Workflow Apps", "Low-Code / No-Code Studio", "Process Automation", "Platform Integration Hub"],
+    title: "ServiceNow App Engine Studio (Low Code Apps)",
+    desc: "Using App Engine Studio, we build purpose fit, low code ServiceNow applications for the workflows the out of the box platform doesn't cover, governed on the same instance as everything else.",
+    items: ["Custom Workflow Apps", "Low Code / No Code Studio", "Business Process Automation", "Platform Integration Hub"],
   },
 ];
 
@@ -212,28 +260,28 @@ const ENGAGEMENTS = [
   {
     icon: Compass,
     accent: "#8B7CFF",
-    title: "Assess & Advise",
-    desc: "A structured review of your current-state workflows, licensing, and technical debt, closing with a prioritized roadmap and business case.",
+    title: "ServiceNow Assess & Advise",
+    desc: "A structured ServiceNow consulting review of your current state workflows, licensing, and technical debt, closing with a prioritized implementation roadmap and business case.",
   },
   {
     icon: Wrench,
     accent: "#F45B9E",
-    title: "Implement & Integrate",
-    desc: "End-to-end configuration, custom app development, and integration with your existing IT and business systems.",
+    title: "ServiceNow Implement & Integrate",
+    desc: "End to end ServiceNow configuration, custom app development, and integration with your existing IT, HR, and business systems, delivered by certified engineers.",
   },
   {
     icon: LifeBuoy,
     accent: "#4EA1FF",
-    title: "Support & Evolve",
-    desc: "Ongoing managed support, release upgrades, and platform governance, so ServiceNow keeps pace as your workflows change.",
+    title: "ServiceNow Support & Evolve",
+    desc: "Ongoing ServiceNow managed support, release upgrades, and platform governance, so your instance keeps pace as workflows, teams, and compliance needs change.",
   },
 ];
 
 const PROCESS = [
-  { number: "01", accent: "#8B7CFF", title: "Discover", desc: "We map how work actually moves through your teams today, not how the org chart says it should." },
-  { number: "02", accent: "#F45B9E", title: "Design", desc: "Workflows are designed around the modules you need and the outcomes you're after, not the other way round." },
-  { number: "03", accent: "#F5B942", title: "Build & configure", desc: "Certified ServiceNow engineers configure, integrate, and test against your real systems and data." },
-  { number: "04", accent: "#4EA1FF", title: "Adopt & scale", desc: "We stay on to support rollout, train your teams, and extend the platform as new workflows come up." },
+  { number: "01", accent: "#8B7CFF", title: "Discover", desc: "We map how work actually moves through your teams today, not how the org chart says it should, and that is the foundation of every good ServiceNow implementation." },
+  { number: "02", accent: "#F45B9E", title: "Design", desc: "ServiceNow workflows are designed around the modules and business outcomes you need, not the other way round." },
+  { number: "03", accent: "#F5B942", title: "Build & configure", desc: "Certified ServiceNow engineers configure, integrate, and test every workflow against your real systems and data." },
+  { number: "04", accent: "#4EA1FF", title: "Adopt & scale", desc: "We stay on to support rollout, train your teams, and extend the ServiceNow platform as new workflows and modules come up." },
 ];
 
 const INDUSTRIES = [
@@ -254,35 +302,35 @@ const OUTCOMES = [
     icon: Zap,
     accent: "#8B7CFF",
     title: "Faster resolution",
-    desc: "Incidents and requests move through one governed queue instead of scattered inboxes, so response times drop and nothing falls through.",
+    desc: "Incidents and requests move through one governed ServiceNow queue instead of scattered inboxes, so response times drop and nothing falls through.",
   },
   {
     icon: TrendingUp,
     accent: "#F45B9E",
     title: "Fewer escalations",
-    desc: "Context travels with the ticket, so agents resolve on first contact instead of bouncing cases between teams.",
+    desc: "Context travels with every ticket, so agents resolve on first contact instead of bouncing cases between teams and departments.",
   },
   {
     icon: FileCheck2,
     accent: "#F5B942",
     title: "A full audit trail",
-    desc: "Every change, approval, and request is logged automatically, so compliance reporting stops being a quarterly scramble.",
+    desc: "Every change, approval, and request is logged automatically inside ServiceNow, so compliance reporting stops being a quarterly scramble.",
   },
   {
     icon: Users,
     accent: "#4EA1FF",
     title: "Higher adoption",
-    desc: "Employees use one self-service portal for IT, HR, and support requests, instead of learning five different tools.",
+    desc: "Employees use one self service ServiceNow portal for IT, HR, and support requests, instead of learning five different tools.",
   },
 ];
 
 const DELIVERABLES = [
-  "Discovery workshop and current-state assessment",
+  "Discovery workshop and current state ServiceNow assessment",
   "Workflow blueprint aligned to your operating model",
   "Configured and tested ServiceNow instance",
   "Integration with your existing IT, HR, and business systems",
-  "Admin and end-user training",
-  "Hypercare support through go-live",
+  "Admin and end user training",
+  "Hypercare support through go live",
 ];
 
 const RELATED_INSIGHTS = [
@@ -299,15 +347,15 @@ const RELATED_INSIGHTS = [
 const FAQS = [
   {
     q: "Is Starfii a certified ServiceNow implementation partner?",
-    a: "Yes. We design, build, and run ServiceNow workflows as a certified implementation partner, with engineers who stay accountable through go-live and beyond, not just through the design phase.",
+    a: "Yes. We design, build, and run ServiceNow workflows as a certified ServiceNow implementation partner, with engineers who stay accountable through go live and beyond, not just through the design phase.",
   },
   {
     q: "Which ServiceNow modules do you work with?",
-    a: "Our core practice covers ITSM, ITOM, CSM, HR Service Delivery, Source-to-Pay Operations, and custom App Engine Studio builds. If your instance spans other modules, we scope that during the Assess & Advise phase.",
+    a: "Our core ServiceNow consulting practice covers ITSM, ITOM, CSM, HR Service Delivery (HRSD), Source to Pay Operations, and custom App Engine Studio builds. If your instance spans other modules, we scope that during the Assess & Advise phase.",
   },
   {
-    q: "What does a typical engagement look like?",
-    a: "Most engagements start with a discovery workshop and current-state assessment, move into workflow design and configuration, and close with training and hypercare support through go-live. Timelines depend on scope and number of modules involved.",
+    q: "What does a typical ServiceNow implementation engagement look like?",
+    a: "Most engagements start with a discovery workshop and current state assessment, move into workflow design and configuration, and close with training and hypercare support through go live. Timelines depend on scope and the number of modules involved.",
   },
   {
     q: "Do we need a new ServiceNow license, or can you work with our existing one?",
@@ -315,11 +363,15 @@ const FAQS = [
   },
   {
     q: "Can you integrate ServiceNow with our existing systems?",
-    a: "Integration is central to most engagements. We connect ServiceNow to identity providers, ITOM data sources, HRIS, ERP, and other business systems your teams already rely on.",
+    a: "Integration is central to most ServiceNow implementation engagements. We connect ServiceNow to identity providers, ITOM data sources, HRIS, ERP, and other business systems your teams already rely on.",
   },
   {
-    q: "Do you support us after go-live?",
-    a: "Yes. Our Support & Evolve engagement covers managed support, release upgrades, and ongoing configuration as your workflows and organization change.",
+    q: "Do you provide ServiceNow managed support after go live?",
+    a: "Yes. Our Support & Evolve engagement covers ServiceNow managed support, release upgrades, and ongoing configuration as your workflows and organization change.",
+  },
+  {
+    q: "How much does a ServiceNow implementation cost?",
+    a: "Cost depends on the number of modules, integrations, and level of customization involved. We scope this precisely during the Assess & Advise phase and share a clear business case before any build work begins.",
   },
   {
     q: "How does this connect to Starfii's other platforms?",
@@ -440,9 +492,9 @@ function AmbientGlow() {
 ================================================================ */
 function TrustBadges() {
   const badges = [
-    { icon: ShieldCheck, label: "Certified Implementation Partner" },
-    { icon: Sparkles, label: "AI-Led Delivery" },
-    { icon: Layers, label: "Full-Stack Platform Coverage" },
+    { icon: ShieldCheck, label: "Certified ServiceNow Implementation Partner" },
+    { icon: Sparkles, label: "AI Led ServiceNow Delivery" },
+    { icon: Layers, label: "Full Stack ServiceNow Platform Coverage" },
   ];
   return (
     <div className="flex flex-wrap gap-3">
@@ -498,11 +550,79 @@ function FaqItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultO
 }
 
 /* ===============================================================
+   STRUCTURED DATA (JSON-LD) — for AEO/GEO
+   ------------------------------------------------------------
+   This is what actually helps AI answer engines (Google AI
+   Overviews, ChatGPT, Perplexity, Gemini) and rich-result snippets
+   understand and quote this page correctly. Keywords in prose help
+   humans read it; this schema is what machines parse directly, and
+   it's the single biggest lever for AEO/GEO that keyword text alone
+   can't provide.
+
+   - FAQPage schema: mirrors FAQS below, verbatim question + a
+     concise version of the answer, so answer engines can lift a
+     direct quote in response to "who is a ServiceNow implementation
+     partner" type queries.
+   - Service schema: tells engines "Starfii = provider of ServiceNow
+     implementation services", which entity ("ServiceNow") it
+     relates to, and what the service area/offer catalog is.
+================================================================ */
+const FAQ_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: f.a,
+    },
+  })),
+};
+
+const SERVICE_JSON_LD = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  serviceType: "ServiceNow Implementation and Consulting",
+  provider: {
+    "@type": "Organization",
+    name: "Starfii Technology",
+    url: "https://www.starfii.com/",
+  },
+  areaServed: "Worldwide",
+  description:
+    "Certified ServiceNow implementation partner delivering ITSM, ITOM, CSM, HR Service Delivery, Source to Pay, and App Engine Studio workflow solutions, backed by AI led consulting, integration, and managed support.",
+  hasOfferCatalog: {
+    "@type": "OfferCatalog",
+    name: "ServiceNow Services",
+    itemListElement: CAPABILITIES.map((c) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: c.title,
+        description: c.desc,
+      },
+    })),
+  },
+};
+
+/* ===============================================================
    PAGE
 ================================================================ */
 export default function ServiceNowPage() {
   return (
     <main className="relative overflow-hidden bg-[#08080D] text-white">
+      {/* JSON-LD structured data — read by search + AI answer engines,
+         invisible to human visitors. Keep this in sync if FAQS or
+         CAPABILITIES copy changes. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICE_JSON_LD) }}
+      />
       <style>{`
         @keyframes svc-target-flash {
           0% { box-shadow: 0 0 0 0 var(--accent); }
@@ -525,12 +645,13 @@ export default function ServiceNowPage() {
           <div>
             <Reveal>
               <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-                ServiceNow Practice
+                Certified ServiceNow Implementation Partner
               </p>
             </Reveal>
             <Reveal delay={80}>
+              {/* H1 carries the primary keyword: "ServiceNow implementation partner" */}
               <h1 className="mt-5 text-[38px] font-bold leading-[1.12] tracking-tight sm:text-[46px] lg:text-[52px]">
-                Every workflow.
+                Every ServiceNow workflow.
                 <br />
                 One platform.
                 <br />
@@ -540,10 +661,12 @@ export default function ServiceNowPage() {
             <Reveal delay={160}>
               <p className="mt-6 max-w-lg text-[16px] leading-relaxed text-white/55">
                 As a certified ServiceNow implementation partner, Starfii
-                designs, builds, and runs ServiceNow workflows that connect
-                IT, customer service, and HR operations on a single
-                platform, backed by an AI-led engineering practice that
-                treats ServiceNow as core infrastructure, not a side project.
+                designs, builds, and runs ServiceNow ITSM, ITOM, CSM, HR
+                Service Delivery, Source to Pay, and App Engine Studio
+                workflows that connect IT operations, customer service, and
+                HR on a single platform, backed by an AI led ServiceNow
+                consulting and engineering practice that treats ServiceNow
+                as core infrastructure, not a side project.
               </p>
             </Reveal>
             <Reveal delay={220} className="pt-7">
@@ -556,13 +679,13 @@ export default function ServiceNowPage() {
                 style={{ backgroundColor: primary }}
               >
                 <MessageSquare size={17} strokeWidth={2.25} />
-                Talk to us
+                Talk to a ServiceNow expert
               </button>
               <a
                 href="#capabilities"
                 className="flex h-12 items-center gap-1.5 rounded-md border border-white/15 px-6 text-[15px] font-semibold text-white/85 transition-colors duration-150 hover:bg-white/5"
               >
-                See what we deliver
+                See our ServiceNow services
                 <ArrowUpRight size={16} />
               </a>
             </Reveal>
@@ -579,15 +702,17 @@ export default function ServiceNowPage() {
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              What we run on ServiceNow
+              ServiceNow Services We Deliver
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              Six modules. One consistent way of working.
+              Six ServiceNow modules. One consistent way of working.
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/50">
-              Every module below is delivered by the same team, on the same
-              platform conventions, so your workflows stay consistent as
-              they scale across departments.
+              From ServiceNow ITSM and ITOM to CSM, HR Service Delivery,
+              Source to Pay, and App Engine Studio, every module is
+              delivered by the same certified ServiceNow team, on the same
+              platform conventions, so your workflow automation stays
+              consistent as it scales across departments.
             </p>
           </Reveal>
 
@@ -614,7 +739,7 @@ export default function ServiceNowPage() {
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              What changes for your teams
+              ServiceNow Business Outcomes
             </p>
             <h2 className="mt-4 text-[28px] font-bold leading-tight tracking-tight sm:text-[32px]">
               Outcomes teams actually feel, not just dashboards that say so.
@@ -645,10 +770,10 @@ export default function ServiceNowPage() {
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              Engagement Models
+              ServiceNow Engagement Models
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              Work with us at whichever stage you're at.
+              Work with our ServiceNow consulting team at whichever stage you're at.
             </h2>
           </Reveal>
 
@@ -680,7 +805,7 @@ export default function ServiceNowPage() {
                   What's included
                 </p>
                 <h3 className="mt-3 text-[22px] font-bold leading-snug tracking-tight">
-                  Every engagement ends with a working platform, not a slide deck.
+                  Every ServiceNow engagement ends with a working platform, not a slide deck.
                 </h3>
               </div>
               <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
@@ -701,10 +826,10 @@ export default function ServiceNowPage() {
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              Industries
+              Industries We Serve
             </p>
             <h2 className="mt-4 text-[26px] font-bold leading-tight tracking-tight sm:text-[30px]">
-              ServiceNow workflows, tuned to your sector.
+              ServiceNow implementation and consulting, tuned to your sector.
             </h2>
           </Reveal>
 
@@ -727,10 +852,10 @@ export default function ServiceNowPage() {
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              How we deliver
+              How We Deliver ServiceNow Projects
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              A rollout built around how your teams already work.
+              A ServiceNow rollout built around how your teams already work.
             </h2>
           </Reveal>
 
@@ -762,24 +887,24 @@ export default function ServiceNowPage() {
         <div className={`relative grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr] ${CONTAINER}`}>
           <Reveal>
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-white/50">
-              Why Starfii for ServiceNow
+              Why Choose Starfii for ServiceNow
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[34px]">
-              ServiceNow work, built on an AI-led engineering practice.
+              ServiceNow implementation, built on an AI led engineering practice.
             </h2>
             <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/55">
               Your ServiceNow instance doesn't sit in isolation. Our
               Zerovity™ platform maps how your applications actually
-              behave, so the workflows we configure reflect how your
-              systems really run, not just how they're documented.
+              behave, so the ServiceNow workflows we configure reflect how
+              your systems really run, not just how they're documented.
             </p>
           </Reveal>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {[
               "Certified ServiceNow implementation partner",
-              "AI-led delivery through our Zero Friction Enterprise™ approach",
-              "Engineers who configure, integrate, and support, not just consult",
+              "AI led ServiceNow delivery through our Zero Friction Enterprise™ approach",
+              "ServiceNow engineers who configure, integrate, and support, not just consult",
               "Delivery informed by Zerovity™ and Tensai®, our own platforms",
             ].map((point, i) => (
               <Reveal key={point} delay={i * 80}>
@@ -802,7 +927,7 @@ export default function ServiceNowPage() {
                 FAQ
               </p>
               <h2 className="mt-4 text-[28px] font-bold leading-tight tracking-tight sm:text-[32px]">
-                Common questions about our ServiceNow practice
+                Common questions about our ServiceNow implementation practice
               </h2>
             </Reveal>
 
@@ -870,7 +995,9 @@ export default function ServiceNowPage() {
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-white/55">
                   Tell us which workflows are slowing your teams down. We'll
-                  show you how they fit inside a single ServiceNow instance.
+                  show you how they fit inside a single ServiceNow instance,
+                  built and supported by a certified ServiceNow implementation
+                  partner.
                 </p>
               </div>
               <button
