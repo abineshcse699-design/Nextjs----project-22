@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronRight,
   ChevronDown,
@@ -14,6 +14,9 @@ const LAVENDER_ACCENT = "#A48FEA";
 // Shared page-width wrapper — kept in sync with the navbar's own
 // max-width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+// Autoplay timing for the "Cloud Services" tab list
+const TAB_AUTOPLAY_MS = 4000;
 
 const keyTakeaways = [
   "Starfii helps enterprises move to the cloud on their terms — at the pace, cost, and risk level that fits the business.",
@@ -98,10 +101,37 @@ const tabs = [
 export default function CloudServicesSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
+  const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
+
+  // --- Autoplay for the left-side tab list ---
+  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
+  // Pauses on hover, and restarts the timer whenever the user
+  // manually clicks a tab.
+  useEffect(() => {
+    if (tabHovered) return undefined;
+    const id = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % tabs.length);
+    }, TAB_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [tabHovered, activeTab]);
 
   return (
     <main className="bg-white">
+      {/* Progress-fill keyframe for the autoplaying tab indicator line */}
+      <style>{`
+        @keyframes ss-tab-progress {
+          from { transform: scaleY(0); }
+          to   { transform: scaleY(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ss-tab-progress-fill {
+            animation: none !important;
+            transform: scaleY(1) !important;
+          }
+        }
+      `}</style>
+
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
@@ -287,6 +317,9 @@ export default function CloudServicesSection() {
           </div>
         </section>
 
+        {/* ============================================================
+            TABBED DEEP-DIVE — auto-advancing tab list, fixed panel height
+        ============================================================ */}
         <section className="mt-24 pb-28">
           <h2
             className="text-[34px] font-medium"
@@ -296,17 +329,37 @@ export default function CloudServicesSection() {
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            <ul className="space-y-1 border-l" style={{ borderColor: "#E5E1F5" }}>
+            {/* Left nav — autoplaying */}
+            <ul
+              className="space-y-1 border-l"
+              style={{ borderColor: "#E5E1F5" }}
+              onMouseEnter={() => setTabHovered(true)}
+              onMouseLeave={() => setTabHovered(false)}
+            >
               {tabs.map((tab, i) => {
                 const isActive = i === activeTab;
                 return (
-                  <li key={tab.label}>
+                  <li key={tab.label} className="relative -ml-px">
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
+                    {isActive && (
+                      <span
+                        key={`${activeTab}-${tabHovered}`}
+                        className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                        style={{
+                          backgroundColor: CHAMPION_BLUE,
+                          animation: tabHovered
+                            ? "none"
+                            : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                          transform: tabHovered ? "scaleY(1)" : undefined,
+                        }}
+                      />
+                    )}
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="-ml-px block border-l-2 py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
-                        borderColor: isActive ? CHAMPION_BLUE : "transparent",
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
                       }}
@@ -318,8 +371,11 @@ export default function CloudServicesSection() {
               })}
             </ul>
 
+            {/* Right panel — fixed height so the image never stretches
+                oversized on tabs with shorter text content */}
             <div
-              className="grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2"
+              key={activeTab}
+              className="grid grid-cols-1 overflow-hidden rounded-2xl md:h-[340px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -334,7 +390,7 @@ export default function CloudServicesSection() {
                 </p>
               </div>
 
-              <div className="min-h-[280px]">
+              <div className="h-[280px] md:h-full">
                 <img
                   src={current.image}
                   alt={current.label}

@@ -35,6 +35,9 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 // max-width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// Autoplay timing for the "Digital and Software Services" tab list
+const TAB_AUTOPLAY_MS = 4000;
+
 /* ===============================================================
    CONTENT
 ================================================================ */
@@ -269,8 +272,6 @@ const insights: InsightPost[] = [
 
 /* ===============================================================
    GLOBAL KEYFRAMES
-   Injected once via a plain <style> tag so this component has
-   zero extra animation dependencies (no framer-motion needed).
 ================================================================ */
 
 function AnimationStyles(): ReactElement {
@@ -292,6 +293,11 @@ function AnimationStyles(): ReactElement {
       @keyframes ss-pulse-soft {
         0%, 100% { opacity: 0.55; }
         50%      { opacity: 1; }
+      }
+      /* Autoplay progress fill for the tab list's active indicator line */
+      @keyframes ss-tab-progress {
+        from { transform: scaleY(0); }
+        to   { transform: scaleY(1); }
       }
 
       .ss-reveal {
@@ -368,6 +374,10 @@ function AnimationStyles(): ReactElement {
           opacity: 1 !important;
           transform: none !important;
         }
+        .ss-tab-progress-fill {
+          animation: none !important;
+          transform: scaleY(1) !important;
+        }
       }
     `}</style>
   );
@@ -405,8 +415,7 @@ function useReveal<T extends HTMLElement = HTMLElement>(
 }
 
 /* ===============================================================
-   HOOK: responsive items-per-page, so a carousel never crops a
-   card at the edge of its container on any breakpoint.
+   HOOK: responsive items-per-page
 ================================================================ */
 
 type Breakpoints = { mobile: number; tablet: number; desktop: number };
@@ -437,8 +446,7 @@ function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
 }
 
 /* ===============================================================
-   REUSABLE: Reveal wrapper — fades/slides content up once it
-   scrolls into view, with an optional stagger delay.
+   REUSABLE: Reveal wrapper
 ================================================================ */
 
 type RevealProps = {
@@ -471,9 +479,7 @@ function Reveal({
 }
 
 /* ===============================================================
-   REUSABLE: Free-scroll Carousel with progress-bar scrubber +
-   arrow controls. Used where cards can legitimately peek past
-   the edge (Insights strip has mixed card widths).
+   REUSABLE: Free-scroll Carousel
 ================================================================ */
 
 type CarouselProps = {
@@ -580,11 +586,7 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: PagedCarousel — pages content by a fixed number of
-   FULL cards. Nothing is ever half-visible at the edge: each
-   "Next" click slides in a complete new page (2 cards for
-   Industry Recognition, 3 for Case Studies), so the progress
-   bar and page count are exact and predictable.
+   REUSABLE: PagedCarousel
 ================================================================ */
 
 type PagedCarouselProps<T> = {
@@ -604,8 +606,6 @@ function PagedCarousel<T>({
   const totalPages = Math.max(1, Math.ceil(items.length / perPage));
   const [page, setPage] = useState(0);
 
-  // Keep the current page valid when the breakpoint (and therefore
-  // perPage/totalPages) changes on resize.
   useEffect(() => {
     setPage((p) => Math.min(p, totalPages - 1));
   }, [totalPages]);
@@ -633,7 +633,6 @@ function PagedCarousel<T>({
                   {renderItem(item, pi * perPage + ii)}
                 </div>
               ))}
-              {/* Keep card widths identical even on a short last page */}
               {pageItems.length < perPage &&
                 Array.from({ length: perPage - pageItems.length }).map(
                   (_, gi) => (
@@ -703,7 +702,20 @@ function PagedCarousel<T>({
 export default function DigitalSoftwareServicesSection(): ReactElement {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
+  const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
+
+  // --- Autoplay for the left-side tab list ---
+  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
+  // Pausing on hover, and restarting the timer whenever the user
+  // manually clicks a tab, so it never fights with manual control.
+  useEffect(() => {
+    if (tabHovered) return undefined;
+    const id = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % tabs.length);
+    }, TAB_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [tabHovered, activeTab]);
 
   return (
     <main className="bg-white">
@@ -827,9 +839,11 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </p>
         </Reveal>
 
+
         {/* ============================================================
             Q&A BLOCK
         ============================================================ */}
+
         <Reveal as="section" className="mt-20">
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
@@ -866,10 +880,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          FOCUS AREAS — Our Services & Consulting Capabilities
-          Dark numbered cards: index, outbound-arrow button, title,
-          description, and a row of capability tags per card.
+          FOCUS AREAS
       ============================================================ */}
+
+
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
@@ -950,8 +964,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            TABBED DEEP-DIVE
+            TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
+
+      
         <Reveal as="section" className="mt-24 pb-28">
           <h2
             className="text-[34px] font-medium"
@@ -961,18 +977,42 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav */}
-            <ul className="space-y-1 border-l" style={{ borderColor: "#E5E1F5" }}>
+            {/* Left nav — autoplaying */}
+            <ul
+              className="space-y-1 border-l"
+              style={{ borderColor: "#E5E1F5" }}
+              onMouseEnter={() => setTabHovered(true)}
+              onMouseLeave={() => setTabHovered(false)}
+            >
               {tabs.map((tab, i) => {
                 const isActive = i === activeTab;
                 return (
-                  <li key={tab.label}>
+                  <li key={tab.label} className="relative -ml-px">
+                    {/* Static base line */}
+                    <span
+                      className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
+                      style={{ backgroundColor: "transparent" }}
+                    />
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
+                    {isActive && (
+                      <span
+                        key={`${activeTab}-${tabHovered}`}
+                        className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                        style={{
+                          backgroundColor: CHAMPION_BLUE,
+                          animation: tabHovered
+                            ? "none"
+                            : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                          transform: tabHovered ? "scaleY(1)" : undefined,
+                        }}
+                      />
+                    )}
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="-ml-px block border-l-2 py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
-                        borderColor: isActive ? CHAMPION_BLUE : "transparent",
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
                       }}
@@ -987,7 +1027,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2"
+  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -1006,7 +1046,8 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+  
                 />
               </div>
             </div>
@@ -1017,6 +1058,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       {/* ============================================================
           IMPACT ACROSS ECOSYSTEM (dark)
       ============================================================ */}
+    
       <section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
@@ -1069,10 +1111,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       </section>
 
       {/* ============================================================
-          INDUSTRY RECOGNITION (dark, paged carousel — 2 cards per
-          page, so 3 awards resolve to exactly 2 full pages and no
-          card is ever cropped at the container edge)
+          INDUSTRY RECOGNITION
       ============================================================ */}
+
+
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
@@ -1149,9 +1191,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       </section>
 
       {/* ============================================================
-          CASE STUDIES (light lavender, paged carousel — 3 cards
-          per page, so 5 case studies resolve to exactly 2 pages)
+          CASE STUDIES
       ============================================================ */}
+
       <section
         className="py-24"
         style={{
@@ -1226,10 +1268,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       </section>
 
       {/* ============================================================
-          INSIGHTS / WHAT'S NEW (light, free-scroll carousel — kept
-          as a peeking scroll strip since the large + small cards
-          have intentionally different widths)
+          INSIGHTS / WHAT'S NEW
       ============================================================ */}
+
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">

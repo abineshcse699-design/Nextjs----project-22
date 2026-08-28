@@ -577,12 +577,13 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 /* ===============================================================
    PLATFORMS
 ================================================================ */
+
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
       name: "Turbodev ",
       desc: "The revenue engine for Shopify brands — recover lost sales and grow profit from existing customers",
-      href: "/platform/turbodev-ai",
+         href: "https://turbodev.ai/",
       newTab: true,
     },
     {

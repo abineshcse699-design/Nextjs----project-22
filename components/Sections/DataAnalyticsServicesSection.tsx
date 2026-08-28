@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ChevronRight,
   ChevronDown,
@@ -14,6 +14,9 @@ const LAVENDER_ACCENT = "#A48FEA";
 // Shared page-width wrapper — kept in sync with the navbar's own
 // max-width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+// Autoplay timing for the "Data & Analytics Services" tab list
+const TAB_AUTOPLAY_MS = 4000;
 
 const keyTakeaways = [
   "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",
@@ -98,7 +101,20 @@ const tabs = [
 export default function DataAnalyticsServicesSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
+  const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
+
+  // --- Autoplay for the left-side tab list ---
+  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
+  // Pauses on hover, and restarts the timer whenever the user
+  // manually clicks a tab.
+  useEffect(() => {
+    if (tabHovered) return undefined;
+    const id = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % tabs.length);
+    }, TAB_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [tabHovered, activeTab]);
 
   return (
     // pt-[92px] / lg:pt-[100px] added below to offset the fixed Navbar
@@ -106,12 +122,22 @@ export default function DataAnalyticsServicesSection() {
     // 16px + 84px navbar height on lg = 100px), so the hero/breadcrumb
     // no longer sits underneath the fixed navbar.
     <main className="bg-white pt-[92px] lg:pt-[100px]">
+      {/* Progress-fill keyframe for the autoplaying tab indicator line */}
+      <style>{`
+        @keyframes ss-tab-progress {
+          from { transform: scaleY(0); }
+          to   { transform: scaleY(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .ss-tab-progress-fill {
+            animation: none !important;
+            transform: scaleY(1) !important;
+          }
+        }
+      `}</style>
+
       {/* ============================================================
           HERO
-          NOTE: background image swapped to a softer office/workspace
-          shot, and the gradient scrim strengthened (white/95 → white/40)
-          so the headline stays crisp instead of fighting a busy
-          dashboard image behind it.
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -308,7 +334,7 @@ export default function DataAnalyticsServicesSection() {
         </section>
 
         {/* ============================================================
-            TABBED DEEP-DIVE
+            TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
         <section className="mt-24 pb-28">
           <h2
@@ -319,17 +345,37 @@ export default function DataAnalyticsServicesSection() {
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            <ul className="space-y-1 border-l" style={{ borderColor: "#E5E1F5" }}>
+            {/* Left nav — autoplaying */}
+            <ul
+              className="space-y-1 border-l"
+              style={{ borderColor: "#E5E1F5" }}
+              onMouseEnter={() => setTabHovered(true)}
+              onMouseLeave={() => setTabHovered(false)}
+            >
               {tabs.map((tab, i) => {
                 const isActive = i === activeTab;
                 return (
-                  <li key={tab.label}>
+                  <li key={tab.label} className="relative -ml-px">
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
+                    {isActive && (
+                      <span
+                        key={`${activeTab}-${tabHovered}`}
+                        className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                        style={{
+                          backgroundColor: CHAMPION_BLUE,
+                          animation: tabHovered
+                            ? "none"
+                            : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                          transform: tabHovered ? "scaleY(1)" : undefined,
+                        }}
+                      />
+                    )}
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="-ml-px block border-l-2 py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
-                        borderColor: isActive ? CHAMPION_BLUE : "transparent",
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
                       }}
@@ -342,7 +388,8 @@ export default function DataAnalyticsServicesSection() {
             </ul>
 
             <div
-              className="grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2"
+              key={activeTab}
+                   className="grid grid-cols-1 overflow-hidden rounded-2xl md:h-[340px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -357,7 +404,7 @@ export default function DataAnalyticsServicesSection() {
                 </p>
               </div>
 
-              <div className="min-h-[280px]">
+              <div className="h-[280px]">
                 <img
                   src={current.image}
                   alt={current.label}

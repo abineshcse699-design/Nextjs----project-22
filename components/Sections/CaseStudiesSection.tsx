@@ -196,6 +196,7 @@ export default function CaseStudiesSection() {
           </div>
 
           <div className="flex shrink-0 items-center gap-3">
+            
             <button
               type="button"
               onClick={() => goTo(-1)}
