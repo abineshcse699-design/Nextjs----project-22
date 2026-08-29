@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 
 import {
   useRef,
@@ -207,34 +208,39 @@ const industryAwards: IndustryAward[] = [
   },
 ];
 
-type CaseStudy = { image: string; title: string; body: string };
+type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
   {
+    slug: "insurance-claims-low-code-platform",
     image:
       "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
     title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
     body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
   },
   {
+    slug: "regional-bank-digital-banking-experience",
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
     title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
     body: "See how Starfii's SaaS product engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
   },
   {
+    slug: "utilities-digital-transformation-microsoft",
     image:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
     title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
     body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
   },
   {
+    slug: "digital-mortgage-automation",
     image:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
     title: "Starfii Automates the Digital Mortgage Application Process",
     body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
   },
   {
+    slug: "healthcare-saas-platform-scale",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
     title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
@@ -1224,51 +1230,54 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             </a>
           </Reveal>
 
-          <div className="mt-12">
-            <PagedCarousel
-              items={caseStudies}
-              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-              arrowVariant="light"
-              renderItem={(study, i) => (
-                <Reveal delay={(i % 3) * 90} className="h-full">
-                  <div className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl">
-                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="text-[12px] font-semibold tracking-wide"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        CASE STUDY
-                      </span>
-                      <h3
-                        className="ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {study.title}
-                      </h3>
-                      <p className="ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {study.body}
-                      </p>
-                      <a
-                        href="#"
-                        className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={15} />
-                      </a>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
+         <div className="mt-12">
+  <PagedCarousel
+    items={caseStudies}
+    itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
+    arrowVariant="light"
+    renderItem={(study, i) => (
+      <Reveal delay={(i % 3) * 90} className="h-full">
+        <Link
+          href={`/casestudies/${study.slug}`}
+          className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+        >
+          <div className="h-[220px] flex-shrink-0 overflow-hidden">
+            <img
+              src={study.image}
+              alt={study.title}
+              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
             />
           </div>
+          <div className="flex flex-1 flex-col p-6">
+            <span
+              className="text-[12px] font-semibold tracking-wide"
+              style={{ color: INDIGO_CTA }}
+            >
+              CASE STUDY
+            </span>
+            <h3
+              className="ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              {study.title}
+            </h3>
+            <p className="ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+              {study.body}
+            </p>
+            <span
+              className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+              style={{ color: INDIGO_CTA }}
+            >
+              Learn More
+              <ArrowUpRight size={15} />
+            </span>
+          </div>
+        </Link>
+      </Reveal>
+    )}
+  />
+</div>
+
         </div>
       </section>
 

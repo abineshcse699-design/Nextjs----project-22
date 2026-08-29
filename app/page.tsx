@@ -10,6 +10,7 @@ import ConnectFormSection from "@/components/Sections/ConnectFormSection";
 import TechnicalCompetenciesSection from "@/components/Sections/TechnicalCompetenciesSection";
 
 export default function Home() {
+  
   return (
 
     <main>
@@ -26,6 +27,7 @@ export default function Home() {
       {/* <TechnicalCompetenciesSection></TechnicalCompetenciesSection> */}
       {/* rest of your page sections go here */}
     </main>
+
     
   );
 

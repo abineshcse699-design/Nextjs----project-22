@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import {
   ChevronDown,
-  MessageSquare,
+  Phone,
   ArrowUpRight,
   Play,
   Menu,
@@ -199,8 +199,8 @@ export default function Navbar() {
     ${T.primaryBg} ${T.primaryHoverBg}
   `}
 >
-  <MessageSquare size={18} strokeWidth={2.25} className="shrink-0" />
-  <span className="hidden sm:inline">Talk to us</span>
+  <Phone size={18} strokeWidth={2.25} className="shrink-0" />
+  <span className="hidden sm:inline">Contact</span>
 </Link>
 
 
