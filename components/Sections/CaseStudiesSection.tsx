@@ -17,12 +17,15 @@ import "swiper/css/navigation";
  * ------------------
  * "Real Results, Real Impact" Starfii case study carousel.
  *
- * Card interaction pattern (matches insight-card / cta-card-hover):
- *  - Image sits in a fixed-height frame and scales up subtly on hover
- *    (no height collapse / morph).
- *  - Title + description are always visible, no expand-on-hover.
- *  - The "Learn More" CTA reveals an animated underline that slides in
- *    from the left, driven by the `.cta-underline` span.
+ * Card interaction pattern:
+ *  - Card has a FIXED total height (h-[500px]) — never grows/shrinks
+ *    on hover, so all cards in a row always stay aligned.
+ *  - On hover, only the IMAGE height animates down to 0. The content
+ *    block below is `flex-1` inside the fixed-height flex column, so
+ *    it automatically expands to fill the freed space.
+ *  - The description fades/slides in, synced to the same duration as
+ *    the image collapse.
+ *  - Speeds are now snappier (700–800ms) while still feeling smooth.
  */
 
 export default function CaseStudiesSection() {
@@ -41,7 +44,7 @@ export default function CaseStudiesSection() {
 
   // scroll-reveal: watch the section, and once it's ~15% into view,
   // flip isVisible to true once (unobserve after) so the heading +
-  // carousel slowly rise up and fade in from below
+  // carousel rise up and fade in from below
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -52,6 +55,7 @@ export default function CaseStudiesSection() {
           setIsVisible(true);
           observer.unobserve(el);
         }
+
       },
       { threshold: 0.15 }
     );
@@ -63,9 +67,9 @@ export default function CaseStudiesSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
       <div ref={sectionRef} className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-        {/* copy — slides up + fades in slowly once scrolled into view */}
+        {/* copy — slides up + fades in once scrolled into view */}
         <div
-          className={`mb-14 max-w-2xl transition-all duration-[1600ms] ease-out ${
+          className={`mb-14 max-w-2xl transition-all duration-[900ms] ease-out ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
           }`}
         >
@@ -84,10 +88,10 @@ export default function CaseStudiesSection() {
         {/* Swiper carousel — rises up + fades in on scroll, slightly after
             the heading */}
         <div
-          className={`transition-all duration-[1600ms] ease-out ${
+          className={`transition-all duration-[900ms] ease-out ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
           }`}
-          style={{ transitionDelay: isVisible ? "200ms" : "0ms" }}
+          style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
         >
           <Swiper
             modules={[Navigation, A11y]}
@@ -99,7 +103,7 @@ export default function CaseStudiesSection() {
             onProgress={updateState}
             spaceBetween={32}
             slidesPerView={1.15}
-            speed={2200}
+            speed={700}
             grabCursor
             breakpoints={{
               640: { slidesPerView: 2 },
@@ -109,39 +113,47 @@ export default function CaseStudiesSection() {
           >
             {caseStudies.map((study) => (
               <SwiperSlide key={study.id} className="pb-2">
+                {/* FIXED height card — never changes size on hover */}
                 <Link
                   href={`/casestudies/${study.slug}`}
-                  className="insight-card cta-card-hover group flex h-full min-h-full flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-300 ease-in-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                  className="insight-card cta-card-hover group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                 >
-                  {/* image frame — fixed height, image scales up on hover */}
-                  <div className="insight-card-image aspect-[4/3] w-full overflow-hidden bg-slate-900">
+                  {/* image frame — height animates from fixed → 0 */}
+                  <div className="insight-card-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
                     <img
                       src={study.image}
                       alt={study.title}
-                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.08]"
+                      className="h-full w-full object-cover"
                     />
                   </div>
 
-                  <div className="insight-card-content flex flex-1 flex-col gap-3.5 p-7">
-                    <div className="insight-text flex flex-1 flex-col gap-3.5">
-                      <p className="fnt_14 text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
+                  {/* content — flex-1 automatically grows to fill the
+                      space the image gives up, since the parent card
+                      height is fixed. Keeps every card the same size. */}
+                  <div className="insight-card-content flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
+                    <div className="insight-text flex flex-1 flex-col gap-3.5 overflow-hidden">
+                      <p className="fnt_14 shrink-0 text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
                         CASE STUDY
                       </p>
-                      <p className="fnt_20 insight-title line-clamp-3 text-[20px] font-semibold leading-snug text-[#0b1747]">
+                      <p className="fnt_20 insight-title shrink-0 text-[20px] font-semibold leading-snug text-[#0b1747]">
                         {study.title}
                       </p>
-                      <p className="insight-desc line-clamp-3 text-[15px] leading-relaxed text-slate-500">
+
+                      {/* description — hidden at rest, fades + slides in
+                          as the content area grows on hover. Synced to
+                          the same 800ms duration as the image collapse. */}
+                      <p className="insight-desc max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
                         {study.cardDescription}
                       </p>
                     </div>
 
                     {/* cta with sliding underline reveal */}
-                    <span className="cta cta-underline group/cta relative mt-auto inline-flex w-fit items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed]">
+                    <span className="cta cta-underline group/cta relative mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed]">
                       <span className="relative">
                         Learn More
-                        <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-300 ease-out group-hover:w-full" />
+                        <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
                       </span>
-                      <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </span>
                   </div>
                 </Link>
@@ -154,7 +166,7 @@ export default function CaseStudiesSection() {
         <div className="mt-12 flex items-center gap-5">
           <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
             <div
-              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-[900ms] ease-out"
+              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-500 ease-out"
               style={{ width: `${Math.max(progress, 3)}%` }}
             />
           </div>
@@ -165,11 +177,12 @@ export default function CaseStudiesSection() {
               onClick={() => swiperRef.current?.slidePrev()}
               disabled={!canPrev}
               aria-label="Previous case studies"
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-700 ${
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
                 canPrev
                   ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
                   : "cursor-not-allowed bg-slate-200/70 text-slate-400"
               }`}
+
             >
               <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
             </button>
@@ -178,7 +191,7 @@ export default function CaseStudiesSection() {
               onClick={() => swiperRef.current?.slideNext()}
               disabled={!canNext}
               aria-label="Next case studies"
-              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-700 ${
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
                 canNext
                   ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
                   : "cursor-not-allowed bg-slate-200/70 text-slate-400"
@@ -190,5 +203,7 @@ export default function CaseStudiesSection() {
         </div>
       </div>
     </section>
+
   );
+  
 }

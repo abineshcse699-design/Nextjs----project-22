@@ -111,6 +111,7 @@ export const caseStudies: CaseStudy[] = [
       "Maintenance teams had no way to prioritize which of dozens of machines needed attention first.",
       "Each production facility ran different equipment vendors and sensor formats, with no unified way to compare machine health across sites.",
     ],
+    
     solutionIntro:
       "Starfii's IoT and data science team built a predictive maintenance platform that ingests sensor data from every connected machine, models normal versus degrading behavior, and surfaces early warnings to maintenance teams before a failure occurs.",
     solutionDetail:

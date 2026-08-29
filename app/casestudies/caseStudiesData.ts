@@ -27,118 +27,120 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     id: 1,
-    slug: "digital-banking-core-modernization",
-    title: "Starfii Modernizes Core Banking Infrastructure for a Mid-Size Digital Bank",
+    slug: "25-cost-savings-for-end-to-end-managed-data-delivery-reporting-services",
+    title: "25% Cost Savings through Data Transformation for Insurance Reporting",
     subtitle:
-      "Replacing a brittle monolithic core with a resilient, API-first banking platform without a single day of customer-facing downtime.",
-    category: "Legacy Modernization & Cloud Engineering",
+      "Reengineering a fragmented BI landscape into a unified, factory-based data delivery model for one of Belgium's largest insurers.",
+    category: "Data Engineering & Business Intelligence",
     cardDescription:
-      "Starfii re-platformed a digital bank's core ledger and account services onto a modern, API-first architecture, cutting transaction latency by 65% and enabling the bank to launch new products in weeks instead of quarters.",
+      "Starfii transformed a leading Belgian insurer's fragmented reporting landscape into a unified, automation-driven BI organization — cutting costs by 35% and delivering 15+ enterprise Datamarts.",
     image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1600&auto=format&fit=crop",
-    client: "Mid-Size Digital Bank",
-    industry: "Banking & Financial Services",
-    services: ["Legacy Modernization", "Cloud Engineering", "API Platform Engineering"],
-    overview:
-      "A fast-growing digital bank had outgrown the monolithic core banking system it launched on. Every new product, from savings accounts to a card program, meant months of custom work against a system that was never designed to be extended this far.",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
+    client: "Leading Belgian Insurance Firm",
+    industry: "Insurance & Financial Services",
+    services: ["Business Intelligence", "Data Engineering", "Cloud Data Platform"],
+    overview: "One of Belgium's largest insurance firms",
     clientOverview:
-      "The client is a licensed digital bank offering checking, savings, and card products directly to consumers through a mobile-first experience. Its original core banking system was built quickly to get the bank to market, using a single monolithic codebase that combined ledger logic, account servicing, and compliance checks in one tightly coupled application. As the customer base and product catalog grew, that same system became the bank's biggest constraint rather than its foundation.",
+      "The client is one of Belgium's largest insurance firms, offering solutions across multiple brands and distribution channels — spanning property and casualty insurance, health and provident insurance, and life insurance and pension savings. Years of growth through acquisition had left the client managing fragmented data systems and outdated reporting processes, creating a clear need for enterprise-wide data transformation.",
     challengeIntro:
-      "The bank needed to keep shipping new products on a competitive timeline, but its core system made every change slower and riskier than the one before it. Leadership needed a path to a modern core that didn't require pausing the roadmap for a year to get there.",
+      "Build a predictable BI organization with a single, enterprise-wide view of the business",
     challengePoints: [
-      "Ledger, account servicing, and compliance logic were tightly coupled in one monolith, so small changes carried outsized regression risk.",
-      "Peak-hour transaction volume routinely pushed latency past customer-acceptable thresholds.",
-      "Launching a new product, such as a card program, required months of custom engineering against a system not designed for extension.",
-      "The engineering team had no safe way to test core changes without risking live customer balances and transactions.",
-      "Compliance and audit reporting depended on direct queries against the production ledger, adding load during the bank's busiest hours.",
+      "No unified enterprise data model across brands and business lines.",
+      "Fragmented data consumption spread across multiple siloed systems.",
+      "Datamarts built for one-off business reporting rather than long-term architectural sustainability.",
+      "A resource-centric delivery model with no alignment on a common goal, producing inconsistent outcomes.",
+      "DataHub's operational data store model was incompatible with business reporting and control requirements.",
+      "Business departments struggled to align their own reporting needs with the available DataHub structure.",
     ],
-    solutionIntro:
-      "Starfii's cloud engineering team designed a phased, strangler-pattern migration — building the new core alongside the old one and moving traffic over incrementally, rather than attempting a single high-risk cutover of a live bank.",
+    solutionIntro: "A factory-based Business Intelligence Competency Center",
     solutionDetail:
-      "We started by extracting the ledger into its own service with a well-defined API contract, running it in shadow mode against real production traffic so every transaction could be verified against the legacy system before the new service was trusted with any live balance. Account servicing and compliance checks were split into independently deployable services behind the same API gateway, which let separate engineering teams ship changes to each without touching the others. Each service was migrated in order of risk, starting with read-only reporting queries and ending with the ledger itself, so the bank always had a safe rollback path at every stage of the migration.",
+      "Starfii reengineered the client's Business Intelligence Competency Center using a factory-based delivery approach, centralizing data acquisition, preparation, reporting, analytics, dashboards, and insight generation under one coordinated model. A modular framework spanning flexible data provisioning, strong data governance, and reporting-optimized data design replaced the client's ad hoc, resource-centric approach — consolidating change, run, and reporting services into a single, governance-enabled BI organization built to scale.",
     solution: [
-      "Extracted the monolithic core into independently deployable ledger, account servicing, and compliance services behind a single API gateway.",
-      "Ran the new ledger service in shadow mode against live production traffic to validate correctness before cutting over any real balances.",
-      "Migrated services in order of risk, starting with read-only reporting and ending with the transactional ledger itself.",
-      "Built a dedicated sandbox environment so engineers could test core changes against realistic data without touching production.",
+      "Reengineered the BI Competency Center around a factory-based, delivery-focused operating model.",
+      "Configured DataHub and Datamarts for both commercial and personal lines, covering bound policies and quotes.",
+      "Delivered market intelligence reporting on DataHub using SAS DI Studio and SAS Enterprise Guide.",
+      "Customized ETL pipelines to meet business requirements outside standard out-of-the-box coverage.",
+      "Implemented end-to-end automated reporting with stage-wise traceability for full data reconciliation.",
     ],
     results: [
-      { metric: "65%", label: "Reduction in peak transaction latency" },
-      { metric: "0", label: "Customer-facing outages during migration" },
-      { metric: "3x", label: "Faster time-to-launch for new products" },
-      { metric: "4", label: "Independently deployable core services" },
+      { metric: "35%", label: "Reduction in BI operating costs" },
+      { metric: "15+", label: "Enterprise Datamarts delivered" },
+      { metric: "1", label: "Unified enterprise-wide reporting view" },
+      { metric: "100%", label: "Automated, stage-wise traceable reporting" },
     ],
-    benefitsIntro:
-      "With the monolith broken apart, the bank's engineering teams could finally ship independently — and leadership could trust the core to hold up under growth.",
+    benefitsIntro: "A scalable BI organization built for informed decision-making",
     benefits: [
-      "Product teams ship changes to account servicing without waiting on ledger or compliance release cycles.",
-      "Compliance reporting now runs against a dedicated read replica instead of competing with live transactions for capacity.",
-      "New product launches that once took months of custom core work now ship in weeks against documented APIs.",
-      "Engineers test core changes safely in a realistic sandbox before anything reaches production.",
+      "Achieved approximately 35% cost reduction through consolidation and automation.",
+      "Delivered 15+ Datamarts offering unified insight into operations and commercial performance.",
+      "Provided intuitive, user-friendly reports that support faster, better-informed decisions.",
+      "Established end-to-end automated reporting with stage-wise traceability for seamless reconciliation.",
     ],
     summary:
-      "Starfii helped this digital bank replace a brittle monolithic core with an API-first platform, migrated in careful phases with zero customer-facing downtime. The bank now processes transactions 65% faster, ships new products three times as quickly, and finally has a core architecture built to grow with it rather than against it.",
-    techStack: ["Kotlin", "AWS", "PostgreSQL", "Kafka", "Kubernetes"],
+      "Starfii enabled a leading Belgian insurance firm to achieve 35% cost savings through enterprise data transformation. By consolidating fragmented systems, automating reporting, and implementing a scalable BI framework, we delivered 15+ Datamarts, intuitive insights, and streamlined operations — giving the client unified, traceable, and actionable business intelligence.",
+    techStack: ["Guidewire DataHub", "SAS DI Studio", "SAS Enterprise Guide", "SQL", "ETL Automation"],
   },
+
   {
     id: 2,
-    slug: "manufacturing-predictive-maintenance",
-    title: "Starfii Builds a Predictive Maintenance Platform That Cuts Unplanned Downtime by 40%",
-    subtitle:
-      "Turning years of sensor data into early warnings, before a breakdown becomes a production line stoppage.",
-    category: "IoT Engineering & Data Science",
+    slug: "15-year-digital-evolution-leading-australian-university",
+    title: "A 15-Year Digital Evolution at a Leading Australian University",
+    subtitle: "Keeping campus and core systems fast, secure, and student-ready — year after year.",
+    category: "Managed Services & Digital Transformation",
     cardDescription:
-      "Starfii connected a manufacturer's plant-floor equipment to a predictive maintenance platform, using machine learning on sensor data to flag failures before they happen and cutting unplanned downtime by 40%.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=800&auto=format&fit=crop",
+      "Starfii has partnered with a leading Australian university for 15 years, modernizing PeopleSoft, SSO, testing, and automation to keep campus systems reliable through every academic cycle.",
+   image:
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1600&auto=format&fit=crop",
-    client: "Industrial Equipment Manufacturer",
-    industry: "Manufacturing",
-    services: ["IoT Engineering", "Data Science", "Cloud Engineering"],
-    overview:
-      "An industrial equipment manufacturer running multiple production lines was losing significant time to unplanned equipment failures that maintenance teams only discovered after a breakdown had already stopped the line.",
+      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1600&auto=format&fit=crop",
+    client: "A research-intensive public university in Australia",
+    industry: "Higher Education",
+    services: ["PeopleSoft Managed Services", "Testing & QA Automation", "RPA & Infrastructure as Code"],
+    overview: "A research-intensive public university in Australia",
     clientOverview:
-      "The client manufactures heavy industrial equipment across several production facilities, each running dozens of machines on tight production schedules. Maintenance had historically been reactive: teams fixed machines after they failed, or performed maintenance on a fixed calendar schedule regardless of a machine's actual condition. Both approaches meant either unnecessary downtime for healthy machines or unplanned downtime for machines that failed between scheduled checks.",
-    challengeIntro:
-      "Plant managers needed to know which machines actually needed attention and when, instead of guessing on a fixed schedule or waiting for something to break. Getting there required turning years of underused sensor data into something maintenance teams could actually act on.",
+      "One of the country's largest universities, serving a diverse community of students, academics, and professional staff. The institution operates complex, interdependent systems — student information, HR, finance, research, and collaboration — that must stay available, secure, and easy to use throughout the academic calendar.",
+    challengeIntro: "Modernize core platforms without disrupting university operations",
     challengePoints: [
-      "Equipment failures were typically discovered only after they had already stopped a production line.",
-      "Fixed-schedule maintenance meant healthy machines were serviced unnecessarily while others failed between checks.",
-      "Sensor data from plant-floor equipment was collected but never analyzed beyond basic threshold alarms.",
-      "Maintenance teams had no way to prioritize which of dozens of machines needed attention first.",
-      "Each production facility ran different equipment vendors and sensor formats, with no unified way to compare machine health across sites.",
+      "Legacy PeopleSoft Campus, Finance, and HR systems needed continuous stabilization without disrupting live academic terms.",
+      "Fragmented sign-on across core applications created friction for students, faculty, and staff.",
+      "Manual, ad hoc testing slowed release cycles and raised risk during peak enrollment periods.",
+      "Repetitive back-office processes consumed staff time needed for student and research support.",
+      "Environments were provisioned manually, making deployments inconsistent and hard to recover.",
     ],
-    solutionIntro:
-      "Starfii's IoT and data science team built a predictive maintenance platform that ingests sensor data from every connected machine, models normal versus degrading behavior, and surfaces early warnings to maintenance teams before a failure occurs.",
+    solutionIntro: "A phased, low-risk transformation program",
     solutionDetail:
-      "The first phase focused on getting clean, normalized data flowing from every machine across every facility, regardless of vendor or sensor format, into a single time-series store. From there, we trained failure-prediction models on years of historical sensor readings paired with maintenance logs, learning the specific vibration, temperature, and pressure patterns that preceded a real failure on each equipment type. Rather than a single generic model, each major equipment class got its own tuned model, since a bearing failure pattern on one machine type looks nothing like a motor failure pattern on another. Predictions surface in a maintenance dashboard ranked by urgency, so plant managers can prioritize a short list of machines instead of monitoring dozens of raw sensor feeds.",
+      "Starfii partnered with the university across multiple modernization waves, planning each step around academic cycles to minimize disruption. Our approach was to co-design with stakeholders, iterate in small batches, and measure outcomes — then reinvest those learnings into the next phase of the university's digital transformation.",
     solution: [
-      "Connected plant-floor equipment across facilities to a unified IoT data pipeline, normalizing sensor data regardless of vendor or format.",
-      "Trained equipment-specific machine learning models on historical sensor data and maintenance logs to detect early failure signatures.",
-      "Built a maintenance dashboard that ranks equipment by predicted failure risk instead of surfacing raw sensor alarms.",
-      "Integrated predictions with the existing maintenance scheduling system so flagged machines are automatically prioritized.",
+      "PeopleSoft (Campus, Finance, HR): continuous enhancement, stabilization, and managed services for reliable university ERP support.",
+      "Oracle SSO: implemented single sign-on for a simpler, more secure experience across key applications.",
+      "Collaboration uplift: migrated to SharePoint to streamline content management, teamwork, and governance.",
+      "Digital assurance managed services: industrialized testing with reusable assets and risk-based coverage.",
+      "CRM operations: supported Microsoft Dynamics CRM to strengthen engagement with students, alumni, and partners.",
+      "Infrastructure as Code: codified environments for consistent, repeatable deployments and easier recovery.",
+      "Automation with RPA: deployed bots to automate repetitive back-office tasks and free up staff bandwidth.",
     ],
     results: [
-      { metric: "40%", label: "Reduction in unplanned downtime" },
-      { metric: "25%", label: "Reduction in unnecessary scheduled maintenance" },
-      { metric: "6", label: "Production facilities connected to the platform" },
-      { metric: "72 hrs", label: "Average early-warning lead time before failure" },
+      { metric: "15 Yrs", label: "Ongoing strategic partnership" },
+      { metric: "10+", label: "Modernization waves delivered" },
+      { metric: "5", label: "Core platforms under managed services" },
+      { metric: "Zero", label: "Major disruptions to academic operations" },
     ],
-    benefitsIntro:
-      "With failure predictions instead of fixed schedules, maintenance teams shifted from reacting to failures to preventing them.",
+    benefitsIntro: "Measurable improvements that compound over time",
     benefits: [
-      "Maintenance teams now receive a ranked list of at-risk machines instead of monitoring dozens of raw sensor alarms.",
-      "Healthy machines are no longer pulled from production for unnecessary scheduled servicing.",
-      "Plant managers get an average of 72 hours of warning before a predicted failure, enough time to schedule a repair without stopping a line.",
-      "All six facilities report equipment health through one unified dashboard despite running different equipment vendors.",
+      "A unified login journey and smoother collaboration tools reduced friction for students and staff.",
+      "Standardized testing and Infrastructure as Code shortened release cycles and improved change confidence.",
+      "Proactive support for Campus, Finance, HR, and CRM platforms stabilized critical services during peak periods.",
+      "RPA removed repetitive tasks, letting teams focus on student services, research support, and innovation.",
+      "Centralized access and platform controls strengthened compliance across the application estate.",
     ],
     summary:
-      "Starfii turned years of underused sensor data into a predictive maintenance platform that gives this manufacturer's teams a 72-hour head start on equipment failures. Unplanned downtime is down 40%, unnecessary scheduled maintenance is down 25%, and plant managers across six facilities now work from one ranked view of equipment health instead of dozens of disconnected alarms.",
-    techStack: ["Python", "AWS IoT Core", "TensorFlow", "TimescaleDB", "Grafana"],
+      "Over 15 years, Starfii has helped this leading university modernize at pace without sacrificing stability. From core SIS/ERP and CRM to collaboration, testing, and automation, we've delivered a repeatable operating model that keeps systems student-ready, secure, and future-proof — an enduring example of university IT modernization done right.",
+    techStack: ["PeopleSoft", "Oracle SSO", "SharePoint", "Microsoft Dynamics CRM", "RPA"],
   },
+
+  // ── your other 4 case studies stay exactly as they were ──
+
   {
     id: 3,
     slug: "logistics-supply-chain-visibility",
@@ -253,9 +255,7 @@ export const caseStudies: CaseStudy[] = [
       "Starfii built a recommendation engine that gave every viewer a personalized home screen while preserving the platform's editorial voice. Average watch time per user is up 28%, catalog discovery beyond the top 100 titles is up 45%, and subscriber churn has dropped 19% — proof that personalization and curation could work side by side rather than in competition.",
     techStack: ["Python", "AWS", "Spark", "TensorFlow", "Kafka"],
   },
-
-
-    {
+  {
     id: 5,
     slug: "healthcare-telemedicine-platform",
     title: "Starfii Launches a HIPAA-Compliant Telemedicine Platform in Under Four Months",
@@ -370,6 +370,59 @@ export const caseStudies: CaseStudy[] = [
     techStack: ["Node.js", "React", "AWS", "PostgreSQL", "Redis"],
   },
 
+  {
+    id: 7,
+    slug: "4-week-amaze-accelerated-assessment-data-platform-modernization",
+    title: "4-Week Amaze®-Accelerated Assessment for Data Platform Modernization",
+    subtitle:
+      "How a 30-year legal services firm chose Microsoft Fabric, cut costs 35–40%, and sped up time-to-market by 60% with an Amaze®-accelerated assessment.",
+    category: "Data Platform Modernization & Cloud Migration",
+    cardDescription:
+      "A US legal services firm with 30+ years of fragmented legacy data ran Starfii's automated Amaze® assessment — choosing Microsoft Fabric, speeding time-to-market by 60%, and cutting cost by 35–40% within 4 weeks.",
+    image:
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    heroImage:
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600&auto=format&fit=crop",
+    client: "US-Headquartered Legal Services Provider",
+    industry: "Legal Services",
+    services: ["Data Platform Modernization", "Cloud Migration Assessment", "Amaze® Platform"],
+    overview: "A prominent US legal services firm serving Fortune 500 companies and startups",
+    clientOverview:
+      "The US-headquartered legal services provider is a prominent firm known for serving a diverse range of clients, including Fortune 500 companies and innovative startups. With expertise across industries such as technology, finance, and healthcare, it offers comprehensive legal support in areas like mergers and acquisitions, litigation, and regulatory compliance, with a strong focus on customer experience.",
+    challengeIntro:
+      "Modernize a 30-year legacy data estate while minimizing downtime and cost overruns",
+    challengePoints: [
+      "Legacy System Complexity: aging and fragmented data platform led to high maintenance costs and limited scalability.",
+      "Migration Risks: the client needed a seamless migration with minimal disruption to daily operations.",
+      "Modernization Strategy: a systematic assessment of existing infrastructure was required to determine the best path to cloud adoption.",
+      "Evaluation of Hyperscaler Options: the client needed to assess and choose between three major hyperscalers — Snowflake, Microsoft Fabric, and Databricks.",
+    ],
+    solutionIntro: "An Amaze®-accelerated assessment across three leading hyperscalers",
+    solutionDetail:
+      "Starfii proposed the Amaze® Data and AI platform to accelerate the data modernization assessment process. Microsoft Fabric emerged as the ideal platform for scalable architecture that simplifies data workflows and unifies enterprise data with a single platform, centralizing data discovery, governance, and analytics. Its seamless integration with Power BI, Azure Data Lake, and Synapse Analytics ensured data engineering, storage, and visualization stayed interconnected in one cohesive environment.",
+    solution: [
+      "Comprehensive Assessment: evaluated the client's data landscape across 16 parameters, comparing all three hyperscalers.",
+      "Assessment Acceleration and Automation: used the Amaze® platform to automate key processes, cutting the time and effort required.",
+      "Systematic Modernization Strategy: guided the client to select Microsoft Fabric as the preferred hyperscaler platform based on fit.",
+      "Metadata-Driven Insights: surfaced actionable insight into optimizing and consolidating data objects ahead of migration.",
+    ],
+    
+    results: [
+      { metric: "4 Weeks", label: "Complete data estate assessment" },
+      { metric: "60%", label: "Improvement in time to market" },
+      { metric: "35–40%", label: "More cost-efficient assessment approach" },
+      { metric: "3", label: "Hyperscaler platforms evaluated across 16 parameters" },
+    ],
+    benefitsIntro: "A faster, more cost-efficient path to cloud modernization",
+    benefits: [
+      "Comprehensive data estate assessment within 4 weeks: Automated assessments completed within 4 weeks significantly enhanced time to market.",
+      "Accelerated and automated assessment: The assessment process was expedited, resulting in a 60% improved time to market.",
+      "35 to 40 percent more cost efficient: The approach was 35–40% more cost-effective, reducing overheads and operational costs.",
+    ],
+    summary:
+      "Starfii successfully enabled the client to modernize their legacy data platform by leveraging the Amaze® platform for a systematic, automated, and efficient assessment for their move to Microsoft Fabric. Our case exemplifies the power of innovative tools and processes in driving digital transformation for businesses with complex legacy systems.",
+    techStack: ["Microsoft Fabric", "Power BI", "Azure Data Lake", "Synapse Analytics", "Amaze® Platform"],
+  },
 ];
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
