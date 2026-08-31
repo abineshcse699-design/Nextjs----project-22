@@ -83,6 +83,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                     placeholder="Email address*"
                     className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
                   />
+
                   <select
                     defaultValue=""
                     className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-500 outline-none transition-colors focus:border-[#3a3ff0]"
@@ -163,6 +164,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
                 <p className="text-xs font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
                   Challenge
                 </p>
+
                 <h2 className="mt-3 text-2xl font-semibold text-[#0b1747]">
                   {study.challengeIntro}
                 </h2>
@@ -295,5 +297,7 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
         </div>
       </section>
     </main>
+
   );
+  
 }

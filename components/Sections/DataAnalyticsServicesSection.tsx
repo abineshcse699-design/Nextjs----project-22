@@ -7,6 +7,7 @@ import {
   Sparkles,
   ArrowUpRight,
 } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
@@ -17,6 +18,56 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Data & Analytics Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
+
+// --- Shared animation variants ---
+// heroContainer / heroItem: play once on page load (hero only)
+// container / item: play once, triggered on scroll into view (rest of page)
+const heroContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.4,
+    },
+  },
+};
+
+const heroItem: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 const keyTakeaways = [
   "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",
@@ -163,11 +214,14 @@ export default function DataAnalyticsServicesSection() {
       `}</style>
 
       {/* ============================================================
-          HERO
+          HERO — animates once, right after page load
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img
+          <motion.img
+            initial={{ opacity: 0, scale: 1.1 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
             src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
@@ -175,8 +229,14 @@ export default function DataAnalyticsServicesSection() {
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40" />
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
-          <nav
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className={`${ALIGN} py-24 lg:py-32`}
+        >
+          <motion.nav
+            variants={heroItem}
             aria-label="Breadcrumb"
             className="flex items-center gap-2 text-[14px] font-medium"
             style={{ color: CHAMPION_BLUE }}
@@ -190,37 +250,50 @@ export default function DataAnalyticsServicesSection() {
             </a>
             <ChevronRight size={14} />
             <span className="text-slate-500">Data & Analytics</span>
-          </nav>
+          </motion.nav>
 
-          <h1
+          <motion.h1
+            variants={heroItem}
             className="mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Data & Analytics Services for Decisions You Can Trust
-          </h1>
+          </motion.h1>
 
-          <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600">
+          <motion.p
+            variants={heroItem}
+            className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
+          >
             Starfii turns scattered, siloed data into a governed platform
             that powers faster, more confident decisions across the
             enterprise.
-          </p>
+          </motion.p>
 
-          <a
+          <motion.a
+            variants={heroItem}
             href="#connect"
-            className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform hover:scale-[1.03]"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
             Connect Now
             <ArrowUpRight size={17} />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </section>
 
       <div className={ALIGN}>
         {/* ============================================================
-            KEY TAKEAWAYS
+            KEY TAKEAWAYS — animates on scroll into view
         ============================================================ */}
-        <section className="mt-16">
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-16"
+        >
           <div
             className="overflow-hidden rounded-2xl border"
             style={{ borderColor: LAVENDER_ACCENT }}
@@ -271,12 +344,18 @@ export default function DataAnalyticsServicesSection() {
             platforms and AI ready pipelines that turn scattered
             enterprise data into decisions your business can rely on.
           </p>
-        </section>
+        </motion.section>
 
         {/* ============================================================
-            Q&A BLOCK
+            Q&A BLOCK — animates on scroll into view
         ============================================================ */}
-        <section className="mt-20">
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-20"
+        >
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
@@ -306,14 +385,19 @@ export default function DataAnalyticsServicesSection() {
               />
             </div>
           </div>
-        </section>
+        </motion.section>
 
         {/* ============================================================
-            FOCUS AREAS
+            FOCUS AREAS — grid cards stagger in on scroll
         ============================================================ */}
         <section className="mt-24">
           <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_2.6fr]">
-            <div>
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+            >
               <h2
                 className="text-[36px] font-medium leading-[1.15]"
                 style={{ color: CHAMPION_BLUE }}
@@ -327,12 +411,19 @@ export default function DataAnalyticsServicesSection() {
                 scale with the business, so analytics and AI stay
                 grounded in data you can trust.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.15 }}
+              variants={container}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+            >
               {focusAreas.map((area) => (
-                <div
+                <motion.div
                   key={area.title}
+                  variants={item}
                   className="rounded-xl p-7 transition-transform duration-300 hover:-translate-y-1"
                   style={{ backgroundColor: "#F5F3FC" }}
                 >
@@ -353,17 +444,23 @@ export default function DataAnalyticsServicesSection() {
                     Learn More
                     <ArrowUpRight size={15} />
                   </a>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
           </div>
         </section>
 
         {/* ============================================================
-            CASE STUDIES  (new section)
+            CASE STUDIES — grid cards stagger in on scroll
         ============================================================ */}
         <section className="mt-24">
-          <div className="flex items-end justify-between">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="flex items-end justify-between"
+          >
             <h2
               className="text-[36px] font-medium leading-[1.15]"
               style={{ color: CHAMPION_BLUE }}
@@ -380,12 +477,19 @@ export default function DataAnalyticsServicesSection() {
               View All Case Studies
               <ArrowUpRight size={16} />
             </a>
-          </div>
+          </motion.div>
 
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={container}
+            className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3"
+          >
             {caseStudies.map((study) => (
-              <div
+              <motion.div
                 key={study.title}
+                variants={item}
                 className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ border: "1px solid #EDEAFB" }}
               >
@@ -421,15 +525,21 @@ export default function DataAnalyticsServicesSection() {
                     <ArrowUpRight size={15} />
                   </a>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </section>
 
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
-        <section className="mt-24 pb-28">
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={fadeUp}
+          className="mt-24 pb-28"
+        >
           <h2
             className="text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
@@ -480,9 +590,12 @@ export default function DataAnalyticsServicesSection() {
               })}
             </ul>
 
-            <div
+            <motion.div
               key={activeTab}
-                   className="grid grid-cols-1 overflow-hidden rounded-2xl md:h-[340px] md:grid-cols-2"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 overflow-hidden rounded-2xl md:h-[340px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -504,9 +617,9 @@ export default function DataAnalyticsServicesSection() {
                   className="h-full w-full object-cover"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </section>
+        </motion.section>
       </div>
     </main>
   );

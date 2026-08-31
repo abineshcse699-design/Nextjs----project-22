@@ -12,6 +12,7 @@ import {
   TrendingDown,
   CheckCircle2,
 } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 
 const T = {
   ink: "text-[#14163B]",
@@ -26,6 +27,56 @@ const T = {
 
 // ✅ Matches navbar's outer wrapper exactly: max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+// --- Shared animation variants ---
+// heroContainer / heroItem: play once on page load (hero only)
+// container / item: play once, triggered on scroll into view (rest of page)
+const heroContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.4,
+    },
+  },
+};
+
+const heroItem: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 // SEO note: Starfii's public services list currently names "Revenue
 // Cycle Management Service" (HIPAA-compliant RCM for healthcare), see
@@ -72,6 +123,7 @@ const engagementSteps = [
 export default function BusinessProcessServicesPage() {
   return (
     <main className="bg-white">
+      {/* ===================== HERO — animates once, right after page load ===================== */}
       <section className={`${T.inkBg} relative overflow-hidden pt-[104px] pb-20 sm:pt-[118px]`}>
         <div
           className="pointer-events-none absolute inset-y-0 right-0 w-[45%]"
@@ -80,26 +132,31 @@ export default function BusinessProcessServicesPage() {
               "radial-gradient(60% 80% at 100% 40%, rgba(59,47,224,0.35) 0%, rgba(143,168,255,0.18) 40%, rgba(12,14,42,0) 72%)",
           }}
         />
-        <div className={`relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] ${ALIGN}`}>
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className={`relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] ${ALIGN}`}
+        >
           <div>
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] font-medium text-white/50">
+            <motion.nav variants={heroItem} aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] font-medium text-white/50">
               <a href="/" className="transition-colors hover:text-white/80">Home</a>
               <ChevronRight size={13} />
               <a href="/services" className="transition-colors hover:text-white/80">Services</a>
               <ChevronRight size={13} />
               <span className="text-white/75">Business Process Services</span>
-            </nav>
-            <h1 className="mt-6 max-w-xl text-[40px] font-bold leading-[1.1] text-white sm:text-[52px]">
+            </motion.nav>
+            <motion.h1 variants={heroItem} className="mt-6 max-w-xl text-[40px] font-bold leading-[1.1] text-white sm:text-[52px]">
               Business Process Outsourcing,{" "}
               <span className="text-[#8FA8FF]">Run to an SLA</span>, Not Left to Chance
-            </h1>
-            <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/70">
+            </motion.h1>
+            <motion.p variants={heroItem} className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/70">
               We redesign, automate, and run the finance, order,
               procurement, customer operations, and revenue cycle
               management processes sitting behind your front-end business,
               so throughput goes up and cost per transaction comes down.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
+            </motion.p>
+            <motion.div variants={heroItem} className="mt-9 flex flex-wrap items-center gap-4">
               <a href="#talk-to-us" className={`inline-flex h-12 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}>
                 Talk to us
                 <ArrowUpRight size={16} />
@@ -107,10 +164,10 @@ export default function BusinessProcessServicesPage() {
               <a href="#domains" className="inline-flex h-12 items-center gap-2 rounded-md border border-white/20 px-6 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-white/10">
                 See process domains
               </a>
-            </div>
+            </motion.div>
           </div>
 
-          <div className="hidden lg:block">
+          <motion.div variants={heroItem} className="hidden lg:block">
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/50">
                 Business processes we run
@@ -129,22 +186,36 @@ export default function BusinessProcessServicesPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
-      <section className={`border-b ${T.border}`}>
+      {/* ===================== OUTCOMES STRIP — animates on scroll into view ===================== */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={container}
+        className={`border-b ${T.border}`}
+      >
         <div className={`${ALIGN} grid grid-cols-1 gap-8 py-12 sm:grid-cols-3`}>
           {outcomes.map((o) => (
-            <div key={o.label}>
+            <motion.div key={o.label} variants={item}>
               <p className={`text-[30px] font-bold ${T.primary}`}>{o.stat}</p>
               <p className={`mt-1.5 text-[13.5px] leading-relaxed ${T.muted}`}>{o.label}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
-      </section>
+      </motion.section>
 
-      <section className={`${ALIGN} py-20`}>
+      {/* ===================== INTRO / DELIVERY MODEL — animates on scroll into view ===================== */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.15 }}
+        variants={fadeUp}
+        className={`${ALIGN} py-20`}
+      >
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.1fr_0.9fr]">
           <div>
             <h2 className={`text-[28px] font-bold ${T.ink}`}>
@@ -157,19 +228,25 @@ export default function BusinessProcessServicesPage() {
               before deciding what should be automated with RPA and what
               should be run by a managed operations team.
             </p>
-            <ul className="mt-8 space-y-4">
+            <motion.ul
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={container}
+              className="mt-8 space-y-4"
+            >
               {[
                 "Process maps built from actual transaction data, not interviews alone",
                 "Robotic process automation scoped only where volume and rules justify it",
                 "SLAs tied to business outcomes, cycle time, accuracy, cost per unit",
                 "Transition plans that run parallel until performance is proven",
               ].map((point) => (
-                <li key={point} className="flex items-start gap-3">
+                <motion.li key={point} variants={item} className="flex items-start gap-3">
                   <CheckCircle2 size={18} className={`mt-0.5 shrink-0 ${T.primary}`} />
                   <span className={`text-[14.5px] leading-relaxed ${T.ink}`}>{point}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
+            </motion.ul>
           </div>
 
           <div className={`overflow-hidden rounded-2xl border ${T.border} ${T.inkBg} p-8 text-white`}>
@@ -191,58 +268,117 @@ export default function BusinessProcessServicesPage() {
             </a>
           </div>
         </div>
-      </section>
+      </motion.section>
 
+      {/* ===================== CAPABILITIES — cards stagger in on scroll ===================== */}
       <section className={`${T.panelBg} border-y ${T.border}`}>
         <div className={`${ALIGN} py-20`}>
-          <h2 className={`text-[28px] font-bold ${T.ink}`}>What we deliver</h2>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className={`text-[28px] font-bold ${T.ink}`}
+          >
+            What we deliver
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={container}
+            className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {capabilities.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className={`rounded-xl border ${T.border} bg-white p-6`}>
+              <motion.div key={title} variants={item} className={`rounded-xl border ${T.border} bg-white p-6`}>
                 <div className={`flex h-10 w-10 items-center justify-center rounded-md ${T.primaryBg}`}>
                   <Icon size={18} className="text-white" />
                 </div>
                 <h3 className={`mt-4 text-[16.5px] font-semibold ${T.ink}`}>{title}</h3>
                 <p className={`mt-2.5 text-[14px] leading-relaxed ${T.muted}`}>{desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
+      {/* ===================== PROCESS DOMAINS — cards stagger in on scroll ===================== */}
       <section id="domains" className={`${ALIGN} py-20`}>
-        <h2 className={`text-[28px] font-bold ${T.ink}`}>Business process domains we run</h2>
-        <p className={`mt-3 max-w-2xl text-[15px] leading-relaxed ${T.muted}`}>
+        <motion.h2
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
+          className={`text-[28px] font-bold ${T.ink}`}
+        >
+          Business process domains we run
+        </motion.h2>
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
+          className={`mt-3 max-w-2xl text-[15px] leading-relaxed ${T.muted}`}
+        >
           Cross-industry business process outsourcing coverage, from finance to healthcare revenue cycle management.
-        </p>
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        </motion.p>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.1 }}
+          variants={container}
+          className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {processDomains.map((p) => (
-            <div key={p.name} className={`border-l-2 ${T.border} pl-5`}>
+            <motion.div key={p.name} variants={item} className={`border-l-2 ${T.border} pl-5`}>
               <h4 className={`text-[16px] font-semibold ${T.ink}`}>{p.name}</h4>
               <p className={`mt-1.5 text-[13.5px] leading-relaxed ${T.muted}`}>{p.detail}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
+      {/* ===================== ENGAGEMENT MODEL — steps stagger in on scroll ===================== */}
       <section id="steps" className={T.inkBg}>
         <div className={`${ALIGN} py-20`}>
-          <h2 className="text-[28px] font-bold text-white">How an engagement runs</h2>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="text-[28px] font-bold text-white"
+          >
+            How an engagement runs
+          </motion.h2>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={container}
+            className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          >
             {engagementSteps.map((step, i) => (
-              <div key={step.title} className="border-t border-white/15 pt-5">
+              <motion.div key={step.title} variants={item} className="border-t border-white/15 pt-5">
                 <p className="text-[13px] font-semibold text-white/50">
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <h4 className="mt-2 text-[17px] font-semibold text-white">{step.title}</h4>
                 <p className="mt-2 text-[13.5px] leading-relaxed text-white/65">{step.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      <section id="talk-to-us" className={`${ALIGN} py-20`}>
+      {/* ===================== CTA — animates on scroll into view ===================== */}
+      <motion.section
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.3 }}
+        variants={fadeUp}
+        id="talk-to-us"
+        className={`${ALIGN} py-20`}
+      >
         <div className={`flex flex-col items-start justify-between gap-6 rounded-2xl border ${T.border} ${T.panelBg} p-10 sm:flex-row sm:items-center`}>
           <div>
             <h3 className={`text-[24px] font-bold ${T.ink}`}>
@@ -257,7 +393,7 @@ export default function BusinessProcessServicesPage() {
             <ArrowUpRight size={16} />
           </a>
         </div>
-      </section>
+      </motion.section>
     </main>
   );
 }

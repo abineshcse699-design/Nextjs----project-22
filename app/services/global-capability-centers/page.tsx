@@ -12,6 +12,7 @@ import {
   Network,
   CheckCircle2,
 } from "lucide-react";
+import { motion, type Variants } from "framer-motion";
 
 const T = {
   ink: "text-[#14163B]",
@@ -26,6 +27,61 @@ const T = {
 
 // ✅ Matches navbar's outer wrapper exactly: max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+/* ===============================================================
+   ANIMATION VARIANTS — same easing/stagger recipe used in Hero.tsx,
+   so every section on this page feels consistent with the homepage.
+================================================================ */
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const heroContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.4,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 1.2,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+const cardItem: Variants = {
+  hidden: { opacity: 0, y: 24 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.7,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
+
+// Standard viewport-triggered wrapper props, reused on every below-the-fold section
+const revealProps = {
+  initial: "hidden" as const,
+  whileInView: "visible" as const,
+  viewport: { once: true, amount: 0.2 },
+};
 
 // SEO note: "Global Capability Centers" (GCC setup) is not currently
 // listed among Starfii's public services on starfii.com. This content
@@ -73,61 +129,99 @@ export default function GlobalCapabilityCentersPage() {
     <main className="bg-white">
       {/* ===================== HERO ===================== */}
       <section className={`${T.inkBg} relative overflow-hidden pt-[104px] pb-20 sm:pt-[118px]`}>
-        <div
+        <motion.div
+          aria-hidden="true"
+          initial={{ opacity: 0, scale: 1.1 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
           className="pointer-events-none absolute inset-y-0 right-0 w-[45%]"
           style={{
             background:
               "radial-gradient(60% 80% at 100% 40%, rgba(59,47,224,0.35) 0%, rgba(143,168,255,0.18) 40%, rgba(12,14,42,0) 72%)",
           }}
         />
-        <div className={`relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] ${ALIGN}`}>
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className={`relative grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_0.95fr] ${ALIGN}`}
+        >
           <div>
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] font-medium text-white/50">
+            <motion.nav
+              variants={item}
+              aria-label="Breadcrumb"
+              className="flex items-center gap-2 text-[13px] font-medium text-white/50"
+            >
               <a href="/" className="transition-colors hover:text-white/80">Home</a>
               <ChevronRight size={13} />
               <a href="/services" className="transition-colors hover:text-white/80">Services</a>
               <ChevronRight size={13} />
               <span className="text-white/75">Global Capability Centers</span>
-            </nav>
-            <h1 className="mt-6 max-w-xl text-[40px] font-bold leading-[1.1] text-white sm:text-[52px]">
+            </motion.nav>
+            <motion.h1
+              variants={item}
+              className="mt-6 max-w-xl text-[40px] font-bold leading-[1.1] text-white sm:text-[52px]"
+            >
               Set Up a{" "}
               <span className="text-[#8FA8FF]">Global Capability Center (GCC)</span>{" "}
               Without the First-Year Guesswork
-            </h1>
-            <p className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/70">
+            </motion.h1>
+            <motion.p
+              variants={item}
+              className="mt-6 max-w-lg text-[17px] leading-relaxed text-white/70"
+            >
               From legal entity setup to your first hundred hires, we build
               and stand up global capability centers, covering the entity,
               the team, the governance, and the infrastructure, as one
               connected plan.
-            </p>
-            <div className="mt-9 flex flex-wrap items-center gap-4">
-              <a href="#talk-to-us" className={`inline-flex h-12 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}>
+            </motion.p>
+            <motion.div variants={item} className="mt-9 flex flex-wrap items-center gap-4">
+              <motion.a
+                href="#talk-to-us"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className={`inline-flex h-12 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}
+              >
                 Talk to us
                 <ArrowUpRight size={16} />
-              </a>
-              <a href="#phases" className="inline-flex h-12 items-center gap-2 rounded-md border border-white/20 px-6 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-white/10">
+              </motion.a>
+              <motion.a
+                href="#phases"
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.98 }}
+                className="inline-flex h-12 items-center gap-2 rounded-md border border-white/20 px-6 text-[15px] font-semibold text-white transition-colors duration-150 hover:bg-white/10"
+              >
                 See setup phases
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </div>
 
-          <div className="hidden lg:block">
+          <motion.div variants={item} className="hidden lg:block">
             <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-sm">
               <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/50">
                 GCC setup covers
               </p>
-              <div className="mt-5 space-y-3">
+              <motion.div
+                variants={container}
+                initial="hidden"
+                animate="visible"
+                className="mt-5 space-y-3"
+              >
                 {[
                   "Entity & Legal Setup",
                   "Talent Acquisition",
                   "Facilities & Infrastructure",
                   "Governance Design",
                 ].map((name) => (
-                  <div key={name} className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] font-medium text-white/85">
+                  <motion.div
+                    key={name}
+                    variants={cardItem}
+                    className="rounded-lg border border-white/10 bg-white/[0.03] px-4 py-3 text-[14px] font-medium text-white/85"
+                  >
                     {name}
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
+              </motion.div>
               <div className="mt-6 border-t border-white/10 pt-6">
                 <p className="text-[28px] font-bold text-white">4 to 6 mo</p>
                 <p className="mt-1 text-[13px] leading-relaxed text-white/55">
@@ -135,51 +229,61 @@ export default function GlobalCapabilityCentersPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* ===================== OUTCOMES STRIP ===================== */}
       <section className={`border-b ${T.border}`}>
-        <div className={`${ALIGN} grid grid-cols-1 gap-8 py-12 sm:grid-cols-3`}>
+        <motion.div
+          {...revealProps}
+          variants={container}
+          className={`${ALIGN} grid grid-cols-1 gap-8 py-12 sm:grid-cols-3`}
+        >
           {outcomes.map((o) => (
-            <div key={o.label}>
+            <motion.div key={o.label} variants={item}>
               <p className={`text-[30px] font-bold ${T.primary}`}>{o.stat}</p>
               <p className={`mt-1.5 text-[13.5px] leading-relaxed ${T.muted}`}>{o.label}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* ===================== OVERVIEW ===================== */}
       <section className={`${ALIGN} py-20`}>
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.1fr_0.9fr]">
-          <div>
-            <h2 className={`text-[28px] font-bold ${T.ink}`}>
+          <motion.div {...revealProps} variants={container}>
+            <motion.h2 variants={item} className={`text-[28px] font-bold ${T.ink}`}>
               One plan, not three vendors handing off badly
-            </h2>
-            <p className={`mt-5 text-[15.5px] leading-relaxed ${T.muted}`}>
+            </motion.h2>
+            <motion.p variants={item} className={`mt-5 text-[15.5px] leading-relaxed ${T.muted}`}>
               GCC setups usually stall at the seams. The legal partner, the
               staffing firm, and the IT vendor each own a slice, and nobody
               owns the outcome. We run entity setup, hiring, infrastructure,
               and governance design as one accountable engagement.
-            </p>
-            <ul className="mt-8 space-y-4">
+            </motion.p>
+            <motion.ul variants={container} className="mt-8 space-y-4">
               {[
                 "A single delivery lead accountable from incorporation through first hires",
                 "Hiring plans built around the roles the center actually needs, not generic headcount",
                 "Governance model defined before day one, covering decision rights, reporting, and escalation",
                 "Data residency and labor-law compliance built into the setup, not audited after",
               ].map((point) => (
-                <li key={point} className="flex items-start gap-3">
+                <motion.li key={point} variants={item} className="flex items-start gap-3">
                   <CheckCircle2 size={18} className={`mt-0.5 shrink-0 ${T.primary}`} />
                   <span className={`text-[14.5px] leading-relaxed ${T.ink}`}>{point}</span>
-                </li>
+                </motion.li>
               ))}
-            </ul>
-          </div>
+            </motion.ul>
+          </motion.div>
 
-          <div className={`overflow-hidden rounded-2xl border ${T.border} ${T.inkBg} p-8 text-white`}>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
+            className={`overflow-hidden rounded-2xl border ${T.border} ${T.inkBg} p-8 text-white`}
+          >
             <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-white/60">
               Who this is for
             </p>
@@ -191,69 +295,107 @@ export default function GlobalCapabilityCentersPage() {
               operations capacity closer to a growing talent market, not a
               short-term staffing fix.
             </p>
-            <a href="#steps" className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white">
+            <motion.a
+              href="#steps"
+              whileHover={{ x: 4 }}
+              className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
+            >
               See how it runs
               <ArrowUpRight size={15} />
-            </a>
-          </div>
+            </motion.a>
+          </motion.div>
         </div>
       </section>
 
       {/* ===================== CAPABILITIES ===================== */}
       <section className={`${T.panelBg} border-y ${T.border}`}>
         <div className={`${ALIGN} py-20`}>
-          <h2 className={`text-[28px] font-bold ${T.ink}`}>What we deliver</h2>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.h2 {...revealProps} variants={item} className={`text-[28px] font-bold ${T.ink}`}>
+            What we deliver
+          </motion.h2>
+          <motion.div
+            {...revealProps}
+            variants={container}
+            className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {capabilities.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className={`rounded-xl border ${T.border} bg-white p-6`}>
+              <motion.div
+                key={title}
+                variants={cardItem}
+                whileHover={{ y: -4 }}
+                transition={{ duration: 0.3 }}
+                className={`rounded-xl border ${T.border} bg-white p-6`}
+              >
                 <div className={`flex h-10 w-10 items-center justify-center rounded-md ${T.primaryBg}`}>
                   <Icon size={18} className="text-white" />
                 </div>
                 <h3 className={`mt-4 text-[16.5px] font-semibold ${T.ink}`}>{title}</h3>
                 <p className={`mt-2.5 text-[14px] leading-relaxed ${T.muted}`}>{desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ===================== SETUP PHASES ===================== */}
       <section id="phases" className={`${ALIGN} py-20`}>
-        <h2 className={`text-[28px] font-bold ${T.ink}`}>What GCC setup covers</h2>
-        <p className={`mt-3 max-w-2xl text-[15px] leading-relaxed ${T.muted}`}>
+        <motion.h2 {...revealProps} variants={item} className={`text-[28px] font-bold ${T.ink}`}>
+          What GCC setup covers
+        </motion.h2>
+        <motion.p
+          {...revealProps}
+          variants={item}
+          className={`mt-3 max-w-2xl text-[15px] leading-relaxed ${T.muted}`}
+        >
           Every workstream needed to take a global capability center from decision to steady-state.
-        </p>
-        <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        </motion.p>
+        <motion.div
+          {...revealProps}
+          variants={container}
+          className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
+        >
           {setupPhases.map((p) => (
-            <div key={p.name} className={`border-l-2 ${T.border} pl-5`}>
+            <motion.div key={p.name} variants={item} className={`border-l-2 ${T.border} pl-5`}>
               <h4 className={`text-[16px] font-semibold ${T.ink}`}>{p.name}</h4>
               <p className={`mt-1.5 text-[13.5px] leading-relaxed ${T.muted}`}>{p.detail}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </section>
 
       {/* ===================== ENGAGEMENT MODEL ===================== */}
       <section id="steps" className={T.inkBg}>
         <div className={`${ALIGN} py-20`}>
-          <h2 className="text-[28px] font-bold text-white">How an engagement runs</h2>
-          <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+          <motion.h2 {...revealProps} variants={item} className="text-[28px] font-bold text-white">
+            How an engagement runs
+          </motion.h2>
+          <motion.div
+            {...revealProps}
+            variants={container}
+            className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          >
             {engagementSteps.map((step, i) => (
-              <div key={step.title} className="border-t border-white/15 pt-5">
+              <motion.div key={step.title} variants={item} className="border-t border-white/15 pt-5">
                 <p className="text-[13px] font-semibold text-white/50">
                   {String(i + 1).padStart(2, "0")}
                 </p>
                 <h4 className="mt-2 text-[17px] font-semibold text-white">{step.title}</h4>
                 <p className="mt-2 text-[13.5px] leading-relaxed text-white/65">{step.desc}</p>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* ===================== CTA ===================== */}
       <section id="talk-to-us" className={`${ALIGN} py-20`}>
-        <div className={`flex flex-col items-start justify-between gap-6 rounded-2xl border ${T.border} ${T.panelBg} p-10 sm:flex-row sm:items-center`}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className={`flex flex-col items-start justify-between gap-6 rounded-2xl border ${T.border} ${T.panelBg} p-10 sm:flex-row sm:items-center`}
+        >
           <div>
             <h3 className={`text-[24px] font-bold ${T.ink}`}>
               Evaluating a GCC location right now?
@@ -262,16 +404,20 @@ export default function GlobalCapabilityCentersPage() {
               We'll walk you through the feasibility numbers before you commit to a market.
             </p>
           </div>
-          <a href="/contact" className={`inline-flex h-12 shrink-0 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}>
+          <motion.a
+            href="/contact"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className={`inline-flex h-12 shrink-0 items-center gap-2 rounded-md px-6 text-[15px] font-semibold text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}
+          >
             Talk to us
             <ArrowUpRight size={16} />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </section>
     </main>
   );
 }
-
 
 /*
 
@@ -290,6 +436,3 @@ export default function GlobalCapabilityCentersPage() {
      inconsistent with the rest of the site.
 
 */
-
-
-
