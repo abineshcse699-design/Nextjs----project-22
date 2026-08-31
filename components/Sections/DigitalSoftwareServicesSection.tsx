@@ -974,11 +974,11 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       </section>
 
       <div className={ALIGN}>
+
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
 
-      
         <Reveal as="section" className="mt-24 pb-28">
           <h2
             className="text-[34px] font-medium"
@@ -1070,7 +1070,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           IMPACT ACROSS ECOSYSTEM (dark)
       ============================================================ */}
     
-      <section className="relative overflow-hidden bg-[#08070F] py-24">
+<section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
@@ -1119,14 +1119,16 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             ))}
           </div>
         </div>
-      </section>
+
+</section>
+
 
       {/* ============================================================
           INDUSTRY RECOGNITION
       ============================================================ */}
 
 
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
+<section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
           style={{
@@ -1145,7 +1147,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               </h2>
             </Reveal>
 
-            <PagedCarousel
+ <PagedCarousel
               items={industryAwards}
               itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
               arrowVariant="dark"
@@ -1199,7 +1201,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             />
           </div>
         </div>
-      </section>
+  </section>
 
       {/* ============================================================
           CASE STUDIES
