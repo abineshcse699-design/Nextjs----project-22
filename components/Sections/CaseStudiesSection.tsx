@@ -12,22 +12,6 @@ import { caseStudies } from "../../app/casestudies/caseStudiesData";
 import "swiper/css";
 import "swiper/css/navigation";
 
-/**
- * CaseStudiesSection
- * ------------------
- * "Real Results, Real Impact" Starfii case study carousel.
- *
- * Card interaction pattern:
- *  - Card has a FIXED total height (h-[500px]) — never grows/shrinks
- *    on hover, so all cards in a row always stay aligned.
- *  - On hover, only the IMAGE height animates down to 0. The content
- *    block below is `flex-1` inside the fixed-height flex column, so
- *    it automatically expands to fill the freed space.
- *  - The description fades/slides in, synced to the same duration as
- *    the image collapse.
- *  - Speeds are now snappier (700–800ms) while still feeling smooth.
- */
-
 export default function CaseStudiesSection() {
   const swiperRef = useRef<SwiperType | null>(null);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -42,10 +26,6 @@ export default function CaseStudiesSection() {
     setProgress(swiper.progress * 100);
   };
 
-  // scroll-reveal: watch the section, and once it's ~15% into view,
-  // flip isVisible to true once (unobserve after) so the heading +
-  // carousel rise up and fade in from below
-
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -56,7 +36,6 @@ export default function CaseStudiesSection() {
           setIsVisible(true);
           observer.unobserve(el);
         }
-
       },
       { threshold: 0.15 }
     );
@@ -66,13 +45,11 @@ export default function CaseStudiesSection() {
   }, []);
 
   return (
-<section
-  className="relative overflow-hidden py-20 lg:py-28"
-  style={{
-    background: "linear-gradient(180deg, #ffffff 0%, #c2c7fb 20%, #8b90f5 45%, #9a9ff6 60%, #d8dbfd 85%, #ffffff 100%)",
-  }}
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
+      <div
+  ref={sectionRef}
+  className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16"
 >
-      <div ref={sectionRef} className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
         {/* copy — slides up + fades in once scrolled into view */}
         <div
           className={`mb-14 max-w-2xl transition-all duration-[900ms] ease-out ${
@@ -93,12 +70,12 @@ export default function CaseStudiesSection() {
 
         {/* Swiper carousel — rises up + fades in on scroll, slightly after
             the heading */}
-        <div
-          className={`transition-all duration-[900ms] ease-out ${
-            isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
-          }`}
-          style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
-        >
+       <div
+  className={`overflow-hidden transition-all duration-[900ms] ease-out ${
+    isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+  }`}
+  style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+>
           <Swiper
             modules={[Navigation, A11y]}
             onSwiper={(swiper) => {
@@ -188,9 +165,7 @@ export default function CaseStudiesSection() {
                   ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
                   : "cursor-not-allowed bg-slate-200/70 text-slate-400"
               }`}
-
             >
-            
               <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
             </button>
             <button
@@ -210,7 +185,5 @@ export default function CaseStudiesSection() {
         </div>
       </div>
     </section>
-
   );
-  
 }

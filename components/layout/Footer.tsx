@@ -75,7 +75,7 @@ const columns: FooterColumn[] = [
     links: [
       "Starfii Overview",
       "Leadership",
-      "Partners",
+      // "Partners",
       "Careers",
     ],
   },

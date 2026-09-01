@@ -66,23 +66,21 @@ export default function Hero() {
         >
           AI Led Software Development Company
         </motion.p>
-
- <motion.h1
+<motion.h1
   variants={item}
-  className="font-heading mt-5 max-w-none whitespace-nowrap text-[20px] font-medium leading-[1.15] text-white sm:text-[28px] lg:text-[38px] xl:text-[44px]"
+  className="font-heading mt-5 max-w-none whitespace-nowrap text-[22px] font-bold tracking-tight leading-[1.1] text-white sm:text-[32px] lg:text-[42px] xl:text-[50px]"
 >
- AI-Driven Software And 
-Product Engineering
+  AI-Driven Software And Product Engineering
 </motion.h1>
 
-        <motion.p
-          variants={item}
-          className="font-body mt-6 max-w-lg text-lg text-slate-200/90"
-        >
-          Starfii designs, builds, and scales high performance web, mobile,
-          and AI powered products for enterprises, so your business moves
-          from idea to launch with zero friction and unstoppable momentum.
-        </motion.p>
+    <motion.p
+  variants={item}
+  className="font-body mt-6 max-w-lg text-[17px] font-normal leading-[1.7] text-slate-200/85"
+>
+  Starfii designs, builds, and scales high performance web, mobile,
+  and AI powered products for enterprises, so your business moves
+  from idea to launch with zero friction and unstoppable momentum.
+</motion.p>
 
         <motion.a
           variants={item}

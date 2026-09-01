@@ -709,73 +709,63 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
    anywhere. Every item also opens in a new tab (newTab prop below).
 ================================================================ */
 
-function AboutLinkItem({
-  href = "#",
-  onClick,
-  children,
-}: {
-  href?: string;
-  onClick?: () => void;
-  children: React.ReactNode;
-}) {
-  return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className={`block text-[25px] font-medium ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
-    >
-      {children}
-    </Link>
-  );
-}
-
 function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
-  const whoWeAre = [
-    { label: "About Starfii", href: "/About" },
-    { label: "Leadership", href: "/About/leadership" },
-    { label: "Partners", href: "/About/partners" },
+  const aboutItems = [
+    {
+      name: "About Starfii",
+      desc: "AI led software development company building custom products and platforms that move enterprises from idea to launch with zero friction.",
+      href: "/About",
+    },
+    {
+      name: "Leadership",
+      desc: "Meet the team steering Starfii's vision — driving innovation across software, data, and AI powered engineering.",
+      href: "/About/leadership",
+    },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.4fr]">
-      <div>
-        <ColumnTitle>Who We Are</ColumnTitle>
-        <div className="space-y-4">
-          {whoWeAre.map((i) => (
-            <AboutLinkItem key={i.label} href={i.href} onClick={onNavigate}>
-              {i.label}
-            </AboutLinkItem>
-          ))}
-        </div>
+    <div>
+      <ColumnTitle>Who We Are</ColumnTitle>
+      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
+        {aboutItems.map((item) => (
+          <div key={item.name} className={`border-l-2 ${T.border} pl-4`}>
+            <h4 className={`text-[17px] font-semibold ${T.ink}`}>{item.name}</h4>
+            <p className={`mt-2 text-[13.5px] leading-relaxed ${T.muted}`}>{item.desc}</p>
+            <Link
+              href={item.href}
+              onClick={onNavigate}
+              className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}
+            >
+              Learn more
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        ))}
       </div>
 
       <Link
         href="/About"
         onClick={onNavigate}
-        className="group relative block h-[300px] overflow-hidden rounded-xl"
+        className={`group relative mt-8 flex flex-col gap-4 overflow-hidden rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}
       >
         <img
           src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
           alt="Starfii team"
-          className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          className="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 ease-out group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0C0E2A]/90 via-[#0C0E2A]/20 to-transparent" />
-
-        <div className="relative flex h-full flex-col justify-between p-6">
-          <p className="text-[13px] font-bold tracking-tight text-white">Starfii</p>
-          <div>
-            <p className="text-[18px] font-medium leading-snug text-white">
-              Artificial Intelligence Led
-              <br />
-              <span className="text-[#8FA8FF]">Human Intelligence</span>
-              <br />
-              Perfected
-            </p>
-            <span className={`mt-4 inline-flex items-center gap-1.5 rounded-md ${T.primaryBg} px-3 py-2 text-[12px] font-semibold leading-tight text-white`}>
-              Annual Report 2025
-            </span>
-          </div>
+        <div className="relative">
+          <h4 className="text-[18px] font-semibold">
+            Artificial Intelligence Led
+            <br />
+            <span className="text-[#8FA8FF]">Human Intelligence</span>
+            <br />
+            Perfected
+          </h4>
         </div>
+        <span className="relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-white/10 px-4 py-2 text-[14px] font-semibold text-white transition-colors group-hover:bg-white/15">
+          Know more
+          <ArrowUpRight size={16} />
+        </span>
       </Link>
     </div>
   );
