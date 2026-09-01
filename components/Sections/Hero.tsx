@@ -67,14 +67,13 @@ export default function Hero() {
           AI Led Software Development Company
         </motion.p>
 
-        <motion.h1
-          variants={item}
-          className="font-heading mt-5 max-w-2xl text-[30px] font-medium leading-[1.15] text-white sm:text-[38px] lg:text-[44px]"
-        >
-          Custom Software And Product Engineering
-          <br />
-          Built For Zero Friction Growth
-        </motion.h1>
+ <motion.h1
+  variants={item}
+  className="font-heading mt-5 max-w-none whitespace-nowrap text-[20px] font-medium leading-[1.15] text-white sm:text-[28px] lg:text-[38px] xl:text-[44px]"
+>
+ AI-Driven Software And 
+Product Engineering
+</motion.h1>
 
         <motion.p
           variants={item}

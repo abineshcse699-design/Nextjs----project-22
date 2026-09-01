@@ -147,12 +147,17 @@ export default function AIJourneySection() {
   }, []);
 
   return (
+    // FIX: removed `overflow-hidden` from here.
+    // position: sticky on the left column is calculated relative to the
+    // nearest ancestor that has overflow != visible. If THIS section had
+    // overflow-hidden, that made this section the "scroll container" for
+    // the sticky child, so it never actually stuck to the viewport —
+    // it just scrolled along like a normal element.
     <section
       className="
         relative
         isolate
         min-h-screen
-        overflow-hidden
         py-28
         sm:py-32
         lg:py-40
@@ -161,8 +166,11 @@ export default function AIJourneySection() {
       {/* =====================================================
           VIDEO BACKGROUND
           bb.mp4
+          `overflow-hidden` moved here instead — it's scoped to just
+          this wrapper now, so it clips the video only, and no longer
+          breaks sticky positioning for the content below.
       ====================================================== */}
-      <div className="pointer-events-none absolute inset-0 z-0">
+      <div className="pointer-events-none absolute inset-0 z-0 overflow-hidden">
         <video
           ref={videoRef}
           className="
@@ -215,6 +223,8 @@ export default function AIJourneySection() {
       >
         {/* =====================================================
             LEFT CONTENT
+            This stays pinned in place while the right column
+            (steps) scrolls past it — matches the reference video.
         ====================================================== */}
         <div
           className="

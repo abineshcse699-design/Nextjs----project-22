@@ -75,25 +75,17 @@ const columns: FooterColumn[] = [
     links: [
       "Starfii Overview",
       "Leadership",
-      "Diversity, Equity & Inclusion",
-      "Environmental Social Governance",
-      "Corporate Social Responsibility",
-      "Investors",
-      "Newsroom",
-      "Awards & Recognition",
-      "Events",
       "Partners",
-      "Locations",
       "Careers",
     ],
   },
 ];
 
 const legalLinks = [
-  "Beware of Fake Job Offer",
-  "Disclaimers",
+  // "Beware of Fake Job Offer",
+  // "Disclaimers",
   "Privacy Policy",
-  "Cookie Policy",
+  // "Cookie Policy",
 ];
 
 // Brand glyphs aren't part of lucide-react, so each social icon is drawn

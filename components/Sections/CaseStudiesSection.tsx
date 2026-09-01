@@ -45,6 +45,7 @@ export default function CaseStudiesSection() {
   // scroll-reveal: watch the section, and once it's ~15% into view,
   // flip isVisible to true once (unobserve after) so the heading +
   // carousel rise up and fade in from below
+
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -65,7 +66,12 @@ export default function CaseStudiesSection() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
+<section
+  className="relative overflow-hidden py-20 lg:py-28"
+  style={{
+    background: "linear-gradient(180deg, #ffffff 0%, #c2c7fb 20%, #8b90f5 45%, #9a9ff6 60%, #d8dbfd 85%, #ffffff 100%)",
+  }}
+>
       <div ref={sectionRef} className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
         {/* copy — slides up + fades in once scrolled into view */}
         <div
@@ -184,6 +190,7 @@ export default function CaseStudiesSection() {
               }`}
 
             >
+            
               <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
             </button>
             <button
