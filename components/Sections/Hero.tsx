@@ -26,8 +26,7 @@ const item: Variants = {
   },
 };
 
-// Helvetica-style stack — system fonts fallback (free, no download needed)
-
+// Helvetica-style stack for body text
 const helveticaStyle = {
   fontFamily:
     '"Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif',
@@ -66,6 +65,7 @@ export default function Hero() {
         style={helveticaStyle}
         className="relative z-10 mx-auto max-w-[1520px] px-6 pt-[170px] sm:px-10 lg:px-16 lg:pt-[190px]"
       >
+        {/* Small Label — Helvetica */}
         <motion.p
           variants={item}
           className="text-[13px] font-semibold uppercase tracking-[0.16em] text-white/70"
@@ -73,25 +73,27 @@ export default function Hero() {
           AI Led Software Development Company
         </motion.p>
 
-      <motion.h1
-  variants={item}
-  style={helveticaStyle}
-  className="
-    mt-5
-    whitespace-nowrap
-    font-semibold
-    tracking-[-0.02em]
-    leading-[1.05]
-    text-[22px]
-    text-white
-    sm:text-[32px]
-    lg:text-[48px]
-    xl:text-[58px]
-  "
->
-  AI-Driven Software And Product Engineering
-</motion.h1>
+        {/* Main Heading — Poppins */}
+        <motion.h1
+          variants={item}
+          className="
+            mt-5
+            whitespace-nowrap
+            font-heading
+            font-semibold
+            tracking-[-0.02em]
+            leading-[1.05]
+            text-[22px]
+            text-white
+            sm:text-[32px]
+            lg:text-[48px]
+            xl:text-[58px]
+          "
+        >
+          AI-Driven Software And Product Engineering
+        </motion.h1>
 
+        {/* Description — Helvetica */}
         <motion.p
           variants={item}
           className="mt-6 max-w-lg text-[17px] font-normal leading-[1.7] text-slate-200/85"
@@ -101,6 +103,7 @@ export default function Hero() {
           from idea to launch with zero friction and unstoppable momentum.
         </motion.p>
 
+        {/* Button — Helvetica */}
         <motion.a
           href="#contact"
           variants={item}
