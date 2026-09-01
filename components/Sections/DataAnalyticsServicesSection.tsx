@@ -238,7 +238,7 @@ export default function DataAnalyticsServicesSection() {
           <motion.nav
             variants={heroItem}
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[14px] font-medium"
+            className="font-body flex items-center gap-2 text-[14px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             <a href="/" className="hover:underline">
@@ -254,7 +254,7 @@ export default function DataAnalyticsServicesSection() {
 
           <motion.h1
             variants={heroItem}
-            className="mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
+            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Data & Analytics Services for Decisions You Can Trust
@@ -262,7 +262,7 @@ export default function DataAnalyticsServicesSection() {
 
           <motion.p
             variants={heroItem}
-            className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
           >
             Starfii turns scattered, siloed data into a governed platform
             that powers faster, more confident decisions across the
@@ -274,7 +274,7 @@ export default function DataAnalyticsServicesSection() {
             href="#connect"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
+            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
             Connect Now
@@ -304,7 +304,7 @@ export default function DataAnalyticsServicesSection() {
               className="flex w-full items-center justify-between px-8 py-6 text-left"
             >
               <span
-                className="flex items-center gap-2.5 text-[16px] font-semibold"
+                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
                 style={{ color: CHAMPION_BLUE }}
               >
                 <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
@@ -327,7 +327,7 @@ export default function DataAnalyticsServicesSection() {
                 {keyTakeaways.map((point, i) => (
                   <li
                     key={i}
-                    className="pt-3 text-[15px] leading-relaxed text-slate-700"
+                    className="font-body pt-3 text-[15px] leading-relaxed text-slate-700"
                   >
                     • {point}
                   </li>
@@ -337,7 +337,7 @@ export default function DataAnalyticsServicesSection() {
           </div>
 
           <p
-            className="mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A trusted data and analytics partner, Starfii builds governed
@@ -362,12 +362,12 @@ export default function DataAnalyticsServicesSection() {
           >
             <div>
               <h2
-                className="text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
                 How Do Enterprises Turn Raw Data Into a Trusted Asset?
               </h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises build trust in their data by combining strong
                 governance, scalable data engineering, and analytics that
                 answer real business questions. Starfii brings these
@@ -399,14 +399,14 @@ export default function DataAnalyticsServicesSection() {
               variants={fadeUp}
             >
               <h2
-                className="text-[36px] font-medium leading-[1.15]"
+                className="font-heading text-[36px] font-medium leading-[1.15]"
                 style={{ color: CHAMPION_BLUE }}
               >
                 Our Data & Analytics
                 <br />
                 Capabilities
               </h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Starfii plans, engineers, and governs data platforms that
                 scale with the business, so analytics and AI stay
                 grounded in data you can trust.
@@ -428,17 +428,17 @@ export default function DataAnalyticsServicesSection() {
                   style={{ backgroundColor: "#F5F3FC" }}
                 >
                   <h3
-                    className="text-[19px] font-semibold"
+                    className="font-heading text-[19px] font-semibold"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {area.title}
                   </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                  <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
                     {area.body}
                   </p>
                   <a
                     href="#"
-                    className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
+                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                     style={{ color: LAVENDER_ACCENT }}
                   >
                     Learn More
@@ -462,7 +462,7 @@ export default function DataAnalyticsServicesSection() {
             className="flex items-end justify-between"
           >
             <h2
-              className="text-[36px] font-medium leading-[1.15]"
+              className="font-heading text-[36px] font-medium leading-[1.15]"
               style={{ color: CHAMPION_BLUE }}
             >
               Data & Analytics
@@ -471,7 +471,7 @@ export default function DataAnalyticsServicesSection() {
             </h2>
             <a
               href="#"
-              className="hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: LAVENDER_ACCENT }}
             >
               View All Case Studies
@@ -502,23 +502,23 @@ export default function DataAnalyticsServicesSection() {
                 </div>
                 <div className="flex flex-1 flex-col p-7">
                   <span
-                    className="text-[12px] font-semibold tracking-wide"
+                    className="font-body text-[12px] font-semibold tracking-wide"
                     style={{ color: LAVENDER_ACCENT }}
                   >
                     {study.tag}
                   </span>
                   <h3
-                    className="mt-2 text-[18px] font-semibold leading-snug"
+                    className="font-heading mt-2 text-[18px] font-semibold leading-snug"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {study.title}
                   </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                  <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
                     {study.body}
                   </p>
                   <a
                     href="#"
-                    className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
+                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                     style={{ color: LAVENDER_ACCENT }}
                   >
                     Learn More
@@ -541,7 +541,7 @@ export default function DataAnalyticsServicesSection() {
           className="mt-24 pb-28"
         >
           <h2
-            className="text-[34px] font-medium"
+            className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             Data & Analytics Services
@@ -577,7 +577,7 @@ export default function DataAnalyticsServicesSection() {
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
@@ -600,12 +600,12 @@ export default function DataAnalyticsServicesSection() {
             >
               <div className="flex flex-col justify-center p-10">
                 <h3
-                  className="text-[22px] font-semibold leading-snug"
+                  className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
                 </h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>

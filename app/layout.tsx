@@ -1,5 +1,6 @@
+
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter, Space_Grotesk } from "next/font/google";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import ConditionalNavbar from "@/components/ConditionalNavbar";
@@ -14,14 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const spaceGrotesk = Space_Grotesk({
+// Headings — Poppins
+const poppins = Poppins({
   variable: "--font-heading-custom",
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -34,7 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} ${spaceGrotesk.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col font-body">
         <ConditionalNavbar />

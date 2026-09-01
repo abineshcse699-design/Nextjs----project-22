@@ -4,6 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
 /* ===============================================================
+   FONT
+   Helvetica stack — system fonts fallback (free, no download needed).
+   Applied once on the outer <section> and inherited by every child,
+   so nothing else in this file needs an explicit font-family.
+================================================================ */
+
+const helveticaStyle = {
+  fontFamily: '"Helvetica Neue", Helvetica, Arial, "Segoe UI", sans-serif',
+};
+
+/* ===============================================================
    CONTENT
    Body text for every card trimmed/balanced to roughly 6 lines
    each, so all cards in the grid line up at the same height.
@@ -40,13 +51,7 @@ const pillars = [
    PILLAR CARD
 ================================================================ */
 
-function PillarCard({
-  title,
-  body,
-}: {
-  title: string;
-  body: string;
-}) {
+function PillarCard({ title, body }: { title: string; body: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -78,31 +83,29 @@ function PillarCard({
       className={`group flex h-full flex-col justify-between rounded-2xl bg-white p-8 transition-all duration-700 ease-out
         hover:-translate-y-2
         hover:shadow-[0_20px_45px_rgba(109,91,255,0.35)]
-        ${
-          visible
-            ? "translate-y-0 opacity-100"
-            : "translate-y-10 opacity-0"
-        }`}
+        ${visible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"}`}
     >
       <div>
-        <h3 className="font-heading text-2xl font-semibold leading-tight text-[#1a1150] transition-colors duration-300 group-hover:text-[#3B2FE0]">
+        {/* font-semibold (not bold) + tighter tracking keeps the
+            heading from "popping" — no sudden heavy-weight jump
+            against the lighter body copy below it. */}
+        <h3 className="text-2xl font-semibold leading-tight tracking-[-0.01em] text-[#1a1150] transition-colors duration-300 group-hover:text-[#3B2FE0]">
           {title}
         </h3>
 
         {/* line-clamp-6 caps the body at 6 lines even if the copy
             runs a little long on a smaller card width, so cards
             never grow taller than each other. */}
-        <p className="font-body mt-4 line-clamp-6 text-[15px] leading-relaxed text-slate-500">
+        <p className="mt-4 line-clamp-6 text-[15px] leading-relaxed text-slate-500">
           {body}
         </p>
       </div>
 
       <a
         href="#"
-        className="font-body mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
+        className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
       >
         Know More
-
         <ArrowUpRight
           size={16}
           strokeWidth={2.5}
@@ -141,7 +144,12 @@ export default function ZeroFrictionSection() {
     // Reduced top padding on mobile (pt-8) so the heading sits close
     // to the top of the section instead of a big empty gap; desktop
     // keeps the original larger spacing (lg:pt-24).
-    <section className="relative isolate overflow-hidden pb-20 pt-8 lg:pb-24 lg:pt-24">
+    // helveticaStyle set here once — every child below inherits it,
+    // so no font-heading / font-body classes are needed anywhere.
+    <section
+      style={helveticaStyle}
+      className="relative isolate overflow-hidden pb-20 pt-8 lg:pb-24 lg:pt-24"
+    >
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[#171335]" />
 
@@ -171,20 +179,22 @@ export default function ZeroFrictionSection() {
         />
       </div>
 
-     <div className="relative z-10 mx-auto flex max-w-[1520px] flex-col items-start gap-10 px-6 sm:px-10 lg:flex-row lg:items-start lg:gap-16 lg:px-16">
+      <div className="relative z-10 mx-auto flex max-w-[1520px] flex-col items-start gap-10 px-6 sm:px-10 lg:flex-row lg:items-start lg:gap-16 lg:px-16">
         {/* LEFT CONTENT */}
-<div className="w-full lg:sticky lg:top-0 lg:w-[520px] lg:flex-shrink-0 lg:self-start">
-          <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:-mt-2 lg:text-[46px]">
+        <div className="w-full lg:sticky lg:top-0 lg:w-[520px] lg:flex-shrink-0 lg:self-start">
+          {/* font-medium instead of a heavier weight avoids the
+              same "popping" look on this heading. */}
+          <h2 className="text-[34px] font-medium leading-[1.15] tracking-[-0.01em] text-white sm:text-[40px] lg:-mt-2 lg:text-[46px]">
             Technical Competencies & Service Capabilities
           </h2>
 
-          <p className="font-body mt-6 text-lg font-medium text-slate-200">
+          <p className="mt-6 text-lg font-medium text-slate-200">
             Starfii delivers engineering depth across every layer of the
             enterprise stack, from product engineering to cloud platforms
             to enterprise data systems
           </p>
 
-          <p className="font-body mt-6 text-[15px] leading-relaxed text-slate-300">
+          <p className="mt-6 text-[15px] leading-relaxed text-slate-300">
             Starfii is an AI driven software and product engineering company
             trusted by startups and Fortune 500 enterprises worldwide.
             Building resilient, scalable technology takes more than a single
@@ -207,14 +217,10 @@ export default function ZeroFrictionSection() {
         {/* RIGHT CARDS */}
         <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2">
           {pillars.map((p) => (
-            <PillarCard
-              key={p.title}
-              title={p.title}
-              body={p.body}
-            />
+            <PillarCard key={p.title} title={p.title} body={p.body} />
           ))}
 
-          <p className="font-body mt-4 text-lg text-slate-200 sm:col-span-2">
+          <p className="mt-4 text-lg text-slate-200 sm:col-span-2">
             Each Starfii service capability strengthens the next, combining
             software engineering, AI, data, and quality engineering into a
             single, compounding technology advantage for your enterprise.

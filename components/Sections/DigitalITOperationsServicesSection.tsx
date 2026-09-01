@@ -245,7 +245,7 @@ export default function DigitalITOperationsServicesSection() {
           <motion.nav
             variants={heroItem}
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[14px] font-medium"
+            className="font-body flex items-center gap-2 text-[14px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             <a href="/" className="hover:underline">
@@ -261,7 +261,7 @@ export default function DigitalITOperationsServicesSection() {
 
           <motion.h1
             variants={heroItem}
-            className="mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
+            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Digital IT Operations Services for Growing Enterprises
@@ -269,7 +269,7 @@ export default function DigitalITOperationsServicesSection() {
 
           <motion.p
             variants={heroItem}
-            className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
           >
             Cloud infrastructure, DevOps, cybersecurity, and data
             operations under one dependable delivery model — backed by
@@ -281,7 +281,7 @@ export default function DigitalITOperationsServicesSection() {
             href="/services#serviceconact"
             whileHover={{ scale: 1.03 }}
             whileTap={{ scale: 0.98 }}
-            className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
+            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
             Request Your POC Now
@@ -311,7 +311,7 @@ export default function DigitalITOperationsServicesSection() {
               className="flex w-full items-center justify-between px-8 py-6 text-left"
             >
               <span
-                className="flex items-center gap-2.5 text-[16px] font-semibold"
+                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
                 style={{ color: CHAMPION_BLUE }}
               >
                 <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
@@ -334,7 +334,7 @@ export default function DigitalITOperationsServicesSection() {
                 {keyTakeaways.map((point, i) => (
                   <li
                     key={i}
-                    className="pt-3 text-[15px] leading-relaxed text-slate-700"
+                    className="font-body pt-3 text-[15px] leading-relaxed text-slate-700"
                   >
                     • {point}
                   </li>
@@ -344,7 +344,7 @@ export default function DigitalITOperationsServicesSection() {
           </div>
 
           <p
-            className="mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A dependable digital IT operations partner, Starfii keeps
@@ -370,12 +370,12 @@ export default function DigitalITOperationsServicesSection() {
           >
             <div>
               <h2
-                className="text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
                 How Do Growing Enterprises Keep IT Operations Stable?
               </h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises keep IT operations stable by combining
                 well-managed cloud infrastructure, disciplined DevOps
                 practices, and proactive security operations. Starfii
@@ -411,14 +411,14 @@ export default function DigitalITOperationsServicesSection() {
               variants={fadeUp}
             >
               <h2
-                className="text-[36px] font-medium leading-[1.15]"
+                className="font-heading text-[36px] font-medium leading-[1.15]"
                 style={{ color: CHAMPION_BLUE }}
               >
                 Our IT Operations &
                 <br />
                 Support Capabilities
               </h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Monitor, manage, and modernize IT operations across
                 cloud, data, and security, so enterprise systems stay
                 stable and support stays fast as the business scales.
@@ -445,17 +445,17 @@ export default function DigitalITOperationsServicesSection() {
                   style={{ backgroundColor: "#F5F3FC" }}
                 >
                   <h3
-                    className="text-[19px] font-semibold"
+                    className="font-heading text-[19px] font-semibold"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {area.title}
                   </h3>
-                  <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                  <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
                     {area.body}
                   </p>
                   <a
                     href="/services"
-                    className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
+                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                     style={{ color: LAVENDER_ACCENT }}
                   >
                     Learn More
@@ -478,7 +478,7 @@ export default function DigitalITOperationsServicesSection() {
           className="mt-24 pb-16"
         >
           <h2
-            className="text-[34px] font-medium"
+            className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             Digital IT Operations Services, Explained
@@ -514,7 +514,7 @@ export default function DigitalITOperationsServicesSection() {
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
@@ -537,12 +537,12 @@ export default function DigitalITOperationsServicesSection() {
             >
               <div className="flex flex-col justify-center p-10">
                 <h3
-                  className="text-[22px] font-semibold leading-snug"
+                  className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
                 </h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>
@@ -572,12 +572,12 @@ export default function DigitalITOperationsServicesSection() {
           className="pb-28"
         >
           <h2
-            className="text-[34px] font-medium"
+            className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             Frequently Asked Questions
           </h2>
-          <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
+          <p className="font-body mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
             Common questions about Starfii's digital IT operations
             support, cloud engineering, and DevOps services.
           </p>
@@ -593,7 +593,7 @@ export default function DigitalITOperationsServicesSection() {
                     className="flex w-full items-center justify-between gap-6 py-6 text-left"
                   >
                     <span
-                      className="text-[17px] font-medium"
+                      className="font-body text-[17px] font-medium"
                       style={{ color: CHAMPION_BLUE }}
                     >
                       {item.q}
@@ -607,7 +607,7 @@ export default function DigitalITOperationsServicesSection() {
                     />
                   </button>
                   {isOpen && (
-                    <p className="pb-6 text-[15px] leading-relaxed text-slate-600">
+                    <p className="font-body pb-6 text-[15px] leading-relaxed text-slate-600">
                       {item.a}
                     </p>
                   )}

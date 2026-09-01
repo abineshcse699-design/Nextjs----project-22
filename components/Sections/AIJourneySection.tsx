@@ -86,7 +86,7 @@ function StepRow({
         }
       `}
     >
-      {/* STEP TITLE */}
+      {/* STEP TITLE — Poppins */}
       <h3
         className="
           font-heading
@@ -103,7 +103,7 @@ function StepRow({
         {title}
       </h3>
 
-      {/* STEP DESCRIPTION */}
+      {/* STEP DESCRIPTION — Helvetica */}
       <p
         className="
           font-body
@@ -274,7 +274,7 @@ export default function AIJourneySection() {
             </span>
           </div>
 
-          {/* MAIN HEADING */}
+          {/* MAIN HEADING — Poppins */}
           <h2
             className="
               font-heading
@@ -293,7 +293,7 @@ export default function AIJourneySection() {
             in Your AI Journey
           </h2>
 
-          {/* SUBTITLE */}
+          {/* SUBTITLE — Helvetica */}
           <p
             className="
               font-body

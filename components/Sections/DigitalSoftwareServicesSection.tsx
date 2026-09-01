@@ -669,7 +669,7 @@ function PagedCarousel<T>({
         </div>
 
         <span
-          className="flex-shrink-0 text-[13px] font-medium tabular-nums"
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
           style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
         >
           {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
@@ -747,7 +747,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-[14px] font-medium opacity-0"
+            className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
           >
             <a href="/" className="hover:underline">
@@ -762,14 +762,14 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </nav>
 
           <h1
-            className="mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
+            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
             Digital and Software Services for Modern Enterprises
           </h1>
 
           <p
-            className="mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Starfii turns ideas into scalable software products and modern
@@ -779,7 +779,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
           <a
             href="#connect"
-            className="mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
+            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
             style={{
               backgroundColor: CHAMPION_BLUE,
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
@@ -806,7 +806,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               className="flex w-full items-center justify-between px-8 py-6 text-left"
             >
               <span
-                className="flex items-center gap-2.5 text-[16px] font-semibold"
+                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
                 style={{ color: CHAMPION_BLUE }}
               >
                 <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
@@ -829,7 +829,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                 {keyTakeaways.map((point, i) => (
                   <li
                     key={i}
-                    className="ss-tab-panel pt-3 text-[15px] leading-relaxed text-slate-700"
+                    className="ss-tab-panel font-body pt-3 text-[15px] leading-relaxed text-slate-700"
                     style={{ animationDelay: `${i * 60}ms` }}
                   >
                     • {point}
@@ -840,7 +840,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </div>
 
           <p
-            className="mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A leader in digital products and software engineering, Starfii
@@ -862,13 +862,13 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           >
             <div>
               <h2
-                className="text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
                 How Do Enterprises Scale and Optimize Digital and Software
                 Operations?
               </h2>
-              <p className="mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises scale and optimize digital and software
                 operations by combining product thinking, AI led
                 engineering, and scalable architectures. Starfii brings
@@ -913,10 +913,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <h2 className="text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
               Our Services &amp; Consulting Capabilities
             </h2>
-            <p className="mt-5 text-[15px] leading-relaxed text-white/60">
+            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
               Starfii plans, designs, and scales customer focused digital
               products and platforms with AI led engineering, seamless
               experiences, and modernization strategies that drive speed,
@@ -935,7 +935,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   }}
                 >
                   <div className="flex items-start justify-between">
-                    <span className="text-[13px] font-medium text-white/35">
+                    <span className="font-body text-[13px] font-medium text-white/35">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     <span
@@ -947,10 +947,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   </div>
 
                   <div className="mt-16">
-                    <h3 className="text-[22px] font-semibold leading-snug text-white">
+                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
                       {area.title}
                     </h3>
-                    <p className="mt-3 text-[14px] leading-relaxed text-white/55">
+                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
                     </p>
                   </div>
@@ -959,7 +959,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                     {area.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
+                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
                         style={{ borderColor: "rgba(255,255,255,0.16)" }}
                       >
                         {tag}
@@ -981,7 +981,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         <Reveal as="section" className="mt-24 pb-28">
           <h2
-            className="text-[34px] font-medium"
+            className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
             Digital and Software Services
@@ -1022,7 +1022,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
                         fontWeight: isActive ? 600 : 500,
@@ -1043,12 +1043,12 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             >
               <div className="flex flex-col justify-center p-10">
                 <h3
-                  className="text-[22px] font-semibold leading-snug"
+                  className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
                 </h3>
-                <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>
@@ -1088,7 +1088,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
               Impact Across Your Digital
               <br />
               Software Ecosystem
@@ -1103,7 +1103,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
                   <span
-                    className="text-[19px] font-medium"
+                    className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {item.title}
@@ -1140,7 +1140,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
             <Reveal>
-              <h2 className="text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
                 Industry
                 <br />
                 Recognition
@@ -1155,7 +1155,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                 <Reveal delay={(i % 2) * 100} className="h-full">
                   <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
                     <div
-                      className="flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
+                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
                       style={{ color: CHAMPION_BLUE }}
                     >
                       <span>ISG Provider Lens™</span>
@@ -1168,28 +1168,28 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                       className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
                       style={{ backgroundColor: CHAMPION_BLUE }}
                     >
-                      <p className="ss-clamp-2 text-[19px] font-semibold leading-snug">
+                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
                         {award.category}
                       </p>
                       <p
-                        className="mt-1 text-[13px]"
+                        className="font-body mt-1 text-[13px]"
                         style={{ color: LAVENDER_ACCENT }}
                       >
                         {award.subcategory}
                       </p>
-                      <div className="mt-6 flex items-center justify-between">
+                      <div className="font-body mt-6 flex items-center justify-between">
                         <span className="text-[14px]">{award.rank}</span>
                         <Trophy size={20} className="ss-trophy opacity-80" />
                       </div>
                     </div>
 
                     <div className="flex flex-1 flex-col p-6">
-                      <p className="ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
+                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
                         {award.description}
                       </p>
                       <button
                         type="button"
-                        className="mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
+                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
                         style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
                       >
                         Know more
@@ -1217,14 +1217,14 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <h2
-              className="text-[36px] font-medium lg:text-[44px]"
+              className="font-heading text-[36px] font-medium lg:text-[44px]"
               style={{ color: CHAMPION_BLUE }}
             >
               Case Studies
             </h2>
             <a
               href="#"
-              className="hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
@@ -1252,22 +1252,22 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </div>
           <div className="flex flex-1 flex-col p-6">
             <span
-              className="text-[12px] font-semibold tracking-wide"
+              className="font-body text-[12px] font-semibold tracking-wide"
               style={{ color: INDIGO_CTA }}
             >
               CASE STUDY
             </span>
             <h3
-              className="ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+              className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
               style={{ color: CHAMPION_BLUE }}
             >
               {study.title}
             </h3>
-            <p className="ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+            <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
               {study.body}
             </p>
             <span
-              className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+              className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
               style={{ color: INDIGO_CTA }}
             >
               Learn More
@@ -1291,14 +1291,14 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <h2
-              className="max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
               style={{ color: CHAMPION_BLUE }}
             >
               {"What's New in Digital and Software"}
             </h2>
             <a
               href="#"
-              className="hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Insights
@@ -1325,18 +1325,18 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                       />
                       <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
                         <span
-                          className="text-[12px] font-semibold tracking-wide"
+                          className="font-body text-[12px] font-semibold tracking-wide"
                           style={{ color: INDIGO_CTA }}
                         >
                           BLOG
                         </span>
                         <h3
-                          className="ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
                           style={{ color: CHAMPION_BLUE }}
                         >
                           {post.title}
                         </h3>
-                        <p className="ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                        <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
                           {post.body}
                         </p>
                       </div>
@@ -1352,18 +1352,18 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                       </div>
                       <div className="pt-5">
                         <span
-                          className="text-[12px] font-semibold tracking-wide"
+                          className="font-body text-[12px] font-semibold tracking-wide"
                           style={{ color: INDIGO_CTA }}
                         >
                           BLOG
                         </span>
                         <h3
-                          className="ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
                           style={{ color: CHAMPION_BLUE }}
                         >
                           {post.title}
                         </h3>
-                        <p className="ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
                           {post.body}
                         </p>
                       </div>
