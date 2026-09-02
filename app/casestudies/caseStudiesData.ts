@@ -25,6 +25,7 @@ export interface CaseStudy {
 }
 
 export const caseStudies: CaseStudy[] = [
+
   {
     id: 1,
     slug: "25-cost-savings-for-end-to-end-managed-data-delivery-reporting-services",
@@ -64,6 +65,7 @@ export const caseStudies: CaseStudy[] = [
       "Customized ETL pipelines to meet business requirements outside standard out-of-the-box coverage.",
       "Implemented end-to-end automated reporting with stage-wise traceability for full data reconciliation.",
     ],
+
     results: [
       { metric: "35%", label: "Reduction in BI operating costs" },
       { metric: "15+", label: "Enterprise Datamarts delivered" },
@@ -120,6 +122,7 @@ export const caseStudies: CaseStudy[] = [
       "Infrastructure as Code: codified environments for consistent, repeatable deployments and easier recovery.",
       "Automation with RPA: deployed bots to automate repetitive back-office tasks and free up staff bandwidth.",
     ],
+
     results: [
       { metric: "15 Yrs", label: "Ongoing strategic partnership" },
       { metric: "10+", label: "Modernization waves delivered" },
