@@ -3,14 +3,25 @@
 import { useEffect, useState } from "react";
 import {
   ChevronRight,
+  ChevronLeft,
   ChevronDown,
   Sparkles,
   ArrowUpRight,
+  Plus,
+  Trophy,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
+
+// Colors for the two dark, full-bleed sections (capability cards + impact
+// accordion) so they read as a distinct "showcase" register against the
+// light sections, matching the reference design.
+const DARK_BG = "#0A0A18";
+const DARK_CARD = "rgba(255,255,255,0.04)";
+const DARK_BORDER = "rgba(255,255,255,0.09)";
+const ACCENT_INDIGO = "#6C5DD3";
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
@@ -69,45 +80,56 @@ const fadeUp: Variants = {
   },
 };
 
-const keyTakeaways = [
-  "Starfii helps enterprises turn scattered data into a governed, trusted asset that decisions can actually rely on.",
-  "We design data platforms, pipelines, and models that scale from a single business unit to the whole enterprise.",
-  "Our data engineering and data science services span analytics and governance, wired together end to end.",
-  "We pair modern data architecture with AI ready pipelines so analytics keeps up as the business changes.",
+const keyTakeaways: string[] = [
+  "Starfii helps businesses transform customer communication with intelligent AI voice agents that understand natural language and respond in real time.",
+  "Our AI Voice Call solutions automate inbound support, outbound engagement, lead qualification, appointment scheduling, reminders, and routine customer interactions.",
+  "We connect voice AI with CRM, telephony, knowledge bases, and business systems so conversations can move from understanding a request to taking the right action.",
+  "Our approach combines automation with human escalation, conversation intelligence, and enterprise governance to deliver reliable customer experiences at scale.",
 ];
 
+// Each capability now carries short tags, shown as pills on the dark
+// numbered cards (mirrors the DATA / BI / ANALYTICS style pills in the
+// reference screenshots).
 const focusAreas = [
   {
     title: "Data Engineering",
     body: "Starfii's certified data engineers design and build resilient pipelines and data platforms, so every downstream system works from clean, timely, well governed data.",
+    tags: ["PIPELINES", "ETL", "ORCHESTRATION"],
   },
   {
     title: "Data Science & Advanced Analytics",
     body: "Our data scientists build the models and surface the patterns behind better decisions, from demand forecasting to anomaly detection to product recommendation.",
+    tags: ["ML", "FORECASTING", "ANALYTICS"],
   },
   {
     title: "Cloud Data Platforms",
     body: "Starfii architects and migrates data estates onto modern cloud data platforms on AWS, Azure, and GCP, built for scale, cost control, and near real time access.",
+    tags: ["AWS", "AZURE", "GCP"],
   },
   {
     title: "Data Governance & Quality",
     body: "We put stewardship, lineage, and data quality checks in place so your enterprise data stays trustworthy as it moves across systems and teams.",
+    tags: ["GOVERNANCE", "LINEAGE", "QUALITY"],
   },
   {
     title: "Reporting and Dashboards, BI",
     body: "Starfii turns raw data into actionable business intelligence using Tableau and Power BI, so decision makers see what matters without digging for it.",
+    tags: ["TABLEAU", "POWER BI", "DASHBOARDS"],
   },
   {
     title: "MDM & Data Integration",
     body: "We consolidate fragmented sources into a single, reliable master data record, so every team works from the same version of the truth.",
+    tags: ["MDM", "INTEGRATION", "MASTER DATA"],
   },
   {
     title: "Generative AI on Enterprise Data",
     body: "Starfii connects Generative AI and LLMs to your own enterprise data safely, so teams can query, summarize, and act on it in plain language.",
+    tags: ["GENAI", "LLM", "RAG"],
   },
   {
     title: "Data Migration & Modernization",
     body: "We move legacy warehouses and data marts onto modern cloud platforms with minimal disruption, closing the gap between old systems and new business demands.",
+    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
   },
 ];
 
@@ -175,11 +197,137 @@ const tabs = [
   },
 ];
 
+// Closing "Impact" accordion — the last section on the page. Each row
+// expands in place to show what that impact area actually covers.
+const impactAreas = [
+  {
+    title: "Unify Fragmented Data Sources",
+    body: "Bring scattered warehouses, marts, and spreadsheets into one governed platform so every team works from the same numbers.",
+  },
+  {
+    title: "Engineer Pipelines for Scale",
+    body: "Build ingestion and transformation pipelines that keep pace with data volume as the business grows, not just today's load.",
+  },
+  {
+    title: "Govern Data You Can Trust",
+    body: "Put stewardship, lineage, and quality checks in place so data stays trustworthy as it moves across systems and teams.",
+  },
+  {
+    title: "Apply AI to Enterprise Data",
+    body: "Connect Generative AI and LLMs safely to your own data, so teams can query and act on it in plain language.",
+  },
+  {
+    title: "Modernize Legacy Data Estates",
+    body: "Move aging warehouses and brittle ETL onto modern cloud platforms with a clear roadmap and minimal disruption.",
+  },
+  {
+    title: "Turn Analytics into Action",
+    body: "Design BI and reporting around the decisions teams make every day, not just the metrics that are easiest to compute.",
+  },
+];
+
+// Industry Recognition — quadrant/award callouts, shown two at a time in a
+// carousel with a progress bar, matching the reference layout.
+type Recognition = {
+  program: string;
+  year: string;
+  title: string;
+  subtitle: string;
+  standing: string;
+  body: string;
+};
+
+const recognitions: Recognition[] = [
+  {
+    program: "ISG Provider Lens™",
+    year: "2026 Quadrant",
+    title: "Data Modernization Services",
+    subtitle: "Data Engineering & Migration",
+    standing: "Leader, U.S.",
+    body: "Starfii named a Leader in Data Engineering & Migration in the ISG Provider Lens® Data Modernization Services 2026 U.S. Quadrant Report, recognizing our legacy warehouse migration and pipeline rebuild work.",
+  },
+  {
+    program: "ISG Provider Lens™",
+    year: "2025 Quadrant",
+    title: "Data & Analytics Services",
+    subtitle: "Data Platforms and BI",
+    standing: "Leader, U.S.",
+    body: "Starfii named a Leader in Data Platforms and BI in the ISG Provider Lens™ Data & Analytics Services 2025 US Quadrant Report, reflecting our governed reporting and dashboarding delivery.",
+  },
+  {
+    program: "ISG Provider Lens™",
+    year: "2025 Quadrant",
+    title: "Cloud Data Platform Services",
+    subtitle: "AWS, Azure & GCP Delivery",
+    standing: "Rising Star, U.S.",
+    body: "Starfii recognized as a Rising Star in Cloud Data Platform Services in the ISG Provider Lens™ 2025 US Quadrant Report, citing our multi cloud data architecture and migration practice.",
+  },
+  {
+    program: "ISG Provider Lens™",
+    year: "2026 Quadrant",
+    title: "Generative AI on Enterprise Data",
+    subtitle: "AI and LLM Integration",
+    standing: "Leader, U.S.",
+    body: "Starfii named a Leader in AI and LLM Integration in the ISG Provider Lens® Generative AI Services 2026 U.S. Quadrant Report, recognizing how we ground models in governed enterprise data.",
+  },
+];
+
+// What's New — insight/blog teasers, shown three at a time with the same
+// progress bar and arrow pagination as the recognition carousel.
+type Insight = { title: string; body: string; gradient?: boolean };
+
+const insights: Insight[] = [
+  {
+    title: "Generative AI on Enterprise Data: From Warehouses to Answers",
+    body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
+    gradient: true,
+  },
+  {
+    title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
+    body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right fit.",
+  },
+  {
+    title: "Data Governance at Scale: Building Trust Into Every Pipeline",
+    body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
+  },
+  {
+    title: "MDM in Practice: Getting Every Team to One Customer Record",
+    body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
+  },
+  {
+    title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
+    body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
+  },
+  {
+    title: "BI That Gets Opened: Designing Dashboards Around Decisions",
+    body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
+  },
+];
+
 export default function DataAnalyticsServicesSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
+  const [openImpact, setOpenImpact] = useState<number | null>(null);
+  const [recogPage, setRecogPage] = useState(0);
+  const [insightPage, setInsightPage] = useState(0);
   const current = tabs[activeTab];
+
+  // Recognition carousel: 2 cards per page
+  const RECOG_PER_PAGE = 2;
+  const recogPages = Math.ceil(recognitions.length / RECOG_PER_PAGE);
+  const visibleRecognitions = recognitions.slice(
+    recogPage * RECOG_PER_PAGE,
+    recogPage * RECOG_PER_PAGE + RECOG_PER_PAGE
+  );
+
+  // Insights carousel: 3 cards per page
+  const INSIGHTS_PER_PAGE = 3;
+  const insightPages = Math.ceil(insights.length / INSIGHTS_PER_PAGE);
+  const visibleInsights = insights.slice(
+    insightPage * INSIGHTS_PER_PAGE,
+    insightPage * INSIGHTS_PER_PAGE + INSIGHTS_PER_PAGE
+  );
 
   // --- Autoplay for the left-side tab list ---
   // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
@@ -287,64 +435,111 @@ export default function DataAnalyticsServicesSection() {
         {/* ============================================================
             KEY TAKEAWAYS — animates on scroll into view
         ============================================================ */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeUp}
-          className="mt-16"
+      {/* ============================================================
+    WHY DATA & ANALYTICS MATTERS
+============================================================ */}
+<motion.section
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.2 }}
+  variants={fadeUp}
+  className="mt-16"
+>
+  <div
+    className="overflow-hidden rounded-[22px] border bg-white"
+    style={{ borderColor: LAVENDER_ACCENT }}
+  >
+    {/* Header */}
+    <div
+      className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
+      style={{
+        borderBottom: `1px solid ${LAVENDER_ACCENT}`,
+      }}
+    >
+      <div className="flex items-center gap-3">
+        <Sparkles
+          size={21}
+          strokeWidth={1.8}
+          style={{ color: LAVENDER_ACCENT }}
+        />
+
+        <span
+          className="font-body text-[17px] font-semibold"
+          style={{ color: CHAMPION_BLUE }}
         >
-          <div
-            className="overflow-hidden rounded-2xl border"
-            style={{ borderColor: LAVENDER_ACCENT }}
-          >
-            <button
-              type="button"
-              onClick={() => setTakeawaysOpen((v) => !v)}
-              className="flex w-full items-center justify-between px-8 py-6 text-left"
-            >
-              <span
-                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
-                Key Takeaways
-              </span>
-              <ChevronDown
-                size={20}
-                style={{ color: CHAMPION_BLUE }}
-                className={`transition-transform duration-300 ${
-                  takeawaysOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+          Why Data & Analytics Matters
+        </span>
+      </div>
 
-            {takeawaysOpen && (
-              <ul
-                className="space-y-3 px-8 pb-8"
-                style={{ borderTop: `1px solid ${LAVENDER_ACCENT}` }}
-              >
-                {keyTakeaways.map((point, i) => (
-                  <li
-                    key={i}
-                    className="font-body pt-3 text-[15px] leading-relaxed text-slate-700"
-                  >
-                    • {point}
-                  </li>
-                ))}
-              </ul>
-            )}
-          </div>
+      <span
+        className="font-body rounded-full px-5 py-2.5 text-[13px] font-semibold"
+        style={{
+          backgroundColor: "#F1EEFC",
+          color: ACCENT_INDIGO,
+        }}
+      >
+        Trusted Data
+      </span>
+    </div>
 
-          <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            A trusted data and analytics partner, Starfii builds governed
-            platforms and AI ready pipelines that turn scattered
-            enterprise data into decisions your business can rely on.
-          </p>
-        </motion.section>
+    {/* Content */}
+    <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+      <div>
+        <h3
+          className="font-heading text-[23px] font-semibold"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          Unify
+        </h3>
+
+        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+          Bring fragmented enterprise data together into a governed,
+          reliable foundation that teams can trust across the business.
+        </p>
+      </div>
+
+      <div>
+        <h3
+          className="font-heading text-[23px] font-semibold"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          Analyze
+        </h3>
+
+        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+          Turn complex data into meaningful analytics, dashboards, and
+          insights that help teams understand performance and make
+          faster, more confident decisions.
+        </p>
+      </div>
+
+      <div>
+        <h3
+          className="font-heading text-[23px] font-semibold"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          Accelerate
+        </h3>
+
+        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+          Modernize data platforms and connect AI to trusted enterprise
+          data so organizations can scale analytics, automation, and
+          intelligent decision-making.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {/* Existing supporting paragraph */}
+  <p
+    className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+    style={{ color: CHAMPION_BLUE }}
+  >
+    A trusted data and analytics partner, Starfii builds governed
+    platforms and AI ready pipelines that turn scattered
+    enterprise data into decisions your business can rely on.
+  </p>
+</motion.section>
 
         {/* ============================================================
             Q&A BLOCK — animates on scroll into view
@@ -386,70 +581,93 @@ export default function DataAnalyticsServicesSection() {
             </div>
           </div>
         </motion.section>
+      </div>
 
-        {/* ============================================================
-            FOCUS AREAS — grid cards stagger in on scroll
-        ============================================================ */}
-        <section className="mt-24">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_2.6fr]">
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-            >
-              <h2
-                className="font-heading text-[36px] font-medium leading-[1.15]"
-                style={{ color: CHAMPION_BLUE }}
+      {/* ============================================================
+          OUR DATA & ANALYTICS CAPABILITIES — full-bleed dark section,
+          numbered cards with a tag pill row, matching the reference
+          "Our Services & Consulting Capabilities" layout.
+      ============================================================ */}
+      <section
+        className="relative mt-24 overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(120% 140% at 85% 100%, rgba(108,93,211,0.35), transparent 55%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="max-w-2xl"
+          >
+            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our Data & Analytics
+              <br />
+              Capabilities
+            </h2>
+            <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-300">
+              Starfii plans, engineers, and governs data platforms that
+              scale with the business, so analytics and AI stay grounded
+              in data you can trust.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={container}
+            className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {focusAreas.map((area, i) => (
+              <motion.div
+                key={area.title}
+                variants={item}
+                className="flex flex-col rounded-2xl p-8 transition-colors duration-300 hover:bg-white/[0.06]"
+                style={{
+                  backgroundColor: DARK_CARD,
+                  border: `1px solid ${DARK_BORDER}`,
+                }}
               >
-                Our Data & Analytics
-                <br />
-                Capabilities
-              </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Starfii plans, engineers, and governs data platforms that
-                scale with the business, so analytics and AI stay
-                grounded in data you can trust.
-              </p>
-            </motion.div>
-
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.15 }}
-              variants={container}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
-            >
-              {focusAreas.map((area) => (
-                <motion.div
-                  key={area.title}
-                  variants={item}
-                  className="rounded-xl p-7 transition-transform duration-300 hover:-translate-y-1"
-                  style={{ backgroundColor: "#F5F3FC" }}
-                >
-                  <h3
-                    className="font-heading text-[19px] font-semibold"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {area.title}
-                  </h3>
-                  <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                    {area.body}
-                  </p>
+                <div className="flex items-start justify-between">
+                  <span className="font-body text-[14px] text-slate-500">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <a
                     href="#"
-                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
-                    style={{ color: LAVENDER_ACCENT }}
+                    aria-label={`Learn more about ${area.title}`}
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors duration-300 hover:border-white/40"
                   >
-                    Learn More
-                    <ArrowUpRight size={15} />
+                    <ArrowUpRight size={16} />
                   </a>
-                </motion.div>
-              ))}
-            </motion.div>
-          </div>
-        </section>
+                </div>
 
+                <h3 className="font-heading mt-6 text-[19px] font-semibold text-white">
+                  {area.title}
+                </h3>
+                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-400">
+                  {area.body}
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {area.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-body rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium tracking-wide text-slate-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      <div className={ALIGN}>
         {/* ============================================================
             CASE STUDIES — grid cards stagger in on scroll
         ============================================================ */}
@@ -621,6 +839,346 @@ export default function DataAnalyticsServicesSection() {
           </div>
         </motion.section>
       </div>
+
+      {/* ============================================================
+          IMPACT ACROSS YOUR DATA ECOSYSTEM — full-bleed dark section,
+          expandable rows. This is the LAST section on the page, matching
+          the reference "Impact Across Your Digital Software Ecosystem"
+          closing block.
+      ============================================================ */}
+      <section
+        className="relative overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(110% 130% at 90% 100%, rgba(217,119,87,0.18), transparent 50%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="font-heading max-w-xl text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]"
+          >
+            Impact Across Your Data & Analytics Ecosystem
+          </motion.h2>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={container}
+            className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2"
+          >
+            {impactAreas.map((area, i) => {
+              const isOpen = openImpact === i;
+              return (
+                <motion.div key={area.title} variants={item}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenImpact(isOpen ? null : i)}
+                    className="flex w-full items-center justify-between gap-6 rounded-2xl bg-white px-8 py-6 text-left"
+                  >
+                    <span
+                      className="font-body text-[16px] font-medium"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </span>
+                    <span
+                      className="flex h-9 w-9 flex-none items-center justify-center rounded-full text-white transition-transform duration-300"
+                      style={{
+                        backgroundColor: ACCENT_INDIGO,
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      <Plus size={18} />
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <p className="font-body mt-3 px-8 text-[14px] leading-relaxed text-slate-300">
+                      {area.body}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          INDUSTRY RECOGNITION — dark, full-bleed, matches the reference
+          ISG Provider Lens quadrant callouts with a 2-up carousel.
+      ============================================================ */}
+      <section
+        className="relative overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(110% 130% at 90% 100%, rgba(217,119,87,0.16), transparent 50%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr]">
+            <motion.h2
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={fadeUp}
+              className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]"
+            >
+              Industry
+              <br />
+              Recognition
+            </motion.h2>
+
+            <div>
+              <motion.div
+                key={recogPage}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="grid grid-cols-1 gap-6 md:grid-cols-2"
+              >
+                {visibleRecognitions.map((rec) => (
+                  <div
+                    key={rec.title}
+                    className="overflow-hidden rounded-2xl bg-white"
+                  >
+                    <div className="flex items-center justify-between px-8 pt-7">
+                      <span
+                        className="font-body text-[14px] font-semibold"
+                        style={{ color: CHAMPION_BLUE }}
+                      >
+                        {rec.program}
+                      </span>
+                      <span className="font-body text-[13px] text-slate-400">
+                        {rec.year}
+                      </span>
+                    </div>
+
+                    <div className="mt-5 px-8">
+                      <div
+                        className="rounded-xl px-6 py-6"
+                        style={{ backgroundColor: CHAMPION_BLUE }}
+                      >
+                        <h3 className="font-heading text-[20px] font-semibold text-white">
+                          {rec.title}
+                        </h3>
+                        <p
+                          className="font-body mt-1.5 text-[14px]"
+                          style={{ color: LAVENDER_ACCENT }}
+                        >
+                          {rec.subtitle}
+                        </p>
+                        <div className="mt-6 flex items-center justify-between">
+                          <span className="font-body text-[15px] font-medium text-white">
+                            {rec.standing}
+                          </span>
+                          <Trophy size={18} className="text-white/80" />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-8">
+                      <p className="font-body text-[14px] leading-relaxed text-slate-600">
+                        {rec.body}
+                      </p>
+                      <a
+                        href="#"
+                        className="font-body mt-6 inline-flex items-center justify-center rounded-full border px-6 py-2.5 text-[14px] font-semibold"
+                        style={{
+                          borderColor: ACCENT_INDIGO,
+                          color: ACCENT_INDIGO,
+                        }}
+                      >
+                        Know more
+                      </a>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+
+              {/* Progress bar + pagination */}
+              <div className="mt-10 flex items-center gap-6">
+                <div className="h-[2px] flex-1 bg-white/15">
+                  <div
+                    className="h-full transition-all duration-500"
+                    style={{
+                      backgroundColor: ACCENT_INDIGO,
+                      width: `${((recogPage + 1) / recogPages) * 100}%`,
+                    }}
+                  />
+                </div>
+                <span className="font-body flex-none text-[14px] text-slate-400">
+                  {String(recogPage + 1).padStart(2, "0")} /{" "}
+                  {String(recogPages).padStart(2, "0")}
+                </span>
+                <div className="flex flex-none items-center gap-3">
+                  <button
+                    type="button"
+                    aria-label="Previous recognitions"
+                    onClick={() =>
+                      setRecogPage((p) => (p - 1 + recogPages) % recogPages)
+                    }
+                    className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-300 hover:bg-white/20"
+                  >
+                    <ChevronLeft size={18} />
+                  </button>
+                  <button
+                    type="button"
+                    aria-label="Next recognitions"
+                    onClick={() => setRecogPage((p) => (p + 1) % recogPages)}
+                    className="flex h-11 w-11 items-center justify-center rounded-full text-white"
+                    style={{ backgroundColor: ACCENT_INDIGO }}
+                  >
+                    <ChevronRight size={18} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          WHAT'S NEW IN DATA & ANALYTICS — light section, 3-up insight
+          carousel with the same progress bar + arrow pagination.
+          This is the LAST section on the page.
+      ============================================================ */}
+      <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="flex items-end justify-between"
+          >
+            <h2
+              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              What's New in Data
+              <br />
+              & Analytics
+            </h2>
+            <a
+              href="#"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              style={{ color: ACCENT_INDIGO }}
+            >
+              View All Insights
+              <ArrowUpRight size={16} />
+            </a>
+          </motion.div>
+
+          <motion.div
+            key={insightPage}
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
+          >
+            {visibleInsights.map((post) =>
+              post.gradient ? (
+                <div
+                  key={post.title}
+                  className="relative flex min-h-[360px] flex-col justify-end overflow-hidden rounded-2xl p-1"
+                  style={{
+                    background:
+                      "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
+                  }}
+                >
+                  <div className="m-4 rounded-xl bg-white/95 p-6">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: ACCENT_INDIGO }}
+                    >
+                      BLOG
+                    </span>
+                    <h3
+                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <div
+                  key={post.title}
+                  className="flex min-h-[360px] flex-col overflow-hidden rounded-2xl bg-white"
+                >
+                  <div className="h-[220px] overflow-hidden bg-slate-900/90">
+                    <img
+                      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+                      alt=""
+                      className="h-full w-full object-cover opacity-80"
+                    />
+                  </div>
+                  <div className="flex-1 p-6">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: ACCENT_INDIGO }}
+                    >
+                      BLOG
+                    </span>
+                    <h3
+                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+                  </div>
+                </div>
+              )
+            )}
+          </motion.div>
+
+          {/* Progress bar + pagination */}
+          <div className="mt-10 flex items-center gap-6">
+            <div className="h-[2px] flex-1 bg-slate-300">
+              <div
+                className="h-full transition-all duration-500"
+                style={{
+                  backgroundColor: ACCENT_INDIGO,
+                  width: `${((insightPage + 1) / insightPages) * 100}%`,
+                }}
+              />
+            </div>
+            <div className="flex flex-none items-center gap-3">
+              <button
+                type="button"
+                aria-label="Previous insights"
+                onClick={() =>
+                  setInsightPage((p) => (p - 1 + insightPages) % insightPages)
+                }
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-400 transition-colors duration-300 hover:text-slate-600"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                type="button"
+                aria-label="Next insights"
+                onClick={() =>
+                  setInsightPage((p) => (p + 1) % insightPages)
+                }
+                className="flex h-11 w-11 items-center justify-center rounded-full text-white"
+                style={{ backgroundColor: ACCENT_INDIGO }}
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

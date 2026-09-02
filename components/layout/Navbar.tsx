@@ -512,18 +512,18 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   ];
 
   const offeringsLeft = [
-    { label: "AI-native Contact Center", href: "/services/offerings/ai-native-contact-center" },
-    { label: "Enterprise Automation", href: "/services/offerings/enterprise-automation" },
-    { label: "Vibe Coding", href: "/services/offerings/vibe-coding" },
-    { label: "Digital Workplace", href: "/services/offerings/digital-workplace" },
-    { label: "Testing", href: "/services/offerings/testing" },
+    { label: "AI voice call", href: "/services/offerings/ai-native-contact-center" },
+    { label: "AI powered Medical Codeing", href: "/services/offerings/enterprise-automation" },
+    { label: "AI meeting assistant", href: "/services/offerings/vibe-coding" },
+    // { label: "Digital Workplace", href: "/services/offerings/digital-workplace" },
+    { label: "AI data extraction", href: "/services/offerings/testing" },
   ];
 
   const offeringsRight = [
-    { label: "Cybersecurity", href: "/services/offerings/cybersecurity" },
-    { label: "Sustainability Services", href: "/services/offerings/sustainability-services" },
-    { label: "Application Services", href: "/services/offerings/application-services" },
-    { label: "Generative AI", href: "/services/offerings/generative-ai" },
+    // { label: "Cybersecurity", href: "/services/offerings/cybersecurity" },
+    { label: "AI file storage", href: "/services/offerings/sustainability-services" },
+    // { label: "Application Services", href: "/services/offerings/application-services" },
+    { label: "AI chatbot & Go AI", href: "/services/offerings/generative-ai" },
   ];
 
   return (
