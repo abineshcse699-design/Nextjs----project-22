@@ -69,11 +69,11 @@ export default function AwardsSection() {
         <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start">
           {/* Image with sliding caption */}
           <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:sticky lg:top-32">
-            <img
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=1200&auto=format&fit=crop"
-              alt="Starfii team member"
-              className="h-full w-full object-cover"
-            />
+          <img
+  src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1400&auto=format&fit=crop"
+  alt="Starfii team member"
+  className="h-full w-full object-cover object-center"
+/>
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
 
             <div className="absolute inset-x-0 bottom-0 p-8">
