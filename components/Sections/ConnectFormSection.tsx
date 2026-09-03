@@ -738,5 +738,8 @@ export default function ConnectFormSection() {
         </div>
       </div>
     </section>
+
   );
+
 }
+

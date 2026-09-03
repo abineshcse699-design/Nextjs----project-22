@@ -26,8 +26,126 @@ export interface CaseStudy {
 
 export const caseStudies: CaseStudy[] = [
 
+{
+  id: 1,
+  slug: "doodley-pet-care-ecosystem",
+
+  title: "Doodley: Building a Pet Care Ecosystem MVP in Just 2 Months",
+
+  subtitle:
+    "How Doodley brought convenient, hospital backed veterinary care to pet parents through a digital first pet care ecosystem.",
+
+  category: "Healthcare & Pet Care Technology",
+
+  cardDescription:
+    "Starfii built Doodley's MVP in just 2 months, creating a digital pet care experience that connects pet parents with veterinary services, home visits, vaccinations, consultations, and hospital backed care.",
+
+  image:
+    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop",
+
+  heroImage:
+    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1600&auto=format&fit=crop",
+
+  client: "Doodley",
+
+  industry: "Pet Care & Veterinary Services",
+
+  services: [
+    "MVP Product Engineering",
+    "Mobile & Web Development",
+    "Cloud & API Integration"
+  ],
+
+  overview:
+    "A digital first pet care ecosystem designed to make trusted veterinary care more accessible and convenient for pet parents",
+
+  clientOverview:
+    "Doodley is a pet care startup built around the idea of simplifying pet parenting through convenient access to veterinary and pet care services. Its platform brings together services such as vet home visits, home vaccination, online veterinary consultation, hospital care, surgery, grooming, nutrition, training, boarding, food, pet cakes, and walking services. Doodley's current website highlights hospital backed services, 20+ expert vets, same day home visits, affordable home vaccination, app based booking, and more than 70,000 happy pet parents.",
+
+  challengeIntro:
+    "Create a complete digital pet care experience quickly while making veterinary access simple for busy pet parents",
+
+  challengePoints: [
+    "Pet parents needed a convenient alternative to repeated clinic visits, traffic, queues, and time consuming appointment processes.",
+
+    "The product needed to bring multiple pet care journeys into one simple digital experience.",
+
+    "Veterinary services required a trustworthy, hospital backed experience rather than a generic marketplace approach.",
+
+    "The MVP had to be delivered rapidly so Doodley could validate the product and take it to market within 2 months.",
+
+    "The platform needed to support different care journeys, including home visits, vaccination, online consultation, and access to hospital services."
+  ],
+
+  solutionIntro:
+    "A focused MVP that connected pet parents with convenient, hospital backed veterinary care",
+
+  solutionDetail:
+    "Starfii focused the initial product on the highest value pet care journeys and built a simple digital experience around booking and accessing veterinary services. The platform supports app based service discovery and booking, helping pet parents add pet details, select the appropriate consultation or care option, choose a health issue, and select an available slot. The product experience was designed around Doodley's broader pet care ecosystem, including home veterinary visits, vaccination, online consultation, and hospital backed treatment.",
+
+  solution: [
+    "Built the Doodley MVP and brought the core product experience to market in just 2 months.",
+
+    "Created digital booking journeys for veterinary services, including home visits and online consultations.",
+
+    "Enabled pet parents to manage pet details, select health concerns, and choose available appointment slots through the app.",
+
+    "Supported a hospital backed care model with access to qualified veterinary professionals and specialist care.",
+
+    "Designed the product foundation to support an expanding ecosystem of veterinary and everyday pet care services."
+  ],
+
+  results: [
+    {
+      metric: "2 Months",
+      label: "MVP delivered and brought to market"
+    },
+
+    {
+      metric: "₹30 Cr",
+      label: "Achievement enabled through the Doodley journey"
+    },
+
+    {
+      metric: "70,000+",
+      label: "Happy pet parents highlighted by Doodley"
+    },
+
+    {
+      metric: "20+",
+      label: "Expert vets supporting the care ecosystem"
+    }
+  ],
+
+  benefitsIntro:
+    "A fast, digital first product foundation helped Doodley make veterinary care more convenient for pet parents",
+
+  benefits: [
+    "Pet parents can book veterinary services through the Doodley app instead of relying only on traditional clinic visits.",
+
+    "Home visits help reduce the time and inconvenience associated with traffic, queues, and transporting pets.",
+
+    "Online consultation provides another accessible route to veterinary advice when an in person visit is not immediately required.",
+
+    "The platform creates a scalable foundation for expanding from individual veterinary services into a broader pet care ecosystem.",
+
+    "Hospital backed services and qualified veterinary professionals strengthen trust in the digital pet care experience."
+  ],
+
+  summary:
+    "Starfii helped Doodley move from product vision to a working MVP in just 2 months, creating a digital first pet care experience around convenient veterinary access. The solution supports home visits, vaccinations, online consultations, hospital backed care, and an expanding ecosystem of pet services, while Doodley's reported journey has reached more than 70,000 happy pet parents and a ₹30 crore achievement.",
+
+  techStack: [
+    "React",
+    "Node.js",
+    "Mobile App",
+    "Cloud APIs",
+    "Database & Analytics"
+  ]
+},
+
   {
-    id: 1,
+    id: 2,
     slug: "25-cost-savings-for-end-to-end-managed-data-delivery-reporting-services",
     title: "25% Cost Savings through Data Transformation for Insurance Reporting",
     subtitle:
@@ -84,125 +202,275 @@ export const caseStudies: CaseStudy[] = [
     techStack: ["Guidewire DataHub", "SAS DI Studio", "SAS Enterprise Guide", "SQL", "ETL Automation"],
   },
 
-  {
-    id: 2,
-    slug: "15-year-digital-evolution-leading-australian-university",
-    title: "A 15-Year Digital Evolution at a Leading Australian University",
-    subtitle: "Keeping campus and core systems fast, secure, and student-ready — year after year.",
-    category: "Managed Services & Digital Transformation",
-    cardDescription:
-      "Starfii has partnered with a leading Australian university for 15 years, modernizing PeopleSoft, SSO, testing, and automation to keep campus systems reliable through every academic cycle.",
-   image:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1600&auto=format&fit=crop",
-    client: "A research-intensive public university in Australia",
-    industry: "Higher Education",
-    services: ["PeopleSoft Managed Services", "Testing & QA Automation", "RPA & Infrastructure as Code"],
-    overview: "A research-intensive public university in Australia",
-    clientOverview:
-      "One of the country's largest universities, serving a diverse community of students, academics, and professional staff. The institution operates complex, interdependent systems — student information, HR, finance, research, and collaboration — that must stay available, secure, and easy to use throughout the academic calendar.",
-    challengeIntro: "Modernize core platforms without disrupting university operations",
-    challengePoints: [
-      "Legacy PeopleSoft Campus, Finance, and HR systems needed continuous stabilization without disrupting live academic terms.",
-      "Fragmented sign-on across core applications created friction for students, faculty, and staff.",
-      "Manual, ad hoc testing slowed release cycles and raised risk during peak enrollment periods.",
-      "Repetitive back-office processes consumed staff time needed for student and research support.",
-      "Environments were provisioned manually, making deployments inconsistent and hard to recover.",
-    ],
-    solutionIntro: "A phased, low-risk transformation program",
-    solutionDetail:
-      "Starfii partnered with the university across multiple modernization waves, planning each step around academic cycles to minimize disruption. Our approach was to co-design with stakeholders, iterate in small batches, and measure outcomes — then reinvest those learnings into the next phase of the university's digital transformation.",
-    solution: [
-      "PeopleSoft (Campus, Finance, HR): continuous enhancement, stabilization, and managed services for reliable university ERP support.",
-      "Oracle SSO: implemented single sign-on for a simpler, more secure experience across key applications.",
-      "Collaboration uplift: migrated to SharePoint to streamline content management, teamwork, and governance.",
-      "Digital assurance managed services: industrialized testing with reusable assets and risk-based coverage.",
-      "CRM operations: supported Microsoft Dynamics CRM to strengthen engagement with students, alumni, and partners.",
-      "Infrastructure as Code: codified environments for consistent, repeatable deployments and easier recovery.",
-      "Automation with RPA: deployed bots to automate repetitive back-office tasks and free up staff bandwidth.",
-    ],
+{
+  id: 3,
+  slug: "jett-ai-meeting-assistant",
 
-    results: [
-      { metric: "15 Yrs", label: "Ongoing strategic partnership" },
-      { metric: "10+", label: "Modernization waves delivered" },
-      { metric: "5", label: "Core platforms under managed services" },
-      { metric: "Zero", label: "Major disruptions to academic operations" },
-    ],
-    benefitsIntro: "Measurable improvements that compound over time",
-    benefits: [
-      "A unified login journey and smoother collaboration tools reduced friction for students and staff.",
-      "Standardized testing and Infrastructure as Code shortened release cycles and improved change confidence.",
-      "Proactive support for Campus, Finance, HR, and CRM platforms stabilized critical services during peak periods.",
-      "RPA removed repetitive tasks, letting teams focus on student services, research support, and innovation.",
-      "Centralized access and platform controls strengthened compliance across the application estate.",
-    ],
-    summary:
-      "Over 15 years, Starfii has helped this leading university modernize at pace without sacrificing stability. From core SIS/ERP and CRM to collaboration, testing, and automation, we've delivered a repeatable operating model that keeps systems student-ready, secure, and future-proof — an enduring example of university IT modernization done right.",
-    techStack: ["PeopleSoft", "Oracle SSO", "SharePoint", "Microsoft Dynamics CRM", "RPA"],
-  },
+  title: "JETT AI\nIntelligent Meeting Assistant",
 
+  subtitle:
+    "Transforming meetings into intelligent, searchable, and actionable conversations automatically.",
+
+  category: "AI Solutions & Intelligent Automation",
+
+  cardDescription:
+    "JETT is an AI powered meeting assistant that captures conversations, generates accurate transcripts, summarizes key discussions, identifies action items, and helps teams turn every meeting into measurable outcomes.",
+
+  image:
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+
+  heroImage:
+    "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
+
+  client: "JETT AI Powered Meeting Intelligence Platform",
+
+  industry: "Artificial Intelligence and Collaboration Technology",
+
+  services: [
+    "AI Meeting Intelligence",
+    "Real Time Transcription",
+    "Automated Meeting Summaries",
+    "Action Item Extraction",
+    "AI Powered Meeting Search",
+    "Intelligent Meeting Analytics"
+  ],
+
+  overview:
+    "JETT is an AI meeting assistant designed to help individuals and teams capture, understand, and act on everything discussed during their meetings. By combining speech to text, large language models, and intelligent automation, JETT transforms unstructured conversations into organized, searchable, and actionable information.",
+
+  clientOverview:
+    "Modern teams spend significant time in meetings, yet important decisions, responsibilities, and insights can easily become buried within lengthy conversations. JETT addresses this challenge by automatically capturing meeting content and transforming it into structured intelligence. From customer conversations and sales meetings to internal discussions and leadership sessions, JETT helps teams preserve context, improve accountability, and reduce the administrative effort involved in meeting documentation.",
+
+  challengeIntro:
+    "Meetings Generate Valuable Information\nBut Important Insights Get Lost",
+
+  challengePoints: [
+    "Teams spend valuable time taking notes instead of fully participating in important conversations.",
+    "Important decisions and follow up actions can easily be missed after meetings end.",
+    "Long meeting recordings are difficult to review when teams need specific information quickly.",
+    "Inconsistent note taking can create gaps in accountability across teams and projects.",
+    "Manual meeting documentation creates repetitive administrative work and reduces productivity.",
+    "Organizations need a centralized and intelligent way to search, understand, and reuse information from previous meetings."
+  ],
+
+  solutionIntro:
+    "An Intelligent AI Assistant\nBuilt Around Every Meeting",
+
+  solutionDetail:
+    "JETT goes beyond traditional meeting recording and transcription by combining speech to text technology with AI powered understanding. The platform captures conversations, identifies important information, and transforms meeting content into structured intelligence. Decisions, action items, key topics, questions, and relevant context are organized into a clear format that teams can immediately understand and act upon.",
+
+  solution: [
+    "AI Meeting Capture: Captures meeting conversations automatically, allowing participants to focus on meaningful discussions instead of manual note taking.",
+
+    "Real Time Transcription: Converts spoken conversations into searchable text, creating a reliable digital record of every meeting.",
+
+    "Intelligent Meeting Summaries: Uses AI to create concise summaries that highlight key discussions, outcomes, and important context.",
+
+    "Action Item Detection: Identifies tasks, responsibilities, deadlines, and follow up activities discussed during meetings.",
+
+    "Decision Tracking: Captures important decisions and agreements to provide teams with a clear record of meeting outcomes.",
+
+    "AI Meeting Search: Makes previous conversations searchable so users can quickly find discussions, topics, decisions, and specific information.",
+
+    "Ask JETT AI: Allows users to ask natural language questions about their meeting history and receive relevant, context aware answers.",
+
+    "Meeting Intelligence: Analyzes conversations to identify recurring topics, insights, follow up opportunities, and collaboration patterns.",
+
+    "Workflow Automation: Converts meeting outcomes into structured information that can support task management, CRM processes, reporting, and business workflows.",
+
+    "Centralized Meeting Knowledge: Turns historical meeting conversations into an accessible knowledge base that teams can reference and reuse."
+  ],
+
+  results: [
+    {
+      metric: "AI",
+      label: "Powered Meeting Intelligence"
+    },
+    {
+      metric: "100%",
+      label: "Searchable Meeting Knowledge"
+    },
+    {
+      metric: "24/7",
+      label: "Accessible Meeting Insights"
+    },
+    {
+      metric: "1",
+      label: "Centralized Meeting Intelligence Platform"
+    }
+  ],
+
+  benefitsIntro:
+    "From Meeting Notes\nTo Intelligent Business Knowledge",
+
+  benefits: [
+    "Teams spend less time documenting meetings and more time participating in meaningful conversations.",
+
+    "AI generated summaries provide stakeholders with a fast and consistent understanding of every meeting.",
+
+    "Action items and responsibilities are clearly identified, helping teams improve accountability and follow through.",
+
+    "Searchable transcripts allow users to retrieve important information without replaying entire meeting recordings.",
+
+    "AI powered Q and A enables teams to extract useful insights from previous meetings using natural language.",
+
+    "Meeting intelligence improves collaboration across sales, operations, leadership, customer success, and delivery teams.",
+
+    "Automated meeting documentation reduces administrative overhead and gives teams more time to focus on high value work.",
+
+    "Historical conversations become a reusable source of business knowledge instead of information that disappears after the meeting."
+  ],
+
+  summary:
+    "JETT AI Meeting Assistant transforms the way organizations capture, understand, and use meeting information. By combining intelligent transcription, AI generated summaries, action item extraction, decision tracking, searchable conversations, and conversational AI, JETT turns every meeting into a structured source of knowledge and action. Rather than allowing valuable conversations to disappear when a meeting ends, JETT preserves the context, surfaces the outcomes, and helps teams move work forward with greater clarity and efficiency.",
+
+  techStack: [
+    "Artificial Intelligence",
+    "Large Language Models",
+    "Speech to Text",
+    "Natural Language Processing",
+    "Real Time Transcription",
+    "AI Summarization",
+    "Meeting Analytics",
+    "Workflow Automation"
+  ]
+},
   // ── your other 4 case studies stay exactly as they were ──
 
+{
+  id: 4,
+  slug: "appmd-virtual-healthcare-platform",
+
+  title: "AppMD: Transforming Healthcare Through Connected Virtual Care",
+
+  subtitle:
+    "Bringing patients and physicians closer through secure, accessible, and technology enabled healthcare experiences.",
+
+  category: "Healthcare Technology & Digital Transformation",
+
+  cardDescription:
+    "AppMD is a virtual healthcare platform designed to connect patients with qualified physicians across the United States and India, making expert medical consultation more accessible through a convenient digital experience.",
+
+  image:
+    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
+
+  heroImage:
+    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
+
+  client:
+    "AppMD",
+
+  industry:
+    "Healthcare & Telemedicine",
+
+  services: [
+    "Telemedicine Platform Development",
+    "Healthcare Software Engineering",
+    "Virtual Physician Consultations",
+    "Secure Digital Healthcare",
+    "Cloud Infrastructure",
+    "Healthcare Technology Integration"
+  ],
+
+  overview:
+    "AppMD is a digital healthcare platform focused on making quality medical expertise more accessible through virtual consultations. The platform connects patients with physicians across the United States and India, enabling patients to access medical guidance remotely without the limitations of traditional in person consultations.",
+
+  clientOverview:
+    "AppMD brings together healthcare expertise and digital technology to create a more connected healthcare experience. By enabling patients to access physicians remotely, the platform supports a flexible model of care that can help overcome geographical barriers and make specialist medical expertise easier to access. Its cross border physician network provides patients with an opportunity to connect with medical professionals from both the United States and India through a convenient virtual care experience.",
+
+  challengeIntro:
+    "Making quality medical expertise more accessible across geographical boundaries",
+
+  challengePoints: [
+    "Patients often face geographical and logistical barriers when seeking access to qualified medical professionals.",
+    "Traditional healthcare journeys can require significant travel, waiting time, and coordination before a consultation can take place.",
+    "Patients seeking additional medical perspectives may find it difficult to connect with physicians outside their immediate healthcare network.",
+    "Healthcare providers need digital experiences that make remote consultations convenient while maintaining trust, privacy, and professionalism.",
+    "Cross border healthcare requires a technology platform capable of supporting patients and physicians across different locations.",
+    "The growing demand for digital healthcare creates a need for scalable technology that can support a seamless virtual consultation experience."
+  ],
+
+  solutionIntro:
+    "A connected virtual healthcare experience designed around patients and physicians",
+
+  solutionDetail:
+    "AppMD brings healthcare professionals and patients together through a digital consultation experience designed to make medical expertise more accessible. The platform combines virtual healthcare capabilities with a patient focused digital journey, allowing individuals to connect with physicians across the United States and India. By reducing geographical barriers and simplifying access to medical professionals, AppMD creates a more flexible approach to healthcare delivery while supporting the evolving expectations of digitally connected patients.",
+
+  solution: [
+    "Virtual Healthcare Consultations: Enables patients to connect with qualified physicians remotely through a convenient digital healthcare experience.",
+
+    "Cross Border Physician Access: Connects patients with medical professionals across the United States and India, expanding access to healthcare expertise.",
+
+    "Patient Centric Experience: Simplifies the journey from accessing healthcare information to connecting with an appropriate medical professional.",
+
+    "Remote Medical Expertise: Makes it easier for patients to seek professional medical guidance without the need for unnecessary travel.",
+
+    "Digital Healthcare Delivery: Uses modern technology to support a more flexible and accessible model of healthcare delivery.",
+
+    "Secure Healthcare Environment: Designed around the importance of privacy, trust, and responsible handling of healthcare related information.",
+
+    "Scalable Platform Architecture: Provides a technology foundation capable of supporting an expanding patient and physician ecosystem.",
+
+    "Connected Care Experience: Brings patients and healthcare professionals together through a unified digital platform."
+  ],
+
+  results: [
+    {
+      metric: "US + India",
+      label: "Connected physician network"
+    },
+    {
+      metric: "24/7",
+      label: "Digital access to healthcare services"
+    },
+    {
+      metric: "Virtual",
+      label: "Consultation experience"
+    },
+    {
+      metric: "1",
+      label: "Connected healthcare platform"
+    }
+  ],
+
+  benefitsIntro:
+    "Making healthcare more accessible, connected, and convenient",
+
+  benefits: [
+    "Patients can connect with qualified physicians remotely, reducing geographical barriers to healthcare access.",
+
+    "Access to physicians across the United States and India creates greater flexibility for patients seeking medical expertise.",
+
+    "Virtual consultations provide a convenient alternative for patients who may not be able to attend traditional in person appointments.",
+
+    "A centralized digital experience makes the healthcare journey easier to navigate for patients.",
+
+    "Healthcare professionals can engage with patients through a technology enabled consultation model.",
+
+    "Digital healthcare delivery helps create a more flexible experience aligned with the expectations of modern patients.",
+
+    "The platform provides a scalable foundation for expanding virtual healthcare services and physician access.",
+
+    "AppMD demonstrates how technology can help bring patients and medical expertise closer together."
+  ],
+
+  summary:
+    "AppMD represents a modern approach to healthcare delivery, connecting patients with qualified physicians across the United States and India through a virtual healthcare platform. By combining digital technology with access to medical expertise, AppMD helps reduce geographical barriers, simplify the consultation journey, and create a more convenient healthcare experience. The platform demonstrates how thoughtful healthcare technology can bring patients and physicians closer while supporting the continued evolution of connected and accessible care.",
+
+  techStack: [
+    "React",
+    "Node.js",
+    "Cloud Infrastructure",
+    "Telemedicine",
+    "Secure APIs",
+    "Healthcare Technology",
+    "Virtual Consultation",
+    "Digital Healthcare"
+  ],
+},
+  
   {
-    id: 3,
-    slug: "logistics-supply-chain-visibility",
-    title: "Starfii Gives a Freight Logistics Provider Real-Time Visibility Across Its Entire Supply Chain",
-    subtitle:
-      "Replacing phone calls and spreadsheets with a live map of every shipment, from pickup to final delivery.",
-    category: "SaaS Product Engineering & Data Analytics",
-    cardDescription:
-      "Starfii built a real-time shipment tracking and analytics platform for a freight logistics provider, cutting customer status-check calls by 70% and giving operations teams a live view of the entire network.",
-    image:
-      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?q=80&w=1600&auto=format&fit=crop",
-    client: "Freight Logistics Provider",
-    industry: "Logistics & Supply Chain",
-    services: ["SaaS Product Engineering", "Data Analytics", "Cloud Engineering"],
-    overview:
-      "A freight logistics provider coordinating shipments across a network of carriers, warehouses, and delivery partners had no single view of where any given shipment actually was, forcing customers and internal teams alike to chase updates by phone.",
-    clientOverview:
-      "The client coordinates freight shipments across a network of third-party carriers, regional warehouses, and last-mile delivery partners. Each partner in that network tracked shipment status in its own system, if it tracked it digitally at all, which meant the logistics provider's own operations team had no reliable way to answer a simple question: where is this shipment right now.",
-    challengeIntro:
-      "Customers wanted real-time answers about their shipments, and operations teams wanted to spot problems in the network before a customer had to call about them. Neither was possible when shipment status lived in a different system, spreadsheet, or phone call for every partner in the chain.",
-    challengePoints: [
-      "Shipment status data was scattered across carrier systems, warehouse logs, and manual phone updates from delivery partners.",
-      "Customer service teams spent a large share of each day fielding status-check calls they couldn't answer without calling a carrier themselves.",
-      "Operations had no early warning when a shipment was at risk of a delay until a customer had already noticed.",
-      "Each carrier and partner used different systems and data formats, with no common standard for reporting shipment events.",
-      "Historical shipment data was never aggregated, making it hard to spot recurring bottlenecks in the network.",
-    ],
-    solutionIntro:
-      "Starfii's product engineering team built a unified tracking platform that pulls shipment events from every partner in the network into one live feed, giving both customers and operations a single source of truth for any shipment.",
-    solutionDetail:
-      "We built a set of lightweight integration adapters for each carrier and partner system, translating each one's own status format into a common shipment-event schema rather than forcing partners to change how they operate. Those events stream into a real-time platform that reconstructs each shipment's full journey as it happens, from pickup through every handoff to final delivery. On top of that live feed, we built a customer-facing tracking view and an internal operations dashboard that flags shipments falling behind their expected timeline, using historical route data to establish what an on-time shipment actually looks like for each lane.",
-    solution: [
-      "Built integration adapters that normalize shipment status from every carrier and partner system into one common event schema.",
-      "Delivered a real-time tracking platform that reconstructs each shipment's full journey from pickup to final delivery.",
-      "Built a customer-facing tracking view so customers can check shipment status themselves without calling support.",
-      "Designed an operations dashboard that flags shipments falling behind their expected timeline before customers notice.",
-    ],
-    results: [
-      { metric: "70%", label: "Reduction in customer status-check calls" },
-      { metric: "1", label: "Unified live view of the entire shipment network" },
-      { metric: "35%", label: "Faster identification of at-risk shipments" },
-      { metric: "20+", label: "Carrier and partner systems integrated" },
-    ],
-    benefitsIntro:
-      "A single live view of the network changed how both customers and operations teams experienced the shipping process.",
-    benefits: [
-      "Customers check shipment status themselves in real time instead of calling support for an update.",
-      "Operations teams see shipments falling behind schedule while there's still time to intervene, not after a customer complains.",
-      "Recurring bottlenecks in specific lanes or partners are now visible in aggregated historical data instead of anecdotal.",
-      "New carrier and partner systems can be connected through the same adapter pattern without disrupting existing integrations.",
-    ],
-    summary:
-      "Starfii replaced a fragmented network of phone calls and spreadsheets with one real-time tracking platform spanning more than 20 carrier and partner systems. Customer status-check calls are down 70%, at-risk shipments get flagged 35% faster, and for the first time, operations teams and customers alike can see exactly where any shipment is, at any moment.",
-    techStack: ["React", "Node.js", "AWS", "Kafka", "Mapbox"],
-  },
-  {
-    id: 4,
+    id: 5,
     slug: "streaming-personalization-engine",
     title: "Starfii Builds a Recommendation Engine That Lifts Watch Time 28% for a Streaming Platform",
     subtitle:
@@ -258,63 +526,10 @@ export const caseStudies: CaseStudy[] = [
       "Starfii built a recommendation engine that gave every viewer a personalized home screen while preserving the platform's editorial voice. Average watch time per user is up 28%, catalog discovery beyond the top 100 titles is up 45%, and subscriber churn has dropped 19% — proof that personalization and curation could work side by side rather than in competition.",
     techStack: ["Python", "AWS", "Spark", "TensorFlow", "Kafka"],
   },
-  {
-    id: 5,
-    slug: "healthcare-telemedicine-platform",
-    title: "Starfii Launches a HIPAA-Compliant Telemedicine Platform in Under Four Months",
-    subtitle:
-      "Connecting patients and providers with a secure, scalable virtual care platform built for rapid growth.",
-    category: "Healthcare Software Engineering & Compliance",
-    cardDescription:
-      "Starfii built a HIPAA-compliant telemedicine platform for a healthcare provider network, enabling secure video visits, e-prescriptions, and EHR integration, and cutting patient no-show rates by 32%.",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
-    client: "Multi-Specialty Healthcare Provider Network",
-    industry: "Healthcare & Life Sciences",
-    services: ["Healthcare Software Engineering", "Cloud Engineering", "Compliance & Security"],
-    overview:
-      "A multi-specialty healthcare provider network needed to launch virtual care quickly to keep pace with patient demand, but had no existing infrastructure that met HIPAA requirements for video, messaging, or e-prescriptions.",
-    clientOverview:
-      "The client operates a network of outpatient clinics across multiple specialties, from primary care to behavioral health. Patient demand for virtual visits had grown well beyond what phone consultations could support, but every off-the-shelf video tool the network evaluated either failed to meet HIPAA compliance requirements or couldn't integrate with the provider network's existing electronic health record system.",
-    challengeIntro:
-      "Leadership needed a telemedicine platform patients would actually use and providers could trust with real clinical workflows, built fast enough to matter and compliant enough to survive an audit.",
-    challengePoints: [
-      "No existing video or messaging tool met HIPAA requirements for handling protected health information.",
-      "Providers needed virtual visits to fit directly into existing clinical workflows, not a separate disconnected tool.",
-      "Patient no-show rates for virtual pilot programs were high due to a confusing, multi-step join process.",
-      "E-prescriptions and visit notes had to sync directly with the network's existing EHR system.",
-      "The platform needed to scale from a handful of pilot clinics to the entire provider network within months.",
-    ],
-    solutionIntro:
-      "Starfii's healthcare engineering team designed and built a purpose-built telemedicine platform from the ground up, prioritizing HIPAA compliance and EHR integration from day one rather than retrofitting them later.",
-    solutionDetail:
-      "We built the video and messaging layer on infrastructure specifically configured for HIPAA compliance, with end-to-end encryption and full audit logging on every patient interaction. Rather than requiring patients to download an app or create an account before their first visit, we built a one-click join flow accessible directly from a text or email link, which addressed the biggest driver of no-shows in the pilot program. On the provider side, we built direct integration with the network's EHR system so visit notes, e-prescriptions, and billing codes flowed into existing records automatically instead of requiring manual re-entry after every visit.",
-    solution: [
-      "Built a HIPAA-compliant video and messaging platform with end-to-end encryption and full audit logging.",
-      "Designed a one-click patient join flow from a text or email link, removing app downloads and account creation as barriers.",
-      "Integrated e-prescriptions, visit notes, and billing codes directly with the provider network's existing EHR system.",
-      "Architected the platform to scale from pilot clinics to the full provider network without re-engineering core infrastructure.",
-    ],
-    results: [
-      { metric: "32%", label: "Reduction in patient no-show rates" },
-      { metric: "4 mo", label: "Time from kickoff to full network launch" },
-      { metric: "100%", label: "HIPAA-compliant audit pass rate" },
-      { metric: "40+", label: "Clinics onboarded across the network" },
-    ],
-    benefitsIntro:
-      "A compliant, easy-to-join platform changed how both patients and providers experienced virtual care.",
-    benefits: [
-      "Patients join visits directly from a link without downloading an app or creating an account.",
-      "Providers document visits once, with notes and prescriptions flowing automatically into the EHR.",
-      "Compliance teams have full audit logs on every patient interaction for HIPAA reporting.",
-      "New clinics onboard onto the same platform without custom engineering per location.",
-    ],
-    summary:
-      "Starfii took this healthcare network from no virtual care infrastructure to a fully HIPAA-compliant telemedicine platform live across more than 40 clinics in under four months. Patient no-show rates are down 32%, providers document visits directly into existing EHR workflows, and the network now has virtual care built to scale rather than a pilot program stretched thin.",
-    techStack: ["React", "Node.js", "AWS", "WebRTC", "HL7/FHIR"],
-  },
+
+
+
+
   {
     id: 6,
     slug: "retail-ecommerce-fulfillment-optimization",
