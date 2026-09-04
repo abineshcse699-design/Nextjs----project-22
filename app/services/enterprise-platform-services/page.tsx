@@ -1,4 +1,3 @@
-// app/services/digital-software/page.tsx
 "use client";
 import Link from "next/link";
 
@@ -15,6 +14,7 @@ import {
 } from "react";
 import {
   ChevronRight,
+  ChevronDown,
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
@@ -26,8 +26,6 @@ import {
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
    Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
-   Kept identical to the GCC page so every service page shares one
-   visual language instead of the framer-motion / T-token system.
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
@@ -36,45 +34,23 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
+
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "How an Engagement Runs" tab list
+// Autoplay timing for the "Digital and Software Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
-   Facts below (3+ locations, 80+ professionals, 20+ clients incl.
-   Fortune 500, 5+ years, MVP in 3 months) are the grounded figures
-   pulled from starfii.com. Primary keyword targets: digital
-   software development services, enterprise product engineering,
-   SaaS product engineering, custom software development company,
-   AI driven software engineering, legacy software modernization.
 ================================================================ */
 
-const keyTakeaways = [
-  {
-    title: "Discover",
-    body: "Turn business goals into a clear digital product roadmap through product led discovery, customer focused thinking, and measurable outcomes.",
-  },
-  {
-    title: "Engineer",
-    body: "Build scalable enterprise software with AI assisted engineering, modern application architectures, cloud platforms, and production ready development practices.",
-  },
-  {
-    title: "Modernize",
-    body: "Transform legacy application portfolios, connect data and AI capabilities, and improve speed, performance, and maintainability with minimal disruption.",
-  },
-];
-
-type StatOutcome = { stat: string; label: string };
-
-const statOutcomes: StatOutcome[] = [
-  { stat: "80+", label: "Skilled professionals delivering digital and software engineering across 3+ locations" },
-  { stat: "20+", label: "Successful partnerships, including Fortune 500 clients" },
-  { stat: "5+ yrs", label: "Delivering enterprise digital and software engineering solutions" },
-  { stat: "3 mo", label: "Typical timeline to launch an MVP, with full featured products in 5+ months" },
+const keyTakeaways: string[] = [
+  "Starfii is an AI driven software and product engineering company trusted by enterprises and Fortune 500 brands worldwide.",
+  "We design customer focused digital experiences and modernize complex application portfolios for speed and scale.",
+  "Our core services span enterprise product engineering, SaaS product engineering, Generative AI and LLM engineering, and digital strategy consulting.",
+  "We turn ideas into scalable software products through AI led engineering, cloud engineering, and faster delivery cycles.",
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
@@ -82,45 +58,64 @@ type FocusArea = { title: string; body: string; tags: string[] };
 const focusAreas: FocusArea[] = [
   {
     title: "Enterprise Product Engineering",
-    body: "Starfii co-creates digital products end to end, from ideation through launch, with an AI assisted framework built for measurable growth, value, and performance.",
-    tags: ["PRODUCT", "AI-ASSISTED", "GROWTH"],
+    body: "Starfii is an enterprise product engineering company that partners with clients from ideation through launch, combining AI driven software development with proven engineering practices to deliver breakthrough growth, value, and performance.",
+    tags: ["WEB", "MOBILE", "SAAS"],
   },
   {
-    title: "Enterprise AI/ML & Generative AI",
-    body: "Starfii identifies the right AI models for your business problem and ships Generative AI and LLM features that solve it, not just demo it.",
-    tags: ["AI/ML", "GEN AI", "LLM"],
+    title: "Enterprise AI/ML, Gen AI and LLM",
+    body: "As a Generative AI and LLM engineering company, Starfii works closely with you to define the business problem and identify the right AI models, delivering enterprise AI/ML solutions that solve real business challenges.",
+    tags: ["LLM", "GEN AI", "ML"],
   },
   {
     title: "SaaS Product Engineering",
-    body: "Starfii builds fintech, healthcare, and e commerce SaaS platforms for Fortune 500 scale, security, and compliance from day one.",
+    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS product engineering capability on real production projects.",
     tags: ["SAAS", "FINTECH", "HEALTHCARE"],
   },
   {
-    title: "Cloud Engineering Services",
-    body: "Starfii delivers comprehensive cloud engineering on AWS, Azure, and GCP, covering architecture, migration, and ongoing managed operations.",
-    tags: ["AWS", "AZURE", "GCP"],
-  },
-  {
     title: "Data Engineering & Data Science",
-    body: "Starfii's certified data engineers and data scientists turn fragmented data into a single source of truth for the business.",
+    body: "Our certified data engineers build your entire data infrastructure, while Starfii's data scientists apply data engineering and data science expertise to surface the insights that drive smarter, faster decisions.",
     tags: ["DATA", "BI", "ANALYTICS"],
   },
   {
-    title: "DevOps, Quality Engineering & Security",
-    body: "Starfii bakes test automation and DevOps into every stage of delivery, backed by a cyber framework that protects the whole estate.",
-    tags: ["DEVOPS", "QA", "SECURITY"],
+    title: "Cloud Engineering – AWS, Azure, GCP",
+    body: "Starfii delivers end to end cloud engineering services on AWS, Azure, and GCP, covering cloud architecture, migration, and managed support so your platform stays reliable, secure, and cost efficient.",
+    tags: ["AWS", "AZURE", "GCP"],
   },
-];
-
-type Technology = { name: string; detail: string };
-
-const technologies: Technology[] = [
-  { name: "AI, Gen AI & LLM Engineering", detail: "Model selection, fine tuning, and applied Gen AI features built into your product roadmap." },
-  { name: "Cloud Engineering, AWS, Azure, GCP", detail: "Cloud native architecture, migration, and managed operations across all three major providers." },
-  { name: "React & Modern Frontend Development", detail: "Component driven web and mobile front ends built for speed, accessibility, and scale." },
-  { name: "Node, Java & .NET Backend Development", detail: "Backend services and APIs engineered for reliability under real production load." },
-  { name: "Data Engineering & BI, Tableau, Power BI", detail: "Data pipelines, warehousing, and BI dashboards that turn data into decisions." },
-  { name: "DevOps & CI/CD Automation", detail: "Automated pipelines, test automation, and infrastructure as code baked into every release." },
+  {
+    title: "Legacy Software Modernization",
+    body: "Starfii's legacy software modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
+    tags: ["MIGRATION", "APIS", "CLOUD"],
+  },
+  {
+    title: "Reporting and Dashboard – BI",
+    body: "Starfii helps enterprises transform raw data into actionable insights using Tableau and Power BI, delivering business intelligence dashboards that support faster, more informed decisions and long term growth.",
+    tags: ["TABLEAU", "POWER BI", "ANALYTICS"],
+  },
+  {
+    title: "Automotive Engineering Services",
+    body: "Starfii delivers automotive engineering services covering embedded software, connected vehicle platforms, and digital mobility solutions that support the industry's shift to smarter, software defined vehicles.",
+    tags: ["AUTOMOTIVE", "MOBILITY", "ENGINEERING"],
+  },
+  {
+    title: "Revenue Cycle Management Service",
+    body: "Starfii assists healthcare organizations with HIPAA compliant revenue cycle management services, streamlining billing, claims, and patient care workflows to improve cash flow and operational efficiency.",
+    tags: ["HEALTHCARE", "RCM", "COMPLIANCE"],
+  },
+  {
+    title: "Cybersecurity",
+    body: "Starfii's cybersecurity consulting services help build a resilient security framework that protects your cloud infrastructure and applications against evolving threats, backed by continuous risk monitoring.",
+    tags: ["SECURITY", "RISK", "CLOUD"],
+  },
+  {
+    title: "UI/UX Consulting",
+    body: "Starfii's UI/UX consulting team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
+    tags: ["UX", "UI", "DESIGN"],
+  },
+  {
+    title: "DevOps & Quality Engineering",
+    body: "Starfii's DevOps and quality engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
+    tags: ["DEVOPS", "QA", "AUTOMATION"],
+  },
 ];
 
 type ServiceTab = {
@@ -132,44 +127,51 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Shape the Roadmap",
-    heading: "Product led discovery turns vision into a phased roadmap",
-    body: "Starfii runs product led discovery that turns your vision into a structured, phased software development roadmap aligned to business outcomes, not just a backlog.",
+    label: "Shape Product Vision Clearly",
+    heading: "Product led thinking to shape and realize your product vision",
+    body: "Starfii crafts product and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Build in Sprints",
-    heading: "Applications engineered in sprints, AI embedded from day one",
-    body: "Starfii engineers applications in sprints, with AI embedded in delivery itself, not bolted on after the fact, so outcomes improve measurably rather than anecdotally.",
+    label: "Build Apps for Digital Markets",
+    heading: "Applications engineered for how digital markets actually move",
+    body: "Starfii builds web and mobile applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Modernize the Estate",
-    heading: "Legacy systems migrated with minimal disruption",
-    body: "Starfii assesses your legacy software estate and migrates it to a scalable, cloud ready platform, with minimal disruption to live business operations.",
+    label: "Drive AI-led Software Results",
+    heading: "AI embedded in delivery, not bolted on at the end",
+    body: "Starfii's engineering teams build Generative AI and LLM capability into the software delivery process itself, from requirements to release, so outcomes improve measurably rather than anecdotally.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Modernize Legacy for Growth",
+    heading: "Modernization that clears the path for what comes next",
+    body: "Starfii assesses your legacy technology estate, builds a tailored legacy software modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Scale Intelligence",
-    heading: "AI connected across the whole enterprise, not one tool",
-    body: "Starfii connects AI capability across your applications, data, and operations so intelligence compounds across the business instead of living in a single silo.",
+    label: "Embed AI Across Ecosystems",
+    heading: "AI that works across your whole ecosystem, not one tool",
+    body: "Starfii connects enterprise AI capability across your applications, data, and operations so intelligence compounds across the business instead of living in a single silo or point solution.",
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 type EcosystemImpact = { title: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "AI, Gen AI and LLM Engineering" },
-  { title: "Cloud Engineering Across AWS, Azure, GCP" },
-  { title: "Modern Frontend Development" },
-  { title: "Backend Engineering for Production Scale" },
-  { title: "Data Engineering and BI" },
-  { title: "DevOps and CI/CD Automation" },
+  { title: "Digital Journeys and Transformation" },
+  { title: "Product Engineering for Customer Value" },
+  { title: "Composable Architecture for Scale" },
+  { title: "Vibe Coding for Faster Delivery" },
+  { title: "Enterprise AI and LLM Integration" },
+  { title: "Cloud Engineering and DevOps Automation" },
 ];
 
 type IndustryAward = {
@@ -211,39 +213,39 @@ type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
   {
-    slug: "fintech-saas-platform-mvp-to-scale",
+    slug: "insurance-claims-low-code-platform",
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
-    body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
+    body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
   },
   {
     slug: "regional-bank-digital-banking-experience",
     image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Modernizes a Regional Bank's Digital Banking Experience",
-    body: "Explore how Starfii's legacy software modernization team rebuilt a bank's front end into a fast, secure digital experience that cut onboarding time.",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
+    body: "See how Starfii's SaaS product engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
   },
   {
-    slug: "healthcare-saas-generative-ai-features",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
-    body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
-  },
-  {
-    slug: "ecommerce-platform-peak-season-scale",
+    slug: "utilities-digital-transformation-microsoft",
     image:
       "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Scales an E Commerce Platform for Peak Season Traffic",
-    body: "See how Starfii's cloud engineering team re-architected an e commerce platform on AWS to handle peak season load without downtime.",
+    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
+    body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
   },
   {
-    slug: "enterprise-legacy-modernization-timeline",
+    slug: "digital-mortgage-automation",
     image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
-    body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Automates the Digital Mortgage Application Process",
+    body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+  },
+  {
+    slug: "healthcare-saas-platform-scale",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
+    body: "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
   },
 ];
 
@@ -276,6 +278,20 @@ const insights: InsightPost[] = [
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
     title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
     body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    title: "Building Smarter Digital Products with AI Led Engineering",
+    body: "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title: "Modern Software Delivery for Enterprise Growth",
+    body: "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
   },
 ];
 
@@ -495,12 +511,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -545,6 +563,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -708,7 +736,8 @@ function PagedCarousel<T>({
    SECTION
 ================================================================ */
 
-export default function DigitalSoftwareServicesPage(): ReactElement {
+export default function DigitalSoftwareServicesSection(): ReactElement {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
@@ -763,16 +792,16 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Digital Software Development Services for Modern Enterprises
+            Digital and Software Services for Modern Enterprises
           </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Starfii designs, engineers, and modernizes the digital products
-            that run your business, turning ideas into scalable custom
-            software with AI driven engineering and faster delivery cycles.
+            Starfii turns ideas into scalable software products and modern
+            platforms with AI driven engineering, enterprise product
+            engineering, and faster delivery cycles.
           </p>
 
           <a
@@ -791,98 +820,63 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            OUTCOMES STRIP (grounded figures pulled straight from the
-            real facts, not the dashboard-stat-card default)
-        ============================================================ */}
-        <Reveal
-          as="section"
-          className="mt-16 grid grid-cols-1 gap-8 border-y py-10 sm:grid-cols-2 lg:grid-cols-4"
-          style={{ borderColor: LAVENDER_ACCENT }}
-        >
-          {statOutcomes.map((o) => (
-            <div key={o.label}>
-              <p
-                className="font-heading text-[32px] font-medium"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                {o.stat}
-              </p>
-              <p className="font-body mt-2 text-[14px] leading-relaxed text-slate-600">
-                {o.label}
-              </p>
-            </div>
-          ))}
-        </Reveal>
-
-        {/* ============================================================
-            DIGITAL SOFTWARE ENGINEERING AT A GLANCE
-            Same reference-style three-column design
+            KEY TAKEAWAYS
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
-            className="overflow-hidden rounded-[22px] border bg-white"
+            className="overflow-hidden rounded-2xl border"
             style={{ borderColor: LAVENDER_ACCENT }}
           >
-            {/* Header */}
-            <div
-              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
-              style={{
-                borderBottom: `1px solid ${LAVENDER_ACCENT}`,
-              }}
+            <button
+              type="button"
+              onClick={() => setTakeawaysOpen((v) => !v)}
+              className="flex w-full items-center justify-between px-8 py-6 text-left"
             >
-              <div className="flex items-center gap-3">
-                <Sparkles
-                  size={21}
-                  strokeWidth={1.8}
-                  style={{ color: LAVENDER_ACCENT }}
-                />
-                <span
-                  className="font-body text-[17px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Digital Software Engineering at a Glance
-                </span>
-              </div>
-
               <span
-                className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
-                style={{
-                  backgroundColor: "#F1EEFC",
-                  color: INDIGO_CTA,
-                }}
+                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
+                style={{ color: CHAMPION_BLUE }}
               >
-                AI Led Engineering
+                <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
+                Key Takeaways
               </span>
-            </div>
+              <ChevronDown
+                size={20}
+                style={{ color: CHAMPION_BLUE }}
+                className={`transition-transform duration-300 ${
+                  takeawaysOpen ? "rotate-180" : ""
+                }`}
+              />
+            </button>
 
-            {/* Three-column content */}
-            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
-              {keyTakeaways.map((point) => (
-                <div key={point.title}>
-                  <h3
-                    className="font-heading text-[23px] font-semibold"
-                    style={{ color: CHAMPION_BLUE }}
+            {takeawaysOpen && (
+              <ul
+                className="space-y-3 px-8 pb-8"
+                style={{ borderTop: `1px solid ${LAVENDER_ACCENT}` }}
+              >
+                {keyTakeaways.map((point, i) => (
+                  <li
+                    key={i}
+                    className="ss-tab-panel font-body pt-3 text-[15px] leading-relaxed text-slate-700"
+                    style={{ animationDelay: `${i * 60}ms` }}
                   >
-                    {point.title}
-                  </h3>
-                  <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
-                    {point.body}
-                  </p>
-                </div>
-              ))}
-            </div>
+                    • {point}
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
 
           <p
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A digital software development company built for enterprise
-            scale, Starfii designs and engineers customer centric digital
-            experiences while modernizing complex application portfolios
-            for speed and performance.
+            A leader in digital products and software engineering, Starfii
+            designs and engineers customer focused digital experiences
+            while modernizing complex application portfolios for speed and
+            scale.
           </p>
         </Reveal>
+
 
         {/* ============================================================
             Q&A BLOCK
@@ -903,19 +897,19 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
                 Enterprises scale and optimize digital and software
-                operations by combining product led thinking, AI led
-                engineering, and scalable architectures under one team.
-                Starfii stays engaged past launch, tuning performance,
-                closing integration gaps, and keeping the product aligned
-                as the business changes, backed by SLA support and a free
-                warranty period.
+                operations by combining product thinking, AI led
+                engineering, and scalable architectures. Starfii brings
+                these together to accelerate software development, improve
+                quality, and modernize legacy systems, turning ideas into
+                digital experiences that users value and businesses depend
+                on every day.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a digital product roadmap"
+                alt="Two colleagues reviewing a digital roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -926,6 +920,7 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
       {/* ============================================================
           FOCUS AREAS
       ============================================================ */}
+
 
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
@@ -946,12 +941,13 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
             <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              What We Deliver
+              Our Services &amp; Consulting Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii plans, designs, and scales customer centric digital
-              products with AI led software engineering and modernization
-              strategies that drive speed and long term business value.
+              Starfii plans, designs, and scales customer focused digital
+              products and platforms with AI led engineering, seamless
+              experiences, and modernization strategies that drive speed,
+              efficiency, and long term business value.
             </p>
           </Reveal>
 
@@ -1005,16 +1001,17 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
       </section>
 
       <div className={ALIGN}>
+
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
 
-        <Reveal as="section" className="mt-24">
+        <Reveal as="section" className="mt-24 pb-28">
           <h2
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            How an Engagement Runs
+            Digital and Software Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1068,7 +1065,7 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -1087,50 +1084,11 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+  
                 />
               </div>
             </div>
-          </div>
-        </Reveal>
-
-        {/* ============================================================
-            TECHNOLOGIES (extra content — the stack list from the
-            grounded source page, reskinned into the shared design)
-        ============================================================ */}
-
-        <Reveal as="section" className="mt-24 pb-28">
-          <h2
-            className="font-heading text-[34px] font-medium"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            Technologies We Work In
-          </h2>
-          <p className="font-body mt-3 max-w-2xl text-[15px] leading-relaxed text-slate-600">
-            Certified engineering teams across the stacks and platforms
-            modern digital products run on.
-          </p>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {technologies.map((t, i) => (
-              <Reveal
-                key={t.name}
-                delay={(i % 3) * 90}
-                as="div"
-                className="border-l-2 pl-5"
-                style={{ borderColor: LAVENDER_ACCENT }}
-              >
-                <h4
-                  className="font-body text-[16px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {t.name}
-                </h4>
-                <p className="font-body mt-1.5 text-[13.5px] leading-relaxed text-slate-600">
-                  {t.detail}
-                </p>
-              </Reveal>
-            ))}
           </div>
         </Reveal>
       </div>
@@ -1138,8 +1096,8 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
       {/* ============================================================
           IMPACT ACROSS ECOSYSTEM (dark)
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#08070F] py-24">
+    
+<section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
@@ -1188,13 +1146,16 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
             ))}
           </div>
         </div>
-      </section>
+
+</section>
+
 
       {/* ============================================================
           INDUSTRY RECOGNITION
       ============================================================ */}
 
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
+
+<section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
           style={{
@@ -1213,7 +1174,7 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
               </h2>
             </Reveal>
 
-            <PagedCarousel
+ <PagedCarousel
               items={industryAwards}
               itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
               arrowVariant="dark"
@@ -1267,7 +1228,7 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
             />
           </div>
         </div>
-      </section>
+  </section>
 
       {/* ============================================================
           CASE STUDIES
@@ -1298,53 +1259,79 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
             </a>
           </Reveal>
 
-          <div className="mt-12">
-            <PagedCarousel
-              items={caseStudies}
-              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-              arrowVariant="light"
-              renderItem={(study, i) => (
-                <Reveal delay={(i % 3) * 90} className="h-full">
-                  <Link
-                    href={`/casestudies/${study.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-                  >
-                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        CASE STUDY
-                      </span>
-                      <h3
-                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {study.title}
-                      </h3>
-                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {study.body}
-                      </p>
-                      <span
-                        className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              )}
-            />
-          </div>
+         <div className="mt-12">
+ <PagedCarousel
+  items={caseStudies}
+  itemsPerPage={{
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+  }}
+  arrowVariant="light"
+  renderItem={(study, i) => (
+    <Reveal
+      delay={(i % 3) * 90}
+      className="h-full"
+    >
+      <article
+        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+        style={{
+          border: "1px solid #E5E1F5",
+        }}
+      >
+        {/* IMAGE */}
+        <div className="h-[220px] flex-shrink-0 overflow-hidden">
+          <img
+            src={study.image}
+            alt={study.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col p-6">
+
+          <span
+            className="font-body text-[12px] font-semibold tracking-wide"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            CASE STUDY
+          </span>
+
+          <h3
+            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            {study.title}
+          </h3>
+
+          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+            {study.body}
+          </p>
+
+          {/* LEARN MORE */}
+          <Link
+            href={`/services/digital-software/casestudies/${study.slug}`}
+            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 hover:translate-x-1"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            Learn More
+            <ArrowUpRight size={15} />
+          </Link>
+
+        </div>
+      </article>
+    </Reveal>
+  )}
+/>
+</div>
+
         </div>
       </section>
 
@@ -1372,12 +1359,17 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >
@@ -1440,57 +1432,6 @@ export default function DigitalSoftwareServicesPage(): ReactElement {
           </div>
         </div>
       </section>
-
-      {/* ============================================================
-          CTA
-      ============================================================ */}
-
-      <section id="connect" className={`${ALIGN} py-24`}>
-        <Reveal
-          className="flex flex-col items-start justify-between gap-6 rounded-2xl border p-10 sm:flex-row sm:items-center"
-          style={{ borderColor: LAVENDER_ACCENT, backgroundColor: "#F5F3FC" }}
-        >
-          <div>
-            <h3
-              className="font-heading text-[24px] font-semibold"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Have a digital product idea on the roadmap?
-            </h3>
-            <p className="font-body mt-2 text-[14.5px] text-slate-600">
-              Tell us what you're trying to build, we'll scope the fastest
-              path to launch.
-            </p>
-          </div>
-          <a
-            href="/contact"
-            className="font-body inline-flex h-12 shrink-0 items-center gap-2 rounded-full px-7 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
-            style={{ backgroundColor: CHAMPION_BLUE }}
-          >
-            Connect Now
-            <ArrowUpRight size={16} />
-          </a>
-        </Reveal>
-      </section>
     </main>
   );
 }
-
-/*
-
-  SEO checklist for this page:
-
-  1. Page <title>: "Digital Software Development Services | Enterprise
-     Product Engineering | Starfii Technology" (under 60 chars).
-  2. Meta description: "Starfii delivers enterprise product
-     engineering, SaaS engineering, AI/Gen AI, cloud, data, and DevOps
-     under one team, from idea to scaled platform."
-  3. This page maps directly to Starfii's real homepage service list —
-     Enterprise Product Engineering, SaaS Product Engineering,
-     Enterprise AI/ML & Gen AI, Cloud Engineering, Data Engineering &
-     Data Science, DevOps & Quality Engineering — good for topical
-     consistency. Link it directly from /services.
-  4. Grounded facts used above: 3+ locations, 80+ professionals, 20+
-     clients incl. Fortune 500, 5+ years, MVP in 3 months.
-
-*/

@@ -257,6 +257,20 @@ const insights: InsightPost[] = [
     title: "Connecting AI Extraction to CRM, ERP, and Business Workflows",
     body: "See why extraction becomes more valuable when structured information flows directly into the systems and processes that run the business.",
   },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title: "AI Document Processing: Scaling Extraction Across Enterprise Operations",
+    body: "Explore how intelligent document processing can handle high-volume files while improving consistency, validation, and downstream workflow efficiency.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    title: "Document Intelligence: From Unstructured Files to Trusted Business Data",
+    body: "See how AI-powered classification, extraction, and validation can turn complex documents into reliable information for business teams.",
+  },
 ];
 
 /* ===============================================================
@@ -475,12 +489,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -526,6 +542,16 @@ function Carousel({
       <div
         ref={trackRef}
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
       >
         {children}
       </div>
@@ -592,56 +618,100 @@ function PagedCarousel<T>({
   arrowVariant = "light",
 }: PagedCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const [page, setPage] = useState(0);
+  const maxPosition = Math.max(0, items.length - perPage);
+  const [position, setPosition] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [stepWidth, setStepWidth] = useState(0);
 
   useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
+    setPosition((p) => Math.min(p, maxPosition));
+  }, [maxPosition]);
 
-  const pages: T[][] = [];
-  for (let i = 0; i < totalPages; i += 1) {
-    pages.push(items.slice(i * perPage, i * perPage + perPage));
-  }
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    const measure = () => {
+      const firstCard = track.firstElementChild as HTMLElement | null;
+
+      if (!firstCard) {
+        setStepWidth(0);
+        return;
+      }
+
+      const gap = 24;
+      setStepWidth(firstCard.getBoundingClientRect().width + gap);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [perPage, items.length]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
 
   const isDark = arrowVariant === "dark";
-  const goTo = (next: number) =>
-    setPage(Math.min(Math.max(next, 0), totalPages - 1));
+
+  const goTo = (next: number) => {
+    setPosition(Math.min(Math.max(next, 0), maxPosition));
+  };
+
+  const totalSteps = Math.max(1, maxPosition + 1);
 
   return (
     <div>
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((pageItems, pi) => (
-            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
-              {pageItems.map((item, ii) => (
-                <div key={ii} className="min-w-0 flex-1">
-                  {renderItem(item, pi * perPage + ii)}
-                </div>
-              ))}
-              {pageItems.length < perPage &&
-                Array.from({ length: perPage - pageItems.length }).map(
-                  (_, gi) => (
-                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
-                  )
-                )}
-            </div>
-          ))}
-        </div>
+      <div
+        ref={trackRef}
+        className="flex snap-x snap-mandatory gap-6 overflow-x-hidden pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
       </div>
 
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${((page + 1) / totalPages) * 100}%`,
+              width: `${((position + 1) / totalSteps) * 100}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
@@ -649,30 +719,36 @@ function PagedCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
         >
-          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalSteps).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
           <button
             type="button"
             aria-label="Previous"
-            onClick={() => goTo(page - 1)}
-            disabled={page === 0}
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
               color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
-            onClick={() => goTo(page + 1)}
-            disabled={page === totalPages - 1}
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -1231,7 +1307,7 @@ export default function AIDataExtractionSection(): ReactElement {
     renderItem={(study, i) => (
       <Reveal delay={(i % 3) * 90} className="h-full">
         <Link
-          href={`/casestudies/${study.slug}`}
+          href={`/services/offerings/testing/${study.slug}`}
           className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
         >
           <div className="h-[220px] flex-shrink-0 overflow-hidden">
@@ -1298,12 +1374,13 @@ export default function AIDataExtractionSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel itemCount={insights.length} arrowVariant="light" clickToAdvance>
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >

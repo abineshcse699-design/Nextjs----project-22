@@ -21,6 +21,7 @@ import {
   Plus,
   Trophy,
 } from "lucide-react";
+import { caseStudies as sharedCaseStudies } from "@/app/services/digital-it-operations/casestudies/data.tsx/casestudies";
 
 /* ===============================================================
    BRAND TOKENS
@@ -38,6 +39,10 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Digital IT Operations Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
+
+// Base path for this section's case study detail pages, kept in one
+// place so the card links and the "View All" link never drift apart.
+const CASE_STUDY_BASE_PATH = "/services/digital-it-operations/casestudies";
 
 /* ===============================================================
    CONTENT
@@ -200,46 +205,6 @@ const industryAwards: IndustryAward[] = [
   },
 ];
 
-type CaseStudy = { slug: string; image: string; title: string; body: string };
-
-const caseStudies: CaseStudy[] = [
-  {
-    slug: "healthcare-cloud-migration-zero-downtime",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Moves a Healthcare Provider to the Cloud With Zero Downtime",
-    body: "See how Starfii's cloud operations team migrated critical patient systems onto AWS in phases, keeping every service online through the entire transition.",
-  },
-  {
-    slug: "fintech-devops-release-cycle",
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=900&auto=format&fit=crop",
-    title: "A Fintech Cuts Release Time by 60% With Starfii DevOps",
-    body: "Explore how Starfii's CI/CD automation and test automation shortened a fintech's release cycle from weeks to days without compromising compliance checks.",
-  },
-  {
-    slug: "retail-security-operations-overhaul",
-    image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Rebuilds Security Operations for a National Retail Chain",
-    body: "Learn how Starfii's cybersecurity team put continuous monitoring and incident response in place, cutting the retailer's threat detection time significantly.",
-  },
-  {
-    slug: "insurance-legacy-modernization-continuity",
-    image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Legacy Modernization Without Downtime for a Regional Insurer",
-    body: "Discover how Starfii migrated a regional insurer off an aging policy system onto a modern platform while claims operations kept running uninterrupted.",
-  },
-  {
-    slug: "saas-24x7-sla-support-model",
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Building a 24/7 SLA Support Model for a Growing SaaS Company",
-    body: "See how Starfii stood up round the clock operational support with clear SLAs, giving a scaling SaaS company predictable uptime as its user base grew.",
-  },
-];
-
 type InsightPost = {
   large: boolean;
   image: string;
@@ -269,6 +234,20 @@ const insights: InsightPost[] = [
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
     title: "Cybersecurity Operations: Building a Framework That Scales With You",
     body: "Stop reacting to threats after the fact. See how Starfii builds continuous security monitoring into everyday IT operations from day one.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
+    title: "Cloud Infrastructure Operations: Keeping Enterprise Systems Reliable",
+    body: "Explore how modern cloud operations across AWS, Azure, and GCP help enterprise teams improve reliability, visibility, and cost efficiency as workloads scale.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    title: "IT Operations Automation: Reducing Manual Work at Scale",
+    body: "See how automation across monitoring, DevOps, and repetitive IT workflows helps teams respond faster while keeping day to day operations stable.",
   },
 ];
 
@@ -517,12 +496,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -567,6 +548,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -605,6 +596,178 @@ function Carousel({
             aria-label="Next"
             onClick={() => scrollByCard(1)}
             disabled={atEnd}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: INDIGO_CTA }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   REUSABLE: StepCarousel
+   Moves exactly ONE card per arrow click.
+   Used by Industry Recognition and Case Studies only.
+================================================================ */
+
+type StepCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: Breakpoints;
+  renderItem: (item: T, index: number) => ReactNode;
+  arrowVariant?: "light" | "dark";
+};
+
+function StepCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  arrowVariant = "light",
+}: StepCarouselProps<T>): ReactElement {
+  const perPage = useItemsPerPage(itemsPerPage);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState(0);
+
+  const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
+  const isDark = arrowVariant === "dark";
+
+  const getStep = () => {
+    const el = trackRef.current;
+    if (!el) return 0;
+
+    const firstCard = el.firstElementChild as HTMLElement | null;
+    if (!firstCard) return 0;
+
+    return firstCard.getBoundingClientRect().width + 24;
+  };
+
+  const goTo = (nextPosition: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const next = Math.min(Math.max(nextPosition, 0), maxPosition);
+    const step = getStep();
+
+    el.scrollTo({
+      left: next * step,
+      behavior: "smooth",
+    });
+
+    setPosition(next);
+  };
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    el.scrollTo({
+      left: 0,
+      behavior: "auto",
+    });
+
+    setPosition(0);
+  }, [perPage]);
+
+  useEffect(() => {
+    const el = trackRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const step = getStep();
+      if (!step) return;
+
+      const current = Math.round(el.scrollLeft / step);
+      setPosition(Math.min(Math.max(current, 0), maxPosition));
+    };
+
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    handleScroll();
+
+    return () => {
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, [maxPosition, perPage]);
+
+  const progress = (position + 1) / totalPositions * 100;
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        className="flex gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[3px] flex-1 overflow-hidden rounded-full"
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
+        >
+          <div
+            className="h-full rounded-full transition-[width] duration-300 ease-out"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: INDIGO_CTA,
+            }}
+          />
+        </div>
+
+        <span
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
+        >
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
+              color: isDark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -1121,8 +1284,8 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {ecosystemImpact.map((item, i) => (
-              <Reveal key={item.title} delay={i * 90}>
+            {ecosystemImpact.map((impactItem, i) => (
+              <Reveal key={impactItem.title} delay={i * 90}>
                 <a
                   href="/services"
                   className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
@@ -1131,7 +1294,7 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    {item.title}
+                    {impactItem.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
@@ -1226,6 +1389,9 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
+          (now pulling from the shared casestudies data source so
+          "Learn More" links navigate to real case study detail pages
+          instead of a placeholder route)
       ============================================================ */}
       <section
         className="py-24"
@@ -1242,25 +1408,25 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
             >
               Case Studies
             </h2>
-            <a
-              href="#"
+            <Link
+              href={CASE_STUDY_BASE_PATH}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
-            <PagedCarousel
-              items={caseStudies}
+            <StepCarousel
+              items={sharedCaseStudies}
               itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
               arrowVariant="light"
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/casestudies/${study.slug}`}
+                    href={`${CASE_STUDY_BASE_PATH}/${study.slug}`}
                     className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
                   >
                     <div className="h-[220px] flex-shrink-0 overflow-hidden">
@@ -1275,7 +1441,7 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
                         className="font-body text-[12px] font-semibold tracking-wide"
                         style={{ color: INDIGO_CTA }}
                       >
-                        CASE STUDY
+                        {study.industry.toUpperCase()}
                       </span>
                       <h3
                         className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
@@ -1325,12 +1491,17 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >

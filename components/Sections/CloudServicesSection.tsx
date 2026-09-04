@@ -293,6 +293,20 @@ const insights: InsightPost[] = [
     title: "Site Reliability Engineering: Keeping Uptime High as Systems Scale",
     body: "Stop firefighting incidents. See how Starfii's SRE practice combines automation and observability to keep uptime high as cloud environments grow more complex.",
   },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    title: "Cloud Security by Design: Protecting Modern Infrastructure",
+    body: "Explore how Starfii builds identity, network, monitoring, and compliance controls into cloud architecture so security scales with every workload.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
+    title: "DevOps and CI/CD: Shipping Faster Without Sacrificing Reliability",
+    body: "See how Starfii automates testing, deployment, monitoring, and rollback to help cloud teams release faster while keeping production stable.",
+  },
 ];
 
 /* ===============================================================
@@ -513,12 +527,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -563,6 +579,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -601,6 +627,174 @@ function Carousel({
             aria-label="Next"
             onClick={() => scrollByCard(1)}
             disabled={atEnd}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: INDIGO_CTA }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   REUSABLE: StepCarousel
+   Moves exactly ONE card per arrow click.
+   Used only for Industry Recognition and Case Studies.
+================================================================ */
+
+type StepCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: Breakpoints;
+  renderItem: (item: T, index: number) => ReactNode;
+  arrowVariant?: "light" | "dark";
+};
+
+function StepCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  arrowVariant = "light",
+}: StepCarouselProps<T>): ReactElement {
+  const perPage = useItemsPerPage(itemsPerPage);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+
+  const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
+  const isDark = arrowVariant === "dark";
+
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, perPage]);
+
+  useEffect(() => {
+    setPosition((current) => Math.min(current, maxPosition));
+  }, [maxPosition]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
+
+  const goTo = (nextPosition: number) => {
+    const next = Math.min(
+      Math.max(nextPosition, 0),
+      maxPosition
+    );
+
+    setPosition(next);
+  };
+
+  const progress = ((position + 1) / totalPositions) * 100;
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        className="flex gap-6 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[3px] flex-1 overflow-hidden rounded-full"
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
+        >
+          <div
+            className="h-full rounded-full transition-[width] duration-300 ease-out"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: INDIGO_CTA,
+            }}
+          />
+        </div>
+
+        <span
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
+        >
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
+              color: isDark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -1169,7 +1363,7 @@ export default function CloudServicesSection(): ReactElement {
               </h2>
             </Reveal>
 
-            <PagedCarousel
+            <StepCarousel
               items={industryAwards}
               itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
               arrowVariant="dark"
@@ -1230,79 +1424,103 @@ export default function CloudServicesSection(): ReactElement {
       ============================================================ */}
 
       <section
-        className="py-24"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
-        }}
+  className="py-24"
+  style={{
+    background:
+      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+  }}
+>
+  <div className={ALIGN}>
+    <Reveal className="flex items-center justify-between">
+      <h2
+        className="font-heading text-[36px] font-medium lg:text-[44px]"
+        style={{ color: CHAMPION_BLUE }}
       >
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Case Studies
-            </h2>
-            <a
-              href="#"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Case Studies
-              <ArrowUpRight size={16} />
-            </a>
-          </Reveal>
+        Case Studies
+      </h2>
 
-          <div className="mt-12">
-            <PagedCarousel
-              items={caseStudies}
-              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-              arrowVariant="light"
-              renderItem={(study, i) => (
-                <Reveal delay={(i % 3) * 90} className="h-full">
-                  <Link
-                    href={`/casestudies/${study.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-                  >
-                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        CASE STUDY
-                      </span>
-                      <h3
-                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {study.title}
-                      </h3>
-                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {study.body}
-                      </p>
-                      <span
-                        className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-      </section>
+      <Link
+        href="/services/cloud/casestudies"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
+      >
+        View All Case Studies
+        <ArrowUpRight size={16} />
+      </Link>
+    </Reveal>
+
+    <div className="mt-12">
+      <StepCarousel
+        items={caseStudies}
+        itemsPerPage={{
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        }}
+        arrowVariant="light"
+        renderItem={(study, i) => (
+          <Reveal
+            delay={(i % 3) * 90}
+            className="h-full"
+          >
+            <article
+              className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+              style={{
+                border: "1px solid #E5E1F5",
+              }}
+            >
+              {/* IMAGE */}
+              <div className="h-[220px] flex-shrink-0 overflow-hidden">
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+              </div>
+
+              {/* CONTENT */}
+              <div className="flex flex-1 flex-col p-6">
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  CASE STUDY
+                </span>
+
+                <h3
+                  className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  {study.title}
+                </h3>
+
+                <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                  {study.body}
+                </p>
+
+                {/* LEARN MORE */}
+                <Link
+                  href={`/services/cloud/casestudies/${study.slug}`}
+                  className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 hover:translate-x-1"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  Learn More
+                  <ArrowUpRight size={15} />
+                </Link>
+              </div>
+            </article>
+          </Reveal>
+        )}
+      />
+    </div>
+  </div>
+</section>
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
@@ -1328,12 +1546,17 @@ export default function CloudServicesSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >

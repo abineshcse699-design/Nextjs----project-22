@@ -34,6 +34,7 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
+
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Digital and Software Services" tab list
@@ -278,6 +279,20 @@ const insights: InsightPost[] = [
     title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
     body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
   },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    title: "Building Smarter Digital Products with AI Led Engineering",
+    body: "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title: "Modern Software Delivery for Enterprise Growth",
+    body: "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+  },
 ];
 
 /* ===============================================================
@@ -496,12 +511,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -546,6 +563,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -1233,51 +1260,76 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </Reveal>
 
          <div className="mt-12">
-  <PagedCarousel
-    items={caseStudies}
-    itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-    arrowVariant="light"
-    renderItem={(study, i) => (
-      <Reveal delay={(i % 3) * 90} className="h-full">
-        <Link
-          href={`/casestudies/${study.slug}`}
-          className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-        >
-          <div className="h-[220px] flex-shrink-0 overflow-hidden">
-            <img
-              src={study.image}
-              alt={study.title}
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-            />
-          </div>
-          <div className="flex flex-1 flex-col p-6">
-            <span
-              className="font-body text-[12px] font-semibold tracking-wide"
-              style={{ color: INDIGO_CTA }}
-            >
-              CASE STUDY
-            </span>
-            <h3
-              className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {study.title}
-            </h3>
-            <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-              {study.body}
-            </p>
-            <span
-              className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-              style={{ color: INDIGO_CTA }}
-            >
-              Learn More
-              <ArrowUpRight size={15} />
-            </span>
-          </div>
-        </Link>
-      </Reveal>
-    )}
-  />
+ <PagedCarousel
+  items={caseStudies}
+  itemsPerPage={{
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+  }}
+  arrowVariant="light"
+  renderItem={(study, i) => (
+    <Reveal
+      delay={(i % 3) * 90}
+      className="h-full"
+    >
+      <article
+        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+        style={{
+          border: "1px solid #E5E1F5",
+        }}
+      >
+        {/* IMAGE */}
+        <div className="h-[220px] flex-shrink-0 overflow-hidden">
+          <img
+            src={study.image}
+            alt={study.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col p-6">
+
+          <span
+            className="font-body text-[12px] font-semibold tracking-wide"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            CASE STUDY
+          </span>
+
+          <h3
+            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            {study.title}
+          </h3>
+
+          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+            {study.body}
+          </p>
+
+          {/* LEARN MORE */}
+          <Link
+            href={`/services/digital-software/casestudies/${study.slug}`}
+            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 hover:translate-x-1"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            Learn More
+            <ArrowUpRight size={15} />
+          </Link>
+
+        </div>
+      </article>
+    </Reveal>
+  )}
+/>
 </div>
 
         </div>
@@ -1307,12 +1359,17 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >

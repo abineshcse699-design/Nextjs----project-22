@@ -262,6 +262,20 @@ const insights: InsightPost[] = [
     title: "Building Secure AI Assistants for Enterprise Workflows",
     body: "Learn the architecture, governance, escalation, monitoring, and integration considerations that matter when conversational AI moves into production.",
   },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title: "AI Customer Support: Turning Conversations Into Faster Resolution",
+    body: "Explore how conversational AI can resolve routine customer questions, retrieve trusted information, and route complex requests to the right support team.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise Knowledge Assistants: Connecting People to Trusted Information",
+    body: "See how AI assistants can connect employees with approved documents, policies, and business knowledge through natural-language conversations.",
+  },
 ];
 
 /* ===============================================================
@@ -480,12 +494,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -530,6 +546,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -597,56 +623,106 @@ function PagedCarousel<T>({
   arrowVariant = "light",
 }: PagedCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const [page, setPage] = useState(0);
+  const maxPosition = Math.max(0, items.length - perPage);
+  const [position, setPosition] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [stepWidth, setStepWidth] = useState(0);
 
   useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
+    setPosition((p) => Math.min(p, maxPosition));
+  }, [maxPosition]);
 
-  const pages: T[][] = [];
-  for (let i = 0; i < totalPages; i += 1) {
-    pages.push(items.slice(i * perPage, i * perPage + perPage));
-  }
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    const measure = () => {
+      const firstCard = track.firstElementChild as HTMLElement | null;
+
+      if (!firstCard) {
+        setStepWidth(0);
+        return;
+      }
+
+      const gap = 24;
+      setStepWidth(firstCard.getBoundingClientRect().width + gap);
+    };
+
+    measure();
+
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [perPage, items.length]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
 
   const isDark = arrowVariant === "dark";
-  const goTo = (next: number) =>
-    setPage(Math.min(Math.max(next, 0), totalPages - 1));
+
+  const goTo = (next: number) => {
+    setPosition(Math.min(Math.max(next, 0), maxPosition));
+  };
+
+  // Position-based progress:
+  // Desktop 3 cards visible + 5 items = 3 steps:
+  // 1-2-3 -> 2-3-4 -> 3-4-5
+  // Desktop 2 cards visible + 3 items = 2 steps:
+  // 1-2 -> 2-3
+  // Mobile always advances one card.
+  const totalSteps = Math.max(1, maxPosition + 1);
 
   return (
     <div>
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((pageItems, pi) => (
-            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
-              {pageItems.map((item, ii) => (
-                <div key={ii} className="min-w-0 flex-1">
-                  {renderItem(item, pi * perPage + ii)}
-                </div>
-              ))}
-              {pageItems.length < perPage &&
-                Array.from({ length: perPage - pageItems.length }).map(
-                  (_, gi) => (
-                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
-                  )
-                )}
-            </div>
-          ))}
-        </div>
+      <div
+        ref={trackRef}
+        className="flex snap-x snap-mandatory gap-6 overflow-x-hidden pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
       </div>
 
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${((page + 1) / totalPages) * 100}%`,
+              width: `${((position + 1) / totalSteps) * 100}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
@@ -654,30 +730,36 @@ function PagedCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
         >
-          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalSteps).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
           <button
             type="button"
             aria-label="Previous"
-            onClick={() => goTo(page - 1)}
-            disabled={page === 0}
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
               color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
-            onClick={() => goTo(page + 1)}
-            disabled={page === totalPages - 1}
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -1213,80 +1295,91 @@ export default function AIChatBoxSection(): ReactElement {
       ============================================================ */}
 
       <section
-        className="py-24"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
-        }}
+  className="py-24"
+  style={{
+    background:
+      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+  }}
+>
+  <div className={ALIGN}>
+    <Reveal className="flex items-center justify-between">
+      <h2
+        className="font-heading text-[36px] font-medium lg:text-[44px]"
+        style={{ color: CHAMPION_BLUE }}
       >
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
+        AI Chat Box Use Cases
+      </h2>
+
+      <a
+        href="#"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
+      >
+        View All AI Chat Box Use Cases
+        <ArrowUpRight size={16} />
+      </a>
+    </Reveal>
+
+    <div className="mt-12">
+      <PagedCarousel
+        items={caseStudies}
+        itemsPerPage={{
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        }}
+        arrowVariant="light"
+        renderItem={(study, i) => (
+          <Reveal
+            delay={(i % 3) * 90}
+            className="h-full"
+          >
+            <Link
+              href={`/services/offerings/generative-ai/${study.slug}`}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
             >
-              AI Chat Box Use Cases
-            </h2>
-            <a
-              href="#"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All AI Chat Box Use Cases
-              <ArrowUpRight size={16} />
-            </a>
+              <div className="h-[220px] flex-shrink-0 overflow-hidden">
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col p-6">
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{ color: INDIGO_CTA }}
+                >
+                  CASE STUDY
+                </span>
+
+                <h3
+                  className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  {study.title}
+                </h3>
+
+                <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                  {study.body}
+                </p>
+
+                <span
+                  className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+                  style={{ color: INDIGO_CTA }}
+                >
+                  Learn More
+                  <ArrowUpRight size={15} />
+                </span>
+              </div>
+            </Link>
           </Reveal>
-
-         <div className="mt-12">
-  <PagedCarousel
-    items={caseStudies}
-    itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-    arrowVariant="light"
-    renderItem={(study, i) => (
-      <Reveal delay={(i % 3) * 90} className="h-full">
-        <Link
-          href={`/casestudies/${study.slug}`}
-          className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-        >
-          <div className="h-[220px] flex-shrink-0 overflow-hidden">
-            <img
-              src={study.image}
-              alt={study.title}
-              className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-            />
-          </div>
-          <div className="flex flex-1 flex-col p-6">
-            <span
-              className="font-body text-[12px] font-semibold tracking-wide"
-              style={{ color: INDIGO_CTA }}
-            >
-              CASE STUDY
-            </span>
-            <h3
-              className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {study.title}
-            </h3>
-            <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-              {study.body}
-            </p>
-            <span
-              className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-              style={{ color: INDIGO_CTA }}
-            >
-              Learn More
-              <ArrowUpRight size={15} />
-            </span>
-          </div>
-        </Link>
-      </Reveal>
-    )}
-  />
-</div>
-
-        </div>
-      </section>
+        )}
+      />
+    </div>
+  </div>
+</section>
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
@@ -1312,12 +1405,17 @@ export default function AIChatBoxSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >

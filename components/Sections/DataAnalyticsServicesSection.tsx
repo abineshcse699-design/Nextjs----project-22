@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   ChevronRight,
   ChevronLeft,
@@ -11,6 +12,7 @@ import {
   Trophy,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
+import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
@@ -133,32 +135,6 @@ const focusAreas = [
   },
 ];
 
-type CaseStudy = { title: string; body: string; tag: string; image: string };
-
-const caseStudies: CaseStudy[] = [
-  {
-    tag: "INSURANCE",
-    title: "Starfii Cuts Reporting Time by 40% for a Regional Insurance Carrier",
-    body: "Starfii's data engineering team consolidated claims, policy, and underwriting data into a single governed platform, replacing manual spreadsheets with real time dashboards trusted across the business.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    tag: "RETAIL",
-    title: "A Unified Customer Data Platform for a National Retail Chain",
-    body: "Starfii built a cloud data platform that merged siloed sales, loyalty, and marketing data, giving a national retailer a single customer view that lifted campaign conversion and cut reporting cycles from days to hours.",
-    image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    tag: "HEALTHCARE",
-    title: "Generative AI on Enterprise Data Speeds Clinical Reporting",
-    body: "Starfii connected Generative AI to a governed clinical data warehouse, letting analysts query patient outcome trends in plain language while keeping every result compliant and auditable.",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
-  },
-];
-
 const tabs = [
   {
     label: "Build a Single Source of Truth",
@@ -274,33 +250,50 @@ const recognitions: Recognition[] = [
 
 // What's New — insight/blog teasers, shown three at a time with the same
 // progress bar and arrow pagination as the recognition carousel.
-type Insight = { title: string; body: string; gradient?: boolean };
+type Insight = {
+  title: string;
+  body: string;
+  image: string;
+  gradient?: boolean;
+};
 
 const insights: Insight[] = [
   {
     title: "Generative AI on Enterprise Data: From Warehouses to Answers",
     body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
     gradient: true,
   },
   {
     title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
     body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right fit.",
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Data Governance at Scale: Building Trust Into Every Pipeline",
     body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "MDM in Practice: Getting Every Team to One Customer Record",
     body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
     body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "BI That Gets Opened: Designing Dashboards Around Decisions",
     body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -670,6 +663,9 @@ export default function DataAnalyticsServicesSection() {
       <div className={ALIGN}>
         {/* ============================================================
             CASE STUDIES — grid cards stagger in on scroll
+            (now pulling from the shared casestudies data source so
+            "Learn More" links actually navigate to the case study
+            detail page instead of a dead "#" anchor)
         ============================================================ */}
         <section className="mt-24">
           <motion.div
@@ -687,14 +683,14 @@ export default function DataAnalyticsServicesSection() {
               <br />
               Case Studies
             </h2>
-            <a
-              href="#"
+            <Link
+              href="/services/data-analytics/casestudies"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: LAVENDER_ACCENT }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -704,9 +700,9 @@ export default function DataAnalyticsServicesSection() {
             variants={container}
             className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3"
           >
-            {caseStudies.map((study) => (
+            {sharedCaseStudies.map((study) => (
               <motion.div
-                key={study.title}
+                key={study.slug}
                 variants={item}
                 className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
                 style={{ border: "1px solid #EDEAFB" }}
@@ -723,7 +719,7 @@ export default function DataAnalyticsServicesSection() {
                     className="font-body text-[12px] font-semibold tracking-wide"
                     style={{ color: LAVENDER_ACCENT }}
                   >
-                    {study.tag}
+                    {study.industry.toUpperCase()}
                   </span>
                   <h3
                     className="font-heading mt-2 text-[18px] font-semibold leading-snug"
@@ -734,14 +730,14 @@ export default function DataAnalyticsServicesSection() {
                   <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
                     {study.body}
                   </p>
-                  <a
-                    href="#"
+                  <Link
+                    href={`/services/data-analytics/casestudies/${study.slug}`}
                     className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                     style={{ color: LAVENDER_ACCENT }}
                   >
                     Learn More
                     <ArrowUpRight size={15} />
-                  </a>
+                  </Link>
                 </div>
               </motion.div>
             ))}
@@ -1115,9 +1111,9 @@ export default function DataAnalyticsServicesSection() {
                 >
                   <div className="h-[220px] overflow-hidden bg-slate-900/90">
                     <img
-                      src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
-                      alt=""
-                      className="h-full w-full object-cover opacity-80"
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover opacity-80 transition-transform duration-700 hover:scale-105"
                     />
                   </div>
                   <div className="flex-1 p-6">

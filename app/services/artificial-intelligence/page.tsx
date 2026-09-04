@@ -293,6 +293,20 @@ const insights: InsightPost[] = [
     title: "Responsible AI: Building Bias Testing Into the Model Lifecycle",
     body: "Stop treating AI governance as a compliance checkbox. See how Starfii embeds bias testing and explainability from the first training run.",
   },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop",
+    title: "Computer Vision and NLP: Turning Business Data Into AI",
+    body: "Explore how production ready computer vision and NLP solutions help teams automate inspection, understand documents, and improve customer interactions.",
+  },
+  {
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    title: "Predictive AI: Turning Data Into Better Business Decisions",
+    body: "See how predictive models use historical signals and live business data to improve forecasting, risk scoring, and operational decision making.",
+  },
 ];
 
 /* ===============================================================
@@ -514,12 +528,14 @@ type CarouselProps = {
   children: ReactNode;
   itemCount: number;
   arrowVariant?: "light" | "dark";
+  clickToAdvance?: boolean;
 };
 
 function Carousel({
   children,
   itemCount,
   arrowVariant = "light",
+  clickToAdvance = false,
 }: CarouselProps): ReactElement {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [progress, setProgress] = useState(0);
@@ -564,6 +580,16 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        onClick={
+          clickToAdvance
+            ? (event) => {
+                const target = event.target as HTMLElement;
+                if (target.closest("[data-carousel-card]")) {
+                  scrollByCard(1);
+                }
+              }
+            : undefined
+        }
         className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
@@ -602,6 +628,170 @@ function Carousel({
             aria-label="Next"
             onClick={() => scrollByCard(1)}
             disabled={atEnd}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: INDIGO_CTA }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   REUSABLE: StepCarousel
+   One-card-at-a-time movement while preserving the responsive
+   number of visible cards.
+================================================================ */
+
+type StepCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: Breakpoints;
+  renderItem: (item: T, index: number) => ReactNode;
+  arrowVariant?: "light" | "dark";
+};
+
+function StepCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  arrowVariant = "light",
+}: StepCarouselProps<T>): ReactElement {
+  const perPage = useItemsPerPage(itemsPerPage);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+
+  const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
+  const isDark = arrowVariant === "dark";
+
+  const measureStep = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return undefined;
+
+    measureStep();
+
+    const observer = new ResizeObserver(measureStep);
+    observer.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
+
+    window.addEventListener("resize", measureStep);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measureStep);
+    };
+  }, [measureStep, perPage]);
+
+  useEffect(() => {
+    setPosition((current) => Math.min(current, maxPosition));
+  }, [maxPosition]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
+
+  const goTo = (nextPosition: number) => {
+    setPosition(
+      Math.min(Math.max(nextPosition, 0), maxPosition)
+    );
+  };
+
+  const progress = ((position + 1) / totalPositions) * 100;
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[3px] flex-1 overflow-hidden rounded-full"
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
+        >
+          <div
+            className="h-full rounded-full transition-[width] duration-300 ease-out"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: INDIGO_CTA,
+            }}
+          />
+        </div>
+
+        <span
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
+        >
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
+              color: isDark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -1172,7 +1362,7 @@ export default function ArtificialIntelligenceSection(): ReactElement {
               </h2>
             </Reveal>
 
-            <PagedCarousel
+            <StepCarousel
               items={industryAwards}
               itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
               arrowVariant="dark"
@@ -1258,16 +1448,16 @@ export default function ArtificialIntelligenceSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <PagedCarousel
+            <StepCarousel
               items={caseStudies}
               itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
               arrowVariant="light"
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
-                  <Link
-                    href={`/casestudies/${study.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-                  >
+                 <Link
+  href={`/services/artificial-intelligence/${study.slug}`}
+  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+>
                     <div className="h-[220px] flex-shrink-0 overflow-hidden">
                       <img
                         src={study.image}
@@ -1331,12 +1521,17 @@ export default function ArtificialIntelligenceSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.title}
                   delay={i * 90}
-                  className={`flex-shrink-0 snap-start ${
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start cursor-pointer ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >
