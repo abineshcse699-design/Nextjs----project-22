@@ -144,63 +144,111 @@ export const caseStudies: CaseStudy[] = [
   ]
 },
 
-  {
-    id: 2,
-    slug: "25-cost-savings-for-end-to-end-managed-data-delivery-reporting-services",
-    title: "25% Cost Savings through Data Transformation for Insurance Reporting",
-    subtitle:
-      "Reengineering a fragmented BI landscape into a unified, factory-based data delivery model for one of Belgium's largest insurers.",
-    category: "Data Engineering & Business Intelligence",
-    cardDescription:
-      "Starfii transformed a leading Belgian insurer's fragmented reporting landscape into a unified, automation-driven BI organization — cutting costs by 35% and delivering 15+ enterprise Datamarts.",
-    image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1600&auto=format&fit=crop",
-    client: "Leading Belgian Insurance Firm",
-    industry: "Insurance & Financial Services",
-    services: ["Business Intelligence", "Data Engineering", "Cloud Data Platform"],
-    overview: "One of Belgium's largest insurance firms",
-    clientOverview:
-      "The client is one of Belgium's largest insurance firms, offering solutions across multiple brands and distribution channels — spanning property and casualty insurance, health and provident insurance, and life insurance and pension savings. Years of growth through acquisition had left the client managing fragmented data systems and outdated reporting processes, creating a clear need for enterprise-wide data transformation.",
-    challengeIntro:
-      "Build a predictable BI organization with a single, enterprise-wide view of the business",
-    challengePoints: [
-      "No unified enterprise data model across brands and business lines.",
-      "Fragmented data consumption spread across multiple siloed systems.",
-      "Datamarts built for one-off business reporting rather than long-term architectural sustainability.",
-      "A resource-centric delivery model with no alignment on a common goal, producing inconsistent outcomes.",
-      "DataHub's operational data store model was incompatible with business reporting and control requirements.",
-      "Business departments struggled to align their own reporting needs with the available DataHub structure.",
-    ],
-    solutionIntro: "A factory-based Business Intelligence Competency Center",
-    solutionDetail:
-      "Starfii reengineered the client's Business Intelligence Competency Center using a factory-based delivery approach, centralizing data acquisition, preparation, reporting, analytics, dashboards, and insight generation under one coordinated model. A modular framework spanning flexible data provisioning, strong data governance, and reporting-optimized data design replaced the client's ad hoc, resource-centric approach — consolidating change, run, and reporting services into a single, governance-enabled BI organization built to scale.",
-    solution: [
-      "Reengineered the BI Competency Center around a factory-based, delivery-focused operating model.",
-      "Configured DataHub and Datamarts for both commercial and personal lines, covering bound policies and quotes.",
-      "Delivered market intelligence reporting on DataHub using SAS DI Studio and SAS Enterprise Guide.",
-      "Customized ETL pipelines to meet business requirements outside standard out-of-the-box coverage.",
-      "Implemented end-to-end automated reporting with stage-wise traceability for full data reconciliation.",
-    ],
+{
+id: 2,
+slug: "third-biome-building-indias-first-proprietary-postbiotic-ecommerce-brand",
+title: "Third Biome: Building a Science Led E Commerce Experience for Gut Health",
 
-    results: [
-      { metric: "35%", label: "Reduction in BI operating costs" },
-      { metric: "15+", label: "Enterprise Datamarts delivered" },
-      { metric: "1", label: "Unified enterprise-wide reporting view" },
-      { metric: "100%", label: "Automated, stage-wise traceable reporting" },
-    ],
-    benefitsIntro: "A scalable BI organization built for informed decision-making",
-    benefits: [
-      "Achieved approximately 35% cost reduction through consolidation and automation.",
-      "Delivered 15+ Datamarts offering unified insight into operations and commercial performance.",
-      "Provided intuitive, user-friendly reports that support faster, better-informed decisions.",
-      "Established end-to-end automated reporting with stage-wise traceability for seamless reconciliation.",
-    ],
-    summary:
-      "Starfii enabled a leading Belgian insurance firm to achieve 35% cost savings through enterprise data transformation. By consolidating fragmented systems, automating reporting, and implementing a scalable BI framework, we delivered 15+ Datamarts, intuitive insights, and streamlined operations — giving the client unified, traceable, and actionable business intelligence.",
-    techStack: ["Guidewire DataHub", "SAS DI Studio", "SAS Enterprise Guide", "SQL", "ETL Automation"],
-  },
+subtitle:
+"Creating a science led digital health commerce experience that transforms complex gut health science into a simple, trusted daily wellness journey.",
+category:
+"E Commerce & Digital Health",
+cardDescription:
+"Third Biome brings clinically informed postbiotic science to consumers through a premium e commerce experience — combining product education, evidence led storytelling, personalized discovery, and a seamless path from learning to purchase.",
+image:
+"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=800&auto=format&fit=crop",
+heroImage:
+"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=1600&auto=format&fit=crop",
+
+client: "Third Biome",
+industry: "Health, Wellness & E Commerce",
+services: [
+"E Commerce Development",
+"UX/UI Design",
+"Digital Product Strategy",
+"Conversion Optimization",
+"Content & Product Experience"
+],
+
+overview:
+"India's first proprietary postbiotic brand",
+
+clientOverview:
+"Third Biome is an India based health and wellness brand focused on postbiotic innovation and evidence led gut health. Its flagship product, Biome Balance, is powered by Thirdbiome GTB™, a proprietary postbiotic technology designed to deliver butyrate to the colon through a precision delivery system. The brand combines clinical research, responsible manufacturing, educational content, and a doctor guided wellness model to create a more transparent and science led approach to gut health.",
+
+challengeIntro:
+"Turn complex postbiotic science into a trusted, intuitive e commerce experience",
+
+challengePoints: [
+"Postbiotics are a relatively new category for Indian consumers, requiring clear education before purchase.",
+"Gut health terminology and scientific mechanisms can be difficult for everyday consumers to understand.",
+"The brand needed to communicate clinical credibility without making the experience feel overly technical or clinical.",
+"Consumers needed a simple path from understanding their gut health concerns to discovering the right product.",
+"The e commerce journey needed to balance education, trust, product discovery, and conversion.",
+"The brand had to differentiate itself from conventional probiotic and supplement companies through science, transparency, and proprietary technology."
+],
+
+solutionIntro:
+"A science led e commerce ecosystem built around trust, education, and conversion",
+
+solutionDetail:
+"The digital experience was structured around a simple principle: educate first, build trust second, and make purchasing effortless. The platform brings together product discovery, postbiotic education, clinical evidence, technology storytelling, customer outcomes, and guided wellness journeys within a unified e commerce experience. Instead of treating the website as a traditional online supplement store, the experience positions Third Biome as a trusted digital destination for modern gut health — helping visitors understand postbiotics, discover Biome Balance, evaluate the evidence, and begin a consistent daily protocol.",
+
+solution: [
+"Designed a premium, science led e commerce experience that positions Third Biome as a category defining postbiotic brand.",
+"Created a clear product storytelling framework explaining Thirdbiome GTB™, its delivery technology, and its role in supporting gut health.",
+"Developed intuitive product discovery journeys around key consumer goals including digestion, bloating, gut brain support, immunity, and metabolic wellness.",
+"Integrated evidence led content, clinical research, FAQs, and educational resources directly into the purchase journey.",
+"Built conversion focused product and subscription experiences for Biome Balance and the T3B Club.",
+"Created a guided gut health discovery experience that helps customers identify relevant concerns before choosing their starting protocol.",
+"Structured the content architecture to support long term growth across products, education, clinical evidence, community, and future wellness categories."
+],
+
+results: [
+{
+metric: "1",
+label: "Unified digital destination for product, science, and education"
+},
+{
+metric: "500 mg",
+label: "Defined GTB™ active per daily capsule"
+},
+{
+metric: "300+",
+label: "T3B Club members across early wellness cohorts"
+},
+{
+metric: "4",
+label: "Clinical and observational cohorts supporting the brand journey"
+}
+],
+
+benefitsIntro:
+"A digital health experience designed for long term trust and growth",
+
+benefits: [
+"Established a differentiated digital presence for an emerging postbiotic category in India.",
+"Simplified complex gut health science into clear, accessible consumer facing experiences.",
+"Connected education, evidence, product discovery, and checkout into a single customer journey.",
+"Strengthened consumer trust through transparent communication around research, technology, manufacturing, and product formulation.",
+"Created a scalable e commerce foundation capable of supporting future products and wellness categories.",
+"Introduced a guided protocol model that encourages consistency and ongoing engagement rather than one time purchases."
+],
+
+summary:
+"Third Biome's e commerce experience transforms a complex health category into a clear, credible, and conversion focused digital journey. By combining proprietary postbiotic technology, evidence led education, personalized product discovery, and the T3B Club protocol, the platform helps consumers move confidently from curiosity to understanding and from understanding to action. The result is a scalable digital ecosystem designed to build trust, drive product adoption, and establish Third Biome as a leading postbiotic brand.",
+
+techStack: [
+"E Commerce Platform",
+"Responsive Web Design",
+"Product Discovery",
+"Conversion Optimization",
+"Content Management",
+"Subscription Commerce",
+"Customer Journey Analytics"
+]
+}
+,
 
 {
   id: 3,
@@ -469,178 +517,345 @@ export const caseStudies: CaseStudy[] = [
   ],
 },
   
-  {
-    id: 5,
-    slug: "streaming-personalization-engine",
-    title: "Starfii Builds a Recommendation Engine That Lifts Watch Time 28% for a Streaming Platform",
-    subtitle:
-      "Replacing generic content rows with a personalization engine that learns what each viewer actually wants to watch next.",
-    category: "Enterprise AI/ML & Data Engineering",
-    cardDescription:
-      "Starfii designed and deployed a machine learning recommendation engine for a streaming platform, personalizing content discovery and lifting average watch time per user by 28%.",
-    image:
-      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1522869635100-9f4c5e86aa37?q=80&w=1600&auto=format&fit=crop",
-    client: "Streaming Media Platform",
-    industry: "Media & Entertainment",
-    services: ["Machine Learning", "Data Engineering", "Cloud Engineering"],
-    overview:
-      "A streaming platform with a growing content library found that most viewers never made it past the same handful of generic, editorially-curated rows on the home screen, leaving most of the catalog undiscovered.",
-    clientOverview:
-      "The client operates a subscription streaming platform with a content library spanning original productions and licensed titles across many genres. The home screen was built around editorially curated rows, updated manually by a content team, which worked well for the platform's most popular titles but did little to help viewers discover anything outside of what was already being promoted.",
-    challengeIntro:
-      "Leadership wanted every viewer's home screen to reflect what they actually liked to watch, not a single curated experience shown to everyone. That meant moving from manual curation to a system that could learn and adapt per viewer, without losing the editorial judgment that made the platform's taste distinctive.",
-    challengePoints: [
-      "Home screen rows were manually curated and identical for every viewer, regardless of individual watch history.",
-      "Most of the content library outside a small set of promoted titles went largely undiscovered.",
-      "The platform had rich viewing behavior data but no system turning it into personalized recommendations.",
-      "New and niche titles struggled to find an audience without a spot in the manually curated rows.",
-      "The content team worried that automated recommendations would flatten the platform's distinct editorial voice.",
-    ],
-    solutionIntro:
-      "Starfii's machine learning team built a recommendation engine that personalizes content discovery for each viewer, designed from the start to work alongside the content team's editorial judgment rather than replace it.",
-    solutionDetail:
-      "We built a data pipeline that captures viewing behavior, ratings, and engagement signals as they happen, feeding both a collaborative filtering model and a content-based model that understands genre, cast, and thematic similarity between titles. The two models' outputs are blended per viewer, so someone with a long watch history gets recommendations driven mostly by their own behavior, while a new viewer with little history leans more heavily on content-based similarity and editorial signals until the system has enough data to personalize further. Editorial teams retained control over a subset of home screen rows specifically reserved for curated picks, so the platform's distinct voice stayed alongside, not replaced by, the personalized rows.",
-    solution: [
-      "Built a real-time viewing behavior pipeline capturing watch history, ratings, and engagement signals per viewer.",
-      "Deployed a blended collaborative-filtering and content-based recommendation model personalized to each viewer's watch history.",
-      "Designed the model to lean on content-based similarity for new viewers with limited watch history, personalizing further over time.",
-      "Preserved dedicated editorial rows alongside personalized rows so curated picks remained part of the home screen experience.",
-    ],
-    results: [
-      { metric: "28%", label: "Increase in average watch time per user" },
-      { metric: "45%", label: "Increase in catalog titles discovered outside the top 100" },
-      { metric: "19%", label: "Reduction in subscriber churn" },
-      { metric: "2", label: "Recommendation models blended per viewer" },
-    ],
-    benefitsIntro:
-      "Personalized recommendations changed how much of the catalog viewers actually watched, without pushing editorial curation aside.",
-    benefits: [
-      "Viewers now see a home screen shaped by their own watch history instead of one identical experience for everyone.",
-      "New and niche titles reach viewers likely to enjoy them, instead of relying solely on a spot in curated rows.",
-      "New viewers with little watch history still get relevant recommendations through content-based similarity from day one.",
-      "The content team's curated rows remain a visible, distinct part of the home screen alongside personalized recommendations.",
-    ],
-    summary:
-      "Starfii built a recommendation engine that gave every viewer a personalized home screen while preserving the platform's editorial voice. Average watch time per user is up 28%, catalog discovery beyond the top 100 titles is up 45%, and subscriber churn has dropped 19% — proof that personalization and curation could work side by side rather than in competition.",
-    techStack: ["Python", "AWS", "Spark", "TensorFlow", "Kafka"],
-  },
+{
+id: 5,
+slug: "kareersity-pharmaceutical-education-career-readiness-platform",
+title:
+"KareerSity: Transforming Pharmaceutical Education into a Career Ready Digital Learning Experience",
+subtitle:
+"Bridging the gap between academic learning and industry expectations through practical education, professional upskilling, career development, and industry led learning.",
+category: "EdTech & Digital Learning",
+cardDescription:
+"KareerSity connects pharmaceutical education with real world industry requirements, creating a career focused digital experience for students, professionals, and organizations across learning, upskilling, recruitment, consulting, and leadership development.",
+image:
+"https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
+heroImage:
+"https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1600&auto=format&fit=crop",
+
+client: "KareerSity",
+industry: "Education, EdTech & Pharmaceutical",
+services: [
+"Digital Learning Experience",
+"UX/UI Design",
+"Education Technology",
+"Career Development",
+"Content Strategy"
+],
+
+overview:
+"An industry aligned EdTech platform focused on pharmaceutical career development",
+
+clientOverview:
+"KareerSity is an EdTech organization focused on transforming pharmaceutical education by connecting academic learning with real world industry requirements. The platform is designed to prepare students for the workforce while helping working professionals strengthen their skills and advance their careers. Its broader ecosystem brings together workforce preparation, professional upskilling, recruitment and placement, business consulting, and leadership coaching — creating a career development journey that extends beyond traditional classroom education.",
+
+challengeIntro:
+"Bridge the gap between pharmaceutical education and the skills demanded by the modern workforce",
+
+challengePoints: [
+"Traditional pharmaceutical education does not always provide enough exposure to real world industry expectations.",
+"Students need practical knowledge, professional skills, and greater confidence before entering the workforce.",
+"Working professionals require continuous upskilling to remain competitive in an evolving pharmaceutical industry.",
+"Academic learning and industry requirements can operate in separate silos, creating a gap between education and employability.",
+"Learners need clearer pathways connecting education, career development, recruitment, and long term professional growth.",
+"Organizations require access to talent with relevant skills, industry awareness, adaptability, and leadership potential."
+],
+
+solutionIntro:
+"A career focused learning ecosystem that connects academia, industry, and professional growth",
+
+solutionDetail:
+"KareerSity was positioned as more than a conventional learning platform. The digital experience brings education, practical industry knowledge, professional development, and career services together within a unified ecosystem. Its learning approach is built around real world workforce requirements, helping students develop the knowledge and confidence needed to transition into professional roles while enabling existing professionals to strengthen their capabilities. The platform also extends beyond learning through recruitment and placement support, business consulting, and leadership coaching — creating a continuous pathway from education to employment and professional advancement.",
+
+solution: [
+"Created an industry aligned learning experience focused on practical pharmaceutical knowledge and workforce readiness.",
+"Structured learning journeys around the evolving requirements of the pharmaceutical industry rather than traditional academic only models.",
+"Developed professional upskilling pathways for individuals working across sales, marketing, leadership, and related functions.",
+"Connected learning and career development with recruitment and placement opportunities to support the transition from education to employment.",
+"Integrated business consulting and leadership coaching into the broader professional development ecosystem.",
+"Designed the experience to support multiple audiences, including students entering the workforce, professionals seeking advancement, and organizations looking for strategic talent and business support.",
+"Established a scalable digital foundation for continuous learning, professional development, and stronger academia industry collaboration."
+],
+
+results: [
+{
+metric: "1",
+label: "Unified ecosystem connecting education and career development"
+},
+{
+metric: "5",
+label: "Core pillars spanning learning, upskilling, recruitment, consulting, and leadership"
+},
+{
+metric: "360°",
+label: "Career development approach from workforce preparation to professional growth"
+},
+{
+metric: "1",
+label: "Bridge connecting academic learning with industry expectations"
+}
+],
+
+benefitsIntro:
+"A future ready learning ecosystem designed around real world career outcomes",
+
+benefits: [
+"Helps pharmaceutical students develop practical skills and confidence before entering the workforce.",
+"Provides professionals with structured opportunities to strengthen their capabilities and advance their careers.",
+"Creates stronger alignment between academic learning and the evolving requirements of industry.",
+"Connects learning with recruitment and placement support to create a clearer pathway into professional opportunities.",
+"Extends beyond education through consulting and leadership development for individuals and organizations.",
+"Builds an adaptable learning ecosystem capable of evolving with changing workforce and industry demands."
+],
+
+summary:
+"KareerSity is redefining pharmaceutical education by bringing academic learning, industry knowledge, professional upskilling, recruitment, consulting, and leadership development into a connected career ecosystem. Instead of treating education as an end point, the platform positions learning as the foundation for long term professional growth — helping students become workforce ready, enabling professionals to advance their careers, and strengthening the connection between academia and industry.",
+
+techStack: [
+"Responsive Web Platform",
+"Learning Experience Design",
+"Content Management",
+"Career Discovery",
+"Digital Education",
+"User Centric UX/UI",
+"Professional Development"
+],
+},
 
 
 
+{
+  id: 6,
+  slug: "filecentral-ai-powered-file-management-platform",
+  title:
+    "Filecentral: Building an AI Powered File Management Platform for Smarter Information Access",
+  subtitle:
+    "Transforming scattered business files into an intelligent, searchable, and secure workspace where teams can find information, interact with documents, and turn stored data into actionable insights.",
+  category: "AI/ML & SaaS",
 
-  {
-    id: 6,
-    slug: "retail-ecommerce-fulfillment-optimization",
-    title: "Starfii Cuts Order Fulfillment Time 50% for a Fast-Growing E-Commerce Retailer",
-    subtitle:
-      "Rebuilding order routing and warehouse logic so every order takes the fastest path from cart to doorstep.",
-    category: "E-Commerce Engineering & Supply Chain Optimization",
-    cardDescription:
-      "Starfii rebuilt the order routing and warehouse management logic for a fast-growing e-commerce retailer, cutting average fulfillment time in half and reducing shipping costs by 22%.",
-    image:
-      "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1553413077-190dd305871c?q=80&w=1600&auto=format&fit=crop",
-    client: "Fast-Growing E-Commerce Retailer",
-    industry: "Retail & E-Commerce",
-    services: ["E-Commerce Engineering", "Supply Chain Optimization", "Data Analytics"],
-    overview:
-      "A fast-growing e-commerce retailer operating multiple warehouses was routing orders with simple, static rules that ignored real-time inventory and shipping cost, leaving fulfillment slow and expensive as order volume scaled.",
-    clientOverview:
-      "The client sells direct-to-consumer products through its own e-commerce storefront, fulfilling orders from a growing network of regional warehouses. As the warehouse network expanded, the original order-routing logic, built when the company ran a single warehouse, never caught up. Orders were routed based on fixed rules rather than which warehouse could actually fulfill and ship the order fastest and cheapest.",
-    challengeIntro:
-      "Leadership needed fulfillment to scale with the warehouse network instead of against it, routing every order to the right warehouse the first time instead of relying on rules built for a single-warehouse business.",
-    challengePoints: [
-      "Order routing used static rules that ignored real-time inventory levels across warehouses.",
-      "Orders were frequently split across multiple warehouses unnecessarily, driving up shipping costs.",
-      "Warehouse teams had no visibility into incoming order volume until orders had already been routed.",
-      "Shipping cost was not a factor in routing decisions, even when a closer warehouse had stock available.",
-      "The routing logic could not scale cleanly as new warehouses were added to the network.",
-    ],
-    solutionIntro:
-      "Starfii's e-commerce engineering team rebuilt order routing around real-time inventory and shipping cost, giving the retailer a system that finds the fastest, cheapest fulfillment path for every order automatically.",
-    solutionDetail:
-      "We built a real-time inventory sync layer connecting every warehouse's stock levels into a single system, replacing the periodic batch updates that had made routing decisions stale by the time they were made. On top of that live inventory view, we built a routing engine that evaluates stock availability, warehouse capacity, and shipping cost together for every order, splitting an order across warehouses only when it was genuinely the fastest or cheapest option rather than a routing default. Warehouse teams also gained a forecast view showing expected incoming order volume, so staffing and pick schedules could be planned ahead instead of reacting to orders as they landed.",
-    solution: [
-      "Built a real-time inventory sync layer giving every warehouse a live, shared view of stock across the network.",
-      "Deployed a routing engine that evaluates stock, warehouse capacity, and shipping cost together for every order.",
-      "Reduced unnecessary order splitting by routing to the single best warehouse whenever possible.",
-      "Gave warehouse teams a forecast view of incoming order volume to plan staffing and pick schedules ahead of time.",
-    ],
-    results: [
-      { metric: "50%", label: "Reduction in average order fulfillment time" },
-      { metric: "22%", label: "Reduction in shipping costs" },
-      { metric: "60%", label: "Fewer orders unnecessarily split across warehouses" },
-      { metric: "12", label: "Warehouses connected to the routing engine" },
-    ],
-    benefitsIntro:
-      "Real-time routing changed fulfillment from a fixed set of rules into a system that adapts as the warehouse network grows.",
-    benefits: [
-      "Orders route to the warehouse that can fulfill and ship them fastest, based on live inventory instead of static rules.",
-      "Shipping costs dropped as the routing engine started factoring cost into every decision.",
-      "Warehouse teams plan staffing ahead of time using forecasted order volume instead of reacting in real time.",
-      "New warehouses join the routing network without requiring custom rule changes.",
-    ],
-    summary:
-      "Starfii replaced static, single-warehouse order routing with a real-time engine that factors in inventory, capacity, and shipping cost for every order. Average fulfillment time is down 50%, shipping costs are down 22%, and this retailer's warehouse network now scales as a coordinated system instead of a set of disconnected locations.",
-    techStack: ["Node.js", "React", "AWS", "PostgreSQL", "Redis"],
-  },
+  cardDescription:
+    "Starfii built Filecentral as an AI powered file management platform that combines secure storage, intelligent search, document conversations, and AI driven insights — helping professionals move from simply storing files to actually understanding and using the information inside them.",
 
-  {
-    id: 7,
-    slug: "4-week-amaze-accelerated-assessment-data-platform-modernization",
-    title: "4-Week Amaze®-Accelerated Assessment for Data Platform Modernization",
-    subtitle:
-      "How a 30-year legal services firm chose Microsoft Fabric, cut costs 35–40%, and sped up time-to-market by 60% with an Amaze®-accelerated assessment.",
-    category: "Data Platform Modernization & Cloud Migration",
-    cardDescription:
-      "A US legal services firm with 30+ years of fragmented legacy data ran Starfii's automated Amaze® assessment — choosing Microsoft Fabric, speeding time-to-market by 60%, and cutting cost by 35–40% within 4 weeks.",
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1600&auto=format&fit=crop",
-    client: "US-Headquartered Legal Services Provider",
-    industry: "Legal Services",
-    services: ["Data Platform Modernization", "Cloud Migration Assessment", "Amaze® Platform"],
-    overview: "A prominent US legal services firm serving Fortune 500 companies and startups",
-    clientOverview:
-      "The US-headquartered legal services provider is a prominent firm known for serving a diverse range of clients, including Fortune 500 companies and innovative startups. With expertise across industries such as technology, finance, and healthcare, it offers comprehensive legal support in areas like mergers and acquisitions, litigation, and regulatory compliance, with a strong focus on customer experience.",
-    challengeIntro:
-      "Modernize a 30-year legacy data estate while minimizing downtime and cost overruns",
-    challengePoints: [
-      "Legacy System Complexity: aging and fragmented data platform led to high maintenance costs and limited scalability.",
-      "Migration Risks: the client needed a seamless migration with minimal disruption to daily operations.",
-      "Modernization Strategy: a systematic assessment of existing infrastructure was required to determine the best path to cloud adoption.",
-      "Evaluation of Hyperscaler Options: the client needed to assess and choose between three major hyperscalers — Snowflake, Microsoft Fabric, and Databricks.",
-    ],
-    solutionIntro: "An Amaze®-accelerated assessment across three leading hyperscalers",
-    solutionDetail:
-      "Starfii proposed the Amaze® Data and AI platform to accelerate the data modernization assessment process. Microsoft Fabric emerged as the ideal platform for scalable architecture that simplifies data workflows and unifies enterprise data with a single platform, centralizing data discovery, governance, and analytics. Its seamless integration with Power BI, Azure Data Lake, and Synapse Analytics ensured data engineering, storage, and visualization stayed interconnected in one cohesive environment.",
-    solution: [
-      "Comprehensive Assessment: evaluated the client's data landscape across 16 parameters, comparing all three hyperscalers.",
-      "Assessment Acceleration and Automation: used the Amaze® platform to automate key processes, cutting the time and effort required.",
-      "Systematic Modernization Strategy: guided the client to select Microsoft Fabric as the preferred hyperscaler platform based on fit.",
-      "Metadata-Driven Insights: surfaced actionable insight into optimizing and consolidating data objects ahead of migration.",
-    ],
-    
-    results: [
-      { metric: "4 Weeks", label: "Complete data estate assessment" },
-      { metric: "60%", label: "Improvement in time to market" },
-      { metric: "35–40%", label: "More cost-efficient assessment approach" },
-      { metric: "3", label: "Hyperscaler platforms evaluated across 16 parameters" },
-    ],
-    benefitsIntro: "A faster, more cost-efficient path to cloud modernization",
-    benefits: [
-      "Comprehensive data estate assessment within 4 weeks: Automated assessments completed within 4 weeks significantly enhanced time to market.",
-      "Accelerated and automated assessment: The assessment process was expedited, resulting in a 60% improved time to market.",
-      "35 to 40 percent more cost efficient: The approach was 35–40% more cost-effective, reducing overheads and operational costs.",
-    ],
-    summary:
-      "Starfii successfully enabled the client to modernize their legacy data platform by leveraging the Amaze® platform for a systematic, automated, and efficient assessment for their move to Microsoft Fabric. Our case exemplifies the power of innovative tools and processes in driving digital transformation for businesses with complex legacy systems.",
-    techStack: ["Microsoft Fabric", "Power BI", "Azure Data Lake", "Synapse Analytics", "Amaze® Platform"],
-  },
+  image:
+    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+
+  heroImage:
+    "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop",
+
+  client: "Filecentral",
+
+  industry:
+    "SaaS, AI & Enterprise Productivity",
+
+  services: [
+    "AI/ML Development",
+    "SaaS Product Development",
+    "File Management",
+    "AI Powered Search",
+    "Cloud Engineering",
+    "UX/UI Design"
+  ],
+
+  overview:
+    "An AI powered SaaS platform that makes business files easier to store, find, understand, and manage.",
+
+  clientOverview:
+    "Filecentral is an AI powered file storage and management platform designed for professionals and organizations that need a smarter way to manage growing volumes of digital information. Rather than functioning as a traditional cloud file repository, Filecentral combines centralized storage with intelligent search and an AI assistant called Panda. Users can organize their files, quickly locate information, ask questions about documents, analyze content across multiple files, and manage access through a secure, permission based environment.",
+
+  challengeIntro:
+    "Move beyond traditional file storage and make organizational knowledge instantly accessible",
+
+  challengePoints: [
+    "Business files were becoming increasingly difficult to organize across growing collections of documents and digital assets.",
+    "Traditional folder based navigation required users to remember where information was stored before they could access it.",
+    "Finding specific information inside large documents often required manually opening and reviewing multiple files.",
+    "Users needed a faster way to understand document content without reading every file from beginning to end.",
+    "Organizations required strong access controls and security while making information easier to discover.",
+    "The product needed to combine file storage, intelligent search, AI interaction, and document insights within one simple experience."
+  ],
+
+  solutionIntro:
+    "An intelligent file workspace powered by AI search and conversational document intelligence",
+
+  solutionDetail:
+    "Starfii designed and developed Filecentral as a modern SaaS platform that brings storage, organization, search, and AI intelligence into one unified workspace. The platform allows users to centralize their digital files while using intelligent search to locate information based on context rather than relying solely on traditional folder navigation. At the center of the experience is Panda, an AI assistant that allows users to interact directly with their stored documents, retrieve information, generate summaries, and uncover relationships across files. Security and access management were incorporated into the platform architecture so organizations could improve information accessibility without compromising control over sensitive data.",
+
+  solution: [
+    "Built the core File Management System for centralized storage, organization, and retrieval of business files.",
+    "Developed AI powered search capabilities to help users locate relevant files and information using natural language queries and contextual understanding.",
+    "Integrated Panda AI as a conversational assistant that allows users to ask questions directly about their stored documents.",
+    "Enabled AI assisted document analysis to extract information, summarize content, and identify relationships across multiple files.",
+    "Implemented secure file access and permission controls to ensure sensitive information remains available only to authorized users.",
+    "Designed a scalable architecture capable of supporting increasing storage requirements and growing organizational data volumes.",
+    "Created a streamlined SaaS experience that reduces the friction between storing information and actually using it."
+  ],
+
+  results: [
+    {
+      metric: "1 Month",
+      label: "MVP delivered for the core File Management System and AI experience"
+    },
+    {
+      metric: "3–3.5 Months",
+      label: "Full platform development timeline"
+    },
+    {
+      metric: "40%",
+      label: "Faster file search and information retrieval"
+    },
+    {
+      metric: "50%",
+      label: "Improvement in file organization"
+    },
+    {
+      metric: "30%",
+      label: "Increase in productivity"
+    }
+  ],
+
+  benefitsIntro:
+    "Turning file storage into an intelligent productivity layer for modern teams",
+
+  benefits: [
+    "Users can find important files and information without manually navigating through complex folder structures.",
+    "Panda AI enables teams to interact directly with their documents and retrieve answers in seconds.",
+    "Organizations can extract insights and relationships from their existing document collections instead of treating files as passive storage.",
+    "Centralized file management creates a single, organized workspace for business information.",
+    "Permission based access and secure storage help organizations maintain control over sensitive data.",
+    "The scalable SaaS foundation allows Filecentral to grow with increasing file volumes, users, and organizational requirements."
+  ],
+
+  summary:
+    "Starfii transformed Filecentral from the concept of a traditional file repository into an intelligent AI powered information workspace. By combining centralized file management, contextual search, conversational document interaction through Panda AI, document analysis, and secure access controls, Filecentral helps professionals spend less time searching for information and more time using it. The platform's MVP was delivered in one month, followed by the full product within approximately three to three and a half months, with reported improvements of 40% in search speed, 50% in file organization, and 30% in productivity.",
+
+  techStack: [
+    "AI/ML",
+    "Python",
+    "Cloud Infrastructure",
+    "Natural Language Processing",
+    "Document Intelligence",
+    "SaaS Architecture",
+    "Secure File Storage",
+    "AI Powered Search"
+  ],
+},
+
+ {
+  id: 7,
+  slug: "express-roadways-technology-driven-logistics-platform",
+
+  title:
+    "Express Roadways: Building a Technology Driven Logistics Platform for Smarter Supply Chain Operations",
+
+  subtitle:
+    "Modernizing freight, warehousing, tracking, and supply chain operations through a connected digital experience built for visibility, reliability, and operational efficiency.",
+
+  category:
+    "Logistics Technology & Supply Chain",
+
+  cardDescription:
+    "Express Roadways combines freight, supply chain, agility, and cold chain capabilities with technology driven operations to deliver reliable, visible, and customized logistics solutions across India.",
+
+  image:
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=800&auto=format&fit=crop",
+
+  heroImage:
+    "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=1600&auto=format&fit=crop",
+
+  client:
+    "Express Roadways",
+
+  industry:
+    "Logistics, Transportation & Supply Chain",
+
+  services: [
+    "Logistics Technology",
+    "Supply Chain Management",
+    "Freight Management",
+    "Warehousing",
+    "Fleet & Shipment Tracking",
+    "Digital Operations"
+  ],
+
+  overview:
+    "A pan India logistics and supply chain organization connecting freight, warehousing, distribution, and technology driven transportation services.",
+
+  clientOverview:
+    "Express Roadways is a logistics and supply chain company with more than three decades of industry experience. The organization provides integrated solutions across freight transportation, agile movement, supply chain management, warehousing, distribution, and cold chain logistics. With a pan India operating network, dedicated fleet capabilities, real time tracking, and customized logistics solutions, Express Roadways helps businesses move goods with greater visibility, reliability, and operational control.",
+
+  challengeIntro:
+    "Create greater visibility and control across a complex, multi service logistics operation",
+
+  challengePoints: [
+    "Large scale logistics operations require coordination across transportation, warehousing, inventory, and distribution.",
+    "Customers need real time visibility into shipment movement and delivery status.",
+    "Different industries require customized logistics models rather than a one size fits all transportation service.",
+    "Managing freight, warehousing, fleet operations, and supply chain activities across multiple locations creates operational complexity.",
+    "Time sensitive and temperature sensitive shipments require specialized processes, monitoring, and reliable execution.",
+    "Growing logistics operations need technology enabled processes that improve transparency, efficiency, and decision making."
+  ],
+
+  solutionIntro:
+    "A connected logistics ecosystem built around visibility, technology, and operational reliability",
+
+  solutionDetail:
+    "Express Roadways combines logistics expertise with technology driven operations to create a more connected supply chain experience. The digital ecosystem brings together freight movement, agile transportation, warehousing, distribution, tracking, and specialized cold chain capabilities. Real time GPS tracking, technology enabled operational processes, warehouse systems, inventory controls, and customized reporting help provide customers with greater visibility from shipment initiation through delivery. The approach enables Express Roadways to support businesses across industries while maintaining the flexibility required for different cargo, timelines, locations, and supply chain models.",
+
+  solution: [
+    "Structured a unified digital experience around four core service areas: Freight, Supply Chain, Agility, and Cold Chain.",
+    "Enabled real time fleet and shipment visibility through GPS based tracking technology.",
+    "Supported end to end supply chain operations covering warehousing, inventory management, distribution, and last mile movement.",
+    "Integrated technology driven warehouse processes including dashboard access, barcoding, scanning, and operational reporting.",
+    "Designed logistics solutions around individual customer requirements, business sectors, shipment volumes, and delivery timelines.",
+    "Supported temperature sensitive transportation through specialized refrigerated vehicles and monitoring systems.",
+    "Created a scalable operational foundation capable of supporting pan India logistics networks and growing customer requirements."
+  ],
+
+  results: [
+    {
+      metric: "98%",
+      label: "Customer retention rate"
+    },
+    {
+      metric: "800+",
+      label: "Dedicated fleet strength"
+    },
+    {
+      metric: "40+",
+      label: "Operational centers across India"
+    },
+    {
+      metric: "4",
+      label: "Core logistics service verticals"
+    }
+  ],
+
+  benefitsIntro:
+    "A technology enabled logistics ecosystem designed for visibility, reliability, and scale",
+
+  benefits: [
+    "Customers gain greater visibility into shipment movement through real time tracking capabilities.",
+    "Integrated freight, warehousing, and supply chain services simplify complex logistics requirements.",
+    "Customized logistics models allow businesses to align transportation and distribution with their specific operational needs.",
+    "Technology enabled warehouse and inventory processes improve operational transparency and control.",
+    "Specialized cold chain capabilities support the safe movement of temperature sensitive products.",
+    "A broad operational network enables businesses to connect with markets and distribution points across India.",
+    "A technology first operating approach creates a stronger foundation for efficiency, scalability, and long term customer relationships."
+  ],
+
+  summary:
+    "Express Roadways is building a more connected approach to logistics by combining transportation expertise with technology driven supply chain operations. From freight and agile movement to warehousing, distribution, real time tracking, and cold chain logistics, the organization brings multiple capabilities together under one integrated ecosystem. With a pan India network, dedicated fleet, technology enabled operations, and a strong focus on reliability and transparency, Express Roadways helps businesses move products with greater confidence and control.",
+
+  techStack: [
+    "GPS & Real Time Tracking",
+    "Warehouse Management",
+    "Inventory Management",
+    "Digital Operations",
+    "Barcoding & Scanning",
+    "KPI Reporting",
+    "Supply Chain Technology",
+    "Fleet Management"
+  ],
+}
 ];
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
