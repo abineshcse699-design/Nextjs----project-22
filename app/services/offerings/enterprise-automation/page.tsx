@@ -114,35 +114,35 @@ const tabs: ServiceTab[] = [
     heading: "Bring clinical documentation into an intelligent coding workflow",
     body: "Ingest approved clinical records, notes, reports, and relevant coding documentation from existing healthcare systems so coding intelligence starts with the information teams already use.",
     image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Understand Clinical Context",
     heading: "Interpret clinical language, not just individual keywords",
     body: "AI analyzes clinical terminology and documentation context to identify diagnoses, procedures, conditions, findings, and other information that may influence coding recommendations.",
     image:
-      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Recommend Relevant Codes",
     heading: "Generate coding recommendations with supporting context",
     body: "The platform surfaces candidate codes and supporting evidence for review, helping coding teams focus their expertise on validation and final decisions instead of repetitive first-pass searching.",
     image:
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Validate & Review",
     heading: "Keep professional review at the center of critical coding decisions",
     body: "Apply validation rules, confidence thresholds, exception workflows, and human review to verify completeness, consistency, and alignment with organizational coding standards before final submission.",
     image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Connect to Revenue Cycle",
     heading: "Move validated coding outcomes into the workflows that depend on them",
     body: "Integrate approved coding outputs with billing, claims, revenue cycle, reporting, and downstream healthcare processes so coding intelligence contributes directly to operational execution.",
     image:
-      "https://images.unsplash.com/photo-1584515933487-779824d29309?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   
 ];
@@ -199,35 +199,35 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "hospital-ai-assisted-coding",
     image:
-      "https://images.unsplash.com/photo-1516841273335-e39b37888115?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title: "Modernizing Hospital Coding With AI-Assisted Clinical Intelligence",
     body: "Explore how an AI-assisted workflow can help coding teams analyze documentation faster, surface relevant coding information, and focus professional review where it adds the most value.",
   },
   {
     slug: "ambulatory-coding-workflow",
     image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
     title: "Improving Coding Turnaround Across Ambulatory Operations",
     body: "See how intelligent document analysis and structured coding recommendations can help ambulatory organizations reduce repetitive work and accelerate coding workflows.",
   },
   {
     slug: "revenue-cycle-coding-intelligence",
     image:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
     title: "Connecting Coding Intelligence With Revenue Cycle Operations",
     body: "Discover how validated coding outputs can move into claims and revenue cycle workflows to reduce rework and improve operational visibility.",
   },
   {
     slug: "coding-quality-compliance",
     image:
-      "https://images.unsplash.com/photo-1576765608866-5b51046452be?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     title: "Strengthening Coding Quality, Review, and Audit Readiness",
     body: "Learn how traceable AI recommendations, validation checkpoints, and structured review workflows can support coding quality and governance programs.",
   },
   {
     slug: "specialty-coding-ai",
     image:
-      "https://images.unsplash.com/photo-1638202993928-7d113b8b9f9b?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
     title: "Adapting AI Coding Workflows to Specialty Documentation",
     body: "Explore how coding intelligence can be tailored to specialty-specific terminology, documentation patterns, and organizational coding requirements.",
   },
@@ -244,7 +244,7 @@ const insights: InsightPost[] = [
   {
     large: true,
     image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
     title:
       "AI-Powered Medical Coding: Moving From Manual Review to Intelligent Coding Workflows",
     body: "Explore how clinical language understanding, AI-assisted recommendations, validation, and human review can reshape medical coding operations without removing professional accountability.",
@@ -252,28 +252,28 @@ const insights: InsightPost[] = [
   {
     large: false,
     image:
-      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
     title: "Human-in-the-Loop AI for Healthcare Coding",
     body: "Understand why strong healthcare AI workflows combine automation with qualified human review, clear exception handling, and traceable recommendations.",
   },
   {
     large: false,
     image:
-      "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     title: "Connecting Coding Automation to Revenue Cycle Performance",
     body: "See how coding workflow improvements can support cleaner operational handoffs, reduced rework, and faster downstream processing.",
   },
   {
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title: "Medical Coding Quality: Improving Accuracy With AI-Assisted Review",
     body: "Explore how AI-assisted validation, exception handling, and human review can help healthcare coding teams improve consistency and reduce avoidable rework.",
   },
   {
     large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
     title: "Healthcare Coding Automation: Building Scalable Workflows",
     body: "See how connected coding workflows can scale across specialties while keeping governance, traceability, and professional oversight at the center.",
   },
@@ -795,7 +795,7 @@ export default function MedicalCodingSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -955,8 +955,8 @@ export default function MedicalCodingSection(): ReactElement {
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a digital roadmap"
+                src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop"
+                alt="IT team collaborating on a digital technology project"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>

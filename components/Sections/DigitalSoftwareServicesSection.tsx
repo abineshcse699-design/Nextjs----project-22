@@ -46,11 +46,19 @@ const TAB_AUTOPLAY_MS = 4000;
    "Starfii offers..."), keyword rich but natural, no hyphens.
 ================================================================ */
 
-const keyTakeaways: string[] = [
-  "Starfii is an AI driven software and product engineering company trusted by enterprises and Fortune 500 brands worldwide.",
-  "We design customer focused digital experiences and modernize complex application portfolios for speed and scale.",
-  "Our core services span enterprise product engineering, SaaS product engineering, Generative AI and LLM engineering, and digital strategy consulting.",
-  "We turn ideas into scalable software products through AI led engineering, cloud engineering, and faster delivery cycles.",
+const keyTakeaways = [
+  {
+    title: "Build",
+    body: "Design and engineer scalable digital products across web, mobile, SaaS, and enterprise platforms with AI driven software engineering.",
+  },
+  {
+    title: "Modernize",
+    body: "Transform legacy applications and complex technology portfolios into modern, cloud ready platforms with minimal disruption to business operations.",
+  },
+  {
+    title: "Scale",
+    body: "Accelerate delivery through cloud engineering, DevOps automation, data, AI, and quality engineering while keeping performance and customer experience at the center.",
+  },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
@@ -623,73 +631,125 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: PagedCarousel
+   REUSABLE: StepCarousel
+   Moves exactly ONE card per arrow click.
+   Used only for Industry Recognition and Case Studies.
 ================================================================ */
 
-type PagedCarouselProps<T> = {
+type StepCarouselProps<T> = {
   items: T[];
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
 };
 
-function PagedCarousel<T>({
+function StepCarousel<T>({
   items,
   itemsPerPage,
   renderItem,
   arrowVariant = "light",
-}: PagedCarouselProps<T>): ReactElement {
+}: StepCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const [page, setPage] = useState(0);
+  const trackRef = useRef<HTMLDivElement | null>(null);
+
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+
+  const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
+  const isDark = arrowVariant === "dark";
+
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
 
   useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
+    const track = trackRef.current;
+    if (!track) return;
 
-  const pages: T[][] = [];
-  for (let i = 0; i < totalPages; i += 1) {
-    pages.push(items.slice(i * perPage, i * perPage + perPage));
-  }
+    measure();
 
-  const isDark = arrowVariant === "dark";
-  const goTo = (next: number) =>
-    setPage(Math.min(Math.max(next, 0), totalPages - 1));
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
+
+    window.addEventListener("resize", measure);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [measure, perPage]);
+
+  useEffect(() => {
+    setPosition((current) => Math.min(current, maxPosition));
+  }, [maxPosition]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
+
+  const goTo = (nextPosition: number) => {
+    const next = Math.min(
+      Math.max(nextPosition, 0),
+      maxPosition
+    );
+
+    setPosition(next);
+  };
+
+  const progress = ((position + 1) / totalPositions) * 100;
 
   return (
     <div>
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((pageItems, pi) => (
-            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
-              {pageItems.map((item, ii) => (
-                <div key={ii} className="min-w-0 flex-1">
-                  {renderItem(item, pi * perPage + ii)}
-                </div>
-              ))}
-              {pageItems.length < perPage &&
-                Array.from({ length: perPage - pageItems.length }).map(
-                  (_, gi) => (
-                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
-                  )
-                )}
-            </div>
-          ))}
-        </div>
+      <div
+        ref={trackRef}
+        className="flex gap-6 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
+      >
+        {items.map((item, i) => (
+          <div
+            key={i}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, i)}
+          </div>
+        ))}
       </div>
 
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${((page + 1) / totalPages) * 100}%`,
+              width: `${progress}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
@@ -697,30 +757,36 @@ function PagedCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
         >
-          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
           <button
             type="button"
             aria-label="Previous"
-            onClick={() => goTo(page - 1)}
-            disabled={page === 0}
+            onClick={() => goTo(position - 1)}
+            disabled={position === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
               color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
-            onClick={() => goTo(page + 1)}
-            disabled={page === totalPages - 1}
+            onClick={() => goTo(position + 1)}
+            disabled={position === maxPosition}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -731,6 +797,7 @@ function PagedCarousel<T>({
     </div>
   );
 }
+
 
 /* ===============================================================
    SECTION
@@ -824,46 +891,59 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
-            className="overflow-hidden rounded-2xl border"
+            className="overflow-hidden rounded-[22px] border bg-white"
             style={{ borderColor: LAVENDER_ACCENT }}
           >
-            <button
-              type="button"
-              onClick={() => setTakeawaysOpen((v) => !v)}
-              className="flex w-full items-center justify-between px-8 py-6 text-left"
+            {/* Header */}
+            <div
+              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
+              style={{
+                borderBottom: `1px solid ${LAVENDER_ACCENT}`,
+              }}
             >
-              <span
-                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
-                Key Takeaways
-              </span>
-              <ChevronDown
-                size={20}
-                style={{ color: CHAMPION_BLUE }}
-                className={`transition-transform duration-300 ${
-                  takeawaysOpen ? "rotate-180" : ""
-                }`}
-              />
-            </button>
+              <div className="flex items-center gap-3">
+                <Sparkles
+                  size={21}
+                  strokeWidth={1.8}
+                  style={{ color: LAVENDER_ACCENT }}
+                />
 
-            {takeawaysOpen && (
-              <ul
-                className="space-y-3 px-8 pb-8"
-                style={{ borderTop: `1px solid ${LAVENDER_ACCENT}` }}
+                <span
+                  className="font-body text-[17px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Digital &amp; Software at a Glance
+                </span>
+              </div>
+
+              <span
+                className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+                style={{
+                  backgroundColor: "#F1EEFC",
+                  color: INDIGO_CTA,
+                }}
               >
-                {keyTakeaways.map((point, i) => (
-                  <li
-                    key={i}
-                    className="ss-tab-panel font-body pt-3 text-[15px] leading-relaxed text-slate-700"
-                    style={{ animationDelay: `${i * 60}ms` }}
+                WEB • MOBILE • SAAS • AI
+              </span>
+            </div>
+
+            {/* Three-column content */}
+            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+              {keyTakeaways.map((point) => (
+                <div key={point.title}>
+                  <h3
+                    className="font-heading text-[23px] font-semibold"
+                    style={{ color: CHAMPION_BLUE }}
                   >
-                    • {point}
-                  </li>
-                ))}
-              </ul>
-            )}
+                    {point.title}
+                  </h3>
+
+                  <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                    {point.body}
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
 
           <p
@@ -1174,7 +1254,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               </h2>
             </Reveal>
 
- <PagedCarousel
+ <StepCarousel
               items={industryAwards}
               itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
               arrowVariant="dark"
@@ -1260,7 +1340,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           </Reveal>
 
          <div className="mt-12">
- <PagedCarousel
+ <StepCarousel
   items={caseStudies}
   itemsPerPage={{
     mobile: 1,

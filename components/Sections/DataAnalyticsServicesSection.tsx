@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import {
   ChevronRight,
@@ -297,22 +297,187 @@ const insights: Insight[] = [
   },
 ];
 
+
+/* ===============================================================
+   ONE-CARD-AT-A-TIME CAROUSEL
+   Content is untouched. Arrows advance exactly one card.
+================================================================ */
+
+type StepCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
+  };
+  renderItem: (item: T, index: number) => ReactNode;
+  dark?: boolean;
+};
+
+function StepCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  dark = false,
+}: StepCarouselProps<T>) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [perPage, setPerPage] = useState(itemsPerPage.desktop);
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+
+  const updatePerPage = useCallback(() => {
+    if (window.innerWidth <= 639) {
+      setPerPage(itemsPerPage.mobile);
+    } else if (window.innerWidth <= 1023) {
+      setPerPage(itemsPerPage.tablet);
+    } else {
+      setPerPage(itemsPerPage.desktop);
+    }
+  }, [itemsPerPage]);
+
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    const firstCard = track?.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
+
+  useEffect(() => {
+    updatePerPage();
+    measure();
+
+    window.addEventListener("resize", updatePerPage);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      window.removeEventListener("resize", updatePerPage);
+      window.removeEventListener("resize", measure);
+    };
+  }, [updatePerPage, measure]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) resizeObserver.observe(firstCard);
+
+    return () => resizeObserver.disconnect();
+  }, [measure, perPage]);
+
+  const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
+
+  useEffect(() => {
+    setPosition((currentPosition) =>
+      Math.min(currentPosition, maxPosition)
+    );
+  }, [maxPosition]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
+
+  const progress = ((position + 1) / totalPositions) * 100;
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        className="flex gap-6 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
+      >
+        {items.map((item, index) => (
+          <div
+            key={index}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(item, index)}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[2px] flex-1 overflow-hidden rounded-full"
+          style={{
+            backgroundColor: dark ? "rgba(255,255,255,0.15)" : "#CBD5E1",
+          }}
+        >
+          <div
+            className="h-full transition-[width] duration-500 ease-out"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: ACCENT_INDIGO,
+            }}
+          />
+        </div>
+
+        <span
+          className="font-body flex-none text-[14px] tabular-nums"
+          style={{
+            color: dark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
+        >
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-none items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => setPosition((p) => Math.max(0, p - 1))}
+            disabled={position === 0}
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: dark ? "rgba(255,255,255,0.10)" : "#E5E1F5",
+              color: dark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() =>
+              setPosition((p) => Math.min(maxPosition, p + 1))
+            }
+            disabled={position === maxPosition}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: ACCENT_INDIGO }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function DataAnalyticsServicesSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const [openImpact, setOpenImpact] = useState<number | null>(null);
-  const [recogPage, setRecogPage] = useState(0);
   const [insightPage, setInsightPage] = useState(0);
   const current = tabs[activeTab];
-
-  // Recognition carousel: 2 cards per page
-  const RECOG_PER_PAGE = 2;
-  const recogPages = Math.ceil(recognitions.length / RECOG_PER_PAGE);
-  const visibleRecognitions = recognitions.slice(
-    recogPage * RECOG_PER_PAGE,
-    recogPage * RECOG_PER_PAGE + RECOG_PER_PAGE
-  );
 
   // Insights carousel: 3 cards per page
   const INSIGHTS_PER_PAGE = 3;
@@ -693,55 +858,55 @@ export default function DataAnalyticsServicesSection() {
             </Link>
           </motion.div>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={container}
-            className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3"
-          >
-            {sharedCaseStudies.map((study) => (
-              <motion.div
-                key={study.slug}
-                variants={item}
-                className="flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
-                style={{ border: "1px solid #EDEAFB" }}
-              >
-                <div className="h-[180px] overflow-hidden">
-                  <img
-                    src={study.image}
-                    alt={study.title}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <span
-                    className="font-body text-[12px] font-semibold tracking-wide"
-                    style={{ color: LAVENDER_ACCENT }}
-                  >
-                    {study.industry.toUpperCase()}
-                  </span>
-                  <h3
-                    className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {study.title}
-                  </h3>
-                  <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                    {study.body}
-                  </p>
-                  <Link
-                    href={`/services/data-analytics/casestudies/${study.slug}`}
-                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
-                    style={{ color: LAVENDER_ACCENT }}
-                  >
-                    Learn More
-                    <ArrowUpRight size={15} />
-                  </Link>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+          <div className="mt-10">
+            <StepCarousel
+              items={sharedCaseStudies}
+              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
+              renderItem={(study) => (
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, amount: 0.15 }}
+                  variants={item}
+                  className="flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{ border: "1px solid #EDEAFB" }}
+                >
+                  <div className="h-[180px] overflow-hidden">
+                    <img
+                      src={study.image}
+                      alt={study.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-7">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: LAVENDER_ACCENT }}
+                    >
+                      {study.industry.toUpperCase()}
+                    </span>
+                    <h3
+                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {study.title}
+                    </h3>
+                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {study.body}
+                    </p>
+                    <Link
+                      href={`/services/data-analytics/casestudies/${study.slug}`}
+                      className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
+                      style={{ color: LAVENDER_ACCENT }}
+                    >
+                      Learn More
+                      <ArrowUpRight size={15} />
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
+            />
+          </div>
         </section>
 
         {/* ============================================================
@@ -929,18 +1094,12 @@ export default function DataAnalyticsServicesSection() {
             </motion.h2>
 
             <div>
-              <motion.div
-                key={recogPage}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="grid grid-cols-1 gap-6 md:grid-cols-2"
-              >
-                {visibleRecognitions.map((rec) => (
-                  <div
-                    key={rec.title}
-                    className="overflow-hidden rounded-2xl bg-white"
-                  >
+              <StepCarousel
+                items={recognitions}
+                itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
+                dark
+                renderItem={(rec) => (
+                  <div className="overflow-hidden rounded-2xl bg-white">
                     <div className="flex items-center justify-between px-8 pt-7">
                       <span
                         className="font-body text-[14px] font-semibold"
@@ -992,46 +1151,8 @@ export default function DataAnalyticsServicesSection() {
                       </a>
                     </div>
                   </div>
-                ))}
-              </motion.div>
-
-              {/* Progress bar + pagination */}
-              <div className="mt-10 flex items-center gap-6">
-                <div className="h-[2px] flex-1 bg-white/15">
-                  <div
-                    className="h-full transition-all duration-500"
-                    style={{
-                      backgroundColor: ACCENT_INDIGO,
-                      width: `${((recogPage + 1) / recogPages) * 100}%`,
-                    }}
-                  />
-                </div>
-                <span className="font-body flex-none text-[14px] text-slate-400">
-                  {String(recogPage + 1).padStart(2, "0")} /{" "}
-                  {String(recogPages).padStart(2, "0")}
-                </span>
-                <div className="flex flex-none items-center gap-3">
-                  <button
-                    type="button"
-                    aria-label="Previous recognitions"
-                    onClick={() =>
-                      setRecogPage((p) => (p - 1 + recogPages) % recogPages)
-                    }
-                    className="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors duration-300 hover:bg-white/20"
-                  >
-                    <ChevronLeft size={18} />
-                  </button>
-                  <button
-                    type="button"
-                    aria-label="Next recognitions"
-                    onClick={() => setRecogPage((p) => (p + 1) % recogPages)}
-                    className="flex h-11 w-11 items-center justify-center rounded-full text-white"
-                    style={{ backgroundColor: ACCENT_INDIGO }}
-                  >
-                    <ChevronRight size={18} />
-                  </button>
-                </div>
-              </div>
+                )}
+              />
             </div>
           </div>
         </div>

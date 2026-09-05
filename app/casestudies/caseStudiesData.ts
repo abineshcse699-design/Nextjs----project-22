@@ -41,10 +41,10 @@ export const caseStudies: CaseStudy[] = [
     "Starfii built Doodley's MVP in just 2 months, creating a digital pet care experience that connects pet parents with veterinary services, home visits, vaccinations, consultations, and hospital backed care.",
 
   image:
-    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
 
   heroImage:
-    "https://images.unsplash.com/photo-1450778869180-41d0601e046e?q=80&w=1600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
 
   client: "Doodley",
 
@@ -145,110 +145,118 @@ export const caseStudies: CaseStudy[] = [
 },
 
 {
-id: 2,
-slug: "third-biome-building-indias-first-proprietary-postbiotic-ecommerce-brand",
-title: "Third Biome: Building a Science Led E Commerce Experience for Gut Health",
+  id: 2,
+  slug: "third-biome-building-indias-first-proprietary-postbiotic-ecommerce-brand",
 
-subtitle:
-"Creating a science led digital health commerce experience that transforms complex gut health science into a simple, trusted daily wellness journey.",
-category:
-"E Commerce & Digital Health",
-cardDescription:
-"Third Biome brings clinically informed postbiotic science to consumers through a premium e commerce experience — combining product education, evidence led storytelling, personalized discovery, and a seamless path from learning to purchase.",
-image:
-"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=800&auto=format&fit=crop",
-heroImage:
-"https://images.unsplash.com/photo-1559757175-0eb30cd8c063?q=80&w=1600&auto=format&fit=crop",
+  title: "Third Biome: Building a Science Led E Commerce Experience for Gut Health",
 
-client: "Third Biome",
-industry: "Health, Wellness & E Commerce",
-services: [
-"E Commerce Development",
-"UX/UI Design",
-"Digital Product Strategy",
-"Conversion Optimization",
-"Content & Product Experience"
-],
+  subtitle:
+    "Creating a science led digital health commerce experience that transforms complex gut health science into a simple, trusted daily wellness journey.",
 
-overview:
-"India's first proprietary postbiotic brand",
+  category:
+    "E Commerce & Digital Health",
 
-clientOverview:
-"Third Biome is an India based health and wellness brand focused on postbiotic innovation and evidence led gut health. Its flagship product, Biome Balance, is powered by Thirdbiome GTB™, a proprietary postbiotic technology designed to deliver butyrate to the colon through a precision delivery system. The brand combines clinical research, responsible manufacturing, educational content, and a doctor guided wellness model to create a more transparent and science led approach to gut health.",
+  cardDescription:
+    "Third Biome brings clinically informed postbiotic science to consumers through a premium e commerce experience — combining product education, evidence led storytelling, personalized discovery, and a seamless path from learning to purchase.",
 
-challengeIntro:
-"Turn complex postbiotic science into a trusted, intuitive e commerce experience",
+  // UPDATED: Science + Biotech + Digital Technology
 
-challengePoints: [
-"Postbiotics are a relatively new category for Indian consumers, requiring clear education before purchase.",
-"Gut health terminology and scientific mechanisms can be difficult for everyday consumers to understand.",
-"The brand needed to communicate clinical credibility without making the experience feel overly technical or clinical.",
-"Consumers needed a simple path from understanding their gut health concerns to discovering the right product.",
-"The e commerce journey needed to balance education, trust, product discovery, and conversion.",
-"The brand had to differentiate itself from conventional probiotic and supplement companies through science, transparency, and proprietary technology."
-],
+  image:
+    "https://static.wixstatic.com/media/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png/v1/fill/w_980%2Ch_551%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png",
 
-solutionIntro:
-"A science led e commerce ecosystem built around trust, education, and conversion",
+  heroImage:
+    "https://static.wixstatic.com/media/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png/v1/fill/w_1600%2Ch_900%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png",
 
-solutionDetail:
-"The digital experience was structured around a simple principle: educate first, build trust second, and make purchasing effortless. The platform brings together product discovery, postbiotic education, clinical evidence, technology storytelling, customer outcomes, and guided wellness journeys within a unified e commerce experience. Instead of treating the website as a traditional online supplement store, the experience positions Third Biome as a trusted digital destination for modern gut health — helping visitors understand postbiotics, discover Biome Balance, evaluate the evidence, and begin a consistent daily protocol.",
+  client: "Third Biome",
+  
+  industry: "Health, Wellness & E Commerce",
 
-solution: [
-"Designed a premium, science led e commerce experience that positions Third Biome as a category defining postbiotic brand.",
-"Created a clear product storytelling framework explaining Thirdbiome GTB™, its delivery technology, and its role in supporting gut health.",
-"Developed intuitive product discovery journeys around key consumer goals including digestion, bloating, gut brain support, immunity, and metabolic wellness.",
-"Integrated evidence led content, clinical research, FAQs, and educational resources directly into the purchase journey.",
-"Built conversion focused product and subscription experiences for Biome Balance and the T3B Club.",
-"Created a guided gut health discovery experience that helps customers identify relevant concerns before choosing their starting protocol.",
-"Structured the content architecture to support long term growth across products, education, clinical evidence, community, and future wellness categories."
-],
+  services: [
+    "E Commerce Development",
+    "UX/UI Design",
+    "Digital Product Strategy",
+    "Conversion Optimization",
+    "Content & Product Experience"
+  ],
 
-results: [
-{
-metric: "1",
-label: "Unified digital destination for product, science, and education"
+  overview:
+    "India's first proprietary postbiotic brand",
+
+  clientOverview:
+    "Third Biome is an India based health and wellness brand focused on postbiotic innovation and evidence led gut health. Its flagship product, Biome Balance, is powered by Thirdbiome GTB™, a proprietary postbiotic technology designed to deliver butyrate to the colon through a precision delivery system. The brand combines clinical research, responsible manufacturing, educational content, and a doctor guided wellness model to create a more transparent and science led approach to gut health.",
+
+  challengeIntro:
+    "Turn complex postbiotic science into a trusted, intuitive e commerce experience",
+
+  challengePoints: [
+    "Postbiotics are a relatively new category for Indian consumers, requiring clear education before purchase.",
+    "Gut health terminology and scientific mechanisms can be difficult for everyday consumers to understand.",
+    "The brand needed to communicate clinical credibility without making the experience feel overly technical or clinical.",
+    "Consumers needed a simple path from understanding their gut health concerns to discovering the right product.",
+    "The e commerce journey needed to balance education, trust, product discovery, and conversion.",
+    "The brand had to differentiate itself from conventional probiotic and supplement companies through science, transparency, and proprietary technology."
+  ],
+
+  solutionIntro:
+    "A science led e commerce ecosystem built around trust, education, and conversion",
+
+  solutionDetail:
+    "The digital experience was structured around a simple principle: educate first, build trust second, and make purchasing effortless. The platform brings together product discovery, postbiotic education, clinical evidence, technology storytelling, customer outcomes, and guided wellness journeys within a unified e commerce experience. Instead of treating the website as a traditional online supplement store, the experience positions Third Biome as a trusted digital destination for modern gut health — helping visitors understand postbiotics, discover Biome Balance, evaluate the evidence, and begin a consistent daily protocol.",
+
+  solution: [
+    "Designed a premium, science led e commerce experience that positions Third Biome as a category defining postbiotic brand.",
+    "Created a clear product storytelling framework explaining Thirdbiome GTB™, its delivery technology, and its role in supporting gut health.",
+    "Developed intuitive product discovery journeys around key consumer goals including digestion, bloating, gut brain support, immunity, and metabolic wellness.",
+    "Integrated evidence led content, clinical research, FAQs, and educational resources directly into the purchase journey.",
+    "Built conversion focused product and subscription experiences for Biome Balance and the T3B Club.",
+    "Created a guided gut health discovery experience that helps customers identify relevant concerns before choosing their starting protocol.",
+    "Structured the content architecture to support long term growth across products, education, clinical evidence, community, and future wellness categories."
+  ],
+
+  results: [
+    {
+      metric: "1",
+      label: "Unified digital destination for product, science, and education"
+    },
+    {
+      metric: "500 mg",
+      label: "Defined GTB™ active per daily capsule"
+    },
+    {
+      metric: "300+",
+      label: "T3B Club members across early wellness cohorts"
+    },
+    {
+      metric: "4",
+      label: "Clinical and observational cohorts supporting the brand journey"
+    }
+  ],
+
+  benefitsIntro:
+    "A digital health experience designed for long term trust and growth",
+
+  benefits: [
+    "Established a differentiated digital presence for an emerging postbiotic category in India.",
+    "Simplified complex gut health science into clear, accessible consumer facing experiences.",
+    "Connected education, evidence, product discovery, and checkout into a single customer journey.",
+    "Strengthened consumer trust through transparent communication around research, technology, manufacturing, and product formulation.",
+    "Created a scalable e commerce foundation capable of supporting future products and wellness categories.",
+    "Introduced a guided protocol model that encourages consistency and ongoing engagement rather than one time purchases."
+  ],
+
+  summary:
+    "Third Biome's e commerce experience transforms a complex health category into a clear, credible, and conversion focused digital journey. By combining proprietary postbiotic technology, evidence led education, personalized product discovery, and the T3B Club protocol, the platform helps consumers move confidently from curiosity to understanding and from understanding to action. The result is a scalable digital ecosystem designed to build trust, drive product adoption, and establish Third Biome as a leading postbiotic brand.",
+
+  techStack: [
+    "E Commerce Platform",
+    "Responsive Web Design",
+    "Product Discovery",
+    "Conversion Optimization",
+    "Content Management",
+    "Subscription Commerce",
+    "Customer Journey Analytics"
+  ]
 },
-{
-metric: "500 mg",
-label: "Defined GTB™ active per daily capsule"
-},
-{
-metric: "300+",
-label: "T3B Club members across early wellness cohorts"
-},
-{
-metric: "4",
-label: "Clinical and observational cohorts supporting the brand journey"
-}
-],
-
-benefitsIntro:
-"A digital health experience designed for long term trust and growth",
-
-benefits: [
-"Established a differentiated digital presence for an emerging postbiotic category in India.",
-"Simplified complex gut health science into clear, accessible consumer facing experiences.",
-"Connected education, evidence, product discovery, and checkout into a single customer journey.",
-"Strengthened consumer trust through transparent communication around research, technology, manufacturing, and product formulation.",
-"Created a scalable e commerce foundation capable of supporting future products and wellness categories.",
-"Introduced a guided protocol model that encourages consistency and ongoing engagement rather than one time purchases."
-],
-
-summary:
-"Third Biome's e commerce experience transforms a complex health category into a clear, credible, and conversion focused digital journey. By combining proprietary postbiotic technology, evidence led education, personalized product discovery, and the T3B Club protocol, the platform helps consumers move confidently from curiosity to understanding and from understanding to action. The result is a scalable digital ecosystem designed to build trust, drive product adoption, and establish Third Biome as a leading postbiotic brand.",
-
-techStack: [
-"E Commerce Platform",
-"Responsive Web Design",
-"Product Discovery",
-"Conversion Optimization",
-"Content Management",
-"Subscription Commerce",
-"Customer Journey Analytics"
-]
-}
-,
 
 {
   id: 3,
@@ -265,10 +273,10 @@ techStack: [
     "JETT is an AI powered meeting assistant that captures conversations, generates accurate transcripts, summarizes key discussions, identifies action items, and helps teams turn every meeting into measurable outcomes.",
 
   image:
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
 
   heroImage:
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1600&auto=format&fit=crop",
 
   client: "JETT AI Powered Meeting Intelligence Platform",
 
@@ -383,7 +391,6 @@ techStack: [
     "Workflow Automation"
   ]
 },
-  // ── your other 4 case studies stay exactly as they were ──
 
 {
   id: 4,
@@ -399,11 +406,12 @@ techStack: [
   cardDescription:
     "AppMD is a virtual healthcare platform designed to connect patients with qualified physicians across the United States and India, making expert medical consultation more accessible through a convenient digital experience.",
 
+  // UPDATED: Telemedicine + Digital Healthcare Technology
   image:
-    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
 
   heroImage:
-    "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop",
 
   client:
     "AppMD",
@@ -516,120 +524,129 @@ techStack: [
     "Digital Healthcare"
   ],
 },
-  
+
 {
-id: 5,
-slug: "kareersity-pharmaceutical-education-career-readiness-platform",
-title:
-"KareerSity: Transforming Pharmaceutical Education into a Career Ready Digital Learning Experience",
-subtitle:
-"Bridging the gap between academic learning and industry expectations through practical education, professional upskilling, career development, and industry led learning.",
-category: "EdTech & Digital Learning",
-cardDescription:
-"KareerSity connects pharmaceutical education with real world industry requirements, creating a career focused digital experience for students, professionals, and organizations across learning, upskilling, recruitment, consulting, and leadership development.",
-image:
-"https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=800&auto=format&fit=crop",
-heroImage:
-"https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1600&auto=format&fit=crop",
+  id: 5,
+  slug: "kareersity-pharmaceutical-education-career-readiness-platform",
 
-client: "KareerSity",
-industry: "Education, EdTech & Pharmaceutical",
-services: [
-"Digital Learning Experience",
-"UX/UI Design",
-"Education Technology",
-"Career Development",
-"Content Strategy"
-],
+  title:
+    "KareerSity: Transforming Pharmaceutical Education into a Career Ready Digital Learning Experience",
 
-overview:
-"An industry aligned EdTech platform focused on pharmaceutical career development",
+  subtitle:
+    "Bridging the gap between academic learning and industry expectations through practical education, professional upskilling, career development, and industry led learning.",
 
-clientOverview:
-"KareerSity is an EdTech organization focused on transforming pharmaceutical education by connecting academic learning with real world industry requirements. The platform is designed to prepare students for the workforce while helping working professionals strengthen their skills and advance their careers. Its broader ecosystem brings together workforce preparation, professional upskilling, recruitment and placement, business consulting, and leadership coaching — creating a career development journey that extends beyond traditional classroom education.",
+  category: "EdTech & Digital Learning",
 
-challengeIntro:
-"Bridge the gap between pharmaceutical education and the skills demanded by the modern workforce",
+  cardDescription:
+    "KareerSity connects pharmaceutical education with real world industry requirements, creating a career focused digital experience for students, professionals, and organizations across learning, upskilling, recruitment, consulting, and leadership development.",
 
-challengePoints: [
-"Traditional pharmaceutical education does not always provide enough exposure to real world industry expectations.",
-"Students need practical knowledge, professional skills, and greater confidence before entering the workforce.",
-"Working professionals require continuous upskilling to remain competitive in an evolving pharmaceutical industry.",
-"Academic learning and industry requirements can operate in separate silos, creating a gap between education and employability.",
-"Learners need clearer pathways connecting education, career development, recruitment, and long term professional growth.",
-"Organizations require access to talent with relevant skills, industry awareness, adaptability, and leadership potential."
-],
+  image:
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=800&auto=format&fit=crop",
 
-solutionIntro:
-"A career focused learning ecosystem that connects academia, industry, and professional growth",
+  heroImage:
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1600&auto=format&fit=crop",
 
-solutionDetail:
-"KareerSity was positioned as more than a conventional learning platform. The digital experience brings education, practical industry knowledge, professional development, and career services together within a unified ecosystem. Its learning approach is built around real world workforce requirements, helping students develop the knowledge and confidence needed to transition into professional roles while enabling existing professionals to strengthen their capabilities. The platform also extends beyond learning through recruitment and placement support, business consulting, and leadership coaching — creating a continuous pathway from education to employment and professional advancement.",
+  client: "KareerSity",
 
-solution: [
-"Created an industry aligned learning experience focused on practical pharmaceutical knowledge and workforce readiness.",
-"Structured learning journeys around the evolving requirements of the pharmaceutical industry rather than traditional academic only models.",
-"Developed professional upskilling pathways for individuals working across sales, marketing, leadership, and related functions.",
-"Connected learning and career development with recruitment and placement opportunities to support the transition from education to employment.",
-"Integrated business consulting and leadership coaching into the broader professional development ecosystem.",
-"Designed the experience to support multiple audiences, including students entering the workforce, professionals seeking advancement, and organizations looking for strategic talent and business support.",
-"Established a scalable digital foundation for continuous learning, professional development, and stronger academia industry collaboration."
-],
+  industry: "Education, EdTech & Pharmaceutical",
 
-results: [
-{
-metric: "1",
-label: "Unified ecosystem connecting education and career development"
+  services: [
+    "Digital Learning Experience",
+    "UX/UI Design",
+    "Education Technology",
+    "Career Development",
+    "Content Strategy"
+  ],
+
+  overview:
+    "An industry aligned EdTech platform focused on pharmaceutical career development",
+
+  clientOverview:
+    "KareerSity is an EdTech organization focused on transforming pharmaceutical education by connecting academic learning with real world industry requirements. The platform is designed to prepare students for the workforce while helping working professionals strengthen their skills and advance their careers. Its broader ecosystem brings together workforce preparation, professional upskilling, recruitment and placement, business consulting, and leadership coaching — creating a career development journey that extends beyond traditional classroom education.",
+
+  challengeIntro:
+    "Bridge the gap between pharmaceutical education and the skills demanded by the modern workforce",
+
+  challengePoints: [
+    "Traditional pharmaceutical education does not always provide enough exposure to real world industry expectations.",
+    "Students need practical knowledge, professional skills, and greater confidence before entering the workforce.",
+    "Working professionals require continuous upskilling to remain competitive in an evolving pharmaceutical industry.",
+    "Academic learning and industry requirements can operate in separate silos, creating a gap between education and employability.",
+    "Learners need clearer pathways connecting education, career development, recruitment, and long term professional growth.",
+    "Organizations require access to talent with relevant skills, industry awareness, adaptability, and leadership potential."
+  ],
+
+  solutionIntro:
+    "A career focused learning ecosystem that connects academia, industry, and professional growth",
+
+  solutionDetail:
+    "KareerSity was positioned as more than a conventional learning platform. The digital experience brings education, practical industry knowledge, professional development, and career services together within a unified ecosystem. Its learning approach is built around real world workforce requirements, helping students develop the knowledge and confidence needed to transition into professional roles while enabling existing professionals to strengthen their capabilities. The platform also extends beyond learning through recruitment and placement support, business consulting, and leadership coaching — creating a continuous pathway from education to employment and professional advancement.",
+
+  solution: [
+    "Created an industry aligned learning experience focused on practical pharmaceutical knowledge and workforce readiness.",
+    "Structured learning journeys around the evolving requirements of the pharmaceutical industry rather than traditional academic only models.",
+    "Developed professional upskilling pathways for individuals working across sales, marketing, leadership, and related functions.",
+    "Connected learning and career development with recruitment and placement opportunities to support the transition from education to employment.",
+    "Integrated business consulting and leadership coaching into the broader professional development ecosystem.",
+    "Designed the experience to support multiple audiences, including students entering the workforce, professionals seeking advancement, and organizations looking for strategic talent and business support.",
+    "Established a scalable digital foundation for continuous learning, professional development, and stronger academia industry collaboration."
+  ],
+
+  results: [
+    {
+      metric: "1",
+      label: "Unified ecosystem connecting education and career development"
+    },
+    {
+      metric: "5",
+      label: "Core pillars spanning learning, upskilling, recruitment, consulting, and leadership"
+    },
+    {
+      metric: "360°",
+      label: "Career development approach from workforce preparation to professional growth"
+    },
+    {
+      metric: "1",
+      label: "Bridge connecting academic learning with industry expectations"
+    }
+  ],
+
+  benefitsIntro:
+    "A future ready learning ecosystem designed around real world career outcomes",
+
+  benefits: [
+    "Helps pharmaceutical students develop practical skills and confidence before entering the workforce.",
+    "Provides professionals with structured opportunities to strengthen their capabilities and advance their careers.",
+    "Creates stronger alignment between academic learning and the evolving requirements of industry.",
+    "Connects learning with recruitment and placement support to create a clearer pathway into professional opportunities.",
+    "Extends beyond education through consulting and leadership development for individuals and organizations.",
+    "Builds an adaptable learning ecosystem capable of evolving with changing workforce and industry demands."
+  ],
+
+  summary:
+    "KareerSity is redefining pharmaceutical education by bringing academic learning, industry knowledge, professional upskilling, recruitment, consulting, and leadership development into a connected career ecosystem. Instead of treating education as an end point, the platform positions learning as the foundation for long term professional growth — helping students become workforce ready, enabling professionals to advance their careers, and strengthening the connection between academia and industry.",
+
+  techStack: [
+    "Responsive Web Platform",
+    "Learning Experience Design",
+    "Content Management",
+    "Career Discovery",
+    "Digital Education",
+    "User Centric UX/UI",
+    "Professional Development"
+  ],
 },
-{
-metric: "5",
-label: "Core pillars spanning learning, upskilling, recruitment, consulting, and leadership"
-},
-{
-metric: "360°",
-label: "Career development approach from workforce preparation to professional growth"
-},
-{
-metric: "1",
-label: "Bridge connecting academic learning with industry expectations"
-}
-],
-
-benefitsIntro:
-"A future ready learning ecosystem designed around real world career outcomes",
-
-benefits: [
-"Helps pharmaceutical students develop practical skills and confidence before entering the workforce.",
-"Provides professionals with structured opportunities to strengthen their capabilities and advance their careers.",
-"Creates stronger alignment between academic learning and the evolving requirements of industry.",
-"Connects learning with recruitment and placement support to create a clearer pathway into professional opportunities.",
-"Extends beyond education through consulting and leadership development for individuals and organizations.",
-"Builds an adaptable learning ecosystem capable of evolving with changing workforce and industry demands."
-],
-
-summary:
-"KareerSity is redefining pharmaceutical education by bringing academic learning, industry knowledge, professional upskilling, recruitment, consulting, and leadership development into a connected career ecosystem. Instead of treating education as an end point, the platform positions learning as the foundation for long term professional growth — helping students become workforce ready, enabling professionals to advance their careers, and strengthening the connection between academia and industry.",
-
-techStack: [
-"Responsive Web Platform",
-"Learning Experience Design",
-"Content Management",
-"Career Discovery",
-"Digital Education",
-"User Centric UX/UI",
-"Professional Development"
-],
-},
-
-
 
 {
   id: 6,
   slug: "filecentral-ai-powered-file-management-platform",
+
   title:
     "Filecentral: Building an AI Powered File Management Platform for Smarter Information Access",
+
   subtitle:
     "Transforming scattered business files into an intelligent, searchable, and secure workspace where teams can find information, interact with documents, and turn stored data into actionable insights.",
+
   category: "AI/ML & SaaS",
 
   cardDescription:
@@ -739,7 +756,7 @@ techStack: [
   ],
 },
 
- {
+{
   id: 7,
   slug: "express-roadways-technology-driven-logistics-platform",
 
