@@ -174,6 +174,7 @@ export default async function CaseStudyPage({
             >
               {study.title}
             </h1>
+            
 
             <p className="mt-7 max-w-3xl text-[17px] leading-[1.8] text-slate-600">
               {study.body}

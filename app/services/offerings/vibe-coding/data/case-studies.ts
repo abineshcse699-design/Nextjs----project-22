@@ -42,6 +42,7 @@ export const caseStudies: CaseStudy[] = [
     body:
       "Learn how AI meeting intelligence can structure client discussions and turn conversation history into reusable knowledge for consulting and professional services teams.",
   },
+  
   {
     slug: "enterprise-meeting-workflows",
     image:
