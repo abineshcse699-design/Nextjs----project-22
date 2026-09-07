@@ -1,522 +1,484 @@
-export type CaseStudyStat = {
-  value: string;
+export type CaseStudyResult = {
+  metric: string;
   label: string;
 };
 
-export type CaseStudyTestimonial = {
-  quote: string;
-  author: string;
-  role: string;
-};
-
-export type CaseStudyDetail = {
+export type CaseStudy = {
   slug: string;
-  image: string;
-  heroImage?: string;
+  category: string;
   title: string;
-  body: string;
+  subtitle: string;
+  cardDescription: string;
+
   client: string;
   industry: string;
   services: string[];
-  duration: string;
+
+  image: string;
+  heroImage: string;
+
   overview: string;
-  challenge: string;
-  solution: string;
-  results: string;
-  stats: CaseStudyStat[];
-  tags: string[];
-  testimonial: CaseStudyTestimonial;
+  clientOverview: string;
+
+  challengeIntro: string;
+  challengePoints: string[];
+
+  solutionIntro: string;
+  solutionDetail: string;
+  solution: string[];
+
+  results: CaseStudyResult[];
+
+  benefitsIntro: string;
+  benefits: string[];
+
+  summary: string;
+  techStack: string[];
 };
 
-/* ============================================================
-   CASE STUDY IMAGE MAP
-   Each card + hero uses a visually relevant IT/domain image.
-============================================================ */
-
-export const caseStudies: CaseStudyDetail[] = [
-  /* ============================================================
-     01. INSURANCE — Claims / Digital Workflow
-     Image theme: paperwork/contract digitization, claims documents
-  ============================================================ */
-  {
-    slug: "insurance-claims-low-code-platform",
-
-    image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop",
-
-    heroImage:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop",
-
-    title:
-      "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
-
-    body:
-      "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
-
-    client: "Global Reinsurance Provider",
-    industry: "Insurance",
-
-    services: [
-      "Low Code Engineering",
-      "Workflow Automation",
-      "Claims Systems",
-    ],
-
-    duration: "8 Months",
-
-    overview:
-      "A global reinsurer needed to replace a slow, paper heavy claims process with a modern digital platform that adjusters, underwriters, and partners could all rely on.",
-
-    challenge:
-      "Claims took weeks to move through manual review stages, data lived in disconnected spreadsheets, and there was no single view of a claim's status across teams or regions.",
-
-    solution:
-      "Starfii designed and built a low code claims management platform with configurable workflows, automated document intake, and role based dashboards, integrated directly with the reinsurer's existing policy and finance systems.",
-
-    results:
-      "Claims cycle time dropped sharply, manual data entry was largely eliminated, and regional teams gained real time visibility into every claim from first notice of loss to settlement.",
-
-    stats: [
-      { value: "62%", label: "Faster claims processing" },
-      { value: "40+", label: "Workflows automated" },
-      { value: "99.9%", label: "Platform uptime" },
-    ],
-
-    tags: ["Low-code platforms", "Workflow automation", "Systems integration"],
-
-    testimonial: {
-      quote:
-        "Our adjusters finally have one place to see a claim's full history. The platform gave us back weeks in every cycle.",
-      author: "Director of Claims Operations",
-      role: "Global Reinsurance Provider",
-    },
-  },
+export const caseStudies: CaseStudy[] = [
 
   /* ============================================================
-     02. BANKING — Digital Banking / FinTech
-     Image theme: mobile banking app, digital payments
+     BANKING
   ============================================================ */
   {
     slug: "regional-bank-digital-banking-experience",
+    category: "Banking",
+
+    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
+    subtitle:
+      "A 38-branch retail bank was losing new customers to digital-first competitors because opening an account still meant a branch visit and a week of paperwork.",
+    cardDescription:
+      "See how Starfii rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction.",
+
+    client: "38-branch regional retail bank, ~410,000 active customers",
+    industry: "Banking & Financial Services",
+    services: ["SaaS Product Engineering", "UX Consulting", "Cloud Engineering"],
 
     image:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
+    overview: "A bank whose digital front door was turning customers away",
+    clientOverview:
+      "New account applications were dropping off before completion in 61% of cases, mostly at the identity-verification step, which still required a printed form to be brought into a branch. The bank's core banking vendor released updates on a fixed quarterly schedule, so even small UI fixes had to wait months to ship.",
 
-    body:
-      "See how Starfii's SaaS product engineering team rebuilt a legacy banking experience into a fast, secure digital platform that improved onboarding and customer engagement.",
-
-    client: "Regional Retail Bank",
-    industry: "Banking & Financial Services",
-
-    services: [
-      "SaaS Product Engineering",
-      "UX Consulting",
-      "Cloud Engineering",
+    challengeIntro: "A decade-old portal tightly wired to core banking",
+    challengePoints: [
+      "Locked release cycle: Every feature request, even copy changes, required a change ticket with the core banking vendor and a multi-week release window.",
+      "Batch identity checks: The KYC provider only returned results overnight, forcing applicants to wait a full day before funding an account.",
+      "No separation of concerns: The public site was a decade-old ASP.NET app with no boundary between presentation and core banking logic.",
     ],
 
-    duration: "10 Months",
-
-    overview:
-      "A regional bank's legacy online banking portal was holding back both customer experience and the pace of new feature delivery.",
-
-    challenge:
-      "The existing front end was built on an outdated stack, account opening required multiple branch visits, and every new feature took months to ship because the experience was tightly coupled with legacy banking systems.",
-
-    solution:
-      "Starfii rebuilt the digital banking experience on a modern cloud native architecture, introduced a fully digital onboarding flow, and decoupled the user experience from core banking through a dedicated API layer.",
-
-    results:
-      "Customers can now complete account opening digitally, page performance improved significantly, and the bank's product team can release new capabilities much faster.",
-
-    stats: [
-      { value: "55%", label: "Reduction in onboarding time" },
-      { value: "4.7/5", label: "Customer satisfaction score" },
-      { value: "3x", label: "Faster feature releases" },
+    solutionIntro: "A decoupled experience layer with real-time verification",
+    solutionDetail:
+      "Starfii built a dedicated experience layer in Next.js sitting behind a GraphQL gateway, separating the customer-facing product from the core banking system entirely.",
+    solution: [
+      "Real-time KYC: Replaced the overnight batch identity check with a real-time document-verification and liveness-check provider.",
+      "One-session onboarding: ID capture, liveness check, and initial deposit combined into a single guided flow instead of separate steps.",
+      "Weekly release cadence: A feature-flagging system let the bank's product team ship UI and flow changes weekly, independent of the vendor's release calendar.",
     ],
 
-    tags: ["Cloud-native architecture", "API design", "UX research"],
+    results: [
+      { metric: "9d → 40m", label: "Time to open and fund an account" },
+      { metric: "-54%", label: "Drop-off at identity verification" },
+      { metric: "14", label: "Onboarding experiments shipped in 6 months" },
+      { metric: "3x", label: "Faster feature releases" },
+    ],
 
-    testimonial: {
-      quote:
-        "Customers open accounts in minutes now, not branch visits. That shift changed how our product team thinks about every release.",
-      author: "Head of Digital Banking",
-      role: "Regional Retail Bank",
-    },
+    benefitsIntro: "What changed for the bank's product team",
+    benefits: [
+      "Faster iteration: Product managers ship onboarding experiments weekly instead of waiting on a vendor release window.",
+      "Higher completion: More than half of applicants who used to abandon at identity verification now complete the flow.",
+      "Lower support load: Fewer customers call branches asking why their application is stuck overnight.",
+    ],
+
+    summary:
+      "The bank's real bottleneck wasn't the account-opening form — it was an overnight identity check and a vendor release calendar sitting behind it. Fixing both let a 9-day process become a 40-minute one, and let the product team start shipping on its own schedule.",
+
+    techStack: ["Next.js", "GraphQL", "Real-time KYC integration", "Feature flagging", "AWS"],
   },
 
   /* ============================================================
-     03. UTILITIES — Smart Grid / Energy Technology
-     Image theme: power lines, energy infrastructure
+     UTILITIES
   ============================================================ */
   {
     slug: "utilities-digital-transformation-microsoft",
+    category: "Utilities",
+
+    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
+    subtitle:
+      "Crews were dispatched by radio and filed paper work orders, so headquarters had no idea a job was finished until a technician drove back to file paperwork.",
+    cardDescription:
+      "Discover how Starfii used Microsoft Business Applications to modernize field operations and give teams real-time visibility across the grid.",
+
+    client: "Regional electric utility, 280 field technicians across 6 service districts",
+    industry: "Utilities & Energy",
+    services: ["Microsoft Business Applications", "Field Operations", "Data Engineering"],
 
     image:
       "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Digital Transformation in Utilities Powered by Microsoft Business Applications",
+    overview: "A utility running field operations over radio and paper",
+    clientOverview:
+      "Crews received job assignments over radio and filled out paper work orders that were manually keyed into the billing system, typically 1-3 days after the work was finished. Outage maps in the control room were updated by phone call, so the public outage tracker was frequently hours behind reality.",
 
-    body:
-      "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and create real time visibility across its infrastructure.",
-
-    client: "Regional Utilities Provider",
-    industry: "Utilities & Energy",
-
-    services: [
-      "Microsoft Business Applications",
-      "Field Operations",
-      "Data Engineering",
+    challengeIntro: "Rural connectivity and legacy on-prem systems",
+    challengePoints: [
+      "No mobile tooling: Many trucks had unreliable data connectivity in rural districts, so any solution had to work offline and sync later.",
+      "No API surface: Billing and asset-management ran on on-prem SQL Server databases with no existing integration layer.",
+      "Manual relay: Outage status moved from field to control room by phone call, with no direct link to the public outage map.",
     ],
 
-    duration: "12 Months",
-
-    overview:
-      "A utilities provider needed a unified way to manage field crews, outages, and infrastructure assets that had previously been tracked across disconnected tools and paper based processes.",
-
-    challenge:
-      "Field technicians lacked real time access to work orders, outage information was reconciled manually, and leadership had no live view of infrastructure status.",
-
-    solution:
-      "Starfii implemented a Microsoft Power Platform solution connecting field mobile applications, Dynamics 365, and Power BI dashboards to create one connected operational environment.",
-
-    results:
-      "Field teams can now receive and close work orders in real time, outage response has improved, and leadership has a consolidated view of operational status.",
-
-    stats: [
-      { value: "45%", label: "Faster outage response" },
-      { value: "100%", label: "Field crews connected" },
-      { value: "Real time", label: "Operational visibility" },
+    solutionIntro: "An offline-first field app connected to dispatch and BI",
+    solutionDetail:
+      "Starfii built an offline-capable Power Apps field application that queues work-order updates locally and syncs once connectivity returns, paired with Dynamics 365 Field Service for dispatch.",
+    solution: [
+      "Offline-first mobile: Field technicians close work orders even without signal; updates sync automatically once back in range.",
+      "Connected dispatch: Dynamics 365 Field Service gives dispatchers live crew location and job status instead of radio check-ins.",
+      "Live outage data: A new integration layer over the legacy SQL Server systems feeds the same outage data into the public-facing map.",
     ],
 
-    tags: ["Microsoft Power Platform", "Field mobility", "Data integration"],
+    results: [
+      { metric: "Days → min", label: "Time for job data to reach billing" },
+      { metric: "280", label: "Field technicians using the app daily" },
+      { metric: "6", label: "Service districts connected, incl. rural areas" },
+      { metric: "45%", label: "Faster outage response" },
+    ],
 
-    testimonial: {
-      quote:
-        "Field crews see the same information leadership sees, in real time. Outages get resolved faster because nobody's waiting on a phone call.",
-      author: "VP of Field Operations",
-      role: "Regional Utilities Provider",
-    },
+    benefitsIntro: "What changed in day-to-day operations",
+    benefits: [
+      "Real-time visibility: Dispatchers see a job close the moment it's done, not after a truck drives back to the depot.",
+      "Accurate public outage map: The map reflects live field data instead of a manually updated phone relay.",
+      "Less rework: Fewer billing corrections from illegible or delayed paper work orders.",
+    ],
+
+    summary:
+      "The utility didn't need a bigger system — it needed the field and the office looking at the same data at the same time. An offline-first app closed that gap even in districts where connectivity itself was the obstacle.",
+
+    techStack: ["Power Apps", "Dynamics 365 Field Service", "Power BI", "SQL Server integration"],
   },
 
   /* ============================================================
-     04. MORTGAGE — Digital Lending / PropTech
-     Image theme: home keys, real estate / property documents
+     MORTGAGE
   ============================================================ */
   {
     slug: "digital-mortgage-automation",
+    category: "Mortgage Lending",
+
+    title: "Starfii Automates the Digital Mortgage Application Process",
+    subtitle:
+      "Underwriters were spending roughly 40% of their time manually re-keying figures from pay stubs and bank statements instead of evaluating risk.",
+    cardDescription:
+      "Learn how Starfii’s intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+
+    client: "National mortgage lender, ~1,900 loan applications processed monthly",
+    industry: "Financial Services",
+    services: ["Intelligent Automation", "Compliance Engineering", "Cloud Engineering"],
 
     image:
       "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Starfii Automates the Digital Mortgage Application Process",
+    overview: "A lender caught between speed and compliance",
+    clientOverview:
+      "Regulatory requirements meant every calculation and decision needed a traceable audit trail, which had historically pushed the lender away from automation for fear of losing that traceability — even as manual document handling ate into underwriting capacity.",
 
-    body:
-      "Learn how Starfii's intelligent automation modernized the mortgage application journey, reducing manual processing while improving compliance and traceability.",
-
-    client: "National Mortgage Lender",
-    industry: "Financial Services",
-
-    services: [
-      "Intelligent Automation",
-      "Compliance Engineering",
-      "Cloud Engineering",
+    challengeIntro: "Inconsistent documents and a batch-only loan system",
+    challengePoints: [
+      "Inconsistent formats: Documents arrived as scanned PDFs, phone photos, and faxes from three different origination channels.",
+      "No live integration: The loan origination system only supported a nightly batch import, not real-time updates.",
+      "Audit requirements: Every automated decision needed a full trail back to its source document for investor and regulatory review.",
     ],
 
-    duration: "9 Months",
-
-    overview:
-      "A national mortgage lender wanted to reduce application processing time without compromising the compliance checks required throughout underwriting.",
-
-    challenge:
-      "Manual document verification, disconnected underwriting steps, and limited audit visibility meant applications could take several weeks to process.",
-
-    solution:
-      "Starfii introduced intelligent document processing, automated underwriting checkpoints, and an auditable workflow engine covering the mortgage application lifecycle.",
-
-    results:
-      "Approval cycles were reduced, compliance tracking became more consistent, and underwriting teams spent significantly less time on repetitive document verification.",
-
-    stats: [
-      { value: "70%", label: "Faster approval cycles" },
-      { value: "100%", label: "Process traceability" },
-      { value: "35%", label: "Lower processing effort" },
+    solutionIntro: "Automated extraction with a built-in audit trail",
+    solutionDetail:
+      "Starfii introduced an intelligent document processing pipeline that extracts and cross-checks income and asset figures automatically, flagging only exceptions for human review.",
+    solution: [
+      "Exception-based review: Underwriters review flagged discrepancies instead of re-keying every document.",
+      "Real-time LOS updates: A custom integration service replaced the nightly batch import with near real-time data flow.",
+      "Queryable audit store: Every automated decision and its source document are logged so compliance can trace it directly, without an engineering request.",
     ],
 
-    tags: [
-      "Intelligent document processing",
-      "Compliance automation",
-      "Workflow engines",
+    results: [
+      { metric: "4wk → 9d", label: "Median underwriting decision time" },
+      { metric: "78%", label: "Documents processed with no manual re-keying" },
+      { metric: "100%", label: "Decisions traceable to source in the audit store" },
+      { metric: "35%", label: "Lower processing effort" },
     ],
 
-    testimonial: {
-      quote:
-        "We cut weeks out of underwriting without cutting a single compliance check. That was the balance we needed.",
-      author: "Head of Underwriting",
-      role: "National Mortgage Lender",
-    },
+    benefitsIntro: "What changed for underwriting and compliance",
+    benefits: [
+      "Faster decisions: Median time to a decision dropped from about 4 weeks to 9 days.",
+      "Preserved compliance: Every checkpoint required by investor and regulatory guidelines stayed in place.",
+      "Self-service audits: Compliance can trace any decision without waiting on engineering.",
+    ],
+
+    summary:
+      "Compliance was the reason the lender had avoided automation for years. Building the audit trail in from day one — not bolting it on after — was what made automation acceptable to the compliance team.",
+
+    techStack: ["Intelligent document processing (OCR)", "Workflow automation", "LOS integration", "Audit logging"],
   },
 
   /* ============================================================
-     05. HEALTHCARE — Healthcare Technology / SaaS
-     Image theme: medical data on tablet/device, digital health
+     HEALTHCARE
   ============================================================ */
   {
     slug: "healthcare-saas-platform-scale",
+    category: "Healthcare",
+
+    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
+    subtitle:
+      "A healthcare SaaS platform's Rails monolith took the entire product offline for up to 45 minutes on every release, and that maintenance window was starting to block enterprise deals.",
+    cardDescription:
+      "See how Starfii’s composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
+
+    client: "Fortune 500 healthcare provider, patient-engagement SaaS product",
+    industry: "Healthcare",
+    services: ["SaaS Product Engineering", "Composable Architecture", "Cloud Engineering"],
 
     image:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
+    overview: "A monolith that had outgrown its own release process",
+    clientOverview:
+      "The platform had grown from a single-tenant pilot to serving over a million patients, but the architecture hadn't changed: one Rails monolith, one PostgreSQL database, deployed during a nightly maintenance window. As enterprise health-system customers signed on, that downtime window and the compliance review overhead on every release became the two biggest blockers to closing new deals.",
 
-    body:
-      "See how Starfii's composable architecture helped a healthcare SaaS platform scale while improving reliability, deployment velocity, and compliance readiness.",
-
-    client: "Fortune 500 Healthcare Provider",
-    industry: "Healthcare",
-
-    services: [
-      "SaaS Product Engineering",
-      "Composable Architecture",
-      "Cloud Engineering",
+    challengeIntro: "A tightly coupled codebase with manual compliance gates",
+    challengePoints: [
+      "Coupled modules: A roughly 400,000-line codebase meant a scheduling change could break billing in ways that were hard to catch pre-release.",
+      "Manual compliance checklist: HIPAA review ran as a checklist before every deploy, capping releases to roughly once every 6 weeks.",
+      "No tenant isolation: One shared database meant no way to isolate load or roll back a single feature without rolling back everything.",
     ],
 
-    duration: "14 Months",
-
-    overview:
-      "A healthcare SaaS platform was reaching architectural scaling limits as adoption accelerated, creating challenges around reliability, releases, and compliance.",
-
-    challenge:
-      "The monolithic architecture made horizontal scaling difficult, deployments were risky and infrequent, and compliance reviews added friction to the release process.",
-
-    solution:
-      "Starfii re architected the platform using a composable, microservices based approach on a HIPAA aligned cloud foundation, with automated compliance validation integrated into the CI/CD pipeline.",
-
-    results:
-      "The platform can now scale more efficiently, deployment frequency increased, and compliance validation became an integrated part of the engineering lifecycle.",
-
-    stats: [
-      { value: "5M+", label: "Users supported" },
-      { value: "99.99%", label: "Platform uptime" },
-      { value: "HIPAA", label: "Compliance ready architecture" },
+    solutionIntro: "Service extraction with compliance built into the pipeline",
+    solutionDetail:
+      "Starfii extracted the highest-traffic domains — scheduling, messaging, and billing — into separate services behind an API gateway, each with its own datastore.",
+    solution: [
+      "Targeted extraction: The three highest-traffic domains moved to independent services first; lower-traffic modules stayed in the monolith for a later phase.",
+      "Automated compliance gates: HIPAA checks — encryption, access-log verification, PHI-field scanning — now run in CI/CD on every commit.",
+      "Zero-downtime deploys: Blue-green releases per service eliminated the maintenance window entirely.",
     ],
 
-    tags: ["Microservices", "HIPAA-aligned cloud", "CI/CD automation"],
+    results: [
+      { metric: "1M → 5M+", label: "Active users supported" },
+      { metric: "45min → 0", label: "Deployment downtime window" },
+      { metric: "6wk → days", label: "Release cadence for extracted services" },
+      { metric: "99.99%", label: "Platform uptime" },
+    ],
 
-    testimonial: {
-      quote:
-        "We can ship safely now. Compliance checks live inside the pipeline instead of blocking it.",
-      author: "VP of Engineering",
-      role: "Fortune 500 Healthcare Provider",
-    },
+    benefitsIntro: "What changed for the engineering organization",
+    benefits: [
+      "Independent releases: The scheduling team ships without waiting on billing or messaging.",
+      "Faster compliance sign-off: Most HIPAA checks run automatically instead of requiring a manual pre-release review.",
+      "Room to grow: The platform absorbed 5x user growth without an incident tied to capacity.",
+    ],
+
+    summary:
+      "The platform's growth wasn't the real risk — its release process was. Breaking the monolith apart one domain at a time, with compliance checks moved into the pipeline itself, let the team keep shipping while user count grew 5x.",
+
+    techStack: ["Service extraction", "API gateway", "HIPAA compliance automation", "Blue-green deployments", "Kubernetes"],
   },
 
   /* ============================================================
-     06. AI & DATA
-     Image theme: data visualization, code, AI/analytics
+     INSURANCE
   ============================================================ */
   {
+    slug: "insurance-claims-low-code-platform",
+    category: "Insurance",
+
+    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
+    subtitle:
+      "Each regional office tracked claims in its own spreadsheet, so a large claim could exist in four different versions with four different statuses.",
+    cardDescription:
+      "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
+
+    client: "Global reinsurance provider, 14 regional claims offices",
+    industry: "Insurance",
+    services: ["Low Code Engineering", "Workflow Automation", "Claims Systems"],
+
+    image:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop",
+    heroImage:
+      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop",
+
+    overview: "A reinsurer reconciling spreadsheets instead of settling claims",
+    clientOverview:
+      "For claims involving multiple regions — common in large reinsurance treaties — there was no single source of truth, and reconciling conflicting statuses across offices could add a week or more to settlement.",
+
+    challengeIntro: "14 regions, 14 sets of rules, two disconnected legacy systems",
+    challengePoints: [
+      "Regional variation: Different local regulatory requirements and document types meant a single rigid workflow wouldn't fit every office.",
+      "No shared identifiers: Policy administration and finance ran on two separate legacy systems with no common ID linking a claim to its policy and payment.",
+      "Weekly reconciliation: Offices compared spreadsheets manually every week to catch conflicting claim statuses.",
+    ],
+
+    solutionIntro: "One configurable platform, one shared claim record",
+    solutionDetail:
+      "Starfii built the platform on Microsoft Power Platform with a configurable workflow engine, so each region could adjust intake steps and required documents within a shared framework.",
+    solution: [
+      "Configurable workflows: Each region adjusts its own intake steps and document requirements without forking the platform.",
+      "Cross-system matching: A matching service resolves policy and claim identifiers across the two legacy systems automatically.",
+      "Automated intake: OCR handles the most common claim-form types, routing anything unclear to a human reviewer.",
+    ],
+
+    results: [
+      { metric: "62%", label: "Faster average claims cycle time" },
+      { metric: "14", label: "Regional offices on one shared platform" },
+      { metric: "40+", label: "Region-specific workflow variants configured" },
+      { metric: "99.9%", label: "Platform uptime" },
+    ],
+
+    benefitsIntro: "What changed for claims operations",
+    benefits: [
+      "One source of truth: Every region and head office see the same claim record and status in real time.",
+      "No more reconciliation cycle: The weekly spreadsheet comparison is gone entirely.",
+      "Faster multi-region claims: The claims that used to be slowest — spanning multiple offices — saw the largest improvement.",
+    ],
+
+    summary:
+      "The reinsurer's problem was never claims volume — it was 14 versions of the truth. A configurable platform let each region keep its own process while finally working from one shared record.",
+
+    techStack: ["Power Platform", "Configurable workflow engine", "Cross-system identity matching", "OCR document intake"],
+  },
+
+  /* ============================================================
+     DATA & AI
+  ============================================================ */
+  
+  {
     slug: "enterprise-ai-data-analytics-platform",
+    category: "Data & AI",
+
+    title: "Ending 'Whose Number Is Right' Meetings With One Governed Data Platform",
+    subtitle:
+      "Eleven business units each maintained their own version of revenue and customer metrics, and leadership meetings routinely stalled over whose number to trust.",
+    cardDescription:
+      "Starfii unified 9 source systems into one governed data platform, eliminating cross-team metric discrepancies for an 11-business-unit enterprise.",
+
+    client: "Global enterprise, 11 business units previously reporting independently",
+    industry: "Technology & Business Services",
+    services: ["Data Engineering", "Generative AI", "Business Intelligence", "Cloud Engineering"],
 
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Starfii Builds an AI Powered Enterprise Data and Analytics Platform",
+    overview: "An enterprise with 11 different definitions of the same metric",
+    clientOverview:
+      "Reports for the same quarter, pulled from different tools, routinely disagreed by 5-10%, and resolving the discrepancy before a leadership review could take days of manual reconciliation.",
 
-    body:
-      "Discover how Starfii helped an enterprise turn fragmented business data into an intelligent analytics platform with AI driven insights and modern data engineering.",
-
-    client: "Global Enterprise",
-    industry: "Technology & Business Services",
-
-    services: [
-      "Data Engineering",
-      "Generative AI",
-      "Business Intelligence",
-      "Cloud Engineering",
+    challengeIntro: "9 disconnected systems and years of independent reporting",
+    challengePoints: [
+      "Fragmented sources: Revenue, churn, and customer-health data lived across 9 operational systems (CRM, billing, support, product analytics).",
+      "No common identifier: There was no consistent customer or account ID connecting those systems.",
+      "Entrenched dashboards: Business units had built reporting independently over years and relied on it daily, making wholesale replacement risky.",
     ],
 
-    duration: "11 Months",
-
-    overview:
-      "A growing enterprise had data distributed across multiple applications, databases, and reporting systems, making it difficult for business teams to access consistent insights.",
-
-    challenge:
-      "Data silos, manual reporting, inconsistent definitions, and disconnected analytics tools slowed decision making and created unnecessary operational effort.",
-
-    solution:
-      "Starfii designed a modern cloud data platform that unified business data pipelines, analytics dashboards, and AI powered insight generation into a scalable enterprise architecture.",
-
-    results:
-      "Business teams gained a more consistent source of operational insight, reporting became significantly more automated, and AI capabilities could be introduced directly into existing analytics workflows.",
-
-    stats: [
-      { value: "60%", label: "Less manual reporting" },
-      { value: "4x", label: "Faster data availability" },
-      { value: "24/7", label: "Automated data pipelines" },
+    solutionIntro: "A governed semantic layer, not another dashboard",
+    solutionDetail:
+      "Starfii built a cloud data platform with a unified ingestion layer pulling from all 9 source systems into a common warehouse, with a semantic layer defining shared metrics once, centrally.",
+    solution: [
+      "Unified ingestion: All 9 source systems now feed one common warehouse instead of independent per-team pipelines.",
+      "Shared metric definitions: A semantic layer defines terms like 'active customer' once, and every dashboard reads from it.",
+      "Governed AI assistant: A retrieval-augmented assistant lets stakeholders ask metric questions in plain language, sourced from the governed layer.",
     ],
 
-    tags: ["Data engineering", "Generative AI", "Business intelligence"],
+    results: [
+      { metric: "0%", label: "Cross-team metric discrepancy, down from 5-10%" },
+      { metric: "4x", label: "Faster data availability for new sources" },
+      { metric: "9", label: "Source systems unified into one pipeline" },
+      { metric: "60%", label: "Less manual reporting" },
+    ],
 
-    testimonial: {
-      quote:
-        "Every team is finally working from the same numbers. That alone changed how fast we make decisions.",
-      author: "Head of Data & Analytics",
-      role: "Global Enterprise",
-    },
+    benefitsIntro: "What changed for leadership reporting",
+    benefits: [
+      "No more reconciliation step: Leadership reviews start with the data instead of arguing about it.",
+      "Preserved dashboards: Teams kept their preferred visualizations; only the underlying numbers changed.",
+      "Self-service answers: Non-technical stakeholders get governed answers without filing a data request.",
+    ],
+
+    summary:
+      "The enterprise didn't have a reporting problem — it had 11 separate definitions of the truth. Centralizing the definitions, not the dashboards, is what made the numbers agree.",
+
+    techStack: ["Data platform unification", "Semantic/metrics layer", "Retrieval-augmented assistant", "Cloud data warehouse"],
   },
 
   /* ============================================================
-     07. CLOUD MODERNIZATION
-     Image theme: server room, cloud infrastructure
+     CLOUD MODERNIZATION
   ============================================================ */
   {
     slug: "legacy-application-cloud-modernization",
+    category: "Cloud Modernization",
+
+    title: "Turning 'Release Weekend' Into a Routine Tuesday",
+    subtitle:
+      "An enterprise technology provider's core platform hadn't shipped a release in over a year without an all-hands deployment weekend and a rollback plan on standby.",
+    cardDescription:
+      "Starfii modernized a 15-year-old application portfolio through a strangler-fig migration, replacing scheduled release weekends with routine, independent deploys.",
+
+    client: "Enterprise technology provider, 15-year-old core application portfolio",
+    industry: "Technology & Enterprise Software",
+    services: ["Legacy Software Modernization", "Cloud Engineering", "API Modernization", "DevOps Automation"],
 
     image:
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1200&auto=format&fit=crop",
-
     heroImage:
       "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2000&auto=format&fit=crop",
 
-    title:
-      "Starfii Modernizes a Legacy Enterprise Application for Cloud Scale",
+    overview: "A platform where every release was an event, not a routine",
+    clientOverview:
+      "The core platform — around 15 years of accumulated code across a dozen tightly coupled modules — could only be deployed as a single unit, and product teams had started avoiding smaller improvements simply because the release process made even small changes expensive.",
 
-    body:
-      "See how Starfii modernized a complex legacy application portfolio with cloud engineering, API modernization, and DevOps automation to create a more scalable digital foundation.",
-
-    client: "Enterprise Technology Provider",
-    industry: "Technology & Enterprise Software",
-
-    services: [
-      "Legacy Software Modernization",
-      "Cloud Engineering",
-      "API Modernization",
-      "DevOps Automation",
+    challengeIntro: "A rewrite wasn't viable, and one team held the deploy knowledge",
+    challengePoints: [
+      "No feature freeze possible: The portfolio ran the company's core revenue-generating workflows, so a 12+ month rewrite freeze wasn't commercially viable.",
+      "Single deployable unit: A full release required a scheduled weekend, an all-hands war room, and typically a partial rollback.",
+      "Undocumented process: Deployment scripts had accumulated years of manual steps that only two engineers fully understood.",
     ],
 
-    duration: "13 Months",
-
-    overview:
-      "An enterprise application portfolio had accumulated years of technical complexity, making releases expensive, scaling difficult, and integration with modern applications increasingly challenging.",
-
-    challenge:
-      "Legacy dependencies, tightly coupled components, manual deployments, and limited API capabilities slowed product development and increased operational risk.",
-
-    solution:
-      "Starfii created a phased modernization roadmap, introduced API based integration, migrated workloads toward cloud native services, and embedded CI/CD automation into the software delivery lifecycle.",
-
-    results:
-      "The application portfolio became easier to evolve, deployments became more repeatable, and engineering teams gained a stronger foundation for future digital product development.",
-
-    stats: [
-      { value: "50%", label: "Faster release cycles" },
-      { value: "40%", label: "Lower deployment effort" },
-      { value: "99.9%", label: "Target platform availability" },
+    solutionIntro: "A strangler-fig migration, one domain at a time",
+    solutionDetail:
+      "Starfii introduced new API endpoints in front of the legacy modules one domain at a time, gradually shifting traffic as each new service proved stable, rather than a big-bang cutover.",
+    solution: [
+      "Incremental migration: New services stand in front of legacy modules and take over traffic gradually, with no big-bang cutover.",
+      "Documented, automated deploys: Per-service CI/CD pipelines replaced the undocumented manual deployment process.",
+      "Risk-first prioritization: The highest-incident legacy modules were replaced first, not simply the oldest.",
     ],
 
-    tags: ["API modernization", "Cloud migration", "DevOps automation"],
+    results: [
+      { metric: "War room → routine", label: "Release process for modernized services" },
+      { metric: "50%", label: "Faster release cycles for migrated modules" },
+      { metric: "12", label: "Tightly coupled modules migrated incrementally" },
+      { metric: "40%", label: "Lower deployment effort" },
+    ],
 
-    testimonial: {
-      quote:
-        "Releases used to be an event. Now they're routine, and that changes what our engineers spend their time on.",
-      author: "VP of Engineering",
-      role: "Enterprise Technology Provider",
-    },
+    benefitsIntro: "What changed for product and engineering teams",
+    benefits: [
+      "Independent deploys: Modernized services release multiple times a week without a scheduled weekend.",
+      "Fewer release incidents: The riskiest legacy modules were replaced first, cutting release-related incidents.",
+      "Smaller changes ship again: Teams report shipping smaller improvements now that a release doesn't carry portfolio-wide risk.",
+    ],
+
+    summary:
+      "A full rewrite would have frozen the roadmap for a year the business couldn't spare. Migrating the riskiest modules first, incrementally, delivered the same outcome without the freeze.",
+
+    techStack: ["Strangler-fig migration", "API modernization", "CI/CD automation", "Incremental cloud migration"],
   },
 
-  /* ============================================================
-     08. RETAIL & E-COMMERCE — Personalization / Digital Storefront
-     Image theme: e-commerce, online shopping, digital retail
-  ============================================================ */
-  {
-    slug: "retail-ecommerce-personalization-platform",
-
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
-
-    heroImage:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000&auto=format&fit=crop",
-
-    title:
-      "Starfii Powers a Personalized Digital Storefront for a Global Retailer",
-
-    body:
-      "Discover how Starfii helped a global retailer unify its e-commerce experience with a real time personalization engine, boosting conversions and customer loyalty.",
-
-    client: "Global Retail Brand",
-    industry: "Retail & E-Commerce",
-
-    services: [
-      "SaaS Product Engineering",
-      "Personalization Engineering",
-      "Cloud Engineering",
-    ],
-
-    duration: "10 Months",
-
-    overview:
-      "A global retailer wanted to move beyond generic storefronts and deliver a shopping experience tailored to each customer across web and mobile.",
-
-    challenge:
-      "Customer data was fragmented across marketing, commerce, and loyalty systems, making it difficult to personalize recommendations or promotions in real time.",
-
-    solution:
-      "Starfii built a unified customer data layer and a real time personalization engine, integrated directly into the storefront, checkout, and mobile app experiences.",
-
-    results:
-      "The retailer saw stronger engagement on personalized product recommendations, higher repeat purchase rates, and a more consistent experience across every channel.",
-
-    stats: [
-      { value: "38%", label: "Increase in conversion rate" },
-      { value: "2.5x", label: "Higher repeat purchases" },
-      { value: "All channels", label: "Unified customer experience" },
-    ],
-
-    tags: [
-      "Personalization engines",
-      "Customer data platforms",
-      "Omnichannel commerce",
-    ],
-
-    testimonial: {
-      quote:
-        "Recommendations feel personal now, on every channel. Customers notice, and they come back more often.",
-      author: "Head of Digital Commerce",
-      role: "Global Retail Brand",
-    },
-  },
 ];
 
 /* ================================================================
    GET CASE STUDY BY SLUG
 ================================================================ */
 
-export function getCaseStudyBySlug(
-  slug: string
-): CaseStudyDetail | undefined {
-  return caseStudies.find(
-    (study) => study.slug === slug
-  );
+export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
+  return caseStudies.find((study) => study.slug === slug);
 }

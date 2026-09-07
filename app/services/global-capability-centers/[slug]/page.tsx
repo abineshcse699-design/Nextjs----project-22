@@ -1,16 +1,19 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
+
 import {
-  ArrowUpRight,
-  ChevronRight,
   ArrowLeft,
+  ArrowUpRight,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
   Globe2,
-  Users,
-  Layers3,
   ShieldCheck,
-  Workflow,
+  Target,
   TrendingUp,
+  Users,
+  Workflow,
 } from "lucide-react";
 
 import {
@@ -18,15 +21,23 @@ import {
   getCaseStudyBySlug,
 } from "../data/case-studies";
 
+import CaseStudyTabs from "../CaseStudyTabs";
+
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0";
 
 const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+  "mx-auto w-full max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const BASE_PATH =
   "/services/global-capability-centers";
+
+type PageProps = {
+  params: Promise<{
+    slug: string;
+  }>;
+};
 
 /* ============================================================
    STATIC PARAMS
@@ -37,16 +48,6 @@ export function generateStaticParams() {
     slug: study.slug,
   }));
 }
-
-/* ============================================================
-   PAGE PARAMS
-============================================================ */
-
-type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
 
 /* ============================================================
    SEO
@@ -66,9 +67,428 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${study.title} | Starfii Case Study`,
+    title: `${study.title} | Starfii Global Capability Center Case Study`,
     description: study.body,
   };
+}
+
+/* ============================================================
+   SMALL REUSABLE COMPONENTS
+============================================================ */
+
+function SectionEyebrow({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <p
+      className="text-[12px] font-bold uppercase tracking-[0.18em]"
+      style={{
+        color: INDIGO_CTA,
+      }}
+    >
+      {children}
+    </p>
+  );
+}
+
+function PointCard({
+  number,
+  children,
+}: {
+  number: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className="relative rounded-2xl border bg-white p-6 pl-7 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+      style={{
+        borderColor: "#E5E1F5",
+      }}
+    >
+      <div className="flex items-start gap-4">
+
+        <span
+          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-[11px] font-bold"
+          style={{
+            backgroundColor: "#F1EEFC",
+            color: INDIGO_CTA,
+          }}
+        >
+          {number}
+        </span>
+
+        <p className="text-[15px] leading-7 text-slate-600">
+          {children}
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+function StatCard({
+  value,
+  label,
+}: {
+  value: string;
+  label: string;
+}) {
+  return (
+    <div
+      className="group relative overflow-hidden rounded-2xl border bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+      style={{
+        borderColor: "#E5E1F5",
+      }}
+    >
+      <div
+        className="absolute -right-10 -top-10 h-28 w-28 rounded-full blur-3xl transition-transform duration-500 group-hover:scale-150"
+        style={{
+          backgroundColor: `${LAVENDER_ACCENT}28`,
+        }}
+      />
+
+      <div className="relative">
+
+        <p
+          className="text-[40px] font-semibold tracking-tight"
+          style={{
+            color: INDIGO_CTA,
+          }}
+        >
+          {value}
+        </p>
+
+        <div
+          className="mt-4 h-px w-10"
+          style={{
+            backgroundColor: LAVENDER_ACCENT,
+          }}
+        />
+
+        <p className="mt-4 text-[14px] leading-6 text-slate-600">
+          {label}
+        </p>
+
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   SIDEBAR
+============================================================ */
+
+function AtAGlanceSidebar({
+  study,
+}: {
+  study: (typeof caseStudies)[number];
+}) {
+  return (
+    <aside className="lg:sticky lg:top-28">
+
+      {/* Project details */}
+
+      <div
+        className="rounded-2xl border bg-white p-6"
+        style={{
+          borderColor: "#E5E1F5",
+        }}
+      >
+
+        <div className="flex items-center gap-2">
+
+          <Building2
+            size={17}
+            style={{
+              color: INDIGO_CTA,
+            }}
+          />
+
+          <p
+            className="text-[12px] font-bold uppercase tracking-[0.15em]"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            At a glance
+          </p>
+
+        </div>
+
+        <dl className="mt-6 space-y-5">
+
+          <div>
+            <dt className="text-[13px] text-slate-400">
+              Client
+            </dt>
+
+            <dd
+              className="mt-1 text-[15px] font-semibold"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              {study.client}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-[13px] text-slate-400">
+              Industry
+            </dt>
+
+            <dd
+              className="mt-1 text-[15px] font-semibold"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              {study.industry}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-[13px] text-slate-400">
+              Duration
+            </dt>
+
+            <dd
+              className="mt-1 text-[15px] font-semibold"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              {study.duration}
+            </dd>
+          </div>
+
+          <div>
+
+            <dt className="text-[13px] text-slate-400">
+              Services
+            </dt>
+
+            <dd className="mt-2 flex flex-wrap gap-2">
+
+              {study.services.map((service) => (
+                <span
+                  key={service}
+                  className="rounded-full px-3 py-1.5 text-[12px] font-medium"
+                  style={{
+                    backgroundColor: "#F1EEFC",
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  {service}
+                </span>
+              ))}
+
+            </dd>
+
+          </div>
+
+        </dl>
+
+      </div>
+
+      {/* Headline results */}
+
+      <div
+        className="mt-5 rounded-2xl border bg-white p-6"
+        style={{
+          borderColor: "#E5E1F5",
+        }}
+      >
+
+        <p
+          className="text-[12px] font-bold uppercase tracking-[0.15em]"
+          style={{
+            color: INDIGO_CTA,
+          }}
+        >
+          Headline results
+        </p>
+
+        <div className="mt-5 space-y-5">
+
+          {study.stats.map((stat, index) => (
+            <div
+              key={`${stat.label}-${index}`}
+              className="flex items-baseline gap-3"
+            >
+
+              <span
+                className="text-[25px] font-semibold"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                {stat.value}
+              </span>
+
+              <span className="text-[13px] leading-5 text-slate-500">
+                {stat.label}
+              </span>
+
+            </div>
+          ))}
+
+        </div>
+
+      </div>
+
+      {/* CTA card */}
+
+      <div
+        className="mt-5 overflow-hidden rounded-2xl border bg-white"
+        style={{
+          borderColor: "#E5E1F5",
+        }}
+      >
+
+        <div className="h-28 overflow-hidden">
+
+          <img
+            src={study.heroImage ?? study.image}
+            alt=""
+            className="h-full w-full object-cover"
+          />
+
+        </div>
+
+        <div className="p-6">
+
+          <p
+            className="text-[17px] font-semibold"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            Build your GCC with Starfii
+          </p>
+
+          <p className="mt-2 text-[13px] leading-6 text-slate-500">
+            From entity setup and talent strategy to governance
+            and operational scale.
+          </p>
+
+          <Link
+            href={`${BASE_PATH}#connect`}
+            className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-full px-5 py-3 text-[13px] font-semibold text-white transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg"
+            style={{
+              backgroundColor: INDIGO_CTA,
+            }}
+          >
+            Talk to Starfii
+            <ArrowUpRight size={15} />
+          </Link>
+
+        </div>
+
+      </div>
+
+    </aside>
+  );
+}
+
+/* ============================================================
+   RELATED CASE STUDIES SIDEBAR
+============================================================ */
+
+function MoreCaseStudiesSidebar({
+  currentSlug,
+}: {
+  currentSlug: string;
+}) {
+  const others = caseStudies
+    .filter(
+      (study) =>
+        study.slug !== currentSlug
+    )
+    .slice(0, 3);
+
+  if (!others.length) {
+    return null;
+  }
+
+  return (
+    <aside className="lg:sticky lg:top-28">
+
+      <div
+        className="rounded-2xl border bg-white p-6"
+        style={{
+          borderColor: "#E5E1F5",
+        }}
+      >
+
+        <p
+          className="text-[12px] font-bold uppercase tracking-[0.15em]"
+          style={{
+            color: INDIGO_CTA,
+          }}
+        >
+          More case studies
+        </p>
+
+        <div className="mt-6 space-y-6">
+
+          {others.map((study) => (
+            <Link
+              key={study.slug}
+              href={`${BASE_PATH}/${study.slug}`}
+              className="group block"
+            >
+
+              <div className="overflow-hidden rounded-xl">
+
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-24 w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+
+              </div>
+
+              <p
+                className="mt-3 text-[11px] font-bold uppercase tracking-[0.12em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                {study.industry}
+              </p>
+
+              <p
+                className="mt-1 text-[15px] font-semibold leading-snug transition-colors group-hover:text-[#4F3FE0]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                {study.title}
+              </p>
+
+            </Link>
+          ))}
+
+        </div>
+
+        <Link
+          href={BASE_PATH}
+          className="mt-7 inline-flex items-center gap-2 text-[13px] font-semibold"
+          style={{
+            color: INDIGO_CTA,
+          }}
+        >
+          View all case studies
+          <ArrowUpRight size={15} />
+        </Link>
+
+      </div>
+
+    </aside>
+  );
 }
 
 /* ============================================================
@@ -86,45 +506,90 @@ export default async function CaseStudyDetailPage({
     notFound();
   }
 
-  /*
-   * Keep this GCC page focused on GCC-related case studies.
-   * If your data has a service/category field, you can filter
-   * by that field here instead.
-   */
   const related = caseStudies
-    .filter((item) => item.slug !== study.slug)
+    .filter(
+      (item) =>
+        item.slug !== study.slug
+    )
     .slice(0, 4);
 
   return (
-    <main className="bg-white">
+    <main className="overflow-hidden bg-white">
 
       {/* ======================================================
           HERO
       ====================================================== */}
 
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden bg-white">
 
-        {/* Hero image */}
+        {/* Decorative glow */}
 
-        <div className="absolute inset-0 -z-10">
+        <div
+          className="pointer-events-none absolute -right-32 top-20 -z-10 h-[430px] w-[430px] rounded-full blur-3xl"
+          style={{
+            backgroundColor:
+              `${LAVENDER_ACCENT}20`,
+          }}
+        />
+
+        <div
+          className="pointer-events-none absolute -bottom-20 left-1/3 -z-10 h-[300px] w-[300px] rounded-full blur-3xl"
+          style={{
+            backgroundColor:
+              `${INDIGO_CTA}12`,
+          }}
+        />
+
+        {/* Desktop hero image */}
+
+        <div className="pointer-events-none absolute right-0 top-0 -z-10 hidden h-full w-[55%] lg:block">
+
+          <div className="absolute inset-0 bg-[#F5F3FC]" />
 
           <img
-            src={study.heroImage ?? study.image}
+            src={
+              study.heroImage ??
+              study.image
+            }
             alt=""
-            className="h-full w-full object-cover"
+            className="absolute inset-0 h-full w-full object-cover"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-white/15" />
+          <div
+            className="absolute inset-y-0 left-0 w-[55%]"
+            style={{
+              background:
+                "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.96) 30%, rgba(255,255,255,0.55) 68%, rgba(255,255,255,0) 100%)",
+            }}
+          />
+
+          <div
+            className="absolute inset-x-0 top-0 h-32"
+            style={{
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0.8), rgba(255,255,255,0))",
+            }}
+          />
+
+          <div
+            className="absolute inset-x-0 bottom-0 h-40"
+            style={{
+              background:
+                "linear-gradient(to top, #ffffff, rgba(255,255,255,0))",
+            }}
+          />
 
         </div>
 
-        <div className={`${ALIGN} py-20 lg:py-28`}>
+        <div
+          className={`${ALIGN} relative min-h-[690px] py-20 lg:min-h-[750px] lg:py-28`}
+        >
 
           {/* Breadcrumb */}
 
           <nav
             aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-2 text-[14px] font-medium"
+            className="flex flex-wrap items-center gap-2 text-[13px] font-medium"
             style={{
               color: CHAMPION_BLUE,
             }}
@@ -132,7 +597,7 @@ export default async function CaseStudyDetailPage({
 
             <Link
               href="/"
-              className="transition-opacity hover:opacity-70"
+              className="transition-opacity hover:opacity-60"
             >
               Home
             </Link>
@@ -141,7 +606,7 @@ export default async function CaseStudyDetailPage({
 
             <Link
               href="/services"
-              className="transition-opacity hover:opacity-70"
+              className="transition-opacity hover:opacity-60"
             >
               Services
             </Link>
@@ -149,8 +614,8 @@ export default async function CaseStudyDetailPage({
             <ChevronRight size={14} />
 
             <Link
-              href={BASE_PATH}
-              className="transition-opacity hover:opacity-70"
+              href="/services/global-capability-centers"
+              className="transition-opacity hover:opacity-60"
             >
               Global Capability Centers
             </Link>
@@ -158,737 +623,952 @@ export default async function CaseStudyDetailPage({
             <ChevronRight size={14} />
 
             <span className="text-slate-500">
-              Case Study
+              Case Studies
             </span>
 
           </nav>
 
-          {/* Service badge */}
+          {/* Mobile image */}
 
-          <span
-            className="mt-8 inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] font-semibold text-white"
-            style={{
-              backgroundColor: INDIGO_CTA,
-            }}
-          >
-            <Globe2 size={14} />
+          <div className="mt-8 overflow-hidden rounded-3xl border border-[#E5E1F5] lg:hidden">
 
-            Global Capability Centers
-          </span>
+            <img
+              src={
+                study.heroImage ??
+                study.image
+              }
+              alt={study.title}
+              className="h-[280px] w-full object-cover"
+            />
 
-          {/* Hero title */}
+          </div>
 
-          <h1
-            className="mt-6 max-w-4xl text-[36px] font-medium leading-[1.12] sm:text-[44px] lg:text-[52px]"
-            style={{
-              color: CHAMPION_BLUE,
-            }}
-          >
-            {study.title}
-          </h1>
+          {/* Hero content */}
 
-          {/* Hero description */}
+          <div className="relative z-10 max-w-[790px] pt-8 lg:pt-14">
 
-          <p className="mt-6 max-w-3xl text-[17px] leading-[1.8] text-slate-600">
-            {study.body}
-          </p>
+            {/* Badge */}
 
-          {/* Hero CTA */}
-
-          <div className="mt-8 flex flex-wrap gap-4">
-
-            <Link
-              href={`${BASE_PATH}#connect`}
-              className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white shadow-lg"
               style={{
-                backgroundColor: CHAMPION_BLUE,
+                backgroundColor:
+                  INDIGO_CTA,
               }}
             >
-              Build a GCC with Starfii
-              <ArrowUpRight size={16} />
-            </Link>
 
-            <Link
-              href="#impact"
-              className="inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5"
+              <Globe2 size={15} />
+
+              Global Capability Centers
+
+            </div>
+
+            {/* Title */}
+
+            <h1
+              className="mt-7 max-w-[790px] text-[38px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[48px] lg:text-[60px]"
               style={{
-                borderColor: LAVENDER_ACCENT,
-                color: CHAMPION_BLUE,
+                color:
+                  CHAMPION_BLUE,
               }}
             >
-              Explore the impact
-            </Link>
+              {study.title}
+            </h1>
+
+            {/* Description */}
+
+            <p className="mt-7 max-w-[700px] text-[17px] leading-8 text-slate-600 lg:text-[18px]">
+              {study.body}
+            </p>
+
+            {/* Meta */}
+
+            <div className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-[14px] text-slate-500">
+
+              <span>
+                <strong
+                  className="font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Client:
+                </strong>{" "}
+                {study.client}
+              </span>
+
+              <span>
+                <strong
+                  className="font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Industry:
+                </strong>{" "}
+                {study.industry}
+              </span>
+
+              <span>
+                <strong
+                  className="font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Duration:
+                </strong>{" "}
+                {study.duration}
+              </span>
+
+            </div>
+
+            {/* CTA */}
+
+            <div className="mt-9 flex flex-wrap gap-4">
+
+              <Link
+                href={`${BASE_PATH}#connect`}
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-4 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+                style={{
+                  backgroundColor:
+                    CHAMPION_BLUE,
+                }}
+              >
+                Build a GCC with Starfii
+
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+
+              </Link>
+
+              <Link
+                href="#impact"
+                className="inline-flex items-center gap-2 rounded-full border bg-white px-7 py-4 text-[14px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
+                style={{
+                  borderColor:
+                    LAVENDER_ACCENT,
+                  color:
+                    CHAMPION_BLUE,
+                }}
+              >
+                Explore the impact
+                <ChevronRight size={16} />
+              </Link>
+
+            </div>
 
           </div>
 
         </div>
       </section>
 
+      {/* ======================================================
+          AT A GLANCE
+      ====================================================== */}
+
       <div className={ALIGN}>
 
-        {/* ====================================================
-            PROJECT SNAPSHOT
-        ==================================================== */}
+        <section className="mt-16">
 
-        <section
-          className="grid grid-cols-2 gap-6 border-y py-8 sm:grid-cols-4"
-          style={{
-            borderColor: "#E5E1F5",
-          }}
-        >
+          <div
+            className="overflow-hidden rounded-[22px] border bg-white"
+            style={{
+              borderColor:
+                LAVENDER_ACCENT,
+            }}
+          >
 
-          {[
-            {
-              label: "Client",
-              value: study.client,
-            },
-            {
-              label: "Industry",
-              value: study.industry,
-            },
-            {
-              label: "Duration",
-              value: study.duration,
-            },
-            {
-              label: "Service",
-              value: "Global Capability Centers",
-            },
-          ].map((item) => (
-            <div key={item.label}>
+            {/* Header */}
 
-              <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-slate-400">
-                {item.label}
-              </p>
-
-              <p
-                className="mt-2 text-[15px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                {item.value}
-              </p>
-
-            </div>
-          ))}
-
-        </section>
-
-        {/* ====================================================
-            IMPACT
-        ==================================================== */}
-
-        <section
-          id="impact"
-          className="py-20 lg:py-24"
-        >
-
-          <div className="max-w-3xl">
-
-            <p
-              className="text-[13px] font-semibold uppercase tracking-[0.14em]"
+            <div
+              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
               style={{
-                color: INDIGO_CTA,
+                borderBottom:
+                  `1px solid ${LAVENDER_ACCENT}`,
               }}
             >
-              GCC Impact
-            </p>
 
-            <h2
-              className="mt-4 text-[30px] font-medium leading-tight sm:text-[36px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              Global Capability Center Impact
-            </h2>
+              <div className="flex items-center gap-3">
 
-            <p className="mt-5 text-[16px] leading-[1.8] text-slate-600">
-              Building scalable global capabilities that combine
-              technology, talent, operational excellence, and
-              business value.
-            </p>
-
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-3">
-
-            {study.stats.map((stat) => (
-              <div
-                key={stat.label}
-                className="rounded-2xl p-8 text-center"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                }}
-              >
-
-                <p
-                  className="text-[38px] font-semibold"
+                <Globe2
+                  size={21}
+                  strokeWidth={1.8}
                   style={{
-                    color: INDIGO_CTA,
+                    color:
+                      LAVENDER_ACCENT,
+                  }}
+                />
+
+                <span
+                  className="text-[17px] font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
                   }}
                 >
-                  {stat.value}
-                </p>
+                  Global Capability Center at a Glance
+                </span>
 
-                <p className="mt-2 text-[14px] text-slate-600">
-                  {stat.label}
+              </div>
+
+              <span
+                className="hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+                style={{
+                  backgroundColor:
+                    "#F1EEFC",
+                  color:
+                    INDIGO_CTA,
+                }}
+              >
+                End to End GCC Setup
+              </span>
+
+            </div>
+
+            {/* Three columns */}
+
+            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+
+              <div>
+
+                <h3
+                  className="text-[23px] font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Set Up
+                </h3>
+
+                <p className="mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Establish the right entity, infrastructure,
+                  compliance framework, and operating foundation
+                  for your Global Capability Center.
                 </p>
 
               </div>
-            ))}
 
-          </div>
+              <div>
 
-        </section>
+                <h3
+                  className="text-[23px] font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Build
+                </h3>
 
-        {/* ====================================================
-            GCC OPPORTUNITY
-        ==================================================== */}
+                <p className="mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Build the right talent model, hiring plan,
+                  onboarding process, governance structure,
+                  and collaboration model.
+                </p>
 
-        <section className="border-t py-20 lg:py-24">
+              </div>
 
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:gap-20">
+              <div>
 
-            <div>
+                <h3
+                  className="text-[23px] font-semibold"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Scale
+                </h3>
 
-              <p
-                className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                01 / GCC Opportunity
-              </p>
+                <p className="mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Scale from the first cohort to steady state
+                  operations with phased headcount, knowledge
+                  transfer, governance, and measurable outcomes.
+                </p>
 
-            </div>
-
-            <div>
-
-              <h2
-                className="text-[30px] font-medium leading-tight sm:text-[38px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Building a high-performing global capability center
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.85] text-slate-600">
-                Organizations are looking beyond traditional
-                offshore models to build strategic capability
-                centers that accelerate innovation, strengthen
-                digital execution, and create long-term business
-                value.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.85] text-slate-600">
-                Starfii helps organizations establish and scale
-                GCC operations with the right combination of
-                strategy, technology, talent, governance, and
-                delivery capabilities.
-              </p>
+              </div>
 
             </div>
 
           </div>
 
-        </section>
-
-        {/* ====================================================
-            STORY
-        ==================================================== */}
-
-        <section className="grid grid-cols-1 gap-14 pb-24 lg:grid-cols-[1fr_320px]">
-
-          {/* Main story */}
-
-          <div className="space-y-14">
-
-            {/* Overview */}
-
-            <div>
-
-              <p
-                className="text-[13px] font-semibold uppercase tracking-[0.12em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                GCC Context
-              </p>
-
-              <h2
-                className="mt-3 text-[28px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Creating a strategic engine for global growth
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-[1.85] text-slate-600">
-                {study.overview}
-              </p>
-
-            </div>
-
-            {/* Challenge */}
-
-            <div>
-
-              <p
-                className="text-[13px] font-semibold uppercase tracking-[0.12em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                02 / The Challenge
-              </p>
-
-              <h2
-                className="mt-3 text-[28px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                The GCC Challenge
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-[1.85] text-slate-600">
-                {study.challenge}
-              </p>
-
-            </div>
-
-            {/* Solution */}
-
-            <div>
-
-              <p
-                className="text-[13px] font-semibold uppercase tracking-[0.12em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                03 / The Solution
-              </p>
-
-              <h2
-                className="mt-3 text-[28px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                The Starfii GCC Solution
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-[1.85] text-slate-600">
-                {study.solution}
-              </p>
-
-            </div>
-
-            {/* Results */}
-
-            <div>
-
-              <p
-                className="text-[13px] font-semibold uppercase tracking-[0.12em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                04 / Business Impact
-              </p>
-
-              <h2
-                className="mt-3 text-[28px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Business Impact
-              </h2>
-
-              <p className="mt-5 text-[16px] leading-[1.85] text-slate-600">
-                {study.results}
-              </p>
-
-            </div>
-
-          </div>
-
-          {/* Sidebar */}
-
-          <aside
-            className="h-fit rounded-2xl border p-8 lg:sticky lg:top-8"
+          <p
+            className="mt-10 max-w-4xl text-[26px] leading-snug lg:text-[30px]"
             style={{
-              borderColor: LAVENDER_ACCENT,
+              color:
+                CHAMPION_BLUE,
             }}
           >
-
-            <div
-              className="flex h-11 w-11 items-center justify-center rounded-xl"
-              style={{
-                backgroundColor: "#F5F3FC",
-                color: INDIGO_CTA,
-              }}
-            >
-              <Globe2 size={21} />
-            </div>
-
-            <h3
-              className="mt-5 text-[18px] font-semibold"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              GCC Services Delivered
-            </h3>
-
-            <ul className="mt-5 space-y-3">
-
-              {study.services.map((service) => (
-                <li
-                  key={service}
-                  className="flex gap-2 text-[14px] leading-relaxed text-slate-600"
-                >
-                  <span
-                    className="mt-1"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    •
-                  </span>
-
-                  <span>{service}</span>
-                </li>
-              ))}
-
-            </ul>
-
-            <Link
-              href={`${BASE_PATH}#connect`}
-              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              style={{
-                backgroundColor: CHAMPION_BLUE,
-              }}
-            >
-              Build a GCC with Starfii
-              <ArrowUpRight size={16} />
-            </Link>
-
-          </aside>
+            A Global Capability Center partner, Starfii helps
+            enterprises establish, operate, and scale GCCs with
+            talent, technology, governance, compliance, and
+            delivery capabilities connected from day one.
+          </p>
 
         </section>
 
-        {/* ====================================================
-            GCC CAPABILITIES
-        ==================================================== */}
+      </div>
 
+      {/* ======================================================
+          TABS
+      ====================================================== */}
+
+      <div className="mt-20">
+        <CaseStudyTabs />
+      </div>
+
+      {/* ======================================================
+          MAIN CASE STUDY CONTENT
+      ====================================================== */}
+
+      <div
+        className="bg-[#F6F5FA]"
+        style={{
+          borderTop:
+            "1px solid #E5E1F5",
+        }}
+      >
+
+        <div
+          className={`${ALIGN} py-14 lg:py-16`}
+        >
+
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+
+            {/* ==================================================
+                MAIN ARTICLE
+            ================================================== */}
+
+            <article
+              className="rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:p-12"
+            >
+
+              {/* ==================================================
+                  CLIENT
+              ================================================== */}
+
+              <section
+                id="client"
+                className="scroll-mt-24"
+              >
+
+                <SectionEyebrow>
+                  01 / Client
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 max-w-3xl text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  {study.overview}
+                </h2>
+
+                <div className="mt-7 grid gap-4 sm:grid-cols-3">
+
+                  <div
+                    className="rounded-2xl border p-5"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <Users
+                      size={20}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                      Client
+                    </p>
+
+                    <p
+                      className="mt-2 text-[14px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      {study.client}
+                    </p>
+
+                  </div>
+
+                  <div
+                    className="rounded-2xl border p-5"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <Globe2
+                      size={20}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                      Industry
+                    </p>
+
+                    <p
+                      className="mt-2 text-[14px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      {study.industry}
+                    </p>
+
+                  </div>
+
+                  <div
+                    className="rounded-2xl border p-5"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <Workflow
+                      size={20}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.14em] text-slate-400">
+                      Engagement
+                    </p>
+
+                    <p
+                      className="mt-2 text-[14px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      {study.duration}
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  CHALLENGE
+              ================================================== */}
+
+              <section
+                id="challenge"
+                className="mt-20 scroll-mt-24"
+              >
+
+                <SectionEyebrow>
+                  02 / Challenge
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 max-w-3xl text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  The GCC challenge
+                </h2>
+
+                <p className="mt-5 max-w-3xl text-[16px] leading-8 text-slate-600">
+                  {study.challenge}
+                </p>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                  <PointCard number="01">
+                    Establish the right operating model without
+                    creating unnecessary complexity.
+                  </PointCard>
+
+                  <PointCard number="02">
+                    Build the right talent and capability mix for
+                    the GCC mandate.
+                  </PointCard>
+
+                  <PointCard number="03">
+                    Maintain strong governance and alignment with
+                    global headquarters.
+                  </PointCard>
+
+                  <PointCard number="04">
+                    Create a foundation that can scale as the GCC
+                    grows.
+                  </PointCard>
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  SOLUTION
+              ================================================== */}
+
+              <section
+                id="solution"
+                className="mt-20 scroll-mt-24"
+              >
+
+                <SectionEyebrow>
+                  03 / Solution
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 max-w-3xl text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  The Starfii GCC solution
+                </h2>
+
+                <p className="mt-5 max-w-3xl text-[16px] leading-8 text-slate-600">
+                  {study.solution}
+                </p>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                  <div
+                    className="rounded-2xl border p-6"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <Globe2
+                      size={22}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <h3
+                      className="mt-5 text-[18px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      GCC Setup
+                    </h3>
+
+                    <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                      Entity formation, infrastructure,
+                      operational readiness, and local setup
+                      sequenced as one connected program.
+                    </p>
+
+                  </div>
+
+                  <div
+                    className="rounded-2xl border p-6"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <Users
+                      size={22}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <h3
+                      className="mt-5 text-[18px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      Talent Strategy
+                    </h3>
+
+                    <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                      Role architecture, hiring, onboarding, and
+                      capability development aligned to the GCC
+                      mandate.
+                    </p>
+
+                  </div>
+
+                  <div
+                    className="rounded-2xl border p-6"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <ShieldCheck
+                      size={22}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <h3
+                      className="mt-5 text-[18px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      Governance & Compliance
+                    </h3>
+
+                    <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                      Clear decision rights, reporting lines,
+                      security, compliance, and operational
+                      controls from the start.
+                    </p>
+
+                  </div>
+
+                  <div
+                    className="rounded-2xl border p-6"
+                    style={{
+                      borderColor:
+                        "#E5E1F5",
+                      backgroundColor:
+                        "#FAF9FE",
+                    }}
+                  >
+
+                    <TrendingUp
+                      size={22}
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <h3
+                      className="mt-5 text-[18px] font-semibold"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      Scale & Transition
+                    </h3>
+
+                    <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                      Phased headcount growth, knowledge transfer,
+                      delivery transition, and steady state
+                      operating support.
+                    </p>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  RESULTS
+              ================================================== */}
+
+              <section
+                id="impact"
+                className="mt-20 scroll-mt-24"
+              >
+
+                <SectionEyebrow>
+                  04 / Results
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 max-w-3xl text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Measurable GCC impact
+                </h2>
+
+                <p className="mt-5 max-w-3xl text-[16px] leading-8 text-slate-600">
+                  {study.results}
+                </p>
+
+                <div className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-3">
+
+                  {study.stats.map(
+                    (stat, index) => (
+                      <StatCard
+                        key={`${stat.label}-${index}`}
+                        value={stat.value}
+                        label={stat.label}
+                      />
+                    )
+                  )}
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  OPERATING BENEFITS
+              ================================================== */}
+
+              <section className="mt-20">
+
+                <SectionEyebrow>
+                  GCC Value
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 max-w-3xl text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  What this GCC foundation enables
+                </h2>
+
+                <div className="mt-8 space-y-4">
+
+                  {[
+                    "Faster access to specialized global talent.",
+                    "Clearer alignment between GCC teams and headquarters.",
+                    "Stronger governance and operational control.",
+                    "A scalable foundation for future capability expansion.",
+                  ].map((benefit) => (
+                    <div
+                      key={benefit}
+                      className="flex items-start gap-4 rounded-2xl border p-5"
+                      style={{
+                        borderColor:
+                          "#E5E1F5",
+                      }}
+                    >
+
+                      <CheckCircle2
+                        size={20}
+                        className="mt-0.5 shrink-0"
+                        style={{
+                          color:
+                            INDIGO_CTA,
+                        }}
+                      />
+
+                      <p className="text-[15px] leading-7 text-slate-600">
+                        {benefit}
+                      </p>
+
+                    </div>
+                  ))}
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  SERVICES
+              ================================================== */}
+
+              <section className="mt-20">
+
+                <SectionEyebrow>
+                  Services Delivered
+                </SectionEyebrow>
+
+                <h2
+                  className="mt-4 text-[30px] font-semibold leading-tight lg:text-[36px]"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  GCC capabilities delivered
+                </h2>
+
+                <div className="mt-8 flex flex-wrap gap-3">
+
+                  {study.services.map(
+                    (service) => (
+                      <span
+                        key={service}
+                        className="inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-[13px] font-semibold"
+                        style={{
+                          borderColor:
+                            "#DCD7EF",
+                          color:
+                            CHAMPION_BLUE,
+                          backgroundColor:
+                            "#FAF9FE",
+                        }}
+                      >
+                        <CheckCircle2
+                          size={15}
+                          style={{
+                            color:
+                              INDIGO_CTA,
+                          }}
+                        />
+
+                        {service}
+                      </span>
+                    )
+                  )}
+
+                </div>
+
+              </section>
+
+              {/* ==================================================
+                  FINAL SUMMARY
+              ================================================== */}
+
+              <section className="mt-20">
+
+                <div
+                  className="rounded-3xl p-8 sm:p-10"
+                  style={{
+                    backgroundColor:
+                      "#F1EEFC",
+                  }}
+                >
+
+                  <div className="flex items-start gap-4">
+
+                    <div
+                      className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-white"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    >
+                      <Globe2 size={21} />
+                    </div>
+
+                    <div>
+
+                      <p
+                        className="text-[12px] font-bold uppercase tracking-[0.15em]"
+                        style={{
+                          color:
+                            INDIGO_CTA,
+                        }}
+                      >
+                        The Starfii approach
+                      </p>
+
+                      <p
+                        className="mt-4 text-[22px] font-medium leading-snug"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        Build the capability first.
+                        Scale the operation second.
+                        Optimize continuously.
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+              </section>
+
+            </article>
+
+            {/* ==================================================
+                SIDEBAR
+            ================================================== */}
+
+            <AtAGlanceSidebar
+              study={study}
+            />
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* ======================================================
+          RELATED CASE STUDIES
+      ====================================================== */}
+
+      {related.length > 0 && (
         <section
-          className="border-t py-20 lg:py-24"
+          className="py-20 lg:py-24"
           style={{
-            borderColor: "#E5E1F5",
+            background:
+              "linear-gradient(180deg, #FFFFFF 0%, #F5F2FC 100%)",
           }}
         >
 
-          <div className="max-w-3xl">
-
-            <p
-              className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-              style={{
-                color: INDIGO_CTA,
-              }}
-            >
-              Our Capabilities
-            </p>
-
-            <h2
-              className="mt-4 text-[30px] font-medium sm:text-[36px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              Global Capability Center Capabilities
-            </h2>
-
-            <p className="mt-5 text-[16px] leading-[1.8] text-slate-600">
-              Technology, talent, operating models, and governance
-              designed to help organizations build and scale
-              high-performing global capability centers.
-            </p>
-
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-
-            {[
-              {
-                icon: Globe2,
-                title: "GCC Strategy & Setup",
-                text: "Designing the GCC vision, operating model, location strategy, governance structure, and roadmap for sustainable growth.",
-              },
-              {
-                icon: Layers3,
-                title: "Digital & Technology Operations",
-                text: "Building technology capabilities that support engineering, data, cloud, automation, and enterprise digital operations.",
-              },
-              {
-                icon: Users,
-                title: "Talent & Delivery Excellence",
-                text: "Creating scalable talent models, delivery practices, capability development, and high-performing teams.",
-              },
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  style={{
-                    borderColor: "#E5E1F5",
-                  }}
-                >
-
-                  <div
-                    className="flex h-11 w-11 items-center justify-center rounded-xl"
-                    style={{
-                      backgroundColor: "#F5F3FC",
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    <Icon size={21} />
-                  </div>
-
-                  <h3
-                    className="mt-6 text-[18px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-[14px] leading-[1.75] text-slate-600">
-                    {item.text}
-                  </p>
-
-                </div>
-              );
-            })}
-
-          </div>
-
-        </section>
-
-        {/* ====================================================
-            GCC VALUE AREAS
-        ==================================================== */}
-
-        <section className="py-20 lg:py-24">
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-
-            {[
-              {
-                number: "01",
-                icon: Globe2,
-                title: "GCC Strategy & Setup",
-                text: "From business case to launch, establish the right GCC foundation, operating model, and growth roadmap.",
-              },
-              {
-                number: "02",
-                icon: Workflow,
-                title: "Digital & Technology Operations",
-                text: "Create modern engineering and technology capabilities that support enterprise transformation and innovation.",
-              },
-              {
-                number: "03",
-                icon: TrendingUp,
-                title: "Talent & Delivery Excellence",
-                text: "Build high-performing teams and scalable delivery practices that continuously improve business outcomes.",
-              },
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.number}
-                  className="relative overflow-hidden rounded-2xl p-8"
-                  style={{
-                    backgroundColor: "#F5F3FC",
-                  }}
-                >
-
-                  <span
-                    className="text-[13px] font-semibold"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    {item.number}
-                  </span>
-
-                  <div
-                    className="mt-7 flex h-12 w-12 items-center justify-center rounded-xl bg-white"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    <Icon size={22} />
-                  </div>
-
-                  <h3
-                    className="mt-6 text-[20px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-[14px] leading-[1.75] text-slate-600">
-                    {item.text}
-                  </p>
-
-                </div>
-              );
-            })}
-
-          </div>
-
-        </section>
-
-        {/* ====================================================
-            GCC FOUNDATION
-        ==================================================== */}
-
-        <section
-          className="border-t py-20 lg:py-24"
-          style={{
-            borderColor: "#E5E1F5",
-          }}
-        >
-
-          <div className="max-w-3xl">
-
-            <p
-              className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-              style={{
-                color: INDIGO_CTA,
-              }}
-            >
-              GCC Foundation
-            </p>
-
-            <h2
-              className="mt-4 text-[30px] font-medium sm:text-[36px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              Foundations for a scalable GCC
-            </h2>
-
-          </div>
-
-          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3">
-
-            {[
-              {
-                icon: Layers3,
-                title: "Global Delivery Model",
-                text: "Structured delivery frameworks that connect GCC teams with global business priorities.",
-              },
-              {
-                icon: Users,
-                title: "Talent & Capability Development",
-                text: "Talent strategies that build specialist capabilities and create sustainable workforce growth.",
-              },
-              {
-                icon: ShieldCheck,
-                title: "Governance & Operational Excellence",
-                text: "Strong governance, security, performance management, and continuous improvement practices.",
-              },
-            ].map((item) => {
-
-              const Icon = item.icon;
-
-              return (
-                <div
-                  key={item.title}
-                  className="rounded-2xl border p-7"
-                  style={{
-                    borderColor: "#E5E1F5",
-                  }}
-                >
-
-                  <Icon
-                    size={23}
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  />
-
-                  <h3
-                    className="mt-5 text-[18px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 text-[14px] leading-[1.75] text-slate-600">
-                    {item.text}
-                  </p>
-
-                </div>
-              );
-            })}
-
-          </div>
-
-        </section>
-
-        {/* ====================================================
-            RELATED CASE STUDIES
-        ==================================================== */}
-
-        {related.length > 0 && (
-          <section
-            className="border-t pb-24 pt-20"
-            style={{
-              borderColor: "#E5E1F5",
-            }}
-          >
+          <div className={ALIGN}>
 
             <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
 
               <div>
 
-                <p
-                  className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-                  style={{
-                    color: INDIGO_CTA,
-                  }}
-                >
+                <SectionEyebrow>
                   Explore More
-                </p>
+                </SectionEyebrow>
 
                 <h2
-                  className="mt-3 text-[30px] font-medium sm:text-[36px]"
+                  className="mt-3 text-[31px] font-medium tracking-tight lg:text-[42px]"
                   style={{
-                    color: CHAMPION_BLUE,
+                    color:
+                      CHAMPION_BLUE,
                   }}
                 >
-                  More Global Capability Center Case Studies
+                  More GCC Case Studies
                 </h2>
 
               </div>
@@ -897,11 +1577,12 @@ export default async function CaseStudyDetailPage({
                 href={BASE_PATH}
                 className="inline-flex items-center gap-2 text-[14px] font-semibold"
                 style={{
-                  color: INDIGO_CTA,
+                  color:
+                    INDIGO_CTA,
                 }}
               >
-                View all GCC case studies
-                <ArrowUpRight size={15} />
+                View All Case Studies
+                <ArrowUpRight size={16} />
               </Link>
 
             </div>
@@ -913,50 +1594,58 @@ export default async function CaseStudyDetailPage({
                 <Link
                   key={item.slug}
                   href={`${BASE_PATH}/${item.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
                   style={{
-                    border: "1px solid #E5E1F5",
+                    border:
+                      "1px solid #E5E1F5",
                   }}
                 >
 
-                  <div className="h-[180px] overflow-hidden">
+                  <div className="h-[220px] overflow-hidden">
 
                     <img
                       src={item.image}
                       alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                     />
 
                   </div>
 
-                  <div className="flex flex-1 flex-col p-5">
+                  <div className="flex flex-1 flex-col p-6">
 
-                    <p
-                      className="text-[12px] font-semibold uppercase tracking-[0.1em]"
+                    <span
+                      className="text-[12px] font-semibold tracking-wide"
                       style={{
-                        color: INDIGO_CTA,
+                        color:
+                          INDIGO_CTA,
                       }}
                     >
-                      {item.industry}
-                    </p>
+                      CASE STUDY
+                    </span>
 
                     <h3
-                      className="mt-2 line-clamp-3 text-[16px] font-semibold leading-snug"
+                      className="mt-2 line-clamp-3 text-[18px] font-semibold leading-snug"
                       style={{
-                        color: CHAMPION_BLUE,
+                        color:
+                          CHAMPION_BLUE,
                       }}
                     >
                       {item.title}
                     </h3>
 
+                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
+                      {item.body}
+                    </p>
+
                     <span
-                      className="mt-auto pt-5 inline-flex items-center gap-1 text-[13px] font-semibold"
+                      className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
                       style={{
-                        color: INDIGO_CTA,
+                        color:
+                          INDIGO_CTA,
                       }}
                     >
                       Read Case Study
-                      <ArrowUpRight size={14} />
+                      <ArrowUpRight size={15} />
                     </span>
 
                   </div>
@@ -967,77 +1656,118 @@ export default async function CaseStudyDetailPage({
 
             </div>
 
-          </section>
-        )}
-
-        {/* ====================================================
-            FINAL CTA
-        ==================================================== */}
-
-        <section
-          id="connect"
-          className="mb-20 overflow-hidden rounded-3xl px-7 py-14 sm:px-10 lg:px-16 lg:py-16"
-          style={{
-            backgroundColor: CHAMPION_BLUE,
-          }}
-        >
-
-          <div className="max-w-4xl">
-
-            <p
-              className="text-[13px] font-semibold uppercase tracking-[0.14em]"
-              style={{
-                color: LAVENDER_ACCENT,
-              }}
-            >
-              Global Capability Center Transformation
-            </p>
-
-            <h2 className="mt-4 text-[30px] font-medium leading-tight text-white sm:text-[40px]">
-              Ready to build your next-generation global capability center?
-            </h2>
-
-            <p className="mt-5 max-w-2xl text-[16px] leading-[1.8] text-white/75">
-              Partner with Starfii to design, launch, and scale a
-              high-performing GCC built around technology,
-              talent, innovation, and measurable business value.
-            </p>
-
-            <Link
-              href={BASE_PATH}
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              Start a GCC conversation
-              <ArrowUpRight size={16} />
-            </Link>
-
           </div>
 
         </section>
+      )}
 
-        {/* ====================================================
-            BACK
-        ==================================================== */}
+      {/* ======================================================
+          FINAL CTA
+      ====================================================== */}
 
-        <div className="pb-16">
+      <section
+        id="connect"
+        className="py-20 lg:py-24"
+      >
+
+        <div className={ALIGN}>
+
+          <div
+            className="relative overflow-hidden rounded-[30px] px-8 py-14 sm:px-12 lg:px-16 lg:py-16"
+            style={{
+              backgroundColor:
+                CHAMPION_BLUE,
+            }}
+          >
+
+            <div
+              className="absolute -right-20 -top-20 h-64 w-64 rounded-full blur-3xl"
+              style={{
+                backgroundColor:
+                  `${LAVENDER_ACCENT}25`,
+              }}
+            />
+
+            <div className="relative max-w-3xl">
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color:
+                    LAVENDER_ACCENT,
+                }}
+              >
+                Global Capability Center Transformation
+              </p>
+
+              <h2 className="mt-5 text-[32px] font-medium leading-tight text-white sm:text-[42px]">
+                Ready to build and scale your GCC?
+              </h2>
+
+              <p className="mt-5 text-[16px] leading-8 text-white/70">
+                Starfii can help you move from GCC strategy and
+                feasibility to entity setup, talent acquisition,
+                governance, transition, and steady state delivery.
+              </p>
+
+              <Link
+                href={BASE_PATH}
+                className="group mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[14px] font-semibold transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
+                style={{
+                  color:
+                    CHAMPION_BLUE,
+                }}
+              >
+                Start a GCC conversation
+
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+
+              </Link>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* ======================================================
+          BACK
+      ====================================================== */}
+
+      <div
+        className="border-t bg-white"
+        style={{
+          borderColor:
+            "#E5E1F5",
+        }}
+      >
+
+        <div className={`${ALIGN} py-10`}>
 
           <Link
             href={BASE_PATH}
-            className="inline-flex items-center gap-2 text-[14px] font-semibold transition-opacity hover:opacity-70"
+            className="inline-flex items-center gap-2 text-[14px] font-semibold transition-opacity hover:opacity-60"
             style={{
-              color: INDIGO_CTA,
+              color:
+                INDIGO_CTA,
             }}
           >
+
             <ArrowLeft size={16} />
+
             Back to Global Capability Centers
+
           </Link>
 
         </div>
 
       </div>
+
     </main>
   );
 }

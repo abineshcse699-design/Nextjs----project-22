@@ -254,6 +254,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 type InsightPost = {
+  slug: string;
   large: boolean;
   image: string;
   title: string;
@@ -262,6 +263,7 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
+    slug: "global-capability-centers-build-buy-partner",
     large: true,
     image:
       "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
@@ -270,6 +272,7 @@ const insights: InsightPost[] = [
     body: "Explore the trade offs between building a GCC in house, acquiring an existing center, and partnering with a setup specialist, and how each path affects timeline, cost, and control.",
   },
   {
+    slug: "gcc-talent-strategy-structuring-roles",
     large: false,
     image:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
@@ -277,6 +280,7 @@ const insights: InsightPost[] = [
     body: "See why role architecture has to come before sourcing, and how Starfii turns a vague headcount target into a hiring plan matched to what your GCC actually needs.",
   },
   {
+    slug: "gcc-governance-models-hq-alignment",
     large: false,
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
@@ -284,6 +288,7 @@ const insights: InsightPost[] = [
     body: "Stop letting decision rights stay ambiguous. See how a defined governance model prevents the early stalls that slow down new global capability centers.",
   },
   {
+    slug: "gcc-operating-model-setup-to-steady-state",
     large: false,
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
@@ -291,6 +296,7 @@ const insights: InsightPost[] = [
     body: "See how a clear operating model connects governance, delivery, talent, and performance as a new global capability center moves into steady state.",
   },
   {
+    slug: "scaling-gcc-talent-delivery-quality",
     large: false,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
@@ -1327,80 +1333,6 @@ export default function GlobalCapabilityCentersSection(): ReactElement {
           INDUSTRY RECOGNITION
       ============================================================ */}
 
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 100%, rgba(232,110,90,0.5) 0%, rgba(164,143,234,0.3) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
-            <Reveal>
-              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-                Industry
-                <br />
-                Recognition
-              </h2>
-            </Reveal>
-
-            <StepCarousel
-              items={industryAwards}
-              itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-              arrowVariant="dark"
-              renderItem={(award, i) => (
-                <Reveal delay={(i % 2) * 100} className="h-full">
-                  <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
-                    <div
-                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      <span>ISG Provider Lens™</span>
-                      <span className="font-normal text-slate-400">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <div
-                      className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
-                      style={{ backgroundColor: CHAMPION_BLUE }}
-                    >
-                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
-                        {award.category}
-                      </p>
-                      <p
-                        className="font-body mt-1 text-[13px]"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
-                        {award.subcategory}
-                      </p>
-                      <div className="font-body mt-6 flex items-center justify-between">
-                        <span className="text-[14px]">{award.rank}</span>
-                        <Trophy size={20} className="ss-trophy opacity-80" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
-                        {award.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
-                        style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
-                      >
-                        Know more
-                      </button>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-      </section>
 
       {/* ============================================================
           CASE STUDIES
@@ -1494,83 +1426,128 @@ export default function GlobalCapabilityCentersSection(): ReactElement {
             >
               {"What's New in Global Capability Centers"}
             </h2>
-            <a
-              href="#"
+            <Link
+              href="/services/global-capability-centers/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Insights
+              View All Blogs
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light" clickToAdvance>
-              {insights.map((post, i) => (
-                <Reveal
-                  key={post.title}
-                  delay={i * 90}
-                  className={`flex-shrink-0 snap-start cursor-pointer ${
-                    post.large ? "w-[420px]" : "w-[340px]"
-                  }`}
-                  data-carousel-card
-                >
-                  {post.large ? (
-                    <div className="group relative h-[420px] overflow-hidden rounded-2xl">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="group">
-                      <div className="h-[220px] overflow-hidden rounded-2xl">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="pt-5">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </Reveal>
-              ))}
-            </Carousel>
+          <Carousel
+  itemCount={insights.length}
+  arrowVariant="light"
+  clickToAdvance={false}
+>
+  {insights.map((post, i) => (
+    <Reveal
+      key={post.slug}
+      delay={i * 90}
+      className={`flex-shrink-0 snap-start ${
+        post.large
+          ? "w-[420px]"
+          : "w-[340px]"
+      }`}
+    >
+      <Link
+        href={`/services/global-capability-centers/blogs/${post.slug}`}
+        className="group block h-full"
+        aria-label={`Read ${post.title}`}
+      >
+        {post.large ? (
+          <div className="relative h-[420px] overflow-hidden rounded-2xl">
+            <img
+              src={post.image}
+              alt={post.title}
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+
+            <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+              <span
+                className="font-body text-[12px] font-semibold tracking-wide"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                BLOG
+              </span>
+
+              <h3
+                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                {post.title}
+              </h3>
+
+              <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                {post.body}
+              </p>
+
+              <span
+                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                Read More
+                <ArrowUpRight size={14} />
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="group">
+            <div className="h-[220px] overflow-hidden rounded-2xl">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+
+            <div className="pt-5">
+              <span
+                className="font-body text-[12px] font-semibold tracking-wide"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                BLOG
+              </span>
+
+              <h3
+                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                {post.title}
+              </h3>
+
+              <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                {post.body}
+              </p>
+
+              <span
+                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                Read More
+                <ArrowUpRight size={14} />
+              </span>
+            </div>
+          </div>
+        )}
+      </Link>
+    </Reveal>
+  ))}
+</Carousel>
           </div>
         </div>
       </section>

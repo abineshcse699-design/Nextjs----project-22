@@ -1,11 +1,19 @@
-import type { Metadata } from "next";
+// app/services/offerings/ai-data-extraction/[slug]/page.tsx
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 import {
   ArrowLeft,
   ArrowUpRight,
+  CheckCircle2,
   ChevronRight,
+  FileSearch,
+  Database,
+  Workflow,
+  ShieldCheck,
+  Search,
   Sparkles,
 } from "lucide-react";
 
@@ -13,6 +21,12 @@ import {
   caseStudies,
   getCaseStudyBySlug,
 } from "../data/case-studies";
+
+import CaseStudyTabs from "../CaseStudyTabs";
+
+/* ============================================================
+   BRAND
+============================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
@@ -24,11 +38,19 @@ const ALIGN =
 const BASE_PATH =
   "/services/offerings/ai-data-extraction";
 
+/* ============================================================
+   TYPES
+============================================================ */
+
 type PageProps = {
   params: Promise<{
     slug: string;
   }>;
 };
+
+/* ============================================================
+   STATIC PARAMS
+============================================================ */
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({
@@ -38,45 +60,69 @@ export function generateStaticParams() {
 
 export const dynamicParams = false;
 
+/* ============================================================
+   SEO
+============================================================ */
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-  const study = getCaseStudyBySlug(slug);
+
+  const study =
+    getCaseStudyBySlug(slug);
 
   if (!study) {
     return {
-      title: "Case Study Not Found | Starfii",
+      title:
+        "Case Study Not Found | Starfii",
+      description:
+        "The requested AI Data Extraction case study could not be found.",
     };
   }
 
   return {
-    title: `${study.title} | Starfii AI Data Extraction`,
+    title:
+      `${study.title} | Starfii AI Data Extraction`,
     description: study.body,
   };
 }
+
+/* ============================================================
+   PAGE
+============================================================ */
 
 export default async function CaseStudyPage({
   params,
 }: PageProps) {
   const { slug } = await params;
-  const study = getCaseStudyBySlug(slug);
+
+  const study =
+    getCaseStudyBySlug(slug);
 
   if (!study) {
     notFound();
   }
 
-  const relatedStudies = caseStudies
-    .filter((item) => item.slug !== study.slug)
-    .slice(0, 3);
+  const relatedStudies =
+    caseStudies
+      .filter(
+        (item) =>
+          item.slug !== study.slug
+      )
+      .slice(0, 3);
 
   return (
     <main className="bg-white">
 
-      {/* HERO */}
+      {/* ======================================================
+          HERO
+      ====================================================== */}
+
       <section className="relative isolate overflow-hidden">
 
         <div className="absolute inset-0 -z-10">
+
           <img
             src={study.image}
             alt=""
@@ -84,17 +130,27 @@ export default async function CaseStudyPage({
           />
 
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/20" />
+
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
+        <div
+          className={`${ALIGN} py-24 lg:py-32`}
+        >
 
           {/* BREADCRUMB */}
+
           <nav
             aria-label="Breadcrumb"
             className="flex flex-wrap items-center gap-2 text-[14px] font-medium"
-            style={{ color: CHAMPION_BLUE }}
+            style={{
+              color: CHAMPION_BLUE,
+            }}
           >
-            <Link href="/" className="hover:underline">
+
+            <Link
+              href="/"
+              className="hover:underline"
+            >
               Home
             </Link>
 
@@ -121,26 +177,28 @@ export default async function CaseStudyPage({
             <span className="text-slate-500">
               Case Study
             </span>
+
           </nav>
 
           {/* HERO CONTENT */}
+
           <div className="mt-10 max-w-4xl">
 
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-semibold tracking-wide"
+            <p
+              className="text-[12px] font-semibold tracking-[0.18em]"
               style={{
-                backgroundColor: "#F1EEFC",
-                color: INDIGO_CTA,
+                color:
+                  INDIGO_CTA,
               }}
             >
-              <Sparkles size={14} />
-              AI DATA EXTRACTION
-            </span>
+              AI DATA EXTRACTION CASE STUDY
+            </p>
 
             <h1
-              className="mt-6 max-w-4xl text-[42px] font-medium leading-[1.12] sm:text-[48px] lg:text-[60px]"
+              className="mt-5 max-w-4xl text-[42px] font-medium leading-[1.12] sm:text-[50px] lg:text-[60px]"
               style={{
-                color: CHAMPION_BLUE,
+                color:
+                  CHAMPION_BLUE,
               }}
             >
               {study.title}
@@ -156,62 +214,98 @@ export default async function CaseStudyPage({
                 href={`${BASE_PATH}#connect`}
                 className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
                 style={{
-                  backgroundColor: CHAMPION_BLUE,
+                  backgroundColor:
+                    CHAMPION_BLUE,
                 }}
               >
                 Build an AI Data Solution
-                <ArrowUpRight size={16} />
+                <ArrowUpRight
+                  size={16}
+                />
               </Link>
 
               <Link
                 href="#story"
-                className="inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold"
+                className="inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5"
                 style={{
-                  borderColor: LAVENDER_ACCENT,
-                  color: CHAMPION_BLUE,
+                  borderColor:
+                    LAVENDER_ACCENT,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
-                Explore the case study
+                Explore the Case Study
               </Link>
 
             </div>
 
           </div>
+
         </div>
+
       </section>
 
-      {/* CASE STUDY IMAGE */}
+      {/* ======================================================
+          STICKY TABS
+      ====================================================== */}
+
+      <CaseStudyTabs />
+
+      {/* ======================================================
+          FEATURE IMAGE
+      ====================================================== */}
+
       <section className="bg-white py-16 lg:py-20">
+
         <div className={ALIGN}>
-          <div className="overflow-hidden rounded-3xl">
+
+          <div className="group overflow-hidden rounded-3xl">
+
             <img
               src={study.image}
               alt={study.title}
-              className="h-[320px] w-full object-cover sm:h-[420px] lg:h-[560px]"
+              className="h-[320px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] sm:h-[420px] lg:h-[560px]"
             />
+
           </div>
+
         </div>
+
       </section>
 
-      {/* STORY */}
+      {/* ======================================================
+          MAIN STORY
+      ====================================================== */}
+
       <section
         id="story"
         className="pb-24"
       >
+
         <div
           className={`${ALIGN} grid grid-cols-1 gap-14 lg:grid-cols-[1fr_360px]`}
         >
 
-          {/* MAIN CONTENT */}
+          {/* ==================================================
+              ARTICLE
+          ================================================== */}
+
           <article className="max-w-4xl">
 
-            {/* OVERVIEW */}
-            <div>
+            {/* =================================================
+                CLIENT
+            ================================================= */}
+
+            <div
+              id="client"
+              className="scroll-mt-28"
+            >
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-semibold tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color:
+                    LAVENDER_ACCENT,
                 }}
               >
                 AI DATA EXTRACTION CASE STUDY
@@ -220,10 +314,11 @@ export default async function CaseStudyPage({
               <h2
                 className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
-                Turning complex business documents into structured intelligence
+                Turning business documents into intelligent, usable data
               </h2>
 
               <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
@@ -231,23 +326,29 @@ export default async function CaseStudyPage({
               </p>
 
               <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Starfii helps organizations transform documents,
-                forms, invoices, reports, emails, and other
-                unstructured information into structured,
-                usable business data with AI-powered extraction,
-                document understanding, validation, and workflow
-                automation.
+                Starfii helps organizations transform invoices,
+                contracts, forms, applications, reports, claims,
+                emails, and other unstructured information into
+                structured business data using AI-powered document
+                intelligence and extraction workflows.
               </p>
 
             </div>
 
-            {/* CHALLENGE */}
-            <div className="mt-16">
+            {/* =================================================
+                CHALLENGE
+            ================================================= */}
+
+            <div
+              id="challenge"
+              className="mt-16 scroll-mt-28"
+            >
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-semibold tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color:
+                    LAVENDER_ACCENT,
                 }}
               >
                 01 / DATA EXTRACTION CHALLENGE
@@ -256,36 +357,86 @@ export default async function CaseStudyPage({
               <h2
                 className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
                 Moving beyond manual document processing
               </h2>
 
               <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                Organizations often process large volumes of
-                documents containing valuable business information.
-                Manual data entry, document review, repetitive
-                validation, and disconnected workflows can consume
-                significant amounts of time.
+                Business documents often contain valuable
+                information, but that information can be difficult
+                to use when it remains locked inside PDFs, scans,
+                images, forms, emails, and other unstructured
+                content.
               </p>
 
               <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                The opportunity was to automatically understand
-                documents, extract the information that matters,
-                validate the results, and move structured data into
-                downstream business systems.
+                Manual data entry, document review, repetitive
+                validation, and disconnected handoffs can slow
+                operations and create unnecessary processing work.
               </p>
+
+              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                {[
+                  "High volumes of unstructured documents",
+                  "Manual field and data entry",
+                  "Inconsistent document formats",
+                  "Repetitive validation and review",
+                  "Disconnected downstream systems",
+                  "Limited visibility into extracted information",
+                ].map((item) => (
+
+                  <div
+                    key={item}
+                    className="rounded-2xl p-6"
+                    style={{
+                      backgroundColor:
+                        "#F5F3FC",
+                    }}
+                  >
+
+                    <div className="flex items-start gap-3">
+
+                      <CheckCircle2
+                        size={18}
+                        className="mt-0.5 shrink-0"
+                        style={{
+                          color:
+                            INDIGO_CTA,
+                        }}
+                      />
+
+                      <p className="text-[14px] leading-relaxed text-slate-600">
+                        {item}
+                      </p>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
 
             </div>
 
-            {/* SOLUTION */}
-            <div className="mt-16">
+            {/* =================================================
+                SOLUTION
+            ================================================= */}
+
+            <div
+              id="solution"
+              className="mt-16 scroll-mt-28"
+            >
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-semibold tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color:
+                    LAVENDER_ACCENT,
                 }}
               >
                 02 / STARFII AI DATA SOLUTION
@@ -294,7 +445,8 @@ export default async function CaseStudyPage({
               <h2
                 className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
                 Intelligent extraction built around business context
@@ -303,109 +455,124 @@ export default async function CaseStudyPage({
               <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
                 Starfii combines AI document understanding, OCR,
                 natural language processing, structured extraction,
-                and validation to turn complex documents into
-                reliable business information.
+                validation, and workflow automation to transform
+                unstructured content into reliable business data.
               </p>
 
               <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Extracted information can be connected with APIs,
-                databases, CRM, ERP, document management platforms,
-                and other enterprise workflows so data moves
-                directly into the systems where it is needed.
+                The extracted information can then move into
+                databases, APIs, CRM, ERP, finance systems,
+                healthcare platforms, insurance workflows, and
+                other enterprise applications.
               </p>
 
-            </div>
-
-            {/* CAPABILITIES */}
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                03 / AI DATA CAPABILITIES
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Capabilities that turn documents into usable data
-              </h2>
-
-              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                 {[
-                  "Intelligent Document Processing",
-                  "AI-Powered OCR",
-                  "Structured Data Extraction",
-                  "Document Classification",
-                  "Entity & Field Extraction",
-                  "Natural Language Processing",
-                  "Data Validation & Enrichment",
-                  "Email & Attachment Extraction",
-                  "Human-in-the-Loop Review",
-                  "Workflow Automation",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="rounded-2xl p-6"
-                    style={{
-                      backgroundColor: "#F5F3FC",
-                    }}
-                  >
-                    <div className="flex items-start gap-3">
-                      <span
-                        className="mt-2 h-2 w-2 flex-shrink-0 rounded-full"
+                  {
+                    icon: FileSearch,
+                    title:
+                      "Document Understanding",
+                    body:
+                      "Understand document structures, fields, entities, and context.",
+                  },
+                  {
+                    icon: Search,
+                    title:
+                      "Intelligent Extraction",
+                    body:
+                      "Extract the information required for downstream business processes.",
+                  },
+                  {
+                    icon: ShieldCheck,
+                    title:
+                      "Validation",
+                    body:
+                      "Apply confidence scoring, validation rules, and exception handling.",
+                  },
+                  {
+                    icon: Workflow,
+                    title:
+                      "Workflow Automation",
+                    body:
+                      "Move structured data into systems and operational workflows.",
+                  },
+                ].map(
+                  ({
+                    icon: Icon,
+                    title,
+                    body,
+                  }) => (
+
+                    <div
+                      key={title}
+                      className="rounded-2xl border border-[#E5E1F5] p-6"
+                    >
+
+                      <Icon
+                        size={23}
                         style={{
-                          backgroundColor: INDIGO_CTA,
+                          color:
+                            INDIGO_CTA,
                         }}
                       />
 
-                      <p
-                        className="text-[15px] font-semibold"
+                      <h3
+                        className="mt-5 text-[19px] font-semibold"
                         style={{
-                          color: CHAMPION_BLUE,
+                          color:
+                            CHAMPION_BLUE,
                         }}
                       >
-                        {item}
+                        {title}
+                      </h3>
+
+                      <p className="mt-2 text-[14px] leading-relaxed text-slate-600">
+                        {body}
                       </p>
+
                     </div>
-                  </div>
-                ))}
+
+                  )
+                )}
 
               </div>
+
             </div>
 
-            {/* BUSINESS IMPACT */}
-            <div className="mt-16">
+            {/* =================================================
+                IMPACT
+            ================================================= */}
+
+            <div
+              id="impact"
+              className="mt-16 scroll-mt-28"
+            >
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-semibold tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color:
+                    LAVENDER_ACCENT,
                 }}
               >
-                04 / BUSINESS IMPACT
+                03 / BUSINESS IMPACT
               </p>
 
               <h2
                 className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
-                From unstructured information to measurable business value
+                From unstructured documents to measurable business value
               </h2>
 
               <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
                 AI data extraction helps organizations reduce
-                repetitive processing, improve access to business
-                information, and create more efficient document-driven
+                repetitive processing, improve information
+                accessibility, and create faster document-driven
                 workflows.
               </p>
 
@@ -413,61 +580,269 @@ export default async function CaseStudyPage({
 
                 {[
                   {
-                    title: "Faster Data Processing",
-                    text:
-                      "Automate repetitive extraction and reduce the time required to process large volumes of business documents.",
+                    title:
+                      "Faster Data Processing",
+                    body:
+                      "Automate repetitive extraction and reduce the time required to process large document volumes.",
                   },
                   {
-                    title: "Improved Data Accuracy",
-                    text:
-                      "AI-assisted extraction, validation, and exception handling help create more consistent structured information.",
+                    title:
+                      "Improved Data Quality",
+                    body:
+                      "Use validation, confidence scoring, and exception handling to improve consistency.",
                   },
                   {
-                    title: "Connected Business Workflows",
-                    text:
-                      "Send extracted information directly into enterprise systems and downstream workflows.",
+                    title:
+                      "Better Operational Visibility",
+                    body:
+                      "Turn document content into structured information that business systems can use.",
                   },
-                ].map((item) => (
-                  <div
-                    key={item.title}
-                    className="rounded-2xl p-6"
-                    style={{
-                      backgroundColor: "#F5F3FC",
-                    }}
-                  >
-                    <h3
-                      className="text-[20px] font-semibold"
+                  {
+                    title:
+                      "Connected Workflows",
+                    body:
+                      "Move extracted information directly into downstream systems and operational processes.",
+                  },
+                ].map(
+                  (item) => (
+
+                    <div
+                      key={item.title}
+                      className="rounded-2xl p-6"
                       style={{
-                        color: CHAMPION_BLUE,
+                        backgroundColor:
+                          "#F5F3FC",
                       }}
                     >
-                      {item.title}
-                    </h3>
 
-                    <p className="mt-2 text-[14px] leading-[1.8] text-slate-600">
-                      {item.text}
+                      <h3
+                        className="text-[20px] font-semibold"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+
+                      <p className="mt-2 text-[14px] leading-[1.8] text-slate-600">
+                        {item.body}
+                      </p>
+
+                    </div>
+
+                  )
+                )}
+
+              </div>
+
+            </div>
+
+            {/* =================================================
+                BENEFITS
+            ================================================= */}
+
+            <div
+              id="benefits"
+              className="mt-16 scroll-mt-28"
+            >
+
+              <p
+                className="text-[12px] font-semibold tracking-[0.18em]"
+                style={{
+                  color:
+                    LAVENDER_ACCENT,
+                }}
+              >
+                04 / BENEFITS
+              </p>
+
+              <h2
+                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
+                style={{
+                  color:
+                    CHAMPION_BLUE,
+                }}
+              >
+                Designed to reduce repetitive work and improve data flow
+              </h2>
+
+              <div className="mt-8 space-y-4">
+
+                {[
+                  "Reduce manual document processing.",
+                  "Extract structured information from complex documents.",
+                  "Improve consistency across document workflows.",
+                  "Support validation and human review.",
+                  "Connect extracted data to enterprise systems.",
+                  "Scale document processing across business operations.",
+                ].map((item) => (
+
+                  <div
+                    key={item}
+                    className="flex items-start gap-4 border-b border-slate-200 pb-4"
+                  >
+
+                    <CheckCircle2
+                      size={19}
+                      className="mt-0.5 shrink-0"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    />
+
+                    <p className="text-[15px] leading-relaxed text-slate-600">
+                      {item}
                     </p>
+
                   </div>
+
                 ))}
 
               </div>
+
+            </div>
+
+            {/* =================================================
+                TECHNOLOGY
+            ================================================= */}
+
+            <div
+              id="technology"
+              className="mt-16 scroll-mt-28"
+            >
+
+              <p
+                className="text-[12px] font-semibold tracking-[0.18em]"
+                style={{
+                  color:
+                    LAVENDER_ACCENT,
+                }}
+              >
+                05 / TECHNOLOGY
+              </p>
+
+              <h2
+                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
+                style={{
+                  color:
+                    CHAMPION_BLUE,
+                }}
+              >
+                AI technologies that connect extraction with enterprise workflows
+              </h2>
+
+              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
+                Modern AI data extraction workflows can combine
+                document intelligence, OCR, machine learning,
+                natural language processing, structured output,
+                validation, APIs, databases, and enterprise
+                integrations.
+              </p>
+
+              <div className="mt-9 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                {[
+                  {
+                    icon: Sparkles,
+                    title:
+                      "Artificial Intelligence",
+                  },
+                  {
+                    icon: FileSearch,
+                    title:
+                      "Intelligent Document Processing",
+                  },
+                  {
+                    icon: Search,
+                    title:
+                      "OCR & Semantic Understanding",
+                  },
+                  {
+                    icon: Database,
+                    title:
+                      "Structured Data Processing",
+                  },
+                  {
+                    icon: ShieldCheck,
+                    title:
+                      "Validation & Governance",
+                  },
+                  {
+                    icon: Workflow,
+                    title:
+                      "API & Workflow Integration",
+                  },
+                ].map(
+                  ({
+                    icon: Icon,
+                    title,
+                  }) => (
+
+                    <div
+                      key={title}
+                      className="flex items-center gap-4 rounded-2xl border border-slate-200 p-5"
+                    >
+
+                      <span
+                        className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"
+                        style={{
+                          backgroundColor:
+                            "#F1EEFC",
+                        }}
+                      >
+
+                        <Icon
+                          size={20}
+                          style={{
+                            color:
+                              INDIGO_CTA,
+                          }}
+                        />
+
+                      </span>
+
+                      <span
+                        className="text-[14px] font-semibold"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        {title}
+                      </span>
+
+                    </div>
+
+                  )
+                )}
+
+              </div>
+
             </div>
 
           </article>
 
-          {/* SIDEBAR */}
+          {/* ==================================================
+              SIDEBAR
+          ================================================== */}
+
           <aside>
+
             <div
-              className="sticky top-8 rounded-2xl p-7"
+              className="rounded-2xl p-7 lg:sticky lg:top-8"
               style={{
-                backgroundColor: "#F5F3FC",
+                backgroundColor:
+                  "#F5F3FC",
               }}
             >
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-semibold tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color:
+                    LAVENDER_ACCENT,
                 }}
               >
                 AI DATA EXTRACTION
@@ -476,7 +851,8 @@ export default async function CaseStudyPage({
               <h3
                 className="mt-3 text-[25px] font-semibold"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
                 Data Extraction Capabilities
@@ -498,21 +874,26 @@ export default async function CaseStudyPage({
                   "Human Review Workflows",
                   "Enterprise Workflow Automation",
                 ].map((item) => (
+
                   <div
                     key={item}
                     className="flex items-start gap-3 border-b border-slate-200 pb-3"
                   >
+
                     <span
                       className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full"
                       style={{
-                        backgroundColor: INDIGO_CTA,
+                        backgroundColor:
+                          INDIGO_CTA,
                       }}
                     />
 
                     <span className="text-[14px] leading-relaxed text-slate-600">
                       {item}
                     </span>
+
                   </div>
+
                 ))}
 
               </div>
@@ -521,20 +902,28 @@ export default async function CaseStudyPage({
                 href={`${BASE_PATH}#connect`}
                 className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
                 style={{
-                  backgroundColor: CHAMPION_BLUE,
+                  backgroundColor:
+                    CHAMPION_BLUE,
                 }}
               >
                 Build an AI Data Solution
-                <ArrowUpRight size={16} />
+                <ArrowUpRight
+                  size={16}
+                />
               </Link>
 
             </div>
+
           </aside>
 
         </div>
+
       </section>
 
-      {/* RELATED CASE STUDIES */}
+      {/* ======================================================
+          RELATED CASE STUDIES
+      ====================================================== */}
+
       <section
         className="py-24"
         style={{
@@ -542,6 +931,7 @@ export default async function CaseStudyPage({
             "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
         }}
       >
+
         <div className={ALIGN}>
 
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
@@ -551,7 +941,8 @@ export default async function CaseStudyPage({
               <p
                 className="text-[12px] font-semibold tracking-[0.15em]"
                 style={{
-                  color: INDIGO_CTA,
+                  color:
+                    INDIGO_CTA,
                 }}
               >
                 EXPLORE MORE
@@ -560,7 +951,8 @@ export default async function CaseStudyPage({
               <h2
                 className="mt-3 max-w-3xl text-[32px] font-medium leading-tight lg:text-[44px]"
                 style={{
-                  color: CHAMPION_BLUE,
+                  color:
+                    CHAMPION_BLUE,
                 }}
               >
                 More AI Data Extraction Case Studies
@@ -572,75 +964,95 @@ export default async function CaseStudyPage({
               href={BASE_PATH}
               className="hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{
-                color: INDIGO_CTA,
+                color:
+                  INDIGO_CTA,
               }}
             >
               View All Case Studies
-              <ArrowUpRight size={16} />
+              <ArrowUpRight
+                size={16}
+              />
             </Link>
 
           </div>
 
           <div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
 
-            {relatedStudies.map((item) => (
-              <Link
-                key={item.slug}
-                href={`${BASE_PATH}/${item.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-              >
+            {relatedStudies.map(
+              (item) => (
 
-                <div className="h-[220px] overflow-hidden">
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                </div>
+                <Link
+                  key={item.slug}
+                  href={`${BASE_PATH}/${item.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+                >
 
-                <div className="flex flex-1 flex-col p-6">
+                  <div className="h-[220px] overflow-hidden">
 
-                  <span
-                    className="text-[12px] font-semibold tracking-wide"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    AI DATA EXTRACTION
-                  </span>
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
 
-                  <h3
-                    className="mt-2 text-[19px] font-semibold leading-snug"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
+                  </div>
 
-                  <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
-                    {item.body}
-                  </p>
+                  <div className="flex flex-1 flex-col p-6">
 
-                  <span
-                    className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    Read Case Study
-                    <ArrowUpRight size={15} />
-                  </span>
+                    <span
+                      className="text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    >
+                      CASE STUDY
+                    </span>
 
-                </div>
-              </Link>
-            ))}
+                    <h3
+                      className="mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
+                      {item.body}
+                    </p>
+
+                    <span
+                      className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    >
+                      Read Case Study
+                      <ArrowUpRight
+                        size={15}
+                      />
+                    </span>
+
+                  </div>
+
+                </Link>
+
+              )
+            )}
 
           </div>
+
         </div>
+
       </section>
 
-      {/* FINAL CTA */}
+      {/* ======================================================
+          CTA
+      ====================================================== */}
+
       <section className="bg-white py-20">
 
         <div className={ALIGN}>
@@ -649,51 +1061,56 @@ export default async function CaseStudyPage({
             id="connect"
             className="overflow-hidden rounded-3xl px-7 py-14 sm:px-10 lg:px-16 lg:py-16"
             style={{
-              backgroundColor: CHAMPION_BLUE,
+              backgroundColor:
+                CHAMPION_BLUE,
             }}
           >
 
-            <div className="max-w-4xl">
+            <p
+              className="text-[12px] font-semibold tracking-[0.18em]"
+              style={{
+                color:
+                  LAVENDER_ACCENT,
+              }}
+            >
+              AI DATA TRANSFORMATION
+            </p>
 
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                AI DATA TRANSFORMATION
-              </p>
+            <h2 className="mt-4 max-w-4xl text-[34px] font-medium leading-tight text-white sm:text-[42px]">
+              Ready to turn unstructured information into intelligent business data?
+            </h2>
 
-              <h2 className="mt-4 text-[32px] font-medium leading-tight text-white sm:text-[42px]">
-                Ready to turn unstructured information into intelligent business data?
-              </h2>
+            <p className="mt-5 max-w-2xl text-[16px] leading-[1.8] text-white/75">
+              Build AI-powered extraction workflows that
+              understand documents, capture important information,
+              validate results, and connect structured data with
+              your business systems.
+            </p>
 
-              <p className="mt-5 max-w-2xl text-[16px] leading-[1.8] text-white/75">
-                Build AI-powered extraction workflows that
-                understand documents, capture important information,
-                validate results, and connect data with your business
-                systems.
-              </p>
-
-              <Link
-                href={BASE_PATH}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Explore AI Data Extraction
-                <ArrowUpRight size={16} />
-              </Link>
-
-            </div>
+            <Link
+              href={BASE_PATH}
+              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              style={{
+                color:
+                  CHAMPION_BLUE,
+              }}
+            >
+              Explore AI Data Extraction
+              <ArrowUpRight
+                size={16}
+              />
+            </Link>
 
           </div>
 
         </div>
+
       </section>
 
-      {/* BACK */}
+      {/* ======================================================
+          BACK
+      ====================================================== */}
+
       <section className="bg-white pb-16">
 
         <div className={ALIGN}>
@@ -702,7 +1119,8 @@ export default async function CaseStudyPage({
             href={BASE_PATH}
             className="inline-flex items-center gap-2 text-[14px] font-semibold transition-transform hover:-translate-x-1"
             style={{
-              color: INDIGO_CTA,
+              color:
+                INDIGO_CTA,
             }}
           >
             <ArrowLeft size={16} />
@@ -710,6 +1128,7 @@ export default async function CaseStudyPage({
           </Link>
 
         </div>
+
       </section>
 
     </main>

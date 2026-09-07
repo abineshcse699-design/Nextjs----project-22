@@ -1,0 +1,596 @@
+/* ============================================================
+   BLOG TYPES
+============================================================ */
+
+export type BlogSection = {
+  heading: string;
+  paragraphs: string[];
+};
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  category: string;
+
+  lastUpdated: string;
+  readTime: string;
+
+  heroImage: string;
+  excerpt: string;
+
+  author: {
+    name: string;
+    role: string;
+    photo: string;
+    bio: string;
+  };
+
+  intro: string[];
+  sections: BlogSection[];
+};
+
+/* ============================================================
+   AUTHOR
+============================================================ */
+
+const AUTHOR = {
+  name: "Sanjay Salunkhe",
+
+  role:
+    "President and Global Head of Digital and Software Services",
+
+  photo:
+    "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
+
+  bio:
+    "Sanjay Salunkhe is the President and Global Head of Digital and Software Services of our Company.",
+};
+
+/* ============================================================
+   AI MEETING ASSISTANT BLOGS
+============================================================ */
+
+export const blogPosts: BlogPost[] = [
+  {
+    slug:
+      "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
+
+    title:
+      "AI Meeting Assistants: Turning Conversations Into Actionable Intelligence",
+
+    category:
+      "AI Meeting Assistant",
+
+    lastUpdated:
+      "Sep 7, 2026",
+
+    readTime:
+      "7 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "Explore how AI meeting assistants can capture conversations, generate structured summaries, identify decisions, and turn meetings into actionable business intelligence.",
+
+    author: AUTHOR,
+
+    intro: [
+      "Meetings are essential to modern business operations, but valuable decisions and insights are often lost in long conversations, fragmented notes, and inconsistent follow-up.",
+
+      "Teams spend significant time documenting discussions, preparing summaries, and manually tracking action items after meetings have ended.",
+
+      "AI meeting assistants can help transform conversations into structured intelligence by capturing important discussion points, summarizing outcomes, and highlighting actions that require follow-up.",
+    ],
+
+    sections: [
+      {
+        heading:
+          "1. The Challenge of Manual Meeting Documentation",
+
+        paragraphs: [
+          "Traditional meetings often depend on participants taking notes while simultaneously contributing to the discussion.",
+
+          "Important decisions, commitments, and context can be missed when documentation is inconsistent or incomplete.",
+
+          "Manual follow-up also creates additional work after meetings, especially for teams managing a large number of customer, internal, or project discussions.",
+        ],
+      },
+
+      {
+        heading:
+          "2. How AI Meeting Assistants Capture Context",
+
+        paragraphs: [
+          "AI meeting assistants can process meeting conversations and organize important information into structured outputs.",
+
+          "Instead of reviewing long recordings or fragmented notes, participants can access summaries, discussion themes, decisions, and important context.",
+
+          "This creates a more accessible record of the meeting while reducing the manual effort required to document every conversation.",
+        ],
+      },
+
+      {
+        heading:
+          "3. Turning Discussions Into Action Items",
+
+        paragraphs: [
+          "One of the most important outcomes of a business meeting is understanding what needs to happen next.",
+
+          "AI can help identify commitments, responsibilities, deadlines, and follow-up activities mentioned during a conversation.",
+
+          "Structured action items can make it easier for teams to move from discussion to execution without relying entirely on manual note-taking.",
+        ],
+      },
+
+      {
+        heading:
+          "4. Making Meeting Knowledge Searchable",
+
+        paragraphs: [
+          "Business knowledge is often created during meetings but becomes difficult to access after the conversation ends.",
+
+          "AI-assisted meeting intelligence can organize discussions so teams can find relevant decisions, topics, and context later.",
+
+          "This can help reduce repeated discussions and improve continuity across projects and teams.",
+        ],
+      },
+
+      {
+        heading:
+          "5. Building More Productive Meeting Workflows",
+
+        paragraphs: [
+          "The value of an AI meeting assistant extends beyond transcription or summary generation.",
+
+          "When meeting intelligence connects with business workflows, action items, project systems, and collaboration tools, conversations can contribute more directly to execution.",
+
+          "Over time, organizations can build meeting workflows where important discussions are captured, structured, and connected to the work that follows.",
+        ],
+      },
+    ],
+  },
+
+  /* ==========================================================
+     BLOG 2
+  ========================================================== */
+
+  {
+    slug:
+      "ai-meeting-assistant-smart-summaries-and-follow-ups",
+
+    title:
+      "AI Meeting Summaries: Making Follow-Ups Faster and More Consistent",
+
+    category:
+      "AI Meeting Assistant",
+
+    lastUpdated:
+      "Sep 7, 2026",
+
+    readTime:
+      "6 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "Understand how AI-generated meeting summaries can help teams capture important context, decisions, and follow-up activities more consistently.",
+
+    author: AUTHOR,
+
+    intro: [
+      "Meeting follow-up is often inconsistent because participants leave with different interpretations of what was discussed.",
+
+      "AI-generated summaries can help create a structured view of important topics, decisions, and next steps.",
+
+      "The goal is not to replace human judgment but to reduce repetitive documentation work and make important information easier to review.",
+    ],
+
+    sections: [
+      {
+        heading:
+          "1. Why Meeting Summaries Matter",
+
+        paragraphs: [
+          "Important business decisions are frequently made during conversations rather than formal documentation processes.",
+
+          "Without clear summaries, teams may need to revisit conversations or rely on individual memory.",
+
+          "Structured summaries help preserve context and make meeting outcomes easier to share.",
+        ],
+      },
+
+      {
+        heading:
+          "2. Capturing Important Discussion Themes",
+
+        paragraphs: [
+          "Not every part of a meeting carries the same level of importance.",
+
+          "AI-assisted summarization can help organize discussions around important themes and key topics.",
+
+          "Participants can review structured information instead of manually searching through long recordings or notes.",
+        ],
+      },
+
+      {
+        heading:
+          "3. Highlighting Decisions and Outcomes",
+
+        paragraphs: [
+          "Business meetings often produce decisions that influence projects, customers, and operations.",
+
+          "AI meeting workflows can identify decision-oriented discussion points and present them in a structured format.",
+
+          "This helps teams create clearer records of what was agreed and why.",
+        ],
+      },
+
+      {
+        heading:
+          "4. Supporting Better Follow-Up",
+
+        paragraphs: [
+          "Follow-up becomes easier when responsibilities and next steps are clearly visible.",
+
+          "Meeting summaries can connect important outcomes with action items and workflow systems.",
+
+          "This reduces the risk that valuable discussions end without clear execution.",
+        ],
+      },
+
+      {
+        heading:
+          "5. Creating Consistency Across Teams",
+
+        paragraphs: [
+          "Different teams often document meetings in different ways.",
+
+          "AI-assisted workflows can provide a more consistent structure for summaries and follow-up.",
+
+          "This consistency can improve knowledge sharing across projects and departments.",
+        ],
+      },
+    ],
+  },
+
+  /* ==========================================================
+     BLOG 3
+  ========================================================== */
+
+  {
+    slug:
+      "ai-meeting-assistant-action-items-and-accountability",
+
+    title:
+      "AI Meeting Assistants and Action Items: Improving Accountability After Meetings",
+
+    category:
+      "AI Meeting Assistant",
+
+    lastUpdated:
+      "Sep 7, 2026",
+
+    readTime:
+      "6 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "Discover how AI meeting intelligence can help identify commitments, responsibilities, and follow-up actions from business conversations.",
+
+    author: AUTHOR,
+
+    intro: [
+      "A productive meeting should result in clear next steps, but action items are often lost when they are captured manually.",
+
+      "AI meeting assistants can help identify commitments and responsibilities mentioned during discussions.",
+
+      "Structured follow-up can improve visibility and accountability across projects and teams.",
+    ],
+
+    sections: [
+      {
+        heading:
+          "1. Why Action Items Get Lost",
+
+        paragraphs: [
+          "Action items are frequently discussed verbally without being formally documented.",
+
+          "Participants may leave meetings with different assumptions about ownership or deadlines.",
+
+          "This creates unnecessary follow-up work and can delay execution.",
+        ],
+      },
+
+      {
+        heading:
+          "2. Identifying Commitments From Conversations",
+
+        paragraphs: [
+          "Business conversations often contain commitments, responsibilities, and next steps expressed in natural language.",
+
+          "AI can help surface these statements and organize them for review.",
+
+          "Teams can then validate and assign the appropriate follow-up activities.",
+        ],
+      },
+
+      {
+        heading:
+          "3. Improving Ownership Visibility",
+
+        paragraphs: [
+          "Clear ownership is important when multiple people participate in a project or business process.",
+
+          "Structured meeting outputs can make responsibilities easier to review after a discussion ends.",
+
+          "This helps reduce ambiguity around who is responsible for the next step.",
+        ],
+      },
+
+      {
+        heading:
+          "4. Connecting Meetings With Workflows",
+
+        paragraphs: [
+          "The greatest value comes when meeting outcomes are connected to the systems teams already use.",
+
+          "Action items can support downstream project, support, sales, and operational workflows.",
+
+          "This helps conversations move more directly into execution.",
+        ],
+      },
+
+      {
+        heading:
+          "5. Measuring Follow-Through",
+
+        paragraphs: [
+          "Organizations can use meeting intelligence to better understand how discussions translate into actions.",
+
+          "Patterns in incomplete follow-up or repeated discussions can reveal operational improvement opportunities.",
+
+          "This creates a feedback loop between communication and execution.",
+        ],
+      },
+    ],
+  },
+
+  /* ==========================================================
+     BLOG 4
+  ========================================================== */
+
+  {
+    slug:
+      "enterprise-ai-meeting-intelligence",
+
+    title:
+      "Enterprise AI Meeting Intelligence: Beyond Transcription",
+
+    category:
+      "AI Meeting Assistant",
+
+    lastUpdated:
+      "Sep 7, 2026",
+
+    readTime:
+      "7 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "Explore how enterprises can move beyond basic meeting transcription toward searchable knowledge, structured insights, and workflow-connected intelligence.",
+
+    author: AUTHOR,
+
+    intro: [
+      "Meeting transcription is useful, but raw transcripts alone can still be difficult to review and operationalize.",
+
+      "Enterprise meeting intelligence focuses on turning conversations into structured, searchable, and actionable information.",
+
+      "This approach can connect meeting knowledge with the systems and workflows where teams perform their work.",
+    ],
+
+    sections: [
+      {
+        heading:
+          "1. The Limits of Raw Transcripts",
+
+        paragraphs: [
+          "Long transcripts preserve information but do not automatically highlight what matters most.",
+
+          "Teams may still need significant time to identify decisions, actions, and relevant discussion points.",
+
+          "Structured intelligence can make meeting information easier to consume.",
+        ],
+      },
+
+      {
+        heading:
+          "2. Organizing Business Knowledge",
+
+        paragraphs: [
+          "Meetings contain valuable context about customers, projects, products, and internal operations.",
+
+          "AI can help organize this information into themes and structured outputs.",
+
+          "This makes knowledge created during meetings easier to reuse.",
+        ],
+      },
+
+      {
+        heading:
+          "3. Search and Retrieval",
+
+        paragraphs: [
+          "Teams often need to revisit previous discussions to understand why decisions were made.",
+
+          "Searchable meeting intelligence can make relevant conversations easier to locate.",
+
+          "This reduces the time required to manually review historical meetings.",
+        ],
+      },
+
+      {
+        heading:
+          "4. Enterprise Integration",
+
+        paragraphs: [
+          "Meeting intelligence becomes more useful when it connects with enterprise applications.",
+
+          "Relevant outcomes can support CRM, project management, knowledge systems, and operational workflows.",
+
+          "Integration helps reduce disconnected information silos.",
+        ],
+      },
+
+      {
+        heading:
+          "5. Governance and Control",
+
+        paragraphs: [
+          "Enterprise meeting intelligence should be designed with permissions, access control, and data governance in mind.",
+
+          "Organizations need visibility into how meeting information is stored and accessed.",
+
+          "Strong governance helps meeting AI fit into broader enterprise security practices.",
+        ],
+      },
+    ],
+  },
+
+  /* ==========================================================
+     BLOG 5
+  ========================================================== */
+
+  {
+    slug:
+      "how-ai-meeting-assistants-improve-team-productivity",
+
+    title:
+      "How AI Meeting Assistants Can Improve Team Productivity",
+
+    category:
+      "AI Meeting Assistant",
+
+    lastUpdated:
+      "Sep 7, 2026",
+
+    readTime:
+      "6 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "See how AI-assisted meeting workflows can reduce repetitive documentation work and help teams focus more on decisions and execution.",
+
+    author: AUTHOR,
+
+    intro: [
+      "Modern teams spend a significant amount of time participating in meetings and managing the information created by those conversations.",
+
+      "The productivity challenge is not only the meeting itself but also the documentation and follow-up work that happens afterward.",
+
+      "AI meeting assistants can help reduce this repetitive effort while making important outcomes easier to access.",
+    ],
+
+    sections: [
+      {
+        heading:
+          "1. Reducing Documentation Work",
+
+        paragraphs: [
+          "Manual note-taking requires participants to divide attention between the conversation and documentation.",
+
+          "AI-assisted workflows can reduce the amount of repetitive meeting documentation required.",
+
+          "Participants can focus more attention on the discussion itself.",
+        ],
+      },
+
+      {
+        heading:
+          "2. Faster Access to Context",
+
+        paragraphs: [
+          "Teams frequently need to revisit previous conversations for important context.",
+
+          "Structured summaries and searchable information can make this process faster.",
+
+          "This reduces repeated discussions and unnecessary information gathering.",
+        ],
+      },
+
+      {
+        heading:
+          "3. Better Cross-Team Communication",
+
+        paragraphs: [
+          "Meeting intelligence can make important outcomes easier to share with people who did not attend.",
+
+          "Structured summaries provide a faster way to communicate decisions and progress.",
+
+          "This can improve continuity across distributed teams.",
+        ],
+      },
+
+      {
+        heading:
+          "4. Supporting Focused Execution",
+
+        paragraphs: [
+          "Productivity improves when teams have clear visibility into what happens after a meeting.",
+
+          "Action-oriented meeting outputs can help teams move from discussion to execution.",
+
+          "This creates a clearer connection between communication and business outcomes.",
+        ],
+      },
+
+      {
+        heading:
+          "5. Building Smarter Collaboration Workflows",
+
+        paragraphs: [
+          "AI meeting assistants can become part of a broader collaboration and workflow ecosystem.",
+
+          "Organizations can connect meeting insights with projects, knowledge, and operational systems.",
+
+          "Over time, this can create more efficient and connected ways of working.",
+        ],
+      },
+    ],
+  },
+];
+
+/* ============================================================
+   GET SINGLE BLOG
+============================================================ */
+
+export function getBlogBySlug(
+  slug: string
+): BlogPost | undefined {
+  return blogPosts.find(
+    (blog) => blog.slug === slug
+  );
+}
+
+/* ============================================================
+   GET RELATED BLOGS
+============================================================ */
+
+export function getRelatedBlogs(
+  currentSlug: string,
+  count = 3
+): BlogPost[] {
+  return blogPosts
+    .filter(
+      (blog) => blog.slug !== currentSlug
+    )
+    .slice(0, count);
+}

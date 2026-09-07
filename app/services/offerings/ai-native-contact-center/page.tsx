@@ -39,6 +39,11 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Autoplay timing for the "How It Works" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
+// Base path for AI Voice Call blogs — keep this in sync with
+// BLOG_BASE in BlogDetail.tsx. The blog route lives under
+// /services/offerings/ai-native-contact-center/blogs/[slug]
+const BLOG_BASE = "/services/offerings/ai-native-contact-center/blogs";
+
 /* ===============================================================
    CONTENT — AI Voice Call
    SEO / AEO optimized: entity first statements ("Starfii is...",
@@ -249,6 +254,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 type InsightPost = {
+  slug: string;
   large: boolean;
   image: string;
   title: string;
@@ -257,40 +263,58 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
+    slug: "ai-voice-agents-2026-scripted-ivr-to-real-conversations",
     large: true,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
     title:
       "AI Voice Agents in 2026: From Scripted IVR to Real Conversations",
-    body: "Explore how conversational AI is replacing rigid call menus with natural voice conversations that understand intent, context, and customer history.",
+    body:
+      "Explore how conversational AI is replacing rigid call menus with natural voice conversations that understand intent, context, and customer history.",
   },
+
   {
+    slug: "reducing-call-abandonment-intelligent-routing",
     large: false,
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
-    title: "Reducing Call Abandonment with Intelligent Routing",
-    body: "See how understanding intent before a call is routed keeps customers from bouncing between menus, and shortens time to resolution.",
+    title:
+      "Reducing Call Abandonment with Intelligent Routing",
+    body:
+      "See how understanding intent before a call is routed keeps customers from bouncing between menus and shortens time to resolution.",
   },
+
   {
+    slug: "real-time-call-intelligence-customer-insights",
     large: false,
     image:
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
-    title: "What Real Time Call Intelligence Tells You About Your Customers",
-    body: "Stop guessing why customers call. See how sentiment and outcome data from every conversation can guide product and service decisions.",
+    title:
+      "What Real Time Call Intelligence Tells You About Your Customers",
+    body:
+      "Stop guessing why customers call. See how sentiment and outcome data from every conversation can guide product and service decisions.",
   },
+
   {
+    slug: "ai-voice-automation-scaling-customer-support",
     large: false,
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
-    title: "AI Voice Automation: Scaling Customer Support Without More Headcount",
-    body: "Explore how AI voice agents handle repetitive customer conversations at scale while keeping human teams focused on complex and high value interactions.",
+    title:
+      "AI Voice Automation: Scaling Customer Support Without More Headcount",
+    body:
+      "Explore how AI voice agents handle repetitive customer conversations at scale while keeping human teams focused on complex and high value interactions.",
   },
+
   {
+    slug: "voice-ai-integration-business-workflows",
     large: false,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "Voice AI Integration: Connecting Conversations to Business Workflows",
-    body: "See how connecting voice agents with CRM, telephony, and business systems turns customer conversations into faster, actionable workflows.",
+    title:
+      "Voice AI Integration: Connecting Conversations to Business Workflows",
+    body:
+      "See how connecting voice agents with CRM, telephony, and business systems turns customer conversations into faster, actionable workflows.",
   },
 ];
 
@@ -1257,80 +1281,7 @@ export default function AIVoiceCallSection(): ReactElement {
       {/* ============================================================
           INDUSTRY RECOGNITION
       ============================================================ */}
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 100%, rgba(232,110,90,0.5) 0%, rgba(164,143,234,0.3) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
-            <Reveal>
-              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-                Industry
-                <br />
-                Recognition
-              </h2>
-            </Reveal>
-
-            <StepCarousel
-              items={industryAwards}
-              itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-              arrowVariant="dark"
-              renderItem={(award, i) => (
-                <Reveal delay={(i % 2) * 100} className="h-full">
-                  <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
-                    <div
-                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      <span>ISG Provider Lens™</span>
-                      <span className="font-normal text-slate-400">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <div
-                      className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
-                      style={{ backgroundColor: CHAMPION_BLUE }}
-                    >
-                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
-                        {award.category}
-                      </p>
-                      <p
-                        className="font-body mt-1 text-[13px]"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
-                        {award.subcategory}
-                      </p>
-                      <div className="font-body mt-6 flex items-center justify-between">
-                        <span className="text-[14px]">{award.rank}</span>
-                        <Trophy size={20} className="ss-trophy opacity-80" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
-                        {award.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
-                        style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
-                      >
-                        Know more
-                      </button>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-      </section>
+ 
 
       {/* ============================================================
           CASE STUDIES
@@ -1361,58 +1312,55 @@ export default function AIVoiceCallSection(): ReactElement {
           </Reveal>
 
           <div className="mt-12">
-<StepCarousel
-  items={caseStudies}
-  itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-  arrowVariant="light"
-  renderItem={(study, i) => (
-    <Reveal
-      delay={(i % 3) * 90}
-      className="h-full"
-    >
-<Link
-  href={`/services/offerings/ai-native-contact-center/${study.slug}`}
-  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
->
-        <div className="h-[220px] flex-shrink-0 overflow-hidden">
-          <img
-            src={study.image}
-            alt={study.title}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-          />
-        </div>
+            <StepCarousel
+              items={caseStudies}
+              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
+              arrowVariant="light"
+              renderItem={(study, i) => (
+                <Reveal delay={(i % 3) * 90} className="h-full">
+                  <Link
+                    href={`/services/offerings/ai-native-contact-center/${study.slug}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+                  >
+                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
+                      <img
+                        src={study.image}
+                        alt={study.title}
+                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                      />
+                    </div>
 
-        <div className="flex flex-1 flex-col p-6">
-          <span
-            className="font-body text-[12px] font-semibold tracking-wide"
-            style={{ color: INDIGO_CTA }}
-          >
-            CASE STUDY
-          </span>
+                    <div className="flex flex-1 flex-col p-6">
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-wide"
+                        style={{ color: INDIGO_CTA }}
+                      >
+                        CASE STUDY
+                      </span>
 
-          <h3
-            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            {study.title}
-          </h3>
+                      <h3
+                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                        style={{ color: CHAMPION_BLUE }}
+                      >
+                        {study.title}
+                      </h3>
 
-          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-            {study.body}
-          </p>
+                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                        {study.body}
+                      </p>
 
-          <span
-            className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-            style={{ color: INDIGO_CTA }}
-          >
-            Learn More
-            <ArrowUpRight size={15} />
-          </span>
-        </div>
-      </Link>
-    </Reveal>
-  )}
-/>
+                      <span
+                        className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+                        style={{ color: INDIGO_CTA }}
+                      >
+                        Learn More
+                        <ArrowUpRight size={15} />
+                      </span>
+                    </div>
+                  </Link>
+                </Reveal>
+              )}
+            />
           </div>
         </div>
       </section>
@@ -1450,6 +1398,7 @@ export default function AIVoiceCallSection(): ReactElement {
         </div>
       </section>
 
+
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
@@ -1462,84 +1411,126 @@ export default function AIVoiceCallSection(): ReactElement {
             >
               {"What's New in AI Voice Call"}
             </h2>
-            <a
-              href="#"
+
+            <Link
+              href={BLOG_BASE}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Insights
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
-            <Carousel
-              itemCount={insights.length}
-              arrowVariant="light"
-              clickToAdvance
-            >
+            <Carousel itemCount={insights.length} arrowVariant="light">
               {insights.map((post, i) => (
                 <Reveal
-                  key={post.title}
+                  key={post.slug}
                   delay={i * 90}
                   data-carousel-card
-                  className={`flex-shrink-0 snap-start cursor-pointer ${
+                  className={`flex-shrink-0 snap-start ${
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >
-                  {post.large ? (
-                    <div className="group relative h-[420px] overflow-hidden rounded-2xl">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="group">
-                      <div className="h-[220px] overflow-hidden rounded-2xl">
+                  <Link
+                    href={`${BLOG_BASE}/${post.slug}`}
+                    className="group block"
+                  >
+                    {post.large ? (
+                      <div className="relative h-[420px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
                           alt={post.title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
+
+                        <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{
+                              color: CHAMPION_BLUE,
+                            }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            Read More
+                            <ArrowUpRight
+                              size={14}
+                              className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            />
+                          </span>
+                        </div>
                       </div>
-                      <div className="pt-5">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
+                    ) : (
+                      <div>
+                        <div className="h-[220px] overflow-hidden rounded-2xl">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        </div>
+
+                        <div className="pt-5">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{
+                              color: CHAMPION_BLUE,
+                            }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            Read More
+                            <ArrowUpRight
+                              size={15}
+                              className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                            />
+                          </span>
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    )}
+                  </Link>
                 </Reveal>
               ))}
             </Carousel>

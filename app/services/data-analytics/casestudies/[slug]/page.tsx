@@ -1,17 +1,14 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
-
 import {
-  ArrowUpRight,
-  ChevronRight,
   ArrowLeft,
+  ArrowUpRight,
   CheckCircle2,
-  Target,
-  Database,
+  AlertCircle,
   TrendingUp,
-  BarChart3,
-  Sparkles,
+  Building2,
+  Clock3,
 } from "lucide-react";
 
 import {
@@ -19,29 +16,16 @@ import {
   getCaseStudyBySlug,
 } from "../data/casestudies";
 
-const CHAMPION_BLUE = "#1B2560";
-const LAVENDER_ACCENT = "#A48FEA";
-const INDIGO_CTA = "#6C5DD3";
+import CaseStudyTabs from "../CaseStudyTabs";
+
+const BASE_PATH = "/services/digital-it-operations/casestudies";
 
 const ALIGN =
   "mx-auto w-full max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-const BASE_PATH =
-  "/services/data-analytics/casestudies";
-
-/* ============================================================
-   STATIC PARAMS
-============================================================ */
-
-export function generateStaticParams() {
-  return caseStudies.map((study) => ({
-    slug: study.slug,
-  }));
-}
-
-/* ============================================================
-   TYPES
-============================================================ */
+const CHAMPION_BLUE = "#0b1747";
+const ACCENT_INDIGO = "#3a3ff0";
+const SOFT_INDIGO = "#eef0ff";
 
 type PageProps = {
   params: Promise<{
@@ -49,15 +33,16 @@ type PageProps = {
   }>;
 };
 
-/* ============================================================
-   METADATA
-============================================================ */
+export function generateStaticParams() {
+  return caseStudies.map((study) => ({
+    slug: study.slug,
+  }));
+}
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-
   const study = getCaseStudyBySlug(slug);
 
   if (!study) {
@@ -67,1009 +52,553 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${study.title} | Starfii Data & Analytics Case Study`,
+    title: `${study.title} | Starfii Digital IT Operations Case Study`,
     description: study.body,
   };
 }
 
-/* ============================================================
-   PAGE
-============================================================ */
+function PointCard({
+  text,
+  icon,
+  accent,
+}: {
+  text: string;
+  icon: React.ReactNode;
+  accent: string;
+}) {
+  return (
+    <div
+      className="relative rounded-2xl border bg-white p-6 pl-7"
+      style={{ borderColor: "#E5E7EB" }}
+    >
+      <span
+        className="absolute bottom-5 left-0 top-5 w-[3px] rounded-full"
+        style={{ backgroundColor: accent }}
+      />
 
-export default async function DataAnalyticsCaseStudyPage({
+      <div className="flex items-start gap-3">
+        <span className="mt-1 shrink-0">{icon}</span>
+
+        <p className="text-[15px] leading-7 text-slate-600">
+          {text}
+        </p>
+      </div>
+    </div>
+  );
+}
+
+function SectionEyebrow({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-[#3a3ff0]">
+      {children}
+    </p>
+  );
+}
+
+function AtAGlanceSidebar({
+  study,
+}: {
+  study: (typeof caseStudies)[number];
+}) {
+  return (
+    <aside className="lg:sticky lg:top-28">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="flex items-center gap-2 text-[#0b1747]">
+          <Building2 className="h-4 w-4" />
+          <p className="text-sm font-semibold uppercase tracking-[0.08em]">
+            At a glance
+          </p>
+        </div>
+
+        <dl className="mt-5 space-y-5">
+          <div>
+            <dt className="text-sm text-slate-400">Client</dt>
+            <dd className="mt-1 text-base font-medium text-[#0b1747]">
+              {study.client}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-sm text-slate-400">Industry</dt>
+            <dd className="mt-1 text-base font-medium text-[#0b1747]">
+              {study.industry}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-sm text-slate-400">Duration</dt>
+            <dd className="mt-1 flex items-center gap-2 text-base font-medium text-[#0b1747]">
+              <Clock3 className="h-4 w-4 text-[#3a3ff0]" />
+              {study.duration}
+            </dd>
+          </div>
+
+          <div>
+            <dt className="text-sm text-slate-400">Services</dt>
+            <dd className="mt-2 flex flex-wrap gap-1.5">
+              {study.services.map((service) => (
+                <span
+                  key={service}
+                  className="rounded-full bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-600"
+                >
+                  {service}
+                </span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#3a3ff0]">
+          Headline results
+        </p>
+
+        <div className="mt-5 space-y-5">
+          {study.stats.map((stat) => (
+            <div key={`${stat.value}-${stat.label}`}>
+              <p className="text-2xl font-semibold text-[#3a3ff0]">
+                {stat.value}
+              </p>
+              <p className="mt-1 text-sm leading-snug text-slate-500">
+                {stat.label}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function MoreCaseStudiesSidebar({
+  currentSlug,
+}: {
+  currentSlug: string;
+}) {
+  const others = caseStudies
+    .filter((study) => study.slug !== currentSlug)
+    .slice(0, 3);
+
+  if (!others.length) return null;
+
+  return (
+    <aside className="lg:sticky lg:top-28">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#3a3ff0]">
+          More case studies
+        </p>
+
+        <div className="mt-5 space-y-5">
+          {others.map((item) => (
+            <Link
+              key={item.slug}
+              href={`${BASE_PATH}/${item.slug}`}
+              className="group block"
+            >
+              <div className="overflow-hidden rounded-lg">
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  className="h-24 w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                />
+              </div>
+
+              <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.06em] text-[#3a3ff0]">
+                {item.industry}
+              </p>
+
+              <p className="mt-1 text-base font-medium leading-snug text-[#0b1747] transition-colors group-hover:text-[#3a3ff0]">
+                {item.title}
+              </p>
+            </Link>
+          ))}
+        </div>
+
+        <Link
+          href={BASE_PATH}
+          className="mt-6 inline-flex items-center gap-1.5 text-base font-semibold text-[#3a3ff0]"
+        >
+          View all case studies
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
+export default async function CaseStudyDetailPage({
   params,
 }: PageProps) {
   const { slug } = await params;
-
   const study = getCaseStudyBySlug(slug);
 
   if (!study) {
     notFound();
   }
 
-  const related = caseStudies
-    .filter((item) => item.slug !== study.slug)
-    .slice(0, 3);
-
   return (
-    <main className="overflow-hidden bg-white">
+    <main className="bg-white">
+      {/* HERO */}
+      <section id="overview" className="relative scroll-mt-24 overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] pb-16 pt-14 lg:pb-20 lg:pt-20">
+        <div className={ALIGN}>
+          <Link
+            href={BASE_PATH}
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#3a3ff0] transition-colors hover:text-[#0b1747]"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to case studies
+          </Link>
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
-
-      <section className="relative isolate overflow-hidden bg-white">
-
-        {/* ==================================================
-            DECORATIVE BACKGROUND
-        ================================================== */}
-
-        <div
-          className="pointer-events-none absolute -right-32 top-24 -z-10 h-[420px] w-[420px] rounded-full blur-3xl"
-          style={{
-            backgroundColor: `${LAVENDER_ACCENT}20`,
-          }}
-        />
-
-        <div
-          className="pointer-events-none absolute -bottom-24 left-1/3 -z-10 h-[300px] w-[300px] rounded-full blur-3xl"
-          style={{
-            backgroundColor: `${INDIGO_CTA}12`,
-          }}
-        />
-
-        {/* ==================================================
-            HERO CONTAINER
-        ================================================== */}
-
-        <div
-          className={`${ALIGN} relative min-h-[700px] pt-28 pb-16 lg:min-h-[760px] lg:pt-32 lg:pb-20`}
-        >
-
-          {/* ==================================================
-              HERO IMAGE
-          ================================================== */}
-
-          <div className="pointer-events-none absolute right-0 top-0 -z-10 hidden h-full w-[56%] lg:block">
-
-            {/* Image background */}
-
-            <div className="absolute inset-0 bg-[#F5F3FC]" />
-
-            {/* Image */}
-
-            <img
-              src={study.heroImage ?? study.image}
-              alt=""
-              className="absolute inset-0 h-full w-full object-cover object-center"
-            />
-
-            {/* Left fade */}
-
-            <div
-              className="absolute inset-y-0 left-0 w-[42%]"
-              style={{
-                background:
-                  "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.92) 35%, rgba(255,255,255,0.35) 75%, rgba(255,255,255,0) 100%)",
-              }}
-            />
-
-            {/* Top fade */}
-
-            <div
-              className="absolute inset-x-0 top-0 h-32"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(255,255,255,0.65), rgba(255,255,255,0))",
-              }}
-            />
-
-            {/* Bottom fade */}
-
-            <div
-              className="absolute inset-x-0 bottom-0 h-40"
-              style={{
-                background:
-                  "linear-gradient(to top, #ffffff, rgba(255,255,255,0))",
-              }}
-            />
-
-          </div>
-
-          {/* ==================================================
-              MOBILE HERO IMAGE
-          ================================================== */}
-
-          <div className="relative mb-10 h-[280px] overflow-hidden rounded-3xl border lg:hidden">
-            <img
-              src={study.heroImage ?? study.image}
-              alt=""
-              className="h-full w-full object-cover object-center"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-white/30 via-transparent to-transparent" />
-          </div>
-
-          {/* ==================================================
-              HERO CONTENT
-          ================================================== */}
-
-          <div className="relative z-10 max-w-[760px] lg:pt-16">
-
-            {/* ==================================================
-                BREADCRUMB
-            ================================================== */}
-
-            <nav
-              aria-label="Breadcrumb"
-              className="flex flex-wrap items-center gap-2 text-[13px] font-medium"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-
-              <Link
-                href="/"
-                className="transition-opacity hover:opacity-60"
-              >
-                Home
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href="/services"
-                className="transition-opacity hover:opacity-60"
-              >
-                Services
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href="/services/data-analytics"
-                className="transition-opacity hover:opacity-60"
-              >
-                Data &amp; Analytics
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href={BASE_PATH}
-                className="transition-opacity hover:opacity-60"
-              >
-                Case Studies
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <span className="text-slate-500">
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+            <div>
+              <span className="inline-block rounded-full bg-[#3a3ff0]/10 px-3 py-1 text-xs font-semibold tracking-[0.08em] text-[#3a3ff0]">
                 {study.industry}
               </span>
 
-            </nav>
+              <h1 className="mt-5 max-w-4xl text-3xl font-semibold leading-tight tracking-tight text-[#0b1747] md:text-5xl lg:text-[58px]">
+                {study.title}
+              </h1>
 
-            {/* ==================================================
-                INDUSTRY BADGE
-            ================================================== */}
+              <p className="mt-5 max-w-3xl text-lg leading-relaxed text-slate-600">
+                {study.body}
+              </p>
 
-            <div
-              className="mt-9 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white shadow-lg"
-              style={{
-                backgroundColor: INDIGO_CTA,
-              }}
-            >
-              <Sparkles size={14} />
-              {study.industry}
-            </div>
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-base text-slate-500">
+                <span className="font-medium text-[#0b1747]">
+                  {study.client}
+                </span>
 
-            {/* ==================================================
-                TITLE
-            ================================================== */}
+                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
 
-            <h1
-              className="mt-7 max-w-[760px] text-[38px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[48px] lg:text-[60px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              {study.title}
-            </h1>
+                <span>{study.industry}</span>
 
-            {/* ==================================================
-                DESCRIPTION
-            ================================================== */}
+                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
 
-            <p className="mt-7 max-w-[680px] text-[17px] leading-8 text-slate-600 lg:text-[18px]">
-              {study.body}
-            </p>
+                <span>{study.duration}</span>
+              </div>
 
-            {/* ==================================================
-                HERO CTA
-            ================================================== */}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {study.services.map((service) => (
+                  <span
+                    key={service}
+                    className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-slate-600 shadow-sm"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
 
-            <div className="mt-9 flex flex-wrap gap-4">
-
-              <Link
-                href="/services/data-analytics#connect"
-                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
-                style={{
-                  backgroundColor: CHAMPION_BLUE,
-                }}
-              >
-                Start a similar data project
-
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              <div className="mt-10 overflow-hidden rounded-2xl shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
+                <img
+                  src={study.heroImage ?? study.image}
+                  alt={study.title}
+                  className="h-[280px] w-full object-cover object-center md:h-[420px]"
                 />
-              </Link>
-
-              <Link
-                href={BASE_PATH}
-                className="inline-flex items-center gap-2 rounded-full border bg-white px-7 py-3.5 text-[14px] font-semibold shadow-sm transition-all duration-300 hover:bg-[#FAF9FE] hover:shadow-md"
-                style={{
-                  borderColor: "#DCD8EF",
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                View all case studies
-              </Link>
-
+              </div>
             </div>
 
+            {/* BOOKING CARD */}
+            <div className="w-full max-w-[360px] justify-self-start lg:justify-self-end">
+              <div className="rounded-2xl bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.10)] lg:sticky lg:top-24">
+                <h3 className="text-xl font-semibold text-[#0b1747]">
+                  Book a Meeting
+                </h3>
+
+                <p className="mt-1.5 text-sm text-slate-500">
+                  Schedule some 1 on 1 time with our experts
+                </p>
+
+                <form className="mt-6 flex flex-col gap-3">
+                  <input
+                    type="text"
+                    placeholder="Your name*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none focus:border-[#3a3ff0]"
+                  />
+
+                  <input
+                    type="email"
+                    placeholder="Email address*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none focus:border-[#3a3ff0]"
+                  />
+
+                  <select
+                    defaultValue=""
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-500 outline-none focus:border-[#3a3ff0]"
+                  >
+                    <option value="" disabled>
+                      How did you hear about us?*
+                    </option>
+                    <option value="search">Search Engine</option>
+                    <option value="referral">Referral</option>
+                    <option value="social">Social Media</option>
+                    <option value="event">Event</option>
+                    <option value="other">Other</option>
+                  </select>
+
+                  <input
+                    type="text"
+                    placeholder="Enter captcha*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none focus:border-[#3a3ff0]"
+                  />
+
+                  <button
+                    type="submit"
+                    className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2c30c9]"
+                  >
+                    Submit
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          CONTENT WRAPPER
-      ===================================================== */}
+      {/* TABS */}
+      <CaseStudyTabs />
 
-      <div className={ALIGN}>
+      {/* CONTENT */}
+      <div className="bg-[#eef0f5]">
+        <div className={ALIGN}>
+          <div className="grid grid-cols-1 gap-10 py-14 lg:grid-cols-[1fr_360px]">
+            <div className="rounded-2xl bg-white p-8 shadow-sm sm:p-10 lg:p-12">
+              {/* CLIENT */}
+              <section id="client" className="scroll-mt-24">
+                <SectionEyebrow>01 / Client</SectionEyebrow>
 
-        {/* ===================================================
-            PROJECT SNAPSHOT
-        =================================================== */}
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  {study.overview}
+                </h2>
 
-        <section className="relative z-20 -mt-2 lg:-mt-8">
-
-          <div
-            className="grid overflow-hidden rounded-3xl border bg-white shadow-[0_20px_60px_rgba(27,37,96,0.08)] sm:grid-cols-2 lg:grid-cols-4"
-            style={{
-              borderColor: "#E8E4F5",
-            }}
-          >
-
-            {[
-              {
-                label: "Client",
-                value: study.client,
-              },
-              {
-                label: "Industry",
-                value: study.industry,
-              },
-              {
-                label: "Duration",
-                value: study.duration,
-              },
-              {
-                label: "Data & Analytics Services",
-                value: study.services.join(", "),
-              },
-            ].map((item, index) => (
-
-              <div
-                key={item.label}
-                className={`p-7 lg:p-8 ${
-                  index !== 0
-                    ? "border-t sm:border-t-0 sm:border-l"
-                    : ""
-                }`}
-                style={{
-                  borderColor: "#E8E4F5",
-                }}
-              >
-
-                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
-                  {item.label}
+                <p className="mt-5 max-w-3xl text-base leading-8 text-slate-600">
+                  {study.client}
                 </p>
 
-                <p
-                  className="mt-3 text-[15px] font-semibold leading-6"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  {item.value}
-                </p>
+                <div className="mt-8 grid gap-4 sm:grid-cols-3">
+                  <div className="rounded-2xl bg-[#f7f8fc] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Industry
+                    </p>
+                    <p className="mt-2 font-semibold text-[#0b1747]">
+                      {study.industry}
+                    </p>
+                  </div>
 
-              </div>
+                  <div className="rounded-2xl bg-[#f7f8fc] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Duration
+                    </p>
+                    <p className="mt-2 font-semibold text-[#0b1747]">
+                      {study.duration}
+                    </p>
+                  </div>
 
-            ))}
+                  <div className="rounded-2xl bg-[#f7f8fc] p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                      Services
+                    </p>
+                    <p className="mt-2 font-semibold text-[#0b1747]">
+                      {study.services.length} capabilities
+                    </p>
+                  </div>
+                </div>
+              </section>
 
-          </div>
-        </section>
-
-        {/* ===================================================
-            PROJECT IMPACT
-        =================================================== */}
-
-        <section className="py-20 lg:py-24">
-
-          <div className="mb-10 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-
-            <div>
-
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
+              {/* CHALLENGE */}
+              <section
+                id="challenge"
+                className="mt-20 scroll-mt-24 border-t border-slate-100 pt-16"
               >
-                Data &amp; Analytics Impact
-              </p>
+                <SectionEyebrow>02 / Challenge</SectionEyebrow>
 
-              <h2
-                className="mt-3 max-w-2xl text-[30px] font-medium tracking-tight lg:text-[38px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  The operational challenge
+                </h2>
+
+                <div className="mt-7 rounded-2xl bg-[#fffaf0] p-6">
+                  <p className="text-base leading-8 text-slate-600">
+                    {study.challenge}
+                  </p>
+                </div>
+              </section>
+
+              {/* SOLUTION */}
+              <section
+                id="solution"
+                className="mt-20 scroll-mt-24 border-t border-slate-100 pt-16"
               >
-                Measurable outcomes from better data
-              </h2>
+                <SectionEyebrow>03 / Solution</SectionEyebrow>
 
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  How Starfii solved it
+                </h2>
+
+                <div className="mt-7">
+                  <PointCard
+                    text={study.solution}
+                    accent={ACCENT_INDIGO}
+                    icon={
+                      <CheckCircle2 className="h-5 w-5 text-[#3a3ff0]" />
+                    }
+                  />
+                </div>
+              </section>
+
+              {/* SERVICES / TECHNOLOGY */}
+              <section
+                id="technology"
+                className="mt-20 scroll-mt-24 border-t border-slate-100 pt-16"
+              >
+                <SectionEyebrow>04 / Technology</SectionEyebrow>
+
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  Digital IT Operations capabilities used
+                </h2>
+
+                <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                  {study.services.map((service) => (
+                    <div
+                      key={service}
+                      className="flex items-start gap-3 rounded-2xl border border-slate-200 p-5"
+                    >
+                      <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[#3a3ff0]" />
+                      <span className="text-[15px] font-semibold leading-6 text-[#0b1747]">
+                        {service}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              {/* BENEFITS */}
+              <section
+                id="benefits"
+                className="mt-20 scroll-mt-24 border-t border-slate-100 pt-16"
+              >
+                <SectionEyebrow>05 / Benefits</SectionEyebrow>
+
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  Business and operational benefits
+                </h2>
+
+                <div className="mt-7">
+                  <PointCard
+                    text={study.results}
+                    accent="#10b981"
+                    icon={
+                      <TrendingUp className="h-5 w-5 text-emerald-500" />
+                    }
+                  />
+                </div>
+              </section>
             </div>
 
-            <p className="max-w-md text-[15px] leading-7 text-slate-500">
-              A closer look at the measurable business impact delivered
-              through modern data engineering, analytics, and intelligence.
-            </p>
-
+            <AtAGlanceSidebar study={study} />
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
+        {/* RESULTS */}
+        <section id="results" className="scroll-mt-24 bg-[#0b1747] py-16">
+          <div className={ALIGN}>
+            <SectionEyebrow>
+              <span className="text-[#8ea1ff]">06 / Results</span>
+            </SectionEyebrow>
 
-            {study.stats.map((stat, index) => (
+            <h2 className="mt-3 text-3xl font-semibold text-white">
+              Results That Matter
+            </h2>
 
-              <div
-                key={stat.label}
-                className="group relative overflow-hidden rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={{
-                  borderColor: "#E5E1F5",
-                  backgroundColor:
-                    index === 1
-                      ? "#F5F3FC"
-                      : "#FFFFFF",
-                }}
-              >
-
+            <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              {study.stats.map((stat) => (
                 <div
-                  className="absolute -right-16 -top-16 h-32 w-32 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150"
-                  style={{
-                    backgroundColor: `${LAVENDER_ACCENT}25`,
-                  }}
-                />
-
-                <div className="relative">
-
-                  <p
-                    className="text-[42px] font-semibold tracking-tight"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
+                  key={`${stat.value}-${stat.label}`}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-7"
+                >
+                  <p className="text-4xl font-semibold text-[#8ea1ff] md:text-5xl">
                     {stat.value}
                   </p>
 
-                  <div
-                    className="mt-5 h-px w-10"
-                    style={{
-                      backgroundColor: LAVENDER_ACCENT,
-                    }}
-                  />
-
-                  <p className="mt-4 text-[14px] leading-6 text-slate-600">
+                  <p className="mt-3 text-base leading-7 text-slate-300">
                     {stat.label}
                   </p>
-
                 </div>
-
-              </div>
-
-            ))}
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            OVERVIEW
-        =================================================== */}
-
-        <section className="border-t py-20 lg:py-24">
-
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-
-            <div>
-
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                01 / Data Opportunity
-              </p>
-
-              <h2
-                className="mt-4 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Turning complex data into business value
-              </h2>
-
-            </div>
-
-            <div>
-
-              <p className="text-[18px] leading-9 text-slate-600">
-                {study.overview}
-              </p>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            CHALLENGE / SOLUTION / RESULTS
-        =================================================== */}
-
-        <section className="pb-24">
-
-          <div className="grid gap-6 lg:grid-cols-3">
-
-            {/* ==================================================
-                CHALLENGE
-            ================================================== */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-              }}
-            >
-
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                <Target size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                The Data Challenge
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                From fragmented data to clarity
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.challenge}
-              </p>
-
-            </div>
-
-            {/* ==================================================
-                SOLUTION
-            ================================================== */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-                backgroundColor: "#FAF9FE",
-              }}
-            >
-
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: `${LAVENDER_ACCENT}20`,
-                  color: INDIGO_CTA,
-                }}
-              >
-                <Database size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                The Starfii Data Solution
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Building a trusted data foundation
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.solution}
-              </p>
-
-            </div>
-
-            {/* ==================================================
-                RESULTS
-            ================================================== */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-              }}
-            >
-
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: `${INDIGO_CTA}12`,
-                  color: INDIGO_CTA,
-                }}
-              >
-                <TrendingUp size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Business Impact
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Better insights, faster decisions
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.results}
-              </p>
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            DATA CAPABILITIES
-        =================================================== */}
-
-        <section
-          className="rounded-[32px] px-7 py-12 sm:px-10 lg:px-14 lg:py-16"
-          style={{
-            backgroundColor: "#F5F3FC",
-          }}
-        >
-
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-
-            <div>
-
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Data Capabilities
-              </p>
-
-              <h2
-                className="mt-4 text-[31px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                The capabilities behind the transformation
-              </h2>
-
-              <p className="mt-5 max-w-lg text-[15px] leading-7 text-slate-600">
-                The engagement brought together data engineering,
-                modern analytics, governance, and intelligence
-                capabilities to create a reliable foundation for
-                better business decisions.
-              </p>
-
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-
-              {study.services.map((service) => (
-
-                <div
-                  key={service}
-                  className="flex items-center gap-3 rounded-2xl border bg-white p-5 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md"
-                  style={{
-                    borderColor: "#E5E1F5",
-                  }}
-                >
-
-                  <CheckCircle2
-                    size={19}
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  />
-
-                  <span
-                    className="text-[14px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {service}
-                  </span>
-
-                </div>
-
               ))}
-
             </div>
 
+            <p className="mt-10 max-w-3xl text-base leading-8 text-slate-300">
+              {study.results}
+            </p>
           </div>
         </section>
 
-        {/* ===================================================
-            DATA VALUE
-        =================================================== */}
-
-        <section className="border-b py-16 lg:py-20">
-
-          <div className="grid gap-10 lg:grid-cols-3">
-
-            {/* Trusted Data */}
-
+        {/* MORE CASE STUDIES */}
+        <div className={ALIGN}>
+          <div className="grid grid-cols-1 gap-10 py-16 lg:grid-cols-[1fr_360px]">
             <div>
+              <div className="rounded-2xl border border-slate-200 bg-white p-8 sm:p-10">
+                <SectionEyebrow>Case Study Takeaway</SectionEyebrow>
 
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                <Database size={21} />
-              </div>
-
-              <h3
-                className="mt-5 text-[21px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Trusted Data
-              </h3>
-
-              <p className="mt-3 text-[14px] leading-7 text-slate-600">
-                Reliable and governed data creates a consistent
-                foundation for operational and strategic
-                decision-making.
-              </p>
-
-            </div>
-
-            {/* Actionable Analytics */}
-
-            <div>
-
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                <BarChart3 size={21} />
-              </div>
-
-              <h3
-                className="mt-5 text-[21px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Actionable Analytics
-              </h3>
-
-              <p className="mt-3 text-[14px] leading-7 text-slate-600">
-                Analytics and dashboards transform complex
-                enterprise data into insights teams can use
-                with confidence.
-              </p>
-
-            </div>
-
-            {/* Business Growth */}
-
-            <div>
-
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                <TrendingUp size={21} />
-              </div>
-
-              <h3
-                className="mt-5 text-[21px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Business Growth
-              </h3>
-
-              <p className="mt-3 text-[14px] leading-7 text-slate-600">
-                Faster access to trusted insights helps business
-                teams identify opportunities, improve efficiency,
-                and act faster.
-              </p>
-
-            </div>
-
-          </div>
-        </section>
-
-     
-
-      {/* ===================================================
-    RELATED CASE STUDIES
-=================================================== */}
-{/* ===================================================
-    RELATED CASE STUDIES
-=================================================== */}
-
-{related.length > 0 && (
-  <section
-    className="border-t pb-24 pt-20"
-    style={{
-      borderColor: "#E5E1F5",
-    }}
-  >
-    {/* Header */}
-
-    <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-      <div>
-        <p
-          className="text-[12px] font-bold uppercase tracking-[0.18em]"
-          style={{
-            color: INDIGO_CTA,
-          }}
-        >
-          Explore More
-        </p>
-
-        <h2
-          className="mt-3 text-[31px] font-medium"
-          style={{
-            color: CHAMPION_BLUE,
-          }}
-        >
-          More Case Studies
-        </h2>
-      </div>
-
-      <Link
-        href={BASE_PATH}
-        className="inline-flex items-center gap-2 text-[14px] font-semibold"
-        style={{
-          color: INDIGO_CTA,
-        }}
-      >
-        View all case studies
-        <ArrowUpRight size={16} />
-      </Link>
-    </div>
-
-    {/* 4 IMAGE CARDS */}
-
-    <div className="mt-9 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
-      {related.slice(0, 4).map((item) => (
-        <Link
-          key={item.slug}
-          href={`${BASE_PATH}/${item.slug}`}
-          className="group flex min-w-0 flex-col overflow-hidden rounded-[24px] border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-          style={{
-            borderColor: "#E5E1F5",
-          }}
-        >
-          {/* IMAGE */}
-
-          <div className="relative h-[230px] overflow-hidden">
-            <img
-              src={item.image}
-              alt={item.title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-
-            {/* Dark bottom gradient */}
-
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/50 to-transparent" />
-
-            {/* Industry badge */}
-
-            <div className="absolute bottom-4 left-4">
-              <span className="inline-flex rounded-full bg-white px-4 py-2 text-[12px] font-semibold text-slate-700 shadow-sm">
-                {item.industry}
-              </span>
-            </div>
-          </div>
-
-          {/* CONTENT */}
-
-          <div className="flex min-h-[210px] flex-1 flex-col p-6">
-            <h3
-              className="line-clamp-3 text-[18px] font-semibold leading-7"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              {item.title}
-            </h3>
-
-            <div
-              className="mt-auto pt-8 inline-flex items-center gap-2 text-[14px] font-semibold"
-              style={{
-                color: INDIGO_CTA,
-              }}
-            >
-              Read case study
-
-              <ArrowUpRight
-                size={16}
-                className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-              />
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
-  </section>
-)}
-        {/* ===================================================
-            FINAL CTA
-        =================================================== */}
-
-        <section className="pb-20 lg:pb-24">
-
-          <div
-            className="relative overflow-hidden rounded-[32px] border px-7 py-12 sm:px-12 lg:px-16 lg:py-16"
-            style={{
-              borderColor: "#DDD8F0",
-              backgroundColor: "#FAF9FE",
-            }}
-          >
-
-            {/* Glow */}
-
-            <div
-              className="absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
-              style={{
-                backgroundColor: `${LAVENDER_ACCENT}25`,
-              }}
-            />
-
-            <div className="relative flex flex-col justify-between gap-9 lg:flex-row lg:items-center">
-
-              <div className="max-w-2xl">
-
-                <p
-                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                  style={{
-                    color: INDIGO_CTA,
-                  }}
-                >
-                  Unlock the value of your data
-                </p>
-
-                <h2
-                  className="mt-4 text-[31px] font-medium leading-tight lg:text-[43px]"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  Have a data challenge?
-                  <br />
-                  Let&apos;s turn it into an advantage.
+                <h2 className="mt-3 text-3xl font-semibold text-[#0b1747]">
+                  A practical Digital IT Operations transformation
                 </h2>
 
-                <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                  Talk to our data and analytics team about your
-                  data platform, analytics, reporting, governance,
-                  or AI requirements.
+                <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
+                  {study.results}
                 </p>
 
+                <Link
+                  href="/services/digital-it-operations#serviceconact"
+                  className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#3a3ff0] px-6 py-3.5 text-sm font-semibold text-white transition hover:bg-[#2c30c9]"
+                >
+                  Start a similar project
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
               </div>
-
-              <Link
-                href="/services/data-analytics#connect"
-                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-7 py-4 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={{
-                  backgroundColor: INDIGO_CTA,
-                }}
-              >
-                Start a conversation
-
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-
             </div>
+
+            <MoreCaseStudiesSidebar currentSlug={study.slug} />
           </div>
-        </section>
+        </div>
+      </div>
 
-        {/* ===================================================
-            BACK TO DATA & ANALYTICS
-        =================================================== */}
+      {/* FINAL CTA */}
+      <section className="border-t border-slate-100 bg-slate-50 py-16">
+        <div className={`${ALIGN} text-center`}>
+          <h2 className="text-3xl font-semibold text-[#0b1747] md:text-4xl">
+            Have a similar IT operations challenge?
+          </h2>
 
-        <div className="border-t py-10">
+          <p className="mx-auto mt-3 max-w-xl text-lg leading-8 text-slate-600">
+            Let&apos;s discuss how Starfii can help modernize your
+            infrastructure, operations, automation, monitoring, or
+            service management.
+          </p>
 
           <Link
-            href="/services/data-analytics"
-            className="group inline-flex items-center gap-2 text-[14px] font-semibold"
-            style={{
-              color: INDIGO_CTA,
-            }}
+            href="/#contact"
+            className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-[#2c30c9]"
           >
-
-            <ArrowLeft
-              size={16}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-
-            Back to Data &amp; Analytics Services
-
+            Request Your POC Now
+            <ArrowUpRight className="h-4 w-4" />
           </Link>
-
         </div>
+      </section>
 
+      {/* BACK */}
+      <div className={`${ALIGN} border-t py-10`}>
+        <Link
+          href="/services/digital-it-operations"
+          className="group inline-flex items-center gap-2 text-sm font-semibold text-[#3a3ff0]"
+        >
+          <ArrowLeft className="h-4 w-4 transition-transform group-hover:-translate-x-1" />
+          Back to Digital IT Operations
+        </Link>
       </div>
     </main>
   );

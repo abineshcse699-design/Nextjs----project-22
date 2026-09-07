@@ -1,5 +1,3 @@
-// app/services/offerings/ai-native-contact-center/[slug]/page.tsx
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -8,6 +6,16 @@ import {
   ArrowLeft,
   ArrowUpRight,
   ChevronRight,
+  CheckCircle2,
+  Target,
+  BrainCircuit,
+  TrendingUp,
+  Database,
+  Workflow,
+  ShieldCheck,
+  PhoneCall,
+  Users,
+  Clock3,
 } from "lucide-react";
 
 import {
@@ -15,12 +23,14 @@ import {
   getCaseStudyBySlug,
 } from "../data/case-studies";
 
+import CaseStudyTabs from "../CaseStudyTabs";
+
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0";
 
 const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+  "mx-auto w-full max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const BASE_PATH =
   "/services/offerings/ai-native-contact-center";
@@ -59,7 +69,7 @@ export async function generateMetadata({
   }
 
   return {
-    title: `${study.title} | Starfii AI Voice Call`,
+    title: `${study.title} | Starfii AI Voice Call Case Study`,
     description: study.body,
   };
 }
@@ -80,45 +90,74 @@ export default async function CaseStudyPage({
   }
 
   const relatedStudies = caseStudies
-    .filter((item) => item.slug !== study.slug)
+    .filter(
+      (item) => item.slug !== study.slug
+    )
     .slice(0, 3);
 
   return (
-    <main className="bg-white">
+    <main className="overflow-hidden bg-white">
 
       {/* ======================================================
           HERO
       ====================================================== */}
 
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate overflow-hidden bg-white">
+
+        {/* Background image */}
 
         <div className="absolute inset-0 -z-10">
+
+          <div className="absolute inset-0 bg-[#F8F7FC]" />
 
           <img
             src={study.image}
             alt=""
-            className="h-full w-full object-cover"
+            className="absolute right-0 top-0 h-full w-full object-cover lg:left-[38%] lg:w-[62%]"
           />
 
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/20" />
+          {/* Desktop image fade */}
+
+          <div
+            className="absolute inset-y-0 left-0 hidden w-[65%] lg:block"
+            style={{
+              background:
+                "linear-gradient(to right, #ffffff 0%, rgba(255,255,255,0.98) 35%, rgba(255,255,255,0.80) 55%, rgba(255,255,255,0) 100%)",
+            }}
+          />
+
+          {/* Bottom fade */}
+
+          <div
+            className="absolute inset-x-0 bottom-0 h-40"
+            style={{
+              background:
+                "linear-gradient(to top, #ffffff, rgba(255,255,255,0))",
+            }}
+          />
+
+          {/* Mobile overlay */}
+
+          <div className="absolute inset-0 bg-white/65 lg:hidden" />
 
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
+        <div
+          className={`${ALIGN} relative min-h-[680px] py-24 lg:min-h-[720px] lg:py-28`}
+        >
 
-          {/* BREADCRUMB */}
+          {/* Breadcrumb */}
 
           <nav
             aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-2 text-[14px] font-medium"
+            className="flex flex-wrap items-center gap-2 text-[13px] font-medium"
             style={{
               color: CHAMPION_BLUE,
             }}
           >
-
             <Link
               href="/"
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
               Home
             </Link>
@@ -127,7 +166,7 @@ export default async function CaseStudyPage({
 
             <Link
               href="/services"
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
               Services
             </Link>
@@ -136,9 +175,9 @@ export default async function CaseStudyPage({
 
             <Link
               href={BASE_PATH}
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
-              AI Voice Call
+              AI Native Contact Center
             </Link>
 
             <ChevronRight size={14} />
@@ -146,25 +185,47 @@ export default async function CaseStudyPage({
             <span className="text-slate-500">
               Case Study
             </span>
-
           </nav>
 
-          {/* HERO CONTENT */}
+          {/* Hero content */}
 
-          <div className="mt-10 max-w-4xl">
+          <div className="relative z-10 mt-14 max-w-[790px]">
 
-            <span
-              className="inline-flex rounded-full px-4 py-2 text-[12px] font-semibold tracking-wide"
+            {/* Badge */}
+
+            <div
+              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-wide text-white shadow-lg"
               style={{
-                backgroundColor: "#F1EEFC",
-                color: INDIGO_CTA,
+                backgroundColor: INDIGO_CTA,
               }}
             >
-              AI VOICE CALL
-            </span>
+              AI Voice Call
+            </div>
+
+            {/* Industry */}
+
+            <div className="mt-5 flex flex-wrap items-center gap-3">
+
+              <span
+                className="rounded-full border bg-white/80 px-4 py-2 text-[12px] font-semibold"
+                style={{
+                  borderColor: "#DDD8F0",
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                {study.industry}
+              </span>
+
+              <span className="text-[13px] text-slate-500">
+                {study.client}
+              </span>
+
+            </div>
+
+            {/* Title */}
 
             <h1
-              className="mt-6 max-w-4xl text-[42px] font-medium leading-[1.12] sm:text-[48px] lg:text-[60px]"
+              className="mt-7 max-w-[790px] text-[40px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[50px] lg:text-[62px]"
               style={{
                 color: CHAMPION_BLUE,
               }}
@@ -172,244 +233,709 @@ export default async function CaseStudyPage({
               {study.title}
             </h1>
 
-            <p className="mt-7 max-w-3xl text-[17px] leading-[1.8] text-slate-600">
+            {/* Summary */}
+
+            <p className="mt-7 max-w-[710px] text-[17px] leading-8 text-slate-600 lg:text-[18px]">
               {study.body}
             </p>
 
-            <div className="mt-8 flex flex-wrap gap-4">
+            {/* CTA */}
+
+            <div className="mt-9 flex flex-wrap gap-4">
 
               <Link
                 href={`${BASE_PATH}#connect`}
-                className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
                 style={{
                   backgroundColor: CHAMPION_BLUE,
                 }}
               >
                 Build an AI Voice Agent
-                <ArrowUpRight size={16} />
+
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
 
               <Link
-                href="#story"
-                className="inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold"
+                href="#client"
+                className="inline-flex items-center gap-2 rounded-full border bg-white/90 px-7 py-3.5 text-[14px] font-semibold shadow-sm transition-all duration-300 hover:bg-white hover:shadow-md"
                 style={{
-                  borderColor: LAVENDER_ACCENT,
+                  borderColor: "#DCD8EF",
                   color: CHAMPION_BLUE,
                 }}
               >
-                Explore the case study
+                Explore case study
               </Link>
 
             </div>
 
           </div>
-
         </div>
-
       </section>
 
       {/* ======================================================
-          CASE STUDY IMAGE
+          STICKY CASE STUDY NAVIGATION
       ====================================================== */}
 
-      <section className="bg-white py-16 lg:py-20">
-
-        <div className={ALIGN}>
-
-          <div className="overflow-hidden rounded-3xl">
-
-            <img
-              src={study.image}
-              alt={study.title}
-              className="h-[320px] w-full object-cover sm:h-[420px] lg:h-[560px]"
-            />
-
-          </div>
-
-        </div>
-
-      </section>
+      <CaseStudyTabs />
 
       {/* ======================================================
-          STORY
+          MAIN CONTENT
       ====================================================== */}
 
-      <section
-        id="story"
-        className="pb-24"
-      >
+      <div className={ALIGN}>
 
-        <div
-          className={`${ALIGN} grid grid-cols-1 gap-14 lg:grid-cols-[1fr_360px]`}
+        {/* ====================================================
+            CLIENT
+        ==================================================== */}
+
+        <section
+          id="client"
+          className="scroll-mt-24 py-16 lg:py-20"
         >
 
-          {/* MAIN CONTENT */}
-
-          <article className="max-w-4xl">
-
-            {/* OVERVIEW */}
+          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
 
             <div>
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color: INDIGO_CTA,
                 }}
               >
-                AI VOICE CALL CASE STUDY
+                Client
               </p>
 
               <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
+                className="mt-4 text-[34px] font-medium leading-tight lg:text-[44px]"
                 style={{
                   color: CHAMPION_BLUE,
                 }}
               >
-                Turning customer conversations into intelligent experiences
+                {study.client}
               </h2>
 
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                {study.body}
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Starfii helps organizations modernize customer
-                communication with AI voice agents that understand
-                natural language, respond in real time, and connect
-                conversations with the systems and workflows that
-                run the business.
+              <p className="mt-5 max-w-xl text-[16px] leading-8 text-slate-600">
+                {study.overview}
               </p>
 
             </div>
 
-            {/* CHALLENGE */}
+            <div
+              className="grid overflow-hidden rounded-3xl border bg-white sm:grid-cols-3"
+              style={{
+                borderColor: "#E5E1F5",
+              }}
+            >
 
-            <div className="mt-16">
+              {/* Industry */}
 
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+              <div className="p-7 sm:border-r">
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                  style={{
+                    backgroundColor: "#F5F3FC",
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  <Users size={20} />
+                </div>
+
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                  Industry
+                </p>
+
+                <p
+                  className="mt-2 text-[16px] font-semibold"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  {study.industry}
+                </p>
+              </div>
+
+              {/* Duration */}
+
+              <div className="border-t p-7 sm:border-t-0 sm:border-r">
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                  style={{
+                    backgroundColor: "#F5F3FC",
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  <Clock3 size={20} />
+                </div>
+
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                  Duration
+                </p>
+
+                <p
+                  className="mt-2 text-[16px] font-semibold"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  {study.duration}
+                </p>
+              </div>
+
+              {/* Service */}
+
+              <div className="border-t p-7 sm:border-t-0">
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-2xl"
+                  style={{
+                    backgroundColor: "#F5F3FC",
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  <PhoneCall size={20} />
+                </div>
+
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.15em] text-slate-400">
+                  Service
+                </p>
+
+                <p
+                  className="mt-2 text-[16px] font-semibold"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  AI Voice Call
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            FEATURE IMAGE
+        ==================================================== */}
+
+        <section className="pb-16 lg:pb-20">
+
+          <div className="overflow-hidden rounded-[32px]">
+
+            <img
+              src={study.image}
+              alt={study.title}
+              className="h-[320px] w-full object-cover sm:h-[430px] lg:h-[560px]"
+            />
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            CHALLENGE
+        ==================================================== */}
+
+        <section
+          id="challenge"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+        >
+
+          <div className="grid gap-12 lg:grid-cols-[0.65fr_1.35fr]">
+
+            <div>
+
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-2xl"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  backgroundColor: "#F5F3FC",
+                  color: INDIGO_CTA,
                 }}
               >
-                01 / CUSTOMER EXPERIENCE CHALLENGE
+                <Target size={25} />
+              </div>
+
+              <p
+                className="mt-7 text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                01 / The Challenge
               </p>
 
               <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
+                className="mt-4 max-w-md text-[34px] font-medium leading-tight lg:text-[46px]"
                 style={{
                   color: CHAMPION_BLUE,
                 }}
               >
-                Moving beyond traditional phone support
+                The customer experience challenge
               </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                High call volumes, repetitive enquiries, long wait
-                times, and rigid menu based experiences can create
-                friction for customers and additional pressure for
-                service teams.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                The opportunity was to automate routine conversations
-                while preserving a clear path to human support when
-                a customer needed expertise, empathy, or additional
-                assistance.
-              </p>
 
             </div>
 
-            {/* SOLUTION */}
+            <div>
 
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+              <div
+                className="rounded-3xl p-8 lg:p-10"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  backgroundColor: "#F5F3FC",
                 }}
               >
-                02 / STARFII AI VOICE SOLUTION
-              </p>
 
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Intelligent voice conversations built around customer intent
-              </h2>
+                <p className="text-[18px] leading-9 text-slate-600">
+                  {study.challenge}
+                </p>
 
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                Starfii designs AI voice agents around the
-                conversations that matter most to each organization.
-                The agents understand customer intent, manage
-                natural conversations, perform routine actions, and
-                escalate more complex interactions to human teams.
-              </p>
+              </div>
 
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Voice interactions can be connected with CRM
-                platforms, telephony, APIs, knowledge systems, and
-                business workflows so conversations become
-                actionable rather than isolated phone calls.
-              </p>
-
-            </div>
-
-            {/* CAPABILITIES */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                03 / AI VOICE CAPABILITIES
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Capabilities that make every call more intelligent
-              </h2>
-
-              <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="mt-8 grid gap-4 sm:grid-cols-3">
 
                 {[
-                  "Conversational AI",
-                  "Inbound Call Automation",
-                  "Outbound AI Calling",
-                  "Intelligent Call Routing",
-                  "CRM & Business Integration",
-                  "Real Time Call Intelligence",
-                  "Human Handoff",
-                  "Personalized Voice Experiences",
+                  "High-volume conversations",
+                  "Repetitive customer requests",
+                  "Need for human escalation",
                 ].map((item) => (
                   <div
                     key={item}
-                    className="rounded-2xl p-6"
+                    className="rounded-2xl border p-5"
                     style={{
-                      backgroundColor: "#F5F3FC",
+                      borderColor: "#E5E1F5",
+                    }}
+                  >
+                    <CheckCircle2
+                      size={19}
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    />
+
+                    <p
+                      className="mt-4 text-[14px] font-semibold leading-6"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {item}
+                    </p>
+                  </div>
+                ))}
+
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            SOLUTION
+        ==================================================== */}
+
+        <section
+          id="solution"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+        >
+
+          <div className="grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+
+            <div>
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                02 / AI Solution
+              </p>
+
+              <h2
+                className="mt-4 max-w-3xl text-[34px] font-medium leading-tight lg:text-[46px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                A conversational AI voice experience built around real customer intent
+              </h2>
+
+              <p className="mt-7 max-w-3xl text-[17px] leading-8 text-slate-600">
+                {study.solution}
+              </p>
+
+            </div>
+
+            <div
+              className="rounded-[32px] p-8 lg:p-10"
+              style={{
+                backgroundColor: CHAMPION_BLUE,
+              }}
+            >
+
+              <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-white/50">
+                Starfii AI Voice
+              </p>
+
+              <h3 className="mt-4 text-[28px] font-medium leading-tight text-white">
+                Understand.
+                <br />
+                Respond.
+                <br />
+                Take action.
+              </h3>
+
+              <div className="mt-8 space-y-4">
+
+                {[
+                  "Understand customer intent",
+                  "Respond naturally in real time",
+                  "Connect to business workflows",
+                  "Escalate when human expertise is needed",
+                ].map((item) => (
+                  <div
+                    key={item}
+                    className="flex items-start gap-3"
+                  >
+                    <CheckCircle2
+                      size={19}
+                      className="mt-0.5 flex-shrink-0 text-white"
+                    />
+
+                    <p className="text-[14px] leading-6 text-white/75">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+
+              </div>
+            </div>
+          </div>
+
+          {/* Workflow */}
+
+          <div className="mt-14">
+
+            <p
+              className="text-[12px] font-bold uppercase tracking-[0.18em]"
+              style={{
+                color: INDIGO_CTA,
+              }}
+            >
+              Conversation Flow
+            </p>
+
+            <div className="mt-6 grid gap-3 md:grid-cols-5">
+
+              {[
+                "Customer calls",
+                "AI understands intent",
+                "AI handles the request",
+                "Business system is updated",
+                "Human handoff when required",
+              ].map((item, index) => (
+                <div
+                  key={item}
+                  className="relative rounded-2xl border bg-white p-6"
+                  style={{
+                    borderColor: "#E5E1F5",
+                  }}
+                >
+
+                  <span
+                    className="text-[12px] font-bold"
+                    style={{
+                      color: LAVENDER_ACCENT,
+                    }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <p
+                    className="mt-4 text-[15px] font-semibold leading-6"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {item}
+                  </p>
+
+                </div>
+              ))}
+
+            </div>
+          </div>
+        </section>
+
+        {/* ====================================================
+            RESULTS / IMPACT
+        ==================================================== */}
+
+        <section
+          id="results"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+        >
+
+          <div className="flex flex-col justify-between gap-7 lg:flex-row lg:items-end">
+
+            <div>
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                03 / Impact
+              </p>
+
+              <h2
+                className="mt-4 max-w-2xl text-[34px] font-medium leading-tight lg:text-[46px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                Business impact from AI voice automation
+              </h2>
+
+            </div>
+
+            <p className="max-w-lg text-[16px] leading-8 text-slate-600">
+              {study.results}
+            </p>
+
+          </div>
+
+          {/* Stats */}
+
+          <div className="mt-12 grid gap-5 md:grid-cols-3">
+
+            {study.stats.map(
+              (stat, index) => (
+                <div
+                  key={stat.label}
+                  className="group relative overflow-hidden rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  style={{
+                    borderColor: "#E5E1F5",
+                    backgroundColor:
+                      index === 1
+                        ? "#F5F3FC"
+                        : "#FFFFFF",
+                  }}
+                >
+
+                  <div
+                    className="absolute -right-14 -top-14 h-32 w-32 rounded-full blur-3xl transition-transform duration-500 group-hover:scale-150"
+                    style={{
+                      backgroundColor: `${LAVENDER_ACCENT}35`,
+                    }}
+                  />
+
+                  <div className="relative">
+
+                    <p
+                      className="text-[44px] font-semibold tracking-tight"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      {stat.value}
+                    </p>
+
+                    <div
+                      className="mt-5 h-px w-12"
+                      style={{
+                        backgroundColor:
+                          LAVENDER_ACCENT,
+                      }}
+                    />
+
+                    <p className="mt-4 text-[15px] leading-7 text-slate-600">
+                      {stat.label}
+                    </p>
+
+                  </div>
+                </div>
+              )
+            )}
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            BENEFITS
+        ==================================================== */}
+
+        <section
+          id="benefits"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+        >
+
+          <div>
+
+            <p
+              className="text-[12px] font-bold uppercase tracking-[0.18em]"
+              style={{
+                color: INDIGO_CTA,
+              }}
+            >
+              04 / Benefits
+            </p>
+
+            <h2
+              className="mt-4 max-w-3xl text-[34px] font-medium leading-tight lg:text-[46px]"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              Designed to improve both customer experience and team efficiency
+            </h2>
+
+          </div>
+
+          <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+
+            {study.benefits.map(
+              (benefit, index) => (
+                <div
+                  key={benefit}
+                  className="group rounded-3xl border p-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                  style={{
+                    borderColor: "#E5E1F5",
+                  }}
+                >
+
+                  <div className="flex items-start justify-between">
+
+                    <span
+                      className="text-[12px] font-bold"
+                      style={{
+                        color: LAVENDER_ACCENT,
+                      }}
+                    >
+                      {String(index + 1).padStart(
+                        2,
+                        "0"
+                      )}
+                    </span>
+
+                    <div
+                      className="flex h-10 w-10 items-center justify-center rounded-full"
+                      style={{
+                        backgroundColor:
+                          "#F5F3FC",
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      <CheckCircle2 size={19} />
+                    </div>
+
+                  </div>
+
+                  <h3
+                    className="mt-12 text-[19px] font-semibold leading-7"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {benefit}
+                  </h3>
+
+                </div>
+              )
+            )}
+
+          </div>
+        </section>
+
+        {/* ====================================================
+            TECHNOLOGY
+        ==================================================== */}
+
+        <section
+          id="technology"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+        >
+
+          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-start">
+
+            <div>
+
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{
+                  backgroundColor: "#F5F3FC",
+                  color: INDIGO_CTA,
+                }}
+              >
+                <BrainCircuit size={25} />
+              </div>
+
+              <p
+                className="mt-7 text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                05 / Technology
+              </p>
+
+              <h2
+                className="mt-4 max-w-md text-[34px] font-medium leading-tight lg:text-[44px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                AI technology connected to the business
+              </h2>
+
+              <p className="mt-5 max-w-md text-[15px] leading-7 text-slate-600">
+                Starfii connects conversational voice AI with the
+                telephony, CRM, workflow, and business systems
+                required to turn customer conversations into
+                actionable outcomes.
+              </p>
+
+            </div>
+
+            <div className="grid gap-4 sm:grid-cols-2">
+
+              {study.technology.map(
+                (technology, index) => (
+                  <div
+                    key={technology}
+                    className="group flex items-center gap-4 rounded-2xl border bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-md"
+                    style={{
+                      borderColor: "#E5E1F5",
                     }}
                   >
 
-                    <div className="flex items-start gap-3">
+                    <div
+                      className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{
+                        backgroundColor:
+                          "#F5F3FC",
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      {index === 0 ? (
+                        <BrainCircuit size={20} />
+                      ) : index === 1 ? (
+                        <PhoneCall size={20} />
+                      ) : index === 2 ? (
+                        <Database size={20} />
+                      ) : index === 3 ? (
+                        <Workflow size={20} />
+                      ) : index === 4 ? (
+                        <ShieldCheck size={20} />
+                      ) : (
+                        <TrendingUp size={20} />
+                      )}
+                    </div>
 
-                      <span
-                        className="mt-2 h-2 w-2 flex-shrink-0 rounded-full"
-                        style={{
-                          backgroundColor: INDIGO_CTA,
-                        }}
-                      />
+                    <div>
 
                       <p
                         className="text-[15px] font-semibold"
@@ -417,407 +943,288 @@ export default async function CaseStudyPage({
                           color: CHAMPION_BLUE,
                         }}
                       >
-                        {item}
+                        {technology}
+                      </p>
+
+                      <p className="mt-1 text-[12px] text-slate-400">
+                        AI capability
                       </p>
 
                     </div>
 
                   </div>
-                ))}
-
-              </div>
-
-            </div>
-
-            {/* BUSINESS IMPACT */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                04 / BUSINESS IMPACT
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                From every call to measurable business value
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                AI voice automation helps organizations respond
-                faster, handle more conversations, and reduce the
-                amount of repetitive work handled by human teams.
-              </p>
-
-              <div className="mt-8 space-y-4">
-
-                <div
-                  className="rounded-2xl p-6"
-                  style={{
-                    backgroundColor: "#F5F3FC",
-                  }}
-                >
-
-                  <h3
-                    className="text-[20px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    Faster Customer Response
-                  </h3>
-
-                  <p className="mt-2 text-[14px] leading-[1.8] text-slate-600">
-                    Customers can receive immediate responses for
-                    common enquiries without waiting for an available
-                    human agent.
-                  </p>
-
-                </div>
-
-                <div
-                  className="rounded-2xl p-6"
-                  style={{
-                    backgroundColor: "#F5F3FC",
-                  }}
-                >
-
-                  <h3
-                    className="text-[20px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    Reduced Repetitive Work
-                  </h3>
-
-                  <p className="mt-2 text-[14px] leading-[1.8] text-slate-600">
-                    AI voice agents take care of repetitive,
-                    high volume conversations so human teams can
-                    focus on more complex customer needs.
-                  </p>
-
-                </div>
-
-                <div
-                  className="rounded-2xl p-6"
-                  style={{
-                    backgroundColor: "#F5F3FC",
-                  }}
-                >
-
-                  <h3
-                    className="text-[20px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    Always On Customer Engagement
-                  </h3>
-
-                  <p className="mt-2 text-[14px] leading-[1.8] text-slate-600">
-                    Voice automation enables organizations to extend
-                    customer communication beyond traditional
-                    operating hours.
-                  </p>
-
-                </div>
-
-              </div>
+                )
+              )}
 
             </div>
-
-          </article>
-
-          {/* ====================================================
-              SIDEBAR
-          ==================================================== */}
-
-          <aside>
-
-            <div
-              className="sticky top-8 rounded-2xl p-7"
-              style={{
-                backgroundColor: "#F5F3FC",
-              }}
-            >
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                AI VOICE CALL
-              </p>
-
-              <h3
-                className="mt-3 text-[25px] font-semibold"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                AI Voice Capabilities
-              </h3>
-
-              <div className="mt-7 space-y-3">
-
-                {[
-                  "AI Voice Agents",
-                  "Natural Language Conversations",
-                  "Inbound Call Automation",
-                  "Outbound Voice Campaigns",
-                  "Intelligent Call Routing",
-                  "Lead Qualification",
-                  "Appointment Scheduling",
-                  "Customer Verification",
-                  "CRM & Enterprise Integrations",
-                  "Workflow Automation",
-                  "Call Analytics & Insights",
-                  "Human Agent Handoff",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 border-b border-slate-200 pb-3"
-                  >
-
-                    <span
-                      className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full"
-                      style={{
-                        backgroundColor: INDIGO_CTA,
-                      }}
-                    />
-
-                    <span className="text-[14px] leading-relaxed text-slate-600">
-                      {item}
-                    </span>
-
-                  </div>
-                ))}
-
-              </div>
-
-              <Link
-                href={`${BASE_PATH}#connect`}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                style={{
-                  backgroundColor: CHAMPION_BLUE,
-                }}
-              >
-                Build an AI Voice Agent
-                <ArrowUpRight size={16} />
-              </Link>
-
-            </div>
-
-          </aside>
-
-        </div>
-
-      </section>
-
-      {/* ======================================================
-          RELATED CASE STUDIES
-      ====================================================== */}
-
-      <section
-        className="py-24"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
-        }}
-      >
-
-        <div className={ALIGN}>
-
-          <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-
-            <div>
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                EXPLORE MORE
-              </p>
-
-              <h2
-                className="mt-3 max-w-3xl text-[32px] font-medium leading-tight lg:text-[44px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                More AI Voice Call Case Studies
-              </h2>
-
-            </div>
-
-            <Link
-              href={BASE_PATH}
-              className="hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
-              style={{
-                color: INDIGO_CTA,
-              }}
-            >
-              View All Case Studies
-              <ArrowUpRight size={16} />
-            </Link>
 
           </div>
+        </section>
 
-          <div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
+        {/* ====================================================
+            FINAL SUMMARY
+        ==================================================== */}
 
-            {relatedStudies.map((item) => (
-              <Link
-                key={item.slug}
-                href={`${BASE_PATH}/${item.slug}`}
-                className="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-              >
-
-                <div className="h-[220px] overflow-hidden">
-
-                  <img
-                    src={item.image}
-                    alt={item.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-
-                </div>
-
-                <div className="flex flex-1 flex-col p-6">
-
-                  <span
-                    className="text-[12px] font-semibold tracking-wide"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    AI VOICE CALL
-                  </span>
-
-                  <h3
-                    className="mt-2 text-[19px] font-semibold leading-snug"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-
-                  <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
-                    {item.body}
-                  </p>
-
-                  <span
-                    className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    Read Case Study
-                    <ArrowUpRight size={15} />
-                  </span>
-
-                </div>
-
-              </Link>
-            ))}
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* ======================================================
-          FINAL CTA
-      ====================================================== */}
-
-      <section className="bg-white py-20">
-
-        <div className={ALIGN}>
+        <section className="border-t py-20 lg:py-24">
 
           <div
-            id="connect"
-            className="overflow-hidden rounded-3xl px-7 py-14 sm:px-10 lg:px-16 lg:py-16"
+            className="rounded-[32px] px-8 py-12 sm:px-12 lg:px-16 lg:py-16"
             style={{
-              backgroundColor: CHAMPION_BLUE,
+              background:
+                "linear-gradient(135deg, #F5F3FC 0%, #FFFFFF 60%, #ECE7FB 100%)",
             }}
           >
 
             <div className="max-w-4xl">
 
               <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
                 style={{
-                  color: LAVENDER_ACCENT,
+                  color: INDIGO_CTA,
                 }}
               >
-                AI VOICE TRANSFORMATION
+                Case Study Summary
               </p>
 
-              <h2 className="mt-4 text-[32px] font-medium leading-tight text-white sm:text-[42px]">
-                Ready to transform your customer conversations with AI voice?
+              <h2
+                className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                Turning every customer conversation into a more intelligent experience
               </h2>
 
-              <p className="mt-5 max-w-2xl text-[16px] leading-[1.8] text-white/75">
-                Build intelligent voice experiences that automate
-                customer interactions, improve response times, and
-                help your teams focus on higher value conversations.
+              <p className="mt-6 text-[17px] leading-8 text-slate-600">
+                {study.results}
               </p>
+
+            </div>
+
+          </div>
+        </section>
+
+        {/* ====================================================
+            RELATED CASE STUDIES
+        ==================================================== */}
+
+        {relatedStudies.length > 0 && (
+          <section className="border-t py-20 lg:py-24">
+
+            <div className="flex flex-col justify-between gap-6 sm:flex-row sm:items-end">
+
+              <div>
+
+                <p
+                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  Explore More
+                </p>
+
+                <h2
+                  className="mt-3 text-[34px] font-medium leading-tight lg:text-[44px]"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  More AI Voice Case Studies
+                </h2>
+
+              </div>
 
               <Link
                 href={BASE_PATH}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                className="group inline-flex items-center gap-2 text-[14px] font-semibold"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                View all case studies
+
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                />
+              </Link>
+
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+              {relatedStudies.map(
+                (item) => (
+                  <Link
+                    key={item.slug}
+                    href={`${BASE_PATH}/${item.slug}`}
+                    className="group flex flex-col overflow-hidden rounded-[28px] border bg-white transition-all duration-300 hover:-translate-y-1.5 hover:shadow-2xl"
+                    style={{
+                      borderColor: "#E5E1F5",
+                    }}
+                  >
+
+                    <div className="relative h-[230px] overflow-hidden">
+
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                      />
+
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+
+                      <span className="absolute bottom-4 left-4 rounded-full bg-white/95 px-4 py-2 text-[11px] font-semibold text-slate-700 shadow-sm">
+                        {item.industry}
+                      </span>
+
+                    </div>
+
+                    <div className="flex min-h-[210px] flex-1 flex-col p-6">
+
+                      <p
+                        className="text-[11px] font-bold uppercase tracking-[0.15em]"
+                        style={{
+                          color: INDIGO_CTA,
+                        }}
+                      >
+                        AI Voice Call
+                      </p>
+
+                      <h3
+                        className="mt-3 text-[19px] font-semibold leading-7"
+                        style={{
+                          color: CHAMPION_BLUE,
+                        }}
+                      >
+                        {item.title}
+                      </h3>
+
+                      <p className="mt-3 line-clamp-3 text-[14px] leading-6 text-slate-500">
+                        {item.body}
+                      </p>
+
+                      <div
+                        className="mt-auto flex items-center gap-2 pt-7 text-[14px] font-semibold"
+                        style={{
+                          color: INDIGO_CTA,
+                        }}
+                      >
+                        Read case study
+
+                        <ArrowUpRight
+                          size={15}
+                          className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                        />
+                      </div>
+
+                    </div>
+
+                  </Link>
+                )
+              )}
+
+            </div>
+          </section>
+        )}
+
+        {/* ====================================================
+            FINAL CTA
+        ==================================================== */}
+
+        <section
+          id="connect"
+          className="scroll-mt-24 py-20 lg:py-24"
+        >
+
+          <div
+            className="relative overflow-hidden rounded-[32px] px-8 py-14 sm:px-12 lg:px-16 lg:py-16"
+            style={{
+              backgroundColor: CHAMPION_BLUE,
+            }}
+          >
+
+            <div
+              className="pointer-events-none absolute -right-32 -top-32 h-80 w-80 rounded-full blur-3xl"
+              style={{
+                backgroundColor:
+                  `${LAVENDER_ACCENT}35`,
+              }}
+            />
+
+            <div className="relative flex flex-col justify-between gap-10 lg:flex-row lg:items-center">
+
+              <div className="max-w-3xl">
+
+                <p
+                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    color: LAVENDER_ACCENT,
+                  }}
+                >
+                  AI Voice Transformation
+                </p>
+
+                <h2 className="mt-4 text-[34px] font-medium leading-tight text-white lg:text-[46px]">
+                  Ready to transform your customer conversations with AI voice?
+                </h2>
+
+                <p className="mt-5 max-w-2xl text-[16px] leading-8 text-white/70">
+                  Build intelligent voice experiences that automate
+                  routine conversations, improve customer response,
+                  and help human teams focus on higher-value
+                  interactions.
+                </p>
+
+              </div>
+
+              <Link
+                href={BASE_PATH}
+                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-white px-7 py-4 text-[14px] font-semibold shadow-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
                 style={{
                   color: CHAMPION_BLUE,
                 }}
               >
                 Start an AI Voice conversation
-                <ArrowUpRight size={16} />
+
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
 
             </div>
 
           </div>
+        </section>
 
-        </div>
+        {/* ====================================================
+            BACK
+        ==================================================== */}
 
-      </section>
-
-      {/* ======================================================
-          BACK
-      ====================================================== */}
-
-      <section className="bg-white pb-16">
-
-        <div className={ALIGN}>
+        <section className="border-t py-10">
 
           <Link
             href={BASE_PATH}
-            className="inline-flex items-center gap-2 text-[14px] font-semibold transition-transform hover:-translate-x-1"
+            className="group inline-flex items-center gap-2 text-[14px] font-semibold"
             style={{
               color: INDIGO_CTA,
             }}
           >
-            <ArrowLeft size={16} />
-            Back to AI Voice Call
+
+            <ArrowLeft
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            />
+
+            Back to AI Native Contact Center
+
           </Link>
 
-        </div>
+        </section>
 
-      </section>
-
+      </div>
     </main>
   );
 }

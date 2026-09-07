@@ -251,6 +251,7 @@ const recognitions: Recognition[] = [
 // What's New — insight/blog teasers, shown three at a time with the same
 // progress bar and arrow pagination as the recognition carousel.
 type Insight = {
+  slug: string;
   title: string;
   body: string;
   image: string;
@@ -259,6 +260,7 @@ type Insight = {
 
 const insights: Insight[] = [
   {
+    slug: "generative-ai-enterprise-data-warehouses-to-answers",
     title: "Generative AI on Enterprise Data: From Warehouses to Answers",
     body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
     image:
@@ -266,30 +268,35 @@ const insights: Insight[] = [
     gradient: true,
   },
   {
+    slug: "cloud-data-platforms-aws-azure-gcp",
     title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
     body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right fit.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    slug: "data-governance-at-scale-trust-every-pipeline",
     title: "Data Governance at Scale: Building Trust Into Every Pipeline",
     body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    slug: "mdm-in-practice-one-customer-record",
     title: "MDM in Practice: Getting Every Team to One Customer Record",
     body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
     title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
     body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    slug: "bi-dashboards-designed-around-decisions",
     title: "BI That Gets Opened: Designing Dashboards Around Decisions",
     body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
     image:
@@ -1073,90 +1080,7 @@ export default function DataAnalyticsServicesSection() {
           INDUSTRY RECOGNITION — dark, full-bleed, matches the reference
           ISG Provider Lens quadrant callouts with a 2-up carousel.
       ============================================================ */}
-      <section
-        className="relative overflow-hidden py-24"
-        style={{
-          background: `radial-gradient(110% 130% at 90% 100%, rgba(217,119,87,0.16), transparent 50%), ${DARK_BG}`,
-        }}
-      >
-        <div className={ALIGN}>
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[280px_1fr]">
-            <motion.h2
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.3 }}
-              variants={fadeUp}
-              className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]"
-            >
-              Industry
-              <br />
-              Recognition
-            </motion.h2>
-
-            <div>
-              <StepCarousel
-                items={recognitions}
-                itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-                dark
-                renderItem={(rec) => (
-                  <div className="overflow-hidden rounded-2xl bg-white">
-                    <div className="flex items-center justify-between px-8 pt-7">
-                      <span
-                        className="font-body text-[14px] font-semibold"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {rec.program}
-                      </span>
-                      <span className="font-body text-[13px] text-slate-400">
-                        {rec.year}
-                      </span>
-                    </div>
-
-                    <div className="mt-5 px-8">
-                      <div
-                        className="rounded-xl px-6 py-6"
-                        style={{ backgroundColor: CHAMPION_BLUE }}
-                      >
-                        <h3 className="font-heading text-[20px] font-semibold text-white">
-                          {rec.title}
-                        </h3>
-                        <p
-                          className="font-body mt-1.5 text-[14px]"
-                          style={{ color: LAVENDER_ACCENT }}
-                        >
-                          {rec.subtitle}
-                        </p>
-                        <div className="mt-6 flex items-center justify-between">
-                          <span className="font-body text-[15px] font-medium text-white">
-                            {rec.standing}
-                          </span>
-                          <Trophy size={18} className="text-white/80" />
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-8">
-                      <p className="font-body text-[14px] leading-relaxed text-slate-600">
-                        {rec.body}
-                      </p>
-                      <a
-                        href="#"
-                        className="font-body mt-6 inline-flex items-center justify-center rounded-full border px-6 py-2.5 text-[14px] font-semibold"
-                        style={{
-                          borderColor: ACCENT_INDIGO,
-                          color: ACCENT_INDIGO,
-                        }}
-                      >
-                        Know more
-                      </a>
-                    </div>
-                  </div>
-                )}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* ============================================================
           WHAT'S NEW IN DATA & ANALYTICS — light section, 3-up insight
@@ -1180,14 +1104,14 @@ export default function DataAnalyticsServicesSection() {
               <br />
               & Analytics
             </h2>
-            <a
-              href="#"
+            <Link
+              href="/services/data-analytics/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: ACCENT_INDIGO }}
             >
               View All Insights
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </motion.div>
 
           <motion.div
@@ -1197,66 +1121,83 @@ export default function DataAnalyticsServicesSection() {
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
           >
-            {visibleInsights.map((post) =>
-              post.gradient ? (
-                <div
-                  key={post.title}
-                  className="relative flex min-h-[360px] flex-col justify-end overflow-hidden rounded-2xl p-1"
-                  style={{
-                    background:
-                      "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
-                  }}
-                >
-                  <div className="m-4 rounded-xl bg-white/95 p-6">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{ color: ACCENT_INDIGO }}
-                    >
-                      BLOG
-                    </span>
-                    <h3
-                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {post.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
+            {visibleInsights.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/services/data-analytics/blogs/${post.slug}`}
+                aria-label={`Read ${post.title}`}
+                className="block h-full"
+              >
+                {post.gradient ? (
+                  <div
+                    className="relative flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-2xl p-1 transition-transform duration-300 hover:-translate-y-1"
+                    style={{
+                      background:
+                        "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
+                    }}
+                  >
+                    <div className="m-4 rounded-xl bg-white/95 p-6">
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-wide"
+                        style={{ color: ACCENT_INDIGO }}
+                      >
+                        BLOG
+                      </span>
+                      <h3
+                        className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                        style={{ color: CHAMPION_BLUE }}
+                      >
+                        {post.title}
+                      </h3>
+                      <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
+                        {post.body}
+                      </p>
+                      <span
+                        className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                        style={{ color: ACCENT_INDIGO }}
+                      >
+                        Read More
+                        <ArrowUpRight size={15} />
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ) : (
-                <div
-                  key={post.title}
-                  className="flex min-h-[360px] flex-col overflow-hidden rounded-2xl bg-white"
-                >
-                  <div className="h-[220px] overflow-hidden bg-slate-900/90">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="h-full w-full object-cover opacity-80 transition-transform duration-700 hover:scale-105"
-                    />
+                ) : (
+                  <div className="flex min-h-[360px] h-full flex-col overflow-hidden rounded-2xl bg-white transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="h-[220px] overflow-hidden bg-slate-900/90">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="h-full w-full object-cover opacity-80 transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
+                    <div className="flex flex-1 flex-col p-6">
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-wide"
+                        style={{ color: ACCENT_INDIGO }}
+                      >
+                        BLOG
+                      </span>
+                      <h3
+                        className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                        style={{ color: CHAMPION_BLUE }}
+                      >
+                        {post.title}
+                      </h3>
+                      <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
+                        {post.body}
+                      </p>
+                      <span
+                        className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                        style={{ color: ACCENT_INDIGO }}
+                      >
+                        Read More
+                        <ArrowUpRight size={15} />
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex-1 p-6">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{ color: ACCENT_INDIGO }}
-                    >
-                      BLOG
-                    </span>
-                    <h3
-                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {post.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-                  </div>
-                </div>
-              )
-            )}
+                )}
+              </Link>
+            ))}
           </motion.div>
 
           {/* Progress bar + pagination */}

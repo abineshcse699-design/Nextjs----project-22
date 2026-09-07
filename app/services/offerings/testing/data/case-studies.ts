@@ -1,3 +1,5 @@
+// app/services/offerings/ai-data-extraction/data/case-studies.ts
+
 export type CaseStudy = {
   slug: string;
   image: string;
@@ -15,6 +17,7 @@ export const caseStudies: CaseStudy[] = [
     body:
       "Explore how AI-powered document processing can extract invoice fields, validate information, and move structured data into downstream finance workflows.",
   },
+
   {
     slug: "contract-document-intelligence",
     image:
@@ -24,6 +27,7 @@ export const caseStudies: CaseStudy[] = [
     body:
       "See how document intelligence can identify clauses, dates, parties, obligations, and other contract information for downstream review and workflows.",
   },
+
   {
     slug: "healthcare-document-processing",
     image:
@@ -33,6 +37,7 @@ export const caseStudies: CaseStudy[] = [
     body:
       "Discover how AI, OCR, and structured extraction can reduce manual document handling across healthcare forms, claims, reports, and administrative records.",
   },
+
   {
     slug: "insurance-claims-extraction",
     image:
@@ -42,6 +47,7 @@ export const caseStudies: CaseStudy[] = [
     body:
       "Learn how structured extraction can surface policy, claim, incident, evidence, and financial information from complex claims documentation.",
   },
+
   {
     slug: "customer-onboarding-automation",
     image:
@@ -53,6 +59,10 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
-  return caseStudies.find((study) => study.slug === slug);
+export function getCaseStudyBySlug(
+  slug: string
+): CaseStudy | undefined {
+  return caseStudies.find(
+    (study) => study.slug === slug
+  );
 }

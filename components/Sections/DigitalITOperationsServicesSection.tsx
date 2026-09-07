@@ -206,6 +206,7 @@ const industryAwards: IndustryAward[] = [
 ];
 
 type InsightPost = {
+  slug: string;
   large: boolean;
   image: string;
   title: string;
@@ -214,7 +215,7 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
-    large: true,
+    slug: "cloud-cost-optimization-multi-cloud-spend",    large: true,
     image:
       "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=1200&auto=format&fit=crop",
     title:
@@ -222,28 +223,28 @@ const insights: InsightPost[] = [
     body: "Explore how Starfii audits, right sizes, and automates cloud spend across AWS, Azure, and GCP, so operations costs come down without touching reliability.",
   },
   {
-    large: false,
+    slug: "devops-automation-ci-cd-release-time",    large: false,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title: "DevOps Automation: How CI/CD Pipelines Cut Release Time by 60%",
     body: "Stop trading speed for stability. See how Starfii's CI/CD automation and test automation shorten release cycles while keeping production reliable.",
   },
   {
-    large: false,
+    slug: "cybersecurity-operations-framework",    large: false,
     image:
       "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
     title: "Cybersecurity Operations: Building a Framework That Scales With You",
     body: "Stop reacting to threats after the fact. See how Starfii builds continuous security monitoring into everyday IT operations from day one.",
   },
   {
-    large: false,
+    slug: "cloud-infrastructure-operations-reliability",    large: false,
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
     title: "Cloud Infrastructure Operations: Keeping Enterprise Systems Reliable",
     body: "Explore how modern cloud operations across AWS, Azure, and GCP help enterprise teams improve reliability, visibility, and cost efficiency as workloads scale.",
   },
   {
-    large: false,
+    slug: "it-operations-automation-reducing-manual-work",    large: false,
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
     title: "IT Operations Automation: Reducing Manual Work at Scale",
@@ -1312,80 +1313,7 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
       {/* ============================================================
           INDUSTRY RECOGNITION (dark)
       ============================================================ */}
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 100%, rgba(232,110,90,0.5) 0%, rgba(164,143,234,0.3) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
-            <Reveal>
-              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-                Industry
-                <br />
-                Recognition
-              </h2>
-            </Reveal>
-
-            <PagedCarousel
-              items={industryAwards}
-              itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-              arrowVariant="dark"
-              renderItem={(award, i) => (
-                <Reveal delay={(i % 2) * 100} className="h-full">
-                  <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
-                    <div
-                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      <span>ISG Provider Lens™</span>
-                      <span className="font-normal text-slate-400">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <div
-                      className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
-                      style={{ backgroundColor: CHAMPION_BLUE }}
-                    >
-                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
-                        {award.category}
-                      </p>
-                      <p
-                        className="font-body mt-1 text-[13px]"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
-                        {award.subcategory}
-                      </p>
-                      <div className="font-body mt-6 flex items-center justify-between">
-                        <span className="text-[14px]">{award.rank}</span>
-                        <Trophy size={20} className="ss-trophy opacity-80" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
-                        {award.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
-                        style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
-                      >
-                        Know more
-                      </button>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-      </section>
+  
 
       {/* ============================================================
           CASE STUDIES
@@ -1481,7 +1409,7 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
               {"What's New in IT Operations"}
             </h2>
             <a
-              href="#"
+              href="/services/digital-it-operations/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
@@ -1506,7 +1434,10 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
                   }`}
                 >
                   {post.large ? (
-                    <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                    <Link
+                      href={`/services/digital-it-operations/blogs/${post.slug}`}
+                      className="group relative block h-[420px] overflow-hidden rounded-2xl"
+                    >
                       <img
                         src={post.image}
                         alt={post.title}
@@ -1529,9 +1460,12 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
                           {post.body}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ) : (
-                    <div className="group">
+                    <Link
+                      href={`/services/digital-it-operations/blogs/${post.slug}`}
+                      className="group block"
+                    >
                       <div className="h-[220px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
@@ -1556,7 +1490,7 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
                           {post.body}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   )}
                 </Reveal>
               ))}

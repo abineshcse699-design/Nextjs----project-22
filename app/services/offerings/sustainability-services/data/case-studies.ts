@@ -1,3 +1,5 @@
+// app/services/offerings/ai-file-storage/data/case-studies.ts
+
 export type CaseStudy = {
   slug: string;
   image: string;
@@ -57,6 +59,10 @@ export const caseStudies: CaseStudy[] = [
   },
 ];
 
-export function getCaseStudyBySlug(slug: string) {
-  return caseStudies.find((study) => study.slug === slug);
+export function getCaseStudyBySlug(
+  slug: string
+): CaseStudy | undefined {
+  return caseStudies.find(
+    (study) => study.slug === slug
+  );
 }

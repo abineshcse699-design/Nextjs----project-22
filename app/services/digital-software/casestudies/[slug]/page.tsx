@@ -1,963 +1,561 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import type { Metadata } from "next";
 import {
-  ArrowUpRight,
-  ChevronRight,
   ArrowLeft,
+  ArrowUpRight,
   CheckCircle2,
-  Quote,
-  Sparkles,
-  Target,
-  Layers3,
+  AlertCircle,
   TrendingUp,
+  Building2,
 } from "lucide-react";
+import { caseStudies, getCaseStudyBySlug } from "../data/case-studies";
+import CaseStudyTabs from "../CaseStudyTabs"; // adjust path if it lives elsewhere
 
-import {
-  caseStudies,
-  getCaseStudyBySlug,
-} from "../data/case-studies";
-
-const CHAMPION_BLUE = "#1B2560";
-const LAVENDER_ACCENT = "#A48FEA";
-const INDIGO_CTA = "#4F3FE0";
-
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-
-const BASE_PATH =
-  "/services/digital-software/casestudies";
-
-/* -------------------------------------------------------
-   STATIC PARAMS
-------------------------------------------------------- */
-
-export function generateStaticParams() {
-  return caseStudies.map((study) => ({
-    slug: study.slug,
-  }));
+interface PageProps {
+  params: Promise<{ slug: string }>;
 }
 
-/* -------------------------------------------------------
-   TYPES
-------------------------------------------------------- */
-
-type PageProps = {
-  params: Promise<{
-    slug: string;
-  }>;
-};
-
-/* -------------------------------------------------------
-   METADATA
-------------------------------------------------------- */
+export function generateStaticParams() {
+  return caseStudies.map((study) => ({ slug: study.slug }));
+}
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
-
   const study = getCaseStudyBySlug(slug);
 
-  if (!study) {
+  if (!study) return { title: "Case Study | Starfii" };
+
+  return {
+    title: `${study.title} | Starfii Case Study`,
+    description: study.cardDescription,
+  };
+}
+
+function splitLead(text: string): {
+  lead: string | null;
+  rest: string;
+} {
+  const idx = text.indexOf(":");
+
+  if (idx > -1 && idx < 48) {
     return {
-      title: "Case Study Not Found | Starfii",
+      lead: text.slice(0, idx),
+      rest: text.slice(idx + 1).trim(),
     };
   }
 
   return {
-    title: `${study.title} | Starfii Case Study`,
-    description: study.body,
+    lead: null,
+    rest: text,
   };
 }
 
-/* -------------------------------------------------------
-   PAGE
-------------------------------------------------------- */
-
-export default async function CaseStudyDetailPage({
-  params,
-}: PageProps) {
-  const { slug } = await params;
-
-  const study = getCaseStudyBySlug(slug);
-
-  if (!study) {
-    notFound();
-  }
-
-  const related = caseStudies
-    .filter((item) => item.slug !== study.slug)
-    .slice(0, 4);
+function PointCard({
+  text,
+  icon,
+  accent,
+}: {
+  text: string;
+  icon: React.ReactNode;
+  accent: string;
+}) {
+  const { lead, rest } = splitLead(text);
 
   return (
-    <main className="overflow-hidden bg-white">
+    <div className="relative rounded-xl border border-slate-200 bg-white p-6 pl-7">
+      <span
+        className="absolute bottom-6 left-0 top-6 w-[3px] rounded-full"
+        style={{ backgroundColor: accent }}
+      />
 
-      {/* =====================================================
-          HERO
-      ===================================================== */}
+      <div className="flex items-start gap-3">
+        <span className="mt-1 shrink-0">{icon}</span>
 
-      <section className="relative isolate min-h-[620px] overflow-hidden lg:min-h-[680px]">
+        <div>
+          {lead && (
+            <p className="text-base font-semibold text-[#0b1747]">{lead}</p>
+          )}
 
-        {/* Background image */}
+          <p className="mt-1 text-[15px] leading-relaxed text-slate-600">
+            {rest}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
 
-        <div className="absolute inset-0 -z-20">
-          <img
-            src={study.heroImage ?? study.image}
-            alt=""
-            className="h-full w-full object-cover"
-          />
+function SectionEyebrow({ children }: { children: React.ReactNode }) {
+  return (
+    <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
+      {children}
+    </p>
+  );
+}
+
+function AtAGlanceSidebar({
+  study,
+}: {
+  study: (typeof caseStudies)[number];
+}) {
+  return (
+    <aside className="lg:sticky lg:top-28">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <div className="flex items-center gap-2 text-[#0b1747]">
+          <Building2 className="h-4 w-4" />
+          <p className="text-sm font-semibold uppercase tracking-[0.08em]">
+            At a glance
+          </p>
         </div>
 
-        {/* Main gradient */}
+        <dl className="mt-5 space-y-4">
+          <div>
+            <dt className="text-sm text-slate-400">Client</dt>
+            <dd className="mt-0.5 text-base font-medium text-[#0b1747]">
+              {study.client}
+            </dd>
+          </div>
 
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-white via-white/95 to-white/35" />
+          <div>
+            <dt className="text-sm text-slate-400">Industry</dt>
+            <dd className="mt-0.5 text-base font-medium text-[#0b1747]">
+              {study.industry}
+            </dd>
+          </div>
 
-        {/* Bottom fade */}
+          <div>
+            <dt className="text-sm text-slate-400">Services</dt>
+            <dd className="mt-1.5 flex flex-wrap gap-1.5">
+              {study.services.map((s) => (
+                <span
+                  key={s}
+                  className="rounded-full bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-600"
+                >
+                  {s}
+                </span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      </div>
 
-        <div className="absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-white to-transparent" />
+      <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
+          Headline results
+        </p>
 
-        {/* Decorative elements */}
+        <div className="mt-4 space-y-4">
+          {study.results.slice(0, 3).map((r, i) => (
+            <div key={i} className="flex items-baseline gap-3">
+              <span className="text-2xl font-semibold text-[#3a3ff0]">
+                {r.metric}
+              </span>
+              <span className="text-sm leading-snug text-slate-500">
+                {r.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
 
+      <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white">
         <div
-          className="absolute -right-32 top-24 -z-10 h-80 w-80 rounded-full blur-3xl"
-          style={{
-            backgroundColor: `${LAVENDER_ACCENT}35`,
-          }}
+          className="h-24 w-full bg-cover bg-center"
+          style={{ backgroundImage: `url(${study.heroImage})` }}
         />
 
-        <div
-          className="absolute bottom-0 left-1/3 -z-10 h-56 w-56 rounded-full blur-3xl"
-          style={{
-            backgroundColor: `${INDIGO_CTA}18`,
-          }}
-        />
+        <div className="p-6">
+          <p className="text-base font-semibold text-[#0b1747]">
+            Get results like these
+          </p>
 
-        <div className={`${ALIGN} py-12 lg:py-20`}>
-
-          {/* Breadcrumb */}
-
-          <nav
-            aria-label="Breadcrumb"
-            className="flex flex-wrap items-center gap-2 text-[13px] font-medium"
-            style={{
-              color: CHAMPION_BLUE,
-            }}
+          <Link
+            href="/#contact"
+            className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-[#3a3ff0] px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#2c30c9]"
           >
+            Book a Meeting
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </aside>
+  );
+}
+
+function MoreCaseStudiesSidebar({ currentSlug }: { currentSlug: string }) {
+  const others = caseStudies
+    .filter((s) => s.slug !== currentSlug)
+    .slice(0, 3);
+
+  if (others.length === 0) return null;
+
+  return (
+    <aside className="lg:sticky lg:top-28">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6">
+        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
+          More case studies
+        </p>
+
+        <div className="mt-5 space-y-5">
+          {others.map((s) => (
             <Link
-              href="/"
-              className="transition-opacity hover:opacity-60"
+              key={s.slug}
+              href={`/case-studies/${s.slug}`}
+              className="group block"
             >
-              Home
+              <div className="overflow-hidden rounded-lg">
+                <div
+                  className="h-24 w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
+                  style={{ backgroundImage: `url(${s.image})` }}
+                />
+              </div>
+
+              <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.06em] text-[#4b5fed]">
+                {s.category}
+              </p>
+
+              <p className="mt-1 text-base font-medium leading-snug text-[#0b1747] transition-colors group-hover:text-[#3a3ff0]">
+                {s.title}
+              </p>
             </Link>
+          ))}
+        </div>
 
-            <ChevronRight size={14} />
+        <Link
+          href="/case-studies"
+          className="mt-6 inline-flex items-center gap-1.5 text-base font-semibold text-[#3a3ff0]"
+        >
+          View all case studies
+          <ArrowUpRight className="h-3.5 w-3.5" />
+        </Link>
+      </div>
+    </aside>
+  );
+}
 
-            <Link
-              href="/services/digital-software"
-              className="transition-opacity hover:opacity-60"
-            >
-              Digital &amp; Software
-            </Link>
+export default async function CaseStudyDetailPage({ params }: PageProps) {
+  const { slug } = await params;
+  const study = getCaseStudyBySlug(slug);
 
-            <ChevronRight size={14} />
+  if (!study) notFound();
 
-            <Link
-              href={BASE_PATH}
-              className="transition-opacity hover:opacity-60"
-            >
-              Case Studies
-            </Link>
+  return (
+    <main className="bg-white">
+      {/* =========================================================
+          HERO — title, subtitle, hero image, and the booking card
+          all live here ONCE. (Previously this same title/subtitle
+          block was also repeated in the section below — removed.)
+          ========================================================= */}
 
-            <ChevronRight size={14} />
+      <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] pb-16 pt-14 lg:pb-20 lg:pt-20">
+        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+          <Link
+            href="/case-studies"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#4b5fed] transition-colors hover:text-[#37409e]"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to case studies
+          </Link>
 
-            <span className="text-slate-500">
-              {study.industry}
-            </span>
-          </nav>
+          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+            {/* LEFT: BADGE + TITLE + META + IMAGE */}
+            <div>
+              <span className="inline-block rounded-full bg-[#4b5fed]/10 px-3 py-1 text-xs font-semibold tracking-[0.08em] text-[#4b5fed]">
+                {study.category}
+              </span>
 
-          {/* Hero content */}
+              <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-[#0b1747] md:text-5xl">
+                {study.title}
+              </h1>
 
-          <div className="max-w-4xl py-16 lg:py-20">
+              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
+                {study.subtitle}
+              </p>
 
-            {/* Industry badge */}
+              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-base text-slate-500">
+                <span className="font-medium text-[#0b1747]">
+                  {study.client}
+                </span>
+                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
+                <span>{study.industry}</span>
+              </div>
 
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white shadow-lg"
-              style={{
-                backgroundColor: INDIGO_CTA,
-              }}
-            >
-              <Sparkles size={14} />
-              {study.industry}
+              <div className="mt-5 flex flex-wrap gap-2">
+                {study.services.map((service) => (
+                  <span
+                    key={service}
+                    className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-slate-600 shadow-[0_1px_2px_rgba(15,23,42,0.06)]"
+                  >
+                    {service}
+                  </span>
+                ))}
+              </div>
+
+              <div className="mt-10 overflow-hidden rounded-2xl shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
+                <img
+                  src={study.heroImage}
+                  alt={study.title}
+                  className="h-[280px] w-full object-cover object-center md:h-[420px]"
+                />
+              </div>
             </div>
 
-            {/* Title */}
+            {/* RIGHT: BOOKING CARD */}
+            <div className="w-full max-w-[360px] justify-self-start lg:justify-self-end">
+              <div className="rounded-2xl bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.10)] lg:sticky lg:top-24">
+                <h3 className="text-xl font-semibold text-[#0b1747]">
+                  Book a Meeting
+                </h3>
+                <p className="mt-1.5 text-sm text-slate-500">
+                  Schedule some 1 on 1 time with our experts
+                </p>
 
-            <h1
-              className="mt-7 max-w-4xl text-[40px] font-medium leading-[1.08] tracking-[-0.03em] sm:text-[48px] lg:text-[64px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              {study.title}
-            </h1>
+                <form className="mt-6 flex flex-col gap-3">
+                  <input
+                    type="text"
+                    placeholder="Your name*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email address*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
+                  />
+                  <select
+                    defaultValue=""
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-500 outline-none transition-colors focus:border-[#3a3ff0]"
+                  >
+                    <option value="" disabled>
+                      How did you hear about us?*
+                    </option>
+                    <option value="search">Search Engine</option>
+                    <option value="referral">Referral</option>
+                    <option value="social">Social Media</option>
+                    <option value="event">Event</option>
+                    <option value="other">Other</option>
+                  </select>
 
-            {/* Description */}
+                  {/* NOTE: this captcha is a static visual placeholder
+                      (hardcoded text, no real captcha library wired up).
+                      Swap in a real captcha provider before going live. */}
+                  <div className="mt-1 flex items-center justify-between gap-3 rounded-lg bg-[#c9dcfb] px-4 py-4">
+                    <span className="select-none text-2xl italic tracking-wide text-[#3a3ff0]">
+                      LDujDv
+                    </span>
+                    <div className="flex shrink-0 flex-col gap-2">
+                      <button
+                        type="button"
+                        aria-label="Refresh captcha"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-[#3a3ff0] transition-colors hover:bg-white"
+                      >
+                        ↻
+                      </button>
+                      <button
+                        type="button"
+                        aria-label="Play captcha audio"
+                        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-[#3a3ff0] transition-colors hover:bg-white"
+                      >
+                        🔊
+                      </button>
+                    </div>
+                  </div>
 
-            <p className="mt-7 max-w-3xl text-[17px] leading-8 text-slate-600 lg:text-[18px]">
-              {study.body}
-            </p>
+                  <p className="text-xs text-slate-500">
+                    Type the characters to the left*
+                  </p>
 
-            {/* Hero CTA */}
+                  <input
+                    type="text"
+                    placeholder="Enter captcha*"
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
+                  />
 
-            <div className="mt-9 flex flex-wrap gap-4">
-
-              <Link
-                href="/services/digital-software#connect"
-                className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
-                style={{
-                  backgroundColor: CHAMPION_BLUE,
-                }}
-              >
-                Start a similar project
-
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-
-              <Link
-                href={BASE_PATH}
-                className="inline-flex items-center gap-2 rounded-full border bg-white/80 px-7 py-3.5 text-[14px] font-semibold backdrop-blur-sm transition-all duration-300 hover:bg-white"
-                style={{
-                  borderColor: "#DCD8EF",
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                View all case studies
-              </Link>
-
+                  <button
+                    type="submit"
+                    className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2c30c9]"
+                  >
+                    Submit
+                    <ArrowUpRight className="h-4 w-4" />
+                  </button>
+                </form>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* =====================================================
-          CONTENT WRAPPER
-      ===================================================== */}
-
-      <div className={ALIGN}>
-
-        {/* ===================================================
-            PROJECT SNAPSHOT
-        =================================================== */}
-
-        <section className="relative -mt-8 z-10">
-
-          <div
-            className="grid overflow-hidden rounded-3xl border bg-white shadow-[0_20px_60px_rgba(27,37,96,0.08)] sm:grid-cols-2 lg:grid-cols-4"
-            style={{
-              borderColor: "#E8E4F5",
-            }}
-          >
-
-            {[
-              {
-                label: "Client",
-                value: study.client,
-              },
-              {
-                label: "Industry",
-                value: study.industry,
-              },
-              {
-                label: "Duration",
-                value: study.duration,
-              },
-              {
-                label: "Services",
-                value: study.services.join(", "),
-              },
-            ].map((item, index) => (
-              <div
-                key={item.label}
-                className={`p-7 lg:p-8 ${
-                  index !== 0
-                    ? "border-t sm:border-t-0 sm:border-l"
-                    : ""
-                }`}
-                style={{
-                  borderColor: "#E8E4F5",
-                }}
-              >
-                <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-slate-400">
-                  {item.label}
-                </p>
-
-                <p
-                  className="mt-3 text-[15px] font-semibold leading-6"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  {item.value}
-                </p>
-              </div>
-            ))}
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            STATS
-        =================================================== */}
-
-        <section className="py-20 lg:py-24">
-
-          <div className="mb-10 flex flex-col justify-between gap-4 lg:flex-row lg:items-end">
-
-            <div>
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Project Impact
-              </p>
-
-              <h2
-                className="mt-3 text-[30px] font-medium tracking-tight lg:text-[38px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Results that move the business forward
-              </h2>
-            </div>
-
-            <p className="max-w-md text-[15px] leading-7 text-slate-500">
-              A closer look at the measurable impact delivered through the
-              engagement.
-            </p>
-
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3">
-
-            {study.stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className="group relative overflow-hidden rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={{
-                  borderColor: "#E5E1F5",
-                  backgroundColor:
-                    index === 1 ? "#F5F3FC" : "#FFFFFF",
-                }}
-              >
-
-                <div
-                  className="absolute -right-16 -top-16 h-32 w-32 rounded-full blur-2xl transition-transform duration-500 group-hover:scale-150"
-                  style={{
-                    backgroundColor: `${LAVENDER_ACCENT}25`,
-                  }}
-                />
-
-                <div className="relative">
-
-                  <p
-                    className="text-[42px] font-semibold tracking-tight"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    {stat.value}
-                  </p>
-
-                  <div
-                    className="mt-5 h-px w-10"
-                    style={{
-                      backgroundColor: LAVENDER_ACCENT,
-                    }}
-                  />
-
-                  <p className="mt-4 text-[14px] leading-6 text-slate-600">
-                    {stat.label}
-                  </p>
-
-                </div>
-              </div>
-            ))}
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            OVERVIEW
-        =================================================== */}
-
-        <section className="border-t py-20 lg:py-24">
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-
-            <div>
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                01 / Overview
-              </p>
-
-              <h2
-                className="mt-4 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Understanding the opportunity
-              </h2>
-            </div>
-
-            <div>
-              <p className="text-[18px] leading-9 text-slate-600">
-                {study.overview}
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            CHALLENGE / SOLUTION / RESULTS
-        =================================================== */}
-
-        <section className="pb-24">
-
-          <div className="grid gap-6 lg:grid-cols-3">
-
-            {/* Challenge */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-              }}
-            >
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                <Target size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                The Challenge
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                What needed to change
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.challenge}
-              </p>
-            </div>
-
-            {/* Solution */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-                backgroundColor: "#FAF9FE",
-              }}
-            >
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: `${LAVENDER_ACCENT}20`,
-                  color: INDIGO_CTA,
-                }}
-              >
-                <Layers3 size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                The Starfii Solution
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                How we solved it
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.solution}
-              </p>
-            </div>
-
-            {/* Results */}
-
-            <div
-              className="rounded-3xl border p-8 lg:p-9"
-              style={{
-                borderColor: "#E5E1F5",
-              }}
-            >
-              <div
-                className="flex h-12 w-12 items-center justify-center rounded-2xl"
-                style={{
-                  backgroundColor: `${INDIGO_CTA}12`,
-                  color: INDIGO_CTA,
-                }}
-              >
-                <TrendingUp size={22} />
-              </div>
-
-              <p
-                className="mt-7 text-[12px] font-bold uppercase tracking-[0.16em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                The Results
-              </p>
-
-              <h2
-                className="mt-3 text-[25px] font-medium"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Business impact
-              </h2>
-
-              <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                {study.results}
-              </p>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            SERVICES / CAPABILITIES
-        =================================================== */}
-
-        <section
-          className="rounded-[32px] px-7 py-12 sm:px-10 lg:px-14 lg:py-16"
-          style={{
-            backgroundColor: "#F5F3FC",
-          }}
-        >
-
-          <div className="grid gap-12 lg:grid-cols-[0.75fr_1.25fr] lg:items-center">
-
-            <div>
-
-              <p
-                className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Capabilities
-              </p>
-
-              <h2
-                className="mt-4 text-[31px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Technology and expertise behind the engagement
-              </h2>
-
-              <p className="mt-5 max-w-lg text-[15px] leading-7 text-slate-600">
-                The engagement brought together the right engineering,
-                technology, and delivery capabilities to address the
-                business challenge.
-              </p>
-
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
-
-              {study.services.map((service) => (
-                <div
-                  key={service}
-                  className="flex items-center gap-3 rounded-2xl border bg-white p-5"
-                  style={{
-                    borderColor: "#E5E1F5",
-                  }}
-                >
-                  <CheckCircle2
-                    size={19}
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  />
-
-                  <span
-                    className="text-[14px] font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {service}
-                  </span>
-                </div>
-              ))}
-
-            </div>
-
-          </div>
-        </section>
-
-        {/* ===================================================
-            TAGS
-        =================================================== */}
-
-        {study.tags.length > 0 && (
-          <section className="border-b py-12">
-
-            <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
-
-              <div>
-                <p className="text-[12px] font-bold uppercase tracking-[0.16em] text-slate-400">
-                  Focus Areas
-                </p>
-
-                <p
-                  className="mt-2 text-[18px] font-medium"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  Technologies, platforms &amp; capabilities
+      <div className="h-20 bg-gradient-to-b from-[#c7ccfb] via-[#eef0ff] to-[#f6f7fb] sm:h-24 lg:h-28" />
+
+      <CaseStudyTabs />
+
+      {/* =========================================================
+          CASE STUDY CONTENT
+          ========================================================= */}
+
+      <div className="bg-[#eef0f5]">
+        <div className="mx-auto max-w-[1520px] px-6 py-14 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+            <div className="rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:p-12">
+              {/* Client */}
+              <div id="client" className="max-w-3xl scroll-mt-24">
+                <SectionEyebrow>Client</SectionEyebrow>
+                <h2 className="mt-3 text-3xl font-semibold text-[#0b1747]">
+                  {study.overview}
+                </h2>
+                <p className="mt-5 text-base leading-relaxed text-slate-600">
+                  {study.clientOverview}
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-2">
-
-                {study.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="rounded-full border bg-white px-4 py-2 text-[13px] font-medium text-slate-600"
-                    style={{
-                      borderColor: "#DDD8F0",
-                    }}
-                  >
-                    {tag}
-                  </span>
-                ))}
-
-              </div>
-
-            </div>
-          </section>
-        )}
-
-        {/* ===================================================
-            TESTIMONIAL
-        =================================================== */}
-
-        {study.testimonial && (
-          <section className="py-24 lg:py-28">
-
-            <div
-              className="relative overflow-hidden rounded-[32px] px-7 py-12 sm:px-12 lg:px-20 lg:py-16"
-              style={{
-                backgroundColor: CHAMPION_BLUE,
-              }}
-            >
-
-              {/* Decorative circles */}
-
-              <div
-                className="absolute -right-20 -top-20 h-64 w-64 rounded-full blur-3xl"
-                style={{
-                  backgroundColor: `${LAVENDER_ACCENT}30`,
-                }}
-              />
-
-              <div
-                className="absolute -bottom-24 -left-20 h-72 w-72 rounded-full blur-3xl"
-                style={{
-                  backgroundColor: `${INDIGO_CTA}35`,
-                }}
-              />
-
-              <div className="relative mx-auto max-w-4xl text-center">
-
-                <div
-                  className="mx-auto flex h-14 w-14 items-center justify-center rounded-full"
-                  style={{
-                    backgroundColor: `${LAVENDER_ACCENT}20`,
-                    color: LAVENDER_ACCENT,
-                  }}
-                >
-                  <Quote size={24} />
-                </div>
-
-                <blockquote className="mt-8 text-[24px] font-medium leading-9 text-white sm:text-[30px] sm:leading-[1.45] lg:text-[34px]">
-                  “{study.testimonial.quote}”
-                </blockquote>
-
-                <div className="mt-8">
-
-                  <p className="text-[15px] font-semibold text-white">
-                    {study.testimonial.author}
-                  </p>
-
-                  <p className="mt-1 text-[14px] text-white/60">
-                    {study.testimonial.role}
-                  </p>
-
-                </div>
-
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* ===================================================
-            RELATED CASE STUDIES
-        =================================================== */}
-
-        {related.length > 0 && (
-          <section
-            className="border-t pb-24 pt-20"
-            style={{
-              borderColor: "#E5E1F5",
-            }}
-          >
-
-            <div className="flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-
-              <div>
-
-                <p
-                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                  style={{
-                    color: INDIGO_CTA,
-                  }}
-                >
-                  Explore More
-                </p>
-
-                <h2
-                  className="mt-3 text-[31px] font-medium"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  More Case Studies
+              {/* Challenge */}
+              <div id="challenge" className="mt-16 scroll-mt-24">
+                <SectionEyebrow>Challenge</SectionEyebrow>
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  {study.challengeIntro}
                 </h2>
 
-              </div>
-
-              <Link
-                href={BASE_PATH}
-                className="inline-flex items-center gap-2 text-[14px] font-semibold"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                View all case studies
-                <ArrowUpRight size={16} />
-              </Link>
-
-            </div>
-
-            <div className="mt-9 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-
-              {related.map((item) => (
-                <Link
-                  key={item.slug}
-                  href={`${BASE_PATH}/${item.slug}`}
-                  className="group flex flex-col overflow-hidden rounded-3xl border bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-                  style={{
-                    borderColor: "#E5E1F5",
-                  }}
-                >
-
-                  {/* Image */}
-
-                  <div className="relative h-[190px] overflow-hidden">
-
-                    <img
-                      src={item.image}
-                      alt={item.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {study.challengePoints.map((point, i) => (
+                    <PointCard
+                      key={i}
+                      text={point}
+                      accent="#f59e0b"
+                      icon={<AlertCircle className="h-4 w-4 text-amber-500" />}
                     />
-
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
-
-                    <div className="absolute bottom-4 left-4">
-
-                      <span className="rounded-full bg-white/90 px-3 py-1.5 text-[11px] font-semibold text-slate-700 backdrop-blur">
-                        {item.industry}
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                  {/* Content */}
-
-                  <div className="flex flex-1 flex-col p-6">
-
-                    <h3
-                      className="line-clamp-3 text-[17px] font-semibold leading-6"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {item.title}
-                    </h3>
-
-                    <div
-                      className="mt-6 inline-flex items-center gap-2 text-[13px] font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read case study
-
-                      <ArrowUpRight
-                        size={15}
-                        className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      />
-                    </div>
-
-                  </div>
-                </Link>
-              ))}
-
-            </div>
-          </section>
-        )}
-
-        {/* ===================================================
-            FINAL CTA
-        =================================================== */}
-
-        <section className="pb-20 lg:pb-24">
-
-          <div
-            className="relative overflow-hidden rounded-[32px] border px-7 py-12 sm:px-12 lg:px-16 lg:py-16"
-            style={{
-              borderColor: "#DDD8F0",
-              backgroundColor: "#FAF9FE",
-            }}
-          >
-
-            <div
-              className="absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
-              style={{
-                backgroundColor: `${LAVENDER_ACCENT}25`,
-              }}
-            />
-
-            <div className="relative flex flex-col justify-between gap-9 lg:flex-row lg:items-center">
-
-              <div className="max-w-2xl">
-
-                <p
-                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
-                  style={{
-                    color: INDIGO_CTA,
-                  }}
-                >
-                  Your next transformation
-                </p>
-
-                <h2
-                  className="mt-4 text-[31px] font-medium leading-tight lg:text-[43px]"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  Have a similar challenge?
-                  <br />
-                  Let&apos;s build the solution.
-                </h2>
-
-                <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                  Talk to our digital and software engineering team about
-                  your product, platform, automation, or modernization
-                  requirements.
-                </p>
-
+                  ))}
+                </div>
               </div>
 
-              <Link
-                href="/services/digital-software#connect"
-                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-7 py-4 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                style={{
-                  backgroundColor: INDIGO_CTA,
-                }}
-              >
-                Start a conversation
+              {/* Solution */}
+              <div id="solution" className="mt-16 scroll-mt-24">
+                <SectionEyebrow>Solution</SectionEyebrow>
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  {study.solutionIntro}
+                </h2>
+                <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-600">
+                  {study.solutionDetail}
+                </p>
 
-                <ArrowUpRight
-                  size={17}
-                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                />
-              </Link>
-
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {study.solution.map((point, i) => (
+                    <PointCard
+                      key={i}
+                      text={point}
+                      accent="#4b5fed"
+                      icon={<CheckCircle2 className="h-4 w-4 text-[#4b5fed]" />}
+                    />
+                  ))}
+                </div>
+              </div>
             </div>
+
+            <AtAGlanceSidebar study={study} />
           </div>
-        </section>
-
-        {/* ===================================================
-            BACK
-        =================================================== */}
-
-        <div className="border-t py-10">
-          <Link
-            href="/services/digital-software"
-            className="group inline-flex items-center gap-2 text-[14px] font-semibold"
-            style={{
-              color: INDIGO_CTA,
-            }}
-          >
-            <ArrowLeft
-              size={16}
-              className="transition-transform duration-300 group-hover:-translate-x-1"
-            />
-
-            Back to Digital &amp; Software Services
-          </Link>
         </div>
 
+        {/* RESULTS */}
+        <section id="results" className="scroll-mt-24 bg-[#0b1747] py-16">
+          <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+            <SectionEyebrow>
+              <span className="text-[#8ea1ff]">Results</span>
+            </SectionEyebrow>
+
+            <h2 className="mt-3 text-3xl font-semibold text-white">
+              Results That Matter
+            </h2>
+
+            <div className="mt-10 grid grid-cols-2 divide-x divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 md:grid-cols-4 md:divide-y-0">
+              {study.results.map((r, i) => (
+                <div key={i} className="p-6 sm:p-8">
+                  <p className="text-4xl font-semibold text-[#8ea1ff] md:text-5xl">
+                    {r.metric}
+                  </p>
+                  <p className="mt-2 text-base leading-snug text-slate-300">
+                    {r.label}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* BENEFITS / SUMMARY / TECHNOLOGY */}
+        <div className="mx-auto max-w-[1520px] px-6 py-14 sm:px-10 lg:px-16">
+          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+            <div className="rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:p-12">
+              {/* Benefits */}
+              <div id="benefits" className="scroll-mt-24">
+                <SectionEyebrow>Benefits</SectionEyebrow>
+                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
+                  {study.benefitsIntro}
+                </h2>
+
+                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {study.benefits.map((benefit, i) => (
+                    <PointCard
+                      key={i}
+                      text={benefit}
+                      accent="#10b981"
+                      icon={<TrendingUp className="h-4 w-4 text-emerald-500" />}
+                    />
+                  ))}
+                </div>
+              </div>
+
+              {/* Summary */}
+              <div id="summary" className="mt-16 max-w-3xl scroll-mt-24">
+                <SectionEyebrow>Summary</SectionEyebrow>
+                <p className="mt-4 text-2xl font-medium leading-relaxed text-[#0b1747]">
+                  {study.summary}
+                </p>
+              </div>
+
+              {/* Tech Stack */}
+              <div className="mt-14 max-w-3xl">
+                <h2 className="text-3xl font-semibold text-[#0b1747]">
+                  Technology Used
+                </h2>
+
+                <div className="mt-5 flex flex-wrap gap-3">
+                  {study.techStack.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-full border border-slate-200 px-4 py-1.5 text-base font-medium text-slate-600"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <MoreCaseStudiesSidebar currentSlug={study.slug} />
+          </div>
+        </div>
       </div>
+
+      {/* CTA */}
+      <section className="border-t border-slate-100 bg-slate-50 py-16">
+        <div className="mx-auto max-w-[1520px] px-6 text-center sm:px-10 lg:px-16">
+          <h2 className="text-3xl font-semibold text-[#0b1747] md:text-4xl">
+            Have a similar challenge?
+          </h2>
+          <p className="mx-auto mt-3 max-w-xl text-lg text-slate-600">
+            Let&apos;s discuss how Starfii can help your team achieve results
+            like these.
+          </p>
+          <Link
+            href="/#contact"
+            className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-[#2c30c9]"
+          >
+            Request Your POC Now
+            <ArrowUpRight className="h-4 w-4" />
+          </Link>
+        </div>
+      </section>
     </main>
   );
 }

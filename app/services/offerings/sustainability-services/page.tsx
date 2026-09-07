@@ -35,7 +35,8 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-
+const BLOG_BASE =
+  "/services/offerings/sustainability-services/blogs";
 // Autoplay timing for the "AI File Storage" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
@@ -233,6 +234,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 type InsightPost = {
+  slug: string;
   large: boolean;
   image: string;
   title: string;
@@ -241,40 +243,83 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
+    slug:
+      "digital-sustainability-how-technology-supports-responsible-growth",
+
     large: true,
+
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
+
     title:
-      "From File Storage to Intelligent Information: The Next Evolution of Enterprise Content",
-    body: "Explore how AI is changing enterprise file management by combining secure storage with intelligent organization, semantic search, document understanding, and knowledge discovery.",
+      "Digital Sustainability: How Technology Supports Responsible Growth",
+
+    body:
+      "Explore how digital technologies, data platforms, and intelligent workflows can help organizations measure sustainability performance and support responsible growth.",
   },
+
   {
+    slug:
+      "data-driven-sustainability-building-better-environmental-visibility",
+
     large: false,
+
     image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
-    title: "Why Semantic Search Is Changing Enterprise File Discovery",
-    body: "Move beyond filenames and folders. See how natural-language retrieval can help teams find information based on meaning and context.",
+      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop",
+
+    title:
+      "Data-Driven Sustainability: Building Better Environmental Visibility",
+
+    body:
+      "Discover how connected data and analytics can improve visibility into environmental and operational performance.",
   },
+
   {
+    slug:
+      "sustainable-operations-using-automation-to-improve-efficiency",
+
     large: false,
+
     image:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop",
-    title: "Designing Secure AI File Storage for the Enterprise",
-    body: "Understand the key considerations for security, permissions, governance, lifecycle management, and responsible AI when modernizing enterprise file storage.",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+
+    title:
+      "Sustainable Operations: Using Automation to Improve Efficiency",
+
+    body:
+      "Learn how workflow automation can reduce repetitive effort and support more efficient operations.",
   },
+
   {
+    slug:
+      "enterprise-sustainability-strategy-connecting-goals-data-and-action",
+
     large: false,
+
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "AI Document Management: Turning Files Into Actionable Knowledge",
-    body: "Explore how document intelligence, automated classification, and metadata enrichment can help teams turn unstructured files into useful business information.",
+      "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=800&auto=format&fit=crop",
+
+    title:
+      "Enterprise Sustainability Strategy: Connecting Goals, Data, and Action",
+
+    body:
+      "Explore how enterprises can connect sustainability strategy with measurable data and operational action.",
   },
+
   {
+    slug:
+      "technology-and-sustainability-building-resilient-future-ready-businesses",
+
     large: false,
+
     image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
-    title: "Enterprise Content Search: Finding Information Faster With AI",
-    body: "See how semantic search and natural-language discovery can help employees find relevant documents and business knowledge without relying on complex folder structures.",
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop",
+
+    title:
+      "Technology and Sustainability: Building Resilient Businesses",
+
+    body:
+      "See how digital transformation and sustainability can support resilient and future-ready operations.",
   },
 ];
 /* ===============================================================
@@ -1207,81 +1252,6 @@ export default function AIFileStorageSection(): ReactElement {
       ============================================================ */}
 
 
-<section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 100%, rgba(232,110,90,0.5) 0%, rgba(164,143,234,0.3) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
-            <Reveal>
-              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-                Industry
-                <br />
-                Recognition
-              </h2>
-            </Reveal>
-
- <PagedCarousel
-              items={industryAwards}
-              itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-              arrowVariant="dark"
-              renderItem={(award, i) => (
-                <Reveal delay={(i % 2) * 100} className="h-full">
-                  <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
-                    <div
-                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      <span>ISG Provider Lens™</span>
-                      <span className="font-normal text-slate-400">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <div
-                      className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
-                      style={{ backgroundColor: CHAMPION_BLUE }}
-                    >
-                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
-                        {award.category}
-                      </p>
-                      <p
-                        className="font-body mt-1 text-[13px]"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
-                        {award.subcategory}
-                      </p>
-                      <div className="font-body mt-6 flex items-center justify-between">
-                        <span className="text-[14px]">{award.rank}</span>
-                        <Trophy size={20} className="ss-trophy opacity-80" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
-                        {award.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
-                        style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
-                      >
-                        Know more
-                      </button>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-  </section>
-
       {/* ============================================================
           CASE STUDIES
       ============================================================ */}
@@ -1380,99 +1350,170 @@ export default function AIFileStorageSection(): ReactElement {
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
 
-      <section className="bg-[#EEF0F7] py-24">
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {"Insights on AI File Intelligence"}
-            </h2>
-            <a
-              href="#"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Insights
-              <ArrowUpRight size={16} />
-            </a>
-          </Reveal>
+   <section className="bg-[#EEF0F7] py-24">
+  <div className={ALIGN}>
+    {/* ============================================================
+        HEADER
+    ============================================================ */}
 
-          <div className="mt-12">
-            <Carousel
-              itemCount={insights.length}
-              arrowVariant="light"
-              clickToAdvance
+    <Reveal className="flex items-center justify-between">
+      <h2
+        className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+        style={{ color: CHAMPION_BLUE }}
+      >
+        Insights on Sustainability Services
+      </h2>
+
+      <Link
+        href={BLOG_BASE}
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
+      >
+        View All Insights
+
+        <ArrowUpRight size={16} />
+      </Link>
+    </Reveal>
+
+    {/* ============================================================
+        BLOG CAROUSEL
+    ============================================================ */}
+
+    <div className="mt-12">
+      <Carousel
+        itemCount={insights.length}
+        arrowVariant="light"
+      >
+        {insights.map((post, i) => (
+          <Reveal
+            key={post.slug}
+            delay={i * 90}
+            className={`flex-shrink-0 snap-start ${
+              post.large
+                ? "w-[420px]"
+                : "w-[340px]"
+            }`}
+          >
+            {/* ====================================================
+                CLICKABLE BLOG CARD
+            ==================================================== */}
+
+            <Link
+              href={`${BLOG_BASE}/${post.slug}`}
+              className="group block h-full cursor-pointer"
             >
-              {insights.map((post, i) => (
-                <Reveal
-                  key={post.title}
-                  delay={i * 90}
-                  data-carousel-card
-                  className={`flex-shrink-0 snap-start cursor-pointer ${
-                    post.large ? "w-[420px]" : "w-[340px]"
-                  }`}
-                >
-                  {post.large ? (
-                    <div className="group relative h-[420px] overflow-hidden rounded-2xl">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              {/* ==================================================
+                  LARGE BLOG CARD
+              ================================================== */}
+
+              {post.large ? (
+                <div className="relative h-[420px] overflow-hidden rounded-2xl">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: INDIGO_CTA }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{ color: INDIGO_CTA }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       />
-                      <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="group">
-                      <div className="h-[220px] overflow-hidden rounded-2xl">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="pt-5">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </Reveal>
-              ))}
-            </Carousel>
-          </div>
-        </div>
-      </section>
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                /* ================================================
+                    NORMAL BLOG CARD
+                ================================================ */
+
+                <div>
+                  <div className="h-[220px] overflow-hidden rounded-2xl">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="pt-5">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: INDIGO_CTA }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                      style={{ color: INDIGO_CTA }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={15}
+                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    </span>
+                  </div>
+                </div>
+              )}
+            </Link>
+          </Reveal>
+        ))}
+      </Carousel>
+    </div>
+
+    {/* ============================================================
+        MOBILE VIEW ALL
+    ============================================================ */}
+
+    <Link
+      href={BLOG_BASE}
+      className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-semibold sm:hidden"
+      style={{ color: INDIGO_CTA }}
+    >
+      View All Insights
+
+      <ArrowUpRight size={16} />
+    </Link>
+  </div>
+</section>
     </main>
   );
 }

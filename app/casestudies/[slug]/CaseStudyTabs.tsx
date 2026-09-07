@@ -8,6 +8,7 @@ const TABS = [
   { id: "solution", label: "Solution" },
   { id: "benefits", label: "Benefits" },
   { id: "summary", label: "Summary" },
+
 ];
 
 export default function CaseStudyTabs() {

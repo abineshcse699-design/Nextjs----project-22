@@ -264,6 +264,7 @@ const caseStudies: CaseStudy[] = [
 ];
 
 type InsightPost = {
+  slug: string;
   large: boolean;
   image: string;
   title: string;
@@ -272,6 +273,7 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
+    slug: "machine-learning-models-from-pilot-to-production",
     large: true,
     image:
       "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1200&auto=format&fit=crop",
@@ -280,6 +282,7 @@ const insights: InsightPost[] = [
     body: "Explore why so many AI pilots stall before production, and how Starfii frames the business problem correctly before choosing a model architecture.",
   },
   {
+    slug: "mlops-model-drift-monitoring",
     large: false,
     image:
       "https://images.unsplash.com/photo-1555255707-c07966088b7b?q=80&w=800&auto=format&fit=crop",
@@ -287,6 +290,7 @@ const insights: InsightPost[] = [
     body: "Stop discovering accuracy loss after the damage is done. See how Starfii's MLOps pipelines detect drift and trigger retraining automatically.",
   },
   {
+    slug: "responsible-ai-bias-testing",
     large: false,
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=800&auto=format&fit=crop",
@@ -294,6 +298,7 @@ const insights: InsightPost[] = [
     body: "Stop treating AI governance as a compliance checkbox. See how Starfii embeds bias testing and explainability from the first training run.",
   },
   {
+    slug: "computer-vision-nlp-business-data",
     large: false,
     image:
       "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop",
@@ -301,6 +306,7 @@ const insights: InsightPost[] = [
     body: "Explore how production ready computer vision and NLP solutions help teams automate inspection, understand documents, and improve customer interactions.",
   },
   {
+    slug: "predictive-ai-business-decisions",
     large: false,
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
@@ -1343,80 +1349,7 @@ export default function ArtificialIntelligenceSection(): ReactElement {
           INDUSTRY RECOGNITION
       ============================================================ */}
 
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 100%, rgba(232,110,90,0.5) 0%, rgba(164,143,234,0.3) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
 
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[340px_1fr]">
-            <Reveal>
-              <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-                Industry
-                <br />
-                Recognition
-              </h2>
-            </Reveal>
-
-            <StepCarousel
-              items={industryAwards}
-              itemsPerPage={{ mobile: 1, tablet: 1, desktop: 2 }}
-              arrowVariant="dark"
-              renderItem={(award, i) => (
-                <Reveal delay={(i % 2) * 100} className="h-full">
-                  <div className="ss-award-card flex h-full flex-col overflow-hidden rounded-2xl bg-white">
-                    <div
-                      className="font-body flex items-center justify-between px-6 pt-5 text-[13px] font-semibold"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      <span>ISG Provider Lens™</span>
-                      <span className="font-normal text-slate-400">
-                        {award.year}
-                      </span>
-                    </div>
-
-                    <div
-                      className="mx-6 mt-3 rounded-xl px-5 py-5 text-white"
-                      style={{ backgroundColor: CHAMPION_BLUE }}
-                    >
-                      <p className="font-heading ss-clamp-2 text-[19px] font-semibold leading-snug">
-                        {award.category}
-                      </p>
-                      <p
-                        className="font-body mt-1 text-[13px]"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
-                        {award.subcategory}
-                      </p>
-                      <div className="font-body mt-6 flex items-center justify-between">
-                        <span className="text-[14px]">{award.rank}</span>
-                        <Trophy size={20} className="ss-trophy opacity-80" />
-                      </div>
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-6">
-                      <p className="font-body ss-clamp-3 text-[15px] leading-relaxed text-slate-700">
-                        {award.description}
-                      </p>
-                      <button
-                        type="button"
-                        className="font-body mt-6 self-start rounded-full border px-6 py-3 text-[14px] font-semibold transition-colors duration-200 hover:bg-[#4F3FE0] hover:text-white"
-                        style={{ borderColor: INDIGO_CTA, color: INDIGO_CTA }}
-                      >
-                        Know more
-                      </button>
-                    </div>
-                  </div>
-                </Reveal>
-              )}
-            />
-          </div>
-        </div>
-      </section>
 
       {/* ============================================================
           CASE STUDIES
@@ -1511,7 +1444,7 @@ export default function ArtificialIntelligenceSection(): ReactElement {
               {"What's New in AI & Machine Learning"}
             </h2>
             <a
-              href="#"
+              href="/services/artificial-intelligence/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
@@ -1535,7 +1468,11 @@ export default function ArtificialIntelligenceSection(): ReactElement {
                     post.large ? "w-[420px]" : "w-[340px]"
                   }`}
                 >
-                  {post.large ? (
+                  <Link
+                    href={`/services/artificial-intelligence/blogs/${post.slug}`}
+                    className="block"
+                  >
+                    {post.large ? (
                     <div className="group relative h-[420px] overflow-hidden rounded-2xl">
                       <img
                         src={post.image}
@@ -1587,7 +1524,8 @@ export default function ArtificialIntelligenceSection(): ReactElement {
                         </p>
                       </div>
                     </div>
-                  )}
+                    )}
+                  </Link>
                 </Reveal>
               ))}
             </Carousel>

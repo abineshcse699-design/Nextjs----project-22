@@ -1,5 +1,3 @@
-// app/services/offerings/ai-powered-medical-coding/[slug]/page.tsx
-
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -7,14 +5,23 @@ import type { Metadata } from "next";
 import {
   ArrowLeft,
   ArrowUpRight,
+  CheckCircle2,
   ChevronRight,
+  BrainCircuit,
+  Headphones,
+  MessageCircle,
+  PhoneCall,
+  ShieldCheck,
   Sparkles,
+  Workflow,
 } from "lucide-react";
 
 import {
   caseStudies,
   getCaseStudyBySlug,
 } from "../data/case-studies";
+
+import CaseStudyTabs from "../CaseStudyTabs";
 
 /* ============================================================
    BRAND
@@ -25,42 +32,10 @@ const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0";
 
 const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+  "mx-auto w-full max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const BASE_PATH =
-  "/services/offerings/ai-powered-medical-coding";
-
-/* ============================================================
-   IT / TECHNOLOGY IMAGES
-============================================================ */
-
-/*
-  These images replace the old doctor / healthcare images.
-
-  0 - Software / Coding
-  1 - AI / Technology
-  2 - Cloud / Infrastructure
-  3 - IT Team / Office
-*/
-
-const IT_IMAGES = [
-  "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1800&q=85",
-
-  "https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&w=1800&q=85",
-
-  "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=85",
-
-  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1800&q=85",
-];
-
-/*
-  Use the IT images according to the case-study index.
-  This means the existing case-studies data can stay unchanged.
-*/
-
-function getITImage(index: number) {
-  return IT_IMAGES[index % IT_IMAGES.length];
-}
+  "/services/offerings/ai-native-contact-center";
 
 /* ============================================================
    TYPES
@@ -97,7 +72,7 @@ export async function generateMetadata({
     return {
       title: "Case Study Not Found | Starfii",
       description:
-        "The requested technology case study could not be found.",
+        "The requested Starfii AI Native Contact Center case study could not be found.",
     };
   }
 
@@ -122,32 +97,14 @@ export default async function CaseStudyPage({
     notFound();
   }
 
-  /* ==========================================================
-     CURRENT STUDY INDEX
-  ========================================================== */
-
-  const studyIndex = Math.max(
-    0,
-    caseStudies.findIndex(
-      (item) => item.slug === study.slug
-    )
-  );
-
-  /*
-    IT image for current case study
-  */
-  const currentITImage = getITImage(studyIndex);
-
-  /* ==========================================================
-     RELATED STUDIES
-  ========================================================== */
-
   const relatedStudies = caseStudies
-    .filter((item) => item.slug !== study.slug)
+    .filter(
+      (item) => item.slug !== study.slug
+    )
     .slice(0, 3);
 
   return (
-    <main className="bg-white">
+    <main className="overflow-hidden bg-white">
 
       {/* ======================================================
           HERO
@@ -155,33 +112,43 @@ export default async function CaseStudyPage({
 
       <section className="relative isolate overflow-hidden">
 
-        {/* ====================================================
-            BACKGROUND IMAGE
-        ==================================================== */}
+        {/* Background */}
 
         <div className="absolute inset-0 -z-10">
 
           <img
-            src={currentITImage}
+            src={study.image}
             alt=""
             className="h-full w-full object-cover"
           />
 
-          {/* Light overlay for text readability */}
-
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/25" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30" />
 
         </div>
 
-        {/* ====================================================
-            HERO CONTENT
-        ==================================================== */}
+        {/* Decorative glow */}
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
+        <div
+          className="pointer-events-none absolute -right-32 top-10 -z-10 h-[420px] w-[420px] rounded-full blur-3xl"
+          style={{
+            backgroundColor:
+              `${LAVENDER_ACCENT}25`,
+          }}
+        />
 
-          {/* ==================================================
-              BREADCRUMB
-          ================================================== */}
+        <div
+          className="pointer-events-none absolute -bottom-32 left-1/3 -z-10 h-[320px] w-[320px] rounded-full blur-3xl"
+          style={{
+            backgroundColor:
+              `${INDIGO_CTA}15`,
+          }}
+        />
+
+        <div
+          className={`${ALIGN} py-20 lg:py-28`}
+        >
+
+          {/* Breadcrumb */}
 
           <nav
             aria-label="Breadcrumb"
@@ -193,7 +160,7 @@ export default async function CaseStudyPage({
 
             <Link
               href="/"
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
               Home
             </Link>
@@ -202,7 +169,7 @@ export default async function CaseStudyPage({
 
             <Link
               href="/services"
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
               Services
             </Link>
@@ -211,9 +178,9 @@ export default async function CaseStudyPage({
 
             <Link
               href={BASE_PATH}
-              className="hover:underline"
+              className="transition-opacity hover:opacity-60"
             >
-              Technology
+              AI Native Contact Center
             </Link>
 
             <ChevronRight size={14} />
@@ -224,542 +191,696 @@ export default async function CaseStudyPage({
 
           </nav>
 
-          {/* ==================================================
-              HERO TEXT
-          ================================================== */}
+          {/* Badge */}
 
-          <div className="mt-10 max-w-4xl">
+          <div
+            className="mt-9 inline-flex items-center gap-2 rounded-full px-4 py-2 text-[13px] font-semibold text-white shadow-lg"
+            style={{
+              backgroundColor: INDIGO_CTA,
+            }}
+          >
+            <Sparkles size={15} />
 
-            {/* CATEGORY */}
+            AI Native Contact Center
+          </div>
 
-            <span
-              className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-semibold tracking-wide"
+          {/* Title */}
+
+          <h1
+            className="mt-7 max-w-[850px] text-[40px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[50px] lg:text-[62px]"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            {study.title}
+          </h1>
+
+          {/* Body */}
+
+          <p className="mt-7 max-w-[720px] text-[17px] leading-8 text-slate-600 lg:text-[18px]">
+            {study.body}
+          </p>
+
+          {/* CTA */}
+
+          <div className="mt-9 flex flex-wrap gap-4">
+
+            <Link
+              href={`${BASE_PATH}#connect`}
+              className="group inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl"
               style={{
-                backgroundColor: "#F1EEFC",
-                color: INDIGO_CTA,
+                backgroundColor: CHAMPION_BLUE,
               }}
             >
-              <Sparkles size={14} />
+              Talk to our AI team
 
-              TECHNOLOGY &amp; AI
-            </span>
+              <ArrowUpRight
+                size={17}
+                className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+              />
+            </Link>
 
-            {/* TITLE */}
-
-            <h1
-              className="mt-6 max-w-4xl text-[42px] font-medium leading-[1.12] sm:text-[48px] lg:text-[60px]"
+            <Link
+              href="#story"
+              className="inline-flex items-center gap-2 rounded-full border bg-white/80 px-7 py-3.5 text-[14px] font-semibold shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:bg-white"
               style={{
+                borderColor: LAVENDER_ACCENT,
                 color: CHAMPION_BLUE,
               }}
             >
-              {study.title}
-            </h1>
+              Explore the case study
+            </Link>
 
-            {/* DESCRIPTION */}
+          </div>
 
-            <p className="mt-7 max-w-3xl text-[17px] leading-[1.8] text-slate-600">
-              {study.body}
-            </p>
+        </div>
+      </section>
 
-            {/* BUTTONS */}
+      {/* ======================================================
+          STICKY TABS
+      ====================================================== */}
 
-            <div className="mt-8 flex flex-wrap gap-4">
+      <CaseStudyTabs />
 
-              <Link
-                href={`${BASE_PATH}#connect`}
-                className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
+      {/* ======================================================
+          MAIN
+      ====================================================== */}
+
+      <div className={ALIGN}>
+
+        {/* ====================================================
+            CLIENT
+        ==================================================== */}
+
+        <section
+          id="client"
+          className="scroll-mt-24 py-20 lg:py-24"
+        >
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
+
+            <div>
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
                 style={{
-                  backgroundColor: CHAMPION_BLUE,
+                  color: INDIGO_CTA,
                 }}
               >
-                Explore Technology Solutions
+                CLIENT
+              </p>
 
-                <ArrowUpRight size={16} />
-              </Link>
-
-              <Link
-                href="#story"
-                className="inline-flex items-center gap-2 rounded-full border px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5"
+              <h2
+                className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
                 style={{
-                  borderColor: LAVENDER_ACCENT,
                   color: CHAMPION_BLUE,
                 }}
               >
-                Explore the Case Study
-              </Link>
+                Building better customer conversations with AI
+              </h2>
+
+            </div>
+
+            <div
+              className="rounded-3xl border p-8 lg:p-10"
+              style={{
+                borderColor: "#E5E1F5",
+                backgroundColor: "#FAF9FE",
+              }}
+            >
+
+              <div className="flex items-start gap-5">
+
+                <div
+                  className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl"
+                  style={{
+                    backgroundColor: "#EDE9FC",
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  <Headphones size={22} />
+                </div>
+
+                <div>
+
+                  <h3
+                    className="text-[20px] font-semibold"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    AI Native Contact Center
+                  </h3>
+
+                  <p className="mt-3 text-[15px] leading-7 text-slate-600">
+                    This case study explores how
+                    conversational AI can support
+                    customer communication,
+                    automate repetitive interactions,
+                    and connect customers with the
+                    right support experience.
+                  </p>
+
+                </div>
+
+              </div>
 
             </div>
 
           </div>
 
-        </div>
+        </section>
 
-      </section>
+        {/* ====================================================
+            CHALLENGE
+        ==================================================== */}
+
+        <section
+          id="challenge"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+          style={{
+            borderColor: "#E5E1F5",
+          }}
+        >
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[360px_1fr]">
+
+            <div>
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                CHALLENGE
+              </p>
+
+              <h2
+                className="mt-4 text-[32px] font-medium leading-tight lg:text-[42px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                Removing friction from customer support
+              </h2>
+
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+
+              {[
+                {
+                  icon: PhoneCall,
+                  title: "High call volumes",
+                  text:
+                    "Repetitive customer enquiries can consume valuable support capacity and create unnecessary waiting time.",
+                },
+                {
+                  icon: MessageCircle,
+                  title: "Rigid conversations",
+                  text:
+                    "Traditional menu based experiences can make it difficult for customers to explain what they actually need.",
+                },
+                {
+                  icon: Workflow,
+                  title: "Manual workflows",
+                  text:
+                    "Support teams often spend time handling routine tasks that could be automated through connected AI workflows.",
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "Human escalation",
+                  text:
+                    "Complex, sensitive, or high value conversations still need to reach the right human specialist.",
+                },
+              ].map((item) => {
+                const Icon = item.icon;
+
+                return (
+                  <div
+                    key={item.title}
+                    className="rounded-2xl border bg-white p-7"
+                    style={{
+                      borderColor: "#E5E1F5",
+                    }}
+                  >
+
+                    <div
+                      className="flex h-11 w-11 items-center justify-center rounded-xl"
+                      style={{
+                        backgroundColor: "#F1EEFC",
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      <Icon size={20} />
+                    </div>
+
+                    <h3
+                      className="mt-6 text-[19px] font-semibold"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                      {item.text}
+                    </p>
+
+                  </div>
+                );
+              })}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            SOLUTION
+        ==================================================== */}
+
+        <section
+          id="solution"
+          className="scroll-mt-24 py-20 lg:py-24"
+        >
+
+          <div
+            className="overflow-hidden rounded-[32px] p-8 sm:p-10 lg:p-14"
+            style={{
+              background:
+                "linear-gradient(135deg, #17172A 0%, #211B45 50%, #151528 100%)",
+            }}
+          >
+
+            <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
+
+              <div>
+
+                <div className="flex items-center gap-3">
+
+                  <div
+                    className="flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{
+                      backgroundColor:
+                        "rgba(164,143,234,0.18)",
+                      color: "#C9BEF5",
+                    }}
+                  >
+                    <BrainCircuit size={21} />
+                  </div>
+
+                  <span className="text-[13px] font-semibold uppercase tracking-[0.16em] text-white/60">
+                    AI Solution
+                  </span>
+
+                </div>
+
+                <h2 className="mt-7 max-w-xl text-[34px] font-medium leading-tight text-white lg:text-[46px]">
+                  Conversational AI that understands intent and takes action
+                </h2>
+
+                <p className="mt-6 max-w-xl text-[15px] leading-8 text-white/60">
+                  Starfii's AI Native Contact Center
+                  approach combines natural language
+                  understanding, voice automation,
+                  intelligent routing, and connected
+                  business workflows.
+                </p>
+
+              </div>
+
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                {[
+                  "Natural language conversations",
+                  "Real time intent detection",
+                  "Automated customer workflows",
+                  "Intelligent human escalation",
+                  "CRM and business system integration",
+                  "Always on customer availability",
+                ].map((item, index) => (
+
+                  <div
+                    key={item}
+                    className="rounded-2xl border p-5"
+                    style={{
+                      borderColor:
+                        "rgba(255,255,255,0.10)",
+                      backgroundColor:
+                        "rgba(255,255,255,0.04)",
+                    }}
+                  >
+
+                    <div className="flex items-start gap-3">
+
+                      <CheckCircle2
+                        size={18}
+                        className="mt-0.5 shrink-0"
+                        style={{
+                          color: "#A48FEA",
+                        }}
+                      />
+
+                      <div>
+
+                        <span className="text-[11px] font-medium text-white/35">
+                          {String(index + 1).padStart(
+                            2,
+                            "0"
+                          )}
+                        </span>
+
+                        <p className="mt-1 text-[14px] font-medium leading-6 text-white/80">
+                          {item}
+                        </p>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            IMPACT
+        ==================================================== */}
+
+        <section
+          id="results"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+          style={{
+            borderColor: "#E5E1F5",
+          }}
+        >
+
+          <div className="max-w-3xl">
+
+            <p
+              className="text-[12px] font-bold uppercase tracking-[0.18em]"
+              style={{
+                color: INDIGO_CTA,
+              }}
+            >
+              IMPACT
+            </p>
+
+            <h2
+              className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              Turning every conversation into a more efficient customer experience
+            </h2>
+
+            <p className="mt-6 text-[16px] leading-8 text-slate-600">
+              {study.body}
+            </p>
+
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+
+            {[
+              {
+                icon: PhoneCall,
+                title: "Faster response",
+                text:
+                  "Routine enquiries can be handled immediately without requiring a human agent for every interaction.",
+              },
+              {
+                icon: Workflow,
+                title: "Higher efficiency",
+                text:
+                  "Automation reduces repetitive work and allows support teams to concentrate on conversations that matter most.",
+              },
+              {
+                icon: Sparkles,
+                title: "Better experience",
+                text:
+                  "Customers can communicate naturally instead of navigating rigid menu based experiences.",
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border p-7"
+                  style={{
+                    borderColor: "#E5E1F5",
+                  }}
+                >
+
+                  <Icon
+                    size={23}
+                    style={{
+                      color: INDIGO_CTA,
+                    }}
+                  />
+
+                  <h3
+                    className="mt-6 text-[20px] font-semibold"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                    {item.text}
+                  </p>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            BENEFITS
+        ==================================================== */}
+
+        <section
+          id="benefits"
+          className="scroll-mt-24 py-20 lg:py-24"
+        >
+
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+
+            <div>
+
+              <p
+                className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                BENEFITS
+              </p>
+
+              <h2
+                className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                AI support designed around business outcomes
+              </h2>
+
+            </div>
+
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+              {[
+                "Reduce repetitive customer support work",
+                "Improve availability across customer channels",
+                "Accelerate routine enquiry resolution",
+                "Route complex conversations intelligently",
+                "Give human agents better context",
+                "Scale customer communication efficiently",
+                "Connect conversations with business workflows",
+                "Create a consistent customer experience",
+              ].map((benefit) => (
+
+                <div
+                  key={benefit}
+                  className="flex items-start gap-3 rounded-xl border p-5"
+                  style={{
+                    borderColor: "#E5E1F5",
+                  }}
+                >
+
+                  <CheckCircle2
+                    size={18}
+                    className="mt-0.5 shrink-0"
+                    style={{
+                      color: INDIGO_CTA,
+                    }}
+                  />
+
+                  <span className="text-[14px] font-medium leading-6 text-slate-700">
+                    {benefit}
+                  </span>
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+        </section>
+
+        {/* ====================================================
+            TECHNOLOGY
+        ==================================================== */}
+
+        <section
+          id="technology"
+          className="scroll-mt-24 border-t py-20 lg:py-24"
+          style={{
+            borderColor: "#E5E1F5",
+          }}
+        >
+
+          <div className="max-w-3xl">
+
+            <p
+              className="text-[12px] font-bold uppercase tracking-[0.18em]"
+              style={{
+                color: INDIGO_CTA,
+              }}
+            >
+              TECHNOLOGY
+            </p>
+
+            <h2
+              className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
+              style={{
+                color: CHAMPION_BLUE,
+              }}
+            >
+              An intelligent voice layer connected to your business
+            </h2>
+
+            <p className="mt-6 text-[16px] leading-8 text-slate-600">
+              Starfii connects conversational AI with
+              the systems and workflows businesses
+              already use, creating an intelligent layer
+              between customers and operations.
+            </p>
+
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-4">
+
+            {[
+              {
+                icon: BrainCircuit,
+                title: "AI Intelligence",
+                text:
+                  "Natural language understanding and contextual conversation.",
+              },
+              {
+                icon: PhoneCall,
+                title: "Voice AI",
+                text:
+                  "Real time voice interactions for inbound and outbound calls.",
+              },
+              {
+                icon: Workflow,
+                title: "Automation",
+                text:
+                  "Business actions triggered directly from customer conversations.",
+              },
+              {
+                icon: ShieldCheck,
+                title: "Human Control",
+                text:
+                  "Intelligent escalation when human expertise is required.",
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className="rounded-2xl border p-7"
+                  style={{
+                    borderColor: "#E5E1F5",
+                    backgroundColor: "#FAF9FE",
+                  }}
+                >
+
+                  <div
+                    className="flex h-11 w-11 items-center justify-center rounded-xl"
+                    style={{
+                      backgroundColor: "#EDE9FC",
+                      color: INDIGO_CTA,
+                    }}
+                  >
+                    <Icon size={20} />
+                  </div>
+
+                  <h3
+                    className="mt-6 text-[19px] font-semibold"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 text-[14px] leading-7 text-slate-600">
+                    {item.text}
+                  </p>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </section>
+
+      </div>
 
       {/* ======================================================
           FEATURE IMAGE
       ====================================================== */}
 
-      <section className="bg-white py-16 lg:py-20">
-
-        <div className={ALIGN}>
-
-          <div className="group overflow-hidden rounded-3xl">
-
-            <img
-              src={currentITImage}
-              alt={study.title}
-              className="h-[320px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] sm:h-[420px] lg:h-[560px]"
-            />
-
-          </div>
-
-        </div>
-
-      </section>
-
-      {/* ======================================================
-          MAIN CONTENT
-      ====================================================== */}
-
       <section
         id="story"
-        className="pb-24"
-      >
-
-        <div
-          className={`${ALIGN} grid grid-cols-1 gap-14 lg:grid-cols-[1fr_360px]`}
-        >
-
-          {/* ==================================================
-              ARTICLE
-          ================================================== */}
-
-          <article className="max-w-4xl">
-
-            {/* =================================================
-                OVERVIEW
-            ================================================= */}
-
-            <div>
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                TECHNOLOGY &amp; AI
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Transforming Technology Operations With Intelligent Solutions
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                {study.body}
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Starfii helps organizations modernize their
-                technology workflows by combining artificial
-                intelligence, software engineering, automation,
-                cloud technologies, data intelligence, and
-                professional expertise.
-              </p>
-
-            </div>
-
-            {/* =================================================
-                01 — SOFTWARE INTELLIGENCE
-            ================================================= */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                01 / SOFTWARE INTELLIGENCE
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Build smarter software workflows
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                AI-assisted software workflows can help
-                engineering teams analyze requirements,
-                documentation, application logic, codebases,
-                and technical processes across complex
-                technology environments.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Instead of relying only on repetitive manual
-                analysis, teams can use structured intelligence
-                to identify relevant information and accelerate
-                software development workflows.
-              </p>
-
-            </div>
-
-            {/* =================================================
-                02 — AI AUTOMATION
-            ================================================= */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                02 / AI-ASSISTED AUTOMATION
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Automate repetitive technology processes
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                AI-powered automation can help organizations
-                reduce repetitive operational work and improve
-                the speed of common technology processes.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Intelligent automation can support application
-                workflows, data processing, documentation,
-                monitoring, testing, and other recurring
-                technology operations.
-              </p>
-
-            </div>
-
-            {/* =================================================
-                03 — HUMAN REVIEW
-            ================================================= */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                03 / HUMAN-IN-THE-LOOP TECHNOLOGY
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Keep engineering expertise at the center
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                Technology systems require engineering judgment,
-                validation, security awareness, and accountability.
-                Starfii's approach keeps experienced professionals
-                involved in important technical decisions.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                AI recommendations, validation checkpoints,
-                exception handling, monitoring, and human review
-                can work together to create controlled and
-                explainable technology workflows.
-              </p>
-
-            </div>
-
-            {/* =================================================
-                04 — QUALITY & SECURITY
-            ================================================= */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                04 / TECHNOLOGY QUALITY &amp; SECURITY
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Build reliable, secure, and governed technology workflows
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                Structured validation, monitoring, access
-                controls, documentation, testing, and review
-                workflows can support software quality,
-                technology governance, security, and operational
-                reliability.
-              </p>
-
-            </div>
-
-            {/* =================================================
-                05 — CLOUD & INFRASTRUCTURE
-            ================================================= */}
-
-            <div className="mt-16">
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                05 / CLOUD &amp; DIGITAL OPERATIONS
-              </p>
-
-              <h2
-                className="mt-3 text-[32px] font-medium leading-tight lg:text-[42px]"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Connect intelligent software with modern infrastructure
-              </h2>
-
-              <p className="mt-6 text-[16px] leading-[1.9] text-slate-600">
-                Modern software solutions can connect with cloud
-                infrastructure, APIs, databases, enterprise
-                applications, analytics platforms, and other
-                digital systems.
-              </p>
-
-              <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-                Integrated technology workflows help organizations
-                improve operational continuity, reduce manual
-                handoffs, and create better visibility across
-                their digital environment.
-              </p>
-
-            </div>
-
-          </article>
-
-          {/* ==================================================
-              SIDEBAR
-          ================================================== */}
-
-          <aside>
-
-            <div
-              className="rounded-2xl p-7 lg:sticky lg:top-8"
-              style={{
-                backgroundColor: "#F5F3FC",
-              }}
-            >
-
-              <p
-                className="text-[12px] font-semibold tracking-[0.18em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                TECHNOLOGY &amp; AI
-              </p>
-
-              <h3
-                className="mt-3 text-[25px] font-semibold"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                Technology Capabilities
-              </h3>
-
-              <div className="mt-7 space-y-3">
-
-                {[
-                  "AI & Machine Learning",
-                  "Software Development",
-                  "AI-Assisted Coding",
-                  "Cloud Solutions",
-                  "API Integration",
-                  "Data Engineering",
-                  "Automation Workflows",
-                  "Application Modernization",
-                  "Cybersecurity Support",
-                  "Technology Consulting",
-                  "Analytics & Monitoring",
-                ].map((item) => (
-                  <div
-                    key={item}
-                    className="flex items-start gap-3 border-b border-slate-200 pb-3"
-                  >
-
-                    <span
-                      className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full"
-                      style={{
-                        backgroundColor: INDIGO_CTA,
-                      }}
-                    />
-
-                    <span className="text-[14px] leading-relaxed text-slate-600">
-                      {item}
-                    </span>
-
-                  </div>
-                ))}
-
-              </div>
-
-              <Link
-                href={`${BASE_PATH}#connect`}
-                className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full px-6 py-3.5 text-[14px] font-semibold text-white transition-all hover:-translate-y-0.5 hover:shadow-lg"
-                style={{
-                  backgroundColor: CHAMPION_BLUE,
-                }}
-              >
-                Explore Technology AI
-
-                <ArrowUpRight size={16} />
-              </Link>
-
-            </div>
-
-          </aside>
-
-        </div>
-
-      </section>
-
-      {/* ======================================================
-          BUSINESS VALUE
-      ====================================================== */}
-
-      <section
-        className="border-t py-20 lg:py-24"
-        style={{
-          borderColor: "#E5E1F5",
-        }}
+        className="bg-white pb-20 pt-4 lg:pb-24"
       >
 
         <div className={ALIGN}>
 
-          <div className="max-w-3xl">
+          <div className="group overflow-hidden rounded-[32px]">
 
-            <p
-              className="text-[12px] font-semibold tracking-[0.15em]"
-              style={{
-                color: INDIGO_CTA,
-              }}
-            >
-              BUSINESS VALUE
-            </p>
-
-            <h2
-              className="mt-4 text-[32px] font-medium leading-tight sm:text-[42px]"
-              style={{
-                color: CHAMPION_BLUE,
-              }}
-            >
-              Intelligent technology workflows built for measurable impact
-            </h2>
-
-            <p className="mt-5 text-[16px] leading-[1.9] text-slate-600">
-              AI-powered technology solutions can help
-              organizations reduce repetitive work, improve
-              development efficiency, accelerate operations,
-              and strengthen visibility across digital workflows.
-            </p>
-
-          </div>
-
-          {/* ==================================================
-              VALUE CARDS
-          ================================================== */}
-
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-
-            {[
-              {
-                number: "01",
-                title: "Faster Technology Workflows",
-                text:
-                  "Reduce repetitive development and operational work so technical teams can focus on higher-value engineering and business priorities.",
-              },
-
-              {
-                number: "02",
-                title: "Improved Software Efficiency",
-                text:
-                  "Structured AI recommendations and automation workflows help teams improve consistency, productivity, and development speed.",
-              },
-
-              {
-                number: "03",
-                title: "Stronger Digital Operations",
-                text:
-                  "Connect applications, cloud platforms, APIs, data, and automation workflows to create more connected digital operations.",
-              },
-            ].map((item) => (
-              <div
-                key={item.number}
-                className="rounded-2xl p-8"
-                style={{
-                  backgroundColor: "#F5F3FC",
-                }}
-              >
-
-                <span
-                  className="text-[13px] font-semibold"
-                  style={{
-                    color: INDIGO_CTA,
-                  }}
-                >
-                  {item.number}
-                </span>
-
-                <h3
-                  className="mt-6 text-[21px] font-semibold"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
-                  {item.title}
-                </h3>
-
-                <p className="mt-3 text-[14px] leading-[1.8] text-slate-600">
-                  {item.text}
-                </p>
-
-              </div>
-            ))}
+            <img
+              src={study.image}
+              alt={study.title}
+              className="h-[320px] w-full object-cover transition-transform duration-700 group-hover:scale-[1.03] sm:h-[430px] lg:h-[560px]"
+            />
 
           </div>
 
@@ -776,22 +897,18 @@ export default async function CaseStudyPage({
           className="py-24"
           style={{
             background:
-              "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+              "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 48%, #C9BEF5 100%)",
           }}
         >
 
           <div className={ALIGN}>
-
-            {/* ==================================================
-                SECTION HEADER
-            ================================================== */}
 
             <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
 
               <div>
 
                 <p
-                  className="text-[12px] font-semibold tracking-[0.15em]"
+                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
                   style={{
                     color: INDIGO_CTA,
                   }}
@@ -805,105 +922,88 @@ export default async function CaseStudyPage({
                     color: CHAMPION_BLUE,
                   }}
                 >
-                  More Technology &amp; AI Case Studies
+                  More AI Native Contact Center Case Studies
                 </h2>
 
               </div>
 
               <Link
                 href={BASE_PATH}
-                className="hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+                className="hidden items-center gap-2 text-[15px] font-semibold sm:flex"
                 style={{
                   color: INDIGO_CTA,
                 }}
               >
-                View All
+                View all
 
                 <ArrowUpRight size={16} />
               </Link>
 
             </div>
 
-            {/* ==================================================
-                RELATED CARDS
-            ================================================== */}
-
             <div className="mt-12 grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3">
 
-              {relatedStudies.map((item, index) => {
+              {relatedStudies.map((item) => (
 
-                /*
-                  Start from next image so related cards
-                  also get different IT images.
-                */
+                <Link
+                  key={item.slug}
+                  href={`${BASE_PATH}/${item.slug}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+                >
 
-                const relatedImage =
-                  getITImage(
-                    (studyIndex + index + 1) %
-                      IT_IMAGES.length
-                  );
+                  <div className="h-[220px] overflow-hidden">
 
-                return (
-                  <Link
-                    key={item.slug}
-                    href={`${BASE_PATH}/${item.slug}`}
-                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
 
-                    {/* IMAGE */}
+                  </div>
 
-                    <div className="h-[220px] overflow-hidden">
+                  <div className="flex flex-1 flex-col p-6">
 
-                      <img
-                        src={relatedImage}
-                        alt={item.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    <span
+                      className="text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      CASE STUDY
+                    </span>
+
+                    <h3
+                      className="mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {item.title}
+                    </h3>
+
+                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
+                      {item.body}
+                    </p>
+
+                    <span
+                      className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      Read case study
+
+                      <ArrowUpRight
+                        size={15}
+                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                       />
+                    </span>
 
-                    </div>
+                  </div>
 
-                    {/* CONTENT */}
+                </Link>
 
-                    <div className="flex flex-1 flex-col p-6">
-
-                      <span
-                        className="text-[12px] font-semibold tracking-wide"
-                        style={{
-                          color: INDIGO_CTA,
-                        }}
-                      >
-                        TECHNOLOGY &amp; AI
-                      </span>
-
-                      <h3
-                        className="mt-2 text-[19px] font-semibold leading-snug"
-                        style={{
-                          color: CHAMPION_BLUE,
-                        }}
-                      >
-                        {item.title}
-                      </h3>
-
-                      <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
-                        {item.body}
-                      </p>
-
-                      <span
-                        className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                        style={{
-                          color: INDIGO_CTA,
-                        }}
-                      >
-                        Read Case Study
-
-                        <ArrowUpRight size={15} />
-                      </span>
-
-                    </div>
-
-                  </Link>
-                );
-              })}
+              ))}
 
             </div>
 
@@ -916,50 +1016,73 @@ export default async function CaseStudyPage({
           FINAL CTA
       ====================================================== */}
 
-      <section className="bg-white py-20">
+      <section
+        id="connect"
+        className="pb-20 pt-8 lg:pb-24"
+      >
 
         <div className={ALIGN}>
 
           <div
-            id="connect"
-            className="overflow-hidden rounded-3xl px-7 py-14 sm:px-10 lg:px-16 lg:py-16"
+            className="relative overflow-hidden rounded-[32px] border px-7 py-12 sm:px-12 lg:px-16 lg:py-16"
             style={{
-              backgroundColor: CHAMPION_BLUE,
+              borderColor: "#DDD8F0",
+              backgroundColor: "#FAF9FE",
             }}
           >
 
-            <div className="max-w-4xl">
+            <div
+              className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full blur-3xl"
+              style={{
+                backgroundColor:
+                  `${LAVENDER_ACCENT}25`,
+              }}
+            />
 
-              <p
-                className="text-[12px] font-semibold tracking-[0.15em]"
-                style={{
-                  color: LAVENDER_ACCENT,
-                }}
-              >
-                TECHNOLOGY &amp; AI
-              </p>
+            <div className="relative flex flex-col justify-between gap-9 lg:flex-row lg:items-center">
 
-              <h2 className="mt-4 text-[32px] font-medium leading-tight text-white sm:text-[42px]">
-                Ready to modernize your technology workflows with AI?
-              </h2>
+              <div className="max-w-2xl">
 
-              <p className="mt-5 max-w-2xl text-[16px] leading-[1.8] text-white/75">
-                Transform complex technology processes with
-                AI-assisted software development, intelligent
-                automation, cloud solutions, data intelligence,
-                and professional engineering expertise.
-              </p>
+                <p
+                  className="text-[12px] font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  AI NATIVE CONTACT CENTER
+                </p>
+
+                <h2
+                  className="mt-4 text-[31px] font-medium leading-tight lg:text-[43px]"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  Ready to transform customer conversations?
+                </h2>
+
+                <p className="mt-5 text-[15px] leading-7 text-slate-600">
+                  Talk to Starfii about conversational
+                  AI, voice automation, intelligent routing,
+                  customer support workflows, and
+                  AI powered contact center transformation.
+                </p>
+
+              </div>
 
               <Link
-                href={BASE_PATH}
-                className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold transition-all hover:-translate-y-0.5 hover:shadow-lg"
+                href={`${BASE_PATH}#connect`}
+                className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-full px-7 py-4 text-[14px] font-semibold text-white shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 style={{
-                  color: CHAMPION_BLUE,
+                  backgroundColor: INDIGO_CTA,
                 }}
               >
-                Explore Technology Solutions
+                Start a conversation
 
-                <ArrowUpRight size={16} />
+                <ArrowUpRight
+                  size={17}
+                  className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
               </Link>
 
             </div>
@@ -974,25 +1097,35 @@ export default async function CaseStudyPage({
           BACK
       ====================================================== */}
 
-      <section className="bg-white pb-16">
+      <div className={ALIGN}>
 
-        <div className={ALIGN}>
+        <div
+          className="border-t py-10"
+          style={{
+            borderColor: "#E5E1F5",
+          }}
+        >
 
           <Link
             href={BASE_PATH}
-            className="inline-flex items-center gap-2 text-[14px] font-semibold transition-transform duration-200 hover:-translate-x-1"
+            className="group inline-flex items-center gap-2 text-[14px] font-semibold"
             style={{
               color: INDIGO_CTA,
             }}
           >
-            <ArrowLeft size={16} />
 
-            Back to Technology &amp; AI
+            <ArrowLeft
+              size={16}
+              className="transition-transform duration-300 group-hover:-translate-x-1"
+            />
+
+            Back to AI Native Contact Center
+
           </Link>
 
         </div>
 
-      </section>
+      </div>
 
     </main>
   );
