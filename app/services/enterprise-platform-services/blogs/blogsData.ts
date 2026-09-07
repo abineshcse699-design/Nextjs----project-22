@@ -5,7 +5,8 @@ export type BlogSection = {
 
 export type BlogService =
   | "digital-software"
-  | "enterprise-automation";
+  | "enterprise-automation"
+  | "enterprise-platform-services";
 
 export type BlogPost = {
   slug: string;
@@ -292,14 +293,6 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 
-  /* ==========================================================
-     ADDED: these 4 posts were referenced by the homepage
-     "What's New in Enterprise Automation" carousel (insights
-     array in DigitalSoftwareServicesSection.tsx) but had no
-     matching entry here, so their "Read More" links 404'd
-     even after the folder path fix. Slugs below match exactly.
-  ========================================================== */
-
   {
     slug: "generative-ai-software-development",
     title:
@@ -477,19 +470,291 @@ export const blogPosts: BlogPost[] = [
       },
     ],
   },
+
+  /* ============================================================
+     ENTERPRISE PLATFORM SERVICES BLOGS
+     These slugs exactly match the homepage insights carousel.
+  ============================================================ */
+
+  {
+    slug: "enterprise-platform-engineering",
+    title:
+      "Enterprise Platform Engineering: Building the Foundation for Scalable Digital Operations",
+    category: "Enterprise Platform",
+    service: "enterprise-platform-services",
+    lastUpdated: "Nov 17, 2025",
+    readTime: "7 min read",
+    heroImage:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1600&auto=format&fit=crop",
+    excerpt:
+      "Explore the principles behind resilient enterprise platforms, from architecture and integration to cloud, observability, security, and continuous delivery.",
+    author: AUTHOR,
+    intro: [
+      "Enterprise platforms provide the technology foundation that connects applications, data, infrastructure, APIs, and business workflows across an organization.",
+      "A modern platform approach helps enterprises reduce technology complexity while creating reusable capabilities that can support new products, services, and digital experiences.",
+      "Starfii helps enterprises engineer secure, scalable platforms across cloud, integration, data, AI, security, observability, and automated delivery.",
+    ],
+    sections: [
+      {
+        heading: "1. What Is Enterprise Platform Engineering?",
+        paragraphs: [
+          "Enterprise platform engineering brings architecture, infrastructure, applications, integration, security, and operational capabilities together around a reusable technology foundation.",
+        ],
+      },
+      {
+        heading: "2. Building Reusable Platform Capabilities",
+        paragraphs: [
+          "Reusable APIs, services, deployment patterns, observability components, identity controls, and infrastructure capabilities help teams deliver new solutions without repeatedly rebuilding the same foundation.",
+        ],
+      },
+      {
+        heading: "3. Cloud and Platform Modernization",
+        paragraphs: [
+          "Cloud native architecture gives enterprise platforms the flexibility to scale while improving resilience, automation, monitoring, and operational efficiency.",
+        ],
+      },
+      {
+        heading: "4. Integration and Connectivity",
+        paragraphs: [
+          "APIs and modern integration patterns connect applications, data sources, partners, and workflows so enterprise capabilities can operate as a connected ecosystem rather than isolated systems.",
+        ],
+      },
+      {
+        heading: "5. Security and Observability",
+        paragraphs: [
+          "Identity, access control, secure architecture, monitoring, logging, tracing, and performance engineering help enterprises operate critical platforms with stronger security and reliability.",
+        ],
+      },
+      {
+        heading: "6. The Business Value",
+        paragraphs: [
+          "A well engineered enterprise platform reduces duplicated technology effort, improves delivery consistency, and creates a foundation that can evolve as business priorities change.",
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "enterprise-cloud-modernization",
+    title:
+      "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
+    category: "Enterprise Platform",
+    service: "enterprise-platform-services",
+    lastUpdated: "Nov 10, 2025",
+    readTime: "7 min read",
+    heroImage:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop",
+    excerpt:
+      "Learn how enterprises can modernize critical workloads incrementally while improving resilience, agility, security, and operational efficiency.",
+    author: AUTHOR,
+    intro: [
+      "Many enterprise technology estates contain applications and infrastructure that have evolved over years. Modernization creates a path from this complexity toward more scalable and maintainable platforms.",
+      "Cloud modernization does not require every workload to be replaced at once. A structured, incremental approach can protect business continuity while improving the technology foundation.",
+    ],
+    sections: [
+      {
+        heading: "1. Assessing the Existing Platform",
+        paragraphs: [
+          "A successful modernization program begins with understanding application dependencies, data flows, infrastructure constraints, security requirements, and business criticality.",
+        ],
+      },
+      {
+        heading: "2. Choosing the Right Modernization Path",
+        paragraphs: [
+          "Enterprises can combine rehosting, replatforming, refactoring, API enablement, containerization, and selective replacement depending on the needs of each workload.",
+        ],
+      },
+      {
+        heading: "3. Cloud Native Architecture",
+        paragraphs: [
+          "Cloud native services, automation, infrastructure as code, and scalable architectures help create platforms that can respond more efficiently to changing demand.",
+        ],
+      },
+      {
+        heading: "4. Modernizing Without Disruption",
+        paragraphs: [
+          "Incremental migration patterns allow enterprises to modernize critical capabilities while keeping essential business operations running throughout the transformation.",
+        ],
+      },
+      {
+        heading: "5. Operating the Modern Platform",
+        paragraphs: [
+          "Observability, security, DevOps, and reliability engineering are essential to ensuring that modernized workloads remain secure, measurable, and dependable after migration.",
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "enterprise-integration-api-strategy",
+    title:
+      "Enterprise Integration and API Strategy for Connected Systems",
+    category: "Enterprise Platform",
+    service: "enterprise-platform-services",
+    lastUpdated: "Nov 3, 2025",
+    readTime: "7 min read",
+    heroImage:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1600&auto=format&fit=crop",
+    excerpt:
+      "See how APIs and modern integration patterns help enterprises connect applications, data, partners, and workflows without creating new technology silos.",
+    author: AUTHOR,
+    intro: [
+      "Enterprise organizations depend on many applications, platforms, data sources, and external systems. Without a clear integration strategy, these systems can become isolated and difficult to evolve.",
+      "A modern API and integration strategy creates dependable connections between enterprise capabilities while supporting security, reuse, scalability, and operational visibility.",
+    ],
+    sections: [
+      {
+        heading: "1. API First Enterprise Architecture",
+        paragraphs: [
+          "API first architecture exposes reusable business capabilities through well defined interfaces, making it easier for applications and teams to consume enterprise services consistently.",
+        ],
+      },
+      {
+        heading: "2. Connecting Applications and Data",
+        paragraphs: [
+          "Integration services can connect CRM, ERP, finance, customer experience, data, and operational systems so information can move reliably between business processes.",
+        ],
+      },
+      {
+        heading: "3. Microservices and Modular Platforms",
+        paragraphs: [
+          "Modular services allow enterprises to evolve individual capabilities without requiring large scale changes to an entire application estate.",
+        ],
+      },
+      {
+        heading: "4. Security and Governance",
+        paragraphs: [
+          "API authentication, authorization, rate controls, monitoring, lifecycle management, and governance help enterprises expose capabilities safely at scale.",
+        ],
+      },
+      {
+        heading: "5. Creating Connected Enterprise Experiences",
+        paragraphs: [
+          "When systems and capabilities are connected through reliable APIs and integrations, enterprises can create faster employee, partner, and customer experiences.",
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "enterprise-ai-platforms",
+    title:
+      "Enterprise AI Platforms: Moving From Experiments to Business Value",
+    category: "Enterprise Platform",
+    service: "enterprise-platform-services",
+    lastUpdated: "Oct 27, 2025",
+    readTime: "8 min read",
+    heroImage:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1600&auto=format&fit=crop",
+    excerpt:
+      "Discover how organizations can operationalize Generative AI and LLM capabilities with the platform, data, security, and governance needed for enterprise scale.",
+    author: AUTHOR,
+    intro: [
+      "Enterprise AI initiatives often begin with experiments and proofs of concept. The challenge is turning those experiments into secure, governed, reliable capabilities that deliver measurable business value.",
+      "An enterprise AI platform provides the foundation for models, data, applications, security, governance, monitoring, and operational workflows to work together.",
+    ],
+    sections: [
+      {
+        heading: "1. From AI Experiments to Production",
+        paragraphs: [
+          "Production AI requires more than a model. Enterprises need dependable data pipelines, application integration, security controls, evaluation practices, monitoring, and operational ownership.",
+        ],
+      },
+      {
+        heading: "2. Generative AI and LLM Integration",
+        paragraphs: [
+          "Generative AI and LLM capabilities can be integrated into enterprise applications, knowledge workflows, customer experiences, and employee productivity solutions.",
+        ],
+      },
+      {
+        heading: "3. Data as the AI Foundation",
+        paragraphs: [
+          "Trusted enterprise data, governed access, quality pipelines, and appropriate context are critical to building AI experiences that are useful and dependable.",
+        ],
+      },
+      {
+        heading: "4. Security and Responsible AI",
+        paragraphs: [
+          "Enterprise AI platforms need controls for identity, data protection, model access, monitoring, evaluation, and governance so AI capabilities can be deployed responsibly.",
+        ],
+      },
+      {
+        heading: "5. Scaling AI Across the Enterprise",
+        paragraphs: [
+          "A shared platform approach makes it easier to reuse AI capabilities and standards across multiple applications instead of creating disconnected AI implementations.",
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: "enterprise-devops-reliability",
+    title:
+      "Enterprise DevOps and Reliability for Always On Digital Platforms",
+    category: "Enterprise Platform",
+    service: "enterprise-platform-services",
+    lastUpdated: "Oct 20, 2025",
+    readTime: "7 min read",
+    heroImage:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
+    excerpt:
+      "Learn how automation, observability, SRE, and quality engineering create safer releases and more reliable enterprise technology operations.",
+    author: AUTHOR,
+    intro: [
+      "Enterprise platforms must remain dependable while development teams continue to release new capabilities. DevOps and reliability engineering bring automation and operational discipline into the software lifecycle.",
+      "By combining CI/CD, infrastructure automation, observability, quality engineering, and SRE practices, enterprises can improve release confidence and platform resilience.",
+    ],
+    sections: [
+      {
+        heading: "1. Automated Software Delivery",
+        paragraphs: [
+          "CI/CD automation standardizes build, test, deployment, and release activities so teams can deliver changes more frequently with fewer manual errors.",
+        ],
+      },
+      {
+        heading: "2. Infrastructure Automation",
+        paragraphs: [
+          "Infrastructure as code and automated provisioning create repeatable environments and reduce configuration drift across enterprise platforms.",
+        ],
+      },
+      {
+        heading: "3. Observability",
+        paragraphs: [
+          "Metrics, logs, traces, alerts, and service health indicators provide the visibility teams need to understand platform behavior and resolve issues quickly.",
+        ],
+      },
+      {
+        heading: "4. Site Reliability Engineering",
+        paragraphs: [
+          "SRE practices use reliability objectives, automation, incident response, and performance engineering to make availability and operational health measurable.",
+        ],
+      },
+      {
+        heading: "5. Quality Engineering at Scale",
+        paragraphs: [
+          "Automated functional, integration, performance, and regression testing helps enterprise teams maintain quality while increasing the speed of delivery.",
+        ],
+      },
+    ],
+  },
 ];
 
 /* ============================================================
    BLOG HELPERS
 ============================================================ */
 
+// FIXED: `getBlogBySlug` used to hardcode `service === "enterprise-automation"`,
+// so every enterprise-platform-services post returned undefined and any
+// page under /enterprise-platform-services/blogs/[slug] triggered notFound().
+// It now accepts an optional `service` filter and works for BOTH sections.
 export function getBlogBySlug(
-  slug: string
+  slug: string,
+  service?: BlogService
 ): BlogPost | undefined {
   return blogPosts.find(
     (blog) =>
       blog.slug === slug &&
-      blog.service === "enterprise-automation"
+      (!service || blog.service === service)
   );
 }
 

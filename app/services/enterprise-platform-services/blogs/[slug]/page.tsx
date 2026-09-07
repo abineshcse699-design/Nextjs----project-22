@@ -15,10 +15,17 @@ type PageProps = {
   }>;
 };
 
+const BLOG_BASE = "/services/enterprise-platform-services/blogs";
+
+// This page only ever serves enterprise-platform-services posts.
+const SERVICE = "enterprise-platform-services" as const;
+
 export function generateStaticParams() {
-  return blogPosts.map((post) => ({
-    slug: post.slug,
-  }));
+  return blogPosts
+    .filter((post) => post.service === SERVICE)
+    .map((post) => ({
+      slug: post.slug,
+    }));
 }
 
 export const dynamicParams = false;
@@ -28,13 +35,14 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  const post = getBlogBySlug(slug);
+  // FIXED: pass the service so the correct post is found
+  const post = getBlogBySlug(slug, SERVICE);
 
   if (!post) {
     return {
-      title: "Enterprise Automation Blog Not Found | Starfii",
+      title: "Enterprise Platform Blog Not Found | Starfii",
       description:
-        "The requested Starfii Enterprise Automation blog could not be found.",
+        "The requested Starfii Enterprise Platform blog could not be found.",
     };
   }
 
@@ -43,14 +51,14 @@ export async function generateMetadata({
     description: post.excerpt,
 
     alternates: {
-      canonical: `/services/enterprise-automation/blogs/${post.slug}`,
+      canonical: `${BLOG_BASE}/${post.slug}`,
     },
 
     openGraph: {
       title: post.title,
       description: post.excerpt,
       type: "article",
-      url: `/services/enterprise-automation/blogs/${post.slug}`,
+      url: `${BLOG_BASE}/${post.slug}`,
 
       images: [
         {
@@ -71,25 +79,17 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({
-  params,
-}: PageProps) {
+export default async function BlogPage({ params }: PageProps) {
   const { slug } = await params;
 
-  const post = getBlogBySlug(slug);
+  // FIXED: pass the service so this actually resolves
+  const post = getBlogBySlug(slug, SERVICE);
 
   if (!post) {
     notFound();
   }
 
-  const related = getRelatedBlogs(
-    post.slug
-  );
+  const related = getRelatedBlogs(post.slug);
 
-  return (
-    <BlogDetail
-      post={post}
-      related={related}
-    />
-  );
+  return <BlogDetail post={post} related={related} />;
 }

@@ -18,7 +18,7 @@ const ALIGN =
   "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const BLOG_BASE =
-  "/services/enterprise-automation/blogs";
+  "/services/enterprise-platform-services/blogs";
 
 type BlogDetailProps = {
   post: BlogPost;
@@ -106,10 +106,10 @@ export default function BlogDetail({
           <span>/</span>
 
           <Link
-            href="/services/enterprise-automation"
+            href="/services/enterprise-platform-services"
             className="transition-colors hover:text-[#4F3FE0]"
           >
-            Enterprise Automation
+            Enterprise Platform
           </Link>
 
           <span>/</span>
@@ -485,7 +485,7 @@ export default function BlogDetail({
                               color: LAVENDER,
                             }}
                           >
-                            Enterprise Automation
+                            Enterprise Platform
                           </span>
 
                           <p className="mt-1 line-clamp-3 text-sm font-semibold leading-6 text-slate-800 transition-colors group-hover:text-[#4F3FE0]">
@@ -522,7 +522,7 @@ export default function BlogDetail({
                 color: INDIGO_CTA,
               }}
             >
-              View All Enterprise Automation Blogs
+              View All Enterprise Platform Blogs
 
               <ArrowUpRight size={15} />
             </Link>

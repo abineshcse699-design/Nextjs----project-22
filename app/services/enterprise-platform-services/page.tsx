@@ -37,14 +37,14 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Digital and Software Services" tab list
+// Autoplay timing for the "Enterprise Platform Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 // FIXED: this now matches the actual folder name on disk
 // (app/.../enterprise-platform-services/blogs/[slug]/page.tsx),
 // which is what Next.js actually uses to resolve the URL.
 const BLOG_BASE = "/services/enterprise-platform-services/blogs";
-
+const CASE_STUDY_BASE = "/services/enterprise-platform-services/casestudies";
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
@@ -52,74 +52,74 @@ const BLOG_BASE = "/services/enterprise-platform-services/blogs";
 ================================================================ */
 
 const keyTakeaways: string[] = [
-  "Starfii is an AI driven software and product engineering company trusted by enterprises and Fortune 500 brands worldwide.",
-  "We design customer focused digital experiences and modernize complex application portfolios for speed and scale.",
-  "Our core services span enterprise product engineering, SaaS product engineering, Generative AI and LLM engineering, and digital strategy consulting.",
-  "We turn ideas into scalable software products through AI led engineering, cloud engineering, and faster delivery cycles.",
+  "Starfii is an enterprise platform services company helping organizations build, modernize, integrate, and operate mission critical digital platforms.",
+  "We engineer secure, scalable enterprise platforms that connect applications, data, cloud infrastructure, and business workflows.",
+  "Our enterprise capabilities span platform engineering, cloud modernization, enterprise integration, data platforms, AI enablement, cybersecurity, and DevOps.",
+  "We help enterprises simplify complex technology estates, improve operational resilience, and create a foundation for continuous digital growth.",
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Enterprise Product Engineering",
-    body: "Starfii is an enterprise product engineering company that partners with clients from ideation through launch, combining AI driven software development with proven engineering practices to deliver breakthrough growth, value, and performance.",
-    tags: ["WEB", "MOBILE", "SAAS"],
+    title: "Enterprise Platform Engineering",
+    body: "Starfii designs and engineers enterprise platforms that bring applications, services, workflows, and data together through scalable architecture and disciplined engineering practices.",
+    tags: ["PLATFORM", "APIs", "ARCHITECTURE"],
   },
   {
-    title: "Enterprise AI/ML, Gen AI and LLM",
-    body: "As a Generative AI and LLM engineering company, Starfii works closely with you to define the business problem and identify the right AI models, delivering enterprise AI/ML solutions that solve real business challenges.",
-    tags: ["LLM", "GEN AI", "ML"],
-  },
-  {
-    title: "SaaS Product Engineering",
-    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS product engineering capability on real production projects.",
-    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
-  },
-  {
-    title: "Data Engineering & Data Science",
-    body: "Our certified data engineers build your entire data infrastructure, while Starfii's data scientists apply data engineering and data science expertise to surface the insights that drive smarter, faster decisions.",
-    tags: ["DATA", "BI", "ANALYTICS"],
-  },
-  {
-    title: "Cloud Engineering – AWS, Azure, GCP",
-    body: "Starfii delivers end to end cloud engineering services on AWS, Azure, and GCP, covering cloud architecture, migration, and managed support so your platform stays reliable, secure, and cost efficient.",
+    title: "Cloud Platform & Modernization",
+    body: "We modernize enterprise workloads across AWS, Azure, and GCP, creating secure cloud foundations that improve scalability, resilience, observability, and operational efficiency.",
     tags: ["AWS", "AZURE", "GCP"],
   },
   {
-    title: "Legacy Software Modernization",
-    body: "Starfii's legacy software modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
-    tags: ["MIGRATION", "APIS", "CLOUD"],
+    title: "Enterprise Integration Services",
+    body: "Starfii connects applications, systems, APIs, and data sources with modern integration patterns that reduce silos and create reliable end to end enterprise workflows.",
+    tags: ["APIs", "INTEGRATION", "MICROSERVICES"],
   },
   {
-    title: "Reporting and Dashboard – BI",
-    body: "Starfii helps enterprises transform raw data into actionable insights using Tableau and Power BI, delivering business intelligence dashboards that support faster, more informed decisions and long term growth.",
-    tags: ["TABLEAU", "POWER BI", "ANALYTICS"],
+    title: "Data Platform Engineering",
+    body: "We build enterprise data platforms that unify data pipelines, governance, analytics, and reporting so teams can access trusted information and make faster business decisions.",
+    tags: ["DATA", "BI", "ANALYTICS"],
   },
   {
-    title: "Automotive Engineering Services",
-    body: "Starfii delivers automotive engineering services covering embedded software, connected vehicle platforms, and digital mobility solutions that support the industry's shift to smarter, software defined vehicles.",
-    tags: ["AUTOMOTIVE", "MOBILITY", "ENGINEERING"],
+    title: "Enterprise AI & Automation",
+    body: "Starfii embeds Generative AI, LLMs, intelligent automation, and machine learning into enterprise platforms to improve productivity, decision making, and customer experiences.",
+    tags: ["GEN AI", "LLM", "AUTOMATION"],
   },
   {
-    title: "Revenue Cycle Management Service",
-    body: "Starfii assists healthcare organizations with HIPAA compliant revenue cycle management services, streamlining billing, claims, and patient care workflows to improve cash flow and operational efficiency.",
-    tags: ["HEALTHCARE", "RCM", "COMPLIANCE"],
+    title: "Legacy Platform Modernization",
+    body: "We assess legacy estates, define modernization roadmaps, and incrementally transform aging applications into modular, cloud ready platforms without disrupting critical operations.",
+    tags: ["LEGACY", "MODERNIZATION", "CLOUD"],
   },
   {
-    title: "Cybersecurity",
-    body: "Starfii's cybersecurity consulting services help build a resilient security framework that protects your cloud infrastructure and applications against evolving threats, backed by continuous risk monitoring.",
-    tags: ["SECURITY", "RISK", "CLOUD"],
+    title: "Enterprise Observability & SRE",
+    body: "Starfii improves platform reliability through observability, monitoring, performance engineering, and Site Reliability Engineering practices that keep critical services available and measurable.",
+    tags: ["SRE", "OBSERVABILITY", "RELIABILITY"],
   },
   {
-    title: "UI/UX Consulting",
-    body: "Starfii's UI/UX consulting team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
-    tags: ["UX", "UI", "DESIGN"],
+    title: "Enterprise Security Engineering",
+    body: "We build security into enterprise platforms through identity, access controls, secure architecture, cloud security, application protection, and continuous risk management.",
+    tags: ["SECURITY", "IAM", "RISK"],
+  },
+  {
+    title: "Workflow & Process Automation",
+    body: "Starfii automates complex enterprise workflows across business functions, reducing manual effort, improving process consistency, and creating better visibility from request to outcome.",
+    tags: ["WORKFLOW", "RPA", "AUTOMATION"],
+  },
+  {
+    title: "API & Microservices Engineering",
+    body: "We create reusable APIs and independently deployable services that help enterprises expose capabilities safely, accelerate integration, and evolve platforms without large scale rewrites.",
+    tags: ["APIs", "MICROSERVICES", "CLOUD"],
+  },
+  {
+    title: "Enterprise Experience Engineering",
+    body: "Starfii creates consistent employee, partner, and customer experiences on top of enterprise platforms, combining intuitive interfaces with dependable backend services.",
+    tags: ["UX", "PORTALS", "EXPERIENCE"],
   },
   {
     title: "DevOps & Quality Engineering",
-    body: "Starfii's DevOps and quality engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
-    tags: ["DEVOPS", "QA", "AUTOMATION"],
+    body: "Our DevOps and quality engineering practices automate delivery, testing, infrastructure, and release governance so enterprise teams can ship changes faster with confidence.",
+    tags: ["DEVOPS", "QA", "CI/CD"],
   },
 ];
 
@@ -132,51 +132,51 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Shape Product Vision Clearly",
-    heading: "Product led thinking to shape and realize your product vision",
-    body: "Starfii crafts product and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
+    label: "Unify Enterprise Platforms",
+    heading: "Connect the technology landscape around a common enterprise platform",
+    body: "Starfii brings applications, APIs, data, workflows, and cloud services together through platform architecture that reduces complexity and gives teams a consistent foundation for digital operations.",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Modernize Core Systems",
+    heading: "Modern enterprise foundations built for resilience and scale",
+    body: "Starfii modernizes core applications and legacy estates using cloud native patterns, APIs, microservices, and incremental migration strategies that protect business continuity.",
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Activate Enterprise AI",
+    heading: "Operational AI embedded into the enterprise platform",
+    body: "We integrate Generative AI, LLMs, machine learning, and intelligent automation into enterprise workflows and applications so AI delivers measurable value within everyday operations.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Engineer for Reliability",
+    heading: "Platforms engineered for secure, observable, always on operations",
+    body: "Starfii combines cloud engineering, DevOps, SRE, observability, and quality engineering to help enterprises operate critical platforms with stronger reliability, security, and release confidence.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Build Apps for Digital Markets",
-    heading: "Applications engineered for how digital markets actually move",
-    body: "Starfii builds web and mobile applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
+    label: "Automate Business Operations",
+    heading: "Enterprise automation that turns complex workflows into connected experiences",
+    body: "We connect business processes, applications, and data to automate repetitive work, improve visibility, and create faster paths from business request to measurable outcome.",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Drive AI-led Software Results",
-    heading: "AI embedded in delivery, not bolted on at the end",
-    body: "Starfii's engineering teams build Generative AI and LLM capability into the software delivery process itself, from requirements to release, so outcomes improve measurably rather than anecdotally.",
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Modernize Legacy for Growth",
-    heading: "Modernization that clears the path for what comes next",
-    body: "Starfii assesses your legacy technology estate, builds a tailored legacy software modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Embed AI Across Ecosystems",
-    heading: "AI that works across your whole ecosystem, not one tool",
-    body: "Starfii connects enterprise AI capability across your applications, data, and operations so intelligence compounds across the business instead of living in a single silo or point solution.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 type EcosystemImpact = { title: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Digital Journeys and Transformation" },
-  { title: "Product Engineering for Customer Value" },
-  { title: "Composable Architecture for Scale" },
-  { title: "Vibe Coding for Faster Delivery" },
-  { title: "Enterprise AI and LLM Integration" },
-  { title: "Cloud Engineering and DevOps Automation" },
+  { title: "Enterprise Platform Strategy and Architecture" },
+  { title: "Cloud Native Platforms for Scale" },
+  { title: "Application and Legacy Modernization" },
+  { title: "Enterprise Integration and API Connectivity" },
+  { title: "Enterprise Data and AI Enablement" },
+  { title: "DevOps, SRE and Platform Automation" },
 ];
 
 type IndustryAward = {
@@ -189,68 +189,79 @@ type IndustryAward = {
 
 const industryAwards: IndustryAward[] = [
   {
-    year: "2026 Quadrant",
-    category: "Mainframes, Services and Solutions",
-    subcategory: "Application Modernization Services",
-    rank: "Leader, U.S.",
+    year: "Enterprise Platforms",
+    category: "Platform Engineering",
+    subcategory: "Architecture and Development",
+    rank: "Enterprise Capability",
     description:
-      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our legacy software modernization expertise.",
+      "Starfii engineers scalable enterprise platforms that connect applications, services, data, and workflows around secure and reusable technology foundations.",
   },
   {
-    year: "2025 Quadrant",
-    category: "Digital Engineering Services",
-    subcategory: "Design and Development",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii named a Leader in Design and Development (Products, Services and Experiences) in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting our product engineering capability.",
-  },
-  {
-    year: "2025 Quadrant",
-    category: "Cloud and Data Engineering",
+    year: "Cloud Modernization",
+    category: "Cloud Engineering",
     subcategory: "Migration and Modernization",
-    rank: "Leader, U.S.",
+    rank: "Enterprise Capability",
     description:
-      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our cloud engineering and data engineering services.",
+      "Starfii helps enterprises modernize critical workloads across AWS, Azure, and GCP with resilient cloud architectures and incremental transformation roadmaps.",
+  },
+  {
+    year: "Digital Operations",
+    category: "DevOps and Reliability",
+    subcategory: "Automation and Observability",
+    rank: "Enterprise Capability",
+    description:
+      "Starfii applies DevOps, SRE, observability, and quality engineering practices to improve enterprise platform reliability and accelerate safe software delivery.",
   },
 ];
+
+/* ===============================================================
+   CASE STUDIES — FIXED
+   These slugs now match data/case-studies.tsx exactly, so "Learn
+   More" resolves to a real getCaseStudyBySlug() entry instead of
+   404ing. Do not edit slugs here without also updating (or better,
+   just importing from) data/case-studies.tsx.
+================================================================ */
 
 type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
   {
-    slug: "insurance-claims-low-code-platform",
+    slug: "fintech-saas-platform-mvp-to-scale",
     image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
-    body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title:
+      "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
+    body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
   },
   {
     slug: "regional-bank-digital-banking-experience",
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
-    body: "See how Starfii's SaaS product engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
-  },
-  {
-    slug: "utilities-digital-transformation-microsoft",
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
-    body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
-  },
-  {
-    slug: "digital-mortgage-automation",
-    image:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Automates the Digital Mortgage Application Process",
-    body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+    title: "Starfii Modernizes a Regional Bank's Digital Banking Experience",
+    body: "Explore how Starfii's legacy software modernization team rebuilt a bank's front end into a fast, secure digital experience that cut onboarding time.",
   },
   {
-    slug: "healthcare-saas-platform-scale",
+    slug: "healthcare-saas-generative-ai-features",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
-    body: "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
+    title:
+      "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
+    body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
+  },
+  {
+    slug: "ecommerce-platform-peak-season-scale",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Scales an E Commerce Platform for Peak Season Traffic",
+    body: "See how Starfii's cloud engineering team re-architected an e commerce platform on AWS to handle peak season load without downtime.",
+  },
+  {
+    slug: "enterprise-legacy-modernization-timeline",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title:
+      "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
+    body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
   },
 ];
 
@@ -264,45 +275,45 @@ type InsightPost = {
 
 const insights: InsightPost[] = [
   {
-    slug: "generative-ai-software-development",
+    slug: "enterprise-platform-engineering",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1620121684840-edffcfc4b878?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
-    body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
+      "Enterprise Platform Engineering: Building the Foundation for Scalable Digital Operations",
+    body: "Explore the principles behind resilient enterprise platforms, from architecture and integration to cloud, observability, security, and continuous delivery.",
   },
   {
-    slug: "ai-powered-automation-enterprise-software",
+    slug: "enterprise-cloud-modernization",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "AI Powered Automation: Transforming Enterprise Software Delivery",
-    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise software delivery.",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
+    body: "Learn how enterprises can modernize critical workloads incrementally while improving resilience, agility, security, and operational efficiency.",
   },
   {
-    slug: "agile-product-engineering-mach-technologies",
+    slug: "enterprise-integration-api-strategy",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
-    title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
-    body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise Integration and API Strategy for Connected Systems",
+    body: "See how APIs and modern integration patterns help enterprises connect applications, data, partners, and workflows without creating new technology silos.",
   },
   {
-    slug: "ai-led-engineering-digital-products",
+    slug: "enterprise-ai-platforms",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-    title: "Building Smarter Digital Products with AI Led Engineering",
-    body: "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise AI Platforms: Moving From Experiments to Business Value",
+    body: "Discover how organizations can operationalize Generative AI and LLM capabilities with the platform, data, security, and governance needed for enterprise scale.",
   },
   {
-    slug: "modern-software-delivery-enterprise-growth",
+    slug: "enterprise-devops-reliability",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
-    title: "Modern Software Delivery for Enterprise Growth",
-    body: "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise DevOps and Reliability for Always On Digital Platforms",
+    body: "Learn how automation, observability, SRE, and quality engineering create safer releases and more reliable enterprise technology operations.",
   },
 ];
 
@@ -796,23 +807,21 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Digital & Software Solutions</span>
+            <span className="text-slate-500">Enterprise Platform Services</span>
           </nav>
 
           <h1
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Digital and Software Services for Modern Enterprises
+            Enterprise Platform Services for Modern Enterprises
           </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Starfii turns ideas into scalable software products and modern
-            platforms with AI driven engineering, enterprise product
-            engineering, and faster delivery cycles.
+            Starfii helps enterprises build, modernize, integrate, and operate secure digital platforms with cloud engineering, enterprise integration, AI enablement, and platform automation.
           </p>
 
           <a
@@ -881,10 +890,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A leader in digital products and software engineering, Starfii
-            designs and engineers customer focused digital experiences
-            while modernizing complex application portfolios for speed and
-            scale.
+            Starfii helps enterprises simplify complex technology estates by engineering secure, scalable platforms that connect applications, data, cloud infrastructure, and business workflows.
           </p>
         </Reveal>
 
@@ -903,17 +909,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Scale and Optimize Digital and Software
-                Operations?
+                How Do Enterprises Build and Scale Modern Enterprise Platforms?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize digital and software
-                operations by combining product thinking, AI led
-                engineering, and scalable architectures. Starfii brings
-                these together to accelerate software development, improve
-                quality, and modernize legacy systems, turning ideas into
-                digital experiences that users value and businesses depend
-                on every day.
+                Enterprises build and scale modern platforms by combining strong architecture, cloud modernization, integration, data, AI, security, and automated delivery. Starfii brings these capabilities together to simplify complex environments, improve reliability, and create technology foundations that support continuous business growth.
               </p>
             </div>
 
@@ -952,13 +951,10 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
             <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Services &amp; Consulting Capabilities
+              Our Enterprise Platform Services &amp; Consulting Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii plans, designs, and scales customer focused digital
-              products and platforms with AI led engineering, seamless
-              experiences, and modernization strategies that drive speed,
-              efficiency, and long term business value.
+              Starfii helps enterprises plan, design, modernize, integrate, and scale technology platforms with secure architecture, cloud engineering, enterprise AI, and automation that improve resilience, efficiency, and long term business value.
             </p>
           </Reveal>
 
@@ -1022,7 +1018,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Digital and Software Services
+            Enterprise Platform Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1127,9 +1123,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal>
             <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your Digital
+              Impact Across Your Enterprise
               <br />
-              Software Ecosystem
+              Platform Ecosystem
             </h2>
           </Reveal>
 
@@ -1161,9 +1157,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 </section>
 
 
-      {/* ============================================================
-          INDUSTRY RECOGNITION
-      ============================================================ */}
+
 
 
 
@@ -1171,108 +1165,128 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
           CASE STUDIES
       ============================================================ */}
 
-      <section
-        className="py-24"
-        style={{
-          background:
-            "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
-        }}
-      >
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Case Studies
-            </h2>
-            <a
-              href="#"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Case Studies
-              <ArrowUpRight size={16} />
-            </a>
-          </Reveal>
-
-         <div className="mt-12">
- <PagedCarousel
-  items={caseStudies}
-  itemsPerPage={{
-    mobile: 1,
-    tablet: 2,
-    desktop: 3,
+<section
+  className="py-24"
+  style={{
+    background:
+      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
   }}
-  arrowVariant="light"
-  renderItem={(study, i) => (
-    <Reveal
-      delay={(i % 3) * 90}
-      className="h-full"
-    >
-      <article
-        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-        style={{
-          border: "1px solid #E5E1F5",
-        }}
+>
+  <div className={ALIGN}>
+    <Reveal className="flex items-center justify-between">
+      <h2
+        className="font-heading text-[36px] font-medium lg:text-[44px]"
+        style={{ color: CHAMPION_BLUE }}
       >
-        {/* IMAGE */}
-        <div className="h-[220px] flex-shrink-0 overflow-hidden">
-          <img
-            src={study.image}
-            alt={study.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-        </div>
+        Enterprise Platform Case Studies
+      </h2>
 
-        {/* CONTENT */}
-        <div className="flex flex-1 flex-col p-6">
-
-          <span
-            className="font-body text-[12px] font-semibold tracking-wide"
-            style={{
-              color: INDIGO_CTA,
-            }}
-          >
-            CASE STUDY
-          </span>
-
-          <h3
-            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-            style={{
-              color: CHAMPION_BLUE,
-            }}
-          >
-            {study.title}
-          </h3>
-
-          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-            {study.body}
-          </p>
-
-          {/* LEARN MORE */}
-          <Link
-            href={`/services/digital-software/casestudies/${study.slug}`}
-            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 hover:translate-x-1"
-            style={{
-              color: INDIGO_CTA,
-            }}
-          >
-            Learn More
-            <ArrowUpRight size={15} />
-          </Link>
-
-        </div>
-      </article>
+      <Link
+        href={CASE_STUDY_BASE}
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
+      >
+        View All Enterprise Platform Case Studies
+        <ArrowUpRight size={16} />
+      </Link>
     </Reveal>
-  )}
-/>
-</div>
 
-        </div>
-      </section>
+    <div className="mt-12">
+      <PagedCarousel
+        items={caseStudies}
+        itemsPerPage={{
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        }}
+        arrowVariant="light"
+        renderItem={(study, i) => (
+          <Reveal
+            delay={(i % 3) * 90}
+            className="h-full"
+          >
+            <article
+              className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+              style={{
+                border: "1px solid #E5E1F5",
+              }}
+            >
+              {/* IMAGE */}
+              <Link
+                href={`${CASE_STUDY_BASE}/${study.slug}`}
+                aria-label={`Read ${study.title}`}
+                className="block h-[220px] flex-shrink-0 overflow-hidden"
+              >
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </Link>
 
-  
+              {/* CONTENT */}
+              <div className="flex flex-1 flex-col p-6">
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  CASE STUDY
+                </span>
+
+                <Link
+                  href={`${CASE_STUDY_BASE}/${study.slug}`}
+                  className="block"
+                >
+                  <h3
+                    className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug transition-colors duration-200 group-hover:text-[#4F3FE0]"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {study.title}
+                  </h3>
+                </Link>
+
+                <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                  {study.body}
+                </p>
+
+                {/* LEARN MORE */}
+                <div className="mt-auto pt-6">
+                  <Link
+                    href={`${CASE_STUDY_BASE}/${study.slug}`}
+                    aria-label={`Learn more about ${study.title}`}
+                    className="font-body inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-all duration-200 hover:translate-x-1"
+                    style={{
+                      color: INDIGO_CTA,
+                    }}
+                  >
+                    Learn More
+                    <ArrowUpRight size={15} />
+                  </Link>
+                </div>
+              </div>
+            </article>
+          </Reveal>
+        )}
+      />
+    </div>
+
+    {/* MOBILE VIEW ALL */}
+    <div className="mt-8 flex justify-center sm:hidden">
+      <Link
+        href={CASE_STUDY_BASE}
+        className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
+        style={{ color: INDIGO_CTA }}
+      >
+        View All Enterprise Platform Case Studies
+        <ArrowUpRight size={16} />
+      </Link>
+    </div>
+  </div>
+</section>
 
    {/* ============================================================
     INSIGHTS / WHAT'S NEW
@@ -1285,7 +1299,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
         className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
         style={{ color: CHAMPION_BLUE }}
       >
-        What's New in Enterprise Automation
+        What's New in Enterprise Platform Insights
       </h2>
 
       <Link
@@ -1334,7 +1348,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                         color: INDIGO_CTA,
                       }}
                     >
-                      ENTERPRISE AUTOMATION
+                      ENTERPRISE PLATFORM
                     </span>
 
                     <h3
@@ -1378,7 +1392,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                         color: INDIGO_CTA,
                       }}
                     >
-                      ENTERPRISE AUTOMATION
+                      ENTERPRISE PLATFORM
                     </span>
 
                     <h3
