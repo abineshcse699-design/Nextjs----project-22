@@ -213,42 +213,68 @@ type InsightPost = {
   body: string;
 };
 
-const insights: InsightPost[] = [
+
+
+const insights = [
   {
-    slug: "cloud-cost-optimization-multi-cloud-spend",    large: true,
+    slug: "generative-ai-enterprise-data-warehouses-to-answers",
+    large: true,
     image:
-      "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Cloud Cost Optimization: Cutting Multi-Cloud Spend Without Losing Performance",
-    body: "Explore how Starfii audits, right sizes, and automates cloud spend across AWS, Azure, and GCP, so operations costs come down without touching reliability.",
+      "Generative AI: From Enterprise Data Warehouses to Answers",
+    body:
+      "Discover how enterprises can connect generative AI with governed data warehouses to turn business questions into trusted, actionable answers.",
   },
   {
-    slug: "devops-automation-ci-cd-release-time",    large: false,
+    slug: "cloud-data-platforms-aws-azure-gcp",
+    large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "DevOps Automation: How CI/CD Pipelines Cut Release Time by 60%",
-    body: "Stop trading speed for stability. See how Starfii's CI/CD automation and test automation shorten release cycles while keeping production reliable.",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+    title:
+      "Cloud Data Platforms: AWS, Azure and GCP",
+    body:
+      "A practical look at building scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
   },
   {
-    slug: "cybersecurity-operations-framework",    large: false,
+    slug: "data-governance-at-scale-trust-every-pipeline",
+    large: false,
     image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
-    title: "Cybersecurity Operations: Building a Framework That Scales With You",
-    body: "Stop reacting to threats after the fact. See how Starfii builds continuous security monitoring into everyday IT operations from day one.",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1000&auto=format&fit=crop",
+    title:
+      "Data Governance at Scale: Trust Every Pipeline",
+    body:
+      "Learn how scalable data governance can improve trust, security, quality, and accountability across enterprise data pipelines.",
   },
   {
-    slug: "cloud-infrastructure-operations-reliability",    large: false,
+    slug: "mdm-in-practice-one-customer-record",
+    large: false,
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop",
-    title: "Cloud Infrastructure Operations: Keeping Enterprise Systems Reliable",
-    body: "Explore how modern cloud operations across AWS, Azure, and GCP help enterprise teams improve reliability, visibility, and cost efficiency as workloads scale.",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop",
+    title:
+      "MDM in Practice: One Customer Record",
+    body:
+      "How master data management can help organizations create a consistent, trusted view of customers across systems.",
   },
   {
-    slug: "it-operations-automation-reducing-manual-work",    large: false,
+    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
+    large: false,
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
-    title: "IT Operations Automation: Reducing Manual Work at Scale",
-    body: "See how automation across monitoring, DevOps, and repetitive IT workflows helps teams respond faster while keeping day to day operations stable.",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
+    title:
+      "Legacy Warehouse to Lakehouse: A Migration Playbook",
+    body:
+      "A practical approach to modernizing legacy data warehouses and moving toward scalable lakehouse architectures.",
+  },
+  {
+    slug: "bi-dashboards-designed-around-decisions",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
+    title:
+      "BI Dashboards Designed Around Decisions",
+    body:
+      "Move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
   },
 ];
 
@@ -1399,105 +1425,68 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
-      <section className="bg-[#EEF0F7] py-24">
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {"What's New in IT Operations"}
-            </h2>
-            <a
-              href="/services/digital-it-operations/blogs"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Insights
-              <ArrowUpRight size={16} />
-            </a>
-          </Reveal>
+<section className="bg-[#EEF0F7] py-24">
+  <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
 
-          <div className="mt-12">
-            <Carousel
-              itemCount={insights.length}
-              arrowVariant="light"
-              clickToAdvance
-            >
-              {insights.map((post, i) => (
-                <Reveal
-                  key={post.title}
-                  delay={i * 90}
-                  data-carousel-card
-                  className={`flex-shrink-0 snap-start cursor-pointer ${
-                    post.large ? "w-[420px]" : "w-[340px]"
-                  }`}
-                >
-                  {post.large ? (
-                    <Link
-                      href={`/services/digital-it-operations/blogs/${post.slug}`}
-                      className="group relative block h-[420px] overflow-hidden rounded-2xl"
-                    >
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </Link>
-                  ) : (
-                    <Link
-                      href={`/services/digital-it-operations/blogs/${post.slug}`}
-                      className="group block"
-                    >
-                      <div className="h-[220px] overflow-hidden rounded-2xl">
-                        <img
-                          src={post.image}
-                          alt={post.title}
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                      </div>
-                      <div className="pt-5">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: INDIGO_CTA }}
-                        >
-                          BLOG
-                        </span>
-                        <h3
-                          className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
-                          {post.title}
-                        </h3>
-                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                          {post.body}
-                        </p>
-                      </div>
-                    </Link>
-                  )}
-                </Reveal>
-              ))}
-            </Carousel>
-          </div>
+    <div className="flex items-center justify-between">
+      <h2 className="text-[36px] font-medium text-[#1B2560] lg:text-[44px]">
+        What's New in Data & Analytics
+      </h2>
+
+      <Link
+        href="/services/data-analytics/blogs"
+        className="hidden items-center gap-2 text-[15px] font-semibold text-[#4F3FE0] sm:flex"
+      >
+        View All Insights
+        <ArrowUpRight size={16} />
+      </Link>
+    </div>
+
+    <div className="mt-12 flex gap-6 overflow-x-auto pb-4">
+      {insights.map((post) => (
+        <div
+          key={post.slug}
+          className={`flex-shrink-0 ${
+            post.large ? "w-[420px]" : "w-[340px]"
+          }`}
+        >
+          <Link
+            href={`/services/data-analytics/blogs/${post.slug}`}
+            className="group block"
+          >
+            <div className="h-[220px] overflow-hidden rounded-2xl">
+              <img
+                src={post.image}
+                alt={post.title}
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+            </div>
+
+            <div className="pt-5">
+              <span className="text-[12px] font-semibold tracking-wide text-[#4F3FE0]">
+                BLOG
+              </span>
+
+              <h3 className="mt-2 text-[19px] font-semibold leading-snug text-[#1B2560]">
+                {post.title}
+              </h3>
+
+              <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
+                {post.body}
+              </p>
+
+              <span className="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-[#4F3FE0]">
+                Read Article
+                <ArrowUpRight size={15} />
+              </span>
+            </div>
+          </Link>
         </div>
-      </section>
+      ))}
+    </div>
+
+  </div>
+</section>
 
       {/* ============================================================
           FAQ — built for AEO/GEO: short, self-contained Q&A pairs

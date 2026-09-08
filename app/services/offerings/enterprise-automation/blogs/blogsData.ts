@@ -2,9 +2,29 @@
    BLOG TYPES
 ============================================================ */
 
+export type BlogHighlight = {
+  number: string;
+  title: string;
+  body: string;
+};
+
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
+  image?: string;
+  imageAlt?: string;
+  quote?: string;
+};
+
+export type BlogBenefit = {
+  title: string;
+  body: string;
+};
+
+export type BlogProcessStep = {
+  number: string;
+  title: string;
+  body: string;
 };
 
 export type BlogService =
@@ -31,7 +51,25 @@ export type BlogPost = {
   };
 
   intro: string[];
+
+  highlights?: BlogHighlight[];
+
   sections: BlogSection[];
+
+  benefits?: BlogBenefit[];
+
+  process?: BlogProcessStep[];
+
+  keyTakeaways?: string[];
+
+  conclusion?: string;
+
+  cta?: {
+    title: string;
+    body: string;
+    buttonText: string;
+    buttonHref: string;
+  };
 };
 
 /* ============================================================
@@ -95,6 +133,27 @@ export const blogPosts: BlogPost[] = [
       "AI-powered medical coding introduces a structured layer of clinical language understanding and coding recommendations, while keeping qualified professionals in control of every final decision.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Faster First Pass",
+        body:
+          "AI can analyze clinical documentation and surface relevant diagnoses and procedures far faster than manual review alone.",
+      },
+      {
+        number: "02",
+        title: "Human Validated",
+        body:
+          "Every AI recommendation is routed through qualified coding professionals before it becomes final.",
+      },
+      {
+        number: "03",
+        title: "Built to Scale",
+        body:
+          "Coding intelligence can extend across specialties and documentation volume without proportional headcount growth.",
+      },
+    ],
+
     sections: [
       {
         heading:
@@ -107,6 +166,10 @@ export const blogPosts: BlogPost[] = [
 
           "As volumes increase, manual only workflows can create backlogs that affect claims timelines and downstream revenue cycle operations.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Coding team reviewing clinical documentation",
       },
 
       {
@@ -133,6 +196,9 @@ export const blogPosts: BlogPost[] = [
 
           "This human in the loop approach preserves accountability while reducing the repetitive portion of coding work.",
         ],
+
+        quote:
+          "AI accelerates the search for relevant documentation. It does not replace the judgment of a qualified coder.",
       },
 
       {
@@ -146,6 +212,10 @@ export const blogPosts: BlogPost[] = [
 
           "This is particularly relevant for organizations that code across multiple specialties or handle high volumes of similar documentation types.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Coding professionals collaborating across specialties",
       },
 
       {
@@ -161,6 +231,95 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Faster First Pass Coding",
+        body:
+          "AI assisted analysis of clinical documentation reduces the time needed to identify relevant diagnoses and procedures.",
+      },
+      {
+        title: "Preserved Accountability",
+        body:
+          "Human review remains the final step for every coding decision, keeping compliance and clinical accuracy intact.",
+      },
+      {
+        title: "Reduced Variability",
+        body:
+          "Consistent validation logic helps reduce the differences that can occur between individual reviewers and specialties.",
+      },
+      {
+        title: "Evidence Backed Recommendations",
+        body:
+          "AI presents supporting documentation alongside each recommendation, so reviewers can validate decisions quickly.",
+      },
+      {
+        title: "Scalable Coverage",
+        body:
+          "Coding intelligence can extend across documentation types and specialties without proportional headcount increases.",
+      },
+      {
+        title: "Phased Adoption",
+        body:
+          "Organizations can expand AI assisted coding gradually as accuracy and workflow fit are validated.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Assess",
+        body:
+          "Review current coding workflows, documentation types, and volume to identify where AI assistance can add the most value.",
+      },
+      {
+        number: "02",
+        title: "Configure",
+        body:
+          "Set up clinical language understanding and coding recommendation logic for the selected specialties and documentation types.",
+      },
+      {
+        number: "03",
+        title: "Validate",
+        body:
+          "Route AI generated recommendations to qualified coding professionals for review, feedback, and final sign off.",
+      },
+      {
+        number: "04",
+        title: "Measure",
+        body:
+          "Track accuracy, turnaround time, and exception rates to understand the real impact of AI assisted coding.",
+      },
+      {
+        number: "05",
+        title: "Expand",
+        body:
+          "Extend AI assisted coding to additional specialties and documentation types as confidence and results grow.",
+      },
+    ],
+
+    keyTakeaways: [
+      "AI-powered medical coding accelerates the search for relevant diagnoses and procedures within clinical documentation.",
+      "Human review remains central to every final coding decision.",
+      "AI recommendations are presented with supporting evidence so reviewers can validate them efficiently.",
+      "Consistency across coders and specialties improves when validation logic is applied uniformly.",
+      "A phased rollout allows organizations to build confidence before expanding coverage.",
+      "Backlogs caused by manual only workflows can ease as AI handles repetitive first pass review.",
+      "Coding professionals shift from searching documentation to validating and finalizing recommendations.",
+      "Scaling AI assisted coding does not require proportional increases in coding headcount.",
+    ],
+
+    conclusion:
+      "Moving from manual review to intelligent coding workflows is not about removing coding professionals from the process. It is about giving them a faster, more consistent starting point so their expertise is spent on validation, exceptions, and quality rather than repetitive documentation review. Organizations that approach this transition in phases, with clear measurement and human oversight at every step, are best positioned to build a coding operation that scales with demand.",
+
+    cta: {
+      title: "Need Smarter Coding Operations?",
+      body:
+        "See how AI-assisted clinical documentation analysis, coding intelligence, validation, and workflow automation can modernize your medical coding operations.",
+      buttonText: "Talk to Starfii",
+      buttonHref:
+        "/services/offerings/enterprise-automation#connect",
+    },
   },
 
   /* ==========================================================
@@ -202,6 +361,27 @@ export const blogPosts: BlogPost[] = [
       "This approach can capture the efficiency benefits of AI while preserving the accountability that healthcare coding requires.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Judgment First",
+        body:
+          "AI accelerates repetitive review while professional judgment stays central to every coding decision.",
+      },
+      {
+        number: "02",
+        title: "Clear Exceptions",
+        body:
+          "Low confidence and conflicting cases are routed to human reviewers rather than resolved automatically.",
+      },
+      {
+        number: "03",
+        title: "Full Traceability",
+        body:
+          "Every recommendation carries the supporting documentation and logic behind it for audit and review.",
+      },
+    ],
+
     sections: [
       {
         heading:
@@ -227,6 +407,10 @@ export const blogPosts: BlogPost[] = [
 
           "This frees coding professionals to focus on judgment intensive tasks such as ambiguous cases, exceptions, and final sign off.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Coding professional reviewing AI assisted recommendations",
       },
 
       {
@@ -253,6 +437,9 @@ export const blogPosts: BlogPost[] = [
 
           "This traceability also supports compliance and audit requirements that are common in healthcare coding operations.",
         ],
+
+        quote:
+          "Trust in AI assisted coding is built through explainability, not just accuracy.",
       },
 
       {
@@ -268,6 +455,95 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Reduced Risk",
+        body:
+          "Keeping qualified professionals in the final decision loop preserves compliance and clinical accuracy standards.",
+      },
+      {
+        title: "Faster Reviews",
+        body:
+          "AI narrows reviewer focus to relevant documentation, reducing time spent searching clinical records.",
+      },
+      {
+        title: "Reliable Exception Routing",
+        body:
+          "Low confidence or conflicting cases are automatically directed to human reviewers before they progress further.",
+      },
+      {
+        title: "Auditable Decisions",
+        body:
+          "Traceable recommendations support compliance reviews and internal quality audits.",
+      },
+      {
+        title: "Coder Trust",
+        body:
+          "Explainable recommendations help coding teams adopt and rely on AI assisted workflows with confidence.",
+      },
+      {
+        title: "Continuous Improvement",
+        body:
+          "Ongoing measurement of accuracy and turnaround helps refine the workflow as it matures.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Define",
+        body:
+          "Establish where AI can assist versus where a case must be routed directly to a coding professional.",
+      },
+      {
+        number: "02",
+        title: "Build",
+        body:
+          "Configure validation rules, confidence thresholds, and exception handling logic for the coding workflow.",
+      },
+      {
+        number: "03",
+        title: "Review",
+        body:
+          "Have qualified coders validate AI recommendations, with full visibility into supporting evidence.",
+      },
+      {
+        number: "04",
+        title: "Trace",
+        body:
+          "Maintain a clear audit trail connecting every recommendation to its supporting documentation and logic.",
+      },
+      {
+        number: "05",
+        title: "Refine",
+        body:
+          "Use accuracy, turnaround, and coder feedback data to continuously improve the workflow.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Full automation without human review is rarely appropriate for healthcare coding.",
+      "AI is best suited to repetitive, well defined scanning and validation tasks.",
+      "Clear exception handling is essential to route low confidence cases to human reviewers.",
+      "Explainable, traceable recommendations build coder trust in AI assisted workflows.",
+      "Traceability also supports compliance and audit requirements common in healthcare coding.",
+      "Measuring both AI performance and reviewer experience is essential to program success.",
+      "Human-in-the-loop design captures efficiency gains while preserving accountability.",
+      "Workflow refinement should be treated as an ongoing process, not a one time deployment.",
+    ],
+
+    conclusion:
+      "Human-in-the-loop AI is not a compromise on the way to full automation. For healthcare coding, it is the right operating model, one that captures the speed and consistency AI can offer while keeping qualified professionals accountable for every final decision. Organizations that invest in clear exception handling, traceability, and ongoing measurement build coding programs that coders trust and that stand up to compliance scrutiny.",
+
+    cta: {
+      title: "Need Smarter Coding Operations?",
+      body:
+        "See how AI-assisted clinical documentation analysis, coding intelligence, validation, and workflow automation can modernize your medical coding operations.",
+      buttonText: "Talk to Starfii",
+      buttonHref:
+        "/services/offerings/enterprise-automation#connect",
+    },
   },
 
   /* ==========================================================
@@ -309,6 +585,27 @@ export const blogPosts: BlogPost[] = [
       "Connecting coding intelligence with revenue cycle operations can help organizations reduce rework and improve overall financial performance.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Cleaner Claims",
+        body:
+          "Improved coding accuracy at the source reduces the volume of claims that require downstream rework.",
+      },
+      {
+        number: "02",
+        title: "Faster Cash Flow",
+        body:
+          "Faster, accurate first pass coding shortens the time between service delivery and claim submission.",
+      },
+      {
+        number: "03",
+        title: "Fewer Denials",
+        body:
+          "Validation rules catch coding related issues before submission rather than after a denial occurs.",
+      },
+    ],
+
     sections: [
       {
         heading:
@@ -334,6 +631,10 @@ export const blogPosts: BlogPost[] = [
 
           "This can improve cash flow predictability and reduce the operational burden of managing aging claims.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Revenue cycle team reviewing claims data",
       },
 
       {
@@ -347,6 +648,9 @@ export const blogPosts: BlogPost[] = [
 
           "This proactive approach can reduce the volume of appeals and rework that revenue cycle teams need to manage.",
         ],
+
+        quote:
+          "Coding quality is not just a documentation exercise. It is one of the strongest levers for revenue cycle performance.",
       },
 
       {
@@ -375,6 +679,94 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Reduced Rework",
+        body:
+          "Cleaner coding at the source reduces the volume of claims that require correction further down the revenue cycle.",
+      },
+      {
+        title: "Improved Cash Flow",
+        body:
+          "Faster, accurate coding shortens the gap between service delivery and claim submission.",
+      },
+      {
+        title: "Fewer Avoidable Denials",
+        body:
+          "Validation checks catch specificity and mismatch issues before claims are submitted to payers.",
+      },
+      {
+        title: "Shared Visibility",
+        body:
+          "Connected coding and claims data gives operations and finance teams a common view of backlog and trends.",
+      },
+      {
+        title: "Informed Staffing",
+        body:
+          "Visibility into turnaround and exception trends supports more accurate staffing and process decisions.",
+      },
+      {
+        title: "Continuous Feedback Loop",
+        body:
+          "Denial patterns feed back into coding validation rules, improving accuracy over time.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Map",
+        body:
+          "Trace how coding issues currently show up as denials, delays, or rework across the revenue cycle.",
+      },
+      {
+        number: "02",
+        title: "Validate",
+        body:
+          "Configure validation rules that catch specificity, mismatch, and documentation gaps before submission.",
+      },
+      {
+        number: "03",
+        title: "Connect",
+        body:
+          "Integrate coding workflows with claims and revenue cycle systems for shared visibility.",
+      },
+      {
+        number: "04",
+        title: "Monitor",
+        body:
+          "Track denial patterns, turnaround time, and rework volume across the coding to claims journey.",
+      },
+      {
+        number: "05",
+        title: "Improve",
+        body:
+          "Feed revenue cycle outcomes back into coding rules and exception handling for continuous improvement.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Coding quality directly influences downstream claims and revenue cycle outcomes.",
+      "AI assisted coding can accelerate first pass coding while preserving accuracy through human review.",
+      "Validation rules can catch many denial causing issues before claims are submitted.",
+      "Shared visibility between coding and claims systems supports better operational decisions.",
+      "A feedback loop between denial patterns and coding rules drives continuous improvement.",
+      "Faster, accurate coding improves cash flow predictability across the revenue cycle.",
+      "Coding is one of the earliest and most influential steps in the revenue cycle.",
+    ],
+
+    conclusion:
+      "Treating medical coding as an isolated documentation task misses its real impact on the revenue cycle. When coding accuracy, validation, and visibility are connected directly to claims and revenue cycle systems, organizations can reduce rework, cut avoidable denials, and improve cash flow predictability. Building a feedback loop between revenue cycle outcomes and coding rules turns this into a continuous improvement process rather than a one time fix.",
+
+    cta: {
+      title: "Need Smarter Coding Operations?",
+      body:
+        "See how AI-assisted clinical documentation analysis, coding intelligence, validation, and workflow automation can modernize your medical coding operations.",
+      buttonText: "Talk to Starfii",
+      buttonHref:
+        "/services/offerings/enterprise-automation#connect",
+    },
   },
 
   /* ==========================================================
@@ -416,6 +808,27 @@ export const blogPosts: BlogPost[] = [
       "AI-assisted review can extend quality checks closer to the point of coding itself, helping teams catch issues earlier and more consistently.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Broader Coverage",
+        body:
+          "AI-assisted validation can extend consistent quality checks across a much larger share of coded cases.",
+      },
+      {
+        number: "02",
+        title: "Earlier Detection",
+        body:
+          "Exceptions are routed to reviewers before a case moves further, rather than during a later audit.",
+      },
+      {
+        number: "03",
+        title: "Targeted Coaching",
+        body:
+          "Recurring exception patterns highlight documentation or training gaps worth addressing directly.",
+      },
+    ],
+
     sections: [
       {
         heading:
@@ -441,6 +854,10 @@ export const blogPosts: BlogPost[] = [
 
           "Consistent validation does not replace professional judgment, but it can catch a class of errors before they reach submission.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Coding quality review workflow",
       },
 
       {
@@ -454,6 +871,9 @@ export const blogPosts: BlogPost[] = [
 
           "Over time, tracking common exception types can also highlight documentation or training gaps worth addressing.",
         ],
+
+        quote:
+          "Catching an issue at the point of coding is far more efficient than catching it during a later audit.",
       },
 
       {
@@ -482,6 +902,95 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Wider Audit Coverage",
+        body:
+          "AI-assisted checks extend consistent validation across far more cases than manual sample audits alone.",
+      },
+      {
+        title: "Earlier Issue Detection",
+        body:
+          "Exceptions surface at the point of coding rather than during a later, retrospective audit cycle.",
+      },
+      {
+        title: "Reduced Reviewer Variability",
+        body:
+          "Uniformly applied validation rules reduce the differences that occur between individual reviewers.",
+      },
+      {
+        title: "Targeted Training Signals",
+        body:
+          "Recurring exception patterns highlight where documentation or coder training could be strengthened.",
+      },
+      {
+        title: "Sustainable Scaling",
+        body:
+          "Quality checks scale with coding volume without requiring proportional growth in manual audit capacity.",
+      },
+      {
+        title: "Preserved Judgment",
+        body:
+          "Consistent validation supports, rather than replaces, the professional judgment of coding reviewers.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Baseline",
+        body:
+          "Review current audit sample sizes and common issue types identified through manual quality reviews.",
+      },
+      {
+        number: "02",
+        title: "Configure",
+        body:
+          "Set up validation rules for specificity, conflicting codes, and other common coding quality issues.",
+      },
+      {
+        number: "03",
+        title: "Route",
+        body:
+          "Direct flagged exceptions to coding professionals at the point of coding rather than during later audits.",
+      },
+      {
+        number: "04",
+        title: "Coach",
+        body:
+          "Use recurring exception patterns to inform targeted coder training and documentation guidance.",
+      },
+      {
+        number: "05",
+        title: "Scale",
+        body:
+          "Extend validation coverage as coding volume grows, without a proportional increase in audit capacity.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Sample based audits often leave many coded cases unreviewed due to time constraints.",
+      "AI-assisted validation can extend consistent quality checks across a much larger share of cases.",
+      "Exceptions surfaced earlier are more efficient to resolve than issues found during later audits.",
+      "Consistent validation rules reduce variability between individual reviewers.",
+      "Recurring exception patterns can inform targeted coder training and coaching.",
+      "AI-assisted review supports professional judgment rather than replacing it.",
+      "Quality checks can scale alongside coding volume without proportional audit capacity growth.",
+      "Earlier intervention reduces the rework associated with post submission corrections.",
+    ],
+
+    conclusion:
+      "Coding quality does not have to depend solely on periodic, sample based audits. By extending validation closer to the point of coding, healthcare organizations can catch more issues earlier, reduce reviewer variability, and turn exception patterns into targeted coaching opportunities. This approach helps coding teams sustain quality standards even as documentation volume and complexity continue to grow.",
+
+    cta: {
+      title: "Need Smarter Coding Operations?",
+      body:
+        "See how AI-assisted clinical documentation analysis, coding intelligence, validation, and workflow automation can modernize your medical coding operations.",
+      buttonText: "Talk to Starfii",
+      buttonHref:
+        "/services/offerings/enterprise-automation#connect",
+    },
   },
 
   /* ==========================================================
@@ -523,6 +1032,27 @@ export const blogPosts: BlogPost[] = [
       "Building scalable coding workflows means thinking about governance, specialty adaptation, and integration from the start.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Start Narrow",
+        body:
+          "Scalable programs typically begin with high volume, well defined documentation types before expanding.",
+      },
+      {
+        number: "02",
+        title: "Stay Consistent",
+        body:
+          "Centralized governance keeps validation, exception handling, and audit standards uniform as scope grows.",
+      },
+      {
+        number: "03",
+        title: "Integrate Deeply",
+        body:
+          "Fitting coding workflows into existing EHR and billing systems reduces manual handoffs at scale.",
+      },
+    ],
+
     sections: [
       {
         heading:
@@ -548,6 +1078,10 @@ export const blogPosts: BlogPost[] = [
 
           "This adaptation work is often what determines how well an AI assisted coding program performs as it expands beyond its initial use case.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Coding teams adapting workflows across specialties",
       },
 
       {
@@ -561,6 +1095,9 @@ export const blogPosts: BlogPost[] = [
 
           "Centralized governance helps ensure that scaling automation does not also scale inconsistency or risk.",
         ],
+
+        quote:
+          "Scaling automation without scaling governance also scales risk.",
       },
 
       {
@@ -589,6 +1126,94 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Validated Foundations",
+        body:
+          "Starting with high volume, well defined use cases validates accuracy before broader rollout.",
+      },
+      {
+        title: "Specialty Fit",
+        body:
+          "Adapted extraction and recommendation logic performs reliably across different documentation patterns.",
+      },
+      {
+        title: "Consistent Governance",
+        body:
+          "Centralized standards for validation and exception handling keep risk in check as scope expands.",
+      },
+      {
+        title: "Fewer Manual Handoffs",
+        body:
+          "Integration with EHR and billing systems reduces disconnected, manual steps as volume grows.",
+      },
+      {
+        title: "Ongoing Visibility",
+        body:
+          "Continuous monitoring surfaces performance issues in new specialties or documentation types early.",
+      },
+      {
+        title: "Sustainable Growth",
+        body:
+          "Governance, specialty adaptation, and monitoring together allow coding automation to scale reliably.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Prioritize",
+        body:
+          "Select high volume, well defined documentation types and specialties as the starting point.",
+      },
+      {
+        number: "02",
+        title: "Adapt",
+        body:
+          "Configure extraction and recommendation logic to specialty specific terminology and documentation patterns.",
+      },
+      {
+        number: "03",
+        title: "Govern",
+        body:
+          "Set centralized standards for validation, exception handling, and audit trail requirements.",
+      },
+      {
+        number: "04",
+        title: "Integrate",
+        body:
+          "Connect coding workflows with existing EHR, billing, and revenue cycle systems.",
+      },
+      {
+        number: "05",
+        title: "Monitor",
+        body:
+          "Track accuracy, exception rates, and turnaround as the program expands to new specialties.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Scalable coding automation typically starts with high volume, well defined documentation types.",
+      "Specialty specific adaptation is essential as coverage expands beyond the initial use case.",
+      "Centralized governance keeps validation and audit standards consistent at scale.",
+      "Integration with EHR and billing systems reduces manual handoffs as volume increases.",
+      "Continuous monitoring helps catch performance issues in new specialties early.",
+      "Early wins in well defined areas build organizational confidence in the broader program.",
+      "Sustainable scaling depends on governance, specialty adaptation, and monitoring working together.",
+    ],
+
+    conclusion:
+      "Scaling a coding operation is not simply a matter of adding more automation. It requires a deliberate approach that starts with well defined use cases, adapts to specialty specific documentation, keeps governance consistent, and integrates deeply with existing healthcare systems. Organizations that build scalability into the foundation of their coding automation program are better positioned to grow coverage without growing risk.",
+
+    cta: {
+      title: "Need Smarter Coding Operations?",
+      body:
+        "See how AI-assisted clinical documentation analysis, coding intelligence, validation, and workflow automation can modernize your medical coding operations.",
+      buttonText: "Talk to Starfii",
+      buttonHref:
+        "/services/offerings/enterprise-automation#connect",
+    },
   },
 ];
 

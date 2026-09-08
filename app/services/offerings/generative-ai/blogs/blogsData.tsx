@@ -2,9 +2,29 @@
    BLOG TYPES
 ============================================================ */
 
+export type BlogHighlight = {
+  number: string;
+  title: string;
+  body: string;
+};
+
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
+  image?: string;
+  imageAlt?: string;
+  quote?: string;
+};
+
+export type BlogBenefit = {
+  title: string;
+  body: string;
+};
+
+export type BlogProcessStep = {
+  number: string;
+  title: string;
+  body: string;
 };
 
 export type BlogPost = {
@@ -26,7 +46,25 @@ export type BlogPost = {
   };
 
   intro: string[];
+
+  highlights?: BlogHighlight[];
+
   sections: BlogSection[];
+
+  benefits?: BlogBenefit[];
+
+  process?: BlogProcessStep[];
+
+  keyTakeaways?: string[];
+
+  conclusion?: string;
+
+  cta?: {
+    title: string;
+    body: string;
+    buttonText: string;
+    buttonHref: string;
+  };
 };
 
 /* ============================================================
@@ -36,8 +74,7 @@ export type BlogPost = {
 const AUTHOR = {
   name: "Sanjay Salunkhe",
 
-  role:
-    "President and Global Head of Digital and Software Services",
+  role: "President and Global Head of Digital and Software Services",
 
   photo:
     "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
@@ -46,26 +83,30 @@ const AUTHOR = {
     "Sanjay Salunkhe is the President and Global Head of Digital and Software Services of our Company.",
 };
 
+const CTA = {
+  title: "Ready to Turn Your Meetings Into Action?",
+  body:
+    "See how Starfii's AI Meeting Assistant can capture conversations, surface decisions, and connect every follow-up to the systems your team already uses.",
+  buttonText: "Talk to Starfii",
+  buttonHref: "/contact",
+};
+
 /* ============================================================
    AI MEETING ASSISTANT BLOGS
 ============================================================ */
 
 export const blogPosts: BlogPost[] = [
   {
-    slug:
-      "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
+    slug: "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
 
     title:
       "AI Meeting Assistants: Turning Conversations Into Actionable Intelligence",
 
-    category:
-      "AI Meeting Assistant",
+    category: "AI Meeting Assistant",
 
-    lastUpdated:
-      "Sep 7, 2026",
+    lastUpdated: "Sep 7, 2026",
 
-    readTime:
-      "7 min read",
+    readTime: "8 min read",
 
     heroImage:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
@@ -83,10 +124,30 @@ export const blogPosts: BlogPost[] = [
       "AI meeting assistants can help transform conversations into structured intelligence by capturing important discussion points, summarizing outcomes, and highlighting actions that require follow-up.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Capture Everything",
+        body:
+          "AI can process live conversations and organize the important context automatically, without relying on manual note-taking.",
+      },
+      {
+        number: "02",
+        title: "Structure the Outcome",
+        body:
+          "Discussions become organized summaries, decisions, and action items that are easy to review and share.",
+      },
+      {
+        number: "03",
+        title: "Drive Execution",
+        body:
+          "Meeting intelligence connects directly to the workflows and tools where follow-up actually happens.",
+      },
+    ],
+
     sections: [
       {
-        heading:
-          "1. The Challenge of Manual Meeting Documentation",
+        heading: "1. The Challenge of Manual Meeting Documentation",
 
         paragraphs: [
           "Traditional meetings often depend on participants taking notes while simultaneously contributing to the discussion.",
@@ -98,8 +159,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "2. How AI Meeting Assistants Capture Context",
+        heading: "2. How AI Meeting Assistants Capture Context",
 
         paragraphs: [
           "AI meeting assistants can process meeting conversations and organize important information into structured outputs.",
@@ -108,11 +168,13 @@ export const blogPosts: BlogPost[] = [
 
           "This creates a more accessible record of the meeting while reducing the manual effort required to document every conversation.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team reviewing a structured meeting summary",
       },
 
       {
-        heading:
-          "3. Turning Discussions Into Action Items",
+        heading: "3. Turning Discussions Into Action Items",
 
         paragraphs: [
           "One of the most important outcomes of a business meeting is understanding what needs to happen next.",
@@ -124,8 +186,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "4. Making Meeting Knowledge Searchable",
+        heading: "4. Making Meeting Knowledge Searchable",
 
         paragraphs: [
           "Business knowledge is often created during meetings but becomes difficult to access after the conversation ends.",
@@ -134,11 +195,12 @@ export const blogPosts: BlogPost[] = [
 
           "This can help reduce repeated discussions and improve continuity across projects and teams.",
         ],
+        quote:
+          "The value of a meeting should not disappear the moment the call ends.",
       },
 
       {
-        heading:
-          "5. Building More Productive Meeting Workflows",
+        heading: "5. Building More Productive Meeting Workflows",
 
         paragraphs: [
           "The value of an AI meeting assistant extends beyond transcription or summary generation.",
@@ -147,8 +209,74 @@ export const blogPosts: BlogPost[] = [
 
           "Over time, organizations can build meeting workflows where important discussions are captured, structured, and connected to the work that follows.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team connecting meeting outcomes to workflow tools",
       },
     ],
+
+    benefits: [
+      {
+        title: "Less Manual Note-Taking",
+        body:
+          "Automated capture reduces the time participants spend documenting conversations instead of contributing to them.",
+      },
+      {
+        title: "Clearer Decisions",
+        body:
+          "Structured summaries make it easy to see what was decided and why, without reviewing a full recording.",
+      },
+      {
+        title: "Faster Follow-Up",
+        body:
+          "Action items are surfaced automatically, so execution can begin without waiting on manual documentation.",
+      },
+      {
+        title: "Searchable Knowledge",
+        body:
+          "Past discussions become easy to find, reducing repeated conversations and lost context.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Capture",
+        body:
+          "The assistant listens to the conversation and organizes discussion points as the meeting happens.",
+      },
+      {
+        number: "02",
+        title: "Structure",
+        body:
+          "Key themes, decisions, and commitments are organized into a clear, reviewable summary.",
+      },
+      {
+        number: "03",
+        title: "Surface",
+        body:
+          "Action items and owners are identified so nothing important is left as a verbal agreement.",
+      },
+      {
+        number: "04",
+        title: "Connect",
+        body:
+          "Outcomes are linked to the workflow tools teams already use to track and complete work.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Manual meeting documentation is inconsistent and time consuming.",
+      "AI can organize conversations into structured summaries and themes.",
+      "Action items should be identified automatically, not remembered manually.",
+      "Searchable meeting knowledge reduces repeated discussions.",
+      "Meeting intelligence delivers the most value when connected to real workflows.",
+    ],
+
+    conclusion:
+      "AI meeting assistants give teams a way to capture the full value of a conversation instead of losing it to fragmented notes and memory. By structuring discussions into summaries, decisions, and action items, and connecting those outcomes to the tools teams already use, organizations can turn every meeting into a source of actionable intelligence rather than a one-time conversation.",
+
+    cta: CTA,
   },
 
   /* ==========================================================
@@ -156,20 +284,16 @@ export const blogPosts: BlogPost[] = [
   ========================================================== */
 
   {
-    slug:
-      "ai-meeting-assistant-smart-summaries-and-follow-ups",
+    slug: "ai-meeting-assistant-smart-summaries-and-follow-ups",
 
     title:
       "AI Meeting Summaries: Making Follow-Ups Faster and More Consistent",
 
-    category:
-      "AI Meeting Assistant",
+    category: "AI Meeting Assistant",
 
-    lastUpdated:
-      "Sep 7, 2026",
+    lastUpdated: "Sep 7, 2026",
 
-    readTime:
-      "6 min read",
+    readTime: "7 min read",
 
     heroImage:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1600&auto=format&fit=crop",
@@ -187,10 +311,30 @@ export const blogPosts: BlogPost[] = [
       "The goal is not to replace human judgment but to reduce repetitive documentation work and make important information easier to review.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Consistent Records",
+        body:
+          "Every meeting produces the same structured summary format, regardless of who attended or took notes.",
+      },
+      {
+        number: "02",
+        title: "Shared Understanding",
+        body:
+          "Teams leave with the same view of what was discussed and decided, reducing misalignment.",
+      },
+      {
+        number: "03",
+        title: "Reliable Follow-Up",
+        body:
+          "Next steps are documented clearly enough that follow-up does not depend on individual memory.",
+      },
+    ],
+
     sections: [
       {
-        heading:
-          "1. Why Meeting Summaries Matter",
+        heading: "1. Why Meeting Summaries Matter",
 
         paragraphs: [
           "Important business decisions are frequently made during conversations rather than formal documentation processes.",
@@ -202,8 +346,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "2. Capturing Important Discussion Themes",
+        heading: "2. Capturing Important Discussion Themes",
 
         paragraphs: [
           "Not every part of a meeting carries the same level of importance.",
@@ -212,11 +355,13 @@ export const blogPosts: BlogPost[] = [
 
           "Participants can review structured information instead of manually searching through long recordings or notes.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team reviewing themed meeting notes",
       },
 
       {
-        heading:
-          "3. Highlighting Decisions and Outcomes",
+        heading: "3. Highlighting Decisions and Outcomes",
 
         paragraphs: [
           "Business meetings often produce decisions that influence projects, customers, and operations.",
@@ -228,8 +373,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "4. Supporting Better Follow-Up",
+        heading: "4. Supporting Better Follow-Up",
 
         paragraphs: [
           "Follow-up becomes easier when responsibilities and next steps are clearly visible.",
@@ -238,11 +382,12 @@ export const blogPosts: BlogPost[] = [
 
           "This reduces the risk that valuable discussions end without clear execution.",
         ],
+        quote:
+          "A summary is only useful if it makes the next step obvious.",
       },
 
       {
-        heading:
-          "5. Creating Consistency Across Teams",
+        heading: "5. Creating Consistency Across Teams",
 
         paragraphs: [
           "Different teams often document meetings in different ways.",
@@ -251,8 +396,74 @@ export const blogPosts: BlogPost[] = [
 
           "This consistency can improve knowledge sharing across projects and departments.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Cross-team collaboration around shared meeting notes",
       },
     ],
+
+    benefits: [
+      {
+        title: "Uniform Documentation",
+        body:
+          "Every meeting is summarized in the same format, making it easy to compare and review across teams.",
+      },
+      {
+        title: "Reduced Misalignment",
+        body:
+          "Shared, structured summaries lower the chance that participants walk away with different interpretations.",
+      },
+      {
+        title: "Faster Review",
+        body:
+          "Structured summaries take a fraction of the time to review compared to full recordings or raw notes.",
+      },
+      {
+        title: "Better Knowledge Sharing",
+        body:
+          "Consistent summaries make it easier to share outcomes with people who did not attend the meeting.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Listen",
+        body:
+          "The assistant processes the conversation as it happens, without disrupting the discussion.",
+      },
+      {
+        number: "02",
+        title: "Summarize",
+        body:
+          "Key themes and outcomes are organized into a concise, structured summary.",
+      },
+      {
+        number: "03",
+        title: "Highlight",
+        body:
+          "Decisions and next steps are called out clearly so they are not buried in general notes.",
+      },
+      {
+        number: "04",
+        title: "Share",
+        body:
+          "Summaries are distributed consistently so every stakeholder has the same information.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Inconsistent meeting follow-up often comes from inconsistent documentation.",
+      "AI-generated summaries provide a consistent structure across every meeting.",
+      "Decisions and outcomes should be highlighted, not buried in general notes.",
+      "Clear summaries make follow-up less dependent on individual memory.",
+      "Consistency in documentation improves knowledge sharing across teams.",
+    ],
+
+    conclusion:
+      "Consistent, structured meeting summaries remove much of the ambiguity that slows down follow-up. By capturing themes, decisions, and next steps in the same format every time, AI-assisted summaries give teams a shared, reliable record they can act on immediately after a meeting ends.",
+
+    cta: CTA,
   },
 
   /* ==========================================================
@@ -260,20 +471,16 @@ export const blogPosts: BlogPost[] = [
   ========================================================== */
 
   {
-    slug:
-      "ai-meeting-assistant-action-items-and-accountability",
+    slug: "ai-meeting-assistant-action-items-and-accountability",
 
     title:
       "AI Meeting Assistants and Action Items: Improving Accountability After Meetings",
 
-    category:
-      "AI Meeting Assistant",
+    category: "AI Meeting Assistant",
 
-    lastUpdated:
-      "Sep 7, 2026",
+    lastUpdated: "Sep 7, 2026",
 
-    readTime:
-      "6 min read",
+    readTime: "7 min read",
 
     heroImage:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1600&auto=format&fit=crop",
@@ -291,10 +498,30 @@ export const blogPosts: BlogPost[] = [
       "Structured follow-up can improve visibility and accountability across projects and teams.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Surface Commitments",
+        body:
+          "AI identifies verbal commitments and responsibilities that would otherwise go undocumented.",
+      },
+      {
+        number: "02",
+        title: "Assign Ownership",
+        body:
+          "Action items are attached to the people responsible for them, reducing ambiguity.",
+      },
+      {
+        number: "03",
+        title: "Track Follow-Through",
+        body:
+          "Organizations gain visibility into which commitments turned into completed work.",
+      },
+    ],
+
     sections: [
       {
-        heading:
-          "1. Why Action Items Get Lost",
+        heading: "1. Why Action Items Get Lost",
 
         paragraphs: [
           "Action items are frequently discussed verbally without being formally documented.",
@@ -306,8 +533,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "2. Identifying Commitments From Conversations",
+        heading: "2. Identifying Commitments From Conversations",
 
         paragraphs: [
           "Business conversations often contain commitments, responsibilities, and next steps expressed in natural language.",
@@ -316,11 +542,13 @@ export const blogPosts: BlogPost[] = [
 
           "Teams can then validate and assign the appropriate follow-up activities.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team reviewing action items from a meeting",
       },
 
       {
-        heading:
-          "3. Improving Ownership Visibility",
+        heading: "3. Improving Ownership Visibility",
 
         paragraphs: [
           "Clear ownership is important when multiple people participate in a project or business process.",
@@ -332,8 +560,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "4. Connecting Meetings With Workflows",
+        heading: "4. Connecting Meetings With Workflows",
 
         paragraphs: [
           "The greatest value comes when meeting outcomes are connected to the systems teams already use.",
@@ -342,11 +569,12 @@ export const blogPosts: BlogPost[] = [
 
           "This helps conversations move more directly into execution.",
         ],
+        quote:
+          "An action item that lives only in someone's memory is not an action item at all.",
       },
 
       {
-        heading:
-          "5. Measuring Follow-Through",
+        heading: "5. Measuring Follow-Through",
 
         paragraphs: [
           "Organizations can use meeting intelligence to better understand how discussions translate into actions.",
@@ -355,8 +583,74 @@ export const blogPosts: BlogPost[] = [
 
           "This creates a feedback loop between communication and execution.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Dashboard tracking meeting follow-through",
       },
     ],
+
+    benefits: [
+      {
+        title: "Fewer Missed Commitments",
+        body:
+          "Verbal agreements are captured and documented instead of relying on memory alone.",
+      },
+      {
+        title: "Clear Ownership",
+        body:
+          "Each action item is tied to a responsible person, reducing confusion after the meeting ends.",
+      },
+      {
+        title: "Improved Accountability",
+        body:
+          "Visible, tracked action items make it easier to follow up on outstanding work.",
+      },
+      {
+        title: "Operational Insight",
+        body:
+          "Patterns in follow-through reveal where communication or execution processes need improvement.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Detect",
+        body:
+          "The assistant identifies commitments and responsibilities expressed during the conversation.",
+      },
+      {
+        number: "02",
+        title: "Assign",
+        body:
+          "Action items are matched with the person responsible for completing them.",
+      },
+      {
+        number: "03",
+        title: "Validate",
+        body:
+          "Teams review and confirm the identified action items before they are distributed.",
+      },
+      {
+        number: "04",
+        title: "Monitor",
+        body:
+          "Follow-through is tracked over time to surface accountability trends.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Verbal commitments are easy to lose without structured documentation.",
+      "AI can surface commitments and responsibilities directly from conversation.",
+      "Clear ownership reduces ambiguity about who is responsible for what.",
+      "Connecting action items to workflows helps conversations turn into execution.",
+      "Tracking follow-through reveals opportunities to improve accountability.",
+    ],
+
+    conclusion:
+      "Accountability starts with visibility. By surfacing commitments, assigning clear ownership, and tracking follow-through, AI meeting assistants help ensure that what gets discussed in a meeting actually gets done afterward, rather than fading into memory.",
+
+    cta: CTA,
   },
 
   /* ==========================================================
@@ -364,20 +658,15 @@ export const blogPosts: BlogPost[] = [
   ========================================================== */
 
   {
-    slug:
-      "enterprise-ai-meeting-intelligence",
+    slug: "enterprise-ai-meeting-intelligence",
 
-    title:
-      "Enterprise AI Meeting Intelligence: Beyond Transcription",
+    title: "Enterprise AI Meeting Intelligence: Beyond Transcription",
 
-    category:
-      "AI Meeting Assistant",
+    category: "AI Meeting Assistant",
 
-    lastUpdated:
-      "Sep 7, 2026",
+    lastUpdated: "Sep 7, 2026",
 
-    readTime:
-      "7 min read",
+    readTime: "8 min read",
 
     heroImage:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1600&auto=format&fit=crop",
@@ -395,10 +684,30 @@ export const blogPosts: BlogPost[] = [
       "This approach can connect meeting knowledge with the systems and workflows where teams perform their work.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Structured Knowledge",
+        body:
+          "Raw transcripts are transformed into organized, reviewable business knowledge.",
+      },
+      {
+        number: "02",
+        title: "Enterprise Integration",
+        body:
+          "Meeting outcomes connect directly with CRM, project, and knowledge systems.",
+      },
+      {
+        number: "03",
+        title: "Strong Governance",
+        body:
+          "Access control and data governance keep meeting intelligence secure at enterprise scale.",
+      },
+    ],
+
     sections: [
       {
-        heading:
-          "1. The Limits of Raw Transcripts",
+        heading: "1. The Limits of Raw Transcripts",
 
         paragraphs: [
           "Long transcripts preserve information but do not automatically highlight what matters most.",
@@ -410,8 +719,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "2. Organizing Business Knowledge",
+        heading: "2. Organizing Business Knowledge",
 
         paragraphs: [
           "Meetings contain valuable context about customers, projects, products, and internal operations.",
@@ -420,11 +728,13 @@ export const blogPosts: BlogPost[] = [
 
           "This makes knowledge created during meetings easier to reuse.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Enterprise knowledge base built from meeting content",
       },
 
       {
-        heading:
-          "3. Search and Retrieval",
+        heading: "3. Search and Retrieval",
 
         paragraphs: [
           "Teams often need to revisit previous discussions to understand why decisions were made.",
@@ -436,8 +746,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "4. Enterprise Integration",
+        heading: "4. Enterprise Integration",
 
         paragraphs: [
           "Meeting intelligence becomes more useful when it connects with enterprise applications.",
@@ -446,11 +755,12 @@ export const blogPosts: BlogPost[] = [
 
           "Integration helps reduce disconnected information silos.",
         ],
+        quote:
+          "Meeting intelligence should live where the work happens, not in a separate silo.",
       },
 
       {
-        heading:
-          "5. Governance and Control",
+        heading: "5. Governance and Control",
 
         paragraphs: [
           "Enterprise meeting intelligence should be designed with permissions, access control, and data governance in mind.",
@@ -459,8 +769,74 @@ export const blogPosts: BlogPost[] = [
 
           "Strong governance helps meeting AI fit into broader enterprise security practices.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Enterprise data governance and security controls",
       },
     ],
+
+    benefits: [
+      {
+        title: "Faster Insight",
+        body:
+          "Structured intelligence surfaces what matters without requiring teams to read full transcripts.",
+      },
+      {
+        title: "Reusable Knowledge",
+        body:
+          "Meeting content becomes organized knowledge that can support future projects and decisions.",
+      },
+      {
+        title: "Connected Systems",
+        body:
+          "Integration with CRM and project tools keeps meeting outcomes close to where work happens.",
+      },
+      {
+        title: "Enterprise-Grade Security",
+        body:
+          "Access control and governance keep sensitive meeting content protected at scale.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Transcribe",
+        body:
+          "Conversations are captured accurately as a foundation for further analysis.",
+      },
+      {
+        number: "02",
+        title: "Structure",
+        body:
+          "Transcripts are organized into themes, decisions, and actionable knowledge.",
+      },
+      {
+        number: "03",
+        title: "Integrate",
+        body:
+          "Structured outputs are connected to enterprise systems and workflows.",
+      },
+      {
+        number: "04",
+        title: "Govern",
+        body:
+          "Access controls and data policies are applied to protect meeting intelligence.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Raw transcripts alone are not enough to operationalize meeting content.",
+      "Structured intelligence turns conversations into reusable business knowledge.",
+      "Searchable meeting history reduces time spent revisiting past discussions.",
+      "Integration with enterprise systems keeps meeting outcomes connected to real work.",
+      "Governance and access control are essential for enterprise-scale adoption.",
+    ],
+
+    conclusion:
+      "Enterprises get the most value from meeting intelligence when they move beyond basic transcription toward structured, searchable, and workflow-connected knowledge. Combined with strong governance, this approach turns everyday conversations into a lasting and secure business asset.",
+
+    cta: CTA,
   },
 
   /* ==========================================================
@@ -468,20 +844,15 @@ export const blogPosts: BlogPost[] = [
   ========================================================== */
 
   {
-    slug:
-      "how-ai-meeting-assistants-improve-team-productivity",
+    slug: "how-ai-meeting-assistants-improve-team-productivity",
 
-    title:
-      "How AI Meeting Assistants Can Improve Team Productivity",
+    title: "How AI Meeting Assistants Can Improve Team Productivity",
 
-    category:
-      "AI Meeting Assistant",
+    category: "AI Meeting Assistant",
 
-    lastUpdated:
-      "Sep 7, 2026",
+    lastUpdated: "Sep 7, 2026",
 
-    readTime:
-      "6 min read",
+    readTime: "7 min read",
 
     heroImage:
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1600&auto=format&fit=crop",
@@ -499,10 +870,30 @@ export const blogPosts: BlogPost[] = [
       "AI meeting assistants can help reduce this repetitive effort while making important outcomes easier to access.",
     ],
 
+    highlights: [
+      {
+        number: "01",
+        title: "Less Overhead",
+        body:
+          "Automated documentation frees participants to focus on the conversation instead of note-taking.",
+      },
+      {
+        number: "02",
+        title: "Faster Alignment",
+        body:
+          "Structured summaries help distributed teams stay aligned without extra status meetings.",
+      },
+      {
+        number: "03",
+        title: "More Execution",
+        body:
+          "Clear, action-oriented outputs help teams move from discussion to delivery faster.",
+      },
+    ],
+
     sections: [
       {
-        heading:
-          "1. Reducing Documentation Work",
+        heading: "1. Reducing Documentation Work",
 
         paragraphs: [
           "Manual note-taking requires participants to divide attention between the conversation and documentation.",
@@ -514,8 +905,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "2. Faster Access to Context",
+        heading: "2. Faster Access to Context",
 
         paragraphs: [
           "Teams frequently need to revisit previous conversations for important context.",
@@ -524,11 +914,13 @@ export const blogPosts: BlogPost[] = [
 
           "This reduces repeated discussions and unnecessary information gathering.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team quickly finding meeting context",
       },
 
       {
-        heading:
-          "3. Better Cross-Team Communication",
+        heading: "3. Better Cross-Team Communication",
 
         paragraphs: [
           "Meeting intelligence can make important outcomes easier to share with people who did not attend.",
@@ -540,8 +932,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading:
-          "4. Supporting Focused Execution",
+        heading: "4. Supporting Focused Execution",
 
         paragraphs: [
           "Productivity improves when teams have clear visibility into what happens after a meeting.",
@@ -550,11 +941,12 @@ export const blogPosts: BlogPost[] = [
 
           "This creates a clearer connection between communication and business outcomes.",
         ],
+        quote:
+          "Productivity gains come less from faster meetings and more from faster follow-through.",
       },
 
       {
-        heading:
-          "5. Building Smarter Collaboration Workflows",
+        heading: "5. Building Smarter Collaboration Workflows",
 
         paragraphs: [
           "AI meeting assistants can become part of a broader collaboration and workflow ecosystem.",
@@ -563,8 +955,74 @@ export const blogPosts: BlogPost[] = [
 
           "Over time, this can create more efficient and connected ways of working.",
         ],
+        image:
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Teams collaborating using connected workflow tools",
       },
     ],
+
+    benefits: [
+      {
+        title: "More Focused Meetings",
+        body:
+          "Participants can engage fully in discussion instead of splitting attention with note-taking.",
+      },
+      {
+        title: "Quicker Context Recovery",
+        body:
+          "Searchable summaries let teams find relevant context in moments, not hours.",
+      },
+      {
+        title: "Stronger Alignment",
+        body:
+          "Shared, structured outcomes keep distributed teams working from the same information.",
+      },
+      {
+        title: "Faster Execution",
+        body:
+          "Clear action items shorten the gap between a decision and the work that follows it.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Engage",
+        body:
+          "Participants focus fully on the conversation while the assistant handles documentation.",
+      },
+      {
+        number: "02",
+        title: "Summarize",
+        body:
+          "Key context, decisions, and themes are organized automatically after the meeting.",
+      },
+      {
+        number: "03",
+        title: "Share",
+        body:
+          "Outcomes are distributed to stakeholders, including those who could not attend.",
+      },
+      {
+        number: "04",
+        title: "Execute",
+        body:
+          "Action items move directly into the tools teams use to track and complete work.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Meeting productivity depends on what happens after the meeting, not just during it.",
+      "Automated documentation lets participants focus on the discussion itself.",
+      "Searchable summaries reduce time spent recovering past context.",
+      "Structured outcomes improve alignment across distributed teams.",
+      "Connecting meetings to workflows accelerates execution.",
+    ],
+
+    conclusion:
+      "The biggest productivity gains from AI meeting assistants come from what happens after the call ends. By reducing documentation overhead, keeping teams aligned, and connecting outcomes directly to execution, organizations can turn every meeting into forward progress rather than another item to catch up on.",
+
+    cta: CTA,
   },
 ];
 
@@ -572,12 +1030,8 @@ export const blogPosts: BlogPost[] = [
    GET SINGLE BLOG
 ============================================================ */
 
-export function getBlogBySlug(
-  slug: string
-): BlogPost | undefined {
-  return blogPosts.find(
-    (blog) => blog.slug === slug
-  );
+export function getBlogBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((blog) => blog.slug === slug);
 }
 
 /* ============================================================
@@ -589,8 +1043,6 @@ export function getRelatedBlogs(
   count = 3
 ): BlogPost[] {
   return blogPosts
-    .filter(
-      (blog) => blog.slug !== currentSlug
-    )
+    .filter((blog) => blog.slug !== currentSlug)
     .slice(0, count);
 }

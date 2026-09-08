@@ -7,53 +7,49 @@ export type CaseStudy = {
 
 export const caseStudies: CaseStudy[] = [
   {
-    slug: "regional-bank-ai-voice-support",
+    slug: "hospital-ai-assisted-coding",
     image:
-      "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Improving Customer Support With AI Voice for a Regional Bank",
+      "Modernizing Hospital Coding With AI-Assisted Clinical Intelligence",
     body:
-      "Explore how an AI voice agent can help banking teams handle routine customer enquiries faster, provide always-on conversational support, and route complex conversations to the right human specialists.",
+      "Explore how an AI-assisted workflow can help coding teams analyze documentation faster, surface relevant coding information, and focus professional review where it adds the most value.",
   },
-
   {
-    slug: "insurance-renewal-ai-calling",
+    slug: "ambulatory-coding-workflow",
     image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Automating Insurance Renewal Outreach With AI Voice",
+      "Improving Coding Turnaround Across Ambulatory Operations",
     body:
-      "See how intelligent outbound AI calling can help insurance teams manage renewal outreach, identify customer intent, reduce repetitive calling work, and focus advisors on conversations that require human expertise.",
+      "See how intelligent document analysis and structured coding recommendations can help ambulatory organizations reduce repetitive work and accelerate coding workflows.",
   },
-
   {
-    slug: "healthcare-appointment-voice-agent",
+    slug: "revenue-cycle-coding-intelligence",
     image:
-      "https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Simplifying Healthcare Appointment Management With AI Voice",
+      "Connecting Coding Intelligence With Revenue Cycle Operations",
     body:
-      "Discover how a conversational AI voice agent can support appointment booking, confirmations, rescheduling, and routine patient enquiries while allowing healthcare teams to focus on more complex requests.",
+      "Discover how validated coding outputs can move into claims and revenue cycle workflows to reduce rework and improve operational visibility.",
   },
-
   {
-    slug: "retail-order-support-ai-voice",
+    slug: "coding-quality-compliance",
     image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Creating Always-On Order Support With AI Voice for Retail",
+      "Strengthening Coding Quality, Review, and Audit Readiness",
     body:
-      "Explore how retail organizations can use conversational AI voice support to handle common order, delivery, return, and customer service enquiries while reducing repetitive workload for support teams.",
+      "Learn how traceable AI recommendations, validation checkpoints, and structured review workflows can support coding quality and governance programs.",
   },
-
   {
-    slug: "telecom-intelligent-call-routing",
+    slug: "specialty-coding-ai",
     image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Modernizing Telecom Customer Support With Intelligent AI Call Routing",
+      "Adapting AI Coding Workflows to Specialty Documentation",
     body:
-      "Learn how conversational AI can replace complex menu-driven IVR experiences with intelligent intent-based call routing, helping customers reach the right support team faster.",
+      "Explore how coding intelligence can be tailored to specialty-specific terminology, documentation patterns, and organizational coding requirements.",
   },
 ];
 

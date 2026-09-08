@@ -39,6 +39,8 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Autoplay timing for the "AI-Powered Medical Coding" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
+const BASE_PATH =
+  "/services/offerings/enterprise-automation";
 // Base path for AI-Powered Medical Coding blogs — keep this in sync
 // with BLOG_BASE in BlogDetail.tsx. The blog route lives under
 // /services/offerings/enterprise-automation/blogs/[slug]
@@ -1217,86 +1219,131 @@ export default function MedicalCodingSection(): ReactElement {
       ============================================================ */}
 
 
+{/* ============================================================
+    CASE STUDIES
+============================================================ */}
 
-      <section
-        className="py-24"
+<section
+  className="py-24"
+  style={{
+    background:
+      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+  }}
+>
+  <div className={ALIGN}>
+
+    <Reveal className="flex items-center justify-between">
+
+      <h2
+        className="font-heading text-[36px] font-medium lg:text-[44px]"
         style={{
-          background:
-            "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+          color: CHAMPION_BLUE,
         }}
       >
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
+        Medical Coding Use Cases
+      </h2>
+
+      <Link
+        href="/services/offerings/enterprise-automation"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{
+          color: INDIGO_CTA,
+        }}
+      >
+        View All Medical Coding Use Cases
+
+        <ArrowUpRight size={16} />
+      </Link>
+
+    </Reveal>
+
+    <div className="mt-12">
+
+      <PagedCarousel
+        items={caseStudies}
+        itemsPerPage={{
+          mobile: 1,
+          tablet: 2,
+          desktop: 3,
+        }}
+        arrowVariant="light"
+        renderItem={(study, i) => (
+
+          <Reveal
+            delay={(i % 3) * 90}
+            className="h-full"
+          >
+
+            <Link
+              href={`/services/offerings/enterprise-automation/${study.slug}`}
+              className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
             >
-              Medical Coding Use Cases
-            </h2>
-            <a
-              href="#"
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Medical Coding Use Cases
-              <ArrowUpRight size={16} />
-            </a>
+
+              {/* Image */}
+
+              <div className="h-[220px] flex-shrink-0 overflow-hidden">
+
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                />
+
+              </div>
+
+              {/* Content */}
+
+              <div className="flex flex-1 flex-col p-6">
+
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  CASE STUDY
+                </span>
+
+                <h3
+                  className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                  style={{
+                    color: CHAMPION_BLUE,
+                  }}
+                >
+                  {study.title}
+                </h3>
+
+                <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                  {study.body}
+                </p>
+
+                <span
+                  className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+                  style={{
+                    color: INDIGO_CTA,
+                  }}
+                >
+                  Read case study
+
+                  <ArrowUpRight
+                    size={15}
+                    className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </span>
+
+              </div>
+
+            </Link>
+
           </Reveal>
 
-         <div className="mt-12">
-  <PagedCarousel
-    items={caseStudies}
-    itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-    arrowVariant="light"
-    renderItem={(study, i) => (
-      <Reveal delay={(i % 3) * 90} className="h-full">
+        )}
+      />
 
-<Link href={`/services/offerings/enterprise-automation/${study.slug}`}
-  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
->
-  <div className="h-[220px] flex-shrink-0 overflow-hidden">
-    <img
-      src={study.image}
-      alt={study.title}
-      className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-    />
+    </div>
+
   </div>
-
-  <div className="flex flex-1 flex-col p-6">
-    <span
-      className="font-body text-[12px] font-semibold tracking-wide"
-      style={{ color: INDIGO_CTA }}
-    >
-      CASE STUDY
-    </span>
-
-    <h3
-      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-      style={{ color: CHAMPION_BLUE }}
-    >
-      {study.title}
-    </h3>
-
-    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-      {study.body}
-    </p>
-
-    <span
-      className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-      style={{ color: INDIGO_CTA }}
-    >
-      Learn More
-      <ArrowUpRight size={15} />
-    </span>
-  </div>
-</Link>
-      </Reveal>
-    )}
-  />
-</div>
-
-        </div>
-      </section>
+</section>
 
 
 

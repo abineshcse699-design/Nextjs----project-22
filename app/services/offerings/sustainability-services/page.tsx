@@ -35,8 +35,10 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-const BLOG_BASE =
-  "/services/offerings/sustainability-services/blogs";
+// const BLOG_BASE =
+//   "/services/offerings/sustainability-services/blogs";
+  const BLOG_BASE =
+  "/services/offerings/generative-ai/ai-meeting-assistant/blogs";
 // Autoplay timing for the "AI File Storage" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
@@ -241,85 +243,49 @@ type InsightPost = {
   body: string;
 };
 
-const insights: InsightPost[] = [
+const insights = [
   {
-    slug:
-      "digital-sustainability-how-technology-supports-responsible-growth",
-
+    slug: "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
     large: true,
-
     image:
-      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
-
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Digital Sustainability: How Technology Supports Responsible Growth",
-
+      "AI Meeting Assistants: Turning Conversations Into Actionable Intelligence",
     body:
-      "Explore how digital technologies, data platforms, and intelligent workflows can help organizations measure sustainability performance and support responsible growth.",
+      "Explore how AI meeting assistants can capture conversations, generate structured summaries, identify decisions, and turn meetings into actionable business intelligence.",
   },
 
   {
-    slug:
-      "data-driven-sustainability-building-better-environmental-visibility",
-
+    slug: "ai-meeting-assistant-smart-summaries-and-follow-ups",
     large: false,
-
     image:
-      "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?q=80&w=800&auto=format&fit=crop",
-
+      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
     title:
-      "Data-Driven Sustainability: Building Better Environmental Visibility",
-
+      "AI Meeting Summaries: Making Follow-Ups Faster and More Consistent",
     body:
-      "Discover how connected data and analytics can improve visibility into environmental and operational performance.",
+      "Understand how AI-generated meeting summaries can help teams capture important context, decisions, and follow-up activities more consistently.",
   },
 
   {
-    slug:
-      "sustainable-operations-using-automation-to-improve-efficiency",
-
+    slug: "ai-meeting-assistant-action-items-and-accountability",
     large: false,
-
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-
     title:
-      "Sustainable Operations: Using Automation to Improve Efficiency",
-
+      "AI Meeting Assistants and Action Items: Improving Accountability After Meetings",
     body:
-      "Learn how workflow automation can reduce repetitive effort and support more efficient operations.",
+      "Discover how AI meeting intelligence can help identify commitments, responsibilities, and follow-up actions from business conversations.",
   },
 
   {
-    slug:
-      "enterprise-sustainability-strategy-connecting-goals-data-and-action",
-
+    slug: "enterprise-ai-meeting-intelligence",
     large: false,
-
     image:
-      "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?q=80&w=800&auto=format&fit=crop",
-
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title:
-      "Enterprise Sustainability Strategy: Connecting Goals, Data, and Action",
-
+      "Enterprise AI Meeting Intelligence: Beyond Transcription",
     body:
-      "Explore how enterprises can connect sustainability strategy with measurable data and operational action.",
-  },
-
-  {
-    slug:
-      "technology-and-sustainability-building-resilient-future-ready-businesses",
-
-    large: false,
-
-    image:
-      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=800&auto=format&fit=crop",
-
-    title:
-      "Technology and Sustainability: Building Resilient Businesses",
-
-    body:
-      "See how digital transformation and sustainability can support resilient and future-ready operations.",
+      "Explore how enterprises can move beyond basic meeting transcription toward searchable knowledge, structured insights, and workflow-connected intelligence.",
   },
 ];
 /* ===============================================================
@@ -1349,9 +1315,9 @@ export default function AIFileStorageSection(): ReactElement {
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
-
-   <section className="bg-[#EEF0F7] py-24">
+<section className="bg-[#EEF0F7] py-24">
   <div className={ALIGN}>
+
     {/* ============================================================
         HEADER
     ============================================================ */}
@@ -1361,7 +1327,7 @@ export default function AIFileStorageSection(): ReactElement {
         className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
         style={{ color: CHAMPION_BLUE }}
       >
-        Insights on Sustainability Services
+        Insights on AI Meeting Assistant
       </h2>
 
       <Link
@@ -1447,9 +1413,9 @@ export default function AIFileStorageSection(): ReactElement {
                   </div>
                 </div>
               ) : (
-                /* ================================================
+                /* ==================================================
                     NORMAL BLOG CARD
-                ================================================ */
+                ================================================== */
 
                 <div>
                   <div className="h-[220px] overflow-hidden rounded-2xl">
@@ -1512,6 +1478,7 @@ export default function AIFileStorageSection(): ReactElement {
 
       <ArrowUpRight size={16} />
     </Link>
+
   </div>
 </section>
     </main>

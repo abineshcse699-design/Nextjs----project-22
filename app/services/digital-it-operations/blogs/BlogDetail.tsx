@@ -1,23 +1,18 @@
-// app/services/digital-it-operations/blogs/BlogDetail.tsx
-
 "use client";
 
 import Link from "next/link";
 import {
-  ArrowLeft,
   ArrowUpRight,
+  Check,
   ChevronRight,
-  MessageCircle,
-  Send,
+  Clock3,
+  Copy,
+  Mail,
+  Share2,
 } from "lucide-react";
+import { useMemo, useState } from "react";
 
 import type { BlogPost } from "./blogsData";
-
-const CHAMPION_BLUE = "#1B2560";
-const INDIGO_CTA = "#4F3FE0";
-
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 type BlogDetailProps = {
   post: BlogPost;
@@ -28,204 +23,211 @@ export default function BlogDetail({
   post,
   related,
 }: BlogDetailProps) {
+  const [copied, setCopied] = useState(false);
+
+  const tableOfContents = useMemo(
+    () =>
+      post.sections.map((section, index) => ({
+        id: `section-${index + 1}`,
+        title: section.heading,
+      })),
+    [post.sections]
+  );
+
+  const copyUrl = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        window.location.href
+      );
+
+      setCopied(true);
+
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
+
+  const shareUrl = encodeURIComponent(
+    typeof window !== "undefined"
+      ? window.location.href
+      : ""
+  );
+
+  const shareTitle = encodeURIComponent(
+    post.title
+  );
+
   return (
-    <main className="bg-white">
-      {/* =====================================================
-          BREADCRUMB
-      ===================================================== */}
+    <main className="bg-white text-slate-900">
+      {/* ====================================================
+          HERO
+      ==================================================== */}
 
-      <div className={`${ALIGN} py-8`}>
-        <nav
-          aria-label="Breadcrumb"
-          className="flex flex-wrap items-center gap-2 text-sm text-slate-500"
-        >
-          <Link
-            href="/"
-            className="transition-colors hover:text-[#4F3FE0]"
-          >
-            Home
-          </Link>
+      <section className="relative overflow-hidden">
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage: `url("${post.heroImage}")`,
+          }}
+        />
 
-          <ChevronRight size={15} />
+        <div className="absolute inset-0 bg-black/65" />
 
-          <Link
-            href="/services/digital-it-operations"
-            className="transition-colors hover:text-[#4F3FE0]"
-          >
-            Digital IT Operations
-          </Link>
+        <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
+          {/* Breadcrumb */}
 
-          <ChevronRight size={15} />
+          <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/80">
+            <Link
+              href="/services/data-analytics"
+              className="transition hover:text-white"
+            >
+              Data & Analytics
+            </Link>
 
-          <span className="line-clamp-1 text-slate-400">
-            {post.title}
-          </span>
-        </nav>
-      </div>
+            <ChevronRight className="h-4 w-4" />
 
-      {/* =====================================================
-          MAIN CONTENT
-      ===================================================== */}
+            <Link
+              href="/services/data-analytics/blogs"
+              className="transition hover:text-white"
+            >
+              Insights
+            </Link>
 
-      <section className={`${ALIGN} pb-24`}>
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[minmax(0,1fr)_360px]">
-          {/* =================================================
-              ARTICLE
-          ================================================= */}
+            <ChevronRight className="h-4 w-4" />
 
-          <article>
-            {/* Category */}
+            <span className="text-white">
+              {post.title}
+            </span>
+          </div>
 
-            <div className="mb-5">
-              <span
-                className="inline-flex rounded-full px-4 py-1.5 text-xs font-bold tracking-wide"
-                style={{
-                  backgroundColor: "#F0EDFF",
-                  color: INDIGO_CTA,
-                }}
-              >
-                {post.category}
-              </span>
+          <div className="max-w-4xl">
+            <div className="mb-5 inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
+              {post.category}
             </div>
 
-            {/* Title */}
-
-            <h1
-              className="font-heading max-w-5xl text-4xl font-semibold leading-[1.08] tracking-tight sm:text-5xl lg:text-[58px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
+            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
               {post.title}
             </h1>
 
-            {/* Meta */}
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-white/85 md:text-xl">
+              {post.excerpt}
+            </p>
 
-            <div className="mt-7 flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-slate-200 pb-7">
-              <span className="text-sm text-slate-500">
-                Last Updated:{" "}
-                <span className="font-semibold text-slate-700">
-                  {post.lastUpdated}
-                </span>
+            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-white/80">
+              <span>
+                Updated {post.lastUpdated}
               </span>
 
-              <span className="text-slate-300">
-                •
-              </span>
+              <span className="h-1 w-1 rounded-full bg-white/50" />
 
-              <span className="text-sm text-slate-500">
+              <span className="flex items-center gap-2">
+                <Clock3 className="h-4 w-4" />
                 {post.readTime}
               </span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-              {/* Share */}
+      {/* ====================================================
+          CONTENT
+      ==================================================== */}
 
-              <div className="ml-auto flex items-center gap-3">
-                <span className="text-sm font-medium text-slate-500">
-                  Share on
-                </span>
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
+          {/* ==================================================
+              MAIN ARTICLE
+          ================================================== */}
 
-                {/* LinkedIn */}
+          <article className="min-w-0">
+            {/* Author */}
 
-                <a
-                  href="#"
-                  aria-label="Share on LinkedIn"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 transition-all hover:-translate-y-0.5 hover:border-[#1B2560]"
-                >
-                  <svg
-                    width="17"
-                    height="17"
-                    viewBox="0 0 24 24"
-                    fill={CHAMPION_BLUE}
-                    aria-hidden="true"
-                  >
-                    <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2 2 0 1 0 5.25 7 2 2 0 0 0 5.25 3ZM20.44 13.41c0-3.46-1.84-5.07-4.3-5.07-1.98 0-2.87 1.09-3.37 1.86V8.5H9.39V20h3.38v-5.7c0-1.5.28-2.95 2.14-2.95 1.84 0 1.86 1.72 1.86 3.05V20h3.38l.29-6.59Z" />
-                  </svg>
-                </a>
-
-                {/* Facebook */}
-
-                <a
-                  href="#"
-                  aria-label="Share on Facebook"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 transition-all hover:-translate-y-0.5 hover:border-[#1B2560]"
-                >
-                  <svg
-                    width="17"
-                    height="17"
-                    viewBox="0 0 24 24"
-                    fill={CHAMPION_BLUE}
-                    aria-hidden="true"
-                  >
-                    <path d="M14 8h3V4h-3c-3.31 0-5 1.69-5 5v3H6v4h3v8h4v-8h3.5l.5-4H13V9c0-.67.33-1 1-1Z" />
-                  </svg>
-                </a>
-
-                {/* X */}
-
-                <a
-                  href="#"
-                  aria-label="Share on X"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 transition-all hover:-translate-y-0.5 hover:border-[#1B2560]"
-                >
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill={CHAMPION_BLUE}
-                    aria-hidden="true"
-                  >
-                    <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.24l-4.89-6.39L6.48 22H3.37l7.24-8.28L2.8 2h6.4l4.42 5.84L18.9 2Zm-1.1 17.83h1.73L8.27 4.05H6.41L17.8 19.83Z" />
-                  </svg>
-                </a>
-
-                {/* WhatsApp */}
-
-                <a
-                  href="#"
-                  aria-label="Share on WhatsApp"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 transition-all hover:-translate-y-0.5 hover:border-[#1B2560]"
-                >
-                  <MessageCircle
-                    size={17}
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
+            <div className="mb-10 flex items-center gap-4 border-b border-slate-200 pb-8">
+              <div className="h-14 w-14 overflow-hidden rounded-full bg-slate-100">
+                {post.author.photo ? (
+                  <img
+                    src={post.author.photo}
+                    alt={post.author.name}
+                    className="h-full w-full object-cover"
                   />
-                </a>
+                ) : null}
+              </div>
 
-                {/* Send */}
+              <div>
+                <p className="font-semibold text-slate-900">
+                  {post.author.name}
+                </p>
 
-                <button
-                  type="button"
-                  aria-label="Share"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 transition-all hover:-translate-y-0.5 hover:border-[#1B2560]"
-                >
-                  <Send
-                    size={16}
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  />
-                </button>
+                <p className="text-sm text-slate-500">
+                  {post.author.role}
+                </p>
               </div>
             </div>
 
-            {/* Hero Image */}
+            {/* Share */}
 
-            <div className="mt-9 overflow-hidden rounded-3xl">
-              <img
-                src={post.heroImage}
-                alt={post.title}
-                className="h-auto max-h-[620px] w-full object-cover"
-              />
+            <div className="mb-12 flex flex-wrap items-center gap-3">
+              <span className="mr-2 flex items-center gap-2 text-sm font-medium text-slate-600">
+                <Share2 className="h-4 w-4" />
+                Share
+              </span>
+
+              <a
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+              >
+                LinkedIn
+              </a>
+
+              <a
+                href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+              >
+                Facebook
+              </a>
+
+              <a
+                href={`mailto:?subject=${shareTitle}&body=${shareUrl}`}
+                className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+              >
+                <Mail className="h-4 w-4" />
+                Email
+              </a>
+
+              <button
+                type="button"
+                onClick={copyUrl}
+                className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Copied
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4" />
+                    Copy link
+                  </>
+                )}
+              </button>
             </div>
 
             {/* Intro */}
 
-            <div className="mt-10 space-y-6">
+            <div className="mb-14 space-y-6">
               {post.intro.map(
                 (paragraph, index) => (
                   <p
                     key={index}
-                    className="font-body text-[17px] leading-[1.85] text-slate-700"
+                    className="text-lg leading-8 text-slate-600"
                   >
                     {paragraph}
                   </p>
@@ -233,35 +235,88 @@ export default function BlogDetail({
               )}
             </div>
 
-            {/* Sections */}
+            {/* Highlights */}
 
-            <div className="mt-12 space-y-12">
+            {post.highlights &&
+              post.highlights.length > 0 && (
+                <section className="mb-16">
+                  <div className="grid gap-5 md:grid-cols-3">
+                    {post.highlights.map(
+                      (highlight) => (
+                        <div
+                          key={highlight.number}
+                          className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
+                        >
+                          <div className="mb-5 text-sm font-semibold text-slate-400">
+                            {highlight.number}
+                          </div>
+
+                          <h3 className="text-lg font-semibold text-slate-900">
+                            {highlight.title}
+                          </h3>
+
+                          <p className="mt-3 text-sm leading-6 text-slate-600">
+                            {highlight.body}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </section>
+              )}
+
+            {/* Article Sections */}
+
+            <div className="space-y-16">
               {post.sections.map(
                 (section, index) => (
                   <section
-                    key={`${section.heading}-${index}`}
+                    key={section.heading}
                     id={`section-${index + 1}`}
-                    className="scroll-mt-28"
+                    className="scroll-mt-24"
                   >
-                    <h2
-                      className="font-heading text-2xl font-semibold leading-tight sm:text-3xl"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {section.heading}
-                    </h2>
+                    <div className="mb-6 flex items-start gap-4">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
+                        {String(index + 1).padStart(
+                          2,
+                          "0"
+                        )}
+                      </span>
 
-                    <div className="mt-5 space-y-5">
+                      <h2 className="text-2xl font-semibold leading-tight text-slate-900 md:text-3xl">
+                        {section.heading}
+                      </h2>
+                    </div>
+
+                    <div className="space-y-5 pl-0 md:pl-[52px]">
                       {section.paragraphs.map(
                         (paragraph, paragraphIndex) => (
                           <p
                             key={paragraphIndex}
-                            className="font-body text-[16px] leading-[1.85] text-slate-700"
+                            className="text-base leading-8 text-slate-600 md:text-lg"
                           >
                             {paragraph}
                           </p>
                         )
+                      )}
+
+                      {section.image && (
+                        <figure className="my-8 overflow-hidden rounded-2xl">
+                          <img
+                            src={section.image}
+                            alt={
+                              section.imageAlt ??
+                              section.heading
+                            }
+                            className="h-auto w-full object-cover"
+                          />
+                        </figure>
+                      )}
+
+                      {section.quote && (
+                        <blockquote className="my-8 border-l-4 border-slate-900 bg-slate-50 px-6 py-5 text-lg font-medium leading-8 text-slate-800">
+                          “{section.quote}”
+                        </blockquote>
                       )}
                     </div>
                   </section>
@@ -269,123 +324,227 @@ export default function BlogDetail({
               )}
             </div>
 
-            {/* Back */}
+            {/* Benefits */}
 
-            <div className="mt-14 border-t border-slate-200 pt-8">
-              <Link
-                href="/services/digital-it-operations"
-                className="inline-flex items-center gap-2 text-sm font-semibold transition-transform hover:-translate-x-1"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                <ArrowLeft size={16} />
-                Back to Digital IT Operations
-              </Link>
-            </div>
+            {post.benefits &&
+              post.benefits.length > 0 && (
+                <section className="mt-20 rounded-3xl bg-slate-950 p-8 text-white md:p-10">
+                  <h2 className="text-2xl font-semibold md:text-3xl">
+                    Business Benefits
+                  </h2>
+
+                  <div className="mt-8 grid gap-6 md:grid-cols-2">
+                    {post.benefits.map(
+                      (benefit) => (
+                        <div
+                          key={benefit.title}
+                          className="border-t border-white/15 pt-5"
+                        >
+                          <h3 className="font-semibold">
+                            {benefit.title}
+                          </h3>
+
+                          <p className="mt-2 text-sm leading-6 text-white/70">
+                            {benefit.body}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </section>
+              )}
+
+            {/* Process */}
+
+            {post.process &&
+              post.process.length > 0 && (
+                <section className="mt-20">
+                  <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+                    Our Approach
+                  </h2>
+
+                  <div className="mt-8 space-y-5">
+                    {post.process.map((step) => (
+                      <div
+                        key={step.number}
+                        className="flex gap-5 rounded-2xl border border-slate-200 p-6"
+                      >
+                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-900">
+                          {step.number}
+                        </div>
+
+                        <div>
+                          <h3 className="font-semibold text-slate-900">
+                            {step.title}
+                          </h3>
+
+                          <p className="mt-2 text-sm leading-6 text-slate-600">
+                            {step.body}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+            {/* Key Takeaways */}
+
+            {post.keyTakeaways &&
+              post.keyTakeaways.length > 0 && (
+                <section className="mt-20">
+                  <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+                    Key Takeaways
+                  </h2>
+
+                  <div className="mt-7 space-y-4">
+                    {post.keyTakeaways.map(
+                      (takeaway, index) => (
+                        <div
+                          key={index}
+                          className="flex items-start gap-3"
+                        >
+                          <Check className="mt-1 h-5 w-5 shrink-0 text-slate-900" />
+
+                          <p className="leading-7 text-slate-600">
+                            {takeaway}
+                          </p>
+                        </div>
+                      )
+                    )}
+                  </div>
+                </section>
+              )}
+
+            {/* Conclusion */}
+
+            {post.conclusion && (
+              <section className="mt-20 border-t border-slate-200 pt-12">
+                <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+                  Conclusion
+                </h2>
+
+                <p className="mt-6 text-lg leading-8 text-slate-600">
+                  {post.conclusion}
+                </p>
+              </section>
+            )}
+
+            {/* CTA */}
+
+            {post.cta && (
+              <section className="mt-16 rounded-3xl bg-slate-100 p-8 md:p-10">
+                <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
+                  {post.cta.title}
+                </h2>
+
+                <p className="mt-4 max-w-2xl leading-7 text-slate-600">
+                  {post.cta.body}
+                </p>
+
+                <Link
+                  href={post.cta.buttonHref}
+                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
+                >
+                  {post.cta.buttonText}
+
+                  <ArrowUpRight className="h-4 w-4" />
+                </Link>
+              </section>
+            )}
           </article>
 
-          {/* =================================================
+          {/* ==================================================
               SIDEBAR
-          ================================================= */}
+          ================================================== */}
 
-          <aside className="lg:sticky lg:top-28 lg:self-start">
-            {/* Author */}
+          <aside className="lg:sticky lg:top-8 lg:h-fit">
+            {/* Author Card */}
 
-            <div className="rounded-2xl border border-slate-200 bg-[#F7F7FB] p-6">
-              <p
-                className="text-xs font-bold uppercase tracking-[0.14em]"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                About the Author
-              </p>
-
-              <div className="mt-5 flex items-center gap-4">
-                <img
-                  src={post.author.photo}
-                  alt={post.author.name}
-                  className="h-16 w-16 rounded-full object-cover"
-                />
+            <div className="rounded-2xl border border-slate-200 p-6">
+              <div className="flex items-center gap-4">
+                <div className="h-12 w-12 overflow-hidden rounded-full bg-slate-100">
+                  {post.author.photo ? (
+                    <img
+                      src={post.author.photo}
+                      alt={post.author.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : null}
+                </div>
 
                 <div>
-                  <h3
-                    className="font-heading text-lg font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
+                  <p className="font-semibold text-slate-900">
                     {post.author.name}
-                  </h3>
+                  </p>
 
-                  <p className="mt-1 text-xs leading-relaxed text-slate-500">
+                  <p className="text-sm text-slate-500">
                     {post.author.role}
                   </p>
                 </div>
               </div>
 
-              <p className="mt-5 text-sm leading-7 text-slate-600">
+              <p className="mt-5 text-sm leading-6 text-slate-600">
                 {post.author.bio}
               </p>
             </div>
 
-            {/* Related Blogs */}
+            {/* TOC */}
+
+            {tableOfContents.length > 0 && (
+              <div className="mt-6 rounded-2xl border border-slate-200 p-6">
+                <h3 className="font-semibold text-slate-900">
+                  In this article
+                </h3>
+
+                <nav className="mt-5 space-y-3">
+                  {tableOfContents.map(
+                    (item, index) => (
+                      <a
+                        key={item.id}
+                        href={`#${item.id}`}
+                        className="flex gap-3 text-sm leading-5 text-slate-500 transition hover:text-slate-900"
+                      >
+                        <span className="font-medium text-slate-400">
+                          {String(index + 1).padStart(
+                            2,
+                            "0"
+                          )}
+                        </span>
+
+                        <span>{item.title}</span>
+                      </a>
+                    )
+                  )}
+                </nav>
+              </div>
+            )}
+
+            {/* Related */}
 
             {related.length > 0 && (
-              <div className="mt-8">
-                <h2
-                  className="font-heading text-2xl font-semibold"
-                  style={{
-                    color: CHAMPION_BLUE,
-                  }}
-                >
+              <div className="mt-6 rounded-2xl border border-slate-200 p-6">
+                <h3 className="font-semibold text-slate-900">
                   Related Insights
-                </h2>
+                </h3>
 
                 <div className="mt-5 space-y-5">
-                  {related.map((item) => (
+                  {related.map((blog) => (
                     <Link
-                      key={item.slug}
-                      href={`/services/digital-it-operations/blogs/${item.slug}`}
-                      className="group block overflow-hidden rounded-2xl border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                      key={blog.slug}
+                      href={`/services/data-analytics/blogs/${blog.slug}`}
+                      className="group block"
                     >
-                      <div className="h-40 overflow-hidden">
-                        <img
-                          src={item.heroImage}
-                          alt={item.title}
-                          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                        />
-                      </div>
+                      <p className="text-sm font-semibold leading-6 text-slate-900 transition group-hover:text-slate-600">
+                        {blog.title}
+                      </p>
 
-                      <div className="p-5">
-                        <span
-                          className="text-[11px] font-bold tracking-wide"
-                          style={{
-                            color: INDIGO_CTA,
-                          }}
-                        >
-                          {item.category}
+                      <div className="mt-2 flex items-center gap-1 text-xs text-slate-400">
+                        <span>
+                          {blog.readTime}
                         </span>
 
-                        <h3
-                          className="font-heading mt-2 line-clamp-2 text-[17px] font-semibold leading-snug"
-                          style={{
-                            color: CHAMPION_BLUE,
-                          }}
-                        >
-                          {item.title}
-                        </h3>
-
-                        <span
-                          className="mt-4 inline-flex items-center gap-1 text-xs font-semibold"
-                          style={{
-                            color: INDIGO_CTA,
-                          }}
-                        >
-                          Read More
-                          <ArrowUpRight size={13} />
-                        </span>
+                        <ArrowUpRight className="h-3 w-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </div>
                     </Link>
                   ))}
@@ -395,6 +554,79 @@ export default function BlogDetail({
           </aside>
         </div>
       </section>
+
+      {/* ====================================================
+          BOTTOM RELATED ARTICLES
+      ==================================================== */}
+
+      {related.length > 0 && (
+        <section className="border-t border-slate-200 bg-slate-50">
+          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
+            <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+              <div>
+                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
+                  More from Data & Analytics
+                </p>
+
+                <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
+                  Related insights
+                </h2>
+              </div>
+
+              <Link
+                href="/services/data-analytics/blogs"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900"
+              >
+                View all insights
+                <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {related.map((blog) => (
+                <Link
+                  key={blog.slug}
+                  href={`/services/data-analytics/blogs/${blog.slug}`}
+                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white"
+                >
+                  <div className="aspect-[16/9] overflow-hidden bg-slate-100">
+                    <img
+                      src={blog.heroImage}
+                      alt={blog.title}
+                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                        {blog.category}
+                      </span>
+
+                      <span className="text-xs text-slate-400">
+                        {blog.readTime}
+                      </span>
+                    </div>
+
+                    <h3 className="mt-4 text-lg font-semibold leading-7 text-slate-900">
+                      {blog.title}
+                    </h3>
+
+                    <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-500">
+                      {blog.excerpt}
+                    </p>
+
+                    <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-slate-900">
+                      Read article
+                      <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

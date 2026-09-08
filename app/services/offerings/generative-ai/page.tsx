@@ -42,7 +42,7 @@ const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
-   AI MEETING ASSISTANT
+   AI cHAT BOX
 ================================================================ */
 
 const keyTakeaways: string[] = [

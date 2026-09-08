@@ -2,9 +2,29 @@
    BLOG TYPES
 ============================================================ */
 
+export type BlogHighlight = {
+  number: string;
+  title: string;
+  body: string;
+};
+
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
+  image?: string;
+  imageAlt?: string;
+  quote?: string;
+};
+
+export type BlogBenefit = {
+  title: string;
+  body: string;
+};
+
+export type BlogProcessStep = {
+  number: string;
+  title: string;
+  body: string;
 };
 
 export type BlogPost = {
@@ -25,7 +45,24 @@ export type BlogPost = {
 
   intro: string[];
 
+  highlights?: BlogHighlight[];
+
   sections: BlogSection[];
+
+  benefits?: BlogBenefit[];
+
+  process?: BlogProcessStep[];
+
+  keyTakeaways?: string[];
+
+  conclusion?: string;
+
+  cta?: {
+    title: string;
+    body: string;
+    buttonText: string;
+    buttonHref: string;
+  };
 };
 
 /* ============================================================
@@ -75,8 +112,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Explore how digital technologies, data platforms, and intelligent workflows can help organizations measure sustainability performance and support responsible business growth.",
 
-    author:
-      AUTHOR,
+    author: AUTHOR,
 
     intro: [
       "Sustainability is increasingly becoming part of how organizations plan operations, manage resources, and measure long-term business performance.",
@@ -84,6 +120,27 @@ export const blogPosts: BlogPost[] = [
       "Digital technology can help make sustainability initiatives more measurable by connecting data, workflows, reporting, and operational decision-making.",
 
       "The goal is not simply to digitize sustainability reporting. It is to create connected systems that help organizations understand performance and take informed action.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "Connected Data",
+        body:
+          "Bringing fragmented sustainability information together creates a consistent, organization wide picture.",
+      },
+      {
+        number: "02",
+        title: "Informed Action",
+        body:
+          "Digital systems turn raw operational data into insight that teams can actually act on.",
+      },
+      {
+        number: "03",
+        title: "Built for Growth",
+        body:
+          "Connected sustainability platforms scale alongside the business rather than becoming a reporting bottleneck.",
+      },
     ],
 
     sections: [
@@ -98,6 +155,10 @@ export const blogPosts: BlogPost[] = [
 
           "Connected digital platforms can bring relevant information together and provide teams with a stronger foundation for analysis and decision-making.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team reviewing connected sustainability data",
       },
 
       {
@@ -124,6 +185,9 @@ export const blogPosts: BlogPost[] = [
 
           "Technology can support decision-making by making relevant information available when teams need it.",
         ],
+
+        quote:
+          "Sustainability becomes measurable the moment operational data has somewhere consistent to live.",
       },
 
       {
@@ -137,6 +201,10 @@ export const blogPosts: BlogPost[] = [
 
           "Automation can also support more consistent data collection and operational monitoring.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Automated sustainability monitoring workflow",
       },
 
       {
@@ -152,6 +220,94 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Consistent Reporting",
+        body:
+          "Connected data platforms reduce the fragmentation that makes sustainability reporting slow and inconsistent.",
+      },
+      {
+        title: "Clearer Visibility",
+        body:
+          "Organized data gives leaders a reliable view of consumption, efficiency, and progress across the business.",
+      },
+      {
+        title: "Better Decisions",
+        body:
+          "Relevant information available at the point of decision helps teams act on sustainability priorities faster.",
+      },
+      {
+        title: "Reduced Admin Effort",
+        body:
+          "Automation standardizes repetitive reporting tasks, freeing teams to focus on higher value analysis.",
+      },
+      {
+        title: "Integrated Transformation",
+        body:
+          "Sustainability considerations become part of digital transformation rather than a separate initiative.",
+      },
+      {
+        title: "Long Term Measurability",
+        body:
+          "Connected systems create a durable foundation for tracking sustainability progress over time.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Map",
+        body:
+          "Identify where sustainability related data currently lives across facilities, suppliers, and internal systems.",
+      },
+      {
+        number: "02",
+        title: "Connect",
+        body:
+          "Bring fragmented data sources together into a consistent, accessible platform.",
+      },
+      {
+        number: "03",
+        title: "Automate",
+        body:
+          "Standardize repetitive data collection and reporting workflows to reduce manual effort.",
+      },
+      {
+        number: "04",
+        title: "Analyze",
+        body:
+          "Use the connected data foundation to identify trends and improvement opportunities.",
+      },
+      {
+        number: "05",
+        title: "Embed",
+        body:
+          "Build sustainability considerations into ongoing digital transformation and operational planning.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Sustainability data is often fragmented across facilities, suppliers, and internal systems.",
+      "Connected digital platforms create a more consistent picture of organizational performance.",
+      "Improved visibility helps leaders identify trends and operational improvement opportunities.",
+      "Automation reduces the manual effort behind repetitive sustainability reporting tasks.",
+      "Technology should make relevant information available at the point of decision.",
+      "Digital transformation initiatives are a natural place to embed sustainability considerations.",
+      "The goal is connected systems that drive action, not just digitized reporting.",
+    ],
+
+    conclusion:
+      "Digital sustainability is not about replacing existing reporting processes with a digital version of the same fragmentation. It is about connecting data, workflows, and decision-making so that sustainability becomes measurable, visible, and actionable across the organization. Businesses that embed this thinking into their broader digital transformation efforts build a foundation that supports responsible growth for the long term.",
+
+    cta: {
+      title: "Build Measurable, Sustainable Operations",
+      body:
+        "Explore how data, technology, automation, and intelligent workflows can support your sustainability goals.",
+      buttonText: "Explore Services",
+      buttonHref:
+        "/services/offerings/sustainability-services",
+    },
   },
 
   /* ==========================================================
@@ -180,8 +336,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Discover how connected data, analytics, and reporting systems can help organizations build stronger visibility into environmental and operational performance.",
 
-    author:
-      AUTHOR,
+    author: AUTHOR,
 
     intro: [
       "Organizations generate large amounts of operational information, but sustainability-related data is not always easy to access or interpret.",
@@ -189,6 +344,27 @@ export const blogPosts: BlogPost[] = [
       "A data-driven approach can help teams move beyond fragmented spreadsheets toward more connected and structured sustainability intelligence.",
 
       "Better visibility can help organizations understand where resources are being used and where improvements may create meaningful impact.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "Structured Data",
+        body:
+          "Moving beyond spreadsheets creates a more reliable foundation for sustainability intelligence.",
+      },
+      {
+        number: "02",
+        title: "Pattern Detection",
+        body:
+          "Analytics surface consumption and efficiency trends that manual review often misses.",
+      },
+      {
+        number: "03",
+        title: "From Insight to Action",
+        body:
+          "Accessible dashboards turn complex data into decisions teams can actually make.",
+      },
     ],
 
     sections: [
@@ -216,6 +392,10 @@ export const blogPosts: BlogPost[] = [
 
           "A strong data foundation improves confidence in reporting and analysis.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Data governance and validation process",
       },
 
       {
@@ -229,6 +409,9 @@ export const blogPosts: BlogPost[] = [
 
           "These insights can support more targeted improvement initiatives.",
         ],
+
+        quote:
+          "Patterns hidden in spreadsheets become obvious the moment the right analytics are applied.",
       },
 
       {
@@ -257,6 +440,93 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Reduced Fragmentation",
+        body:
+          "A connected data strategy brings information from facilities, suppliers, and systems into one consistent view.",
+      },
+      {
+        title: "Trusted Reporting",
+        body:
+          "Clear data governance improves confidence in the accuracy of sustainability reporting.",
+      },
+      {
+        title: "Earlier Trend Detection",
+        body:
+          "Analytics reveal changes in consumption and efficiency before they become larger issues.",
+      },
+      {
+        title: "Accessible Dashboards",
+        body:
+          "Structured reporting makes complex sustainability data easier for stakeholders to review and act on.",
+      },
+      {
+        title: "Better Prioritization",
+        body:
+          "Visibility into where resources are used helps teams focus improvement efforts where they matter most.",
+      },
+      {
+        title: "Continuous Improvement",
+        body:
+          "Connecting insight to action creates an ongoing cycle of measurable operational improvement.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Audit",
+        body:
+          "Identify where sustainability data currently lives and how consistent it is across sources.",
+      },
+      {
+        number: "02",
+        title: "Govern",
+        body:
+          "Define clear data sources, ownership, and validation processes for sustainability reporting.",
+      },
+      {
+        number: "03",
+        title: "Analyze",
+        body:
+          "Apply analytics to uncover consumption, efficiency, and performance trends.",
+      },
+      {
+        number: "04",
+        title: "Visualize",
+        body:
+          "Build dashboards that make sustainability data accessible to relevant stakeholders.",
+      },
+      {
+        number: "05",
+        title: "Act",
+        body:
+          "Connect insights to operational decisions and track the impact of improvement initiatives.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Sustainability data is often scattered across facilities, suppliers, and disconnected systems.",
+      "A reliable data foundation depends on clear governance and validated sources.",
+      "Analytics can surface consumption and efficiency trends that manual review often misses.",
+      "Dashboards make complex sustainability information accessible to more stakeholders.",
+      "Visibility alone does not create outcomes without a process connecting insight to action.",
+      "Data-driven sustainability supports more targeted, higher impact improvement initiatives.",
+    ],
+
+    conclusion:
+      "Better environmental visibility starts with treating sustainability data as seriously as any other business critical information, with clear governance, reliable sources, and accessible reporting. Organizations that build this foundation are better positioned to move beyond static reporting toward a continuous cycle of insight and improvement.",
+
+    cta: {
+      title: "Build Measurable, Sustainable Operations",
+      body:
+        "Explore how data, technology, automation, and intelligent workflows can support your sustainability goals.",
+      buttonText: "Explore Services",
+      buttonHref:
+        "/services/offerings/sustainability-services",
+    },
   },
 
   /* ==========================================================
@@ -285,8 +555,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Learn how workflow automation and intelligent process design can help organizations reduce repetitive effort and improve operational efficiency.",
 
-    author:
-      AUTHOR,
+    author: AUTHOR,
 
     intro: [
       "Operational efficiency and sustainability are often closely connected.",
@@ -294,6 +563,27 @@ export const blogPosts: BlogPost[] = [
       "Processes that require excessive manual effort, repeated data entry, or disconnected handoffs can increase both operational complexity and resource consumption.",
 
       "Automation can help organizations simplify workflows and create more efficient ways of working.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "Fewer Handoffs",
+        body:
+          "Automating repeatable steps removes the delays and inconsistencies of manual handoffs.",
+      },
+      {
+        number: "02",
+        title: "Consistent Execution",
+        body:
+          "Standardized workflows reduce unnecessary variation in how activities are performed.",
+      },
+      {
+        number: "03",
+        title: "Data Connected",
+        body:
+          "Automation paired with live data can trigger action as soon as conditions change.",
+      },
     ],
 
     sections: [
@@ -308,6 +598,10 @@ export const blogPosts: BlogPost[] = [
 
           "Process analysis can help identify areas where automation may improve efficiency.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team mapping operational workflow inefficiencies",
       },
 
       {
@@ -334,6 +628,9 @@ export const blogPosts: BlogPost[] = [
 
           "Consistent execution can improve both efficiency and operational visibility.",
         ],
+
+        quote:
+          "Consistency is what turns a good process into a measurable one.",
       },
 
       {
@@ -362,6 +659,93 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Reduced Manual Effort",
+        body:
+          "Automating repeatable steps frees employees to focus on higher value operational work.",
+      },
+      {
+        title: "Fewer Delays",
+        body:
+          "Removing disconnected manual handoffs speeds up how quickly processes complete.",
+      },
+      {
+        title: "Consistent Outcomes",
+        body:
+          "Standardized workflows reduce variation and improve the reliability of operational results.",
+      },
+      {
+        title: "Faster Response",
+        body:
+          "Automation connected to live data can trigger action as soon as conditions change.",
+      },
+      {
+        title: "Better Visibility",
+        body:
+          "Consistent execution makes it easier to monitor and understand operational performance.",
+      },
+      {
+        title: "Sustained Value",
+        body:
+          "Ongoing monitoring and refinement keep automation aligned with changing business needs.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Analyze",
+        body:
+          "Review existing workflows to identify manual handoffs, duplicated tasks, and delays.",
+      },
+      {
+        number: "02",
+        title: "Prioritize",
+        body:
+          "Select repetitive, predictable activities that offer the most value from automation.",
+      },
+      {
+        number: "03",
+        title: "Automate",
+        body:
+          "Implement automation for the selected activities while preserving necessary oversight.",
+      },
+      {
+        number: "04",
+        title: "Connect",
+        body:
+          "Link automated workflows with relevant operational data to trigger timely action.",
+      },
+      {
+        number: "05",
+        title: "Refine",
+        body:
+          "Monitor workflow performance and adjust automation as business requirements evolve.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Inefficient, manual workflows increase both operational complexity and resource consumption.",
+      "Automation reduces manual effort for predictable, repeatable operational activities.",
+      "Standardized workflows improve consistency and reduce unnecessary variation.",
+      "Connecting automation with live data enables faster response to operational conditions.",
+      "Automation should be continuously monitored and refined rather than implemented once.",
+      "Operational efficiency and sustainability outcomes are closely linked.",
+    ],
+
+    conclusion:
+      "Automation is one of the most direct ways organizations can connect operational efficiency with sustainability goals. By removing manual handoffs, standardizing execution, and linking workflows to real operational data, businesses can reduce waste and complexity while building processes that continue to improve over time.",
+
+    cta: {
+      title: "Build Measurable, Sustainable Operations",
+      body:
+        "Explore how data, technology, automation, and intelligent workflows can support your sustainability goals.",
+      buttonText: "Explore Services",
+      buttonHref:
+        "/services/offerings/sustainability-services",
+    },
   },
 
   /* ==========================================================
@@ -390,8 +774,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Explore how enterprises can connect sustainability goals with measurable data, operational accountability, and technology-enabled action.",
 
-    author:
-      AUTHOR,
+    author: AUTHOR,
 
     intro: [
       "Sustainability strategies are most effective when long-term goals are connected to measurable operational activities.",
@@ -399,6 +782,27 @@ export const blogPosts: BlogPost[] = [
       "Organizations need visibility into progress as well as mechanisms for turning insights into action.",
 
       "Technology can help connect strategy, data, reporting, and execution across different business functions.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "Clear Objectives",
+        body:
+          "Well defined goals give teams shared priorities and a basis for measuring progress.",
+      },
+      {
+        number: "02",
+        title: "Shared Accountability",
+        body:
+          "Digital workflows make ownership and progress visible across multiple business functions.",
+      },
+      {
+        number: "03",
+        title: "Ongoing Measurement",
+        body:
+          "Sustainability strategy works best as a continuous, repeatable measurement process.",
+      },
     ],
 
     sections: [
@@ -426,6 +830,10 @@ export const blogPosts: BlogPost[] = [
 
           "Connected data systems improve the ability to compare goals with actual outcomes.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Leadership reviewing sustainability strategy data",
       },
 
       {
@@ -439,6 +847,9 @@ export const blogPosts: BlogPost[] = [
 
           "Digital workflows can support visibility into progress and responsibilities.",
         ],
+
+        quote:
+          "A goal without an owner rarely becomes a measurable outcome.",
       },
 
       {
@@ -467,6 +878,93 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Aligned Priorities",
+        body:
+          "Clear objectives help every team understand what sustainability progress actually looks like.",
+      },
+      {
+        title: "Measurable Progress",
+        body:
+          "Connected data lets organizations compare goals with actual operational outcomes.",
+      },
+      {
+        title: "Clear Ownership",
+        body:
+          "Defined responsibilities ensure sustainability actions are tracked rather than lost between teams.",
+      },
+      {
+        title: "Informed Leadership",
+        body:
+          "Structured reporting gives leadership the insight needed to prioritize investments effectively.",
+      },
+      {
+        title: "Cross Functional Visibility",
+        body:
+          "Digital workflows make progress and accountability visible across business functions.",
+      },
+      {
+        title: "Repeatable Process",
+        body:
+          "Continuous measurement turns sustainability strategy into an ongoing improvement cycle.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Define",
+        body:
+          "Establish clear, measurable sustainability objectives aligned with business strategy.",
+      },
+      {
+        number: "02",
+        title: "Connect",
+        body:
+          "Link strategic goals to relevant operational data across business functions.",
+      },
+      {
+        number: "03",
+        title: "Assign",
+        body:
+          "Define clear ownership and accountability for sustainability related actions.",
+      },
+      {
+        number: "04",
+        title: "Report",
+        body:
+          "Provide leadership with structured insight into progress and performance trends.",
+      },
+      {
+        number: "05",
+        title: "Iterate",
+        body:
+          "Continuously monitor outcomes and refine strategy as conditions and priorities change.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Sustainability strategy works best when long-term goals connect to measurable operational data.",
+      "Clear objectives give teams shared priorities and a basis for tracking progress.",
+      "Defined ownership helps ensure sustainability actions are tracked across teams.",
+      "Structured reporting supports more informed leadership decisions and investments.",
+      "Technology connects strategy, data, reporting, and execution across functions.",
+      "Sustainability should be treated as an ongoing, repeatable measurement process.",
+    ],
+
+    conclusion:
+      "An enterprise sustainability strategy is only as strong as its connection to operational reality. Organizations that pair clear objectives with connected data, defined accountability, and continuous measurement are better positioned to turn sustainability goals into outcomes rather than statements of intent.",
+
+    cta: {
+      title: "Build Measurable, Sustainable Operations",
+      body:
+        "Explore how data, technology, automation, and intelligent workflows can support your sustainability goals.",
+      buttonText: "Explore Services",
+      buttonHref:
+        "/services/offerings/sustainability-services",
+    },
   },
 
   /* ==========================================================
@@ -495,8 +993,7 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "See how organizations can combine digital transformation, efficient operations, and sustainability initiatives to build more resilient business models.",
 
-    author:
-      AUTHOR,
+    author: AUTHOR,
 
     intro: [
       "Business resilience increasingly depends on an organization's ability to adapt to changing operational, environmental, and market conditions.",
@@ -504,6 +1001,27 @@ export const blogPosts: BlogPost[] = [
       "Technology can help organizations build stronger visibility, improve efficiency, and respond more effectively to change.",
 
       "Combining digital transformation with sustainability thinking can support long-term resilience and responsible growth.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "Faster Response",
+        body:
+          "Connected technology helps teams identify change and respond before it becomes a larger issue.",
+      },
+      {
+        number: "02",
+        title: "Efficient by Design",
+        body:
+          "Digital monitoring turns resource efficiency into an ongoing practice rather than a periodic review.",
+      },
+      {
+        number: "03",
+        title: "Future Ready",
+        body:
+          "Adaptable platforms give organizations a foundation that evolves with changing requirements.",
+      },
     ],
 
     sections: [
@@ -531,6 +1049,10 @@ export const blogPosts: BlogPost[] = [
 
           "Better visibility supports more informed resource management.",
         ],
+
+        image:
+          "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Digital monitoring of resource efficiency",
       },
 
       {
@@ -544,6 +1066,9 @@ export const blogPosts: BlogPost[] = [
 
           "Adaptability is an important component of long-term resilience.",
         ],
+
+        quote:
+          "Resilience is less about predicting change and more about being ready to respond to it.",
       },
 
       {
@@ -572,6 +1097,93 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
+
+    benefits: [
+      {
+        title: "Faster Detection",
+        body:
+          "Connected visibility helps teams identify operational changes before they escalate.",
+      },
+      {
+        title: "Resource Efficiency",
+        body:
+          "Digital monitoring supports ongoing, informed management of resource consumption.",
+      },
+      {
+        title: "Operational Flexibility",
+        body:
+          "Flexible platforms make it easier to adapt workflows as business requirements shift.",
+      },
+      {
+        title: "Integrated Planning",
+        body:
+          "Connecting sustainability with business strategy supports more coordinated decision-making.",
+      },
+      {
+        title: "Continuous Innovation",
+        body:
+          "A future-ready digital foundation supports ongoing improvement rather than one time upgrades.",
+      },
+      {
+        title: "Stronger Long Term Outcomes",
+        body:
+          "Combining technology, efficiency, and sustainability builds more durable business resilience.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Assess",
+        body:
+          "Evaluate current visibility into operational, environmental, and market conditions.",
+      },
+      {
+        number: "02",
+        title: "Monitor",
+        body:
+          "Implement digital monitoring to track resource efficiency and operational performance.",
+      },
+      {
+        number: "03",
+        title: "Adapt",
+        body:
+          "Use flexible platforms to adjust workflows and processes as requirements change.",
+      },
+      {
+        number: "04",
+        title: "Integrate",
+        body:
+          "Connect sustainability priorities with broader business strategy and planning.",
+      },
+      {
+        number: "05",
+        title: "Evolve",
+        body:
+          "Continuously strengthen the digital foundation to support long-term resilience.",
+      },
+    ],
+
+    keyTakeaways: [
+      "Business resilience depends on the ability to adapt to changing conditions.",
+      "Connected technology helps teams identify and respond to change more quickly.",
+      "Digital monitoring supports more informed, ongoing resource management.",
+      "Flexible platforms make it easier to adapt workflows as requirements evolve.",
+      "Sustainability initiatives are more effective when connected to business strategy.",
+      "A future-ready digital foundation supports continuous innovation and improvement.",
+    ],
+
+    conclusion:
+      "Resilience and sustainability are increasingly two sides of the same challenge. Organizations that invest in connected visibility, resource efficiency, and adaptable technology are better equipped to respond to change while building toward long-term, responsible growth.",
+
+    cta: {
+      title: "Build Measurable, Sustainable Operations",
+      body:
+        "Explore how data, technology, automation, and intelligent workflows can support your sustainability goals.",
+      buttonText: "Explore Services",
+      buttonHref:
+        "/services/offerings/sustainability-services",
+    },
   },
 ];
 
@@ -583,8 +1195,7 @@ export function getBlogBySlug(
   slug: string
 ): BlogPost | undefined {
   return blogPosts.find(
-    (blog) =>
-      blog.slug === slug
+    (blog) => blog.slug === slug
   );
 }
 
@@ -598,8 +1209,7 @@ export function getRelatedBlogs(
 ): BlogPost[] {
   return blogPosts
     .filter(
-      (blog) =>
-        blog.slug !== currentSlug
+      (blog) => blog.slug !== currentSlug
     )
     .slice(0, count);
 }

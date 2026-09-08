@@ -5,9 +5,9 @@ import type { Metadata } from "next";
 import {
   ArrowLeft,
   ArrowUpRight,
+  BrainCircuit,
   CheckCircle2,
   ChevronRight,
-  BrainCircuit,
   Headphones,
   MessageCircle,
   PhoneCall,
@@ -23,10 +23,6 @@ import {
 
 import CaseStudyTabs from "../CaseStudyTabs";
 
-/* ============================================================
-   BRAND
-============================================================ */
-
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0";
@@ -34,12 +30,19 @@ const INDIGO_CTA = "#4F3FE0";
 const ALIGN =
   "mx-auto w-full max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+/*
+|--------------------------------------------------------------------------
+| IMPORTANT
+|--------------------------------------------------------------------------
+| Your [slug] folder is inside enterprise-automation.
+|
+| Therefore the route is:
+|
+| /services/offerings/enterprise-automation/[slug]
+|
+*/
 const BASE_PATH =
-  "/services/offerings/ai-native-contact-center";
-
-/* ============================================================
-   TYPES
-============================================================ */
+  "/services/offerings/enterprise-automation";
 
 type PageProps = {
   params: Promise<{
@@ -47,9 +50,11 @@ type PageProps = {
   }>;
 };
 
-/* ============================================================
-   STATIC PARAMS
-============================================================ */
+/*
+|--------------------------------------------------------------------------
+| STATIC PARAMS
+|--------------------------------------------------------------------------
+*/
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({
@@ -57,9 +62,11 @@ export function generateStaticParams() {
   }));
 }
 
-/* ============================================================
-   SEO
-============================================================ */
+/*
+|--------------------------------------------------------------------------
+| SEO
+|--------------------------------------------------------------------------
+*/
 
 export async function generateMetadata({
   params,
@@ -72,7 +79,7 @@ export async function generateMetadata({
     return {
       title: "Case Study Not Found | Starfii",
       description:
-        "The requested Starfii AI Native Contact Center case study could not be found.",
+        "The requested case study could not be found.",
     };
   }
 
@@ -82,9 +89,11 @@ export async function generateMetadata({
   };
 }
 
-/* ============================================================
-   PAGE
-============================================================ */
+/*
+|--------------------------------------------------------------------------
+| PAGE
+|--------------------------------------------------------------------------
+*/
 
 export default async function CaseStudyPage({
   params,
@@ -93,6 +102,10 @@ export default async function CaseStudyPage({
 
   const study = getCaseStudyBySlug(slug);
 
+  /*
+   * If the slug does not exist in case-studies.ts,
+   * Next.js will show the 404 page.
+   */
   if (!study) {
     notFound();
   }
@@ -106,13 +119,11 @@ export default async function CaseStudyPage({
   return (
     <main className="overflow-hidden bg-white">
 
-      {/* ======================================================
+      {/* =====================================================
           HERO
-      ====================================================== */}
+      ===================================================== */}
 
       <section className="relative isolate overflow-hidden">
-
-        {/* Background */}
 
         <div className="absolute inset-0 -z-10">
 
@@ -125,8 +136,6 @@ export default async function CaseStudyPage({
           <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/30" />
 
         </div>
-
-        {/* Decorative glow */}
 
         <div
           className="pointer-events-none absolute -right-32 top-10 -z-10 h-[420px] w-[420px] rounded-full blur-3xl"
@@ -180,7 +189,7 @@ export default async function CaseStudyPage({
               href={BASE_PATH}
               className="transition-opacity hover:opacity-60"
             >
-              AI Native Contact Center
+              Enterprise Automation
             </Link>
 
             <ChevronRight size={14} />
@@ -201,13 +210,13 @@ export default async function CaseStudyPage({
           >
             <Sparkles size={15} />
 
-            AI Native Contact Center
+            AI-Powered Medical Coding
           </div>
 
           {/* Title */}
 
           <h1
-            className="mt-7 max-w-[850px] text-[40px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[50px] lg:text-[62px]"
+            className="mt-7 max-w-[900px] text-[40px] font-medium leading-[1.08] tracking-[-0.035em] sm:text-[50px] lg:text-[62px]"
             style={{
               color: CHAMPION_BLUE,
             }}
@@ -215,7 +224,7 @@ export default async function CaseStudyPage({
             {study.title}
           </h1>
 
-          {/* Body */}
+          {/* Description */}
 
           <p className="mt-7 max-w-[720px] text-[17px] leading-8 text-slate-600 lg:text-[18px]">
             {study.body}
@@ -256,21 +265,21 @@ export default async function CaseStudyPage({
         </div>
       </section>
 
-      {/* ======================================================
+      {/* =====================================================
           STICKY TABS
-      ====================================================== */}
+      ===================================================== */}
 
       <CaseStudyTabs />
 
-      {/* ======================================================
-          MAIN
-      ====================================================== */}
+      {/* =====================================================
+          CONTENT
+      ===================================================== */}
 
       <div className={ALIGN}>
 
-        {/* ====================================================
+        {/* ===================================================
             CLIENT
-        ==================================================== */}
+        =================================================== */}
 
         <section
           id="client"
@@ -296,7 +305,7 @@ export default async function CaseStudyPage({
                   color: CHAMPION_BLUE,
                 }}
               >
-                Building better customer conversations with AI
+                Building better customer experiences with AI
               </h2>
 
             </div>
@@ -329,16 +338,15 @@ export default async function CaseStudyPage({
                       color: CHAMPION_BLUE,
                     }}
                   >
-                    AI Native Contact Center
+                    AI-Powered Medical Coding
                   </h3>
 
                   <p className="mt-3 text-[15px] leading-7 text-slate-600">
                     This case study explores how
-                    conversational AI can support
-                    customer communication,
-                    automate repetitive interactions,
-                    and connect customers with the
-                    right support experience.
+                    AI-assisted clinical intelligence
+                    can support documentation analysis,
+                    coding recommendations,
+                    validation, and professional review.
                   </p>
 
                 </div>
@@ -351,9 +359,9 @@ export default async function CaseStudyPage({
 
         </section>
 
-        {/* ====================================================
+        {/* ===================================================
             CHALLENGE
-        ==================================================== */}
+        =================================================== */}
 
         <section
           id="challenge"
@@ -382,7 +390,7 @@ export default async function CaseStudyPage({
                   color: CHAMPION_BLUE,
                 }}
               >
-                Removing friction from customer support
+                Removing friction from coding operations
               </h2>
 
             </div>
@@ -392,29 +400,30 @@ export default async function CaseStudyPage({
               {[
                 {
                   icon: PhoneCall,
-                  title: "High call volumes",
+                  title: "Manual review",
                   text:
-                    "Repetitive customer enquiries can consume valuable support capacity and create unnecessary waiting time.",
+                    "Large volumes of clinical documentation can require significant manual review and coding effort.",
                 },
                 {
                   icon: MessageCircle,
-                  title: "Rigid conversations",
+                  title: "Complex documentation",
                   text:
-                    "Traditional menu based experiences can make it difficult for customers to explain what they actually need.",
+                    "Clinical language contains context and terminology that cannot always be handled effectively through simple keyword matching.",
                 },
                 {
                   icon: Workflow,
-                  title: "Manual workflows",
+                  title: "Repetitive workflows",
                   text:
-                    "Support teams often spend time handling routine tasks that could be automated through connected AI workflows.",
+                    "Coding professionals can spend valuable time searching, extracting, validating, and organizing coding information.",
                 },
                 {
                   icon: ShieldCheck,
-                  title: "Human escalation",
+                  title: "Professional oversight",
                   text:
-                    "Complex, sensitive, or high value conversations still need to reach the right human specialist.",
+                    "Important coding decisions require qualified human review, governance, and traceability.",
                 },
               ].map((item) => {
+
                 const Icon = item.icon;
 
                 return (
@@ -459,9 +468,9 @@ export default async function CaseStudyPage({
 
         </section>
 
-        {/* ====================================================
-            SOLUTION
-        ==================================================== */}
+        {/* ===================================================
+            AI SOLUTION
+        =================================================== */}
 
         <section
           id="solution"
@@ -500,15 +509,14 @@ export default async function CaseStudyPage({
                 </div>
 
                 <h2 className="mt-7 max-w-xl text-[34px] font-medium leading-tight text-white lg:text-[46px]">
-                  Conversational AI that understands intent and takes action
+                  AI intelligence that supports faster and more consistent coding
                 </h2>
 
                 <p className="mt-6 max-w-xl text-[15px] leading-8 text-white/60">
-                  Starfii's AI Native Contact Center
-                  approach combines natural language
-                  understanding, voice automation,
-                  intelligent routing, and connected
-                  business workflows.
+                  AI-assisted clinical documentation
+                  analysis, structured code recommendations,
+                  validation, and human review can work
+                  together as a connected coding workflow.
                 </p>
 
               </div>
@@ -516,12 +524,12 @@ export default async function CaseStudyPage({
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
                 {[
-                  "Natural language conversations",
-                  "Real time intent detection",
-                  "Automated customer workflows",
-                  "Intelligent human escalation",
-                  "CRM and business system integration",
-                  "Always on customer availability",
+                  "Clinical documentation analysis",
+                  "Clinical language understanding",
+                  "ICD, CPT and HCPCS recommendations",
+                  "Coding validation",
+                  "Human-in-the-loop review",
+                  "Healthcare system integration",
                 ].map((item, index) => (
 
                   <div
@@ -548,10 +556,7 @@ export default async function CaseStudyPage({
                       <div>
 
                         <span className="text-[11px] font-medium text-white/35">
-                          {String(index + 1).padStart(
-                            2,
-                            "0"
-                          )}
+                          {String(index + 1).padStart(2, "0")}
                         </span>
 
                         <p className="mt-1 text-[14px] font-medium leading-6 text-white/80">
@@ -574,9 +579,9 @@ export default async function CaseStudyPage({
 
         </section>
 
-        {/* ====================================================
+        {/* ===================================================
             IMPACT
-        ==================================================== */}
+        =================================================== */}
 
         <section
           id="results"
@@ -603,7 +608,7 @@ export default async function CaseStudyPage({
                 color: CHAMPION_BLUE,
               }}
             >
-              Turning every conversation into a more efficient customer experience
+              Turning coding workflows into a more efficient operation
             </h2>
 
             <p className="mt-6 text-[16px] leading-8 text-slate-600">
@@ -617,23 +622,24 @@ export default async function CaseStudyPage({
             {[
               {
                 icon: PhoneCall,
-                title: "Faster response",
+                title: "Faster processing",
                 text:
-                  "Routine enquiries can be handled immediately without requiring a human agent for every interaction.",
+                  "AI can accelerate first-pass analysis and reduce repetitive coding work.",
               },
               {
                 icon: Workflow,
                 title: "Higher efficiency",
                 text:
-                  "Automation reduces repetitive work and allows support teams to concentrate on conversations that matter most.",
+                  "Coding professionals can focus more of their time on validation, exceptions, and complex decisions.",
               },
               {
                 icon: Sparkles,
-                title: "Better experience",
+                title: "Better consistency",
                 text:
-                  "Customers can communicate naturally instead of navigating rigid menu based experiences.",
+                  "Structured recommendations and validation workflows can support more consistent coding operations.",
               },
             ].map((item) => {
+
               const Icon = item.icon;
 
               return (
@@ -673,9 +679,9 @@ export default async function CaseStudyPage({
 
         </section>
 
-        {/* ====================================================
+        {/* ===================================================
             BENEFITS
-        ==================================================== */}
+        =================================================== */}
 
         <section
           id="benefits"
@@ -701,7 +707,7 @@ export default async function CaseStudyPage({
                   color: CHAMPION_BLUE,
                 }}
               >
-                AI support designed around business outcomes
+                AI support designed around coding outcomes
               </h2>
 
             </div>
@@ -709,14 +715,14 @@ export default async function CaseStudyPage({
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
 
               {[
-                "Reduce repetitive customer support work",
-                "Improve availability across customer channels",
-                "Accelerate routine enquiry resolution",
-                "Route complex conversations intelligently",
-                "Give human agents better context",
-                "Scale customer communication efficiently",
-                "Connect conversations with business workflows",
-                "Create a consistent customer experience",
+                "Reduce repetitive coding work",
+                "Accelerate clinical documentation analysis",
+                "Improve coding consistency",
+                "Surface relevant code recommendations",
+                "Support human review",
+                "Improve exception handling",
+                "Connect coding with revenue cycle workflows",
+                "Maintain traceability and governance",
               ].map((benefit) => (
 
                 <div
@@ -749,9 +755,9 @@ export default async function CaseStudyPage({
 
         </section>
 
-        {/* ====================================================
+        {/* ===================================================
             TECHNOLOGY
-        ==================================================== */}
+        =================================================== */}
 
         <section
           id="technology"
@@ -778,14 +784,14 @@ export default async function CaseStudyPage({
                 color: CHAMPION_BLUE,
               }}
             >
-              An intelligent voice layer connected to your business
+              Intelligent coding connected to healthcare workflows
             </h2>
 
             <p className="mt-6 text-[16px] leading-8 text-slate-600">
-              Starfii connects conversational AI with
-              the systems and workflows businesses
-              already use, creating an intelligent layer
-              between customers and operations.
+              AI-powered coding can connect clinical
+              documentation intelligence with validation,
+              professional review, healthcare systems,
+              and revenue cycle workflows.
             </p>
 
           </div>
@@ -797,27 +803,28 @@ export default async function CaseStudyPage({
                 icon: BrainCircuit,
                 title: "AI Intelligence",
                 text:
-                  "Natural language understanding and contextual conversation.",
+                  "Clinical language understanding and contextual analysis.",
               },
               {
                 icon: PhoneCall,
-                title: "Voice AI",
+                title: "Coding Intelligence",
                 text:
-                  "Real time voice interactions for inbound and outbound calls.",
+                  "Structured recommendations for relevant coding workflows.",
               },
               {
                 icon: Workflow,
                 title: "Automation",
                 text:
-                  "Business actions triggered directly from customer conversations.",
+                  "Workflow actions connected to existing healthcare processes.",
               },
               {
                 icon: ShieldCheck,
                 title: "Human Control",
                 text:
-                  "Intelligent escalation when human expertise is required.",
+                  "Professional review and governance remain part of the workflow.",
               },
             ].map((item) => {
+
               const Icon = item.icon;
 
               return (
@@ -863,9 +870,9 @@ export default async function CaseStudyPage({
 
       </div>
 
-      {/* ======================================================
+      {/* =====================================================
           FEATURE IMAGE
-      ====================================================== */}
+      ===================================================== */}
 
       <section
         id="story"
@@ -888,9 +895,9 @@ export default async function CaseStudyPage({
 
       </section>
 
-      {/* ======================================================
+      {/* =====================================================
           RELATED CASE STUDIES
-      ====================================================== */}
+      ===================================================== */}
 
       {relatedStudies.length > 0 && (
         <section
@@ -922,7 +929,7 @@ export default async function CaseStudyPage({
                     color: CHAMPION_BLUE,
                   }}
                 >
-                  More AI Native Contact Center Case Studies
+                  More Medical Coding Case Studies
                 </h2>
 
               </div>
@@ -1012,9 +1019,9 @@ export default async function CaseStudyPage({
         </section>
       )}
 
-      {/* ======================================================
+      {/* =====================================================
           FINAL CTA
-      ====================================================== */}
+      ===================================================== */}
 
       <section
         id="connect"
@@ -1049,7 +1056,7 @@ export default async function CaseStudyPage({
                     color: INDIGO_CTA,
                   }}
                 >
-                  AI NATIVE CONTACT CENTER
+                  AI-POWERED MEDICAL CODING
                 </p>
 
                 <h2
@@ -1058,14 +1065,14 @@ export default async function CaseStudyPage({
                     color: CHAMPION_BLUE,
                   }}
                 >
-                  Ready to transform customer conversations?
+                  Ready to modernize medical coding?
                 </h2>
 
                 <p className="mt-5 text-[15px] leading-7 text-slate-600">
-                  Talk to Starfii about conversational
-                  AI, voice automation, intelligent routing,
-                  customer support workflows, and
-                  AI powered contact center transformation.
+                  Talk to Starfii about AI-assisted
+                  clinical documentation analysis,
+                  coding intelligence, validation,
+                  and healthcare workflow automation.
                 </p>
 
               </div>
@@ -1083,6 +1090,7 @@ export default async function CaseStudyPage({
                   size={17}
                   className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                 />
+
               </Link>
 
             </div>
@@ -1093,9 +1101,9 @@ export default async function CaseStudyPage({
 
       </section>
 
-      {/* ======================================================
+      {/* =====================================================
           BACK
-      ====================================================== */}
+      ===================================================== */}
 
       <div className={ALIGN}>
 
@@ -1119,7 +1127,7 @@ export default async function CaseStudyPage({
               className="transition-transform duration-300 group-hover:-translate-x-1"
             />
 
-            Back to AI Native Contact Center
+            Back to Enterprise Automation
 
           </Link>
 

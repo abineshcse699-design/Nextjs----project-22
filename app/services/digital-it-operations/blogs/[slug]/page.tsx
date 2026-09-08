@@ -9,6 +9,10 @@ import {
 
 import BlogDetail from "../BlogDetail";
 
+/* ============================================================
+   PAGE PROPS
+============================================================ */
+
 type PageProps = {
   params: Promise<{
     slug: string;
@@ -25,9 +29,6 @@ export function generateStaticParams() {
   }));
 }
 
-/*
-  Only slugs that exist in blogPosts are allowed.
-*/
 export const dynamicParams = false;
 
 /* ============================================================
@@ -45,7 +46,7 @@ export async function generateMetadata({
     return {
       title: "Blog Not Found | Starfii",
       description:
-        "The requested Digital IT Operations blog could not be found.",
+        "The requested Data & Analytics blog could not be found.",
     };
   }
 
@@ -72,7 +73,6 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
-
       images: [post.heroImage],
     },
   };
@@ -87,22 +87,16 @@ export default async function BlogPage({
 }: PageProps) {
   const { slug } = await params;
 
-  /*
-    Find the blog using the URL slug.
-  */
   const post = getBlogBySlug(slug);
 
-  /*
-    If slug doesn't exist, show Next.js 404 page.
-  */
   if (!post) {
     notFound();
   }
 
-  /*
-    Get related blogs excluding current blog.
-  */
-  const related = getRelatedBlogs(post.slug, 3);
+  const related = getRelatedBlogs(
+    post.slug,
+    3
+  );
 
   return (
     <BlogDetail
