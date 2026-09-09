@@ -64,861 +64,787 @@ export type BlogPost = {
 
 const AUTHOR = {
   name: "Starfii Team",
-  role: "Data & Analytics",
+  role: "Digital IT Operations",
   photo: "/images/authors/starfii-team.jpg",
-  bio: "The Starfii Data & Analytics team helps organizations turn complex data into trusted insights, scalable platforms, and better business decisions.",
+  bio: "The Starfii Digital IT Operations team helps enterprises run stable cloud infrastructure, ship releases safely, and keep systems secure and supported long after go live.",
 };
 
 /* ============================================================
    BLOG POSTS
+   NOTE: slugs below intentionally match the slugs used in the
+   "What's New in IT Operations" insights section on the Digital
+   IT Operations service page, so clicking a card here resolves
+   correctly under /services/digital-it-operations/blogs/[slug].
+
+   IMAGES: heroImage / section image fields below point to real
+   Unsplash photo URLs (images.unsplash.com/photo-<id>) so they
+   render immediately without needing any local files. Swap these
+   out for your own hosted images whenever you're ready.
 ============================================================ */
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "generative-ai-enterprise-data-warehouses-to-answers",
+    slug: "multi-cloud-operations-one-consistent-model",
 
     title:
-      "Generative AI: From Enterprise Data Warehouses to Answers",
+      "Multi Cloud Operations: One Consistent Model Across AWS, Azure and GCP",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "8 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/generative-ai-enterprise-data-warehouses.jpg",
+      "https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Discover how enterprises can connect generative AI with governed data warehouses to turn business questions into trusted, actionable answers.",
+      "How enterprises can run a single, consistent operations model across multiple cloud providers without duplicating tooling or headcount.",
 
     seo: {
-      title: "Generative AI: From Enterprise Data Warehouses to Answers",
+      title: "Multi Cloud Operations: One Consistent Model",
       description:
-        "Learn how enterprises can connect generative AI with governed data warehouses to deliver trusted, natural-language answers and faster decisions.",
+        "Learn how enterprises build one consistent operations model across AWS, Azure, and GCP without duplicating tooling, headcount, or process.",
       keywords: [
-        "generative AI enterprise data",
-        "AI data warehouse",
-        "natural language analytics",
-        "governed AI answers",
-        "enterprise generative AI",
-        "AI grounded in data",
+        "multi cloud operations",
+        "AWS Azure GCP operations",
+        "cloud operations model",
+        "cloud infrastructure management",
+        "enterprise cloud operations",
+        "cost and performance optimization",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Enterprise data warehouses contain enormous amounts of valuable business information, but accessing that information often still requires technical expertise, predefined reports, or complex queries.",
-      "Generative AI is changing this interaction model by allowing business users to ask questions using natural language and receive answers grounded in enterprise data.",
-      "The real opportunity is not simply adding an AI chatbot to a data warehouse. It is creating a trusted layer between business questions, governed data, analytics logic, and AI-generated answers.",
+      "Most enterprises no longer run on a single cloud. Acquisitions, regional requirements, and team preferences often leave workloads spread across AWS, Azure, and GCP at the same time.",
+      "The challenge is not choosing a cloud. It is running operations consistently once workloads already live on more than one.",
+      "A well designed multi cloud operations model gives every team the same visibility, the same guardrails, and the same response process, regardless of which provider a workload runs on.",
     ],
 
     sections: [
       {
-        heading: "The challenge with traditional enterprise analytics",
+        heading: "Why multi cloud operations get messy",
         paragraphs: [
-          "Traditional analytics environments are powerful but can create friction for non-technical users. Business questions frequently need to pass through analysts, BI developers, data engineers, or predefined dashboards before an answer is available.",
-          "This creates delays and can encourage teams to build their own spreadsheets or isolated datasets when they cannot access information quickly enough.",
+          "Teams often build monitoring, alerting, and access controls independently for each cloud they adopt. Over time this produces three different runbooks, three different on call processes, and three different views of cost.",
+          "The result is not redundancy, it is fragmentation, and it shows up first as slower incident response and inconsistent security posture.",
         ],
         image:
-          "/images/blogs/data-analytics/enterprise-analytics.jpg",
-        imageAlt:
-          "Enterprise analytics and business intelligence",
+          "https://images.unsplash.com/photo-1690627931320-16ac56eb2588?q=80&w=1600&auto=format&fit=crop",
+        imageAlt: "Unified multi cloud operations dashboard",
       },
-
       {
-        heading: "Where generative AI changes the experience",
+        heading: "Standardize the operating model first",
         paragraphs: [
-          "Generative AI provides a natural-language interface to analytical systems. Instead of navigating multiple dashboards, a user can ask a question such as which products are driving revenue growth or which customer segments are declining.",
-          "The AI layer can translate the question into analytical operations, retrieve relevant information, and present the result in language that is easier for business users to understand.",
+          "Before adding more tooling, standardize the operating model: naming conventions, tagging, access policies, incident severity definitions, and escalation paths should look the same whether a workload runs on AWS, Azure, or GCP.",
+          "This lets one operations team support all three clouds without needing three separate playbooks.",
+        ],
+      },
+      {
+        heading: "Centralize observability",
+        paragraphs: [
+          "A single pane of glass for logs, metrics, and alerts across providers reduces the time it takes to correlate an issue that spans services or clouds.",
+          "Centralizing observability does not mean abandoning cloud native tools. It means feeding them into one shared layer that operations teams actually use day to day.",
+        ],
+      },
+      {
+        heading: "Manage cost as one portfolio",
+        paragraphs: [
+          "Treat cloud spend across providers as a single portfolio rather than three separate budgets. This surfaces workloads that could move to a cheaper region or service tier, and prevents duplicate spend on similar capabilities.",
         ],
         quote:
-          "The goal is not to replace enterprise analytics. It is to make trusted analytics easier to access.",
+          "The goal of multi cloud operations is not fewer clouds. It is one consistent way of running them.",
       },
-
       {
-        heading: "Connecting AI to enterprise data",
+        heading: "Build one incident response process",
         paragraphs: [
-          "A production implementation needs more than a language model. The AI experience needs access to structured enterprise data, metadata, semantic definitions, security policies, and analytical logic.",
-          "This typically means creating a controlled architecture where AI requests are translated into approved queries or analytical operations before information is returned to the user.",
-        ],
-      },
-
-      {
-        heading: "Governance must remain central",
-        paragraphs: [
-          "Enterprise AI cannot treat every available data source as equally trustworthy. Data quality, ownership, access controls, lineage, and business definitions remain essential.",
-          "A governed AI data layer helps ensure that generated answers are based on approved information and that users only see data they are authorized to access.",
-        ],
-      },
-
-      {
-        heading: "From dashboards to conversational analytics",
-        paragraphs: [
-          "Dashboards remain useful for monitoring recurring KPIs and operational performance. Conversational analytics adds another layer by allowing users to explore questions that were not anticipated when the dashboard was designed.",
-          "The combination creates a more flexible analytical experience without requiring every question to become a new dashboard.",
-        ],
-      },
-
-      {
-        heading: "Building trust in generated answers",
-        paragraphs: [
-          "Users need confidence that an AI-generated answer is supported by enterprise data. Systems should therefore expose context such as the underlying metrics, data sources, definitions, or query logic when appropriate.",
-          "Trust increases when users can understand where an answer came from rather than receiving an unexplained number or recommendation.",
+          "When an outage happens, responders should not need to remember which cloud dictates which process. One severity model, one communication template, and one escalation chain keeps response times predictable regardless of where the failure originated.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Faster insight discovery",
-        body:
-          "Reduce the time required to move from a business question to relevant analytical information.",
+        title: "Faster incident response",
+        body: "One escalation process and shared visibility cut the time it takes to detect and resolve issues across clouds.",
       },
       {
-        title: "Broader data accessibility",
-        body:
-          "Make governed enterprise data easier for business teams to explore without requiring every user to become a SQL expert.",
+        title: "Lower operational overhead",
+        body: "A single operating model means one team can support multiple clouds instead of maintaining three parallel practices.",
       },
       {
-        title: "Better analytical productivity",
-        body:
-          "Allow analysts and data teams to spend more time on high-value analytical work instead of repetitive information requests.",
+        title: "Better cost control",
+        body: "Treating cloud spend as one portfolio makes it easier to spot waste and standardize on the most cost effective services.",
       },
       {
-        title: "Stronger governance",
-        body:
-          "Keep enterprise security, data quality, definitions, and ownership at the center of the AI experience.",
+        title: "Consistent security posture",
+        body: "Shared guardrails and access policies reduce the risk of gaps that appear when each cloud is managed independently.",
       },
     ],
 
     process: [
       {
-        title: "Identify high-value questions",
-        body:
-          "Start with recurring business questions where faster access to trusted information can create measurable value.",
+        title: "Audit current state",
+        body: "Map every workload, owner, and tool across each cloud provider currently in use.",
       },
       {
-        title: "Prepare governed data",
-        body:
-          "Establish reliable datasets, metadata, definitions, access policies, and data quality controls.",
+        title: "Standardize the operating model",
+        body: "Define shared naming, tagging, severity levels, and escalation paths across all providers.",
       },
       {
-        title: "Connect the AI layer",
-        body:
-          "Create controlled mechanisms for translating natural-language questions into approved analytical operations.",
+        title: "Centralize monitoring",
+        body: "Bring logs, metrics, and alerts from each cloud into one shared observability layer.",
       },
       {
-        title: "Validate and monitor",
-        body:
-          "Test responses, monitor quality, measure adoption, and continuously improve the analytical experience.",
+        title: "Review and optimize",
+        body: "Continuously review cost, performance, and incident data as one combined portfolio.",
       },
     ],
 
     keyTakeaways: [
-      "Generative AI can make enterprise analytics more accessible through natural-language interaction.",
-      "AI should be grounded in governed enterprise data rather than disconnected from existing analytics systems.",
-      "Security, data quality, lineage, and business definitions remain critical.",
-      "The best implementations combine conversational AI with existing BI and analytical capabilities.",
-      "Trust and transparency should be designed into the experience from the beginning.",
+      "Multi cloud operations should feel like one operating model, not three separate ones.",
+      "Centralized observability speeds up incident response across providers.",
+      "Cloud cost should be managed as a single portfolio, not per provider.",
+      "Consistency in access and security policy matters more than which cloud is used.",
     ],
 
     conclusion:
-      "Generative AI creates a new interface for enterprise analytics, but the underlying data foundation still matters. Organizations that combine governed data platforms with carefully designed AI experiences can make trusted insights accessible to more people while improving the productivity of their data teams.",
+      "Enterprises rarely choose to be multi cloud on purpose, but they can choose how they operate once they are. A consistent operating model, centralized visibility, and shared incident response turn a fragmented setup into one dependable operation.",
 
     cta: {
-      title: "Ready to unlock your enterprise data?",
-      body:
-        "Starfii can help you build governed data platforms and AI-enabled analytics experiences designed around your business questions.",
-      buttonText: "Talk to Our Data Team",
+      title: "Bring your multi cloud operations under one model",
+      body: "Starfii can help standardize monitoring, cost management, and incident response across AWS, Azure, and GCP.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "cloud-data-platforms-aws-azure-gcp",
+    slug: "devops-release-automation-without-risk",
 
-    title:
-      "Cloud Data Platforms: AWS, Azure and GCP",
+    title: "DevOps and Release Automation Without the Risk",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "7 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/cloud-data-platforms.jpg",
+      "https://images.unsplash.com/photo-1667372335962-5fd503a8ae5b?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "A practical look at building scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
+      "A practical look at building CI/CD pipelines that ship faster while keeping production stability intact.",
 
     seo: {
-      title: "Cloud Data Platforms: AWS, Azure and GCP",
+      title: "DevOps and Release Automation Without the Risk",
       description:
-        "A practical guide to choosing and architecting scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
+        "A practical guide to building CI/CD pipelines and release automation that ship faster without putting production stability at risk.",
       keywords: [
-        "cloud data platform",
-        "AWS Azure GCP comparison",
-        "enterprise data architecture",
-        "cloud analytics",
-        "cloud data migration",
-        "scalable data platform",
+        "DevOps release automation",
+        "CI/CD pipeline",
+        "release automation risk",
+        "deployment frequency",
+        "production stability",
+        "test automation",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Cloud platforms have transformed how organizations collect, store, process, and analyze data.",
-      "AWS, Azure, and Google Cloud each provide extensive services for modern data architectures, but successful implementation depends on architecture choices rather than simply selecting a cloud provider.",
-      "The right platform should align data engineering, analytics, governance, security, and business requirements.",
+      "Teams that increase deployment frequency without changing how they test and release often trade speed for stability.",
+      "The fix is not slowing releases down. It is building automation and safeguards that let releases move fast and stay safe at the same time.",
     ],
 
     sections: [
       {
-        heading: "Why cloud data platforms matter",
+        heading: "Why faster releases increase risk without automation",
         paragraphs: [
-          "Enterprise data volumes and analytical requirements continue to grow. Traditional environments can become expensive or difficult to scale when workloads fluctuate.",
-          "Cloud platforms provide elastic infrastructure and managed services that can simplify the operation of modern data workloads.",
+          "As release frequency increases, manual testing and manual approval steps become the bottleneck, and the pressure to skip them grows.",
+          "Skipped checks are usually where production incidents start.",
         ],
       },
       {
-        heading: "AWS data platforms",
+        heading: "Automate the pipeline, not just the deployment",
         paragraphs: [
-          "AWS provides a broad set of services covering object storage, databases, data processing, analytics, streaming, and machine learning.",
-          "Organizations can combine these services into architectures that support both batch and real-time analytical workloads.",
+          "A CI/CD pipeline should automate build, test, security scanning, and deployment as one connected flow, not just the final push to production.",
+          "Automating only deployment while leaving testing manual just moves the bottleneck, it does not remove it.",
         ],
       },
       {
-        heading: "Azure data platforms",
+        heading: "Use progressive delivery",
         paragraphs: [
-          "Azure provides strong integration across enterprise data, analytics, identity, and Microsoft business environments.",
-          "This can be particularly valuable for organizations already invested in the Microsoft ecosystem.",
-        ],
-      },
-      {
-        heading: "Google Cloud data platforms",
-        paragraphs: [
-          "Google Cloud provides strong capabilities for large-scale analytics, data processing, machine learning, and cloud-native application workloads.",
-          "Its analytics ecosystem can support organizations building data-intensive analytical products and AI workloads.",
-        ],
-      },
-      {
-        heading: "Choosing the right architecture",
-        paragraphs: [
-          "Cloud selection should follow business and technical requirements rather than becoming the starting point of the architecture.",
-          "Important considerations include existing systems, skills, security requirements, data volumes, latency needs, cost models, governance, and long-term portability.",
+          "Canary releases, feature flags, and staged rollouts let teams expose changes to a small percentage of traffic first, catching problems before they reach every user.",
         ],
         quote:
-          "A successful cloud data strategy starts with the operating model and business outcomes, not with a list of services.",
+          "Speed and safety are not opposites when the pipeline is designed correctly.",
+      },
+      {
+        heading: "Build automated rollback into the process",
+        paragraphs: [
+          "Every release process should have a tested, automated way to roll back. Manual rollback under pressure is where recovery times balloon.",
+        ],
+      },
+      {
+        heading: "Measure what matters",
+        paragraphs: [
+          "Deployment frequency, lead time for changes, change failure rate, and time to restore service are better indicators of a healthy DevOps practice than release count alone.",
+        ],
       },
     ],
 
     benefits: [
       {
-        title: "Elastic scale",
-        body:
-          "Scale infrastructure according to analytical workloads and business demand.",
+        title: "Faster, safer releases",
+        body: "Automated pipelines let teams ship more often without increasing production risk.",
       },
       {
-        title: "Managed services",
-        body:
-          "Reduce operational overhead through cloud-managed data and analytics capabilities.",
+        title: "Reduced manual error",
+        body: "Automated testing and deployment remove the inconsistency that comes with manual release steps.",
       },
       {
-        title: "Faster innovation",
-        body:
-          "Accelerate experimentation with modern analytics, AI, and data engineering services.",
+        title: "Faster recovery",
+        body: "Automated rollback and progressive delivery shrink the blast radius when something does go wrong.",
       },
     ],
 
     process: [
       {
-        title: "Assess the current estate",
-        body:
-          "Map existing data sources, workloads, dependencies, and operational constraints.",
+        title: "Assess current pipeline",
+        body: "Identify manual steps, bottlenecks, and gaps in test coverage across the release process.",
       },
       {
-        title: "Define target architecture",
-        body:
-          "Design the cloud data platform around business requirements and analytical workloads.",
+        title: "Automate build and test",
+        body: "Wire automated testing and security scanning into every build before it reaches deployment.",
       },
       {
-        title: "Migrate strategically",
-        body:
-          "Prioritize workloads based on value, complexity, risk, and readiness.",
+        title: "Introduce progressive delivery",
+        body: "Roll out canary releases and feature flags to reduce the impact of any single change.",
       },
       {
-        title: "Optimize continuously",
-        body:
-          "Monitor performance, reliability, security, and cloud costs after migration.",
+        title: "Monitor and iterate",
+        body: "Track deployment metrics and continuously refine the pipeline based on real incident data.",
       },
     ],
 
     keyTakeaways: [
-      "AWS, Azure, and Google Cloud can all support modern enterprise data platforms.",
-      "Architecture should be driven by business and technical requirements.",
-      "Governance and security must be designed into the platform.",
-      "Migration should be phased and prioritized according to value and risk.",
+      "Increasing release frequency without automation increases operational risk.",
+      "CI/CD should automate the full pipeline, not just deployment.",
+      "Progressive delivery limits the impact of a bad release.",
+      "Automated rollback is as important as automated deployment.",
     ],
 
     conclusion:
-      "Cloud data platforms provide the scalability and flexibility required by modern analytics organizations. The strongest results come from combining cloud capabilities with disciplined architecture, governance, engineering practices, and a clear operating model.",
+      "DevOps maturity is not measured by how often a team deploys. It is measured by how safely they can deploy that often. Automation across the full pipeline is what makes fast and safe compatible.",
 
     cta: {
-      title: "Build your modern cloud data platform",
-      body:
-        "Our data team can help design, modernize, migrate, and operate scalable cloud data environments.",
-      buttonText: "Talk to Our Data Team",
+      title: "Ship faster without the risk",
+      body: "Starfii can help design CI/CD pipelines, test automation, and progressive delivery for your release process.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "data-governance-at-scale-trust-every-pipeline",
+    slug: "security-operations-framework-for-enterprise-it",
 
-    title:
-      "Data Governance at Scale: Trust Every Pipeline",
+    title: "Building a Security Operations Framework for Enterprise IT",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "8 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/data-governance.jpg",
+      "https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Learn how scalable data governance can improve trust, security, quality, and accountability across enterprise data pipelines.",
+      "Why proactive security monitoring and a resilient operations framework matter more than point in time audits.",
 
     seo: {
-      title: "Data Governance at Scale: Trust Every Pipeline",
+      title: "Security Operations Framework for Enterprise IT",
       description:
-        "Discover practical data governance strategies for ownership, quality, security, and accountability across enterprise data pipelines.",
+        "Learn why proactive security monitoring and a resilient security operations framework matter more than point in time compliance audits.",
       keywords: [
-        "data governance",
-        "data pipeline trust",
-        "data quality",
-        "data ownership",
-        "enterprise data security",
-        "governance at scale",
+        "security operations framework",
+        "enterprise cybersecurity",
+        "proactive security monitoring",
+        "security risk management",
+        "compliance",
+        "incident response",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Data governance is no longer simply a compliance activity. As organizations depend on data for operational decisions, analytics, and AI, trust in that data becomes a business requirement.",
-      "Effective governance establishes clear ownership, quality expectations, security controls, definitions, and accountability across the data lifecycle.",
+      "Passing an annual security audit does not mean an organization is secure the rest of the year.",
+      "A security operations framework treats protection as a continuous activity, not a periodic checklist.",
     ],
 
     sections: [
       {
-        heading: "What modern data governance means",
+        heading: "The limits of point in time audits",
         paragraphs: [
-          "Modern governance combines policy, technology, people, and operating processes.",
-          "The goal is to make responsible data usage part of everyday engineering and analytics workflows rather than creating a separate layer that teams work around.",
+          "Audits capture a snapshot. Threats, configurations, and access patterns change constantly between review cycles, which is exactly when most incidents happen.",
         ],
       },
       {
-        heading: "Data ownership and accountability",
+        heading: "Continuous monitoring over periodic review",
         paragraphs: [
-          "Every critical dataset should have clear ownership and documented expectations.",
-          "Ownership helps organizations resolve quality issues faster and maintain consistent definitions as data moves across platforms.",
+          "A security operations framework relies on continuous monitoring of systems, access, and network activity, so unusual behavior is flagged as it happens rather than discovered months later.",
         ],
       },
       {
-        heading: "Data quality as a continuous process",
+        heading: "Layered defenses across the infrastructure",
         paragraphs: [
-          "Quality should be monitored throughout the data lifecycle. Automated checks can detect missing values, unexpected changes, duplicates, schema changes, and other issues before they affect downstream consumers.",
-        ],
-      },
-      {
-        heading: "Security and access controls",
-        paragraphs: [
-          "Governance must also ensure that sensitive information is protected and that access is aligned with business requirements.",
-          "Centralized policies and consistent controls can reduce the risk of unauthorized data access.",
-        ],
-      },
-      {
-        heading: "Making governance part of engineering",
-        paragraphs: [
-          "The most effective governance programs integrate controls into development and deployment processes.",
-          "This allows teams to maintain speed while still applying organizational standards.",
+          "No single control is sufficient. Identity management, network segmentation, endpoint protection, and data encryption should work together so one gap does not become a full breach.",
         ],
         quote:
-          "Governance works best when it becomes part of the way data teams build, deploy, and operate.",
+          "Security operations is a discipline, not a one time project.",
+      },
+      {
+        heading: "Practice incident response before you need it",
+        paragraphs: [
+          "Response plans that only exist on paper tend to fail under real pressure. Regular tabletop exercises and drills expose gaps in the plan before a real incident does.",
+        ],
+      },
+      {
+        heading: "Align security with compliance, not the other way around",
+        paragraphs: [
+          "Compliance requirements should be treated as a minimum baseline that a strong security operations framework naturally satisfies, rather than the primary goal that shapes every decision.",
+        ],
       },
     ],
 
     benefits: [
       {
-        title: "Higher data trust",
-        body:
-          "Improve confidence in the information used for reporting, analytics, and AI.",
+        title: "Earlier threat detection",
+        body: "Continuous monitoring surfaces suspicious activity long before it becomes a full incident.",
       },
       {
-        title: "Lower data risk",
-        body:
-          "Strengthen access control, accountability, and protection of sensitive information.",
+        title: "Reduced breach impact",
+        body: "Layered defenses and segmentation limit how far an attacker can move if one control fails.",
       },
       {
-        title: "Faster issue resolution",
-        body:
-          "Clear ownership and monitoring make it easier to identify and resolve data problems.",
+        title: "Audit readiness by default",
+        body: "A continuous framework keeps organizations compliance ready year round, not just before an audit.",
       },
     ],
 
     process: [
       {
-        title: "Define critical data",
-        body:
-          "Identify the datasets and metrics that matter most to the organization.",
+        title: "Assess current posture",
+        body: "Review existing controls, monitoring coverage, and known gaps across the environment.",
       },
       {
-        title: "Assign ownership",
-        body:
-          "Establish accountable business and technical owners.",
+        title: "Implement continuous monitoring",
+        body: "Deploy monitoring across identity, network, and endpoint layers with clear alerting thresholds.",
       },
       {
-        title: "Automate controls",
-        body:
-          "Introduce quality, security, metadata, and monitoring controls into pipelines.",
+        title: "Layer defenses",
+        body: "Strengthen segmentation, access control, and encryption so no single point of failure exists.",
       },
       {
-        title: "Measure adoption",
-        body:
-          "Track governance coverage, data quality, incidents, and remediation.",
+        title: "Test response plans",
+        body: "Run regular incident response drills and refine the plan based on what they reveal.",
       },
     ],
 
     keyTakeaways: [
-      "Governance should be embedded into daily data operations.",
-      "Ownership and accountability are essential for trusted data.",
-      "Automated quality checks reduce downstream data issues.",
-      "Security and governance should scale with the data platform.",
+      "Security is a continuous operation, not a periodic audit.",
+      "Layered defenses limit the impact of any single failure.",
+      "Incident response plans should be tested before they are needed.",
+      "Strong security operations satisfy compliance as a byproduct, not the primary goal.",
     ],
 
     conclusion:
-      "Scalable governance creates the foundation for trusted analytics and AI. Organizations that make governance part of engineering and operating practices can improve data confidence without unnecessarily slowing innovation.",
+      "Enterprises that treat security as an ongoing operations discipline catch problems earlier and recover faster than those relying on periodic audits. A resilient framework is built for the in between moments, not just the review cycle.",
 
     cta: {
-      title: "Make your data more trustworthy",
-      body:
-        "Starfii can help establish practical governance, quality, metadata, and security foundations across your data environment.",
-      buttonText: "Talk to Our Data Team",
+      title: "Strengthen your security operations",
+      body: "Starfii can help build a continuous security operations framework around your existing infrastructure.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "mdm-in-practice-one-customer-record",
+    slug: "cloud-cost-optimization-playbook",
 
-    title:
-      "MDM in Practice: One Customer Record",
+    title: "A Practical Cloud Cost Optimization Playbook",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "7 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/master-data-management.jpg",
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "How master data management can help organizations create a consistent, trusted view of customers across systems.",
+      "Concrete steps for cutting cloud spend across AWS, Azure, and GCP without sacrificing performance or reliability.",
 
     seo: {
-      title: "MDM in Practice: One Customer Record",
+      title: "Cloud Cost Optimization Playbook",
       description:
-        "Learn how master data management creates one consistent, trusted customer record across CRM, billing, support, and commerce systems.",
+        "Concrete, practical steps for reducing cloud spend across AWS, Azure, and GCP without sacrificing performance or reliability.",
       keywords: [
-        "master data management",
-        "MDM customer record",
-        "customer 360",
-        "identity resolution",
-        "golden record",
-        "data survivorship rules",
+        "cloud cost optimization",
+        "cloud spend management",
+        "AWS Azure GCP cost",
+        "rightsizing cloud resources",
+        "reserved instances",
+        "cloud FinOps",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Customers often exist in multiple systems with different names, identifiers, addresses, preferences, and histories.",
-      "Master Data Management helps organizations create a consistent representation of important business entities such as customers, products, suppliers, and locations.",
+      "Cloud bills rarely spike because of one bad decision. They grow slowly from unused resources, oversized instances, and workloads nobody revisits after launch.",
+      "A cost optimization playbook turns that slow drift into a repeatable, measurable process.",
     ],
 
     sections: [
       {
-        heading: "The problem with fragmented customer data",
+        heading: "Find the waste first",
         paragraphs: [
-          "A customer may appear differently across CRM, billing, support, marketing, commerce, and operational systems.",
-          "Without a consistent identity model, teams can struggle to understand the complete customer relationship.",
+          "Idle instances, unattached storage volumes, and forgotten test environments are usually the fastest wins. Most organizations can cut spend meaningfully just by finding and removing what is no longer used.",
         ],
       },
       {
-        heading: "Creating the golden record",
+        heading: "Rightsize before you commit",
         paragraphs: [
-          "An MDM solution identifies and links related records while applying business rules to determine the most trusted attributes.",
-          "The result is a golden record that can become a common reference for downstream systems.",
+          "Matching instance and service tiers to actual usage, rather than initial estimates, often reveals that workloads are running on far more capacity than they need.",
         ],
       },
       {
-        heading: "Matching and survivorship",
+        heading: "Use commitment pricing strategically",
         paragraphs: [
-          "Matching logic determines whether records represent the same real-world entity. Survivorship rules determine which values should be retained when systems disagree.",
-        ],
-      },
-      {
-        heading: "MDM across the enterprise",
-        paragraphs: [
-          "Successful MDM connects business ownership with technical implementation.",
-          "Data stewards, application owners, analytics teams, and business stakeholders all have roles in maintaining trusted master data.",
+          "Reserved instances and savings plans can meaningfully cut costs for predictable workloads, but only after usage patterns are well understood. Committing early to the wrong size locks in waste rather than removing it.",
         ],
         quote:
-          "One customer record is not just a technical object; it is an organizational agreement about identity.",
+          "Cost optimization is not a one time cleanup. It is an ongoing discipline.",
+      },
+      {
+        heading: "Make cost visible to the teams that create it",
+        paragraphs: [
+          "Tagging resources by team, project, or environment and sharing that data back with engineering teams creates accountability that a central finance dashboard alone cannot.",
+        ],
+      },
+      {
+        heading: "Review on a schedule, not just after a bill spike",
+        paragraphs: [
+          "A recurring review cadence catches drift early, before an unexpected spend spike forces a reactive scramble.",
+        ],
       },
     ],
 
     benefits: [
       {
-        title: "Better customer visibility",
-        body:
-          "Create a more complete view of customer relationships across systems.",
+        title: "Lower cloud spend",
+        body: "Removing waste and rightsizing resources typically produces immediate, measurable savings.",
       },
       {
-        title: "Improved reporting",
-        body:
-          "Reduce duplicate records and inconsistent customer metrics.",
+        title: "Predictable budgets",
+        body: "Commitment pricing based on real usage data makes cloud spend easier to forecast.",
       },
       {
-        title: "Stronger operations",
-        body:
-          "Provide downstream applications with consistent master information.",
+        title: "Shared accountability",
+        body: "Visible, tagged cost data helps engineering teams take ownership of their own cloud footprint.",
       },
     ],
 
     process: [
       {
-        title: "Identify the domain",
-        body:
-          "Choose the business entity where master data will deliver the highest value.",
+        title: "Audit current spend",
+        body: "Identify idle resources, unattached storage, and oversized instances across all cloud accounts.",
       },
       {
-        title: "Map source systems",
-        body:
-          "Understand where customer records originate and how they differ.",
+        title: "Rightsize workloads",
+        body: "Match instance and service tiers to actual observed usage rather than initial estimates.",
       },
       {
-        title: "Define matching rules",
-        body:
-          "Establish identity resolution and survivorship logic.",
+        title: "Apply commitment pricing",
+        body: "Use reserved instances or savings plans for workloads with predictable, well understood usage.",
       },
       {
-        title: "Operationalize governance",
-        body:
-          "Assign ownership and monitor the quality of mastered data.",
+        title: "Establish ongoing review",
+        body: "Set a recurring cadence to review spend, tagging, and usage trends across teams.",
       },
     ],
 
     keyTakeaways: [
-      "Customer data fragmentation can affect analytics and operations.",
-      "MDM creates a consistent view of important business entities.",
-      "Matching and survivorship rules are critical.",
-      "Business ownership is as important as technical implementation.",
+      "Most cloud waste comes from unused resources, not one bad decision.",
+      "Rightsizing should happen before committing to reserved pricing.",
+      "Visible, tagged cost data creates accountability across teams.",
+      "Cost optimization works best as a recurring process, not a one time cleanup.",
     ],
 
     conclusion:
-      "MDM provides a foundation for consistent enterprise information. When implemented around clear business ownership and practical data rules, it can improve analytics, operations, and customer experiences.",
+      "Cloud cost optimization is less about finding one big cut and more about building a habit of continuous review. Organizations that treat it as an ongoing discipline consistently spend less than those that only look at cost after a surprise bill.",
 
     cta: {
-      title: "Create a trusted customer view",
-      body:
-        "We can help you design and implement practical MDM capabilities around your highest-value data domains.",
-      buttonText: "Talk to Our Data Team",
+      title: "Get control of your cloud spend",
+      body: "Starfii can help audit, rightsize, and continuously optimize your cloud costs across AWS, Azure, and GCP.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
+    slug: "legacy-modernization-without-downtime",
 
-    title:
-      "Legacy Warehouse to Lakehouse: A Migration Playbook",
+    title: "Legacy System Modernization Without Downtime",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "9 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/lakehouse-migration.jpg",
+      "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "A practical approach to modernizing legacy data warehouses and moving toward scalable lakehouse architectures.",
+      "How a phased modernization roadmap lets enterprises migrate off legacy platforms while operations keep running.",
 
     seo: {
-      title: "Legacy Warehouse to Lakehouse: A Migration Playbook",
+      title: "Legacy System Modernization Without Downtime",
       description:
-        "A practical guide to modernizing legacy data warehouses through phased migration to scalable lakehouse architectures.",
+        "A practical guide to phased legacy system modernization that keeps enterprise operations running throughout the migration.",
       keywords: [
-        "data warehouse modernization",
-        "lakehouse migration",
-        "legacy data warehouse",
-        "data migration playbook",
-        "cloud data modernization",
-        "lakehouse architecture",
+        "legacy system modernization",
+        "modernization roadmap",
+        "zero downtime migration",
+        "legacy migration",
+        "future ready platform",
+        "system continuity",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Legacy data warehouses can become difficult to scale, expensive to operate, and restrictive when organizations need to support modern analytics and AI workloads.",
-      "Lakehouse architectures provide a flexible approach that combines scalable storage with analytical capabilities.",
-      "Successful migration requires more than copying tables. It requires careful planning around workloads, dependencies, data quality, governance, and business continuity.",
+      "Legacy systems rarely fail all at once. They become slower to change, harder to secure, and more expensive to maintain, until modernization becomes unavoidable.",
+      "The hardest part is not deciding to modernize. It is doing so without disrupting the operations that already depend on the old system.",
     ],
 
     sections: [
       {
-        heading: "Why organizations modernize",
+        heading: "Start with an honest assessment",
         paragraphs: [
-          "Legacy warehouses may have accumulated years of technical debt, duplicated logic, expensive workloads, and tightly coupled reporting processes.",
-          "Modern architectures can provide more flexible storage and processing patterns while supporting analytics and AI requirements.",
+          "Before planning a migration, map what the legacy system actually does, who depends on it, and where the hidden integrations live. Many modernization efforts stall because a dependency was discovered too late.",
         ],
       },
       {
-        heading: "Start with workload discovery",
+        heading: "Build a phased roadmap, not a single cutover",
         paragraphs: [
-          "Before migration, teams should understand which workloads are business critical, which datasets are heavily consumed, and which processes have hidden dependencies.",
-          "This assessment becomes the foundation for migration sequencing.",
+          "Migrating everything at once concentrates risk into a single moment. A phased roadmap moves lower risk components first, building confidence before touching business critical workloads.",
         ],
       },
       {
-        heading: "Design the target architecture",
+        heading: "Run parallel systems during transition",
         paragraphs: [
-          "The target lakehouse should be designed around data domains, ingestion patterns, transformation requirements, governance, consumption models, and operating responsibilities.",
-        ],
-      },
-      {
-        heading: "Migrate incrementally",
-        paragraphs: [
-          "A phased approach allows teams to validate architecture and operational processes before migrating the entire estate.",
-          "Critical workloads can be migrated after lower-risk workloads establish confidence in the platform.",
+          "Keeping the legacy system live alongside the new platform during migration lets teams validate outputs and catch discrepancies before fully cutting over.",
         ],
         quote:
-          "The safest migration is usually a sequence of controlled transitions rather than one large cutover.",
+          "The goal of modernization is continuity, not just a newer platform.",
       },
       {
-        heading: "Validate business outcomes",
+        heading: "Modernize data before modernizing the interface",
         paragraphs: [
-          "Migration success should be measured using business and technical outcomes including data quality, query performance, reliability, cost, adoption, and time to insight.",
+          "Migrating and validating the underlying data model early reduces the risk of building a modern interface on top of inconsistent or incomplete data.",
+        ],
+      },
+      {
+        heading: "Plan the decommissioning, not just the migration",
+        paragraphs: [
+          "Legacy systems often stay live long after teams intended, because no one planned how to safely retire them. A clear decommissioning plan should be part of the roadmap from day one.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Scalable analytics",
-        body:
-          "Support growing analytical workloads with flexible cloud-native architecture.",
+        title: "Continuous operations",
+        body: "A phased approach keeps day to day operations running throughout the migration.",
       },
       {
-        title: "Modern data access",
-        body:
-          "Enable new analytical and AI use cases using a more flexible data foundation.",
+        title: "Lower migration risk",
+        body: "Moving lower risk components first builds confidence before critical workloads are touched.",
       },
       {
-        title: "Reduced technical debt",
-        body:
-          "Modernize legacy processes and simplify data architecture where appropriate.",
+        title: "A future ready platform",
+        body: "The end result is a scalable system built for current and future business needs, not just a replacement of the old one.",
       },
     ],
 
     process: [
       {
-        title: "Discover",
-        body:
-          "Inventory workloads, data, dependencies, users, and operational processes.",
+        title: "Assess the legacy system",
+        body: "Document dependencies, integrations, and business critical workflows before planning migration.",
       },
       {
-        title: "Architect",
-        body:
-          "Define the target lakehouse architecture and migration principles.",
+        title: "Build the roadmap",
+        body: "Sequence the migration in phases, starting with lower risk components.",
       },
       {
-        title: "Migrate",
-        body:
-          "Move workloads incrementally while validating data and performance.",
+        title: "Migrate and validate in parallel",
+        body: "Run legacy and new systems side by side to validate outputs before full cutover.",
       },
       {
-        title: "Optimize",
-        body:
-          "Tune workloads, improve governance, and retire unnecessary legacy components.",
+        title: "Decommission safely",
+        body: "Retire the legacy system on a planned schedule once the new platform is fully validated.",
       },
     ],
 
     keyTakeaways: [
-      "Migration should begin with discovery and workload assessment.",
-      "A lakehouse should be designed for future analytical requirements.",
-      "Phased migration reduces business and technical risk.",
-      "Validation should cover both technical and business outcomes.",
+      "A thorough assessment prevents late discovery of hidden dependencies.",
+      "Phased migration reduces the risk of a single large cutover.",
+      "Running systems in parallel helps validate the new platform before switching over.",
+      "Decommissioning should be planned from the start, not left until later.",
     ],
 
     conclusion:
-      "Modernizing a legacy warehouse is an opportunity to create a stronger data foundation rather than simply moving existing technology to a new environment. A phased, outcome-driven migration approach helps organizations reduce risk while building capabilities for future analytics and AI.",
+      "Legacy modernization succeeds when continuity is treated as seriously as the new platform itself. A phased roadmap, parallel validation, and a clear decommissioning plan let enterprises move forward without disrupting the operations that depend on them today.",
 
     cta: {
-      title: "Ready to modernize your data platform?",
-      body:
-        "Starfii can help assess your existing warehouse, design the target architecture, and execute a controlled migration.",
-      buttonText: "Talk to Our Data Team",
+      title: "Modernize without disrupting operations",
+      body: "Starfii can help assess your legacy systems and build a phased modernization roadmap built for continuity.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "bi-dashboards-designed-around-decisions",
+    slug: "sla-backed-support-what-good-looks-like",
 
-    title:
-      "BI Dashboards Designed Around Decisions",
+    title: "SLA Backed Support: What Good Looks Like After Go Live",
 
-    category: "Data & Analytics",
+    category: "Digital IT Operations",
 
     lastUpdated: "September 8, 2026",
 
     readTime: "6 min read",
 
     heroImage:
-      "/images/blogs/data-analytics/bi-dashboards.jpg",
+      "https://images.unsplash.com/photo-1626863905121-3b0c0ed7b94c?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
+      "What enterprises should expect from ongoing IT operations support, warranty coverage, and SLA commitments after launch.",
 
     seo: {
-      title: "BI Dashboards Designed Around Decisions",
+      title: "SLA Backed Support: What Good Looks Like",
       description:
-        "Learn how to move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
+        "What enterprises should expect from ongoing IT operations support, warranty periods, and SLA commitments after a system goes live.",
       keywords: [
-        "BI dashboards",
-        "decision oriented BI",
-        "dashboard design",
-        "business intelligence",
-        "data visualization",
-        "dashboard overload",
+        "SLA backed support",
+        "IT operations support",
+        "warranty period",
+        "enterprise product support",
+        "post launch support",
+        "maintenance and support model",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Many organizations have hundreds or thousands of dashboards but still struggle to answer important business questions quickly.",
-      "The problem is often not a lack of data. It is a lack of focus on the decisions the dashboard is intended to support.",
-      "Decision-oriented BI starts with business actions and works backward to the metrics, data, and visualizations required.",
+      "Go live is often treated as the finish line, but for the teams who depend on a system every day, it is closer to the starting point.",
+      "What happens after launch, monitoring, response times, and accountability, determines whether a project delivers lasting value.",
     ],
 
     sections: [
       {
-        heading: "The dashboard overload problem",
+        heading: "Why go live is not the finish line",
         paragraphs: [
-          "Organizations often respond to every new reporting request by creating another dashboard.",
-          "Over time, this creates fragmented metrics, duplicated reporting logic, and uncertainty about which dashboard should be trusted.",
+          "Systems behave differently under real production load and real user behavior than they did during testing. The weeks and months after go live are when most operational issues actually surface.",
         ],
       },
       {
-        heading: "Design around decisions",
+        heading: "What a free warranty period should cover",
         paragraphs: [
-          "A useful dashboard starts by identifying the decision it supports. The design should then focus on the information required to make that decision.",
-          "This creates a more purposeful relationship between data visualization and business action.",
+          "A warranty period gives clients a defined window where defects and issues tied to the original build are resolved at no additional cost, rather than being treated as new billable work.",
+        ],
+      },
+      {
+        heading: "SLA commitments that actually matter",
+        paragraphs: [
+          "Response time: How quickly a reported issue receives an initial response matters as much as how quickly it gets resolved.",
+          "Resolution time: SLAs should define clear resolution targets based on severity, not a single blanket timeframe for every issue.",
+          "Escalation clarity: Enterprises should know exactly who to contact and how issues escalate if they are not resolved within the expected window.",
         ],
         quote:
-          "A dashboard should help someone decide what to do next, not simply show what happened.",
+          "Support quality is defined by what happens when something goes wrong, not when everything works.",
       },
       {
-        heading: "Choose meaningful metrics",
+        heading: "Ongoing maintenance beyond bug fixes",
         paragraphs: [
-          "The most useful metrics are those that provide context and reveal meaningful changes in performance.",
-          "Metrics should have clear definitions and consistent calculation logic so users can interpret them confidently.",
+          "Good post launch support includes proactive monitoring, performance tuning, and security patching, not just reactive fixes when something breaks.",
         ],
       },
       {
-        heading: "Make exceptions visible",
+        heading: "Setting expectations before launch",
         paragraphs: [
-          "Operational dashboards should help users quickly identify exceptions, trends, and areas requiring attention.",
-          "Users should not need to scan dozens of charts to discover that something important has changed.",
-        ],
-      },
-      {
-        heading: "Measure dashboard effectiveness",
-        paragraphs: [
-          "Dashboard success should be measured by adoption, decision speed, user satisfaction, and business outcomes rather than the number of charts displayed.",
+          "Support scope, SLA terms, and escalation paths should be agreed before go live, not negotiated after the first incident.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Less dashboard clutter",
-        body:
-          "Reduce redundant reporting and focus users on high-value analytical experiences.",
+        title: "Confidence after launch",
+        body: "Clear SLA terms give teams confidence that issues will be addressed quickly and predictably.",
       },
       {
-        title: "Faster decisions",
-        body:
-          "Give decision makers the information they need in a focused format.",
+        title: "Lower total cost of ownership",
+        body: "A free warranty period reduces the cost of resolving issues tied to the original build.",
       },
       {
-        title: "Better adoption",
-        body:
-          "Create dashboards that align directly with real business workflows.",
+        title: "Proactive system health",
+        body: "Ongoing monitoring and maintenance catch problems before they affect users.",
       },
     ],
 
     process: [
       {
-        title: "Identify decisions",
-        body:
-          "Document the decisions and actions each dashboard needs to support.",
+        title: "Define support scope",
+        body: "Agree on what is covered under warranty and what falls under ongoing SLA support before go live.",
       },
       {
-        title: "Define metrics",
-        body:
-          "Select the minimum set of trusted metrics required for those decisions.",
+        title: "Set SLA targets",
+        body: "Establish response and resolution times by severity, along with clear escalation paths.",
       },
       {
-        title: "Design the experience",
-        body:
-          "Create focused visualizations around signals, trends, and exceptions.",
+        title: "Monitor proactively",
+        body: "Implement monitoring that surfaces issues before they become user facing incidents.",
       },
       {
-        title: "Measure adoption",
-        body:
-          "Use feedback and usage data to continuously improve the dashboard.",
+        title: "Review support performance",
+        body: "Regularly review SLA adherence and support outcomes to identify areas for improvement.",
       },
     ],
 
     keyTakeaways: [
-      "Dashboard quantity does not equal analytical maturity.",
-      "BI should be designed around decisions and actions.",
-      "Metrics need consistent definitions and trusted data.",
-      "Effective dashboards highlight changes and exceptions.",
-      "Adoption and business outcomes are better success measures than chart count.",
+      "Go live is the start of the operational relationship, not the end of the project.",
+      "A free warranty period covers defects from the original build at no extra cost.",
+      "SLA commitments should be clear on response time, resolution time, and escalation.",
+      "Good support includes proactive maintenance, not just reactive fixes.",
     ],
 
     conclusion:
-      "Decision-oriented BI helps organizations move from reporting more information to making better decisions. By focusing dashboards on real business actions, teams can simplify the analytics experience and increase the value generated from their data investments.",
+      "Enterprises get the most value from a system when support after launch is treated with the same discipline as the build itself. Clear warranty coverage, well defined SLAs, and proactive maintenance are what separate a project that fades after go live from one that keeps delivering value.",
 
     cta: {
-      title: "Turn dashboards into decision tools",
-      body:
-        "Our BI and analytics team can help redesign reporting around the decisions that matter most to your organization.",
-      buttonText: "Talk to Our Data Team",
+      title: "Get SLA backed support after launch",
+      body: "Starfii provides a free warranty period and SLA backed support on every engagement, so systems stay monitored and maintained after go live.",
+      buttonText: "Talk to Our Operations Team",
       buttonHref: "/contact",
     },
   },
@@ -928,12 +854,8 @@ export const blogPosts: BlogPost[] = [
    GET BLOG BY SLUG
 ============================================================ */
 
-export function getBlogBySlug(
-  slug: string
-): BlogPost | undefined {
-  return blogPosts.find(
-    (post) => post.slug === slug
-  );
+export function getBlogBySlug(slug: string): BlogPost | undefined {
+  return blogPosts.find((post) => post.slug === slug);
 }
 
 /* ============================================================
@@ -945,8 +867,6 @@ export function getRelatedBlogs(
   limit = 3
 ): BlogPost[] {
   return blogPosts
-    .filter(
-      (post) => post.slug !== currentSlug
-    )
+    .filter((post) => post.slug !== currentSlug)
     .slice(0, limit);
 }

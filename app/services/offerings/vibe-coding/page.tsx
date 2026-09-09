@@ -54,53 +54,62 @@ const keyTakeaways: string[] = [
   "Our approach is designed around enterprise requirements including security, access control, governance, integrations, scalability, and measurable productivity gains.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string; tags: string[]; image: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "AI Meeting Transcription",
     body: "Convert meetings into searchable, speaker-aware transcripts with timestamps and structured context, giving teams a reliable record of important conversations without manual note taking.",
     tags: ["TRANSCRIPTION", "SPEAKERS", "SEARCH"],
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Intelligent Meeting Summaries",
     body: "Transform lengthy discussions into concise executive-ready summaries that surface key topics, decisions, risks, open questions, and next steps.",
     tags: ["SUMMARIES", "INSIGHTS", "CONTEXT"],
+    image: "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Action & Decision Intelligence",
     body: "Automatically identify commitments, action items, owners, deadlines, and decisions so important outcomes are carried from the meeting into the work that follows.",
     tags: ["ACTIONS", "DECISIONS", "FOLLOW-UP"],
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Enterprise Meeting Knowledge",
     body: "Turn individual meeting records into a searchable knowledge layer that preserves institutional context and helps authorized teams retrieve information from previous conversations.",
     tags: ["KNOWLEDGE", "SEMANTIC AI", "HISTORY"],
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "AI Follow-Up Automation",
     body: "Generate follow-up emails, task descriptions, status updates, meeting briefs, and other business outputs directly from the context captured during the conversation.",
     tags: ["AUTOMATION", "EMAIL", "WORKFLOWS"],
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Security & Governance",
     body: "Design meeting intelligence around enterprise security requirements with controlled access, permissions, data governance, retention policies, and responsible AI practices.",
     tags: ["SECURITY", "GOVERNANCE", "ACCESS"],
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Sales Conversation Intelligence",
     body: "Capture customer requirements, objections, buying signals, commitments, and next steps to help sales teams spend less time documenting conversations and more time progressing opportunities.",
     tags: ["SALES", "CRM", "CUSTOMER"],
+    image: "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Product & Engineering Intelligence",
     body: "Turn product reviews, technical discussions, requirements, sprint meetings, and architecture conversations into structured decisions and actionable engineering context.",
     tags: ["PRODUCT", "ENGINEERING", "DELIVERY"],
+    image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Executive Meeting Intelligence",
     body: "Give leadership teams concise visibility into strategic discussions, decisions, risks, priorities, and commitments across recurring executive conversations.",
     tags: ["EXECUTIVE", "STRATEGY", "DECISIONS"],
+    image: "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -149,15 +158,15 @@ const tabs: ServiceTab[] = [
   },
 ];
 
-type EcosystemImpact = { title: string };
+type EcosystemImpact = { title: string; image: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Executive Meetings and Strategic Decisions" },
-  { title: "Sales Calls and Customer Conversations" },
-  { title: "Product Reviews and Roadmap Discussions" },
-  { title: "Engineering and Technical Meetings" },
-  { title: "Project and Program Management" },
-  { title: "Client, Consulting and Professional Services" },
+  { title: "Executive Meetings and Strategic Decisions", image: "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Sales Calls and Customer Conversations", image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Product Reviews and Roadmap Discussions", image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Engineering and Technical Meetings", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Project and Program Management", image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Client, Consulting and Professional Services", image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 type IndustryAward = {
@@ -1036,13 +1045,25 @@ export default function AIMeetingAssistantSection(): ReactElement {
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
                 <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
+                  className="ss-focus-card group flex h-full flex-col justify-between rounded-2xl border p-4"
                   style={{
                     backgroundColor: "#0F0E18",
                     borderColor: "rgba(255,255,255,0.10)",
                   }}
                 >
-                  <div className="flex items-start justify-between">
+                  <div className="relative h-[190px] overflow-hidden rounded-xl">
+                    <img
+                      src={area.image}
+                      alt={area.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-[#0F0E18]/20 to-transparent" />
+                    <span className="absolute bottom-4 left-4 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[10px] font-semibold tracking-wide text-white/70 backdrop-blur">
+                      AI / IT
+                    </span>
+                  </div>
+
+                  <div className="mt-6 flex items-start justify-between">
                     <span className="font-body text-[13px] font-medium text-white/35">
                       {String(i + 1).padStart(2, "0")}
                     </span>
@@ -1208,14 +1229,23 @@ export default function AIMeetingAssistantSection(): ReactElement {
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex items-center justify-between gap-5 rounded-2xl bg-white px-6 py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <span
+                  <div className="flex min-w-0 items-center gap-5">
+                    <div className="h-16 w-20 flex-shrink-0 overflow-hidden rounded-xl">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <span
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {item.title}
                   </span>
+                  </div>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
                     style={{ backgroundColor: INDIGO_CTA }}

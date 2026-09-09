@@ -27,6 +27,13 @@ const INDIGO_CTA = "#4F3FE0";
 const ALIGN =
   "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// Base path for this section's blog listing/detail pages, kept in
+// one place so every link below (breadcrumb, "view all", related
+// cards) always points at Digital IT Operations, not another
+// service's blog section.
+const BLOG_BASE_PATH = "/services/digital-it-operations/blogs";
+const SERVICE_PATH = "/services/digital-it-operations";
+
 type BlogDetailProps = {
   post: BlogPost;
   related: BlogPost[];
@@ -144,10 +151,10 @@ export default function BlogDetail({
               <ChevronRight size={14} />
 
               <Link
-                href="/services/data-analytics"
+                href={SERVICE_PATH}
                 className="transition-colors hover:text-white"
               >
-                Data & Analytics
+                Digital IT Operations
               </Link>
 
               <ChevronRight size={14} />
@@ -362,7 +369,7 @@ export default function BlogDetail({
                       color: CHAMPION_BLUE,
                     }}
                   >
-                    Data & Analytics in Practice
+                    Digital IT Operations in Practice
                   </h2>
                 </div>
 
@@ -539,11 +546,11 @@ export default function BlogDetail({
                       </p>
 
                       <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-                        Why Data & Analytics matters
+                        Why Digital IT Operations matters
                       </h2>
 
                       <p className="mt-5 text-base leading-8 text-white/60">
-                        Strong data foundations help organizations make faster decisions, improve operational visibility, and build scalable analytics and AI capabilities.
+                        Reliable IT operations help organizations reduce downtime, ship changes safely, control cloud costs, and keep systems secure and supported long after go live.
                       </p>
                     </div>
 
@@ -595,7 +602,7 @@ export default function BlogDetail({
                           color: INDIGO_CTA,
                         }}
                       >
-                        From strategy to scale
+                        From assessment to operations
                       </p>
 
                       <h2
@@ -604,7 +611,7 @@ export default function BlogDetail({
                           color: CHAMPION_BLUE,
                         }}
                       >
-                        A practical Data & Analytics journey
+                        A practical Digital IT Operations journey
                       </h2>
                     </div>
 
@@ -922,7 +929,7 @@ export default function BlogDetail({
                       </p>
 
                       <Link
-                        href="/services/data-analytics/blogs"
+                        href={BLOG_BASE_PATH}
                         className="text-xs font-semibold"
                         style={{
                           color:
@@ -940,7 +947,7 @@ export default function BlogDetail({
                             key={
                               item.slug
                             }
-                            href={`/services/data-analytics/blogs/${item.slug}`}
+                            href={`${BLOG_BASE_PATH}/${item.slug}`}
                             className="group block overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
                           >
                             <div className="h-32 overflow-hidden">
@@ -1034,7 +1041,7 @@ export default function BlogDetail({
               </div>
 
               <Link
-                href="/services/data-analytics/blogs"
+                href={BLOG_BASE_PATH}
                 className="inline-flex items-center gap-2 text-sm font-semibold"
                 style={{
                   color:
@@ -1055,7 +1062,7 @@ export default function BlogDetail({
                     key={
                       item.slug
                     }
-                    href={`/services/data-analytics/blogs/${item.slug}`}
+                    href={`${BLOG_BASE_PATH}/${item.slug}`}
                     className="group overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
                   >
                     <div className="h-56 overflow-hidden">

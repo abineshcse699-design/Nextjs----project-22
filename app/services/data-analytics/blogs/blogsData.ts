@@ -539,10 +539,10 @@ export const blogPosts: BlogPost[] = [
         ],
 
         image:
-          "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=1200&auto=format&fit=crop",
 
         imageAlt:
-          "Cloud computing and distributed data infrastructure",
+          "Multi-cloud server infrastructure",
       },
 
       {
@@ -1293,10 +1293,10 @@ export const blogPosts: BlogPost[] = [
         ],
 
         image:
-          "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
 
         imageAlt:
-          "Enterprise team working with customer data",
+          "Team building a unified customer data record",
       },
 
       {
@@ -1665,10 +1665,10 @@ export const blogPosts: BlogPost[] = [
         ],
 
         image:
-          "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=1200&auto=format&fit=crop",
 
         imageAlt:
-          "Modern technology infrastructure and data platform",
+          "Legacy data warehouse infrastructure",
       },
 
       {
@@ -2041,10 +2041,10 @@ export const blogPosts: BlogPost[] = [
         ],
 
         image:
-          "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
 
         imageAlt:
-          "Business intelligence dashboard",
+          "Team analyzing key business metrics",
       },
 
       {

@@ -269,8 +269,8 @@ const insights: InsightPost[] = [
   {
     slug: "generative-ai-software-development",
     large: true,
-    image:
-      "https://images.unsplash.com/photo-1620121684840-edffcfc4b878?q=80&w=1200&auto=format&fit=crop",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop", // ← இங்க change
+  // title: "Generative AI for Software Development...",
     title:
       "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
     body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",

@@ -44,6 +44,10 @@ const TAB_AUTOPLAY_MS = 4000;
 // place so the card links and the "View All" link never drift apart.
 const CASE_STUDY_BASE_PATH = "/services/digital-it-operations/casestudies";
 
+// Base path for this section's insights/blog detail pages, kept in
+// one place so card links and the "View All" link never drift apart.
+const INSIGHTS_BASE_PATH = "/services/digital-it-operations/blogs";
+
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
@@ -213,68 +217,71 @@ type InsightPost = {
   body: string;
 };
 
-
-
-const insights = [
+// FIXED: this used to contain Data & Analytics blog topics
+// (generative AI + data warehouses, MDM, lakehouse migration, etc.)
+// which don't belong on the Digital IT Operations page. Replaced
+// with insights grounded in this page's own focus areas: cloud
+// operations, DevOps, cybersecurity, and legacy modernization.
+const insights: InsightPost[] = [
   {
-    slug: "generative-ai-enterprise-data-warehouses-to-answers",
+    slug: "multi-cloud-operations-one-consistent-model",
     large: true,
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Generative AI: From Enterprise Data Warehouses to Answers",
+      "Multi Cloud Operations: One Consistent Model Across AWS, Azure and GCP",
     body:
-      "Discover how enterprises can connect generative AI with governed data warehouses to turn business questions into trusted, actionable answers.",
+      "How enterprises can run a single, consistent operations model across multiple cloud providers without duplicating tooling or headcount.",
   },
   {
-    slug: "cloud-data-platforms-aws-azure-gcp",
+    slug: "devops-release-automation-without-risk",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1000&auto=format&fit=crop",
     title:
-      "Cloud Data Platforms: AWS, Azure and GCP",
+      "DevOps and Release Automation Without the Risk",
     body:
-      "A practical look at building scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
+      "A practical look at building CI/CD pipelines that ship faster while keeping production stability intact.",
   },
   {
-    slug: "data-governance-at-scale-trust-every-pipeline",
+    slug: "security-operations-framework-for-enterprise-it",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1000&auto=format&fit=crop",
     title:
-      "Data Governance at Scale: Trust Every Pipeline",
+      "Building a Security Operations Framework for Enterprise IT",
     body:
-      "Learn how scalable data governance can improve trust, security, quality, and accountability across enterprise data pipelines.",
+      "Why proactive security monitoring and a resilient operations framework matter more than point in time audits.",
   },
   {
-    slug: "mdm-in-practice-one-customer-record",
+    slug: "cloud-cost-optimization-playbook",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1000&auto=format&fit=crop",
     title:
-      "MDM in Practice: One Customer Record",
+      "A Practical Cloud Cost Optimization Playbook",
     body:
-      "How master data management can help organizations create a consistent, trusted view of customers across systems.",
+      "Concrete steps for cutting cloud spend across AWS, Azure, and GCP without sacrificing performance or reliability.",
   },
   {
-    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
+    slug: "legacy-modernization-without-downtime",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1000&auto=format&fit=crop",
     title:
-      "Legacy Warehouse to Lakehouse: A Migration Playbook",
+      "Legacy System Modernization Without Downtime",
     body:
-      "A practical approach to modernizing legacy data warehouses and moving toward scalable lakehouse architectures.",
+      "How a phased modernization roadmap lets enterprises migrate off legacy platforms while operations keep running.",
   },
   {
-    slug: "bi-dashboards-designed-around-decisions",
+    slug: "sla-backed-support-what-good-looks-like",
     large: false,
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1000&auto=format&fit=crop",
     title:
-      "BI Dashboards Designed Around Decisions",
+      "SLA Backed Support: What Good Looks Like After Go Live",
     body:
-      "Move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
+      "What enterprises should expect from ongoing IT operations support, warranty coverage, and SLA commitments after launch.",
   },
 ];
 
@@ -1424,69 +1431,76 @@ export default function DigitalITOperationsServicesSection(): ReactElement {
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
+          FIXED: was hardcoded to "Data & Analytics" heading, link
+          path, and blog content. Now reflects this page's own
+          Digital IT Operations focus (cloud ops, DevOps, security,
+          modernization, SLA support).
       ============================================================ */}
-<section className="bg-[#EEF0F7] py-24">
-  <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+      <section className="bg-[#EEF0F7] py-24">
+        <div className={ALIGN}>
+          <Reveal className="flex items-center justify-between">
+            <h2 className="font-heading text-[36px] font-medium text-[#1B2560] lg:text-[44px]">
+              What&apos;s New in IT Operations
+            </h2>
 
-    <div className="flex items-center justify-between">
-      <h2 className="text-[36px] font-medium text-[#1B2560] lg:text-[44px]">
-        What's New in Data & Analytics
-      </h2>
+            <Link
+              href={INSIGHTS_BASE_PATH}
+              className="font-body hidden items-center gap-2 text-[15px] font-semibold text-[#4F3FE0] sm:flex"
+            >
+              View All Insights
+              <ArrowUpRight size={16} />
+            </Link>
+          </Reveal>
 
-      <Link
-        href="/services/data-analytics/blogs"
-        className="hidden items-center gap-2 text-[15px] font-semibold text-[#4F3FE0] sm:flex"
-      >
-        View All Insights
-        <ArrowUpRight size={16} />
-      </Link>
-    </div>
+          <div className="mt-12">
+            <Carousel itemCount={insights.length} arrowVariant="light">
+              {insights.map((post, i) => (
+                <div
+                  key={post.slug}
+                  data-carousel-card
+                  className={`snap-start flex-shrink-0 ${
+                    post.large ? "w-[420px]" : "w-[340px]"
+                  }`}
+                >
+                  <Reveal delay={(i % 3) * 90}>
+                    <Link
+                      href={`${INSIGHTS_BASE_PATH}/${post.slug}`}
+                      className="group block"
+                    >
+                      <div className="h-[220px] overflow-hidden rounded-2xl">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                      </div>
 
-    <div className="mt-12 flex gap-6 overflow-x-auto pb-4">
-      {insights.map((post) => (
-        <div
-          key={post.slug}
-          className={`flex-shrink-0 ${
-            post.large ? "w-[420px]" : "w-[340px]"
-          }`}
-        >
-          <Link
-            href={`/services/data-analytics/blogs/${post.slug}`}
-            className="group block"
-          >
-            <div className="h-[220px] overflow-hidden rounded-2xl">
-              <img
-                src={post.image}
-                alt={post.title}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
+                      <div className="pt-5">
+                        <span className="font-body text-[12px] font-semibold tracking-wide text-[#4F3FE0]">
+                          BLOG
+                        </span>
 
-            <div className="pt-5">
-              <span className="text-[12px] font-semibold tracking-wide text-[#4F3FE0]">
-                BLOG
-              </span>
+                        <h3 className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug text-[#1B2560]">
+                          {post.title}
+                        </h3>
 
-              <h3 className="mt-2 text-[19px] font-semibold leading-snug text-[#1B2560]">
-                {post.title}
-              </h3>
+                        <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                          {post.body}
+                        </p>
 
-              <p className="mt-3 text-[14px] leading-relaxed text-slate-600">
-                {post.body}
-              </p>
-
-              <span className="mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-[#4F3FE0]">
-                Read Article
-                <ArrowUpRight size={15} />
-              </span>
-            </div>
-          </Link>
+                        <span className="font-body mt-5 inline-flex items-center gap-2 text-[14px] font-semibold text-[#4F3FE0]">
+                          Read Article
+                          <ArrowUpRight size={15} />
+                        </span>
+                      </div>
+                    </Link>
+                  </Reveal>
+                </div>
+              ))}
+            </Carousel>
+          </div>
         </div>
-      ))}
-    </div>
-
-  </div>
-</section>
+      </section>
 
       {/* ============================================================
           FAQ — built for AEO/GEO: short, self-contained Q&A pairs

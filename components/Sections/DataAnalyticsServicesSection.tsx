@@ -83,10 +83,10 @@ const fadeUp: Variants = {
 };
 
 const keyTakeaways: string[] = [
-  "Starfii helps businesses transform customer communication with intelligent AI voice agents that understand natural language and respond in real time.",
-  "Our AI Voice Call solutions automate inbound support, outbound engagement, lead qualification, appointment scheduling, reminders, and routine customer interactions.",
-  "We connect voice AI with CRM, telephony, knowledge bases, and business systems so conversations can move from understanding a request to taking the right action.",
-  "Our approach combines automation with human escalation, conversation intelligence, and enterprise governance to deliver reliable customer experiences at scale.",
+  "Starfii helps enterprises turn fragmented, siloed data into a single governed platform that every team can trust and act on.",
+  "Our data engineering and cloud platform teams build resilient pipelines that scale with the business, so growth never means rebuilding your data stack.",
+  "We connect Generative AI and LLMs safely to your own enterprise data, so teams can query, summarize, and act on it in plain language.",
+  "Our approach combines data governance, quality checks, and stewardship with modern BI and analytics to deliver decisions your business can rely on.",
 ];
 
 // Each capability now carries short tags, shown as pills on the dark
@@ -265,14 +265,14 @@ const insights: Insight[] = [
     body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
-    gradient: true,
+    gradient: false, // ← changed from true, so the actual AI-chip image now renders
   },
   {
     slug: "cloud-data-platforms-aws-azure-gcp",
     title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
     body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right fit.",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+   image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop", // ← changed to server/data-center image
   },
   {
     slug: "data-governance-at-scale-trust-every-pipeline",

@@ -52,53 +52,62 @@ const keyTakeaways: string[] = [
   "Our approach emphasizes relevance, security, human escalation, monitoring, governance, and measurable business value from production AI.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string; tags: string[]; image: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "AI-Powered Conversations",
     body: "Create natural, context-aware conversations that let users interact with your business using everyday language instead of rigid menus or scripted flows.",
     tags: ["CONVERSATION", "CONTEXT", "AI"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Knowledge-Based AI",
     body: "Ground answers in approved company documents, policies, product information, knowledge bases, and other trusted enterprise content.",
     tags: ["KNOWLEDGE", "RAG", "SEARCH"],
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Context-Aware Responses",
     body: "Maintain relevant conversation context so users can ask follow-up questions naturally and receive responses that reflect the ongoing interaction.",
     tags: ["CONTEXT", "MEMORY", "NLP"],
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Workflow Automation",
     body: "Connect conversations to real business actions such as ticket creation, information retrieval, recommendations, requests, and process initiation.",
     tags: ["AUTOMATION", "ACTIONS", "WORKFLOW"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Enterprise Integrations",
     body: "Connect the AI chat experience with CRM, ERP, databases, APIs, ticketing tools, websites, portals, and internal applications.",
     tags: ["CRM", "ERP", "APIs"],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Human Handoff",
     body: "Route complex, sensitive, or low-confidence interactions to the right team while preserving the conversation context needed for a fast handoff.",
     tags: ["ESCALATION", "HUMAN", "SUPPORT"],
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Multi-Channel AI",
     body: "Deliver a consistent conversational experience across websites, customer portals, applications, employee platforms, and other digital touchpoints.",
     tags: ["WEB", "PORTAL", "OMNICHANNEL"],
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Conversation Analytics",
     body: "Measure intent, response quality, unresolved questions, engagement, escalation, and outcomes to continuously improve the assistant.",
     tags: ["ANALYTICS", "QUALITY", "OPTIMIZATION"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Security & Governance",
     body: "Design conversational AI around permissions, approved knowledge sources, data protection, monitoring, access control, and responsible AI practices.",
     tags: ["SECURITY", "GOVERNANCE", "ACCESS"],
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -115,47 +124,71 @@ const tabs: ServiceTab[] = [
     heading: "Understand what users need in natural language",
     body: "The assistant interprets user intent and relevant context so people can ask questions naturally without learning rigid commands, menu structures, or scripted journeys.",
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1800&auto=format&fit=crop",
   },
   {
     label: "Retrieve Trusted Knowledge",
     heading: "Ground answers in the information your organization trusts",
     body: "Connect the assistant to approved documents, knowledge bases, product information, policies, databases, and other enterprise sources to deliver relevant answers from trusted context.",
     image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Respond With Context",
     heading: "Make conversations more natural, relevant, and continuous",
     body: "Context-aware response generation allows users to ask follow-up questions while the assistant maintains the relevant history and intent of the interaction.",
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Trigger Business Actions",
     heading: "Move from questions to real business actions",
     body: "Connect conversations to business systems and workflows to retrieve information, create requests, support processes, and help users complete tasks without unnecessary handoffs.",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Escalate When Needed",
     heading: "Bring the right human into the conversation at the right time",
     body: "Use business rules, confidence thresholds, and escalation paths to hand complex or sensitive requests to the right expert with the relevant context already available.",
     image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
-type EcosystemImpact = { title: string };
+type EcosystemImpact = { title: string; image: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Customer Support and Service" },
-  { title: "Employee and Internal Knowledge" },
-  { title: "Sales Engagement and Lead Qualification" },
-  { title: "IT Helpdesk and Operational Support" },
-  { title: "Product Discovery and Recommendations" },
-  { title: "Document and Knowledge Base Q&A" },
+  {
+    title: "Customer Support and Service",
+    image:
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Employee and Internal Knowledge",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Sales Engagement and Lead Qualification",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "IT Helpdesk and Operational Support",
+    image:
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Product Discovery and Recommendations",
+    image:
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Document and Knowledge Base Q&A",
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+  },
 ];
 
 type IndustryAward = {
@@ -199,35 +232,35 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "customer-support-ai-chat",
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
     title: "Building an AI Chat Experience for Customer Support",
     body: "See how grounded conversational AI can answer common questions, retrieve trusted information, and route more complex requests to the right support team.",
   },
   {
     slug: "employee-knowledge-assistant",
     image:
-      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title: "Making Enterprise Knowledge Easier to Access",
     body: "Explore how an internal AI assistant can give employees a natural-language interface to policies, procedures, documentation, and organizational knowledge.",
   },
   {
     slug: "sales-ai-assistant",
     image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=900&auto=format&fit=crop",
     title: "Supporting Sales With Context-Aware AI Conversations",
     body: "Discover how AI chat can answer product questions, qualify intent, surface relevant information, and support a faster customer journey.",
   },
   {
     slug: "it-helpdesk-ai",
     image:
-      "https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop",
     title: "Automating Repetitive IT Helpdesk Interactions",
     body: "Learn how conversational AI can resolve common employee requests, guide troubleshooting, and connect interactions to existing support workflows.",
   },
   {
     slug: "document-qa-assistant",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop",
     title: "Creating a Natural-Language Interface for Enterprise Documents",
     body: "Explore how document-grounded AI lets users ask questions across reports, manuals, policies, contracts, and other business content.",
   },
@@ -248,7 +281,7 @@ const insights: InsightPost[] = [
     large: true,
 
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop",
 
     title:
       "From Scripted Chatbots to Enterprise Conversational AI",
@@ -263,11 +296,12 @@ const insights: InsightPost[] = [
 
     large: false,
 
-    image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+  title: "Designing Reliable AI Chat With Grounded Business Knowledge",
+  // description:
+    // "Understand how retrieval and approved knowledge sources can improve relevance and give AI assistants stronger business context.",
+  image:
+    "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
 
-    title:
-      "Designing Reliable AI Chat With Grounded Business Knowledge",
 
     body:
       "Understand how retrieval and approved knowledge sources can improve relevance and give AI assistants stronger business context.",
@@ -280,7 +314,7 @@ const insights: InsightPost[] = [
     large: false,
 
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
 
     title:
       "Building Secure AI Assistants for Enterprise Workflows",
@@ -296,7 +330,7 @@ const insights: InsightPost[] = [
     large: false,
 
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop",
 
     title:
       "AI Customer Support: Turning Conversations Into Faster Resolution",
@@ -312,7 +346,7 @@ const insights: InsightPost[] = [
     large: false,
 
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop",
 
     title:
       "Enterprise Knowledge Assistants: Connecting People to Trusted Information",
@@ -846,7 +880,7 @@ export default function AIChatBoxSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -1011,7 +1045,7 @@ export default function AIChatBoxSection(): ReactElement {
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
                 alt="Two colleagues reviewing a digital roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
@@ -1058,43 +1092,51 @@ export default function AIChatBoxSection(): ReactElement {
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
                 <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
+                  className="ss-focus-card group flex h-full flex-col overflow-hidden rounded-2xl border"
                   style={{
                     backgroundColor: "#0F0E18",
                     borderColor: "rgba(255,255,255,0.10)",
                   }}
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                    >
-                      <ArrowUpRight size={16} className="text-white" />
-                    </span>
-                  </div>
-
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
-                      {area.body}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {area.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                      >
-                        {tag}
+                  <div className="relative h-[190px] overflow-hidden">
+                    <img
+                      src={area.image}
+                      alt={`${area.title} IT and AI technology`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading={i < 3 ? "eager" : "lazy"}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-transparent to-transparent" />
+                    <div className="absolute left-5 right-5 top-5 flex items-center justify-between">
+                      <span className="font-body rounded-full bg-black/45 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
+                        IT / AI
                       </span>
-                    ))}
+                      <span className="font-body text-[13px] font-medium text-white/70">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col justify-between p-8">
+                    <div>
+                      <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                        {area.title}
+                      </h3>
+                      <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+                        {area.body}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 flex flex-wrap gap-2">
+                      {area.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
+                          style={{ borderColor: "rgba(255,255,255,0.16)" }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -1230,10 +1272,18 @@ export default function AIChatBoxSection(): ReactElement {
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex min-h-[128px] items-center gap-5 overflow-hidden rounded-2xl bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
+                  <div className="h-24 w-28 flex-shrink-0 overflow-hidden rounded-xl">
+                    <img
+                      src={item.image}
+                      alt={`${item.title} IT and AI technology`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
                   <span
-                    className="font-body text-[19px] font-medium"
+                    className="font-body flex-1 text-[18px] font-medium leading-snug"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {item.title}

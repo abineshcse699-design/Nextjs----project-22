@@ -86,7 +86,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1758873269035-aae0e1fd3422?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
       "Automation works best after the underlying business process is redesigned. Learn how to remove handoffs, duplicate approvals, and exception chaos before applying RPA.",
@@ -139,7 +139,7 @@ export const blogPosts: BlogPost[] = [
           "Starting with the tool instead of the process tends to lock in whatever the current workflow looks like today, even the parts nobody can fully explain anymore.",
         ],
         image:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1760952851538-17a59f691efe?q=80&w=1200&auto=format&fit=crop",
         imageAlt: "Operations team mapping a business process end to end",
       },
       {
@@ -296,7 +296,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
       "Not every task should be automated. Learn how to identify the transaction patterns where RPA can deliver measurable operational payback.",
@@ -498,7 +498,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "6 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
       "A stronger revenue cycle reduces preventable denials upstream. Explore how eligibility, claims accuracy, and denial management work together.",
@@ -902,7 +902,7 @@ export const blogPosts: BlogPost[] = [
     readTime: "5 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
       "Managed operations need more than staffing. Learn how SLAs, operational dashboards, and continuous improvement keep service delivery measurable.",
@@ -957,7 +957,7 @@ export const blogPosts: BlogPost[] = [
           "Giving frontline supervisors access to the same dashboards used in leadership reviews helps issues get addressed at the point of work rather than waiting for a formal escalation.",
         ],
         image:
-          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+          "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?q=80&w=1200&auto=format&fit=crop",
         imageAlt: "Operations dashboard showing service level performance",
       },
       {

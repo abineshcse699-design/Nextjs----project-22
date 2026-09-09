@@ -46,9 +46,23 @@ const BLOG_BASE = "/services/offerings/ai-native-contact-center/blogs";
 
 /* ===============================================================
    CONTENT — AI Voice Call
+   IT IMAGE MAPPING:
+   Each capability/topic carries a dedicated technology-relevant image,
+   and business-impact cards use their own supporting IT visual.
+   Replace the Unsplash URLs below with local /public assets if preferred.
+   ===============================================================
+
+   SEO / AEO optimized: entity first statements ("Starfii is...",
+   "Starfii offers..."), keyword rich but natural, no hyphens.
+   ===============================================================
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
 ================================================================ */
+
+// All visual assets in this component are mapped to AI Voice Call,
+// conversational AI, speech analytics, telephony, CRM integration,
+// contact-center automation, and enterprise IT workflows.
+// Previous image URLs have been replaced with this new visual set.
 
 const keyTakeaways: string[] = [
   "Starfii is an AI voice call company that helps businesses transform customer communication with natural, intelligent voice agents.",
@@ -57,68 +71,80 @@ const keyTakeaways: string[] = [
   "We connect voice AI with CRM, telephony, and business systems so every conversation becomes a consistent, actionable customer experience.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string; tags: string[]; image: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "Conversational AI",
     body: "Starfii's conversational AI engages customers through natural, context aware voice conversations that understand intent, questions, and conversational flow rather than rigid menus.",
     tags: ["NLU", "VOICE", "REAL TIME"],
+    image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1800&auto=format&fit=crop",
   },
   {
     title: "Inbound Call Automation",
     body: "Our inbound call automation handles high volume customer support, FAQs, order updates, service requests, bookings, and account enquiries without added headcount.",
     tags: ["SUPPORT", "IVR", "SCALE"],
+    image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Outbound AI Calling",
     body: "Starfii automates proactive customer conversations for follow ups, reminders, renewals, surveys, lead engagement, and service notifications at any volume.",
     tags: ["OUTREACH", "SALES", "RETENTION"],
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Intelligent Call Routing",
     body: "Our AI understands customer intent in the moment and intelligently routes complex, sensitive, or high value conversations to the right human agent.",
     tags: ["ROUTING", "INTENT", "ESCALATION"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "CRM & Business Integration",
     body: "Starfii connects voice interactions with your CRM, helpdesk, telephony, databases, knowledge systems, and business applications for a single source of truth.",
     tags: ["CRM", "APIS", "TELEPHONY"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Real Time Call Intelligence",
     body: "Every conversation is turned into actionable insight, surfacing intent, sentiment, and outcomes that help teams continuously improve customer experience.",
     tags: ["ANALYTICS", "SENTIMENT", "INSIGHTS"],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Human Handoff",
     body: "Starfii's voice agents transition customers to human agents seamlessly whenever expertise, empathy, or additional support is required, with full context passed along.",
     tags: ["HANDOFF", "CONTEXT", "CX"],
+    image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Personalized Voice Experiences",
     body: "We deliver relevant conversations using customer context, business rules, and real time information, so every call feels considered rather than scripted.",
     tags: ["PERSONALIZATION", "CONTEXT", "CX"],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Multilingual Voice Support",
     body: "Starfii's voice agents converse fluently across multiple languages and accents, letting global and regional businesses serve every customer in their own language.",
     tags: ["LANGUAGE", "GLOBAL", "ACCESSIBILITY"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "IVR Modernization",
     body: "We replace rigid, menu driven IVR systems with conversational voice agents that resolve requests faster and reduce abandoned calls.",
     tags: ["IVR", "MODERNIZATION", "UX"],
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Voice QA & Compliance",
     body: "Starfii builds call recording, monitoring, and compliance workflows into every voice deployment, so regulated industries stay audit ready by design.",
     tags: ["COMPLIANCE", "QA", "SECURITY"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Speech Analytics & Reporting",
     body: "Our speech analytics surfaces trends across thousands of calls, giving leaders a clear, ongoing view of customer sentiment and agent performance.",
     tags: ["SPEECH AI", "REPORTING", "TRENDS"],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -135,47 +161,47 @@ const tabs: ProcessTab[] = [
     heading: "Understanding the conversations that matter most",
     body: "Starfii studies your customer journeys, call volumes, business objectives, and existing systems to identify the voice interactions that will deliver the greatest impact first.",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Design Conversation Flows",
     heading: "Conversation design built around real customer intent",
     body: "We create tailored conversation flows, AI behaviours, business rules, and escalation paths, so the voice agent sounds considered rather than scripted from the first call.",
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Integrate with Your Systems",
     heading: "Connected to the systems your teams already rely on",
     body: "Starfii connects the AI voice solution to your CRM, telephony infrastructure, knowledge base, APIs, and other business systems, so conversations turn into action automatically.",
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Launch with Confidence",
     heading: "Tested, monitored, and ready for real customers",
     body: "Every deployment is tested, refined, and launched with appropriate monitoring and human escalation built in, so the customer experience stays reliable from day one.",
     image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Optimize Every Conversation",
     heading: "Improving with every conversation, not just at launch",
     body: "Starfii continuously analyzes conversation outcomes and performance to improve accuracy, resolution, customer experience, and operational efficiency over time.",
     image:
-      "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
-type EcosystemImpact = { title: string };
+type EcosystemImpact = { title: string; image: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Customer Support at Scale" },
-  { title: "Lead Qualification and Sales Enablement" },
-  { title: "Appointment Scheduling and Reminders" },
-  { title: "Customer Feedback and Retention" },
-  { title: "Proactive Outreach and Notifications" },
-  { title: "Real Time Conversation Intelligence" },
+  { title: "Customer Support at Scale", image: "https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Lead Qualification and Sales Enablement", image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Appointment Scheduling and Reminders", image: "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Customer Feedback and Retention", image: "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1800&auto=format&fit=crop" },
+  { title: "Proactive Outreach and Notifications", image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=1200&auto=format&fit=crop" },
+  { title: "Real Time Conversation Intelligence", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 type IndustryAward = {
@@ -213,41 +239,45 @@ const industryAwards: IndustryAward[] = [
   },
 ];
 
+// Case Study + Insight visuals are intentionally mapped to IT/AI themes:
+// AI hardware, healthcare technology, payment technology, network infrastructure,
+// analytics, cloud infrastructure, and software/API integration.
+
 type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
   {
     slug: "regional-bank-ai-voice-support",
     image:
-      "https://images.unsplash.com/photo-1556740758-90de374c12ad?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
     title: "Starfii Cuts Wait Times for a Regional Bank with AI Voice Support",
     body: "Explore how Starfii's AI voice agents resolved routine banking enquiries instantly, freeing human agents for complex disputes and high value conversations.",
   },
   {
     slug: "insurer-outbound-renewal-calling",
     image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title: "Starfii Automates Renewal Outreach for a National Insurer",
     body: "See how outbound AI calling lifted renewal contact rates while giving agents a prioritized list of customers who actually needed a human conversation.",
   },
   {
     slug: "healthcare-appointment-voice-agent",
     image:
-      "https://images.unsplash.com/photo-1551601651-2a8555f1a136?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
     title: "Starfii Builds a Voice Agent for Healthcare Appointment Management",
     body: "Learn how a conversational voice agent let patients book, confirm, and reschedule appointments naturally, cutting missed appointment rates.",
   },
   {
     slug: "retail-ecommerce-order-support-voice",
     image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
     title: "Starfii Deploys Always On Order Support for a Retail Brand",
     body: "Discover how AI voice call automation handled order status, returns, and delivery updates around the clock during peak retail seasons.",
   },
   {
     slug: "telecom-intelligent-call-routing",
     image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     title: "Starfii Modernizes IVR with Intelligent Call Routing for a Telecom Provider",
     body: "See how replacing a legacy IVR with a conversational voice agent reduced call abandonment and got customers to the right team faster.",
   },
@@ -261,12 +291,14 @@ type InsightPost = {
   body: string;
 };
 
+// Insight card imagery: dedicated AI Voice / contact-center / speech-tech visuals only.
+// Avoid generic Earth/space/office imagery in this section.
 const insights: InsightPost[] = [
   {
     slug: "ai-voice-agents-2026-scripted-ivr-to-real-conversations",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1200&auto=format&fit=crop",
     title:
       "AI Voice Agents in 2026: From Scripted IVR to Real Conversations",
     body:
@@ -277,7 +309,7 @@ const insights: InsightPost[] = [
     slug: "reducing-call-abandonment-intelligent-routing",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
     title:
       "Reducing Call Abandonment with Intelligent Routing",
     body:
@@ -288,7 +320,7 @@ const insights: InsightPost[] = [
     slug: "real-time-call-intelligence-customer-insights",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title:
       "What Real Time Call Intelligence Tells You About Your Customers",
     body:
@@ -299,7 +331,7 @@ const insights: InsightPost[] = [
     slug: "ai-voice-automation-scaling-customer-support",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1200&auto=format&fit=crop",
     title:
       "AI Voice Automation: Scaling Customer Support Without More Headcount",
     body:
@@ -310,7 +342,7 @@ const insights: InsightPost[] = [
     slug: "voice-ai-integration-business-workflows",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     title:
       "Voice AI Integration: Connecting Conversations to Business Workflows",
     body:
@@ -882,7 +914,7 @@ export default function AIVoiceCallSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -1047,8 +1079,8 @@ export default function AIVoiceCallSection(): ReactElement {
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop"
-                alt="Support agent working alongside an AI voice assistant"
+                src="https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop"
+                alt="AI voice call assistant and customer support technology"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1086,49 +1118,78 @@ export default function AIVoiceCallSection(): ReactElement {
               systems that run your business, from first hello to full
               resolution.
             </p>
+            <div className="mt-7 flex flex-wrap gap-2">
+              {["AI Voice", "Conversational AI", "Telephony", "CRM", "Speech AI", "Automation"].map(
+                (topic) => (
+                  <span
+                    key={topic}
+                    className="font-body rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-[11px] font-medium tracking-wide text-white/60"
+                  >
+                    {topic}
+                  </span>
+                )
+              )}
+            </div>
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
                 <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
+                  className="ss-focus-card group flex h-full flex-col overflow-hidden rounded-2xl border"
                   style={{
                     backgroundColor: "#0F0E18",
                     borderColor: "rgba(255,255,255,0.10)",
                   }}
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                    >
-                      <ArrowUpRight size={16} className="text-white" />
-                    </span>
-                  </div>
-
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
-                      {area.body}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {area.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                      >
-                        {tag}
+                  <div className="relative h-[190px] overflow-hidden">
+                    <img
+                      src={area.image}
+                      alt={`${area.title} for AI Voice Call`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading={i < 3 ? "eager" : "lazy"}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-transparent to-transparent" />
+                    <div className="absolute left-5 top-5 flex items-center justify-between right-5">
+                      <span className="font-body rounded-full bg-black/45 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
+                        IT / AI VOICE
                       </span>
-                    ))}
+                      <span className="font-body text-[13px] font-medium text-white/70">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col justify-between p-8">
+                    <div>
+                      <div className="mb-3 h-1 w-12 rounded-full bg-[#A48FEA]" />
+                      <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                        {area.title}
+                      </h3>
+                      <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+                        {area.body}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 flex items-end justify-between gap-4">
+                      <div className="flex flex-wrap gap-2">
+                        {area.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
+                            style={{ borderColor: "rgba(255,255,255,0.16)" }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <span
+                        className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
+                        style={{ borderColor: "rgba(255,255,255,0.18)" }}
+                      >
+                        <ArrowUpRight size={16} className="text-white" />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -1257,10 +1318,18 @@ export default function AIVoiceCallSection(): ReactElement {
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex min-h-[128px] items-center gap-5 overflow-hidden rounded-2xl bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
+                  <div className="h-24 w-28 flex-shrink-0 overflow-hidden rounded-xl">
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
                   <span
-                    className="font-body text-[19px] font-medium"
+                    className="font-body flex-1 text-[18px] font-medium leading-snug"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {item.title}

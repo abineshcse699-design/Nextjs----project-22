@@ -80,8 +80,7 @@ export const blogPosts: BlogPost[] = [
 
     readTime: "13 min read",
 
-    heroImage:
-      "https://images.unsplash.com/photo-1620121684840-edffcfc4b878?q=80&w=1600&auto=format&fit=crop",
+     heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1600&auto=format&fit=crop", // ← இங்க change (w=1600 for hero, bigger size)
 
     excerpt:
       "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",

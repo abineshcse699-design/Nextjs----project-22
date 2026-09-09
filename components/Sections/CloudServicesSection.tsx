@@ -137,22 +137,25 @@ const tabs: ServiceTab[] = [
     heading:
       "A cloud migration roadmap sequenced around business risk, not just technical ease",
     body: "Starfii assesses your workloads and builds a cloud migration plan that moves the right systems in the right order, so the business keeps running while the cloud foundation gets built underneath it.",
+    // Server rack / data center — the infrastructure workloads move onto
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Cloud Native: Built For the Cloud",
     heading:
       "Applications engineered for the cloud, not just moved onto it",
     body: "Starfii builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
+    // Cloud icon with data layers — cloud native architecture
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1690627931320-16ac56eb2588?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "FinOps: Control Cost as You Scale",
     heading:
       "FinOps that keeps cloud spend predictable, not a surprise on the invoice",
     body: "Starfii monitors cloud usage continuously and right sizes resources to match actual demand, so infrastructure cost scales with the business instead of running ahead of it.",
+    // Financial market data line graph — cost/spend trend
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
@@ -161,16 +164,18 @@ const tabs: ServiceTab[] = [
     heading:
       "Cloud security built into the architecture, not added after launch",
     body: "Starfii embeds identity, network, and compliance controls into the cloud environment from the start, so security scales alongside the workloads it protects.",
+    // Golden padlock on a keyboard — access control / security
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "SRE: Keep Operations Reliable",
     heading:
       "Site reliability engineering that keeps uptime high as complexity grows",
     body: "Starfii's SRE led cloud operations team monitors, automates, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
+    // Performance analytics graphs on a laptop — SRE monitoring
     image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -250,8 +255,9 @@ type CaseStudy = {
 const caseStudies: CaseStudy[] = [
   {
     slug: "reinsurer-aws-core-systems-migration",
+    // Blue network cabling — core systems / migration infrastructure
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1683322499436-f4383dd59f5a?q=80&w=900&auto=format&fit=crop",
     title:
       "Starfii Migrates a Global Reinsurer's Core Systems to AWS",
     body:
@@ -259,8 +265,9 @@ const caseStudies: CaseStudy[] = [
   },
   {
     slug: "regional-bank-multi-cloud-modernization",
+    // Abstract network / architecture structure — multi cloud design
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1545987796-200677ee1011?q=80&w=900&auto=format&fit=crop",
     title:
       "Starfii Builds a Multi Cloud Foundation for a Regional Bank",
     body:
@@ -268,8 +275,9 @@ const caseStudies: CaseStudy[] = [
   },
   {
     slug: "utilities-kubernetes-platform",
+    // Server racks in a data center — Kubernetes / orchestration infra
     image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?q=80&w=900&auto=format&fit=crop",
     title:
       "Starfii Modernizes Field Operations with a Kubernetes Platform on GCP",
     body:
@@ -277,8 +285,9 @@ const caseStudies: CaseStudy[] = [
   },
   {
     slug: "healthcare-finops-cost-optimization",
+    // Clinician reviewing data on a laptop — digital healthcare platform
     image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=900&auto=format&fit=crop",
     title:
       "Starfii Cuts Cloud Spend 34 Percent for a Healthcare SaaS Platform",
     body:
@@ -286,8 +295,9 @@ const caseStudies: CaseStudy[] = [
   },
   {
     slug: "ecommerce-sre-uptime-program",
+    // Retail checkout moment — Fortune 500 retailer customer experience
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=900&auto=format&fit=crop",
     title:
       "Starfii's SRE Program Lifts Uptime for a Fortune 500 Retailer",
     body:
@@ -312,8 +322,9 @@ const insights: InsightPost[] = [
   {
     slug: "multi-cloud-architecture-flexibility-control",
     large: true,
+    // Complex network of connected nodes — multi cloud architecture
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1664854953181-b12e6dda8b7c?q=80&w=1200&auto=format&fit=crop",
     title:
       "Multi Cloud Architecture: Designing for Flexibility Without Losing Control",
     body:
@@ -322,8 +333,9 @@ const insights: InsightPost[] = [
   {
     slug: "finops-cloud-waste-performance",
     large: false,
+    // Monitor displaying a cost/performance graph — FinOps waste tracking
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1560221328-12fe60f83ab8?q=80&w=800&auto=format&fit=crop",
     title:
       "FinOps in Practice: Cutting Cloud Waste Without Cutting Performance",
     body:
@@ -332,8 +344,9 @@ const insights: InsightPost[] = [
   {
     slug: "site-reliability-engineering-cloud-scale",
     large: false,
+    // Live monitoring screen — uptime and reliability at scale
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1655000278839-b7d7b11251c5?q=80&w=800&auto=format&fit=crop",
     title:
       "Site Reliability Engineering: Keeping Uptime High as Systems Scale",
     body:
@@ -342,8 +355,9 @@ const insights: InsightPost[] = [
   {
     slug: "cloud-security-by-design",
     large: false,
+    // Teal-lit server/security panel — cloud security architecture
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
     title:
       "Cloud Security by Design: Protecting Modern Infrastructure",
     body:
@@ -352,8 +366,9 @@ const insights: InsightPost[] = [
   {
     slug: "devops-cicd-cloud-reliability",
     large: false,
+    // Engineer at a desk with laptop and monitor — DevOps / CI/CD workflow
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?q=80&w=800&auto=format&fit=crop",
     title:
       "DevOps and CI/CD: Shipping Faster Without Sacrificing Reliability",
     body:
@@ -1144,7 +1159,7 @@ export default function CloudServicesSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />

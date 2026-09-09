@@ -54,53 +54,62 @@ const keyTakeaways: string[] = [
   "Our approach is designed around enterprise requirements including security, access control, governance, scalability, integrations, and operational reliability.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string; tags: string[]; image: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "Intelligent File Organization",
     body: "Automatically classify, categorize, tag, and organize files based on content, context, metadata, and business relevance, reducing the effort required to maintain structured repositories.",
     tags: ["CLASSIFICATION", "METADATA", "ORGANIZATION"],
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Semantic AI Search",
     body: "Go beyond filenames and keywords with natural-language search that retrieves relevant files and information based on meaning, context, and intent.",
     tags: ["AI SEARCH", "SEMANTIC", "DISCOVERY"],
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Document Intelligence",
     body: "Extract important information, summarize content, identify entities, and transform unstructured documents into useful business information.",
     tags: ["EXTRACTION", "UNDERSTANDING", "SUMMARIZATION"],
+    image: "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Enterprise Security",
     body: "Protect business information with role-based access, permissions, secure sharing, encryption, auditability, and governance controls aligned to organizational requirements.",
     tags: ["SECURITY", "ACCESS", "GOVERNANCE"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Knowledge Discovery",
     body: "Connect information across large document collections so employees can find answers, relationships, and institutional knowledge without manually reviewing every file.",
     tags: ["KNOWLEDGE", "INSIGHTS", "RETRIEVAL"],
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Scalable Cloud Storage",
     body: "Create a storage environment that can grow with your organization while maintaining reliable access, performance, security, and operational control.",
     tags: ["CLOUD", "SCALE", "RELIABILITY"],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Automated Metadata",
     body: "Enrich documents with searchable metadata, categories, tags, and attributes automatically to improve discoverability and information governance.",
     tags: ["METADATA", "TAXONOMY", "AI"],
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Workflow Integration",
     body: "Connect intelligent file storage with enterprise applications, collaboration platforms, APIs, and internal workflows so information can move naturally through the business.",
     tags: ["APIs", "WORKFLOWS", "INTEGRATION"],
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Information Governance",
     body: "Support document lifecycle management, retention, permissions, audit requirements, and controlled information access across the enterprise.",
     tags: ["LIFECYCLE", "RETENTION", "COMPLIANCE"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -124,7 +133,7 @@ const tabs: ServiceTab[] = [
     heading: "Let AI structure growing file repositories automatically",
     body: "AI can classify documents, generate metadata, identify content types, and apply information structures so teams spend less time maintaining folders and more time using the information inside them.",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Search by Meaning",
@@ -145,19 +154,19 @@ const tabs: ServiceTab[] = [
     heading: "Move information from storage into the work that depends on it",
     body: "Integrate AI file storage with enterprise applications, collaboration tools, APIs, and business workflows so documents and extracted information can support everyday operations.",
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
-type EcosystemImpact = { title: string };
+type EcosystemImpact = { title: string; image: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Enterprise Document & Content Management" },
-  { title: "AI-Powered Enterprise Search" },
-  { title: "Contracts, Legal & Compliance Records" },
-  { title: "Knowledge Management & Institutional Memory" },
-  { title: "Operational Documents & Business Records" },
-  { title: "Secure Collaboration & Information Sharing" },
+  { title: "Enterprise Document & Content Management", image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=900&auto=format&fit=crop" },
+  { title: "AI-Powered Enterprise Search", image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=900&auto=format&fit=crop" },
+  { title: "Contracts, Legal & Compliance Records", image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=900&auto=format&fit=crop" },
+  { title: "Knowledge Management & Institutional Memory", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop" },
+  { title: "Operational Documents & Business Records", image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop" },
+  { title: "Secure Collaboration & Information Sharing", image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=900&auto=format&fit=crop" },
 ];
 
 type IndustryAward = {
@@ -201,14 +210,14 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "enterprise-document-intelligence",
     image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop",
     title: "Transforming Enterprise Documents Into Searchable Business Knowledge",
     body: "Explore how AI-powered organization, semantic search, and document intelligence can make large enterprise file repositories easier to discover and use.",
   },
   {
     slug: "intelligent-file-management",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop",
     title: "Modernizing File Management With AI-Powered Organization",
     body: "See how automated classification, metadata enrichment, and intelligent information structures can reduce the manual effort required to manage growing file collections.",
   },
@@ -222,7 +231,7 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "ai-enterprise-search",
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=900&auto=format&fit=crop",
     title: "Making Enterprise Information Discoverable With Semantic Search",
     body: "Learn how natural-language search can help authorized users find relevant information across distributed document repositories without relying on folder structures.",
   },
@@ -248,7 +257,7 @@ const insights = [
     slug: "digital-sustainability-how-technology-supports-responsible-growth",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
     title:
       "Sustainability Technology: Turning Conversations Into Actionable Intelligence",
     body:
@@ -259,7 +268,7 @@ const insights = [
     slug: "data-driven-sustainability-building-better-environmental-visibility",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
     title:
       "Data-Driven Sustainability: Building Better Environmental Visibility",
     body:
@@ -270,7 +279,7 @@ const insights = [
     slug: "sustainable-operations-using-automation-to-improve-efficiency",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=800&auto=format&fit=crop",
     title:
       "Sustainability Technology and Action Items: Improving Accountability After Meetings",
     body:
@@ -281,7 +290,7 @@ const insights = [
     slug: "sustainability-strategy-turning-goals-into-measurable-outcomes",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop",
     title:
       "Enterprise Sustainability Intelligence: Beyond Transcription",
     body:
@@ -806,7 +815,7 @@ export default function AIFileStorageSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -1024,6 +1033,18 @@ export default function AIFileStorageSection(): ReactElement {
                     borderColor: "rgba(255,255,255,0.10)",
                   }}
                 >
+                  <div className="relative -mx-8 -mt-8 mb-8 h-[190px] overflow-hidden rounded-t-2xl">
+                    <img
+                      src={area.image}
+                      alt={area.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-[#0F0E18]/20 to-transparent" />
+                    <span className="absolute left-5 top-5 rounded-full border border-white/20 bg-black/30 px-3 py-1 text-[10px] font-semibold tracking-[0.14em] text-white/80 backdrop-blur">
+                      AI / IT
+                    </span>
+                  </div>
+
                   <div className="flex items-start justify-between">
                     <span className="font-body text-[13px] font-medium text-white/35">
                       {String(i + 1).padStart(2, "0")}
@@ -1190,14 +1211,23 @@ export default function AIFileStorageSection(): ReactElement {
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex items-center justify-between gap-5 rounded-2xl bg-white px-6 py-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <span
-                    className="font-body text-[19px] font-medium"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {item.title}
-                  </span>
+                  <div className="flex min-w-0 items-center gap-5">
+                    <div className="h-16 w-20 flex-shrink-0 overflow-hidden rounded-xl">
+                      <img
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                    </div>
+                    <span
+                      className="font-body text-[18px] font-medium leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {item.title}
+                    </span>
+                  </div>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
                     style={{ backgroundColor: INDIGO_CTA }}

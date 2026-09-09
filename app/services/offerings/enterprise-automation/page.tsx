@@ -58,53 +58,62 @@ const keyTakeaways: string[] = [
   "Our approach is designed around healthcare data security, governance, traceability, integration, and workflow continuity so coding modernization can fit into existing revenue cycle operations.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string; tags: string[]; image: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "AI-Assisted Code Assignment",
     body: "Analyze clinical documentation and surface relevant ICD, CPT, HCPCS, and related code recommendations with supporting context for qualified coding professionals to review.",
     tags: ["ICD", "CPT", "HCPCS"],
+    image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Clinical Documentation Intelligence",
     body: "Identify diagnoses, procedures, conditions, clinical findings, and documentation signals from complex medical records and coding-relevant narratives.",
     tags: ["CLINICAL NLP", "NLP", "DOCUMENTS"],
+    image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Coding Accuracy & Consistency",
     body: "Apply configured coding logic, validation checks, and exception handling to improve consistency and flag potential missing, conflicting, or incomplete information.",
     tags: ["ACCURACY", "VALIDATION", "QUALITY"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Human-in-the-Loop Review",
     body: "Route recommendations and exceptions to qualified coding professionals so final decisions remain controlled, explainable, and aligned with organizational policy.",
     tags: ["REVIEW", "EXCEPTIONS", "CONTROL"],
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Compliance & Audit Support",
     body: "Maintain traceable recommendations, review checkpoints, source references, and workflow history to support governance, quality assurance, and audit readiness.",
     tags: ["COMPLIANCE", "AUDIT", "TRACEABILITY"],
+    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Denials & Revenue Cycle Support",
     body: "Strengthen coding workflows that contribute to cleaner claims, reduced rework, faster processing, and more efficient revenue cycle operations.",
     tags: ["RCM", "CLAIMS", "DENIALS"],
+    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Specialty Coding Intelligence",
     body: "Adapt extraction and coding workflows to specialty-specific terminology, documentation patterns, procedures, and organizational coding requirements.",
     tags: ["SPECIALTY", "WORKFLOWS", "CONTEXT"],
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Healthcare System Integration",
     body: "Connect coding intelligence with EHR, billing, claims, revenue cycle, APIs, and other healthcare systems to fit the way coding teams already work.",
     tags: ["EHR", "APIs", "INTEGRATION"],
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     title: "Coding Analytics & Monitoring",
     body: "Track coding recommendations, review outcomes, exception patterns, turnaround times, and workflow performance to identify opportunities for continuous improvement.",
     tags: ["ANALYTICS", "MONITORING", "INSIGHTS"],
+    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -121,28 +130,28 @@ const tabs: ServiceTab[] = [
     heading: "Bring clinical documentation into an intelligent coding workflow",
     body: "Ingest approved clinical records, notes, reports, and relevant coding documentation from existing healthcare systems so coding intelligence starts with the information teams already use.",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Understand Clinical Context",
     heading: "Interpret clinical language, not just individual keywords",
     body: "AI analyzes clinical terminology and documentation context to identify diagnoses, procedures, conditions, findings, and other information that may influence coding recommendations.",
     image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589254065878-42c9da997008?q=80&w=1800&auto=format&fit=crop",
   },
   {
     label: "Recommend Relevant Codes",
     heading: "Generate coding recommendations with supporting context",
     body: "The platform surfaces candidate codes and supporting evidence for review, helping coding teams focus their expertise on validation and final decisions instead of repetitive first-pass searching.",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Validate & Review",
     heading: "Keep professional review at the center of critical coding decisions",
     body: "Apply validation rules, confidence thresholds, exception workflows, and human review to verify completeness, consistency, and alignment with organizational coding standards before final submission.",
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Connect to Revenue Cycle",
@@ -153,15 +162,41 @@ const tabs: ServiceTab[] = [
   },
 ];
 
-type EcosystemImpact = { title: string };
-
+type EcosystemImpact = {
+  title: string;
+  image: string;
+};
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Clinical Documentation & Coding Operations" },
-  { title: "ICD, CPT & HCPCS Coding Workflows" },
-  { title: "Claims & Revenue Cycle Management" },
-  { title: "Coding Quality & Compliance Programs" },
-  { title: "Specialty & Ambulatory Coding Operations" },
-  { title: "Healthcare Analytics & Workflow Optimization" },
+  {
+    title: "Clinical Documentation & Coding Operations",
+    image:
+      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "ICD, CPT & HCPCS Coding Workflows",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Claims & Revenue Cycle Management",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Coding Quality & Compliance Programs",
+    image:
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Specialty & Ambulatory Coding Operations",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    title: "Healthcare Analytics & Workflow Optimization",
+    image:
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+  },
 ];
 
 type IndustryAward = {
@@ -205,35 +240,35 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "hospital-ai-assisted-coding",
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     title: "Modernizing Hospital Coding With AI-Assisted Clinical Intelligence",
     body: "Explore how an AI-assisted workflow can help coding teams analyze documentation faster, surface relevant coding information, and focus professional review where it adds the most value.",
   },
   {
     slug: "ambulatory-coding-workflow",
     image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1200&auto=format&fit=crop",
     title: "Improving Coding Turnaround Across Ambulatory Operations",
     body: "See how intelligent document analysis and structured coding recommendations can help ambulatory organizations reduce repetitive work and accelerate coding workflows.",
   },
   {
     slug: "revenue-cycle-coding-intelligence",
     image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
     title: "Connecting Coding Intelligence With Revenue Cycle Operations",
     body: "Discover how validated coding outputs can move into claims and revenue cycle workflows to reduce rework and improve operational visibility.",
   },
   {
     slug: "coding-quality-compliance",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title: "Strengthening Coding Quality, Review, and Audit Readiness",
     body: "Learn how traceable AI recommendations, validation checkpoints, and structured review workflows can support coding quality and governance programs.",
   },
   {
     slug: "specialty-coding-ai",
     image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
     title: "Adapting AI Coding Workflows to Specialty Documentation",
     body: "Explore how coding intelligence can be tailored to specialty-specific terminology, documentation patterns, and organizational coding requirements.",
   },
@@ -252,7 +287,7 @@ const insights: InsightPost[] = [
     slug: "ai-powered-medical-coding-manual-review-to-intelligent-workflows",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
     title:
       "AI-Powered Medical Coding: Moving From Manual Review to Intelligent Coding Workflows",
     body: "Explore how clinical language understanding, AI-assisted recommendations, validation, and human review can reshape medical coding operations without removing professional accountability.",
@@ -261,7 +296,7 @@ const insights: InsightPost[] = [
     slug: "human-in-the-loop-ai-healthcare-coding",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
     title: "Human-in-the-Loop AI for Healthcare Coding",
     body: "Understand why strong healthcare AI workflows combine automation with qualified human review, clear exception handling, and traceable recommendations.",
   },
@@ -269,7 +304,7 @@ const insights: InsightPost[] = [
     slug: "coding-automation-revenue-cycle-performance",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
     title: "Connecting Coding Automation to Revenue Cycle Performance",
     body: "See how coding workflow improvements can support cleaner operational handoffs, reduced rework, and faster downstream processing.",
   },
@@ -277,7 +312,7 @@ const insights: InsightPost[] = [
     slug: "medical-coding-quality-ai-assisted-review",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=1200&auto=format&fit=crop",
     title: "Medical Coding Quality: Improving Accuracy With AI-Assisted Review",
     body: "Explore how AI-assisted validation, exception handling, and human review can help healthcare coding teams improve consistency and reduce avoidable rework.",
   },
@@ -285,7 +320,7 @@ const insights: InsightPost[] = [
     slug: "healthcare-coding-automation-scalable-workflows",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
     title: "Healthcare Coding Automation: Building Scalable Workflows",
     body: "See how connected coding workflows can scale across specialties while keeping governance, traceability, and professional oversight at the center.",
   },
@@ -809,7 +844,7 @@ export default function MedicalCodingSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -1013,43 +1048,60 @@ export default function MedicalCodingSection(): ReactElement {
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
                 <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
+                  className="ss-focus-card group flex h-full flex-col overflow-hidden rounded-2xl border"
                   style={{
                     backgroundColor: "#0F0E18",
                     borderColor: "rgba(255,255,255,0.10)",
                   }}
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                    >
-                      <ArrowUpRight size={16} className="text-white" />
-                    </span>
-                  </div>
-
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
-                      {area.body}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {area.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                      >
-                        {tag}
+                  <div className="relative h-[190px] overflow-hidden">
+                    <img
+                      src={area.image}
+                      alt={`${area.title} medical coding technology`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading={i < 3 ? "eager" : "lazy"}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-transparent to-transparent" />
+                    <div className="absolute left-5 right-5 top-5 flex items-center justify-between">
+                      <span className="font-body rounded-full bg-black/45 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
+                        IT / AI MEDICAL CODING
                       </span>
-                    ))}
+                      <span className="font-body text-[13px] font-medium text-white/70">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-1 flex-col justify-between p-8">
+                    <div>
+                      <div className="mb-3 h-1 w-12 rounded-full bg-[#A48FEA]" />
+                      <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                        {area.title}
+                      </h3>
+                      <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+                        {area.body}
+                      </p>
+                    </div>
+
+                    <div className="mt-8 flex items-end justify-between gap-4">
+                      <div className="flex flex-wrap gap-2">
+                        {area.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
+                            style={{ borderColor: "rgba(255,255,255,0.16)" }}
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                      <span
+                        className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
+                        style={{ borderColor: "rgba(255,255,255,0.18)" }}
+                      >
+                        <ArrowUpRight size={16} className="text-white" />
+                      </span>
+                    </div>
                   </div>
                 </div>
               </Reveal>
@@ -1185,10 +1237,18 @@ export default function MedicalCodingSection(): ReactElement {
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group flex min-h-[128px] items-center gap-5 overflow-hidden rounded-2xl bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
+                  <div className="h-24 w-28 flex-shrink-0 overflow-hidden rounded-xl">
+                    <img
+                      src={item.image}
+                      alt={`${item.title} medical coding technology`}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
+                    />
+                  </div>
                   <span
-                    className="font-body text-[19px] font-medium"
+                    className="font-body flex-1 text-[18px] font-medium leading-snug"
                     style={{ color: CHAMPION_BLUE }}
                   >
                     {item.title}
