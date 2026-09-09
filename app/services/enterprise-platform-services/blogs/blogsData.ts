@@ -1,3 +1,5 @@
+export type BlogService = "enterprise-platform-services";
+
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
@@ -18,6 +20,7 @@ export type BlogProcessStep = {
 
 export type BlogPost = {
   slug: string;
+  service: BlogService;
   title: string;
   category: string;
   lastUpdated: string;
@@ -47,9 +50,7 @@ export type BlogPost = {
     body: string;
     buttonText: string;
     buttonHref: string;
-
   };
-
 };
 
 const AUTHOR = {
@@ -57,21 +58,19 @@ const AUTHOR = {
   role: "Enterprise Platform Services",
   photo:
     "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
-  bio:
-    "The Starfii Enterprise Platform Services team helps enterprises modernize platforms, connect systems, strengthen reliability, and build scalable digital foundations.",
+  bio: "The Starfii Enterprise Platform Services team helps enterprises modernize platforms, connect systems, strengthen reliability, and build scalable digital foundations.",
 };
 
-
 /* ============================================================
-   ENTERPRISE AUTOMATION BLOGS
+   BUSINESS PROCESS SERVICES BLOGS
+   (previously "ENTERPRISE AUTOMATION BLOGS")
 ============================================================ */
-
 
 export const blogPosts: BlogPost[] = [
   {
     slug: "ai-powered-automation-enterprise-software",
-    title:
-      "AI Powered Automation: Transforming Enterprise Software Delivery",
+    service: "enterprise-platform-services",
+    title: "AI Powered Automation: Transforming Enterprise Software Delivery",
     category: "Enterprise Automation",
     lastUpdated: "Nov 10, 2025",
     readTime: "6 min read",
@@ -85,7 +84,6 @@ export const blogPosts: BlogPost[] = [
       "AI powered automation is helping enterprises close this gap. Instead of relying entirely on manual development, testing, monitoring, and operational processes, organizations can use intelligent automation to improve productivity across the software lifecycle.",
       "Starfii combines enterprise automation, AI driven engineering, quality engineering, and modern delivery practices to help organizations automate repetitive work while keeping engineering teams focused on higher value business and technology outcomes.",
     ],
-
     sections: [
       {
         heading: "1. Intelligent Software Delivery",
@@ -138,10 +136,8 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
-      title:
-        "AI Powered Automation: Transforming Enterprise Software Delivery",
+      title: "AI Powered Automation: Transforming Enterprise Software Delivery",
       description:
         "Explore how AI powered automation helps enterprises accelerate software delivery, improve quality, reduce repetitive work, and build more reliable digital operations.",
       keywords: [
@@ -158,8 +154,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "intelligent-process-automation-enterprise",
-    title:
-      "Intelligent Process Automation for Enterprise Operations",
+    service: "enterprise-platform-services",
+    title: "Intelligent Process Automation for Enterprise Operations",
     category: "Enterprise Automation",
     lastUpdated: "Nov 3, 2025",
     readTime: "7 min read",
@@ -198,10 +194,8 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
-      title:
-        "Intelligent Process Automation for Enterprise Operations",
+      title: "Intelligent Process Automation for Enterprise Operations",
       description:
         "Learn how intelligent process automation helps enterprises simplify repetitive workflows, improve operational efficiency, and create more scalable business processes.",
       keywords: [
@@ -216,8 +210,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "hyperautomation-ai-enterprise",
-    title:
-      "Hyperautomation and AI: Building the Next Generation Enterprise",
+    service: "enterprise-platform-services",
+    title: "Hyperautomation and AI: Building the Next Generation Enterprise",
     category: "Enterprise Automation",
     lastUpdated: "Oct 27, 2025",
     readTime: "8 min read",
@@ -256,10 +250,8 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
-      title:
-        "Hyperautomation and AI: Building the Next Generation Enterprise",
+      title: "Hyperautomation and AI: Building the Next Generation Enterprise",
       description:
         "Discover how enterprises can combine AI, automation, integration, and analytics to build intelligent and scalable operating models.",
       keywords: [
@@ -275,6 +267,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "ai-automation-quality-engineering",
+    service: "enterprise-platform-services",
     title:
       "AI Automation in Quality Engineering: Faster and Smarter Software Testing",
     category: "Enterprise Automation",
@@ -315,7 +308,6 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
       title:
         "AI Automation in Quality Engineering: Faster and Smarter Software Testing",
@@ -336,6 +328,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-workflow-automation-digital-transformation",
+    service: "enterprise-platform-services",
     title:
       "Enterprise Workflow Automation: From Manual Processes to Digital Operations",
     category: "Enterprise Automation",
@@ -376,7 +369,6 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
       title:
         "Enterprise Workflow Automation: From Manual Processes to Digital Operations",
@@ -396,6 +388,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "generative-ai-software-development",
+    service: "enterprise-platform-services",
     title:
       "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
     category: "Enterprise Automation",
@@ -436,7 +429,6 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
       title:
         "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
@@ -457,8 +449,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "agile-product-engineering-mach-technologies",
-    title:
-      "Driving ROI Through Agile Product Engineering and MACH Technologies",
+    service: "enterprise-platform-services",
+    title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
     category: "Enterprise Automation",
     lastUpdated: "Oct 6, 2025",
     readTime: "7 min read",
@@ -497,7 +489,6 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
       title:
         "Driving ROI Through Agile Product Engineering and MACH Technologies",
@@ -518,6 +509,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "ai-led-engineering-digital-products",
+    service: "enterprise-platform-services",
     title: "Building Smarter Digital Products with AI Led Engineering",
     category: "Enterprise Automation",
     lastUpdated: "Sep 29, 2025",
@@ -557,10 +549,8 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
-      title:
-        "Building Smarter Digital Products with AI Led Engineering",
+      title: "Building Smarter Digital Products with AI Led Engineering",
       description:
         "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
       keywords: [
@@ -577,6 +567,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "modern-software-delivery-enterprise-growth",
+    service: "enterprise-platform-services",
     title: "Modern Software Delivery for Enterprise Growth",
     category: "Enterprise Automation",
     lastUpdated: "Sep 22, 2025",
@@ -616,19 +607,11 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     seo: {
-      title:
-        "Modern Software Delivery for Enterprise Growth",
+      title: "Modern Software Delivery for Enterprise Growth",
       description:
         "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
-      keywords: [
-        "modern",
-        "software",
-        "delivery",
-        "enterprise",
-        "growth",
-      ],
+      keywords: ["modern", "software", "delivery", "enterprise", "growth"],
     },
   },
 
@@ -639,6 +622,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-platform-engineering",
+    service: "enterprise-platform-services",
     title:
       "Enterprise Platform Engineering: Building the Foundation for Scalable Digital Operations",
     category: "Enterprise Platform",
@@ -693,16 +677,40 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     benefits: [
-      { title: "Reusable Platform Capabilities", body: "Create shared APIs, services, deployment patterns, and platform components that teams can reuse instead of rebuilding foundational capabilities." },
-      { title: "Stronger Reliability", body: "Combine cloud architecture, observability, security, and operational engineering to improve resilience across critical enterprise platforms." },
-      { title: "Faster Digital Delivery", body: "A common platform foundation reduces duplicated engineering effort and gives teams a consistent path for delivering new digital capabilities." },
+      {
+        title: "Reusable Platform Capabilities",
+        body: "Create shared APIs, services, deployment patterns, and platform components that teams can reuse instead of rebuilding foundational capabilities.",
+      },
+      {
+        title: "Stronger Reliability",
+        body: "Combine cloud architecture, observability, security, and operational engineering to improve resilience across critical enterprise platforms.",
+      },
+      {
+        title: "Faster Digital Delivery",
+        body: "A common platform foundation reduces duplicated engineering effort and gives teams a consistent path for delivering new digital capabilities.",
+      },
     ],
     process: [
-      { title: "Assess", body: "Map applications, infrastructure, integrations, security requirements, and operational dependencies across the enterprise platform." },
-      { title: "Architect", body: "Define reusable platform capabilities, target architecture, integration patterns, and security controls around business priorities." },
-      { title: "Engineer", body: "Build cloud, API, observability, security, and delivery capabilities using repeatable engineering standards." },
-      { title: "Operate", body: "Establish monitoring, reliability practices, ownership models, and operational controls for critical platform services." },
-      { title: "Improve", body: "Use platform metrics, engineering feedback, and business outcomes to continuously improve the shared foundation." },
+      {
+        title: "Assess",
+        body: "Map applications, infrastructure, integrations, security requirements, and operational dependencies across the enterprise platform.",
+      },
+      {
+        title: "Architect",
+        body: "Define reusable platform capabilities, target architecture, integration patterns, and security controls around business priorities.",
+      },
+      {
+        title: "Engineer",
+        body: "Build cloud, API, observability, security, and delivery capabilities using repeatable engineering standards.",
+      },
+      {
+        title: "Operate",
+        body: "Establish monitoring, reliability practices, ownership models, and operational controls for critical platform services.",
+      },
+      {
+        title: "Improve",
+        body: "Use platform metrics, engineering feedback, and business outcomes to continuously improve the shared foundation.",
+      },
     ],
     keyTakeaways: [
       "Enterprise platforms should provide reusable capabilities rather than become another layer of technology complexity.",
@@ -711,15 +719,14 @@ export const blogPosts: BlogPost[] = [
       "Strong operational ownership is essential for reliable shared services.",
       "Continuous improvement keeps the platform relevant as technology and business priorities evolve.",
     ],
-    conclusion: "A strong enterprise platform gives digital teams a dependable foundation for growth. The best results come from combining reusable architecture, secure integrations, cloud engineering, observability, and disciplined operations around measurable business outcomes.",
+    conclusion:
+      "A strong enterprise platform gives digital teams a dependable foundation for growth. The best results come from combining reusable architecture, secure integrations, cloud engineering, observability, and disciplined operations around measurable business outcomes.",
     cta: {
       title: "Build a stronger enterprise platform",
       body: "Explore how modern platform engineering can improve scalability, integration, reliability, and digital delivery across your enterprise.",
       buttonText: "Talk to our team",
       buttonHref: "/contact",
     },
-
-
     seo: {
       title:
         "Enterprise Platform Engineering: Building the Foundation for Scalable Digital Operations",
@@ -740,6 +747,7 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-cloud-modernization",
+    service: "enterprise-platform-services",
     title:
       "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
     category: "Enterprise Platform",
@@ -787,16 +795,40 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     benefits: [
-      { title: "Lower Technology Complexity", body: "Modernization creates a clearer application and infrastructure estate by reducing legacy dependencies and improving platform consistency." },
-      { title: "Greater Agility", body: "Cloud native capabilities make it easier to scale workloads, introduce new services, and respond to changing business demand." },
-      { title: "Safer Transformation", body: "Incremental modernization approaches allow enterprises to improve critical workloads while maintaining business continuity." },
+      {
+        title: "Lower Technology Complexity",
+        body: "Modernization creates a clearer application and infrastructure estate by reducing legacy dependencies and improving platform consistency.",
+      },
+      {
+        title: "Greater Agility",
+        body: "Cloud native capabilities make it easier to scale workloads, introduce new services, and respond to changing business demand.",
+      },
+      {
+        title: "Safer Transformation",
+        body: "Incremental modernization approaches allow enterprises to improve critical workloads while maintaining business continuity.",
+      },
     ],
     process: [
-      { title: "Assess", body: "Evaluate workload dependencies, business criticality, technical debt, infrastructure constraints, and modernization readiness." },
-      { title: "Prioritize", body: "Select the workloads and modernization approaches that offer the strongest balance of business value, risk, and feasibility." },
-      { title: "Modernize", body: "Apply rehosting, replatforming, refactoring, API enablement, containerization, or replacement where appropriate." },
-      { title: "Migrate", body: "Move capabilities incrementally with validation, security controls, observability, and business continuity safeguards." },
-      { title: "Optimize", body: "Tune architecture, operations, cost, performance, and reliability after workloads are running on the modern platform." },
+      {
+        title: "Assess",
+        body: "Evaluate workload dependencies, business criticality, technical debt, infrastructure constraints, and modernization readiness.",
+      },
+      {
+        title: "Prioritize",
+        body: "Select the workloads and modernization approaches that offer the strongest balance of business value, risk, and feasibility.",
+      },
+      {
+        title: "Modernize",
+        body: "Apply rehosting, replatforming, refactoring, API enablement, containerization, or replacement where appropriate.",
+      },
+      {
+        title: "Migrate",
+        body: "Move capabilities incrementally with validation, security controls, observability, and business continuity safeguards.",
+      },
+      {
+        title: "Optimize",
+        body: "Tune architecture, operations, cost, performance, and reliability after workloads are running on the modern platform.",
+      },
     ],
     keyTakeaways: [
       "Modernization should start with business and technical context rather than technology change alone.",
@@ -805,15 +837,14 @@ export const blogPosts: BlogPost[] = [
       "Cloud native architecture should be supported by security, observability, and automation.",
       "Modernization is an ongoing operating model, not a one-time migration event.",
     ],
-    conclusion: "Cloud modernization gives enterprises a practical path from legacy complexity to scalable digital platforms. The strongest programs modernize incrementally, protect business continuity, and combine architecture change with security, automation, observability, and operational discipline.",
+    conclusion:
+      "Cloud modernization gives enterprises a practical path from legacy complexity to scalable digital platforms. The strongest programs modernize incrementally, protect business continuity, and combine architecture change with security, automation, observability, and operational discipline.",
     cta: {
       title: "Build a stronger enterprise platform",
       body: "Explore how modern platform engineering can improve scalability, integration, reliability, and digital delivery across your enterprise.",
       buttonText: "Talk to our team",
       buttonHref: "/contact",
     },
-
-
     seo: {
       title:
         "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
@@ -833,8 +864,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-integration-api-strategy",
-    title:
-      "Enterprise Integration and API Strategy for Connected Systems",
+    service: "enterprise-platform-services",
+    title: "Enterprise Integration and API Strategy for Connected Systems",
     category: "Enterprise Platform",
     lastUpdated: "Nov 3, 2025",
     readTime: "7 min read",
@@ -880,16 +911,40 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     benefits: [
-      { title: "Connected Enterprise Systems", body: "Reliable APIs and integration patterns connect applications, data, partners, and workflows into a more cohesive technology ecosystem." },
-      { title: "Reusable Business Capabilities", body: "API first design makes important enterprise capabilities easier to discover, consume, govern, and reuse." },
-      { title: "Better Digital Experiences", body: "Connected systems help teams deliver faster employee, partner, and customer experiences without creating new technology silos." },
+      {
+        title: "Connected Enterprise Systems",
+        body: "Reliable APIs and integration patterns connect applications, data, partners, and workflows into a more cohesive technology ecosystem.",
+      },
+      {
+        title: "Reusable Business Capabilities",
+        body: "API first design makes important enterprise capabilities easier to discover, consume, govern, and reuse.",
+      },
+      {
+        title: "Better Digital Experiences",
+        body: "Connected systems help teams deliver faster employee, partner, and customer experiences without creating new technology silos.",
+      },
     ],
     process: [
-      { title: "Discover", body: "Identify systems, data flows, business capabilities, integration pain points, and high-value reuse opportunities." },
-      { title: "Design", body: "Define API contracts, integration patterns, security requirements, ownership, and lifecycle standards." },
-      { title: "Connect", body: "Implement integrations across applications, data platforms, partners, and workflows using dependable connectivity patterns." },
-      { title: "Govern", body: "Apply authentication, authorization, monitoring, versioning, and lifecycle controls across the API estate." },
-      { title: "Scale", body: "Promote reusable APIs and integration patterns across teams while continuously improving reliability and developer experience." },
+      {
+        title: "Discover",
+        body: "Identify systems, data flows, business capabilities, integration pain points, and high-value reuse opportunities.",
+      },
+      {
+        title: "Design",
+        body: "Define API contracts, integration patterns, security requirements, ownership, and lifecycle standards.",
+      },
+      {
+        title: "Connect",
+        body: "Implement integrations across applications, data platforms, partners, and workflows using dependable connectivity patterns.",
+      },
+      {
+        title: "Govern",
+        body: "Apply authentication, authorization, monitoring, versioning, and lifecycle controls across the API estate.",
+      },
+      {
+        title: "Scale",
+        body: "Promote reusable APIs and integration patterns across teams while continuously improving reliability and developer experience.",
+      },
     ],
     keyTakeaways: [
       "API first thinking turns enterprise capabilities into reusable building blocks.",
@@ -898,18 +953,16 @@ export const blogPosts: BlogPost[] = [
       "Reliable connectivity improves both operational workflows and digital experiences.",
       "Reusable integration patterns can accelerate delivery across teams.",
     ],
-    conclusion: "A clear integration and API strategy helps enterprises turn disconnected applications into a connected digital ecosystem. The strongest approach balances reuse, security, governance, reliability, and developer experience so integration becomes an enabler of business change.",
+    conclusion:
+      "A clear integration and API strategy helps enterprises turn disconnected applications into a connected digital ecosystem. The strongest approach balances reuse, security, governance, reliability, and developer experience so integration becomes an enabler of business change.",
     cta: {
       title: "Build a stronger enterprise platform",
       body: "Explore how modern platform engineering can improve scalability, integration, reliability, and digital delivery across your enterprise.",
       buttonText: "Talk to our team",
       buttonHref: "/contact",
     },
-
-
     seo: {
-      title:
-        "Enterprise Integration and API Strategy for Connected Systems",
+      title: "Enterprise Integration and API Strategy for Connected Systems",
       description:
         "See how APIs and modern integration patterns help enterprises connect applications, data, partners, and workflows without creating new technology silos.",
       keywords: [
@@ -925,8 +978,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-ai-platforms",
-    title:
-      "Enterprise AI Platforms: Moving From Experiments to Business Value",
+    service: "enterprise-platform-services",
+    title: "Enterprise AI Platforms: Moving From Experiments to Business Value",
     category: "Enterprise Platform",
     lastUpdated: "Oct 27, 2025",
     readTime: "8 min read",
@@ -972,16 +1025,40 @@ export const blogPosts: BlogPost[] = [
       },
     ],
     benefits: [
-      { title: "Production Ready AI", body: "A governed AI platform provides the data, integration, security, evaluation, and monitoring capabilities needed to move beyond experiments." },
-      { title: "Responsible AI Operations", body: "Centralized controls help enterprises manage identity, data access, model usage, evaluation, and accountability as AI adoption grows." },
-      { title: "Scalable AI Adoption", body: "Shared platform capabilities let teams reuse patterns and standards across multiple AI applications instead of creating isolated implementations." },
+      {
+        title: "Production Ready AI",
+        body: "A governed AI platform provides the data, integration, security, evaluation, and monitoring capabilities needed to move beyond experiments.",
+      },
+      {
+        title: "Responsible AI Operations",
+        body: "Centralized controls help enterprises manage identity, data access, model usage, evaluation, and accountability as AI adoption grows.",
+      },
+      {
+        title: "Scalable AI Adoption",
+        body: "Shared platform capabilities let teams reuse patterns and standards across multiple AI applications instead of creating isolated implementations.",
+      },
     ],
     process: [
-      { title: "Assess", body: "Identify priority AI use cases, available data, application dependencies, security requirements, and operational constraints." },
-      { title: "Prepare", body: "Build trusted data, access controls, evaluation practices, and platform capabilities required for production AI." },
-      { title: "Integrate", body: "Connect models and AI services with enterprise applications, knowledge workflows, and business processes." },
-      { title: "Govern", body: "Establish responsible AI policies, monitoring, evaluation, human oversight, and accountability." },
-      { title: "Scale", body: "Reuse platform capabilities and operating standards across AI use cases while measuring business impact." },
+      {
+        title: "Assess",
+        body: "Identify priority AI use cases, available data, application dependencies, security requirements, and operational constraints.",
+      },
+      {
+        title: "Prepare",
+        body: "Build trusted data, access controls, evaluation practices, and platform capabilities required for production AI.",
+      },
+      {
+        title: "Integrate",
+        body: "Connect models and AI services with enterprise applications, knowledge workflows, and business processes.",
+      },
+      {
+        title: "Govern",
+        body: "Establish responsible AI policies, monitoring, evaluation, human oversight, and accountability.",
+      },
+      {
+        title: "Scale",
+        body: "Reuse platform capabilities and operating standards across AI use cases while measuring business impact.",
+      },
     ],
     keyTakeaways: [
       "Production AI requires platform engineering, not only model experimentation.",
@@ -990,18 +1067,16 @@ export const blogPosts: BlogPost[] = [
       "Shared AI platform capabilities make enterprise adoption more consistent.",
       "Business outcomes should determine which AI initiatives scale.",
     ],
-    conclusion: "Enterprise AI creates lasting value when experimentation is supported by a secure, governed, production ready platform. With trusted data, responsible controls, strong integration, and measurable outcomes, organizations can move AI from isolated pilots into scalable business capabilities.",
+    conclusion:
+      "Enterprise AI creates lasting value when experimentation is supported by a secure, governed, production ready platform. With trusted data, responsible controls, strong integration, and measurable outcomes, organizations can move AI from isolated pilots into scalable business capabilities.",
     cta: {
       title: "Build a stronger enterprise platform",
       body: "Explore how modern platform engineering can improve scalability, integration, reliability, and digital delivery across your enterprise.",
       buttonText: "Talk to our team",
       buttonHref: "/contact",
     },
-
-
     seo: {
-      title:
-        "Enterprise AI Platforms: Moving From Experiments to Business Value",
+      title: "Enterprise AI Platforms: Moving From Experiments to Business Value",
       description:
         "Discover how organizations can operationalize Generative AI and LLM capabilities with the platform, data, security, and governance needed for enterprise scale.",
       keywords: [
@@ -1018,8 +1093,8 @@ export const blogPosts: BlogPost[] = [
 
   {
     slug: "enterprise-devops-reliability",
-    title:
-      "Enterprise DevOps and Reliability for Always On Digital Platforms",
+    service: "enterprise-platform-services",
+    title: "Enterprise DevOps and Reliability for Always On Digital Platforms",
     category: "Enterprise Platform",
     lastUpdated: "Oct 20, 2025",
     readTime: "7 min read",
@@ -1051,14 +1126,12 @@ export const blogPosts: BlogPost[] = [
           "Metrics, logs, traces, alerts, and service health indicators provide the visibility teams need to understand platform behavior and resolve issues quickly.",
         ],
       },
-
       {
         heading: "4. Site Reliability Engineering",
         paragraphs: [
           "SRE practices use reliability objectives, automation, incident response, and performance engineering to make availability and operational health measurable.",
         ],
       },
-
       {
         heading: "5. Quality Engineering at Scale",
         paragraphs: [
@@ -1066,21 +1139,42 @@ export const blogPosts: BlogPost[] = [
         ],
       },
     ],
-
     benefits: [
-      { title: "Faster Releases", body: "Automated build, test, and deployment workflows help teams release changes more frequently with greater consistency." },
-      { title: "Improved Reliability", body: "Observability and SRE practices make service health measurable and help teams identify and resolve operational issues faster." },
-      { title: "Operational Efficiency", body: "Infrastructure automation and reusable delivery patterns reduce repetitive operational work and configuration drift." },
+      {
+        title: "Faster Releases",
+        body: "Automated build, test, and deployment workflows help teams release changes more frequently with greater consistency.",
+      },
+      {
+        title: "Improved Reliability",
+        body: "Observability and SRE practices make service health measurable and help teams identify and resolve operational issues faster.",
+      },
+      {
+        title: "Operational Efficiency",
+        body: "Infrastructure automation and reusable delivery patterns reduce repetitive operational work and configuration drift.",
+      },
     ],
-
     process: [
-      { title: "Assess", body: "Review the current delivery pipeline, infrastructure, reliability posture, observability coverage, and operational bottlenecks." },
-      { title: "Automate", body: "Standardize build, test, deployment, provisioning, and environment management through repeatable automation." },
-      { title: "Observe", body: "Implement metrics, logs, traces, alerts, and service health indicators that provide actionable operational visibility." },
-      { title: "Stabilize", body: "Apply SRE practices, incident response, performance engineering, and reliability objectives to critical services." },
-      { title: "Improve", body: "Use delivery and reliability metrics to remove recurring failure points and continuously improve engineering operations." },
+      {
+        title: "Assess",
+        body: "Review the current delivery pipeline, infrastructure, reliability posture, observability coverage, and operational bottlenecks.",
+      },
+      {
+        title: "Automate",
+        body: "Standardize build, test, deployment, provisioning, and environment management through repeatable automation.",
+      },
+      {
+        title: "Observe",
+        body: "Implement metrics, logs, traces, alerts, and service health indicators that provide actionable operational visibility.",
+      },
+      {
+        title: "Stabilize",
+        body: "Apply SRE practices, incident response, performance engineering, and reliability objectives to critical services.",
+      },
+      {
+        title: "Improve",
+        body: "Use delivery and reliability metrics to remove recurring failure points and continuously improve engineering operations.",
+      },
     ],
-
     keyTakeaways: [
       "Delivery speed and reliability should be engineered together.",
       "Automation reduces manual deployment effort and configuration inconsistency.",
@@ -1088,18 +1182,16 @@ export const blogPosts: BlogPost[] = [
       "SRE practices make reliability measurable and continuously improvable.",
       "Engineering metrics should connect platform performance to business outcomes.",
     ],
-
-    conclusion: "Modern DevOps and reliability engineering create the foundation for dependable digital delivery at enterprise scale. By automating delivery, improving observability, and applying measurable reliability practices, teams can increase release velocity without compromising operational confidence.",
+    conclusion:
+      "Modern DevOps and reliability engineering create the foundation for dependable digital delivery at enterprise scale. By automating delivery, improving observability, and applying measurable reliability practices, teams can increase release velocity without compromising operational confidence.",
     cta: {
       title: "Build a stronger enterprise platform",
       body: "Explore how modern platform engineering can improve scalability, integration, reliability, and digital delivery across your enterprise.",
       buttonText: "Talk to our team",
       buttonHref: "/contact",
     },
-     
     seo: {
-      title:
-        "Enterprise DevOps and Reliability for Always On Digital Platforms",
+      title: "Enterprise DevOps and Reliability for Always On Digital Platforms",
       description:
         "Learn how automation, observability, SRE, and quality engineering create safer releases and more reliable enterprise technology operations.",
       keywords: [
@@ -1119,20 +1211,24 @@ export const blogPosts: BlogPost[] = [
    BLOG HELPERS
 ============================================================ */
 
-export function getBlogBySlug(slug: string): BlogPost | undefined {
-  return blogPosts.find((blog) => blog.slug === slug);
+export function getBlogBySlug(
+  slug: string,
+  service?: BlogService
+): BlogPost | undefined {
+  return blogPosts.find(
+    (blog) => blog.slug === slug && (!service || blog.service === service)
+  );
 }
 
 export function getRelatedBlogs(
   currentSlug: string,
+  service?: BlogService,
   count = 3
 ): BlogPost[] {
   return blogPosts
-    .filter((blog) => blog.slug !== currentSlug)
+    .filter(
+      (blog) =>
+        blog.slug !== currentSlug && (!service || blog.service === service)
+    )
     .slice(0, count);
-
 }
-
-
-
-

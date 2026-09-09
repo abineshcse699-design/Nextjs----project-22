@@ -35,7 +35,6 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
 
-  // FIXED: pass the service so the correct post is found
   const post = getBlogBySlug(slug, SERVICE);
 
   if (!post) {
@@ -82,14 +81,15 @@ export async function generateMetadata({
 export default async function BlogPage({ params }: PageProps) {
   const { slug } = await params;
 
-  // FIXED: pass the service so this actually resolves
   const post = getBlogBySlug(slug, SERVICE);
 
   if (!post) {
     notFound();
   }
 
-  const related = getRelatedBlogs(post.slug);
+  // Scoped to SERVICE so related posts never mix in from other verticals
+  // if this data file is ever shared later.
+  const related = getRelatedBlogs(post.slug, SERVICE);
 
   return <BlogDetail post={post} related={related} />;
 }
