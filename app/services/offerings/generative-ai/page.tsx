@@ -36,7 +36,7 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 // max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 const BLOG_BASE =
-  "/services/offerings/generative-ai/ai-meeting-assistant/blogs";
+  "/services/offerings/generative-ai/blogs";
 // Autoplay timing for the "AI Chat Box" tab list
 const TAB_AUTOPLAY_MS = 4000;
 

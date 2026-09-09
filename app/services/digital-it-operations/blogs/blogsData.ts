@@ -1,9 +1,3 @@
-export type BlogHighlight = {
-  number: string;
-  title: string;
-  body: string;
-};
-
 export type BlogSection = {
   heading: string;
   paragraphs: string[];
@@ -18,7 +12,6 @@ export type BlogBenefit = {
 };
 
 export type BlogProcessStep = {
-  number: string;
   title: string;
   body: string;
 };
@@ -32,6 +25,12 @@ export type BlogPost = {
   heroImage: string;
   excerpt: string;
 
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
+
   author: {
     name: string;
     role: string;
@@ -40,8 +39,6 @@ export type BlogPost = {
   };
 
   intro: string[];
-
-  highlights?: BlogHighlight[];
 
   sections: BlogSection[];
 
@@ -65,7 +62,7 @@ export type BlogPost = {
    AUTHOR
 ============================================================ */
 
-const defaultAuthor = {
+const AUTHOR = {
   name: "Starfii Team",
   role: "Data & Analytics",
   photo: "/images/authors/starfii-team.jpg",
@@ -95,33 +92,26 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Discover how enterprises can connect generative AI with governed data warehouses to turn business questions into trusted, actionable answers.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "Generative AI: From Enterprise Data Warehouses to Answers",
+      description:
+        "Learn how enterprises can connect generative AI with governed data warehouses to deliver trusted, natural-language answers and faster decisions.",
+      keywords: [
+        "generative AI enterprise data",
+        "AI data warehouse",
+        "natural language analytics",
+        "governed AI answers",
+        "enterprise generative AI",
+        "AI grounded in data",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Enterprise data warehouses contain enormous amounts of valuable business information, but accessing that information often still requires technical expertise, predefined reports, or complex queries.",
       "Generative AI is changing this interaction model by allowing business users to ask questions using natural language and receive answers grounded in enterprise data.",
       "The real opportunity is not simply adding an AI chatbot to a data warehouse. It is creating a trusted layer between business questions, governed data, analytics logic, and AI-generated answers.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Natural-language access",
-        body:
-          "Business users can interact with enterprise data using questions instead of manually building complex queries or reports.",
-      },
-      {
-        number: "02",
-        title: "Governed intelligence",
-        body:
-          "AI responses can be grounded in approved datasets, business definitions, security policies, and governance rules.",
-      },
-      {
-        number: "03",
-        title: "Faster decisions",
-        body:
-          "Teams can move from asking a business question to understanding the relevant data much faster.",
-      },
     ],
 
     sections: [
@@ -205,25 +195,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Identify high-value questions",
         body:
           "Start with recurring business questions where faster access to trusted information can create measurable value.",
       },
       {
-        number: "02",
         title: "Prepare governed data",
         body:
           "Establish reliable datasets, metadata, definitions, access policies, and data quality controls.",
       },
       {
-        number: "03",
         title: "Connect the AI layer",
         body:
           "Create controlled mechanisms for translating natural-language questions into approved analytical operations.",
       },
       {
-        number: "04",
         title: "Validate and monitor",
         body:
           "Test responses, monitor quality, measure adoption, and continuously improve the analytical experience.",
@@ -268,33 +254,26 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A practical look at building scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "Cloud Data Platforms: AWS, Azure and GCP",
+      description:
+        "A practical guide to choosing and architecting scalable enterprise data platforms across AWS, Azure, and Google Cloud.",
+      keywords: [
+        "cloud data platform",
+        "AWS Azure GCP comparison",
+        "enterprise data architecture",
+        "cloud analytics",
+        "cloud data migration",
+        "scalable data platform",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Cloud platforms have transformed how organizations collect, store, process, and analyze data.",
       "AWS, Azure, and Google Cloud each provide extensive services for modern data architectures, but successful implementation depends on architecture choices rather than simply selecting a cloud provider.",
       "The right platform should align data engineering, analytics, governance, security, and business requirements.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Scalable foundations",
-        body:
-          "Cloud-native data platforms can scale storage and processing as business requirements evolve.",
-      },
-      {
-        number: "02",
-        title: "Flexible architecture",
-        body:
-          "Organizations can combine warehouses, lakes, lakehouses, streaming platforms, and specialized analytical services.",
-      },
-      {
-        number: "03",
-        title: "Governed analytics",
-        body:
-          "Cloud architecture can incorporate security, access control, lineage, and governance throughout the data lifecycle.",
-      },
     ],
 
     sections: [
@@ -357,25 +336,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Assess the current estate",
         body:
           "Map existing data sources, workloads, dependencies, and operational constraints.",
       },
       {
-        number: "02",
         title: "Define target architecture",
         body:
           "Design the cloud data platform around business requirements and analytical workloads.",
       },
       {
-        number: "03",
         title: "Migrate strategically",
         body:
           "Prioritize workloads based on value, complexity, risk, and readiness.",
       },
       {
-        number: "04",
         title: "Optimize continuously",
         body:
           "Monitor performance, reliability, security, and cloud costs after migration.",
@@ -419,32 +394,25 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Learn how scalable data governance can improve trust, security, quality, and accountability across enterprise data pipelines.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "Data Governance at Scale: Trust Every Pipeline",
+      description:
+        "Discover practical data governance strategies for ownership, quality, security, and accountability across enterprise data pipelines.",
+      keywords: [
+        "data governance",
+        "data pipeline trust",
+        "data quality",
+        "data ownership",
+        "enterprise data security",
+        "governance at scale",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Data governance is no longer simply a compliance activity. As organizations depend on data for operational decisions, analytics, and AI, trust in that data becomes a business requirement.",
       "Effective governance establishes clear ownership, quality expectations, security controls, definitions, and accountability across the data lifecycle.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Clear ownership",
-        body:
-          "Define who is accountable for datasets, quality, access, and business definitions.",
-      },
-      {
-        number: "02",
-        title: "Reliable pipelines",
-        body:
-          "Embed quality and monitoring controls directly into data workflows.",
-      },
-      {
-        number: "03",
-        title: "Trusted decisions",
-        body:
-          "Give business users confidence that analytical information is consistent and governed.",
-      },
     ],
 
     sections: [
@@ -472,7 +440,8 @@ export const blogPosts: BlogPost[] = [
         heading: "Security and access controls",
         paragraphs: [
           "Governance must also ensure that sensitive information is protected and that access is aligned with business requirements.",
-          "Centralized policies and consistent controls can reduce the risk of unauthorized data access."],
+          "Centralized policies and consistent controls can reduce the risk of unauthorized data access.",
+        ],
       },
       {
         heading: "Making governance part of engineering",
@@ -505,25 +474,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Define critical data",
         body:
           "Identify the datasets and metrics that matter most to the organization.",
       },
       {
-        number: "02",
         title: "Assign ownership",
         body:
           "Establish accountable business and technical owners.",
       },
       {
-        number: "03",
         title: "Automate controls",
         body:
           "Introduce quality, security, metadata, and monitoring controls into pipelines.",
       },
       {
-        number: "04",
         title: "Measure adoption",
         body:
           "Track governance coverage, data quality, incidents, and remediation.",
@@ -567,32 +532,25 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "How master data management can help organizations create a consistent, trusted view of customers across systems.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "MDM in Practice: One Customer Record",
+      description:
+        "Learn how master data management creates one consistent, trusted customer record across CRM, billing, support, and commerce systems.",
+      keywords: [
+        "master data management",
+        "MDM customer record",
+        "customer 360",
+        "identity resolution",
+        "golden record",
+        "data survivorship rules",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Customers often exist in multiple systems with different names, identifiers, addresses, preferences, and histories.",
       "Master Data Management helps organizations create a consistent representation of important business entities such as customers, products, suppliers, and locations.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Unified identity",
-        body:
-          "Connect records belonging to the same customer across different systems.",
-      },
-      {
-        number: "02",
-        title: "Consistent information",
-        body:
-          "Create reliable golden records and common business definitions.",
-      },
-      {
-        number: "03",
-        title: "Better experiences",
-        body:
-          "Give business teams a more complete understanding of customer relationships.",
-      },
     ],
 
     sections: [
@@ -647,25 +605,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Identify the domain",
         body:
           "Choose the business entity where master data will deliver the highest value.",
       },
       {
-        number: "02",
         title: "Map source systems",
         body:
           "Understand where customer records originate and how they differ.",
       },
       {
-        number: "03",
         title: "Define matching rules",
         body:
           "Establish identity resolution and survivorship logic.",
       },
       {
-        number: "04",
         title: "Operationalize governance",
         body:
           "Assign ownership and monitor the quality of mastered data.",
@@ -709,33 +663,26 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "A practical approach to modernizing legacy data warehouses and moving toward scalable lakehouse architectures.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "Legacy Warehouse to Lakehouse: A Migration Playbook",
+      description:
+        "A practical guide to modernizing legacy data warehouses through phased migration to scalable lakehouse architectures.",
+      keywords: [
+        "data warehouse modernization",
+        "lakehouse migration",
+        "legacy data warehouse",
+        "data migration playbook",
+        "cloud data modernization",
+        "lakehouse architecture",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Legacy data warehouses can become difficult to scale, expensive to operate, and restrictive when organizations need to support modern analytics and AI workloads.",
       "Lakehouse architectures provide a flexible approach that combines scalable storage with analytical capabilities.",
       "Successful migration requires more than copying tables. It requires careful planning around workloads, dependencies, data quality, governance, and business continuity.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Assess first",
-        body:
-          "Understand workloads, dependencies, data quality, and business criticality before migration.",
-      },
-      {
-        number: "02",
-        title: "Migrate in phases",
-        body:
-          "Reduce risk by prioritizing workloads and moving them incrementally.",
-      },
-      {
-        number: "03",
-        title: "Modernize with purpose",
-        body:
-          "Use migration as an opportunity to improve architecture rather than simply reproducing legacy patterns.",
-      },
     ],
 
     sections: [
@@ -796,25 +743,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Discover",
         body:
           "Inventory workloads, data, dependencies, users, and operational processes.",
       },
       {
-        number: "02",
         title: "Architect",
         body:
           "Define the target lakehouse architecture and migration principles.",
       },
       {
-        number: "03",
         title: "Migrate",
         body:
           "Move workloads incrementally while validating data and performance.",
       },
       {
-        number: "04",
         title: "Optimize",
         body:
           "Tune workloads, improve governance, and retire unnecessary legacy components.",
@@ -858,33 +801,26 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
 
-    author: defaultAuthor,
+    seo: {
+      title: "BI Dashboards Designed Around Decisions",
+      description:
+        "Learn how to move beyond dashboard overload by designing business intelligence around the decisions people actually need to make.",
+      keywords: [
+        "BI dashboards",
+        "decision oriented BI",
+        "dashboard design",
+        "business intelligence",
+        "data visualization",
+        "dashboard overload",
+      ],
+    },
+
+    author: AUTHOR,
 
     intro: [
       "Many organizations have hundreds or thousands of dashboards but still struggle to answer important business questions quickly.",
       "The problem is often not a lack of data. It is a lack of focus on the decisions the dashboard is intended to support.",
       "Decision-oriented BI starts with business actions and works backward to the metrics, data, and visualizations required.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Start with decisions",
-        body:
-          "Design every dashboard around a specific business decision or recurring action.",
-      },
-      {
-        number: "02",
-        title: "Focus on signals",
-        body:
-          "Prioritize metrics that help users understand what changed and why it matters.",
-      },
-      {
-        number: "03",
-        title: "Drive action",
-        body:
-          "Make the next step clear instead of overwhelming users with unnecessary information.",
-      },
     ],
 
     sections: [
@@ -946,25 +882,21 @@ export const blogPosts: BlogPost[] = [
 
     process: [
       {
-        number: "01",
         title: "Identify decisions",
         body:
           "Document the decisions and actions each dashboard needs to support.",
       },
       {
-        number: "02",
         title: "Define metrics",
         body:
           "Select the minimum set of trusted metrics required for those decisions.",
       },
       {
-        number: "03",
         title: "Design the experience",
         body:
           "Create focused visualizations around signals, trends, and exceptions.",
       },
       {
-        number: "04",
         title: "Measure adoption",
         body:
           "Use feedback and usage data to continuously improve the dashboard.",

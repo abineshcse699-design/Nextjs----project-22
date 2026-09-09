@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+
 import {
   ArrowUpRight,
   Check,
@@ -10,14 +11,30 @@ import {
   Mail,
   Share2,
 } from "lucide-react";
-import { useMemo, useState } from "react";
 
-import type { BlogPost } from "./blogsData";
+import {
+  useMemo,
+  useState,
+} from "react";
+
+import type {
+  BlogPost,
+} from "./blogsData";
+
+const CHAMPION_BLUE = "#1B2560";
+const INDIGO_CTA = "#4F3FE0";
+
+const ALIGN =
+  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 type BlogDetailProps = {
   post: BlogPost;
   related: BlogPost[];
 };
+
+function getSectionId(index: number) {
+  return `blog-section-${index + 1}`;
+}
 
 export default function BlogDetail({
   post,
@@ -25,16 +42,23 @@ export default function BlogDetail({
 }: BlogDetailProps) {
   const [copied, setCopied] = useState(false);
 
-  const tableOfContents = useMemo(
-    () =>
-      post.sections.map((section, index) => ({
-        id: `section-${index + 1}`,
-        title: section.heading,
-      })),
-    [post.sections]
+  const pageUrl = useMemo(() => {
+    if (typeof window === "undefined") {
+      return "";
+    }
+
+    return window.location.href;
+  }, []);
+
+  const shareText = encodeURIComponent(
+    post.title
   );
 
-  const copyUrl = async () => {
+  const shareUrl = encodeURIComponent(
+    pageUrl
+  );
+
+  async function copyLink() {
     try {
       await navigator.clipboard.writeText(
         window.location.href
@@ -42,587 +66,1065 @@ export default function BlogDetail({
 
       setCopied(true);
 
-      setTimeout(() => {
+      window.setTimeout(() => {
         setCopied(false);
-      }, 2000);
+      }, 1800);
     } catch {
       setCopied(false);
     }
-  };
+  }
 
-  const shareUrl = encodeURIComponent(
-    typeof window !== "undefined"
-      ? window.location.href
-      : ""
-  );
-
-  const shareTitle = encodeURIComponent(
-    post.title
-  );
+  function shareWindow(url: string) {
+    window.open(
+      url,
+      "_blank",
+      "noopener,noreferrer,width=700,height=600"
+    );
+  }
 
   return (
-    <main className="bg-white text-slate-900">
-      {/* ====================================================
+    <main className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Article",
+            headline: post.title,
+            description: post.seo.description,
+            dateModified: post.lastUpdated,
+            author: {
+              "@type": "Person",
+              name: post.author.name,
+            },
+            image: [post.heroImage],
+            articleSection: post.category,
+            keywords: post.seo.keywords.join(", "),
+          }),
+        }}
+      />
+      {/* =====================================================
           HERO
-      ==================================================== */}
+      ====================================================== */}
 
-      <section className="relative overflow-hidden">
+      <section className="relative overflow-hidden bg-[#0A0912]">
+        <div className="absolute inset-0">
+          <img
+            src={post.heroImage}
+            alt={post.title}
+            className="h-full w-full object-cover opacity-30"
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-r from-[#080711] via-[#11102A]/95 to-[#11102A]/60" />
+
+          <div
+            className="absolute -right-32 top-[-180px] h-[520px] w-[520px] rounded-full blur-3xl"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(164,143,234,0.35), rgba(79,63,224,0.08), transparent 70%)",
+            }}
+          />
+        </div>
+
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: `url("${post.heroImage}")`,
-          }}
-        />
-
-        <div className="absolute inset-0 bg-black/65" />
-
-        <div className="relative mx-auto max-w-7xl px-6 py-24 lg:px-8 lg:py-32">
-          {/* Breadcrumb */}
-
-          <div className="mb-8 flex flex-wrap items-center gap-2 text-sm text-white/80">
-            <Link
-              href="/services/data-analytics"
-              className="transition hover:text-white"
+          className={`relative ${ALIGN}`}
+        >
+          <div className="py-12 sm:py-16 lg:py-20">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex flex-wrap items-center gap-2 text-sm text-white/55"
             >
-              Data & Analytics
-            </Link>
+              <Link
+                href="/"
+                className="transition-colors hover:text-white"
+              >
+                Home
+              </Link>
 
-            <ChevronRight className="h-4 w-4" />
+              <ChevronRight size={14} />
 
-            <Link
-              href="/services/data-analytics/blogs"
-              className="transition hover:text-white"
-            >
-              Insights
-            </Link>
+              <Link
+                href="/services/data-analytics"
+                className="transition-colors hover:text-white"
+              >
+                Data & Analytics
+              </Link>
 
-            <ChevronRight className="h-4 w-4" />
+              <ChevronRight size={14} />
 
-            <span className="text-white">
-              {post.title}
-            </span>
-          </div>
+              <span className="line-clamp-1 text-white/75">
+                {post.title}
+              </span>
+            </nav>
 
-          <div className="max-w-4xl">
-            <div className="mb-5 inline-flex rounded-full border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white backdrop-blur">
-              {post.category}
-            </div>
-
-            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-white md:text-5xl lg:text-6xl">
-              {post.title}
-            </h1>
-
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-white/85 md:text-xl">
-              {post.excerpt}
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-5 text-sm text-white/80">
-              <span>
-                Updated {post.lastUpdated}
+            <div className="mt-12 max-w-5xl">
+              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
+                {post.category}
               </span>
 
-              <span className="h-1 w-1 rounded-full bg-white/50" />
+              <h1 className="mt-7 max-w-5xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[68px]">
+                {post.title}
+              </h1>
 
-              <span className="flex items-center gap-2">
-                <Clock3 className="h-4 w-4" />
-                {post.readTime}
-              </span>
+              <p className="mt-7 max-w-3xl text-lg leading-8 text-white/65 sm:text-xl">
+                {post.excerpt}
+              </p>
+
+              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/55">
+                <span>
+                  Last Updated:{" "}
+                  {post.lastUpdated}
+                </span>
+
+                <span className="hidden sm:inline">
+                  •
+                </span>
+
+                <span className="inline-flex items-center gap-2">
+                  <Clock3 size={15} />
+                  {post.readTime}
+                </span>
+
+                <span className="hidden sm:inline">
+                  •
+                </span>
+
+                <span>
+                  By {post.author.name}
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ====================================================
-          CONTENT
-      ==================================================== */}
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_320px]">
-          {/* ==================================================
-              MAIN ARTICLE
-          ================================================== */}
+      <section className="relative">
+        <div
+          className={`relative ${ALIGN}`}
+        >
+          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-16">
+            {/* =================================================
+                ARTICLE
+            ================================================== */}
 
-          <article className="min-w-0">
-            {/* Author */}
+            <article className="min-w-0">
+              {/* Hero */}
 
-            <div className="mb-10 flex items-center gap-4 border-b border-slate-200 pb-8">
-              <div className="h-14 w-14 overflow-hidden rounded-full bg-slate-100">
-                {post.author.photo ? (
-                  <img
-                    src={post.author.photo}
-                    alt={post.author.name}
-                    className="h-full w-full object-cover"
-                  />
-                ) : null}
+              <div className="-mt-8 overflow-hidden rounded-[28px] border border-white/20 bg-white shadow-2xl sm:-mt-12">
+                <img
+                  src={post.heroImage}
+                  alt={post.title}
+                  className="h-auto max-h-[680px] w-full object-cover"
+                />
               </div>
 
-              <div>
-                <p className="font-semibold text-slate-900">
-                  {post.author.name}
-                </p>
+              {/* Share */}
 
-                <p className="text-sm text-slate-500">
-                  {post.author.role}
-                </p>
-              </div>
-            </div>
-
-            {/* Share */}
-
-            <div className="mb-12 flex flex-wrap items-center gap-3">
-              <span className="mr-2 flex items-center gap-2 text-sm font-medium text-slate-600">
-                <Share2 className="h-4 w-4" />
-                Share
-              </span>
-
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-              >
-                LinkedIn
-              </a>
-
-              <a
-                href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-              >
-                Facebook
-              </a>
-
-              <a
-                href={`mailto:?subject=${shareTitle}&body=${shareUrl}`}
-                className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-              >
-                <Mail className="h-4 w-4" />
-                Email
-              </a>
-
-              <button
-                type="button"
-                onClick={copyUrl}
-                className="flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-sm font-medium transition hover:border-slate-900 hover:bg-slate-900 hover:text-white"
-              >
-                {copied ? (
-                  <>
-                    <Check className="h-4 w-4" />
-                    Copied
-                  </>
-                ) : (
-                  <>
-                    <Copy className="h-4 w-4" />
-                    Copy link
-                  </>
-                )}
-              </button>
-            </div>
-
-            {/* Intro */}
-
-            <div className="mb-14 space-y-6">
-              {post.intro.map(
-                (paragraph, index) => (
+              <div className="mt-7 flex flex-wrap items-center justify-between gap-5 border-b border-slate-200 pb-7">
+                <div>
                   <p
-                    key={index}
-                    className="text-lg leading-8 text-slate-600"
+                    className="text-sm font-semibold"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
                   >
-                    {paragraph}
+                    {post.readTime}
                   </p>
-                )
-              )}
-            </div>
 
-            {/* Highlights */}
+                  <p className="mt-1 text-xs text-slate-500">
+                    Read, share and explore the full insight.
+                  </p>
+                </div>
 
-            {post.highlights &&
-              post.highlights.length > 0 && (
-                <section className="mb-16">
-                  <div className="grid gap-5 md:grid-cols-3">
-                    {post.highlights.map(
-                      (highlight) => (
-                        <div
-                          key={highlight.number}
-                          className="rounded-2xl border border-slate-200 bg-slate-50 p-6"
-                        >
-                          <div className="mb-5 text-sm font-semibold text-slate-400">
-                            {highlight.number}
-                          </div>
+                <div className="flex items-center gap-2">
+                  <span className="mr-2 hidden text-sm font-medium text-slate-500 sm:inline">
+                    Share
+                  </span>
 
-                          <h3 className="text-lg font-semibold text-slate-900">
-                            {highlight.title}
-                          </h3>
-
-                          <p className="mt-3 text-sm leading-6 text-slate-600">
-                            {highlight.body}
-                          </p>
-                        </div>
+                  <button
+                    type="button"
+                    aria-label="Share on LinkedIn"
+                    onClick={() =>
+                      shareWindow(
+                        `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`
                       )
+                    }
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
+                  >
+                    <span className="text-sm font-bold text-[#1B2560]">
+                      in
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Share on Facebook"
+                    onClick={() =>
+                      shareWindow(
+                        `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
+                      )
+                    }
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
+                  >
+                    <span className="text-sm font-bold text-[#1B2560]">
+                      f
+                    </span>
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Share via email"
+                    onClick={() => {
+                      window.location.href =
+                        `mailto:?subject=${shareText}&body=${shareUrl}`;
+                    }}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
+                  >
+                    <Mail
+                      size={17}
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    />
+                  </button>
+
+                  <button
+                    type="button"
+                    aria-label="Copy link"
+                    onClick={copyLink}
+                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
+                  >
+                    {copied ? (
+                      <Check
+                        size={17}
+                        className="text-green-600"
+                      />
+                    ) : (
+                      <Copy
+                        size={17}
+                        style={{
+                          color: CHAMPION_BLUE,
+                        }}
+                      />
                     )}
-                  </div>
-                </section>
+                  </button>
+                </div>
+              </div>
+
+              {/* =================================================
+                  INTRO
+              ================================================== */}
+
+              {post.intro.length > 0 && (
+                <div className="mt-10 space-y-6">
+                  {post.intro.map(
+                    (
+                      paragraph,
+                      index
+                    ) => (
+                      <p
+                        key={index}
+                        className={
+                          index === 0
+                            ? "text-xl font-medium leading-9 text-slate-700 sm:text-2xl"
+                            : "text-lg leading-8 text-slate-600"
+                        }
+                      >
+                        {paragraph}
+                      </p>
+                    )
+                  )}
+                </div>
               )}
 
-            {/* Article Sections */}
+              {/* =================================================
+                  ARTICLE BODY
+              ================================================== */}
 
-            <div className="space-y-16">
-              {post.sections.map(
-                (section, index) => (
-                  <section
-                    key={section.heading}
-                    id={`section-${index + 1}`}
-                    className="scroll-mt-24"
+              <article className="mt-16" itemScope itemType="https://schema.org/Article">
+                <div className="mb-8">
+                  <p
+                    className="text-xs font-bold uppercase tracking-[0.18em]"
+                    style={{
+                      color: INDIGO_CTA,
+                    }}
                   >
-                    <div className="mb-6 flex items-start gap-4">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white">
-                        {String(index + 1).padStart(
-                          2,
-                          "0"
-                        )}
-                      </span>
+                    The complete insight
+                  </p>
 
-                      <h2 className="text-2xl font-semibold leading-tight text-slate-900 md:text-3xl">
-                        {section.heading}
+                  <h2
+                    className="mt-2 text-3xl font-semibold sm:text-4xl"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    Data & Analytics in Practice
+                  </h2>
+                </div>
+
+                <div className="space-y-16">
+                  {post.sections.map(
+                    (
+                      section,
+                      index
+                    ) => (
+                      <section
+                        key={`${section.heading.replace(/^\\d+\\.\\s*/, "")}-${index}`}
+                        id={getSectionId(index)}
+                        className="scroll-mt-28"
+                      >
+                        <div>
+                          <div className="min-w-0 flex-1">
+                            <h2
+                              className="text-2xl font-bold leading-tight sm:text-3xl"
+                              style={{
+                                color:
+                                  CHAMPION_BLUE,
+                              }}
+                            >
+                              {section.heading.replace(/^\d+\.\s*/, "")}
+                            </h2>
+
+                            <div className="mt-6 space-y-5">
+                              {section.paragraphs.map(
+                                (
+                                  paragraph,
+                                  paragraphIndex
+                                ) => {
+                                  const colonIndex =
+                                    paragraph.indexOf(
+                                      ":"
+                                    );
+
+                                  const hasLabel =
+                                    colonIndex >
+                                      0 &&
+                                    colonIndex <
+                                      35;
+
+                                  if (
+                                    hasLabel
+                                  ) {
+                                    const label =
+                                      paragraph.slice(
+                                        0,
+                                        colonIndex +
+                                          1
+                                      );
+
+                                    const content =
+                                      paragraph.slice(
+                                        colonIndex +
+                                          1
+                                      );
+
+                                    return (
+                                      <p
+                                        key={
+                                          paragraphIndex
+                                        }
+                                        className="text-base leading-8 text-slate-600 sm:text-lg"
+                                      >
+                                        <strong
+                                          className="font-semibold"
+                                          style={{
+                                            color:
+                                              CHAMPION_BLUE,
+                                          }}
+                                        >
+                                          {
+                                            label
+                                          }
+                                        </strong>
+
+                                        {
+                                          content
+                                        }
+                                      </p>
+                                    );
+                                  }
+
+                                  return (
+                                    <p
+                                      key={
+                                        paragraphIndex
+                                      }
+                                      className="text-base leading-8 text-slate-600 sm:text-lg"
+                                    >
+                                      {
+                                        paragraph
+                                      }
+                                    </p>
+                                  );
+                                }
+                              )}
+                            </div>
+
+                            {/* Image */}
+
+                            {section.image && (
+                              <figure className="mt-8 overflow-hidden rounded-3xl bg-slate-100">
+                                <img
+                                  src={
+                                    section.image
+                                  }
+                                  alt={
+                                    section.imageAlt ||
+                                    section.heading
+                                  }
+                                  className="h-auto max-h-[560px] w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
+                                />
+
+                                {section.imageAlt && (
+                                  <figcaption className="px-5 py-3 text-xs text-slate-500">
+                                    {
+                                      section.imageAlt
+                                    }
+                                  </figcaption>
+                                )}
+                              </figure>
+                            )}
+
+                            {/* Quote */}
+
+                            {section.quote && (
+                              <blockquote
+                                className="mt-8 rounded-3xl border-l-4 p-7 sm:p-8"
+                                style={{
+                                  borderColor:
+                                    INDIGO_CTA,
+                                  backgroundColor:
+                                    "#F6F3FF",
+                                }}
+                              >
+                                <div className="text-4xl leading-none text-[#A48FEA]">
+                                  "
+                                </div>
+
+                                <p
+                                  className="mt-2 text-xl font-medium leading-8"
+                                  style={{
+                                    color:
+                                      CHAMPION_BLUE,
+                                  }}
+                                >
+                                  {
+                                    section.quote
+                                  }
+                                </p>
+                              </blockquote>
+                            )}
+                          </div>
+                        </div>
+                      </section>
+                    )
+                  )}
+                </div>
+              </article>
+
+              {/* =================================================
+                  BENEFITS
+              ================================================== */}
+
+              {post.benefits &&
+                post.benefits.length > 0 && (
+                  <section className="mt-20 overflow-hidden rounded-[32px] bg-[#0A0912] p-7 sm:p-10 lg:p-12">
+                    <div className="max-w-2xl">
+                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
+                        Business value
+                      </p>
+
+                      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+                        Why Data & Analytics matters
                       </h2>
+
+                      <p className="mt-5 text-base leading-8 text-white/60">
+                        Strong data foundations help organizations make faster decisions, improve operational visibility, and build scalable analytics and AI capabilities.
+                      </p>
                     </div>
 
-                    <div className="space-y-5 pl-0 md:pl-[52px]">
-                      {section.paragraphs.map(
-                        (paragraph, paragraphIndex) => (
-                          <p
-                            key={paragraphIndex}
-                            className="text-base leading-8 text-slate-600 md:text-lg"
-                          >
-                            {paragraph}
-                          </p>
-                        )
-                      )}
-
-                      {section.image && (
-                        <figure className="my-8 overflow-hidden rounded-2xl">
-                          <img
-                            src={section.image}
-                            alt={
-                              section.imageAlt ??
-                              section.heading
+                    <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                      {post.benefits.map(
+                        (
+                          benefit,
+                          index
+                        ) => (
+                          <div
+                            key={
+                              benefit.title
                             }
-                            className="h-auto w-full object-cover"
-                          />
-                        </figure>
-                      )}
+                            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-all duration-300 hover:bg-white/[0.07]"
+                          >
+                            <div>
+                              <div>
+                                <h3 className="text-lg font-semibold text-white">
+                                  {
+                                    benefit.title
+                                  }
+                                </h3>
 
-                      {section.quote && (
-                        <blockquote className="my-8 border-l-4 border-slate-900 bg-slate-50 px-6 py-5 text-lg font-medium leading-8 text-slate-800">
-                          “{section.quote}”
-                        </blockquote>
+                                <p className="mt-2 text-sm leading-7 text-white/55">
+                                  {
+                                    benefit.body
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        )
                       )}
                     </div>
                   </section>
-                )
-              )}
-            </div>
+                )}
 
-            {/* Benefits */}
+              {/* =================================================
+                  PROCESS
+              ================================================== */}
 
-            {post.benefits &&
-              post.benefits.length > 0 && (
-                <section className="mt-20 rounded-3xl bg-slate-950 p-8 text-white md:p-10">
-                  <h2 className="text-2xl font-semibold md:text-3xl">
-                    Business Benefits
-                  </h2>
-
-                  <div className="mt-8 grid gap-6 md:grid-cols-2">
-                    {post.benefits.map(
-                      (benefit) => (
-                        <div
-                          key={benefit.title}
-                          className="border-t border-white/15 pt-5"
-                        >
-                          <h3 className="font-semibold">
-                            {benefit.title}
-                          </h3>
-
-                          <p className="mt-2 text-sm leading-6 text-white/70">
-                            {benefit.body}
-                          </p>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </section>
-              )}
-
-            {/* Process */}
-
-            {post.process &&
-              post.process.length > 0 && (
-                <section className="mt-20">
-                  <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
-                    Our Approach
-                  </h2>
-
-                  <div className="mt-8 space-y-5">
-                    {post.process.map((step) => (
-                      <div
-                        key={step.number}
-                        className="flex gap-5 rounded-2xl border border-slate-200 p-6"
+              {post.process &&
+                post.process.length > 0 && (
+                  <section className="mt-20">
+                    <div className="max-w-2xl">
+                      <p
+                        className="text-xs font-bold uppercase tracking-[0.18em]"
+                        style={{
+                          color: INDIGO_CTA,
+                        }}
                       >
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-slate-100 text-sm font-semibold text-slate-900">
-                          {step.number}
-                        </div>
-
-                        <div>
-                          <h3 className="font-semibold text-slate-900">
-                            {step.title}
-                          </h3>
-
-                          <p className="mt-2 text-sm leading-6 text-slate-600">
-                            {step.body}
-                          </p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </section>
-              )}
-
-            {/* Key Takeaways */}
-
-            {post.keyTakeaways &&
-              post.keyTakeaways.length > 0 && (
-                <section className="mt-20">
-                  <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
-                    Key Takeaways
-                  </h2>
-
-                  <div className="mt-7 space-y-4">
-                    {post.keyTakeaways.map(
-                      (takeaway, index) => (
-                        <div
-                          key={index}
-                          className="flex items-start gap-3"
-                        >
-                          <Check className="mt-1 h-5 w-5 shrink-0 text-slate-900" />
-
-                          <p className="leading-7 text-slate-600">
-                            {takeaway}
-                          </p>
-                        </div>
-                      )
-                    )}
-                  </div>
-                </section>
-              )}
-
-            {/* Conclusion */}
-
-            {post.conclusion && (
-              <section className="mt-20 border-t border-slate-200 pt-12">
-                <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
-                  Conclusion
-                </h2>
-
-                <p className="mt-6 text-lg leading-8 text-slate-600">
-                  {post.conclusion}
-                </p>
-              </section>
-            )}
-
-            {/* CTA */}
-
-            {post.cta && (
-              <section className="mt-16 rounded-3xl bg-slate-100 p-8 md:p-10">
-                <h2 className="text-2xl font-semibold text-slate-900 md:text-3xl">
-                  {post.cta.title}
-                </h2>
-
-                <p className="mt-4 max-w-2xl leading-7 text-slate-600">
-                  {post.cta.body}
-                </p>
-
-                <Link
-                  href={post.cta.buttonHref}
-                  className="mt-7 inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-700"
-                >
-                  {post.cta.buttonText}
-
-                  <ArrowUpRight className="h-4 w-4" />
-                </Link>
-              </section>
-            )}
-          </article>
-
-          {/* ==================================================
-              SIDEBAR
-          ================================================== */}
-
-          <aside className="lg:sticky lg:top-8 lg:h-fit">
-            {/* Author Card */}
-
-            <div className="rounded-2xl border border-slate-200 p-6">
-              <div className="flex items-center gap-4">
-                <div className="h-12 w-12 overflow-hidden rounded-full bg-slate-100">
-                  {post.author.photo ? (
-                    <img
-                      src={post.author.photo}
-                      alt={post.author.name}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : null}
-                </div>
-
-                <div>
-                  <p className="font-semibold text-slate-900">
-                    {post.author.name}
-                  </p>
-
-                  <p className="text-sm text-slate-500">
-                    {post.author.role}
-                  </p>
-                </div>
-              </div>
-
-              <p className="mt-5 text-sm leading-6 text-slate-600">
-                {post.author.bio}
-              </p>
-            </div>
-
-            {/* TOC */}
-
-            {tableOfContents.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-slate-200 p-6">
-                <h3 className="font-semibold text-slate-900">
-                  In this article
-                </h3>
-
-                <nav className="mt-5 space-y-3">
-                  {tableOfContents.map(
-                    (item, index) => (
-                      <a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        className="flex gap-3 text-sm leading-5 text-slate-500 transition hover:text-slate-900"
-                      >
-                        <span className="font-medium text-slate-400">
-                          {String(index + 1).padStart(
-                            2,
-                            "0"
-                          )}
-                        </span>
-
-                        <span>{item.title}</span>
-                      </a>
-                    )
-                  )}
-                </nav>
-              </div>
-            )}
-
-            {/* Related */}
-
-            {related.length > 0 && (
-              <div className="mt-6 rounded-2xl border border-slate-200 p-6">
-                <h3 className="font-semibold text-slate-900">
-                  Related Insights
-                </h3>
-
-                <div className="mt-5 space-y-5">
-                  {related.map((blog) => (
-                    <Link
-                      key={blog.slug}
-                      href={`/services/data-analytics/blogs/${blog.slug}`}
-                      className="group block"
-                    >
-                      <p className="text-sm font-semibold leading-6 text-slate-900 transition group-hover:text-slate-600">
-                        {blog.title}
+                        From strategy to scale
                       </p>
 
-                      <div className="mt-2 flex items-center gap-1 text-xs text-slate-400">
-                        <span>
-                          {blog.readTime}
-                        </span>
+                      <h2
+                        className="mt-3 text-3xl font-semibold sm:text-4xl"
+                        style={{
+                          color: CHAMPION_BLUE,
+                        }}
+                      >
+                        A practical Data & Analytics journey
+                      </h2>
+                    </div>
 
-                        <ArrowUpRight className="h-3 w-3 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <div className="relative mt-10">
+                      <div className="space-y-7">
+                        {post.process.map(
+                          (step) => (
+                            <div
+                              key={step.title}
+                              className="relative"
+                            >
+
+                              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+                                <h3
+                                  className="text-xl font-semibold"
+                                  style={{
+                                    color:
+                                      CHAMPION_BLUE,
+                                  }}
+                                >
+                                  {
+                                    step.title
+                                  }
+                                </h3>
+
+                                <p className="mt-2 text-base leading-7 text-slate-600">
+                                  {
+                                    step.body
+                                  }
+                                </p>
+                              </div>
+                            </div>
+                          )
+                        )}
                       </div>
-                    </Link>
-                  ))}
+                    </div>
+                  </section>
+                )}
+
+              {/* =================================================
+                  TAKEAWAYS
+              ================================================== */}
+
+              {post.keyTakeaways &&
+                post.keyTakeaways.length > 0 && (
+                  <section className="mt-20 rounded-[32px] border border-[#DDD8F3] bg-[#F7F5FD] p-7 sm:p-10">
+                    <div className="flex items-start gap-4">
+                      <div
+                        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-white"
+                        style={{
+                          backgroundColor:
+                            INDIGO_CTA,
+                        }}
+                      >
+                        <Share2 size={19} />
+                      </div>
+
+                      <div>
+                        <p
+                          className="text-xs font-bold uppercase tracking-[0.18em]"
+                          style={{
+                            color:
+                              INDIGO_CTA,
+                          }}
+                        >
+                          Key takeaways
+                        </p>
+
+                        <h2
+                          className="mt-2 text-3xl font-semibold"
+                          style={{
+                            color:
+                              CHAMPION_BLUE,
+                          }}
+                        >
+                          What to remember
+                        </h2>
+                      </div>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                      {post.keyTakeaways.map(
+                        (
+                          takeaway,
+                          index
+                        ) => (
+                          <div
+                            key={index}
+                            className="flex gap-3 rounded-2xl bg-white p-5 shadow-sm"
+                          >
+                            <Check
+                              size={19}
+                              className="mt-0.5 flex-shrink-0 text-[#4F3FE0]"
+                            />
+
+                            <p className="text-sm leading-7 text-slate-600">
+                              {
+                                takeaway
+                              }
+                            </p>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </section>
+                )}
+
+              {/* =================================================
+                  CONCLUSION
+              ================================================== */}
+
+              {post.conclusion && (
+                <section className="mt-20">
+                  <div className="rounded-[32px] bg-[#ECE7FB] p-8 sm:p-10 lg:p-12">
+                    <p
+                      className="text-xs font-bold uppercase tracking-[0.18em]"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    >
+                      Final perspective
+                    </p>
+
+                    <p
+                      className="mt-5 max-w-4xl text-2xl font-medium leading-10 sm:text-3xl"
+                      style={{
+                        color:
+                          CHAMPION_BLUE,
+                      }}
+                    >
+                      {
+                        post.conclusion
+                      }
+                    </p>
+                  </div>
+                </section>
+              )}
+
+              {/* =================================================
+                  CTA
+              ================================================== */}
+
+              {post.cta && (
+                <section className="mt-12 overflow-hidden rounded-[32px] bg-[#1B2560]">
+                  <div className="relative p-8 sm:p-10 lg:p-12">
+                    <div
+                      className="pointer-events-none absolute -right-24 -top-32 h-[360px] w-[360px] rounded-full blur-3xl"
+                      style={{
+                        background:
+                          "radial-gradient(circle, rgba(164,143,234,0.35), transparent 70%)",
+                      }}
+                    />
+
+                    <div className="relative max-w-2xl">
+                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
+                        Continue the conversation
+                      </p>
+
+                      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+                        {
+                          post.cta
+                            .title
+                        }
+                      </h2>
+
+                      <p className="mt-5 text-base leading-8 text-white/65">
+                        {
+                          post.cta
+                            .body
+                        }
+                      </p>
+
+                      <Link
+                        href={
+                          post.cta
+                            .buttonHref
+                        }
+                        className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        {
+                          post.cta
+                            .buttonText
+                        }
+
+                        <ArrowUpRight
+                          size={17}
+                        />
+                      </Link>
+                    </div>
+                  </div>
+                </section>
+              )}
+            </article>
+
+            {/* =================================================
+                SIDEBAR
+            ================================================== */}
+
+            <aside className="lg:sticky lg:top-24 lg:self-start">
+              <div className="space-y-6">
+                {/* Author */}
+
+                <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                  <p
+                    className="text-xs font-bold uppercase tracking-[0.16em]"
+                    style={{
+                      color:
+                        INDIGO_CTA,
+                    }}
+                  >
+                    About the author
+                  </p>
+
+                  <div className="mt-5 flex items-center gap-4">
+                    <img
+                      src={
+                        post.author
+                          .photo
+                      }
+                      alt={
+                        post.author
+                          .name
+                      }
+                      className="h-16 w-16 rounded-2xl object-cover"
+                    />
+
+                    <div className="min-w-0">
+                      <h3
+                        className="font-semibold"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        {
+                          post.author
+                            .name
+                        }
+                      </h3>
+
+                      <p className="mt-1 text-xs leading-5 text-slate-500">
+                        {
+                          post.author
+                            .role
+                        }
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="mt-5 text-sm leading-7 text-slate-600">
+                    {
+                      post.author
+                        .bio
+                    }
+                  </p>
                 </div>
+
+                {/* Table of contents */}
+
+                {post.sections.length >
+                  0 && (
+                  <div className="rounded-[28px] border border-slate-200 bg-[#F8F7FC] p-6">
+                    <p
+                      className="text-xs font-bold uppercase tracking-[0.16em]"
+                      style={{
+                        color:
+                          INDIGO_CTA,
+                      }}
+                    >
+                      On this page
+                    </p>
+
+                    <div className="mt-5 space-y-1">
+                      {post.sections.map(
+                        (
+                          section,
+                          index
+                        ) => (
+                          <a
+                            key={`${section.heading.replace(/^\\d+\\.\\s*/, "")}-${index}`}
+                            href={`#${getSectionId(
+                              index
+                            )}`}
+                            className="group flex gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
+                          >
+
+                            <span className="leading-5">
+                              {section.heading.replace(/^\d+\.\s*/, "")}
+                            </span>
+                          </a>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Related */}
+
+                {related.length > 0 && (
+                  <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                    <div className="flex items-center justify-between gap-4">
+                      <p
+                        className="text-xs font-bold uppercase tracking-[0.16em]"
+                        style={{
+                          color:
+                            INDIGO_CTA,
+                        }}
+                      >
+                        More insights
+                      </p>
+
+                      <Link
+                        href="/services/data-analytics/blogs"
+                        className="text-xs font-semibold"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        View all
+                      </Link>
+                    </div>
+
+                    <div className="mt-5 space-y-4">
+                      {related.map(
+                        (item) => (
+                          <Link
+                            key={
+                              item.slug
+                            }
+                            href={`/services/data-analytics/blogs/${item.slug}`}
+                            className="group block overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                          >
+                            <div className="h-32 overflow-hidden">
+                              <img
+                                src={
+                                  item.heroImage
+                                }
+                                alt={
+                                  item.title
+                                }
+                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                              />
+                            </div>
+
+                            <div className="p-4">
+                              <p
+                                className="text-[11px] font-bold uppercase tracking-wider"
+                                style={{
+                                  color:
+                                    INDIGO_CTA,
+                                }}
+                              >
+                                {
+                                  item.category
+                                }
+                              </p>
+
+                              <h3
+                                className="mt-2 line-clamp-3 text-sm font-semibold leading-6"
+                                style={{
+                                  color:
+                                    CHAMPION_BLUE,
+                                }}
+                              >
+                                {
+                                  item.title
+                                }
+                              </h3>
+
+                              <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-slate-500 group-hover:text-[#4F3FE0]">
+                                Read insight
+                                <ArrowUpRight
+                                  size={
+                                    13
+                                  }
+                                />
+                              </span>
+                            </div>
+                          </Link>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </aside>
+            </aside>
+          </div>
         </div>
       </section>
 
-      {/* ====================================================
-          BOTTOM RELATED ARTICLES
-      ==================================================== */}
+      {/* =====================================================
+          BOTTOM RELATED
+      ====================================================== */}
 
       {related.length > 0 && (
-        <section className="border-t border-slate-200 bg-slate-50">
-          <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-            <div className="flex flex-col justify-between gap-5 md:flex-row md:items-end">
+        <section className="mt-24 border-t border-slate-200 bg-[#F8F7FC] py-20">
+          <div
+            className={ALIGN}
+          >
+            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
               <div>
-                <p className="text-sm font-semibold uppercase tracking-wider text-slate-500">
-                  More from Data & Analytics
+                <p
+                  className="text-xs font-bold uppercase tracking-[0.18em]"
+                  style={{
+                    color:
+                      INDIGO_CTA,
+                  }}
+                >
+                  Continue reading
                 </p>
 
-                <h2 className="mt-2 text-3xl font-semibold tracking-tight text-slate-900">
-                  Related insights
+                <h2
+                  className="mt-2 text-3xl font-semibold sm:text-4xl"
+                  style={{
+                    color:
+                      CHAMPION_BLUE,
+                  }}
+                >
+                  Explore more insights
                 </h2>
               </div>
 
               <Link
                 href="/services/data-analytics/blogs"
-                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-900"
+                className="inline-flex items-center gap-2 text-sm font-semibold"
+                style={{
+                  color:
+                    INDIGO_CTA,
+                }}
               >
-                View all insights
-                <ArrowUpRight className="h-4 w-4" />
+                All blogs
+                <ArrowUpRight
+                  size={16}
+                />
               </Link>
             </div>
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {related.map((blog) => (
-                <Link
-                  key={blog.slug}
-                  href={`/services/data-analytics/blogs/${blog.slug}`}
-                  className="group overflow-hidden rounded-2xl border border-slate-200 bg-white"
-                >
-                  <div className="aspect-[16/9] overflow-hidden bg-slate-100">
-                    <img
-                      src={blog.heroImage}
-                      alt={blog.title}
-                      className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-                    />
-                  </div>
-
-                  <div className="p-6">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">
-                        {blog.category}
-                      </span>
-
-                      <span className="text-xs text-slate-400">
-                        {blog.readTime}
-                      </span>
+              {related.map(
+                (item) => (
+                  <Link
+                    key={
+                      item.slug
+                    }
+                    href={`/services/data-analytics/blogs/${item.slug}`}
+                    className="group overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                  >
+                    <div className="h-56 overflow-hidden">
+                      <img
+                        src={
+                          item.heroImage
+                        }
+                        alt={
+                          item.title
+                        }
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
                     </div>
 
-                    <h3 className="mt-4 text-lg font-semibold leading-7 text-slate-900">
-                      {blog.title}
-                    </h3>
+                    <div className="p-7">
+                      <div className="flex items-center justify-between gap-4">
+                        <span
+                          className="text-xs font-bold uppercase tracking-[0.15em]"
+                          style={{
+                            color:
+                              INDIGO_CTA,
+                          }}
+                        >
+                          {
+                            item.category
+                          }
+                        </span>
 
-                    <p className="mt-3 line-clamp-3 text-sm leading-6 text-slate-500">
-                      {blog.excerpt}
-                    </p>
+                        <ArrowUpRight
+                          size={18}
+                          className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
+                          style={{
+                            color:
+                              CHAMPION_BLUE,
+                          }}
+                        />
+                      </div>
 
-                    <div className="mt-6 flex items-center gap-2 text-sm font-semibold text-slate-900">
-                      Read article
-                      <ArrowUpRight className="h-4 w-4 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+                      <h3
+                        className="mt-4 text-xl font-semibold leading-7"
+                        style={{
+                          color:
+                            CHAMPION_BLUE,
+                        }}
+                      >
+                        {
+                          item.title
+                        }
+                      </h3>
+
+                      <p className="mt-4 line-clamp-3 text-sm leading-7 text-slate-600">
+                        {
+                          item.excerpt
+                        }
+                      </p>
+
+                      <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
+                        <Clock3
+                          size={14}
+                        />
+
+                        {
+                          item.readTime
+                        }
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              )}
             </div>
           </div>
         </section>

@@ -1,3 +1,5 @@
+// app/services/global-capability-centers/blogs/blogsData.ts
+
 export type BlogHighlight = {
   number: string;
   title: string;
@@ -34,6 +36,12 @@ export type BlogPost = {
   readTime: string;
   heroImage: string;
   excerpt: string;
+
+  seo: {
+    title: string;
+    description: string;
+    keywords: string[];
+  };
 
   author: {
     name: string;
@@ -77,21 +85,25 @@ const AUTHOR = {
     "Sanjay Salunkhe is the President and Global Head of Digital and Software Services of our Company.",
 };
 
+    
 /* ============================================================
    GLOBAL CAPABILITY CENTER BLOGS
 ============================================================ */
+  
 
 export const blogPosts: BlogPost[] = [
-  /* ==========================================================
-     BLOG 1
-  ========================================================== */
   {
     slug: "global-capability-centers-build-buy-partner",
+
     title:
       "Global Capability Centers: Build, Buy, or Partner, Choosing the Right Model",
+
     category: "Global Capability Centers",
+
     service: "global-capability-centers",
-    lastUpdated: "Sep 7, 2026",
+
+    lastUpdated: "September 2026",
+
     readTime: "7 min read",
 
     heroImage:
@@ -100,11 +112,30 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Explore the trade offs between building a GCC in house, acquiring an existing center, and partnering with a setup specialist, and how each path affects timeline, cost, and control.",
 
+    seo: {
+      title:
+        "Global Capability Centers: Build, Buy, or Partner, Choosing the Right Model",
+
+      description:
+        "Explore the trade offs between building, buying, and partnering when establishing a Global Capability Center.",
+
+      keywords: [
+        "Global Capability Centers",
+        "GCC",
+        "GCC setup",
+        "GCC strategy",
+        "GCC operating model",
+        "build buy partner",
+      ],
+    },
+
     author: AUTHOR,
 
     intro: [
       "Global Capability Centers have become an important operating model for enterprises looking to build long term technology, analytics, engineering, finance, customer support, and other strategic capabilities.",
+
       "The right GCC model depends on the organization's objectives, timeline, investment appetite, desired level of control, and ability to manage local operations.",
+
       "Enterprises generally evaluate three approaches: building a new center, acquiring an existing operation, or partnering with a specialist that can support the setup and transition.",
     ],
 
@@ -125,41 +156,56 @@ export const blogPosts: BlogPost[] = [
         number: "03",
         title: "Partner",
         body:
-          "Coordinated entity setup, hiring, and compliance under one engagement to accelerate time to operational.",
+          "Coordinated entity setup, hiring, and compliance under one engagement to accelerate operational readiness.",
       },
     ],
 
     sections: [
       {
-        heading: "1. Build: Maximum Control",
+        heading: "Build: Maximum Control",
+
         paragraphs: [
           "Building a GCC from the ground up gives an enterprise significant control over location, organization structure, technology environment, culture, hiring strategy, and governance.",
+
           "The trade off is that a greenfield setup requires more planning and coordination across legal, facilities, talent, HR, compliance, infrastructure, and operating model design.",
         ],
       },
+
       {
-        heading: "2. Buy: Faster Access to Capability",
+        heading: "Buy: Faster Access to Capability",
+
         paragraphs: [
           "Acquiring an existing center can provide faster access to an established workforce, facilities, processes, and local operating knowledge.",
+
           "However, enterprises need to carefully evaluate workforce alignment, technology compatibility, organizational culture, contractual obligations, and integration requirements.",
         ],
+
         image:
           "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Enterprise leadership evaluating a GCC acquisition",
+
+        imageAlt:
+          "Enterprise leadership evaluating a GCC acquisition",
       },
+
       {
-        heading: "3. Partner: Accelerate Setup",
+        heading: "Partner: Accelerate Setup",
+
         paragraphs: [
           "A GCC setup partner can bring together entity formation, facilities, talent acquisition, compliance, payroll, governance, and transition support under one coordinated engagement.",
+
           "This model can reduce the operational burden on the enterprise while helping the organization move from feasibility to an operational center faster.",
         ],
+
         quote:
           "The right GCC model is the one that matches your timeline and appetite for direct control, not the one that looks best on a slide.",
       },
+
       {
-        heading: "4. Choosing the Right Model",
+        heading: "Choosing the Right Model",
+
         paragraphs: [
           "The best model depends on the required speed, level of control, investment strategy, available internal resources, and long term GCC mandate.",
+
           "Enterprises should evaluate the operating model before committing to a location or hiring plan so that the center is designed around measurable business outcomes.",
         ],
       },
@@ -169,7 +215,7 @@ export const blogPosts: BlogPost[] = [
       {
         title: "Faster Time to Value",
         body:
-          "A partner led or buy approach can shorten the path from decision to an operational, delivering center.",
+          "A partner led or buy approach can shorten the path from decision to an operational center.",
       },
       {
         title: "Reduced Setup Risk",
@@ -244,22 +290,29 @@ export const blogPosts: BlogPost[] = [
 
     cta: {
       title: "Deciding How to Build Your GCC?",
+
       body:
         "Starfii can help you evaluate build, buy, and partner options against your timeline, budget, and control requirements.",
+
       buttonText: "Talk to Starfii",
-      buttonHref: "/services/global-capability-centers#connect",
+
+      buttonHref:
+        "/services/global-capability-centers#connect",
     },
   },
 
-  /* ==========================================================
-     BLOG 2
-  ========================================================== */
   {
     slug: "gcc-talent-strategy-structuring-roles",
-    title: "GCC Talent Strategy: Structuring Roles Before You Hire",
+
+    title:
+      "GCC Talent Strategy: Structuring Roles Before You Hire",
+
     category: "Global Capability Centers",
+
     service: "global-capability-centers",
-    lastUpdated: "Sep 7, 2026",
+
+    lastUpdated: "September 2026",
+
     readTime: "6 min read",
 
     heroImage:
@@ -268,11 +321,29 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "See why role architecture has to come before sourcing, and how Starfii turns a vague headcount target into a hiring plan matched to what your GCC actually needs.",
 
+    seo: {
+      title:
+        "GCC Talent Strategy: Structuring Roles Before You Hire",
+
+      description:
+        "Learn how role architecture, job families, seniority, and phased hiring create a stronger GCC talent strategy.",
+
+      keywords: [
+        "GCC talent strategy",
+        "GCC hiring",
+        "GCC workforce planning",
+        "role architecture",
+        "global capability center talent",
+      ],
+    },
+
     author: AUTHOR,
 
     intro: [
       "A successful GCC talent strategy starts before the first job description is created.",
+
       "Enterprises need to understand the capabilities the center is expected to deliver, the roles required to support those capabilities, and how those roles should evolve as the GCC scales.",
+
       "A structured talent strategy helps organizations build the right teams at the right time instead of simply increasing headcount.",
     ],
 
@@ -299,35 +370,50 @@ export const blogPosts: BlogPost[] = [
 
     sections: [
       {
-        heading: "1. Start With the GCC Mandate",
+        heading: "Start With the GCC Mandate",
+
         paragraphs: [
           "The GCC mandate defines the capabilities, services, and business outcomes expected from the center.",
+
           "Engineering, analytics, finance, customer support, cybersecurity, and other functions may require very different workforce structures.",
         ],
       },
+
       {
-        heading: "2. Create Role Architecture",
+        heading: "Create Role Architecture",
+
         paragraphs: [
           "Role architecture establishes the relationship between capabilities, job families, seniority levels, leadership roles, and delivery responsibilities.",
+
           "This structure gives recruiting teams a clear framework instead of relying on disconnected hiring requests.",
         ],
+
         image:
           "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Team mapping role architecture for a GCC",
+
+        imageAlt:
+          "Team mapping role architecture for a GCC",
       },
+
       {
-        heading: "3. Build the Hiring Roadmap",
+        heading: "Build the Hiring Roadmap",
+
         paragraphs: [
           "Once the role architecture is defined, the enterprise can create phased hiring plans based on business priorities and operational readiness.",
+
           "Hiring in cohorts can also make onboarding, knowledge transfer, and team formation more manageable.",
         ],
       },
+
       {
-        heading: "4. Plan for Scale",
+        heading: "Plan for Scale",
+
         paragraphs: [
           "A GCC talent strategy should anticipate future capabilities instead of focusing only on the first group of hires.",
+
           "This allows leadership development, succession planning, internal mobility, and specialist capability building to become part of the GCC operating model.",
         ],
+
         quote:
           "A headcount number is not a talent strategy. Role architecture is what turns a number into a team that can actually deliver.",
       },
@@ -362,7 +448,7 @@ export const blogPosts: BlogPost[] = [
       {
         title: "Reduced Mis-Hires",
         body:
-          "Roles mapped to the actual mandate reduce the risk of hiring for capabilities the center doesn't need.",
+          "Roles mapped to the actual mandate reduce the risk of hiring for capabilities the center does not need.",
       },
     ],
 
@@ -412,22 +498,29 @@ export const blogPosts: BlogPost[] = [
 
     cta: {
       title: "Ready to Structure Your GCC Talent Plan?",
+
       body:
         "Starfii helps enterprises translate a GCC mandate into role architecture and a phased hiring roadmap.",
+
       buttonText: "Talk to Starfii",
-      buttonHref: "/services/global-capability-centers#connect",
+
+      buttonHref:
+        "/services/global-capability-centers#connect",
     },
   },
 
-  /* ==========================================================
-     BLOG 3
-  ========================================================== */
   {
     slug: "gcc-governance-models-hq-alignment",
-    title: "Governance Models That Keep a GCC Aligned With HQ",
+
+    title:
+      "Governance Models That Keep a GCC Aligned With HQ",
+
     category: "Global Capability Centers",
+
     service: "global-capability-centers",
-    lastUpdated: "Sep 7, 2026",
+
+    lastUpdated: "September 2026",
+
     readTime: "6 min read",
 
     heroImage:
@@ -436,11 +529,29 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Stop letting decision rights stay ambiguous. See how a defined governance model prevents the early stalls that slow down new global capability centers.",
 
+    seo: {
+      title:
+        "Governance Models That Keep a GCC Aligned With HQ",
+
+      description:
+        "Learn how GCC governance models define decision rights, reporting structures, KPIs, accountability, and alignment with headquarters.",
+
+      keywords: [
+        "GCC governance",
+        "GCC operating model",
+        "global capability center governance",
+        "HQ alignment",
+        "GCC decision rights",
+      ],
+    },
+
     author: AUTHOR,
 
     intro: [
       "Governance determines how a GCC works with headquarters, business units, technology leaders, and other stakeholders.",
+
       "Without clearly defined decision rights and reporting structures, even a well staffed GCC can experience delays and conflicting priorities.",
+
       "A strong governance model creates accountability while allowing the GCC to operate with the speed and flexibility expected from a strategic capability center.",
     ],
 
@@ -467,35 +578,50 @@ export const blogPosts: BlogPost[] = [
 
     sections: [
       {
-        heading: "1. Define Decision Rights",
+        heading: "Define Decision Rights",
+
         paragraphs: [
           "Enterprises should define which decisions remain with headquarters and which decisions can be owned by GCC leadership.",
+
           "Clear decision rights reduce unnecessary escalation and help teams operate with greater accountability.",
         ],
       },
+
       {
-        heading: "2. Create Reporting Structures",
+        heading: "Create Reporting Structures",
+
         paragraphs: [
           "The GCC should have clear reporting relationships across business, technology, finance, HR, and operations where relevant.",
+
           "Regular reporting should focus on measurable outcomes rather than activity alone.",
         ],
+
         image:
           "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "GCC and headquarters leadership reviewing governance",
+
+        imageAlt:
+          "GCC and headquarters leadership reviewing governance",
       },
+
       {
-        heading: "3. Establish Performance Metrics",
+        heading: "Establish Performance Metrics",
+
         paragraphs: [
           "GCC governance should include KPIs covering delivery, quality, workforce, cost, capability development, and business impact.",
+
           "These metrics create a common language between the GCC and headquarters.",
         ],
+
         quote:
-          "Governance is not about slowing the GCC down. It is about making sure speed doesn't come at the cost of alignment.",
+          "Governance is not about slowing the GCC down. It is about making sure speed does not come at the cost of alignment.",
       },
+
       {
-        heading: "4. Review and Evolve",
+        heading: "Review and Evolve",
+
         paragraphs: [
           "Governance should evolve as the center moves from setup to steady state.",
+
           "The structure required for a small initial center may be different from the structure required for a larger strategic capability hub.",
         ],
       },
@@ -568,7 +694,7 @@ export const blogPosts: BlogPost[] = [
     ],
 
     keyTakeaways: [
-      "Ambiguous decision rights are one of the most common causes of early GCC delays.",
+      "Ambiguous decision rights are one of the common causes of early GCC delays.",
       "Reporting structures should be tied to measurable outcomes rather than activity.",
       "Shared KPIs create a common language between the GCC and headquarters.",
       "Governance needs to evolve as the center grows from setup to steady state.",
@@ -576,26 +702,33 @@ export const blogPosts: BlogPost[] = [
     ],
 
     conclusion:
-      "Governance is often treated as an afterthought during GCC setup, but it is one of the strongest predictors of how quickly and smoothly a center will scale. Enterprises that define decision rights, reporting structures, and shared metrics early avoid the ambiguity that slows so many centers down in their first year.",
+      "Governance is often treated as an afterthought during GCC setup, but it is one of the strongest predictors of how quickly and smoothly a center will scale. Enterprises that define decision rights, reporting structures, and shared metrics early avoid the ambiguity that slows centers down.",
 
     cta: {
       title: "Need a Governance Model That Scales?",
+
       body:
         "Starfii helps enterprises design GCC governance frameworks that keep centers aligned with HQ as they grow.",
+
       buttonText: "Talk to Starfii",
-      buttonHref: "/services/global-capability-centers#connect",
+
+      buttonHref:
+        "/services/global-capability-centers#connect",
     },
   },
 
-  /* ==========================================================
-     BLOG 4
-  ========================================================== */
   {
     slug: "gcc-operating-model-setup-to-steady-state",
-    title: "GCC Operating Model: From Setup to Steady State",
+
+    title:
+      "GCC Operating Model: From Setup to Steady State",
+
     category: "Global Capability Centers",
+
     service: "global-capability-centers",
-    lastUpdated: "Sep 7, 2026",
+
+    lastUpdated: "September 2026",
+
     readTime: "6 min read",
 
     heroImage:
@@ -604,11 +737,29 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "See how a clear operating model connects governance, delivery, talent, and performance as a new global capability center moves into steady state.",
 
+    seo: {
+      title:
+        "GCC Operating Model: From Setup to Steady State",
+
+      description:
+        "Understand how a GCC operating model connects governance, talent, delivery, technology, and performance from setup through steady state.",
+
+      keywords: [
+        "GCC operating model",
+        "GCC setup",
+        "GCC steady state",
+        "global capability center",
+        "GCC operations",
+      ],
+    },
+
     author: AUTHOR,
 
     intro: [
       "A GCC operating model defines how the center works every day after the initial setup is complete.",
+
       "It connects people, processes, governance, technology, performance management, and business priorities into one operating system.",
+
       "A clearly defined model helps the GCC move from an initial setup project into a sustainable and measurable business capability.",
     ],
 
@@ -635,135 +786,157 @@ export const blogPosts: BlogPost[] = [
 
     sections: [
       {
-        heading: "1. Phase One: Setup",
+        heading: "Phase One: Setup",
+
         paragraphs: [
           "The setup phase establishes the legal entity, facilities, technology environment, workforce plan, HR operations, and governance framework.",
+
           "The objective is to create the foundation required for the first delivery teams.",
         ],
       },
+
       {
-        heading: "2. Phase Two: Launch",
+        heading: "Phase Two: Launch",
+
         paragraphs: [
-          "During launch, the initial workforce is onboarded and teams begin working with headquarters and business stakeholders.",
-          "Knowledge transfer and operational readiness are critical during this phase.",
+          "The launch phase moves the center from preparation into active delivery.",
+
+          "Initial teams begin working with headquarters while leadership validates processes, reporting, governance, and delivery expectations.",
         ],
+
         image:
-          "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "New GCC team launching operations",
+          "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+
+        imageAlt:
+          "GCC leadership launching an operating model",
       },
+
       {
-        heading: "3. Phase Three: Stabilize",
+        heading: "Phase Three: Stabilize",
+
         paragraphs: [
-          "Once the initial teams are operational, leadership can focus on improving processes, measuring performance, and strengthening governance.",
-          "The GCC begins moving from setup activity toward predictable delivery.",
+          "Once delivery begins, the GCC should focus on stabilizing workflows, resolving operational gaps, and improving collaboration with headquarters.",
+
+          "Performance data from the initial teams should inform changes to governance, talent, processes, and technology.",
         ],
       },
+
       {
-        heading: "4. Phase Four: Steady State",
+        heading: "Phase Four: Steady State",
+
         paragraphs: [
-          "At steady state, the GCC becomes an integrated part of the enterprise operating model.",
-          "The focus shifts toward capability expansion, innovation, productivity, talent development, and strategic business outcomes.",
+          "At steady state, the GCC shifts from setup activity toward capability expansion, productivity, innovation, and measurable business outcomes.",
+
+          "The center should operate as an integrated part of the enterprise rather than as a permanent setup program.",
         ],
+
         quote:
-          "Steady state is not the end of the GCC journey. It's the point where the center starts compounding value for the business.",
+          "A GCC is not finished when the office opens. It is working when the operating model becomes repeatable.",
       },
     ],
 
     benefits: [
       {
-        title: "Predictable Delivery",
+        title: "Clearer Operating Accountability",
         body:
-          "A defined operating model turns early setup effort into consistent, repeatable delivery.",
+          "Defined ownership connects GCC teams with headquarters and business stakeholders.",
       },
       {
-        title: "Clear Phase Ownership",
+        title: "Smoother Transition",
         body:
-          "Breaking the journey into phases makes it clear who owns what at each stage.",
+          "A phased model makes the move from setup to delivery easier to manage.",
       },
       {
-        title: "Faster Time to Stability",
+        title: "Better Performance Visibility",
         body:
-          "Structured launch and stabilize phases reduce the time spent in reactive firefighting.",
+          "Defined metrics help leadership understand whether the center is progressing as planned.",
       },
       {
-        title: "Stronger Knowledge Transfer",
+        title: "Scalable Operations",
         body:
-          "A defined launch phase gives knowledge transfer the attention it needs before scaling.",
+          "Repeatable processes create a foundation for future capability expansion.",
       },
       {
-        title: "Better Long Term Planning",
+        title: "Stronger HQ Alignment",
         body:
-          "Leadership can plan capability expansion once the center reaches steady state.",
+          "Structured governance keeps the GCC connected to enterprise priorities.",
       },
       {
-        title: "Improved Stakeholder Confidence",
+        title: "Long Term Business Value",
         body:
-          "Visible progress through defined phases builds HQ confidence in the center's trajectory.",
+          "A mature operating model helps the GCC evolve into a strategic capability center.",
       },
     ],
 
     process: [
       {
         number: "01",
-        title: "Setup",
+        title: "Define the Target Model",
         body:
-          "Stand up the legal entity, facilities, technology, and governance framework.",
+          "Establish how people, governance, technology, processes, and performance will work together.",
       },
       {
         number: "02",
-        title: "Launch",
+        title: "Launch Initial Teams",
         body:
-          "Onboard the first cohort and begin operational delivery with HQ stakeholders.",
+          "Stand up the first delivery teams against defined capabilities and operating requirements.",
       },
       {
         number: "03",
-        title: "Stabilize",
+        title: "Stabilize Operations",
         body:
-          "Refine processes, strengthen governance, and establish performance baselines.",
+          "Identify operational gaps and improve workflows, governance, and collaboration.",
       },
       {
         number: "04",
-        title: "Steady State",
+        title: "Measure Performance",
         body:
-          "Operate as an integrated part of the enterprise with predictable delivery.",
+          "Track delivery, quality, cost, workforce, and business outcomes against agreed metrics.",
       },
       {
         number: "05",
-        title: "Expand",
+        title: "Scale Capability",
         body:
-          "Grow capabilities, talent depth, and strategic scope based on proven performance.",
+          "Expand the GCC's capabilities once the operating model is proven and repeatable.",
       },
     ],
 
     keyTakeaways: [
-      "A GCC operating model connects people, process, governance, and technology into one system.",
-      "Setup and launch require different priorities than stabilize and steady state.",
-      "Knowledge transfer during launch is critical to long term delivery quality.",
-      "Steady state is when the GCC shifts from proving itself to compounding value.",
-      "Each phase needs its own success measures rather than one blanket set of metrics.",
+      "A GCC operating model connects people, processes, governance, technology, and performance.",
+      "Setup and launch should be treated as different operating phases.",
+      "The stabilization phase is critical for resolving early operating gaps.",
+      "Steady state should focus on measurable business outcomes rather than setup activity.",
+      "The operating model should evolve as the GCC grows.",
     ],
 
     conclusion:
-      "Moving a GCC from setup to steady state is a journey, not a single milestone. Enterprises that define what success looks like at each phase, setup, launch, stabilize, and steady state, are better positioned to build a center that becomes a genuine strategic asset rather than a permanent setup project.",
+      "Moving a GCC from setup to steady state is a journey, not a single milestone. Enterprises that define what success looks like at each phase are better positioned to build a center that becomes a genuine strategic asset rather than a permanent setup project.",
 
     cta: {
       title: "Plan Your GCC's Path to Steady State",
+
       body:
         "Starfii supports enterprises across every phase of the GCC journey, from setup through steady state operations.",
+
       buttonText: "Talk to Starfii",
-      buttonHref: "/services/global-capability-centers#connect",
+
+      buttonHref:
+        "/services/global-capability-centers#connect",
     },
   },
 
-  /* ==========================================================
-     BLOG 5
-  ========================================================== */
   {
     slug: "scaling-gcc-talent-delivery-quality",
-    title: "Scaling GCC Talent Without Losing Delivery Quality",
+
+    title:
+      "Scaling GCC Talent Without Losing Delivery Quality",
+
     category: "Global Capability Centers",
+
     service: "global-capability-centers",
-    lastUpdated: "Sep 7, 2026",
+
+    lastUpdated: "September 2026",
+
     readTime: "5 min read",
 
     heroImage:
@@ -772,11 +945,29 @@ export const blogPosts: BlogPost[] = [
     excerpt:
       "Explore how phased hiring, structured onboarding, and capability planning help GCCs scale headcount while keeping delivery quality on track.",
 
+    seo: {
+      title:
+        "Scaling GCC Talent Without Losing Delivery Quality",
+
+      description:
+        "Learn how phased hiring, structured onboarding, capability planning, and quality metrics help GCCs scale without losing delivery quality.",
+
+      keywords: [
+        "GCC talent scaling",
+        "GCC hiring",
+        "GCC workforce",
+        "GCC delivery quality",
+        "global capability center scaling",
+      ],
+    },
+
     author: AUTHOR,
 
     intro: [
       "Scaling a GCC is not simply a matter of adding more employees.",
+
       "Rapid workforce growth can create onboarding gaps, inconsistent processes, management bottlenecks, and delivery quality issues unless the organization scales its operating model at the same time.",
+
       "A structured scaling approach helps organizations increase capacity while protecting quality, culture, governance, and business outcomes.",
     ],
 
@@ -803,35 +994,50 @@ export const blogPosts: BlogPost[] = [
 
     sections: [
       {
-        heading: "1. Hire in Phases",
+        heading: "Hire in Phases",
+
         paragraphs: [
           "Phased hiring allows leadership to validate the operating model before making large workforce commitments.",
+
           "Each hiring wave can be aligned to specific capabilities and delivery requirements.",
         ],
       },
+
       {
-        heading: "2. Standardize Onboarding",
+        heading: "Standardize Onboarding",
+
         paragraphs: [
           "A consistent onboarding framework helps new employees understand business context, technology standards, delivery expectations, security requirements, and governance.",
+
           "Standardized onboarding also makes it easier to scale teams without creating inconsistent employee experiences.",
         ],
+
         image:
           "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "New GCC employees going through onboarding",
+
+        imageAlt:
+          "New GCC employees going through onboarding",
       },
+
       {
-        heading: "3. Build Capability Layers",
+        heading: "Build Capability Layers",
+
         paragraphs: [
           "A mature GCC needs a mix of junior, experienced, specialist, and leadership talent.",
+
           "Capability planning helps ensure that workforce growth does not create an organization with too few senior people to support the expanding team.",
         ],
       },
+
       {
-        heading: "4. Measure Quality While Scaling",
+        heading: "Measure Quality While Scaling",
+
         paragraphs: [
           "Delivery quality should remain visible throughout the scale up process.",
+
           "Enterprises can track productivity, quality, customer satisfaction, attrition, onboarding effectiveness, and delivery outcomes as the center grows.",
         ],
+
         quote:
           "Headcount growth is easy to measure. Delivery quality during that growth is what actually matters.",
       },
@@ -916,42 +1122,45 @@ export const blogPosts: BlogPost[] = [
 
     cta: {
       title: "Scaling Your GCC Team?",
+
       body:
         "Starfii helps enterprises grow GCC headcount in phases without losing sight of delivery quality.",
+
       buttonText: "Talk to Starfii",
-      buttonHref: "/services/global-capability-centers#connect",
+
+      buttonHref:
+        "/services/global-capability-centers#connect",
     },
   },
 ];
 
 /* ============================================================
-   GET SINGLE GLOBAL CAPABILITY CENTER BLOG
+   GET SINGLE BLOG
 ============================================================ */
 
-export function getBlogBySlug(slug: string): BlogPost | undefined {
+export function getBlogBySlug(
+  slug: string
+): BlogPost | undefined {
   return blogPosts.find(
-    (blog) => blog.slug === slug && blog.service === "global-capability-centers"
+    (blog) =>
+      blog.slug === slug &&
+      blog.service === "global-capability-centers"
   );
 }
 
 /* ============================================================
-   GET RELATED GLOBAL CAPABILITY CENTER BLOGS
+   GET RELATED BLOGS
 ============================================================ */
 
-export function getRelatedBlogs(currentSlug: string, count = 3): BlogPost[] {
-  const currentBlog = blogPosts.find(
-    (blog) =>
-      blog.slug === currentSlug && blog.service === "global-capability-centers"
-  );
-
-  if (!currentBlog) {
-    return [];
-  }
-
+export function getRelatedBlogs(
+  currentSlug: string,
+  count = 3
+): BlogPost[] {
   return blogPosts
     .filter(
       (blog) =>
-        blog.slug !== currentSlug && blog.service === "global-capability-centers"
+        blog.slug !== currentSlug &&
+        blog.service === "global-capability-centers"
     )
     .slice(0, count);
 }

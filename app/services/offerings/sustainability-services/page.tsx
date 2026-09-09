@@ -38,8 +38,8 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // const BLOG_BASE =
 //   "/services/offerings/sustainability-services/blogs";
   const BLOG_BASE =
-  "/services/offerings/generative-ai/ai-meeting-assistant/blogs";
-// Autoplay timing for the "AI File Storage" tab list
+  "/services/offerings/sustainability-services/blogs";
+// Autoplay timing for the "Sustainability Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
@@ -48,7 +48,7 @@ const TAB_AUTOPLAY_MS = 4000;
 ================================================================ */
 
 const keyTakeaways: string[] = [
-  "Starfii's AI File Storage combines secure enterprise storage with AI-powered organization, search, document intelligence, and information discovery.",
+  "Starfii's Sustainability Services combines secure enterprise storage with AI-powered organization, search, document intelligence, and information discovery.",
   "We help organizations turn growing file repositories into intelligent, searchable business knowledge without forcing teams to manually organize every document.",
   "The solution brings together semantic search, automated classification, metadata enrichment, document understanding, and workflow integration.",
   "Our approach is designed around enterprise requirements including security, access control, governance, scalability, integrations, and operational reliability.",
@@ -245,47 +245,47 @@ type InsightPost = {
 
 const insights = [
   {
-    slug: "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
+    slug: "digital-sustainability-how-technology-supports-responsible-growth",
     large: true,
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title:
-      "AI Meeting Assistants: Turning Conversations Into Actionable Intelligence",
+      "Sustainability Technology: Turning Conversations Into Actionable Intelligence",
     body:
-      "Explore how AI meeting assistants can capture conversations, generate structured summaries, identify decisions, and turn meetings into actionable business intelligence.",
+      "Explore how sustainability technology can capture conversations, generate structured summaries, identify decisions, and turn meetings into actionable business intelligence.",
   },
 
   {
-    slug: "ai-meeting-assistant-smart-summaries-and-follow-ups",
+    slug: "data-driven-sustainability-building-better-environmental-visibility",
     large: false,
     image:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=800&auto=format&fit=crop",
     title:
-      "AI Meeting Summaries: Making Follow-Ups Faster and More Consistent",
+      "Data-Driven Sustainability: Building Better Environmental Visibility",
     body:
-      "Understand how AI-generated meeting summaries can help teams capture important context, decisions, and follow-up activities more consistently.",
+      "Discover how connected data, analytics, and reporting systems can help organizations build stronger visibility into environmental and operational performance.",
   },
 
   {
-    slug: "ai-meeting-assistant-action-items-and-accountability",
+    slug: "sustainable-operations-using-automation-to-improve-efficiency",
     large: false,
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
     title:
-      "AI Meeting Assistants and Action Items: Improving Accountability After Meetings",
+      "Sustainability Technology and Action Items: Improving Accountability After Meetings",
     body:
-      "Discover how AI meeting intelligence can help identify commitments, responsibilities, and follow-up actions from business conversations.",
+      "Learn how workflow automation and intelligent process design can help organizations reduce repetitive effort and improve operational efficiency.",
   },
 
   {
-    slug: "enterprise-ai-meeting-intelligence",
+    slug: "sustainability-strategy-turning-goals-into-measurable-outcomes",
     large: false,
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title:
-      "Enterprise AI Meeting Intelligence: Beyond Transcription",
+      "Enterprise Sustainability Intelligence: Beyond Transcription",
     body:
-      "Explore how enterprises can move beyond basic meeting transcription toward searchable knowledge, structured insights, and workflow-connected intelligence.",
+      "Explore how organizations can connect sustainability goals with operational data, accountability, reporting, and continuous measurement.",
   },
 ];
 /* ===============================================================
@@ -827,14 +827,14 @@ export default function AIFileStorageSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">AI File Storage</span>
+            <span className="text-slate-500">Sustainability Services</span>
           </nav>
 
           <h1
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            AI File Storage for Modern Enterprises
+            Sustainability Services for Modern Enterprises
           </h1>
 
           <p
@@ -854,7 +854,7 @@ export default function AIFileStorageSection(): ReactElement {
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
             }}
           >
-            Explore AI File Storage Solutions
+            Explore Sustainability Services Solutions
             <ArrowUpRight size={17} />
           </a>
         </div>
@@ -879,7 +879,7 @@ export default function AIFileStorageSection(): ReactElement {
         style={{ color: CHAMPION_BLUE }}
       >
         <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
-        AI File Intelligence
+        Sustainability Intelligence
       </span>
 
       <span
@@ -889,7 +889,7 @@ export default function AIFileStorageSection(): ReactElement {
           color: INDIGO_CTA,
         }}
       >
-        Intelligent Information
+        Sustainable Operations
       </span>
     </div>
 
@@ -962,10 +962,10 @@ export default function AIFileStorageSection(): ReactElement {
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Can Enterprises Turn File Storage Into Intelligent Business Information?
+                How Can Enterprises Build More Measurable and Sustainable Operations?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises can turn file storage into intelligent business information by combining secure storage with AI-powered organization, semantic search, document understanding, and workflow integration. Starfii brings these capabilities together to help teams find information faster, reduce manual document management, and turn unstructured content into a more useful business resource.
+                Enterprises can build more measurable and sustainable operations by connecting sustainability data, operational workflows, reporting, analytics, and digital transformation. Starfii helps organizations create better visibility, automate repetitive processes, and connect sustainability priorities with everyday business decisions.
               </p>
             </div>
 
@@ -1074,7 +1074,7 @@ export default function AIFileStorageSection(): ReactElement {
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            AI File Intelligence That Makes Information Work Smarter
+            Sustainability Intelligence That Makes Information Work Smarter
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1179,9 +1179,9 @@ export default function AIFileStorageSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal>
             <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your Digital
+              Impact Across Your Sustainable
               <br />
-              Software Ecosystem
+              Business Ecosystem
             </h2>
           </Reveal>
 
@@ -1246,7 +1246,7 @@ export default function AIFileStorageSection(): ReactElement {
           color: INDIGO_CTA,
         }}
       >
-        View All Sustainability Use Cases
+        View All Sustainability Services
         <ArrowUpRight size={16} />
       </Link>
     </Reveal>
@@ -1327,7 +1327,7 @@ export default function AIFileStorageSection(): ReactElement {
         className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
         style={{ color: CHAMPION_BLUE }}
       >
-        Insights on AI Meeting Assistant
+        Sustainability Insights
       </h2>
 
       <Link

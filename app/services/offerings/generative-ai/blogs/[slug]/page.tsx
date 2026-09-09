@@ -15,6 +15,9 @@ type PageProps = {
   }>;
 };
 
+const BLOG_BASE =
+  "/services/offerings/generative-ai/blogs";
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
@@ -32,13 +35,13 @@ export async function generateMetadata({
 
   if (!post) {
     return {
-      title: "Blog Not Found | Starfii",
-      description: "The requested Starfii blog could not be found.",
+      title: "AI Meeting Assistant Blog Not Found | Starfii",
+      description:
+        "The requested Starfii AI Meeting Assistant blog could not be found.",
     };
   }
 
-  const canonicalPath =
-    `/services/offerings/generative-ai/ai-meeting-assistant/blogs/${post.slug}`;
+  const canonicalPath = `${BLOG_BASE}/${post.slug}`;
 
   return {
     title: `${post.title} | Starfii`,
@@ -72,19 +75,18 @@ export async function generateMetadata({
   };
 }
 
-export default async function BlogPage({ params }: PageProps) {
+export default async function BlogPage({
+  params,
+}: PageProps) {
   const { slug } = await params;
 
   const post = getBlogBySlug(slug);
 
-  // IMPORTANT:
-  // If slug doesn't exist in blogsData.tsx,
-  // this route must return 404.
   if (!post) {
     notFound();
   }
 
-  const related = getRelatedBlogs(post.slug);
+  const related = getRelatedBlogs(post.slug, 3);
 
   return (
     <BlogDetail

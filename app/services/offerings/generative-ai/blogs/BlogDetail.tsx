@@ -19,7 +19,7 @@ const INDIGO_CTA = "#4F3FE0";
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 const BLOG_BASE =
-  "/services/offerings/generative-ai/ai-meeting-assistant/blogs";
+  "/services/offerings/generative-ai/blogs";
 
 type BlogDetailProps = {
   post: BlogPost;
@@ -96,7 +96,7 @@ export default function BlogDetail({ post, related }: BlogDetailProps) {
               <ChevronRight size={14} />
 
               <Link
-                href="/services/offerings/generative-ai/ai-meeting-assistant"
+                href="/services/offerings/generative-ai"
                 className="transition-colors hover:text-white"
               >
                 AI Meeting Assistant
