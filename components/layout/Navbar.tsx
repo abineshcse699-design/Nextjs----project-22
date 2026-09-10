@@ -707,6 +707,11 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
    case-sensitive, "/about/dei" would 404 while the real page lives
    at "/About/dei" — that mismatch is why those links weren't going
    anywhere. Every item also opens in a new tab (newTab prop below).
+
+   Case Study and Blogs are dark panels (same inkBg treatment as the
+   "Zerovity" block in Platforms) sitting under the Who We Are cards:
+   heading, one descriptive paragraph, Learn more link — no eyebrow,
+   no list of items, matching the two reference screenshots exactly.
 ================================================================ */
 
 function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
@@ -741,6 +746,42 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
             </Link>
           </div>
         ))}
+      </div>
+
+      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
+        <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
+          <h4 className="text-[18px] font-semibold">Case Study</h4>
+          <p className="mt-3 text-[14px] leading-relaxed text-white/70">
+            A strategic digital transformation that combines thoughtful
+            design, innovative technology, and a seamless user experience to
+            drive meaningful business growth.
+          </p>
+          <Link
+            href="/About/Case-study"
+            onClick={onNavigate}
+            className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
+          >
+            Learn more
+            <ArrowUpRight size={16} />
+          </Link>
+        </div>
+
+        <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
+          <h4 className="text-[18px] font-semibold">Blogs</h4>
+          <p className="mt-3 text-[14px] leading-relaxed text-white/70">
+            Explore insights, ideas, and industry perspectives on emerging
+            technologies, digital innovation, and strategies that shape the
+            future of modern businesses.
+          </p>
+        <Link
+  href="/About/blogs"
+  onClick={onNavigate}
+  className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
+>
+  Learn more
+  <ArrowUpRight size={16} />
+</Link>
+        </div>
       </div>
 
       <Link

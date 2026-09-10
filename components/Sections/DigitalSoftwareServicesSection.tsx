@@ -265,6 +265,7 @@ type InsightPost = {
   body: string;
 };
 
+
 const insights: InsightPost[] = [
   {
     slug: "generative-ai-software-development",

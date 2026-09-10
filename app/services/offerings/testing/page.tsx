@@ -229,6 +229,7 @@ const caseStudies: CaseStudy[] = [
 
 type InsightPost = {
   large: boolean;
+  slug: string;
   image: string;
   title: string;
   body: string;
@@ -237,37 +238,36 @@ type InsightPost = {
 const insights: InsightPost[] = [
   {
     large: true,
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "AI Data Extraction: Turning Unstructured Documents Into Actionable Enterprise Data",
+    slug: "ai-data-extraction-unstructured-to-actionable-data",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    title: "AI Data Extraction: Turning Unstructured Documents Into Actionable Enterprise Data",
     body: "Explore how AI, OCR, NLP, validation, and workflow automation can transform documents and unstructured information into reliable business data.",
   },
   {
     large: false,
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    slug: "human-in-the-loop-enterprise-data-extraction",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
     title: "Why Human-in-the-Loop Still Matters in Enterprise Data Extraction",
     body: "Understand how confidence scoring, validation, and human review can strengthen extraction quality for complex and business-critical documents.",
   },
   {
     large: false,
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+    slug: "connecting-ai-extraction-crm-erp-workflows",
+    image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title: "Connecting AI Extraction to CRM, ERP, and Business Workflows",
     body: "See why extraction becomes more valuable when structured information flows directly into the systems and processes that run the business.",
   },
   {
     large: false,
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    slug: "ai-document-processing-scaling-extraction",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
     title: "AI Document Processing: Scaling Extraction Across Enterprise Operations",
     body: "Explore how intelligent document processing can handle high-volume files while improving consistency, validation, and downstream workflow efficiency.",
   },
   {
     large: false,
-    image:
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
+    slug: "document-intelligence-unstructured-to-trusted-data",
+    image: "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=800&auto=format&fit=crop",
     title: "Document Intelligence: From Unstructured Files to Trusted Business Data",
     body: "See how AI-powered classification, extraction, and validation can turn complex documents into reliable information for business teams.",
   },
