@@ -246,6 +246,15 @@ const industryAwards: IndustryAward[] = [
 type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
+
+{
+  slug: "abandoned-cart-cod-confirmation-recovery-calls",
+  image:
+    "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=80&w=1200&auto=format&fit=crop",
+  title: "How to Use Voice Calls to Recover Lost Sales",
+  body: "See how AI voice calls won back abandoned cart sales and cut failed COD deliveries by confirming orders before dispatch.",
+},
+
   {
     slug: "regional-bank-ai-voice-support",
     image:
@@ -281,7 +290,9 @@ const caseStudies: CaseStudy[] = [
     title: "Starfii Modernizes IVR with Intelligent Call Routing for a Telecom Provider",
     body: "See how replacing a legacy IVR with a conversational voice agent reduced call abandonment and got customers to the right team faster.",
   },
+
 ];
+
 
 type InsightPost = {
   slug: string;
@@ -290,6 +301,7 @@ type InsightPost = {
   title: string;
   body: string;
 };
+
 
 // Insight card imagery: dedicated AI Voice / contact-center / speech-tech visuals only.
 // Avoid generic Earth/space/office imagery in this section.
@@ -348,6 +360,8 @@ const insights: InsightPost[] = [
     body:
       "See how connecting voice agents with CRM, telephony, and business systems turns customer conversations into faster, actionable workflows.",
   },
+
+  
 ];
 
 type Faq = { q: string; a: string };
@@ -1466,11 +1480,12 @@ export default function AIVoiceCallSection(): ReactElement {
           </Reveal>
         </div>
       </section>
-
+  
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
+
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">

@@ -2,43 +2,16 @@
 //
 // Make sure the folder is named "case-study" (hyphen, no space) —
 // not "Case study" — otherwise Next.js will 404 on this route.
-// If you still have the old "Case study" (with a space) folder,
-// delete it after moving this file in, so there's no duplicate route.
 
-import Link from "next/link";
 import type { ReactElement } from "react";
-import { ArrowUpRight } from "lucide-react";
 import { caseStudies as itOperationsCaseStudies } from "@/app/services/digital-it-operations/casestudies/data.tsx/casestudies";
 import { caseStudies as dataAnalyticsCaseStudies_ } from "@/app/services/data-analytics/casestudies/data/casestudies";
-
-/* ===============================================================
-   BRAND TOKENS — kept identical to the service pages so this
-   section reads as the same design system.
-================================================================ */
-const CHAMPION_BLUE = "#1B2560";
-const INDIGO_CTA = "#4F3FE0";
-
-const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-
-type CaseStudy = {
-  slug: string;
-  image: string;
-  title: string;
-  body: string;
-  /** Optional eyebrow label above the title (e.g. an industry name).
-   *  Falls back to "CASE STUDY" when omitted. */
-  category?: string;
-};
+import CaseStudyFilters, { type CaseStudyGroup } from "../Case-study/CaseStudyFilters";
 
 /* ===============================================================
    DATA — Artificial Intelligence case studies
-   (Copied from app/services/artificial-intelligence/page.tsx. If
-   you'd rather share one source of truth, move this array into
-   app/services/artificial-intelligence/data/case-studies.ts and
-   import it from both places instead.)
 ================================================================ */
-
-const aiCaseStudies: CaseStudy[] = [
+const aiCaseStudies = [
   {
     slug: "manufacturer-predictive-maintenance-ai",
     image:
@@ -78,18 +51,13 @@ const aiCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — Digital and Software case studies
-   (Copied from the Digital & Software Services page. Slugs match
-   the /services/digital-software/casestudies/[slug] route used
-   there, so "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const digitalSoftwareCaseStudies: CaseStudy[] = [
+const digitalSoftwareCaseStudies = [
   {
     slug: "insurance-claims-low-code-platform",
     image:
       "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
+    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
     body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
   },
   {
@@ -123,31 +91,20 @@ const digitalSoftwareCaseStudies: CaseStudy[] = [
 ];
 
 /* ===============================================================
-   DATA — Digital IT Operations case studies
-   (Pulled live from the shared data source used by the Digital IT
-   Operations page itself, so this section never drifts out of
-   sync with that page. Each item's "industry" field becomes the
-   eyebrow label on the card, same as it does there.)
+   DATA — Digital IT Operations case studies (from shared source)
 ================================================================ */
-
-const digitalItOperationsCaseStudies: CaseStudy[] = itOperationsCaseStudies.map(
-  (study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-  })
-);
+const digitalItOperationsCaseStudies = itOperationsCaseStudies.map((study) => ({
+  slug: study.slug,
+  image: study.image,
+  title: study.title,
+  body: study.body,
+  category: study.industry?.toUpperCase(),
+}));
 
 /* ===============================================================
    DATA — Cloud Engineering case studies
-   (Copied from the Cloud Engineering Services page. Slugs match
-   the /services/cloud/casestudies/[slug] route used there, so
-   "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const cloudCaseStudies: CaseStudy[] = [
+const cloudCaseStudies = [
   {
     slug: "reinsurer-aws-core-systems-migration",
     image:
@@ -186,31 +143,20 @@ const cloudCaseStudies: CaseStudy[] = [
 ];
 
 /* ===============================================================
-   DATA — Data & Analytics case studies
-   (Pulled live from the shared data source used by the Data &
-   Analytics page itself, so this section never drifts out of sync
-   with that page. Each item's "industry" field becomes the eyebrow
-   label on the card, same as it does there.)
+   DATA — Data & Analytics case studies (from shared source)
 ================================================================ */
-
-const dataAnalyticsCaseStudies: CaseStudy[] = dataAnalyticsCaseStudies_.map(
-  (study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-  })
-);
+const dataAnalyticsCaseStudies = dataAnalyticsCaseStudies_.map((study) => ({
+  slug: study.slug,
+  image: study.image,
+  title: study.title,
+  body: study.body,
+  category: study.industry?.toUpperCase(),
+}));
 
 /* ===============================================================
    DATA — Business Process Services case studies
-   (Copied from the Business Process Services page. Slugs match the
-   /services/business-process-services/[slug] route used there, so
-   "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const businessProcessCaseStudies: CaseStudy[] = [
+const businessProcessCaseStudies = [
   {
     slug: "manufacturer-order-to-cash-automation",
     image:
@@ -250,19 +196,13 @@ const businessProcessCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — Enterprise Platform Services case studies
-   (Copied from the Enterprise Platform Services page. Slugs match
-   the /services/enterprise-platform-services/casestudies/[slug]
-   route used there, so "Learn More" links resolve to the same
-   pages.)
 ================================================================ */
-
-const enterprisePlatformCaseStudies: CaseStudy[] = [
+const enterprisePlatformCaseStudies = [
   {
     slug: "fintech-saas-platform-mvp-to-scale",
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
+    title: "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
     body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
   },
   {
@@ -276,8 +216,7 @@ const enterprisePlatformCaseStudies: CaseStudy[] = [
     slug: "healthcare-saas-generative-ai-features",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
+    title: "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
     body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
   },
   {
@@ -291,20 +230,15 @@ const enterprisePlatformCaseStudies: CaseStudy[] = [
     slug: "enterprise-legacy-modernization-timeline",
     image:
       "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
+    title: "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
     body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
   },
 ];
 
 /* ===============================================================
    DATA — Global Capability Centers case studies
-   (Copied from the Global Capability Centers page. Slugs match the
-   /services/global-capability-centers/[slug] route used there, so
-   "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const gccCaseStudies: CaseStudy[] = [
+const gccCaseStudies = [
   {
     slug: "fintech-gcc-launch-five-months",
     image:
@@ -344,12 +278,8 @@ const gccCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — AI Voice Call case studies
-   (Copied from the AI Voice Call page. Slugs match the
-   /services/offerings/ai-native-contact-center/[slug] route used
-   there, so "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const aiVoiceCallCaseStudies: CaseStudy[] = [
+const aiVoiceCallCaseStudies = [
   {
     slug: "regional-bank-ai-voice-support",
     image:
@@ -389,12 +319,8 @@ const aiVoiceCallCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — AI-Powered Medical Coding case studies
-   (Copied from the AI-Powered Medical Coding page. Slugs match the
-   /services/offerings/enterprise-automation/[slug] route used
-   there, so "Read case study" links resolve to the same pages.)
 ================================================================ */
-
-const medicalCodingCaseStudies: CaseStudy[] = [
+const medicalCodingCaseStudies = [
   {
     slug: "hospital-ai-assisted-coding",
     image:
@@ -434,12 +360,8 @@ const medicalCodingCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — AI Chat Box case studies
-   (Copied from the AI Chat Box page. Slugs match the
-   /services/offerings/generative-ai/[slug] route used there, so
-   "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const aiChatBoxCaseStudies: CaseStudy[] = [
+const aiChatBoxCaseStudies = [
   {
     slug: "customer-support-ai-chat",
     image:
@@ -479,12 +401,8 @@ const aiChatBoxCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — AI File Storage case studies
-   (Copied from the AI File Storage page. Slugs match the
-   /services/offerings/sustainability-services/[slug] route used
-   there, so "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const aiFileStorageCaseStudies: CaseStudy[] = [
+const aiFileStorageCaseStudies = [
   {
     slug: "enterprise-document-intelligence",
     image:
@@ -524,12 +442,8 @@ const aiFileStorageCaseStudies: CaseStudy[] = [
 
 /* ===============================================================
    DATA — AI Meeting Assistant case studies
-   (Copied from the AI Meeting Assistant page. Slugs match the
-   /services/offerings/vibe-coding/[slug] route used there, so
-   "Learn More" links resolve to the same pages.)
 ================================================================ */
-
-const aiMeetingAssistantCaseStudies: CaseStudy[] = [
+const aiMeetingAssistantCaseStudies = [
   {
     slug: "executive-meeting-intelligence",
     image:
@@ -574,201 +488,90 @@ export const metadata = {
 };
 
 /* ===============================================================
-   REUSABLE: one heading + grid block, shared by every service
-   section on this page.
+   GROUPS — one entry per filter tab. basePath keeps each card's
+   "Learn More" link pointing at the same route it used before.
 ================================================================ */
-
-function CaseStudyGrid({
-  heading,
-  description,
-  items,
-  basePath,
-}: {
-  heading: string;
-  description: string;
-  items: CaseStudy[];
-  basePath: string;
-}): ReactElement {
-  return (
-    <div className="mt-20 first:mt-0">
-      <h2
-        className="font-heading text-[30px] font-medium leading-[1.15] lg:text-[36px]"
-        style={{ color: CHAMPION_BLUE }}
-      >
-        {heading}
-      </h2>
-      <p className="font-body mt-4 max-w-2xl text-[16px] leading-relaxed text-slate-600">
-        {description}
-      </p>
-
-      <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((study) => (
-          <Link
-            key={study.slug}
-            href={`${basePath}/${study.slug}`}
-            className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-            style={{ border: "1px solid #ECE7FB" }}
-          >
-            <div className="h-[220px] flex-shrink-0 overflow-hidden">
-              <img
-                src={study.image}
-                alt={study.title}
-                className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-              />
-            </div>
-            <div className="flex flex-1 flex-col p-6">
-              <span
-                className="font-body text-[12px] font-semibold tracking-wide"
-                style={{ color: INDIGO_CTA }}
-              >
-                {study.category ?? "CASE STUDY"}
-              </span>
-              <h3
-                className="font-heading mt-2 text-[19px] font-semibold leading-snug"
-                style={{
-                  color: CHAMPION_BLUE,
-                  display: "-webkit-box",
-                  WebkitLineClamp: 2,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {study.title}
-              </h3>
-              <p
-                className="font-body mt-3 text-[14px] leading-relaxed text-slate-600"
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                }}
-              >
-                {study.body}
-              </p>
-              <span
-                className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                style={{ color: INDIGO_CTA }}
-              >
-                Learn More
-                <ArrowUpRight size={15} />
-              </span>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
-  );
-}
+const groups: CaseStudyGroup[] = [
+  {
+    key: "ai",
+    label: "Artificial Intelligence",
+    basePath: "/services/artificial-intelligence",
+    items: aiCaseStudies,
+  },
+  {
+    key: "digital-software",
+    label: "Digital and Software",
+    basePath: "/services/digital-software/casestudies",
+    items: digitalSoftwareCaseStudies,
+  },
+  {
+    key: "it-operations",
+    label: "Digital IT Operations",
+    basePath: "/services/digital-it-operations/casestudies",
+    items: digitalItOperationsCaseStudies,
+  },
+  {
+    key: "cloud",
+    label: "Cloud Engineering",
+    basePath: "/services/cloud/casestudies",
+    items: cloudCaseStudies,
+  },
+  {
+    key: "data-analytics",
+    label: "Data & Analytics",
+    basePath: "/services/data-analytics/casestudies",
+    items: dataAnalyticsCaseStudies,
+  },
+  {
+    key: "business-process",
+    label: "Business Process",
+    basePath: "/services/business-process-services",
+    items: businessProcessCaseStudies,
+  },
+  {
+    key: "enterprise-platform",
+    label: "Enterprise Platform",
+    basePath: "/services/enterprise-platform-services/casestudies",
+    items: enterprisePlatformCaseStudies,
+  },
+  {
+    key: "gcc",
+    label: "Global Capability Centers",
+    basePath: "/services/global-capability-centers",
+    items: gccCaseStudies,
+  },
+  {
+    key: "ai-voice",
+    label: "AI Voice Call",
+    basePath: "/services/offerings/ai-native-contact-center",
+    items: aiVoiceCallCaseStudies,
+  },
+  {
+    key: "medical-coding",
+    label: "AI Medical Coding",
+    basePath: "/services/offerings/enterprise-automation",
+    items: medicalCodingCaseStudies,
+  },
+  {
+    key: "ai-chat",
+    label: "AI Chat Box",
+    basePath: "/services/offerings/generative-ai",
+    items: aiChatBoxCaseStudies,
+  },
+  {
+    key: "ai-file-storage",
+    label: "AI File Storage",
+    basePath: "/services/offerings/sustainability-services",
+    items: aiFileStorageCaseStudies,
+  },
+  {
+    key: "ai-meetings",
+    label: "AI Meeting Assistant",
+    basePath: "/services/offerings/vibe-coding",
+    items: aiMeetingAssistantCaseStudies,
+  },
+];
 
 export default function CaseStudyPage(): ReactElement {
-  return (
-    <main className="bg-white">
-      <section className={`${ALIGN} py-20 lg:py-28`}>
-        {/* Artificial Intelligence case studies */}
-        <CaseStudyGrid
-          heading="Artificial Intelligence Case Studies"
-          description="See how Starfii's machine learning, computer vision, NLP, and predictive AI systems have driven measurable outcomes for real enterprise teams."
-          items={aiCaseStudies}
-          basePath="/services/artificial-intelligence"
-        />
-
-        {/* Digital and Software case studies */}
-        <CaseStudyGrid
-          heading="Digital and Software Case Studies"
-          description="See how Starfii's product engineering, SaaS delivery, and modernization work has helped enterprises ship faster and scale with confidence."
-          items={digitalSoftwareCaseStudies}
-          basePath="/services/digital-software/casestudies"
-        />
-
-        {/* Digital IT Operations case studies */}
-        <CaseStudyGrid
-          heading="Digital IT Operations Case Studies"
-          description="See how Starfii's cloud operations, DevOps, cybersecurity, and modernization work has kept enterprise systems stable, secure, and running."
-          items={digitalItOperationsCaseStudies}
-          basePath="/services/digital-it-operations/casestudies"
-        />
-
-        {/* Cloud Engineering case studies */}
-        <CaseStudyGrid
-          heading="Cloud Engineering Case Studies"
-          description="See how Starfii's cloud migration, multi cloud architecture, FinOps, and site reliability engineering work has delivered measurable results on AWS, Azure, and GCP."
-          items={cloudCaseStudies}
-          basePath="/services/cloud/casestudies"
-        />
-
-        {/* Data & Analytics case studies */}
-        <CaseStudyGrid
-          heading="Data & Analytics Case Studies"
-          description="See how Starfii's data engineering, governance, and BI work has turned fragmented enterprise data into decisions teams can trust."
-          items={dataAnalyticsCaseStudies}
-          basePath="/services/data-analytics/casestudies"
-        />
-
-        {/* Business Process Services case studies */}
-        <CaseStudyGrid
-          heading="Business Process Case Studies"
-          description="See how Starfii's process redesign, RPA, and managed operations work has cut cost per transaction and improved throughput across finance, procurement, and customer operations."
-          items={businessProcessCaseStudies}
-          basePath="/services/business-process-services"
-        />
-
-        {/* Enterprise Platform Services case studies */}
-        <CaseStudyGrid
-          heading="Enterprise Platform Case Studies"
-          description="See how Starfii's platform engineering, modernization, and enterprise AI work has helped organizations scale critical digital platforms."
-          items={enterprisePlatformCaseStudies}
-          basePath="/services/enterprise-platform-services/casestudies"
-        />
-
-        {/* Global Capability Centers case studies */}
-        <CaseStudyGrid
-          heading="Global Capability Center Case Studies"
-          description="See how Starfii's GCC setup, talent strategy, and governance design has taken enterprises from location feasibility to a fully staffed, operational center."
-          items={gccCaseStudies}
-          basePath="/services/global-capability-centers"
-        />
-
-        {/* AI Voice Call case studies */}
-        <CaseStudyGrid
-          heading="AI Voice Call Case Studies"
-          description="See how Starfii's conversational AI and voice automation work has cut wait times, lifted contact rates, and modernized customer conversations."
-          items={aiVoiceCallCaseStudies}
-          basePath="/services/offerings/ai-native-contact-center"
-        />
-
-        {/* AI-Powered Medical Coding case studies */}
-        <CaseStudyGrid
-          heading="AI-Powered Medical Coding Case Studies"
-          description="See how Starfii's AI-assisted clinical documentation analysis and coding intelligence has improved accuracy, turnaround, and compliance for healthcare organizations."
-          items={medicalCodingCaseStudies}
-          basePath="/services/offerings/enterprise-automation"
-        />
-
-        {/* AI Chat Box case studies */}
-        <CaseStudyGrid
-          heading="AI Chat Box Case Studies"
-          description="See how Starfii's conversational AI has helped support, sales, IT helpdesk, and knowledge teams turn questions into faster, grounded answers."
-          items={aiChatBoxCaseStudies}
-          basePath="/services/offerings/generative-ai"
-        />
-
-        {/* AI File Storage case studies */}
-        <CaseStudyGrid
-          heading="AI File Storage Case Studies"
-          description="See how Starfii's AI-powered organization, semantic search, and document intelligence has turned growing file repositories into searchable business knowledge."
-          items={aiFileStorageCaseStudies}
-          basePath="/services/offerings/sustainability-services"
-        />
-
-        {/* AI Meeting Assistant case studies */}
-        <CaseStudyGrid
-          heading="AI Meeting Assistant Case Studies"
-          description="See how Starfii's meeting intelligence has turned conversations into structured knowledge, decisions, and action items across executive, sales, and product teams."
-          items={aiMeetingAssistantCaseStudies}
-          basePath="/services/offerings/vibe-coding"
-        />
-      </section>
-    </main>
-  );
+  return <CaseStudyFilters groups={groups} />;
 }
