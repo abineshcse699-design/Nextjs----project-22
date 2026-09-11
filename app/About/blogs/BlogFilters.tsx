@@ -1,4 +1,4 @@
-// PLACE THIS FILE AT: app/About/blogs/BlogFilters.tsx
+// PLACE THIS FILE AT: app/About/case-study/CaseStudyFilters.tsx
 "use client";
 
 import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
@@ -11,7 +11,7 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
-const PINNED_KEYS = ["digital-software", "cloud", "ai-chat"];
+const PINNED_KEYS = ["ai", "digital-software", "cloud"];
 
 // Pagination: 5 rows per page. Grid tops out at 3 columns (lg),
 // so a "page" is 5 rows x 3 columns worth of cards.
@@ -19,26 +19,39 @@ const COLS = 3;
 const ROWS_PER_PAGE = 5;
 const ITEMS_PER_PAGE = COLS * ROWS_PER_PAGE;
 
-type BlogCard = {
+type CaseStudy = {
   slug: string;
   image: string;
   title: string;
   body: string;
+  category?: string;
+  // Publish date, "YYYY-MM-DD". Drives newest-first ordering across
+  // every group in the "All" view. Optional so older callers that
+  // don't pass it yet don't break — undated items just sort last.
+  date?: string;
 };
 
-export type BlogGroup = {
+export type CaseStudyGroup = {
   key: string;
   label: string;
   basePath: string;
-  items: BlogCard[];
+  items: CaseStudy[];
 };
 
-type FlatBlog = BlogCard & { basePath: string; groupLabel: string };
+type FlatCaseStudy = CaseStudy & { basePath: string; groupLabel: string };
 
-export default function BlogFilters({
+// Newest first. Anything missing a date sorts to the back instead of
+// breaking the sort or floating to the top.
+function byDateDesc(a: FlatCaseStudy, b: FlatCaseStudy) {
+  const aTime = a.date ? new Date(a.date).getTime() : -Infinity;
+  const bTime = b.date ? new Date(b.date).getTime() : -Infinity;
+  return bTime - aTime;
+}
+
+export default function CaseStudyFilters({
   groups,
 }: {
-  groups: BlogGroup[];
+  groups: CaseStudyGroup[];
 }): ReactElement {
   const [active, setActive] = useState<string>("all");
   const [filterOpen, setFilterOpen] = useState(false);
@@ -49,7 +62,7 @@ export default function BlogFilters({
   const pinnedGroups = useMemo(
     () =>
       PINNED_KEYS.map((k) => groups.find((g) => g.key === k)).filter(
-        (g): g is BlogGroup => Boolean(g)
+        (g): g is CaseStudyGroup => Boolean(g)
       ),
     [groups]
   );
@@ -58,16 +71,19 @@ export default function BlogFilters({
     [groups]
   );
 
-  // All blog posts flattened — used for text search across every group.
-  const allFlat: FlatBlog[] = useMemo(
+  // All case studies flattened — used for text search across every group.
+  // Sorted newest-first so search results read newest-to-oldest too.
+  const allFlat: FlatCaseStudy[] = useMemo(
     () =>
-      groups.flatMap((g) =>
-        g.items.map((item) => ({
-          ...item,
-          basePath: g.basePath,
-          groupLabel: g.label,
-        }))
-      ),
+      groups
+        .flatMap((g) =>
+          g.items.map((item) => ({
+            ...item,
+            basePath: g.basePath,
+            groupLabel: g.label,
+          }))
+        )
+        .sort(byDateDesc),
     [groups]
   );
 
@@ -89,19 +105,24 @@ export default function BlogFilters({
 
   const isSearching = query.trim().length > 0;
 
+  // Flat list of cards for the currently active, non-search view —
+  // one continuous grid (no per-category headings), 5 rows a page.
+  // Sorted newest-first: this is what fixes "All" not floating new
+  // case studies to the top — previously this just concatenated
+  // group by group with no regard for date at all.
+  const visibleFlat: FlatCaseStudy[] = useMemo(() => {
+    const list = active === "all" ? groups : groups.filter((g) => g.key === active);
+    return list
+      .flatMap((g) =>
+        g.items.map((item) => ({ ...item, basePath: g.basePath, groupLabel: g.label }))
+      )
+      .sort(byDateDesc);
+  }, [active, groups]);
+
   const activeGroupLabel = useMemo(
     () => groups.find((g) => g.key === active)?.label ?? "",
     [active, groups]
   );
-
-  // Flat list of cards for the currently active, non-search view —
-  // one continuous grid (no per-category headings), 5 rows a page.
-  const visibleFlat: FlatBlog[] = useMemo(() => {
-    const list = active === "all" ? groups : groups.filter((g) => g.key === active);
-    return list.flatMap((g) =>
-      g.items.map((item) => ({ ...item, basePath: g.basePath, groupLabel: g.label }))
-    );
-  }, [active, groups]);
 
   const currentList = isSearching ? searchResults : visibleFlat;
   const totalPages = Math.max(1, Math.ceil(currentList.length / ITEMS_PER_PAGE));
@@ -144,18 +165,18 @@ export default function BlogFilters({
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function renderCard(post: BlogCard, basePath: string) {
+  function renderCard(study: CaseStudy, basePath: string) {
     return (
       <Link
-        key={`${basePath}-${post.slug}`}
-        href={`${basePath}/${post.slug}`}
+        key={`${basePath}-${study.slug}`}
+        href={`${basePath}/${study.slug}`}
         className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
         style={{ border: "1px solid #ECE7FB" }}
       >
         <div className="h-[220px] flex-shrink-0 overflow-hidden">
           <img
-            src={post.image}
-            alt={post.title}
+            src={study.image}
+            alt={study.title}
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
         </div>
@@ -164,7 +185,7 @@ export default function BlogFilters({
             className="font-body text-[12px] font-semibold tracking-wide"
             style={{ color: INDIGO_CTA }}
           >
-            BLOG
+            {study.category ?? "CASE STUDY"}
           </span>
           <h3
             className="font-heading mt-2 text-[19px] font-semibold leading-snug"
@@ -176,7 +197,7 @@ export default function BlogFilters({
               overflow: "hidden",
             }}
           >
-            {post.title}
+            {study.title}
           </h3>
           <p
             className="font-body mt-3 text-[14px] leading-relaxed text-slate-600"
@@ -187,13 +208,13 @@ export default function BlogFilters({
               overflow: "hidden",
             }}
           >
-            {post.body}
+            {study.body}
           </p>
           <span
             className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
             style={{ color: INDIGO_CTA }}
           >
-            Read More
+            Learn More
             <ArrowUpRight size={15} />
           </span>
         </div>
@@ -252,7 +273,7 @@ export default function BlogFilters({
           className="font-heading text-[34px] font-medium leading-[1.15] lg:text-[44px]"
           style={{ color: CHAMPION_BLUE }}
         >
-          Blogs
+          Case Studies
         </h1>
 
         {/* Filter bar */}
@@ -333,7 +354,7 @@ export default function BlogFilters({
                       type="text"
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
-                      placeholder="Search blogs..."
+                      placeholder="Search case studies..."
                       className="w-full bg-transparent text-[14px] outline-none"
                       style={{ color: CHAMPION_BLUE }}
                     />
@@ -386,7 +407,7 @@ export default function BlogFilters({
           >
             {searchResults.length > 0
               ? `Results for "${query}"`
-              : `No blogs found for "${query}"`}
+              : `No case studies found for "${query}"`}
           </h2>
         ) : (
           active !== "all" && (
@@ -405,7 +426,7 @@ export default function BlogFilters({
             isSearching || active !== "all" ? "mt-8" : "mt-14"
           }`}
         >
-          {pagedList.map((post) => renderCard(post, post.basePath))}
+          {pagedList.map((study) => renderCard(study, study.basePath))}
         </div>
 
         {renderPagination()}

@@ -25,6 +25,10 @@ type CaseStudy = {
   title: string;
   body: string;
   category?: string;
+  // Publish date, "YYYY-MM-DD". Drives newest-first ordering across
+  // every group in the "All" view. Optional so older callers that
+  // don't pass it yet don't break — undated items just sort last.
+  date?: string;
 };
 
 export type CaseStudyGroup = {
@@ -35,6 +39,14 @@ export type CaseStudyGroup = {
 };
 
 type FlatCaseStudy = CaseStudy & { basePath: string; groupLabel: string };
+
+// Newest first. Anything missing a date sorts to the back instead of
+// breaking the sort or floating to the top.
+function byDateDesc(a: FlatCaseStudy, b: FlatCaseStudy) {
+  const aTime = a.date ? new Date(a.date).getTime() : -Infinity;
+  const bTime = b.date ? new Date(b.date).getTime() : -Infinity;
+  return bTime - aTime;
+}
 
 export default function CaseStudyFilters({
   groups,
@@ -60,15 +72,18 @@ export default function CaseStudyFilters({
   );
 
   // All case studies flattened — used for text search across every group.
+  // Sorted newest-first so search results read newest-to-oldest too.
   const allFlat: FlatCaseStudy[] = useMemo(
     () =>
-      groups.flatMap((g) =>
-        g.items.map((item) => ({
-          ...item,
-          basePath: g.basePath,
-          groupLabel: g.label,
-        }))
-      ),
+      groups
+        .flatMap((g) =>
+          g.items.map((item) => ({
+            ...item,
+            basePath: g.basePath,
+            groupLabel: g.label,
+          }))
+        )
+        .sort(byDateDesc),
     [groups]
   );
 
@@ -92,11 +107,16 @@ export default function CaseStudyFilters({
 
   // Flat list of cards for the currently active, non-search view —
   // one continuous grid (no per-category headings), 5 rows a page.
+  // Sorted newest-first: this is what fixes "All" not floating new
+  // case studies to the top — previously this just concatenated
+  // group by group with no regard for date at all.
   const visibleFlat: FlatCaseStudy[] = useMemo(() => {
     const list = active === "all" ? groups : groups.filter((g) => g.key === active);
-    return list.flatMap((g) =>
-      g.items.map((item) => ({ ...item, basePath: g.basePath, groupLabel: g.label }))
-    );
+    return list
+      .flatMap((g) =>
+        g.items.map((item) => ({ ...item, basePath: g.basePath, groupLabel: g.label }))
+      )
+      .sort(byDateDesc);
   }, [active, groups]);
 
   const activeGroupLabel = useMemo(
