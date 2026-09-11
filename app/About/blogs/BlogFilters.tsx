@@ -115,6 +115,23 @@ export default function BlogFilters({
     setPage(1);
   }, [active, query]);
 
+  // Click-outside-to-close: this is the ONLY thing that closes the
+  // dropdown besides selecting a group or pressing the X. No hover
+  // handlers anymore — hover doesn't exist on touch devices anyway,
+  // and mixing hover + click was causing the open/close to fight itself.
+  useEffect(() => {
+    if (!filterOpen) return;
+
+    function handleClickOutside(e: MouseEvent) {
+      if (filterRef.current && !filterRef.current.contains(e.target as Node)) {
+        setFilterOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [filterOpen]);
+
   function selectGroup(key: string) {
     setActive(key);
     setQuery("");
@@ -269,17 +286,14 @@ export default function BlogFilters({
             </button>
           ))}
 
-          {/* Search & filter trigger — pushed to the end of the row */}
-          <div
-            className="relative ml-auto"
-            ref={filterRef}
-            onMouseEnter={() => setFilterOpen(true)}
-            onMouseLeave={() => setFilterOpen(false)}
-          >
+          {/* Search & filter trigger — pushed to the end of the row.
+              Click-to-open/close only; no hover handlers. */}
+          <div className="relative ml-auto" ref={filterRef}>
             <button
               type="button"
               onClick={() => setFilterOpen((v) => !v)}
               aria-label="Search and more filters"
+              aria-expanded={filterOpen}
               className="flex items-center gap-2 rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
               style={
                 filterOpen ||
@@ -293,9 +307,6 @@ export default function BlogFilters({
             </button>
 
             {filterOpen && (
-              // Outer wrapper sits flush against the button (top-full, no
-              // margin) so the gap is filled with real, hoverable padding
-              // instead of empty space that would break the hover state.
               <div className="absolute right-0 top-full z-20 w-[300px] pt-3">
                 <div
                   className="rounded-2xl bg-white p-4 shadow-xl"
@@ -345,7 +356,7 @@ export default function BlogFilters({
                         key={g.key}
                         type="button"
                         onClick={() => selectGroup(g.key)}
-                        className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors"
+                        className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors hover:bg-[#F3F1FD] hover:text-[#4F3FE0]"
                         style={
                           active === g.key && !isSearching
                             ? { backgroundColor: "#F3F1FD", color: INDIGO_CTA }
