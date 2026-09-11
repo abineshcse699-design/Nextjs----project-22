@@ -1,133 +1,183 @@
 "use client";
 
-import { useState } from "react";
-import { ArrowUpRight } from "lucide-react";
+import { Poppins } from "next/font/google";
+import { ArrowRight, Cloud, Cpu, Sparkles } from "lucide-react";
 
-/* ===============================================================
-   BRAND TOKENS — kept identical to the Digital & Software
-   Services page so both sections read as one site.
-   Primary   — Champion Blue  #1B2560
-   Secondary — Lavender        #ECE7FB (surface) / #A48FEA (accent)
-================================================================ */
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+});
 
-const CHAMPION_BLUE = "#1B2560";
-const LAVENDER_SURFACE = "#F5F3FC";
-const LAVENDER_ACCENT = "#A48FEA";
-
-const awards = [
+const services = [
   {
-    title:
-      "Starfii Named a Top-Rated Digital Engineering Partner in the 2025/2026 Global IT Sourcing Study",
-    date: "05 AUG 2026",
+    icon: Sparkles,
+    title: "Generative AI",
+    description:
+      "Transform your workflows with intelligent, scalable AI/ML, GenAI and LLM solutions. From reducing manual tasks to enhancing efficiency, we deliver tailored automation that drives results.",
   },
   {
-    title: "Starfii Wins Four Stevie® Awards at the 2026 American Business Awards®",
-    date: "27 JUL 2026",
+    icon: Cloud,
+    title: "Cloud Engineering",
+    description:
+      "We build secure, high-performance cloud infrastructure with seamless DevOps integration and test automation, accelerating releases and delivering agility at scale.",
   },
   {
-    title: "Starfii Named AI Transformation Partner of the Year 2026 by a Leading Automation Alliance",
-    date: "19 JUL 2026",
-  },
-  {
-    title: "Starfii Recognized as a Client Champion in the 2025 ISG Star of Excellence™ Awards With a Top CX Score",
-    date: "14 JUL 2026",
-  },
-  {
-    title: "Starfii Ranked Among the Fastest-Growing Software Engineering Brands by Brand Value",
-    date: "07 JUL 2026",
-  },
-  {
-    title: "Starfii Featured in the 2026 Global Sustainability Yearbook",
-    date: "30 JUN 2026",
-  },
-  {
-    title: "Starfii Earns Gold Sustainability Rating, Placing in the Top 5% Globally",
-    date: "22 JUN 2026",
+    icon: Cpu,
+    title: "Product Engineering",
+    description:
+      "We design, develop, and deliver end-to-end enterprise and SaaS products, combining innovative technology and AI-powered frameworks to drive scalable growth and performance.",
   },
 ];
 
-export default function AwardsSection() {
-  const [active, setActive] = useState(3); // defaults to the ISG award
-
+export default function GrowthSection() {
   return (
-    <section className="py-28" style={{ backgroundColor: LAVENDER_SURFACE }}>
-      {/* Container width/padding matched to the navbar's outer wrapper
-          (mx-auto max-w-[1520px] px-6 pt-4 sm:px-10 lg:px-16) so this
-          section's content lines up under the same edges as the nav. */}
-      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-        <h2
-          className="font-heading text-[40px] font-medium lg:text-[46px]"
-          style={{ color: CHAMPION_BLUE }}
-        >
-          Awards and Recognitions
-        </h2>
-        <p className="font-body mt-4 max-w-xl text-lg text-slate-600">
-          Recognition that reflects an innovation-first culture and how we
-          show up as a reliable transformation partner.
-        </p>
+    <section
+      className={`${poppins.className} relative overflow-hidden py-24 lg:py-28`}
+      style={{
+        background:
+          "linear-gradient(135deg, #e9e9fb 0%, #dcdcf5 35%, #cfcdf0 70%, #d7d2ee 100%)",
+      }}
+    >
+      <div
+        className="
+          mx-auto
+          grid
+          max-w-[1520px]
+          grid-cols-1
+          gap-12
+          px-6
+          sm:px-10
+          lg:grid-cols-2
+          lg:gap-16
+          lg:px-16
+        "
+      >
+        {/* Left column */}
+        <div className="flex flex-col justify-start">
+          <h2
+            className="
+              max-w-[600px]
+              text-[36px]
+              font-light
+              leading-[1.15]
+              tracking-[-0.02em]
+              text-[#0b1747]
+              sm:text-[42px]
+              lg:text-[48px]
+              xl:text-[52px]
+            "
+          >
+            AI-Driven Software and Product Engineering, Built to Scale With
+            You
+          </h2>
 
-        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-2 lg:items-start">
-          {/* Image with sliding caption */}
-          <div className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl lg:sticky lg:top-32">
-          <img
-  src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1400&auto=format&fit=crop"
-  alt="Starfii team member"
-  className="h-full w-full object-cover object-center"
-/>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+          <p
+            className="
+              mt-6
+              max-w-[520px]
+              text-[16px]
+              font-normal
+              leading-[1.6]
+              tracking-[-0.01em]
+              text-[#3a3f5a]
+              sm:text-[17px]
+            "
+          >
+            Scalable, high-performance solutions customized for your
+            business. From Generative AI and cloud engineering to
+            enterprise product development, we deliver technology built for
+            long-term success.
+          </p>
+        </div>
 
-            <div className="absolute inset-x-0 bottom-0 p-8">
-              <p className="font-body text-sm font-medium tracking-wide text-white/80">
-                {awards[active].date}
-              </p>
-              <h3
-                key={active}
-                className="font-heading mt-3 max-w-md text-2xl font-medium leading-snug text-white transition-opacity duration-500"
-              >
-                {awards[active].title}
-              </h3>
+        {/* Right column - service cards */}
+        <div className="flex flex-col gap-5">
+          {services.map((service) => {
+            const Icon = service.icon;
+            return (
               <a
+                key={service.title}
                 href="#"
-                className="font-body mt-5 inline-flex items-center gap-1.5 text-[15px] font-medium text-white hover:underline"
+                className="
+                  group
+                  flex
+                  items-start
+                  gap-5
+                  rounded-2xl
+                  border
+                  border-white/60
+                  bg-white/70
+                  p-6
+                  shadow-sm
+                  backdrop-blur-sm
+                  transition-all
+                  duration-300
+                  hover:-translate-y-0.5
+                  hover:bg-white/90
+                  hover:shadow-md
+                "
               >
-                Learn More
-                <ArrowUpRight size={16} strokeWidth={2.5} />
-              </a>
-            </div>
-          </div>
-
-          {/* Award list */}
-          <div className="flex flex-col">
-            {awards.map((a, i) => (
-              <button
-                key={a.title}
-                onMouseEnter={() => setActive(i)}
-                onFocus={() => setActive(i)}
-                className="group flex items-center justify-between gap-6 border-b py-6 text-left transition-colors duration-300 first:pt-0"
-                style={{
-                  borderColor: "#D9D0F5",
-                  color: active === i ? CHAMPION_BLUE : "#334155",
-                }}
-              >
-                <span className="font-body text-lg font-medium leading-snug">
-                  {a.title}
-                </span>
-                <span
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors duration-300"
+                {/* Icon */}
+                <div
+                  className="
+                    flex
+                    h-12
+                    w-12
+                    shrink-0
+                    items-center
+                    justify-center
+                    rounded-xl
+                  "
                   style={{
-                    backgroundColor: active === i ? CHAMPION_BLUE : "#FFFFFF",
-                    color: active === i ? "#FFFFFF" : CHAMPION_BLUE,
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.backgroundColor = CHAMPION_BLUE;
-                    e.currentTarget.style.color = "#FFFFFF";
+                    background:
+                      "linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)",
                   }}
                 >
-                  <ArrowUpRight size={18} strokeWidth={2.5} />
-                </span>
-              </button>
-            ))}
-          </div>
+                  <Icon className="h-6 w-6 text-[#2563eb]" strokeWidth={1.75} />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1">
+                  <h3
+                    className="
+                      text-[19px]
+                      font-medium
+                      tracking-[-0.01em]
+                      text-[#0b1747]
+                    "
+                  >
+                    {service.title}
+                  </h3>
+                  <p
+                    className="
+                      mt-2
+                      text-[15px]
+                      font-normal
+                      leading-[1.55]
+                      text-[#4b4f68]
+                    "
+                  >
+                    {service.description}
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <ArrowRight
+                  className="
+                    mt-1
+                    h-5
+                    w-5
+                    shrink-0
+                    text-[#2563eb]
+                    transition-transform
+                    duration-300
+                    group-hover:translate-x-1
+                  "
+                  strokeWidth={1.75}
+                />
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>

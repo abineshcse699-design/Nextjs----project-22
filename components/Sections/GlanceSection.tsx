@@ -11,24 +11,10 @@ const poppins = Poppins({
 const stats = [
   {
     prefix: "",
-    value: 3,
+    value: 100,
     decimals: 0,
     suffix: "+",
-    label: "Development Locations",
-  },
-  {
-    prefix: "",
-    value: 80,
-    decimals: 0,
-    suffix: "+",
-    label: "Skilled Professionals Driving Innovation",
-  },
-  {
-    prefix: "",
-    value: 20,
-    decimals: 0,
-    suffix: "+",
-    label: "Successful Partnerships with Industry Leaders",
+    label: "Successfully Completed Projects",
   },
   {
     prefix: "",
@@ -36,6 +22,20 @@ const stats = [
     decimals: 0,
     suffix: "+",
     label: "Years of Experience Delivering Top Solutions",
+  },
+  {
+    prefix: "",
+    value: 50,
+    decimals: 0,
+    suffix: "+",
+    label: "Global Clients Served Across Industries",
+  },
+  {
+    prefix: "",
+    value: 98,
+    decimals: 0,
+    suffix: "%",
+    label: "Client Satisfaction Rate on Delivered Projects",
   },
 ];
 
