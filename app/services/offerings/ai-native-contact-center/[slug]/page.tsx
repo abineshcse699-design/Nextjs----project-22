@@ -16,6 +16,7 @@ import {
   PhoneCall,
   Users,
   Clock3,
+  Sparkles,
 } from "lucide-react";
 
 import {
@@ -529,6 +530,88 @@ export default async function CaseStudyPage({
             </div>
           </div>
         </section>
+
+        {/* ====================================================
+            SUB TOPICS (Abandoned Cart / COD Confirmation / etc.)
+        ==================================================== */}
+
+        {study.subTopics && study.subTopics.length > 0 && (
+          <section
+            id="subtopics"
+            className="scroll-mt-24 border-t py-20 lg:py-24"
+          >
+
+            <div className="max-w-3xl">
+
+              <div
+                className="flex h-14 w-14 items-center justify-center rounded-2xl"
+                style={{
+                  backgroundColor: "#F5F3FC",
+                  color: INDIGO_CTA,
+                }}
+              >
+                <Sparkles size={25} />
+              </div>
+
+              <p
+                className="mt-7 text-[12px] font-bold uppercase tracking-[0.18em]"
+                style={{
+                  color: INDIGO_CTA,
+                }}
+              >
+                How It Works
+              </p>
+
+              <h2
+                className="mt-4 text-[34px] font-medium leading-tight lg:text-[46px]"
+                style={{
+                  color: CHAMPION_BLUE,
+                }}
+              >
+                How to use voice calls to recover lost sales
+              </h2>
+
+            </div>
+
+            <div className="mt-12 grid gap-6 lg:grid-cols-3">
+
+              {study.subTopics.map((topic, index) => (
+                <div
+                  key={topic.heading}
+                  className="group flex flex-col rounded-3xl border bg-white p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  style={{
+                    borderColor: "#E5E1F5",
+                  }}
+                >
+
+                  <span
+                    className="text-[12px] font-bold"
+                    style={{
+                      color: LAVENDER_ACCENT,
+                    }}
+                  >
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+
+                  <h3
+                    className="mt-5 text-[19px] font-semibold leading-7"
+                    style={{
+                      color: CHAMPION_BLUE,
+                    }}
+                  >
+                    {topic.heading}
+                  </h3>
+
+                  <p className="mt-4 text-[15px] leading-7 text-slate-600">
+                    {topic.body}
+                  </p>
+
+                </div>
+              ))}
+
+            </div>
+          </section>
+        )}
 
         {/* ====================================================
             SOLUTION

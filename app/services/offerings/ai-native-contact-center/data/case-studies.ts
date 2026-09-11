@@ -1,29 +1,25 @@
 export type CaseStudy = {
   slug: string;
   image: string;
-
   client: string;
   industry: string;
   duration: string;
-
   title: string;
   body: string;
-
   overview: string;
-
   challenge: string;
+  subTopics?: {
+    heading: string;
+    body: string;
+  }[];
   solution: string;
   results: string;
-
   benefits: string[];
   technology: string[];
-
   stats: {
     value: string;
     label: string;
-
   }[];
-
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -361,23 +357,23 @@ export const caseStudies: CaseStudy[] = [
   challenge:
     "Customers frequently added products to their cart without completing checkout, and a large share of cash on delivery orders were being cancelled, returned, or marked as failed delivery because no one had confirmed the order or the customer's availability before dispatch. Reaching every customer by phone manually was not realistic at the brand's order volume, and delayed follow-up meant many recoverable customers were never contacted in time.",
 
-
-  //   {
-  //     heading: "Abandoned Cart → Recovery Calls",
-  //     body:
-  //       "When a customer adds items to their cart but leaves without checking out, an AI voice agent places a short, natural call within minutes of abandonment. The call reminds the customer what's still in their cart, answers quick questions about price, delivery, or availability, and offers to complete the purchase right there on the call — turning a drop-off into a recovered sale instead of a missed one.",
-  //   },
-  //   {
-  //     heading: "COD (Cash on Delivery) → Confirmation Calls",
-  //     body:
-  //       "Before a cash on delivery order is dispatched, the AI voice agent calls the customer to confirm the order details, delivery address, and whether they'll be available to receive it. This catches orders customers no longer want, incorrect addresses, or fake/duplicate orders before they leave the warehouse, flagging anything uncertain for manual review instead of shipping blind.",
-  //   },
-  //   {
-  //     heading: "Want to Try It? Use Turbodev",
-  //     body:
-  //       "If you want a ready-made way to run these recovery and confirmation flows without building them from scratch, Turbodev is an AI-powered automation platform built for exactly this. On top of abandoned cart recovery and COD order confirmation, Turbodev covers the full customer communication loop: order confirmation and payment alerts, fulfillment, refund and cancellation updates, real-time Shopify webhook triggers, AI agents that handle customer queries and lead qualification autonomously, click-to-chat ad capture, a shared team inbox for human handoff, broadcast campaigns with contact segmentation and tagging, a synced product catalog for in-chat browsing and checkout, and enterprise-grade security with AES-256 encryption, TLS 1.3, and role-based access control. It's built specifically for Indian and South Asian merchants running on the WhatsApp Business API, and you can request a live demo or test account directly from Turbodev to see the flows in action.",
-  //   },
-  // ],
+  subTopics: [
+    {
+      heading: "Abandoned Cart → Recovery Calls",
+      body:
+        "When a customer adds items to their cart but leaves without checking out, an AI voice agent places a short, natural call within minutes of abandonment. The call reminds the customer what's still in their cart, answers quick questions about price, delivery, or availability, and offers to complete the purchase right there on the call — turning a drop-off into a recovered sale instead of a missed one.",
+    },
+    {
+      heading: "COD (Cash on Delivery) → Confirmation Calls",
+      body:
+        "Before a cash on delivery order is dispatched, the AI voice agent calls the customer to confirm the order details, delivery address, and whether they'll be available to receive it. This catches orders customers no longer want, incorrect addresses, or fake/duplicate orders before they leave the warehouse, flagging anything uncertain for manual review instead of shipping blind.",
+    },
+    {
+      heading: "Want to Try It? Use Turbodev",
+      body:
+        "If you want a ready-made way to run these recovery and confirmation flows without building them from scratch, Turbodev is an AI-powered automation platform built for exactly this. On top of abandoned cart recovery and COD order confirmation, Turbodev covers the full customer communication loop: order confirmation and payment alerts, fulfillment, refund and cancellation updates, real-time Shopify webhook triggers, AI agents that handle customer queries and lead qualification autonomously, click-to-chat ad capture, a shared team inbox for human handoff, broadcast campaigns with contact segmentation and tagging, a synced product catalog for in-chat browsing and checkout, and enterprise-grade security with AES-256 encryption, TLS 1.3, and role-based access control. It's built specifically for Indian and South Asian merchants running on the WhatsApp Business API, and you can request a live demo or test account directly from Turbodev to see the flows in action.",
+    },
+  ],
 
   solution:
     "Starfii built two AI voice call flows around the customer journey. The first flow triggered a short, natural voice call to customers who abandoned their cart — reminding them of their items, answering quick questions, and helping them complete the purchase. The second flow triggered a COD confirmation call before dispatch, verifying the order, address, and customer availability, and flagging orders that needed further review or cancellation. Both flows escalated to a human agent whenever a customer needed more support.",

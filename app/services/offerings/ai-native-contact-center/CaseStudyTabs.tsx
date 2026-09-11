@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 const TABS = [
   { id: "client", label: "Client" },
   { id: "challenge", label: "Challenge" },
+  { id: "subtopics", label: "How It Works" },
   { id: "solution", label: "AI Solution" },
   { id: "results", label: "Impact" },
   { id: "benefits", label: "Benefits" },
