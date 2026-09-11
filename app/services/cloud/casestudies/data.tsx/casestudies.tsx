@@ -1,3 +1,7 @@
+// PLACE THIS FILE AT: app/services/cloud/casestudies/data/casestudies.tsx
+// (adjust the path to match wherever your cloud page and About/case-study
+// page actually import this from — see instructions below)
+
 export type CaseStudyStat = {
   value: string;
   label: string;
@@ -21,9 +25,18 @@ export type CaseStudyDetail = {
   results: string;
 
   stats: CaseStudyStat[];
+
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used (cloud engineering page carousel AND the
+  // /About/case-study all-case-studies filter page).
+  date: string;
 };
 
-export const caseStudies: CaseStudyDetail[] = [
+// Raw list — order here does NOT matter for display, only `date`
+// controls what shows first. Add new entries anywhere with today's
+// date (or later) and it auto-appears first everywhere.
+const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "reinsurer-aws-core-systems-migration",
 
@@ -64,19 +77,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The migration was completed with minimal business disruption. The reinsurer gained a more scalable cloud foundation, lower infrastructure costs, faster failover, and improved operational visibility across its critical systems.",
 
     stats: [
-      {
-        value: "34%",
-        label: "Lower infrastructure cost",
-      },
-      {
-        value: "99.99%",
-        label: "Platform availability",
-      },
-      {
-        value: "70%",
-        label: "Faster failover",
-      },
+      { value: "34%", label: "Lower infrastructure cost" },
+      { value: "99.99%", label: "Platform availability" },
+      { value: "70%", label: "Faster failover" },
     ],
+
+    date: "2026-02-18",
   },
 
   {
@@ -120,19 +126,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The bank gained greater infrastructure flexibility, improved governance, stronger security controls, and the ability to place workloads on the cloud platform best suited to their technical and regulatory requirements.",
 
     stats: [
-      {
-        value: "2",
-        label: "Cloud platforms connected",
-      },
-      {
-        value: "40%",
-        label: "Faster infrastructure delivery",
-      },
-      {
-        value: "100%",
-        label: "Centralized governance",
-      },
+      { value: "2", label: "Cloud platforms connected" },
+      { value: "40%", label: "Faster infrastructure delivery" },
+      { value: "100%", label: "Centralized governance" },
     ],
+
+    date: "2026-04-09",
   },
 
   {
@@ -175,19 +174,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The utilities provider gained a scalable application platform, significantly faster deployments, better operational visibility, and a more reliable foundation for future digital field services.",
 
     stats: [
-      {
-        value: "90%",
-        label: "Faster deployments",
-      },
-      {
-        value: "5x",
-        label: "Faster infrastructure scaling",
-      },
-      {
-        value: "99.9%",
-        label: "Platform availability",
-      },
+      { value: "90%", label: "Faster deployments" },
+      { value: "5x", label: "Faster infrastructure scaling" },
+      { value: "99.9%", label: "Platform availability" },
     ],
+
+    date: "2026-05-30",
   },
 
   {
@@ -230,19 +222,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The healthcare SaaS provider reduced cloud spend while maintaining application performance, uptime, and compliance requirements.",
 
     stats: [
-      {
-        value: "34%",
-        label: "Cloud cost reduction",
-      },
-      {
-        value: "99.99%",
-        label: "Platform uptime",
-      },
-      {
-        value: "100%",
-        label: "Cost visibility",
-      },
+      { value: "34%", label: "Cloud cost reduction" },
+      { value: "99.99%", label: "Platform uptime" },
+      { value: "100%", label: "Cost visibility" },
     ],
+
+    date: "2026-07-22",
   },
 
   {
@@ -286,26 +271,22 @@ export const caseStudies: CaseStudyDetail[] = [
       "The retailer achieved higher uptime, faster incident response, improved production visibility, and greater confidence during high traffic shopping periods.",
 
     stats: [
-      {
-        value: "99.99%",
-        label: "Application uptime",
-      },
-      {
-        value: "60%",
-        label: "Faster incident response",
-      },
-      {
-        value: "45%",
-        label: "Fewer production incidents",
-      },
+      { value: "99.99%", label: "Application uptime" },
+      { value: "60%", label: "Faster incident response" },
+      { value: "45%", label: "Fewer production incidents" },
     ],
+
+    date: "2026-09-02",
   },
 ];
+
+// Newest date first — this is what every page actually imports.
+export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(
   slug: string
 ): CaseStudyDetail | undefined {
-  return caseStudies.find(
-    (study) => study.slug === slug
-  );
+  return caseStudies.find((study) => study.slug === slug);
 }

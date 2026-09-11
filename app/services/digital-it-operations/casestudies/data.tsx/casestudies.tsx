@@ -21,9 +21,18 @@ export type CaseStudyDetail = {
   results: string;
 
   stats: CaseStudyStat[];
+
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used, regardless of where it sits in this array.
+  date: string;
 };
 
-export const caseStudies: CaseStudyDetail[] = [
+// Raw list — order here does NOT matter for display, only the
+// `date` field controls what shows first. Add new entries anywhere
+// with today's date (or later) and it will automatically appear
+// first on every page that reads this file.
+const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "healthcare-cloud-migration-zero-downtime",
 
@@ -77,6 +86,8 @@ export const caseStudies: CaseStudyDetail[] = [
         label: "Phased migration timeline",
       },
     ],
+
+    date: "2025-04-10",
   },
 
   {
@@ -131,6 +142,8 @@ export const caseStudies: CaseStudyDetail[] = [
         label: "Time to full rollout",
       },
     ],
+
+    date: "2025-05-22",
   },
 
   {
@@ -186,6 +199,8 @@ export const caseStudies: CaseStudyDetail[] = [
         label: "Implementation timeline",
       },
     ],
+
+    date: "2025-07-14",
   },
 
   {
@@ -241,6 +256,8 @@ export const caseStudies: CaseStudyDetail[] = [
         label: "Modernization timeline",
       },
     ],
+
+    date: "2025-08-30",
   },
 
   {
@@ -295,8 +312,17 @@ export const caseStudies: CaseStudyDetail[] = [
         label: "Time to launch",
       },
     ],
+
+    date: "2025-10-05",
   },
 ];
+
+// Newest date first — this is what every page actually imports.
+// Whatever entry has the latest `date` above will always be first,
+// no matter where you physically place it in rawCaseStudies.
+export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(
   slug: string

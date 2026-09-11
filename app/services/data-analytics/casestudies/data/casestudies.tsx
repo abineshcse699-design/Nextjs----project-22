@@ -1,3 +1,6 @@
+// PLACE THIS FILE AT: app/services/data-analytics/casestudies/data/casestudies.tsx
+// (this is already the path About/case-study/page.tsx imports from)
+
 export type CaseStudyStat = {
   value: string;
   label: string;
@@ -21,9 +24,18 @@ export type CaseStudyDetail = {
   results: string;
 
   stats: CaseStudyStat[];
+
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used (data & analytics page carousel AND the
+  // /About/case-study all-case-studies filter page).
+  date: string;
 };
 
-export const caseStudies: CaseStudyDetail[] = [
+// Raw list — order here does NOT matter for display, only `date`
+// controls what shows first. Add new entries anywhere with today's
+// date (or later) and it auto-appears first everywhere.
+const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "regional-insurance-data-modernization",
 
@@ -64,19 +76,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The insurance carrier significantly reduced reporting effort and gained a single source of truth for operational and executive reporting. Teams can now access trusted dashboards without manually combining data from multiple systems.",
 
     stats: [
-      {
-        value: "40%",
-        label: "Faster reporting",
-      },
-      {
-        value: "60%",
-        label: "Less manual data preparation",
-      },
-      {
-        value: "100%",
-        label: "Governed reporting platform",
-      },
+      { value: "40%", label: "Faster reporting" },
+      { value: "60%", label: "Less manual data preparation" },
+      { value: "100%", label: "Governed reporting platform" },
     ],
+
+    date: "2026-03-12",
   },
 
   {
@@ -120,19 +125,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The retailer gained a unified customer profile across major business systems, reduced reporting cycles, and enabled marketing teams to make faster and more informed campaign decisions.",
 
     stats: [
-      {
-        value: "3x",
-        label: "Faster reporting",
-      },
-      {
-        value: "100%",
-        label: "Unified customer data",
-      },
-      {
-        value: "35%",
-        label: "Higher campaign conversion",
-      },
+      { value: "3x", label: "Faster reporting" },
+      { value: "100%", label: "Unified customer data" },
+      { value: "35%", label: "Higher campaign conversion" },
     ],
+
+    date: "2026-06-04",
   },
 
   {
@@ -176,26 +174,22 @@ export const caseStudies: CaseStudyDetail[] = [
       "Analysts can now explore patient outcome trends using natural language while maintaining governance and auditability. Reporting workflows became faster and teams gained easier access to enterprise insights.",
 
     stats: [
-      {
-        value: "70%",
-        label: "Faster clinical reporting",
-      },
-      {
-        value: "100%",
-        label: "Auditable AI workflows",
-      },
-      {
-        value: "24/7",
-        label: "Data insight availability",
-      },
+      { value: "70%", label: "Faster clinical reporting" },
+      { value: "100%", label: "Auditable AI workflows" },
+      { value: "24/7", label: "Data insight availability" },
     ],
+
+    date: "2026-08-17",
   },
 ];
+
+// Newest date first — this is what every page actually imports.
+export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(
   slug: string
 ): CaseStudyDetail | undefined {
-  return caseStudies.find(
-    (study) => study.slug === slug
-  );
+  return caseStudies.find((study) => study.slug === slug);
 }

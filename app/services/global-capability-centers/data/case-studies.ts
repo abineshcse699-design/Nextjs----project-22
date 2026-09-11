@@ -1,3 +1,5 @@
+// PLACE THIS FILE AT: app/services/global-capability-centers/data/case-studies.tsx
+
 export type CaseStudyStat = {
   value: string;
   label: string;
@@ -18,9 +20,17 @@ export type CaseStudyDetail = {
   solution: string;
   results: string;
   stats: CaseStudyStat[];
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used (global-capability-centers page carousel AND
+  // the /About/case-study all-case-studies filter page).
+  date: string;
 };
 
-export const caseStudies: CaseStudyDetail[] = [
+// Raw list — order here does NOT matter for display, only `date`
+// controls what shows first. Add new entries anywhere with today's
+// date (or later) and it auto-appears first everywhere.
+const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "fintech-gcc-launch-five-months",
     image:
@@ -59,19 +69,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The GCC became operational in under five months with its initial engineering team onboarded, governance structures established, and compliance processes in place for continued scale.",
 
     stats: [
-      {
-        value: "5 mo",
-        label: "Entity to operational GCC",
-      },
-      {
-        value: "100%",
-        label: "Initial compliance coverage",
-      },
-      {
-        value: "1",
-        label: "Integrated GCC operating model",
-      },
+      { value: "5 mo", label: "Entity to operational GCC" },
+      { value: "100%", label: "Initial compliance coverage" },
+      { value: "1", label: "Integrated GCC operating model" },
     ],
+
+    date: "2026-02-12",
   },
 
   {
@@ -112,19 +115,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The analytics GCC became a dedicated extension of the client's global data organization, increasing analytics capacity while improving collaboration between offshore and onshore teams.",
 
     stats: [
-      {
-        value: "40+",
-        label: "Initial analytics professionals",
-      },
-      {
-        value: "30%",
-        label: "Faster time to insight",
-      },
-      {
-        value: "1",
-        label: "Integrated analytics operating model",
-      },
+      { value: "40+", label: "Initial analytics professionals" },
+      { value: "30%", label: "Faster time to insight" },
+      { value: "1", label: "Integrated analytics operating model" },
     ],
+
+    date: "2026-04-03",
   },
 
   {
@@ -165,19 +161,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "Support operations transitioned into the GCC without disrupting service delivery, while the new team gained the knowledge and operating context required for ongoing support.",
 
     stats: [
-      {
-        value: "0",
-        label: "Service disruption incidents",
-      },
-      {
-        value: "100%",
-        label: "Transition coverage",
-      },
-      {
-        value: "7 mo",
-        label: "Transition program",
-      },
+      { value: "0", label: "Service disruption incidents" },
+      { value: "100%", label: "Transition coverage" },
+      { value: "7 mo", label: "Transition program" },
     ],
+
+    date: "2026-05-27",
   },
 
   {
@@ -218,19 +207,12 @@ export const caseStudies: CaseStudyDetail[] = [
       "The GCC launched with compliance and security controls integrated into its operating model, providing the foundation required for future expansion.",
 
     stats: [
-      {
-        value: "100%",
-        label: "Compliance coverage",
-      },
-      {
-        value: "9 mo",
-        label: "Setup to operational readiness",
-      },
-      {
-        value: "0",
-        label: "Critical compliance gaps",
-      },
+      { value: "100%", label: "Compliance coverage" },
+      { value: "9 mo", label: "Setup to operational readiness" },
+      { value: "0", label: "Critical compliance gaps" },
     ],
+
+    date: "2026-07-15",
   },
 
   {
@@ -271,21 +253,19 @@ export const caseStudies: CaseStudyDetail[] = [
       "The GCC grew from its initial 20 person footprint to a 200 person engineering and analytics hub with a structured operating model designed for continued growth.",
 
     stats: [
-      {
-        value: "20 → 200",
-        label: "GCC team growth",
-      },
-      {
-        value: "10x",
-        label: "Headcount expansion",
-      },
-      {
-        value: "18 mo",
-        label: "Scale up program",
-      },
+      { value: "20 → 200", label: "GCC team growth" },
+      { value: "10x", label: "Headcount expansion" },
+      { value: "18 mo", label: "Scale up program" },
     ],
+
+    date: "2026-08-20",
   },
 ];
+
+// Newest date first — this is what every page actually imports.
+export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(
   slug: string

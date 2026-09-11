@@ -2,6 +2,11 @@
 "use client";
 import Link from "next/link";
 
+// Single source of truth for AI case studies — the same file the
+// [slug]/page.tsx detail page and app/About/case-study/page.tsx read
+// from. Add a new case study there once and it shows up everywhere.
+import { caseStudies } from "./data/case-studies";
+
 import {
   useRef,
   useState,
@@ -110,6 +115,7 @@ const focusAreas: FocusArea[] = [
     body: "Starfii designs recommendation and personalization AI models that lift engagement and conversion across e commerce and content platforms.",
     tags: ["PERSONALIZATION", "RANKING", "ENGAGEMENT"],
   },
+  
   {
     title: "Document Intelligence & Automation",
     body: "Starfii's document intelligence models extract and classify data across invoices, contracts, and forms, cutting manual data entry across back office teams.",
@@ -220,46 +226,6 @@ const industryAwards: IndustryAward[] = [
     rank: "Rising Star, U.S.",
     description:
       "Starfii named a Rising Star in MLOps and Model Operations in the ISG Provider Lens™ Enterprise AI Engineering 2025 US Quadrant Report, reflecting our growing model monitoring and retraining practice.",
-  },
-];
-
-type CaseStudy = { slug: string; image: string; title: string; body: string };
-
-const caseStudies: CaseStudy[] = [
-  {
-    slug: "manufacturer-predictive-maintenance-ai",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Cuts Unplanned Downtime with Predictive Maintenance AI",
-    body: "See how Starfii's predictive maintenance models flagged equipment failure risk days in advance for a global manufacturer, cutting unplanned downtime significantly.",
-  },
-  {
-    slug: "insurer-fraud-detection-model",
-    image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds a Real Time Fraud Scoring Model for an Insurer",
-    body: "Explore how Starfii's real time anomaly detection model helped a national insurer catch fraudulent claims earlier without slowing down legitimate customers.",
-  },
-  {
-    slug: "retailer-computer-vision-inspection",
-    image:
-      "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Deploys Computer Vision Quality Inspection on the Line",
-    body: "Discover how Starfii's computer vision defect inspection pipeline lifted quality control accuracy on a retail manufacturing line while cutting manual review time.",
-  },
-  {
-    slug: "healthcare-clinical-decision-support",
-    image:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds Clinical Decision Support AI for a Healthcare Network",
-    body: "Learn how Starfii's diagnostic assist model, trained on structured healthcare data, helped clinicians triage faster while staying within compliance requirements.",
-  },
-  {
-    slug: "ecommerce-recommendation-engine",
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii's Recommendation Engine Lifts Conversion for an E Commerce Brand",
-    body: "See how Starfii's personalization AI model increased average order value and repeat purchase rate for a direct to consumer e commerce brand.",
   },
 ];
 
@@ -1370,14 +1336,14 @@ export default function ArtificialIntelligenceSection(): ReactElement {
             >
               Case Studies
             </h2>
-            <a
-              href="#"
+            <Link
+              href="/About/case-study"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
@@ -1387,10 +1353,10 @@ export default function ArtificialIntelligenceSection(): ReactElement {
               arrowVariant="light"
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
-                 <Link
-  href={`/services/artificial-intelligence/${study.slug}`}
-  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
->
+                  <Link
+                    href={`/services/artificial-intelligence/${study.slug}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+                  >
                     <div className="h-[220px] flex-shrink-0 overflow-hidden">
                       <img
                         src={study.image}

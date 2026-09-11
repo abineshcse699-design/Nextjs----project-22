@@ -34,13 +34,15 @@ export type CaseStudy = {
 
   summary: string;
   techStack: string[];
+
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used, regardless of where it sits in this array.
+  date: string;
 };
 
-export const caseStudies: CaseStudy[] = [
-
-  /* ============================================================
-     BANKING
-  ============================================================ */
+// Raw list — order here does NOT matter for display, only `date` does.
+const rawCaseStudies: CaseStudy[] = [
   {
     slug: "regional-bank-digital-banking-experience",
     category: "Banking",
@@ -56,9 +58,9 @@ export const caseStudies: CaseStudy[] = [
     services: ["SaaS Product Engineering", "UX Consulting", "Cloud Engineering"],
 
     image:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000&auto=format&fit=crop",
 
     overview: "A bank whose digital front door was turning customers away",
     clientOverview:
@@ -98,11 +100,10 @@ export const caseStudies: CaseStudy[] = [
       "The bank's real bottleneck wasn't the account-opening form — it was an overnight identity check and a vendor release calendar sitting behind it. Fixing both let a 9-day process become a 40-minute one, and let the product team start shipping on its own schedule.",
 
     techStack: ["Next.js", "GraphQL", "Real-time KYC integration", "Feature flagging", "AWS"],
+
+    date: "2025-08-01",
   },
 
-  /* ============================================================
-     UTILITIES
-  ============================================================ */
   {
     slug: "utilities-digital-transformation-microsoft",
     category: "Utilities",
@@ -118,9 +119,9 @@ export const caseStudies: CaseStudy[] = [
     services: ["Microsoft Business Applications", "Field Operations", "Data Engineering"],
 
     image:
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1509391366360-2e959784a276?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop",
 
     overview: "A utility running field operations over radio and paper",
     clientOverview:
@@ -160,11 +161,10 @@ export const caseStudies: CaseStudy[] = [
       "The utility didn't need a bigger system — it needed the field and the office looking at the same data at the same time. An offline-first app closed that gap even in districts where connectivity itself was the obstacle.",
 
     techStack: ["Power Apps", "Dynamics 365 Field Service", "Power BI", "SQL Server integration"],
+
+    date: "2025-07-01",
   },
 
-  /* ============================================================
-     MORTGAGE
-  ============================================================ */
   {
     slug: "digital-mortgage-automation",
     category: "Mortgage Lending",
@@ -173,16 +173,16 @@ export const caseStudies: CaseStudy[] = [
     subtitle:
       "Underwriters were spending roughly 40% of their time manually re-keying figures from pay stubs and bank statements instead of evaluating risk.",
     cardDescription:
-      "Learn how Starfii’s intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+      "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
 
     client: "National mortgage lender, ~1,900 loan applications processed monthly",
     industry: "Financial Services",
     services: ["Intelligent Automation", "Compliance Engineering", "Cloud Engineering"],
 
     image:
-      "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1560184897-ae75f418493e?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2000&auto=format&fit=crop",
 
     overview: "A lender caught between speed and compliance",
     clientOverview:
@@ -222,11 +222,10 @@ export const caseStudies: CaseStudy[] = [
       "Compliance was the reason the lender had avoided automation for years. Building the audit trail in from day one — not bolting it on after — was what made automation acceptable to the compliance team.",
 
     techStack: ["Intelligent document processing (OCR)", "Workflow automation", "LOS integration", "Audit logging"],
+
+    date: "2025-06-01",
   },
 
-  /* ============================================================
-     HEALTHCARE
-  ============================================================ */
   {
     slug: "healthcare-saas-platform-scale",
     category: "Healthcare",
@@ -235,16 +234,16 @@ export const caseStudies: CaseStudy[] = [
     subtitle:
       "A healthcare SaaS platform's Rails monolith took the entire product offline for up to 45 minutes on every release, and that maintenance window was starting to block enterprise deals.",
     cardDescription:
-      "See how Starfii’s composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
+      "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
 
     client: "Fortune 500 healthcare provider, patient-engagement SaaS product",
     industry: "Healthcare",
     services: ["SaaS Product Engineering", "Composable Architecture", "Cloud Engineering"],
 
     image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2000&auto=format&fit=crop",
 
     overview: "A monolith that had outgrown its own release process",
     clientOverview:
@@ -284,11 +283,10 @@ export const caseStudies: CaseStudy[] = [
       "The platform's growth wasn't the real risk — its release process was. Breaking the monolith apart one domain at a time, with compliance checks moved into the pipeline itself, let the team keep shipping while user count grew 5x.",
 
     techStack: ["Service extraction", "API gateway", "HIPAA compliance automation", "Blue-green deployments", "Kubernetes"],
+
+    date: "2025-05-01",
   },
 
-  /* ============================================================
-     INSURANCE
-  ============================================================ */
   {
     slug: "insurance-claims-low-code-platform",
     category: "Insurance",
@@ -304,9 +302,9 @@ export const caseStudies: CaseStudy[] = [
     services: ["Low Code Engineering", "Workflow Automation", "Claims Systems"],
 
     image:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2000&auto=format&fit=crop",
 
     overview: "A reinsurer reconciling spreadsheets instead of settling claims",
     clientOverview:
@@ -346,138 +344,15 @@ export const caseStudies: CaseStudy[] = [
       "The reinsurer's problem was never claims volume — it was 14 versions of the truth. A configurable platform let each region keep its own process while finally working from one shared record.",
 
     techStack: ["Power Platform", "Configurable workflow engine", "Cross-system identity matching", "OCR document intake"],
+
+    date: "2025-09-01",
   },
-
-  /* ============================================================
-     DATA & AI
-  ============================================================ */
-  
-  {
-    slug: "enterprise-ai-data-analytics-platform",
-    category: "Data & AI",
-
-    title: "Ending 'Whose Number Is Right' Meetings With One Governed Data Platform",
-    subtitle:
-      "Eleven business units each maintained their own version of revenue and customer metrics, and leadership meetings routinely stalled over whose number to trust.",
-    cardDescription:
-      "Starfii unified 9 source systems into one governed data platform, eliminating cross-team metric discrepancies for an 11-business-unit enterprise.",
-
-    client: "Global enterprise, 11 business units previously reporting independently",
-    industry: "Technology & Business Services",
-    services: ["Data Engineering", "Generative AI", "Business Intelligence", "Cloud Engineering"],
-
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=2000&auto=format&fit=crop",
-
-    overview: "An enterprise with 11 different definitions of the same metric",
-    clientOverview:
-      "Reports for the same quarter, pulled from different tools, routinely disagreed by 5-10%, and resolving the discrepancy before a leadership review could take days of manual reconciliation.",
-
-    challengeIntro: "9 disconnected systems and years of independent reporting",
-    challengePoints: [
-      "Fragmented sources: Revenue, churn, and customer-health data lived across 9 operational systems (CRM, billing, support, product analytics).",
-      "No common identifier: There was no consistent customer or account ID connecting those systems.",
-      "Entrenched dashboards: Business units had built reporting independently over years and relied on it daily, making wholesale replacement risky.",
-    ],
-
-    solutionIntro: "A governed semantic layer, not another dashboard",
-    solutionDetail:
-      "Starfii built a cloud data platform with a unified ingestion layer pulling from all 9 source systems into a common warehouse, with a semantic layer defining shared metrics once, centrally.",
-    solution: [
-      "Unified ingestion: All 9 source systems now feed one common warehouse instead of independent per-team pipelines.",
-      "Shared metric definitions: A semantic layer defines terms like 'active customer' once, and every dashboard reads from it.",
-      "Governed AI assistant: A retrieval-augmented assistant lets stakeholders ask metric questions in plain language, sourced from the governed layer.",
-    ],
-
-    results: [
-      { metric: "0%", label: "Cross-team metric discrepancy, down from 5-10%" },
-      { metric: "4x", label: "Faster data availability for new sources" },
-      { metric: "9", label: "Source systems unified into one pipeline" },
-      { metric: "60%", label: "Less manual reporting" },
-    ],
-
-    benefitsIntro: "What changed for leadership reporting",
-    benefits: [
-      "No more reconciliation step: Leadership reviews start with the data instead of arguing about it.",
-      "Preserved dashboards: Teams kept their preferred visualizations; only the underlying numbers changed.",
-      "Self-service answers: Non-technical stakeholders get governed answers without filing a data request.",
-    ],
-
-    summary:
-      "The enterprise didn't have a reporting problem — it had 11 separate definitions of the truth. Centralizing the definitions, not the dashboards, is what made the numbers agree.",
-
-    techStack: ["Data platform unification", "Semantic/metrics layer", "Retrieval-augmented assistant", "Cloud data warehouse"],
-  },
-
-  /* ============================================================
-     CLOUD MODERNIZATION
-  ============================================================ */
-  {
-    slug: "legacy-application-cloud-modernization",
-    category: "Cloud Modernization",
-
-    title: "Turning 'Release Weekend' Into a Routine Tuesday",
-    subtitle:
-      "An enterprise technology provider's core platform hadn't shipped a release in over a year without an all-hands deployment weekend and a rollback plan on standby.",
-    cardDescription:
-      "Starfii modernized a 15-year-old application portfolio through a strangler-fig migration, replacing scheduled release weekends with routine, independent deploys.",
-
-    client: "Enterprise technology provider, 15-year-old core application portfolio",
-    industry: "Technology & Enterprise Software",
-    services: ["Legacy Software Modernization", "Cloud Engineering", "API Modernization", "DevOps Automation"],
-
-    image:
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1200&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=2000&auto=format&fit=crop",
-
-    overview: "A platform where every release was an event, not a routine",
-    clientOverview:
-      "The core platform — around 15 years of accumulated code across a dozen tightly coupled modules — could only be deployed as a single unit, and product teams had started avoiding smaller improvements simply because the release process made even small changes expensive.",
-
-    challengeIntro: "A rewrite wasn't viable, and one team held the deploy knowledge",
-    challengePoints: [
-      "No feature freeze possible: The portfolio ran the company's core revenue-generating workflows, so a 12+ month rewrite freeze wasn't commercially viable.",
-      "Single deployable unit: A full release required a scheduled weekend, an all-hands war room, and typically a partial rollback.",
-      "Undocumented process: Deployment scripts had accumulated years of manual steps that only two engineers fully understood.",
-    ],
-
-    solutionIntro: "A strangler-fig migration, one domain at a time",
-    solutionDetail:
-      "Starfii introduced new API endpoints in front of the legacy modules one domain at a time, gradually shifting traffic as each new service proved stable, rather than a big-bang cutover.",
-    solution: [
-      "Incremental migration: New services stand in front of legacy modules and take over traffic gradually, with no big-bang cutover.",
-      "Documented, automated deploys: Per-service CI/CD pipelines replaced the undocumented manual deployment process.",
-      "Risk-first prioritization: The highest-incident legacy modules were replaced first, not simply the oldest.",
-    ],
-
-    results: [
-      { metric: "War room → routine", label: "Release process for modernized services" },
-      { metric: "50%", label: "Faster release cycles for migrated modules" },
-      { metric: "12", label: "Tightly coupled modules migrated incrementally" },
-      { metric: "40%", label: "Lower deployment effort" },
-    ],
-
-    benefitsIntro: "What changed for product and engineering teams",
-    benefits: [
-      "Independent deploys: Modernized services release multiple times a week without a scheduled weekend.",
-      "Fewer release incidents: The riskiest legacy modules were replaced first, cutting release-related incidents.",
-      "Smaller changes ship again: Teams report shipping smaller improvements now that a release doesn't carry portfolio-wide risk.",
-    ],
-
-    summary:
-      "A full rewrite would have frozen the roadmap for a year the business couldn't spare. Migrating the riskiest modules first, incrementally, delivered the same outcome without the freeze.",
-
-    techStack: ["Strangler-fig migration", "API modernization", "CI/CD automation", "Incremental cloud migration"],
-  },
-
 ];
 
-/* ================================================================
-   GET CASE STUDY BY SLUG
-================================================================ */
+// Newest date first — this is what every page actually imports.
+export const caseStudies: CaseStudy[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
   return caseStudies.find((study) => study.slug === slug);

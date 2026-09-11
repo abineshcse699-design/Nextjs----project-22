@@ -3,60 +3,57 @@ export type CaseStudy = {
   image: string;
   title: string;
   body: string;
+  industry: string;
+  date: string;
 };
 
-export const caseStudies: CaseStudy[] = [
+const rawCaseStudies: CaseStudy[] = [
   {
     slug: "hospital-ai-assisted-coding",
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Modernizing Hospital Coding With AI-Assisted Clinical Intelligence",
-    body:
-      "Explore how an AI-assisted workflow can help coding teams analyze documentation faster, surface relevant coding information, and focus professional review where it adds the most value.",
+    image: "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+    title: "Modernizing Hospital Coding With AI-Assisted Clinical Intelligence",
+    body: "Explore how an AI-assisted workflow can help coding teams analyze documentation faster, surface relevant coding information, and focus professional review where it adds the most value.",
+    industry: "Healthcare",
+    date: "2025-08-14",
   },
   {
     slug: "ambulatory-coding-workflow",
-    image:
-      "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Improving Coding Turnaround Across Ambulatory Operations",
-    body:
-      "See how intelligent document analysis and structured coding recommendations can help ambulatory organizations reduce repetitive work and accelerate coding workflows.",
+    image: "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=1200&auto=format&fit=crop",
+    title: "Improving Coding Turnaround Across Ambulatory Operations",
+    body: "See how intelligent document analysis and structured coding recommendations can help ambulatory organizations reduce repetitive work and accelerate coding workflows.",
+    industry: "Healthcare",
+    date: "2025-06-02",
   },
   {
     slug: "revenue-cycle-coding-intelligence",
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Connecting Coding Intelligence With Revenue Cycle Operations",
-    body:
-      "Discover how validated coding outputs can move into claims and revenue cycle workflows to reduce rework and improve operational visibility.",
+    image: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+    title: "Connecting Coding Intelligence With Revenue Cycle Operations",
+    body: "Discover how validated coding outputs can move into claims and revenue cycle workflows to reduce rework and improve operational visibility.",
+    industry: "Healthcare",
+    date: "2025-04-18",
   },
   {
     slug: "coding-quality-compliance",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Strengthening Coding Quality, Review, and Audit Readiness",
-    body:
-      "Learn how traceable AI recommendations, validation checkpoints, and structured review workflows can support coding quality and governance programs.",
+    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+    title: "Strengthening Coding Quality, Review, and Audit Readiness",
+    body: "Learn how traceable AI recommendations, validation checkpoints, and structured review workflows can support coding quality and governance programs.",
+    industry: "Healthcare",
+    date: "2025-02-27",
   },
   {
     slug: "specialty-coding-ai",
-    image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Adapting AI Coding Workflows to Specialty Documentation",
-    body:
-      "Explore how coding intelligence can be tailored to specialty-specific terminology, documentation patterns, and organizational coding requirements.",
+    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+    title: "Adapting AI Coding Workflows to Specialty Documentation",
+    body: "Explore how coding intelligence can be tailored to specialty-specific terminology, documentation patterns, and organizational coding requirements.",
+    industry: "Healthcare",
+    date: "2025-01-09",
   },
 ];
 
-export function getCaseStudyBySlug(
-  slug: string
-): CaseStudy | undefined {
-  return caseStudies.find(
-    (study) => study.slug === slug
-  );
+export const caseStudies: CaseStudy[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+
+export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
+  return caseStudies.find((study) => study.slug === slug);
 }

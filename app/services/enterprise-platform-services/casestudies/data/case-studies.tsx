@@ -1,3 +1,5 @@
+// PLACE THIS FILE AT: app/services/enterprise-platform-services/data/case-studies.tsx
+
 export type CaseStudyResult = {
   metric: string;
   label: string;
@@ -37,9 +39,18 @@ export type CaseStudyDetail = {
   summary: string;
 
   techStack: string[];
+
+  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
+  // case study with the latest date always shows first, everywhere
+  // this data is used (enterprise-platform-services page carousel
+  // AND the /About/case-study all-case-studies filter page).
+  date: string;
 };
 
-export const caseStudies: CaseStudyDetail[] = [
+// Raw list — order here does NOT matter for display, only `date`
+// controls what shows first. Add new entries anywhere with today's
+// date (or later) and it auto-appears first everywhere.
+const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "fintech-saas-platform-mvp-to-scale",
 
@@ -108,18 +119,9 @@ export const caseStudies: CaseStudyDetail[] = [
     ],
 
     results: [
-      {
-        metric: "3 mo",
-        label: "MVP to launch",
-      },
-      {
-        metric: "5+",
-        label: "Fortune 500 clients onboarded",
-      },
-      {
-        metric: "0",
-        label: "Architecture rebuilds needed",
-      },
+      { metric: "3 mo", label: "MVP to launch" },
+      { metric: "5+", label: "Fortune 500 clients onboarded" },
+      { metric: "0", label: "Architecture rebuilds needed" },
     ],
 
     benefitsIntro:
@@ -147,6 +149,8 @@ export const caseStudies: CaseStudyDetail[] = [
       "Scalable Infrastructure",
       "DevOps",
     ],
+
+    date: "2026-02-05",
   },
 
   {
@@ -217,18 +221,9 @@ export const caseStudies: CaseStudyDetail[] = [
     ],
 
     results: [
-      {
-        metric: "55%",
-        label: "Reduction in onboarding time",
-      },
-      {
-        metric: "4.7/5",
-        label: "Customer satisfaction score",
-      },
-      {
-        metric: "3x",
-        label: "Faster feature releases",
-      },
+      { metric: "55%", label: "Reduction in onboarding time" },
+      { metric: "4.7/5", label: "Customer satisfaction score" },
+      { metric: "3x", label: "Faster feature releases" },
     ],
 
     benefitsIntro:
@@ -256,6 +251,8 @@ export const caseStudies: CaseStudyDetail[] = [
       "Secure Integration",
       "DevOps",
     ],
+
+    date: "2026-03-18",
   },
 
   {
@@ -326,18 +323,9 @@ export const caseStudies: CaseStudyDetail[] = [
     ],
 
     results: [
-      {
-        metric: "38%",
-        label: "Less documentation time",
-      },
-      {
-        metric: "HIPAA",
-        label: "Fully compliant delivery",
-      },
-      {
-        metric: "9 mo",
-        label: "Concept to production",
-      },
+      { metric: "38%", label: "Less documentation time" },
+      { metric: "HIPAA", label: "Fully compliant delivery" },
+      { metric: "9 mo", label: "Concept to production" },
     ],
 
     benefitsIntro:
@@ -365,6 +353,8 @@ export const caseStudies: CaseStudyDetail[] = [
       "Cloud Infrastructure",
       "AI Feature Engineering",
     ],
+
+    date: "2026-05-22",
   },
 
   {
@@ -435,18 +425,9 @@ export const caseStudies: CaseStudyDetail[] = [
     ],
 
     results: [
-      {
-        metric: "0",
-        label: "Downtime during peak season",
-      },
-      {
-        metric: "6x",
-        label: "Traffic capacity increase",
-      },
-      {
-        metric: "25%",
-        label: "Lower infrastructure cost",
-      },
+      { metric: "0", label: "Downtime during peak season" },
+      { metric: "6x", label: "Traffic capacity increase" },
+      { metric: "25%", label: "Lower infrastructure cost" },
     ],
 
     benefitsIntro:
@@ -474,6 +455,8 @@ export const caseStudies: CaseStudyDetail[] = [
       "DevOps",
       "Performance Engineering",
     ],
+
+    date: "2026-07-09",
   },
 
   {
@@ -544,18 +527,9 @@ export const caseStudies: CaseStudyDetail[] = [
     ],
 
     results: [
-      {
-        metric: "20%",
-        label: "Faster than planned timeline",
-      },
-      {
-        metric: "0",
-        label: "Business disruption incidents",
-      },
-      {
-        metric: "30+",
-        label: "Legacy applications modernized",
-      },
+      { metric: "20%", label: "Faster than planned timeline" },
+      { metric: "0", label: "Business disruption incidents" },
+      { metric: "30+", label: "Legacy applications modernized" },
     ],
 
     benefitsIntro:
@@ -583,13 +557,18 @@ export const caseStudies: CaseStudyDetail[] = [
       "Dependency Mapping",
       "DevOps",
     ],
+
+    date: "2026-08-30",
   },
 ];
+
+// Newest date first — this is what every page actually imports.
+export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
 
 export function getCaseStudyBySlug(
   slug: string
 ): CaseStudyDetail | undefined {
-  return caseStudies.find(
-    (study) => study.slug === slug
-  );
+  return caseStudies.find((study) => study.slug === slug);
 }

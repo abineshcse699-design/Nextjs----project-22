@@ -1,7 +1,7 @@
 // PLACE THIS FILE AT: app/About/case-study/CaseStudyFilters.tsx
 "use client";
 
-import { useMemo, useRef, useState, type ReactElement } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 import Link from "next/link";
 import { ArrowUpRight, Search, X } from "lucide-react";
 
@@ -12,6 +12,12 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
 const PINNED_KEYS = ["ai", "digital-software", "cloud"];
+
+// Pagination: 5 rows per page. Grid tops out at 3 columns (lg),
+// so a "page" is 5 rows x 3 columns worth of cards.
+const COLS = 3;
+const ROWS_PER_PAGE = 5;
+const ITEMS_PER_PAGE = COLS * ROWS_PER_PAGE;
 
 type CaseStudy = {
   slug: string;
@@ -38,6 +44,7 @@ export default function CaseStudyFilters({
   const [active, setActive] = useState<string>("all");
   const [filterOpen, setFilterOpen] = useState(false);
   const [query, setQuery] = useState("");
+  const [page, setPage] = useState(1);
   const filterRef = useRef<HTMLDivElement>(null);
 
   const pinnedGroups = useMemo(
@@ -83,15 +90,42 @@ export default function CaseStudyFilters({
 
   const isSearching = query.trim().length > 0;
 
-  const visibleGroups = useMemo(
-    () => (active === "all" ? groups : groups.filter((g) => g.key === active)),
+  // Flat list of cards for the currently active, non-search view —
+  // one continuous grid (no per-category headings), 5 rows a page.
+  const visibleFlat: FlatCaseStudy[] = useMemo(() => {
+    const list = active === "all" ? groups : groups.filter((g) => g.key === active);
+    return list.flatMap((g) =>
+      g.items.map((item) => ({ ...item, basePath: g.basePath, groupLabel: g.label }))
+    );
+  }, [active, groups]);
+
+  const activeGroupLabel = useMemo(
+    () => groups.find((g) => g.key === active)?.label ?? "",
     [active, groups]
   );
+
+  const currentList = isSearching ? searchResults : visibleFlat;
+  const totalPages = Math.max(1, Math.ceil(currentList.length / ITEMS_PER_PAGE));
+  const pagedList = useMemo(
+    () => currentList.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
+    [currentList, page]
+  );
+
+  // Reset to page 1 whenever the active filter or search query changes.
+  useEffect(() => {
+    setPage(1);
+  }, [active, query]);
 
   function selectGroup(key: string) {
     setActive(key);
     setQuery("");
     setFilterOpen(false);
+  }
+
+  function goToPage(p: number) {
+    const clamped = Math.min(Math.max(p, 1), totalPages);
+    setPage(clamped);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function renderCard(study: CaseStudy, basePath: string) {
@@ -151,6 +185,49 @@ export default function CaseStudyFilters({
     );
   }
 
+  function renderPagination() {
+    if (totalPages <= 1) return null;
+    const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    return (
+      <div className="mt-14 flex items-center justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => goToPage(page - 1)}
+          disabled={page === 1}
+          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
+        >
+          Prev
+        </button>
+        {pages.map((p) => (
+          <button
+            key={p}
+            type="button"
+            onClick={() => goToPage(p)}
+            aria-current={p === page ? "page" : undefined}
+            className="h-10 w-10 rounded-full text-[14px] font-semibold transition-colors"
+            style={
+              p === page
+                ? { backgroundColor: INDIGO_CTA, color: "#fff" }
+                : { backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }
+            }
+          >
+            {p}
+          </button>
+        ))}
+        <button
+          type="button"
+          onClick={() => goToPage(page + 1)}
+          disabled={page === totalPages}
+          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
+        >
+          Next
+        </button>
+      </div>
+    );
+  }
+
   return (
     <main className="bg-white">
       <section className={`${ALIGN} py-20 lg:py-28`}>
@@ -194,7 +271,12 @@ export default function CaseStudyFilters({
           ))}
 
           {/* Search & filter trigger — pushed to the end of the row */}
-          <div className="relative ml-auto" ref={filterRef}>
+          <div
+            className="relative ml-auto"
+            ref={filterRef}
+            onMouseEnter={() => setFilterOpen(true)}
+            onMouseLeave={() => setFilterOpen(false)}
+          >
             <button
               type="button"
               onClick={() => setFilterOpen((v) => !v)}
@@ -212,116 +294,114 @@ export default function CaseStudyFilters({
             </button>
 
             {filterOpen && (
-              <div
-                className="absolute right-0 z-20 mt-3 w-[300px] rounded-2xl bg-white p-4 shadow-xl"
-                style={{ border: "1px solid #ECE7FB" }}
-              >
-                <div className="flex items-center justify-between">
-                  <span
-                    className="font-body text-[12px] font-semibold tracking-wide"
-                    style={{ color: INDIGO_CTA }}
-                  >
-                    SEARCH & FILTER
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setFilterOpen(false)}
-                    aria-label="Close"
-                    className="text-slate-400 hover:text-slate-600"
-                  >
-                    <X size={16} />
-                  </button>
-                </div>
-
-                {/* Search input */}
+              // Outer wrapper sits flush against the button (top-full, no
+              // margin) so the gap is filled with real, hoverable padding
+              // instead of empty space that would break the hover state.
+              <div className="absolute right-0 top-full z-20 w-[300px] pt-3">
                 <div
-                  className="mt-3 flex items-center gap-2 rounded-full px-4 py-2"
-                  style={{ backgroundColor: "#F3F1FD" }}
+                  className="rounded-2xl bg-white p-4 shadow-xl"
+                  style={{ border: "1px solid #ECE7FB" }}
                 >
-                  <Search size={15} color={CHAMPION_BLUE} />
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search case studies..."
-                    className="w-full bg-transparent text-[14px] outline-none"
-                    style={{ color: CHAMPION_BLUE }}
-                  />
-                  {query && (
+                  <div className="flex items-center justify-end">
                     <button
                       type="button"
-                      onClick={() => setQuery("")}
-                      aria-label="Clear search"
+                      onClick={() => setFilterOpen(false)}
+                      aria-label="Close"
                       className="text-slate-400 hover:text-slate-600"
                     >
-                      <X size={14} />
+                      <X size={16} />
                     </button>
-                  )}
-                </div>
+                  </div>
 
-                {/* Remaining categories */}
-                <div className="mt-4 flex flex-col gap-1">
-                  {extraGroupMatches.map((g) => (
-                    <button
-                      key={g.key}
-                      type="button"
-                      onClick={() => selectGroup(g.key)}
-                      className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors"
-                      style={
-                        active === g.key && !isSearching
-                          ? { backgroundColor: "#F3F1FD", color: INDIGO_CTA }
-                          : { color: CHAMPION_BLUE }
-                      }
-                    >
-                      {g.label}
-                    </button>
-                  ))}
-                  {extraGroupMatches.length === 0 && (
-                    <p className="px-3 py-2 text-[13px] text-slate-400">
-                      No categories match.
-                    </p>
-                  )}
+                  {/* Search input */}
+                  <div
+                    className="mt-1 flex items-center gap-2 rounded-full px-4 py-2"
+                    style={{ backgroundColor: "#F3F1FD" }}
+                  >
+                    <Search size={15} color={CHAMPION_BLUE} />
+                    <input
+                      type="text"
+                      value={query}
+                      onChange={(e) => setQuery(e.target.value)}
+                      placeholder="Search case studies..."
+                      className="w-full bg-transparent text-[14px] outline-none"
+                      style={{ color: CHAMPION_BLUE }}
+                    />
+                    {query && (
+                      <button
+                        type="button"
+                        onClick={() => setQuery("")}
+                        aria-label="Clear search"
+                        className="text-slate-400 hover:text-slate-600"
+                      >
+                        <X size={14} />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Remaining categories */}
+                  <div className="mt-4 flex flex-col gap-1">
+                    {extraGroupMatches.map((g) => (
+                      <button
+                        key={g.key}
+                        type="button"
+                        onClick={() => selectGroup(g.key)}
+                        className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors"
+                        style={
+                          active === g.key && !isSearching
+                            ? { backgroundColor: "#F3F1FD", color: INDIGO_CTA }
+                            : { color: CHAMPION_BLUE }
+                        }
+                      >
+                        {g.label}
+                      </button>
+                    ))}
+                    {extraGroupMatches.length === 0 && (
+                      <p className="px-3 py-2 text-[13px] text-slate-400">
+                        No categories match.
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
             )}
           </div>
         </div>
 
-        {/* SEARCHING: flat results across every category */}
-        {isSearching && (
-          <div className="mt-14">
+        {/* Heading: search results, or the selected category's name */}
+        {isSearching ? (
+          <h2
+            className="font-heading mt-14 text-[24px] font-medium leading-[1.15]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            {searchResults.length > 0
+              ? `Results for "${query}"`
+              : `No case studies found for "${query}"`}
+          </h2>
+        ) : (
+          active !== "all" && (
             <h2
-              className="font-heading text-[24px] font-medium leading-[1.15]"
+              className="font-heading mt-14 text-[26px] font-medium leading-[1.15] lg:text-[30px]"
               style={{ color: CHAMPION_BLUE }}
             >
-              {searchResults.length > 0
-                ? `Results for "${query}"`
-                : `No case studies found for "${query}"`}
+              {activeGroupLabel}
             </h2>
-            <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {searchResults.map((study) => renderCard(study, study.basePath))}
-            </div>
-          </div>
+          )
         )}
 
-        {/* NOT SEARCHING: normal pill-filtered grid(s) */}
-        {!isSearching &&
-          visibleGroups.map((g) => (
-            <div key={g.key} className="mt-14 first:mt-10">
-              {active === "all" && (
-                <h2
-                  className="font-heading text-[26px] font-medium leading-[1.15] lg:text-[30px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {g.label}
-                </h2>
-              )}
-              <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
-                {g.items.map((study) => renderCard(study, g.basePath))}
-              </div>
-            </div>
-          ))}
+        {/* Single flat grid — 5 rows per page */}
+        <div
+          className={`grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3 ${
+            isSearching || active !== "all" ? "mt-8" : "mt-14"
+          }`}
+        >
+          {pagedList.map((study) => renderCard(study, study.basePath))}
+        </div>
+
+        {renderPagination()}
       </section>
     </main>
+    
   );
+
 }

@@ -43,6 +43,7 @@ export default function CaseStudyTabs() {
           );
         }
       },
+      
       {
         root: null,
         rootMargin: "-18% 0px -62% 0px",
@@ -122,6 +123,9 @@ export default function CaseStudyTabs() {
           );
         })}
       </div>
+
     </nav>
+
   );
+
 }
