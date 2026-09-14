@@ -286,56 +286,55 @@ type InsightPost = {
   body: string;
 };
 
-const insights: InsightPost[] = [
+const insights = [
   {
     slug: "legacy-modernization-with-generative-ai",
-    large: true,
-    image:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Legacy Modernization with Generative AI: Faster Assessment, Safer Migration, Future Ready Systems",
+      "Legacy Modernization with Generative AI",
     body:
-      "Explore how Starfii uses generative AI to accelerate legacy assessment, automate code translation, and de risk cloud migration for complex application portfolios.",
+      "How generative AI can accelerate legacy assessment and modernization.",
+    image: "/images/blog/legacy-ai.jpg",
+    large: true,
   },
+
   {
     slug: "when-to-rearchitect-vs-replatform",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title:
-      "When to Re Architect vs Re Platform a Legacy System",
+      "When to Re Architect vs Re Platform",
     body:
-      "Not every legacy system needs a rebuild. See how Starfii decides between re architecting, re platforming, and re engineering based on risk, cost, and timeline.",
+      "How to choose the right modernization path for legacy systems.",
+    image: "/images/blog/rearchitect-replatform.jpg",
+    large: false,
   },
+
   {
     slug: "cloud-migration-without-downtime",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
     title:
-      "Cloud Migration Without Downtime: A Practical Playbook",
+      "Cloud Migration Without Downtime",
     body:
-      "Stop trading uptime for modernization. See how Starfii's phased cloud migration approach keeps legacy systems running while the new platform comes online.",
+      "A practical approach to moving legacy workloads to the cloud.",
+    image: "/images/blog/cloud-migration.jpg",
+    large: false,
   },
+
   {
     slug: "database-modernization-strategies",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
     title:
-      "Database Modernization Strategies for Legacy Enterprises",
+      "Database Modernization Strategies",
     body:
-      "Discover how database modernization improves performance and cost efficiency for enterprises still running on decades old data platforms.",
+      "Modern approaches for legacy enterprise databases.",
+    image: "/images/blog/database-modernization.jpg",
+    large: false,
   },
+
   {
     slug: "building-a-modernization-roadmap",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
     title:
-      "Building a Modernization Roadmap Enterprises Can Actually Follow",
+      "Building a Modernization Roadmap",
     body:
-      "Learn how a phased modernization roadmap sequences legacy assessment, migration, and re engineering work so value shows up early and risk stays contained.",
+      "How to create a practical roadmap for legacy transformation.",
+    image: "/images/blog/modernization-roadmap.jpg",
+    large: false,
   },
 ];
 /* ===============================================================
@@ -1406,21 +1405,21 @@ export default function LegacyModernizationSection(): ReactElement {
     <Reveal className="flex items-center justify-between">
       <div>
         <Eyebrow>Legacy Modernization</Eyebrow>
+
         <h2
           className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
           style={{ color: CHAMPION_BLUE }}
         >
-          {"What's New in Legacy Modernization"}
+          What's New in Legacy Modernization
         </h2>
       </div>
 
       <Link
-        href="/services/legacy-modernization/blogs"
+        href="/services/legacy-Modernization/blogs"
         className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
         style={{ color: INDIGO_CTA }}
       >
         View All Insights
-
         <ArrowUpRight size={16} />
       </Link>
     </Reveal>
@@ -1443,12 +1442,13 @@ export default function LegacyModernizationSection(): ReactElement {
             }`}
           >
             <Link
-              href={`/services/legacy-modernization/blogs/${post.slug}`}
+              href={`/services/legacy-Modernization/blogs/${post.slug}`}
               className="block h-full"
               aria-label={`Read ${post.title}`}
             >
               {post.large ? (
                 <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+
                   <img
                     src={post.image}
                     alt={post.title}
@@ -1456,6 +1456,7 @@ export default function LegacyModernizationSection(): ReactElement {
                   />
 
                   <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+
                     <span
                       className="font-body text-[12px] font-semibold tracking-wide"
                       style={{
@@ -1491,10 +1492,12 @@ export default function LegacyModernizationSection(): ReactElement {
                         className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
                       />
                     </span>
+
                   </div>
                 </div>
               ) : (
                 <div className="group">
+
                   <div className="h-[220px] overflow-hidden rounded-2xl">
                     <img
                       src={post.image}
@@ -1504,6 +1507,7 @@ export default function LegacyModernizationSection(): ReactElement {
                   </div>
 
                   <div className="pt-5">
+
                     <span
                       className="font-body text-[12px] font-semibold tracking-wide"
                       style={{
@@ -1539,6 +1543,7 @@ export default function LegacyModernizationSection(): ReactElement {
                         className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
                       />
                     </span>
+
                   </div>
                 </div>
               )}

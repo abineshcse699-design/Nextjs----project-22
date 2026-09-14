@@ -39,6 +39,24 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// -----------------------------------------------------------------
+// FIX: single source of truth for this service's route base.
+// Every internal link on this page is now built from this constant
+// instead of hardcoded strings, so the folder name and every link
+// can never drift apart again. This MUST match the actual folder
+// name on disk exactly, letter for letter, including case —
+// Next.js routes are case sensitive in production even though a
+// mismatch can silently "work" on some local dev setups.
+//
+// This assumes the route folder has been renamed to lowercase
+// "itsm-migration" (app/services/itsm-migration/...). If you
+// instead keep the folder as "ITSM-Migration", change BASE_PATH
+// below to match that casing exactly — but pick ONE and use it
+// everywhere, including in blogData.ts, BlogDetail.tsx, and the
+// blogs [slug]/page.tsx canonical path.
+// -----------------------------------------------------------------
+const BASE_PATH = "/services/ITSM-Migration";
+
 // Autoplay timing for the "ITSM Migration & Transformation" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
@@ -841,13 +859,13 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
           >
-            <a href="/" className="hover:underline">
+            <Link href="/" className="hover:underline">
               Home
-            </a>
+            </Link>
             <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
+            <Link href="/services" className="hover:underline">
               Services
-            </a>
+            </Link>
             <ChevronRight size={14} />
             <span className="text-slate-500">ITSM Migration &amp; Transformation</span>
           </nav>
@@ -1154,7 +1172,7 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -1173,8 +1191,7 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-  
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </div>
@@ -1186,8 +1203,8 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
           IMPACT ACROSS ECOSYSTEM (dark)
           (162-167. Data migration through Integration migration)
       ============================================================ */}
-    
-<section className="relative overflow-hidden bg-[#08070F] py-24">
+
+      <section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
@@ -1238,7 +1255,7 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
           </div>
         </div>
 
-</section>
+      </section>
 
 
       {/* ============================================================
@@ -1264,247 +1281,262 @@ export default function ItsmMigrationTransformationSection(): ReactElement {
                 Case Studies
               </h2>
             </div>
-            <a
-              href="#"
+            {/* FIX: was hardcoded "#", now a real link so "View All"
+                actually navigates somewhere. Point this at your real
+                case studies index route if different from BASE_PATH. */}
+            <Link
+              href={`${BASE_PATH}/casestudies`}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
-         <div className="mt-12">
- <StepCarousel
-  items={caseStudies}
-  itemsPerPage={{
-    mobile: 1,
-    tablet: 2,
-    desktop: 3,
-  }}
-  arrowVariant="light"
-  renderItem={(study, i) => (
-    <Reveal
-      delay={(i % 3) * 90}
-      className="h-full"
-    >
-      <Link
-         href={`/services/ITSM-Migration/casestudies/${study.slug}`}
-        aria-label={`Read case study: ${study.title}`}
-        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
-        style={{
-          border: "1px solid #E5E1F5",
-        }}
-      >
-        {/* IMAGE */}
-        <div className="h-[220px] flex-shrink-0 overflow-hidden">
-          <img
-            src={study.image}
-            alt={study.title}
-            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-          />
-        </div>
+          <div className="mt-12">
+            <StepCarousel
+              items={caseStudies}
+              itemsPerPage={{
+                mobile: 1,
+                tablet: 2,
+                desktop: 3,
+              }}
+              arrowVariant="light"
+              renderItem={(study, i) => (
+                <Reveal
+                  delay={(i % 3) * 90}
+                  className="h-full"
+                >
+                  {/* FIX: was hardcoded "/services/ITSM-Migration/casestudies/..."
+                      (capital, mismatched with the blog links below).
+                      Now built from the same BASE_PATH constant as every
+                      other link on this page, so it can never drift out
+                      of sync with the actual folder name again. */}
+                  <Link
+                    href={`${BASE_PATH}/casestudies/${study.slug}`}
+                    aria-label={`Read case study: ${study.title}`}
+                    className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+                    style={{
+                      border: "1px solid #E5E1F5",
+                    }}
+                  >
+                    {/* IMAGE */}
+                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
+                      <img
+                        src={study.image}
+                        alt={study.title}
+                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                    </div>
 
-        {/* CONTENT */}
-        <div className="flex flex-1 flex-col p-6">
+                    {/* CONTENT */}
+                    <div className="flex flex-1 flex-col p-6">
 
-          <span
-            className="font-body text-[12px] font-semibold tracking-wide"
-            style={{
-              color: INDIGO_CTA,
-            }}
-          >
-            CASE STUDY
-          </span>
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-wide"
+                        style={{
+                          color: INDIGO_CTA,
+                        }}
+                      >
+                        CASE STUDY
+                      </span>
 
-          <h3
-            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-            style={{
-              color: CHAMPION_BLUE,
-            }}
-          >
-            {study.title}
-          </h3>
+                      <h3
+                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                        style={{
+                          color: CHAMPION_BLUE,
+                        }}
+                      >
+                        {study.title}
+                      </h3>
 
-          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-            {study.body}
-          </p>
+                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                        {study.body}
+                      </p>
 
-          {/* LEARN MORE — no longer its own <Link>: the whole card above
-              is now the Link, so this is just a visual affordance that
-              reacts to the card's hover state via the shared "group" class. */}
-          <span
-            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
-            style={{
-              color: INDIGO_CTA,
-            }}
-          >
-            Learn More
-            <ArrowUpRight size={15} />
-          </span>
+                      {/* LEARN MORE — no longer its own <Link>: the whole card above
+                          is now the Link, so this is just a visual affordance that
+                          reacts to the card's hover state via the shared "group" class. */}
+                      <span
+                        className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
+                        style={{
+                          color: INDIGO_CTA,
+                        }}
+                      >
+                        Learn More
+                        <ArrowUpRight size={15} />
+                      </span>
 
-        </div>
-      </Link>
-    </Reveal>
-  )}
-/>
-</div>
+                    </div>
+                  </Link>
+                </Reveal>
+              )}
+            />
+          </div>
 
         </div>
       </section>
 
-   
-{/* ============================================================
-    INSIGHTS / WHAT'S NEW
-============================================================ */}
-<section className="bg-[#EEF0F7] py-24">
-  <div className={ALIGN}>
-    <Reveal className="flex items-center justify-between">
-      <div>
-        <Eyebrow>ITSM Migration &amp; Transformation</Eyebrow>
-        <h2
-          className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-          style={{ color: CHAMPION_BLUE }}
-        >
-          {"What's New in ITSM Migration & Transformation"}
-        </h2>
-      </div>
 
-      <Link
-        href="/services/itsm-migration/blogs"
-        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-        style={{ color: INDIGO_CTA }}
-      >
-        View All Insights
+      {/* ============================================================
+          INSIGHTS / WHAT'S NEW
+      ============================================================ */}
+      <section className="bg-[#EEF0F7] py-24">
+        <div className={ALIGN}>
+          <Reveal className="flex items-center justify-between">
+            <div>
+              <Eyebrow>ITSM Migration &amp; Transformation</Eyebrow>
+              <h2
+                className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {"What's New in ITSM Migration & Transformation"}
+              </h2>
+            </div>
 
-        <ArrowUpRight size={16} />
-      </Link>
-    </Reveal>
-
-    <div className="mt-12">
-      <Carousel
-        itemCount={insights.length}
-        arrowVariant="light"
-        clickToAdvance
-      >
-        {insights.map((post, i) => (
-          <Reveal
-            key={post.slug}
-            delay={i * 90}
-            data-carousel-card
-            className={`flex-shrink-0 snap-start ${
-              post.large
-                ? "w-[420px]"
-                : "w-[340px]"
-            }`}
-          >
+            {/* FIX: built from BASE_PATH instead of a hardcoded string,
+                so it always matches the [slug] route folder exactly. */}
             <Link
-              href={`/services/itsm-migration/blogs/${post.slug}`}
-              className="block h-full"
-              aria-label={`Read ${post.title}`}
+              href={`${BASE_PATH}/blogs`}
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+              style={{ color: INDIGO_CTA }}
             >
-              {post.large ? (
-                <div className="group relative h-[420px] overflow-hidden rounded-2xl">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
+              View All Insights
 
-                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      BLOG
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <span
-                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-
-                      <ArrowUpRight
-                        size={14}
-                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      />
-                    </span>
-                  </div>
-                </div>
-              ) : (
-                <div className="group">
-                  <div className="h-[220px] overflow-hidden rounded-2xl">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  </div>
-
-                  <div className="pt-5">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      BLOG
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <span
-                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-
-                      <ArrowUpRight
-                        size={14}
-                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
-                      />
-                    </span>
-                  </div>
-                </div>
-              )}
+              <ArrowUpRight size={16} />
             </Link>
           </Reveal>
-        ))}
-      </Carousel>
-    </div>
-  </div>
-</section>
+
+          <div className="mt-12">
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance
+            >
+              {insights.map((post, i) => (
+                <Reveal
+                  key={post.slug}
+                  delay={i * 90}
+                  data-carousel-card
+                  className={`flex-shrink-0 snap-start ${
+                    post.large
+                      ? "w-[420px]"
+                      : "w-[340px]"
+                  }`}
+                >
+                  {/* FIX: was hardcoded "/services/itsm-migration/blogs/...".
+                      Now built from BASE_PATH so it is guaranteed to match
+                      the case studies links above and the actual folder
+                      name on disk, instead of relying on two separate
+                      hardcoded strings staying in sync by hand. */}
+                  <Link
+                    href={`${BASE_PATH}/blogs/${post.slug}`}
+                    className="block h-full"
+                    aria-label={`Read ${post.title}`}
+                  >
+                    {post.large ? (
+                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+
+                        <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{
+                              color: CHAMPION_BLUE,
+                            }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            Read More
+
+                            <ArrowUpRight
+                              size={14}
+                              className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="group">
+                        <div className="h-[220px] overflow-hidden rounded-2xl">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        </div>
+
+                        <div className="pt-5">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{
+                              color: CHAMPION_BLUE,
+                            }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            style={{
+                              color: INDIGO_CTA,
+                            }}
+                          >
+                            Read More
+
+                            <ArrowUpRight
+                              size={14}
+                              className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                            />
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </Link>
+                </Reveal>
+              ))}
+            </Carousel>
+          </div>
+        </div>
+      </section>
 
       {/* ============================================================
           CLOSING CTA

@@ -46,11 +46,10 @@ const TAB_AUTOPLAY_MS = 4000;
 // URL: /services/enterprise-platform-services
 // (kept in sync with the actual folder this file lives in — see
 // CASE_STUDY_BASE / BLOG_BASE below, which must match [slug] routes)
-const BLOG_BASE =
-  "/services/quality-engineering/blogs";
+const BLOG_BASE = "/services/Quality-Engineering/blogs";
 
 const CASE_STUDY_BASE =
-  "/services/quality-engineering/casestudies";
+  "/services/Quality-Engineering/casestudies";
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
