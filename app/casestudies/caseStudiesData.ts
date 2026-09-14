@@ -28,12 +28,12 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 1,
-  slug: "doodley-pet-care-ecosystem",
+  slug: "doodley",
 
   title: "Doodley: Building a Pet Care Ecosystem MVP in Just 2 Months",
 
   subtitle:
-    "How Doodley brought convenient, hospital backed veterinary care to pet parents through a digital first pet care ecosystem.",
+    "Building a connected pet-care ecosystem MVP across veterinary services and digital care experiences.",
 
   category: "Healthcare & Pet Care Technology",
 
@@ -146,20 +146,18 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 2,
-  slug: "third-biome-building-indias-first-proprietary-postbiotic-ecommerce-brand",
+  slug: "third-biome",
 
   title: "Third Biome: Building a Science Led E Commerce Experience for Gut Health",
 
   subtitle:
-    "Creating a science led digital health commerce experience that transforms complex gut health science into a simple, trusted daily wellness journey.",
+    "Building a science-led digital commerce experience for gut-health products.",
 
   category:
     "E Commerce & Digital Health",
 
   cardDescription:
     "Third Biome brings clinically informed postbiotic science to consumers through a premium e commerce experience — combining product education, evidence led storytelling, personalized discovery, and a seamless path from learning to purchase.",
-
-  // UPDATED: Science + Biotech + Digital Technology
 
   image:
     "https://static.wixstatic.com/media/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png/v1/fill/w_980%2Ch_551%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png",
@@ -168,7 +166,7 @@ export const caseStudies: CaseStudy[] = [
     "https://static.wixstatic.com/media/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png/v1/fill/w_1600%2Ch_900%2Cal_c%2Cq_90%2Cusm_0.66_1.00_0.01%2Cenc_avif%2Cquality_auto/b58c66_928929a5140548a99c5050aee0bc0c2e~mv2.png",
 
   client: "Third Biome",
-  
+
   industry: "Health, Wellness & E Commerce",
 
   services: [
@@ -260,12 +258,12 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 3,
-  slug: "jett-ai-meeting-assistant",
+  slug: "jett-ai",
 
   title: "JETT AI\nIntelligent Meeting Assistant",
 
   subtitle:
-    "Transforming meetings into intelligent, searchable, and actionable conversations automatically.",
+    "Building an intelligent meeting assistant that turns conversations into transcripts, summaries and actionable outcomes.",
 
   category: "AI Solutions & Intelligent Automation",
 
@@ -394,19 +392,18 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 4,
-  slug: "appmd-virtual-healthcare-platform",
+  slug: "appmd",
 
   title: "AppMD: Transforming Healthcare Through Connected Virtual Care",
 
   subtitle:
-    "Bringing patients and physicians closer through secure, accessible, and technology enabled healthcare experiences.",
+    "Building a connected virtual-care platform that improves access to digital healthcare experiences.",
 
   category: "Healthcare Technology & Digital Transformation",
 
   cardDescription:
     "AppMD is a virtual healthcare platform designed to connect patients with qualified physicians across the United States and India, making expert medical consultation more accessible through a convenient digital experience.",
 
-  // UPDATED: Telemedicine + Digital Healthcare Technology
   image:
     "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
 
@@ -527,13 +524,13 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 5,
-  slug: "kareersity-pharmaceutical-education-career-readiness-platform",
+  slug: "kareersity",
 
   title:
     "KareerSity: Transforming Pharmaceutical Education into a Career Ready Digital Learning Experience",
 
   subtitle:
-    "Bridging the gap between academic learning and industry expectations through practical education, professional upskilling, career development, and industry led learning.",
+    "Connecting pharmaceutical education with industry-focused learning, career development and digital experiences.",
 
   category: "EdTech & Digital Learning",
 
@@ -639,13 +636,13 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 6,
-  slug: "filecentral-ai-powered-file-management-platform",
+  slug: "filecentral",
 
   title:
     "Filecentral: Building an AI Powered File Management Platform for Smarter Information Access",
 
   subtitle:
-    "Transforming scattered business files into an intelligent, searchable, and secure workspace where teams can find information, interact with documents, and turn stored data into actionable insights.",
+    "Building an AI-powered file management platform for intelligent information access.",
 
   category: "AI/ML & SaaS",
 
@@ -758,13 +755,13 @@ export const caseStudies: CaseStudy[] = [
 
 {
   id: 7,
-  slug: "express-roadways-technology-driven-logistics-platform",
+  slug: "express-roadways",
 
   title:
     "Express Roadways: Building a Technology Driven Logistics Platform for Smarter Supply Chain Operations",
 
   subtitle:
-    "Modernizing freight, warehousing, tracking, and supply chain operations through a connected digital experience built for visibility, reliability, and operational efficiency.",
+    "Building technology-driven logistics capabilities for smarter supply chain operations and visibility.",
 
   category:
     "Logistics Technology & Supply Chain",

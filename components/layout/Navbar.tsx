@@ -497,17 +497,27 @@ function FeaturedCard({
 
 /* ===============================================================
    SERVICES  (Service Now now lives here as a list item)
+
+================================================================ */
+/* ===============================================================
+   SERVICES MEGA MENU
+   Depends on shared navbar helpers already defined in this module:
+   ColumnTitle, LinkItem, FeaturedCard, and the theme token object T.
 ================================================================ */
 function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const services = [
-    { label: "Digital & Software", href: "/services/digital-software" },
+    { label: "Software & Product Engineering ", href: "/services/digital-software" },
     { label: "Data & Analytics", href: "/services/data-analytics" },
-    { label: "Digital IT Operations", href: "/services/digital-it-operations" },
-    { label: "Cloud", href: "/services/cloud" },
-    { label: "Enterprise Platforms Services", href: "/services/enterprise-platform-services" },
-    { label: "Business Process Services", href: "/services/business-process-services" },
-    { label: "Artificial Intelligence", href: "/services/artificial-intelligence" },
-    { label: "Global Capability Centers", href: "/services/global-capability-centers" },
+    // { label: "Digital IT Operations", href: "/services/digital-it-operations" },
+    { label: "Cloud & DevOps", href: "/services/cloud" },
+    // { label: "enter prise", href: "/services/enterprise-platform-services" },
+    { label: "legacy-modernization", href: "/services/legacy-Modernization" },
+    { label: "ITSM & Service Management", href: "/services/artificial-intelligence" },
+    { label: "Freshservice", href: "/services/global-capability-centers" },
+    // { label: "Software & Product Engineering", href: "/services/Software & Product Engineering" },
+       { label: "ITSM & Migration", href: "/services/ITSM-Migration" },
+        { label: "quality-engineering", href: "/services/Quality-Engineering" },
+
     { label: "Service Now", href: "/services/servicenow" },
   ];
 
@@ -578,20 +588,36 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
    PLATFORMS
 ================================================================ */
 
+// import Link from "next/link";
+// import { ArrowUpRight } from "lucide-react";
+
+// NOTE: ColumnTitle and T (theme tokens) are assumed to already be defined /
+// imported in this file, same as in your original snippet. If they live in a
+// separate file, import them the same way you were importing them before,
+// e.g.:
+// import { ColumnTitle } from "./ColumnTitle";
+// import { T } from "@/lib/theme";
+
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
       name: "Turbodev ",
       desc: "The revenue engine for Shopify brands — recover lost sales and grow profit from existing customers",
-         href: "https://turbodev.ai/",
+      href: "https://turbodev.ai/",
       newTab: true,
     },
     {
-      name: "Tensai®",
-      desc: "Automate your essential processes to increase quality and efficiency",
-      href: "/platform/tensai",
+      name: "TurboDesk",
+      desc: "Intelligent service and operations platform — unify requests, automate resolution, and speed up every team's workflow",
+      href: "/platform/turbodesk",
       newTab: false,
     },
+    // {
+    //   name: "Tensai®",
+    //   desc: "Automate your essential processes to increase quality and efficiency",
+    //   href: "/platform/tensai",
+    //   newTab: false,
+    // },
     {
       name: "Amaze®",
       desc: "Speed up and steady your product, platform, process, and data journey to the cloud",
@@ -650,30 +676,28 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
+
+// export default PlatformsMenu;
+
 /* ===============================================================
    INDUSTRIES
 ================================================================ */
 function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const industriesLeft = [
     { label: "Banking", href: "/industries/banking" },
-    { label: "Consumer Goods", href: "/industries/consumer-goods" },
-    { label: "Education & Institutions", href: "/industries/education-institutions" },
-    { label: "Energy & Utilities", href: "/industries/energy-utilities" },
     { label: "Financial Services", href: "/industries/financial-services" },
-    { label: "Healthcare", href: "/industries/healthcare" },
     { label: "Insurance", href: "/industries/insurance" },
-    { label: "Life Sciences", href: "/industries/life-sciences" },
+    { label: "Healthcare & Life Sciences", href: "/industries/healthcare-life-sciences" },
     { label: "Manufacturing", href: "/industries/manufacturing" },
+    { label: "Retail & Consumer", href: "/industries/retail-consumer" },
   ];
   const industriesRight = [
-    { label: "Private Equity", href: "/industries/private-equity" },
-    { label: "Professional Services", href: "/industries/professional-services" },
-    { label: "Public Sector", href: "/industries/public-sector" },
-    { label: "Retail", href: "/industries/retail" },
-    { label: "Technology, Products & Platforms", href: "/industries/technology-products-platforms" },
-    { label: "Telecom", href: "/industries/telecom" },
+    { label: "Education & Institutions", href: "/industries/education-institutions" },
     { label: "Transportation & Logistics", href: "/industries/transportation-logistics" },
     { label: "Travel & Hospitality", href: "/industries/travel-hospitality" },
+    { label: "Technology, Products & Platforms", href: "/industries/technology-products-platforms" },
+    { label: "Professional Services", href: "/industries/professional-services" },
+    { label: "Telecom & Utilities", href: "/industries/telecom-utilities" },
   ];
 
   return (
@@ -697,7 +721,6 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
-
 /* ===============================================================
    ABOUT
    Routes now match the actual folder casing under /app/About/*

@@ -7,6 +7,11 @@ import {
   Users,
   Globe2,
   Rocket,
+  Eye,
+  Compass,
+  Cpu,
+  Workflow,
+  MapPin,
 } from "lucide-react";
 
 /* Same token system as the navbar — kept identical on purpose so the
@@ -29,7 +34,7 @@ const CONTAINER = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 export const metadata = {
   title: "About Starfii | AI-Driven Product Engineering",
   description:
-    "Starfii is a product engineering company that builds scalable, AI-driven software for enterprise and SaaS teams. Learn our story, mission, and values.",
+    "Starfii Technologies builds intelligent technology solutions that help businesses move from ideas to meaningful digital outcomes.",
 };
 
 const stats = [
@@ -39,6 +44,7 @@ const stats = [
   { value: "6", label: "Countries served" },
 ];
 
+/* 425 — Values */
 const values = [
   {
     icon: Target,
@@ -66,6 +72,7 @@ const values = [
   },
 ];
 
+/* 421 — Our Story */
 const timeline = [
   {
     year: "2016",
@@ -89,6 +96,51 @@ const timeline = [
   },
 ];
 
+/* 426 — Technology expertise */
+const expertise = [
+  {
+    icon: Cpu,
+    title: "AI & data engineering",
+    body: "LLM-powered products, agentic workflows, data platforms, and MLOps built for production, not demos.",
+  },
+  {
+    icon: Globe2,
+    title: "Cloud & platform engineering",
+    body: "AWS, GCP, and Azure architectures designed to scale from first launch to enterprise load.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Product & full-stack engineering",
+    body: "Web, mobile, and backend systems built with the same rigor as an in-house senior team.",
+  },
+];
+
+/* 427 — Delivery approach */
+const delivery = [
+  {
+    icon: Workflow,
+    title: "Embedded pods, not vendors",
+    body: "We plug into your roadmap and rituals — standups, sprints, and metrics — as an extension of your team.",
+  },
+  {
+    icon: Rocket,
+    title: "Ship in weeks, not quarters",
+    body: "AI-accelerated engineering and reusable platform pieces get a working product in front of users fast.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Built for what happens after launch",
+    body: "Monitoring, security, and on-call are part of the plan from day one, not an afterthought post-handoff.",
+  },
+];
+
+/* 428 — Global presence */
+const presence = [
+  { region: "India", detail: "Engineering hubs delivering core product and platform work." },
+  { region: "North America", detail: "Client-facing teams for enterprise and SaaS partnerships." },
+  { region: "Middle East", detail: "Delivery support for fintech and enterprise engagements." },
+];
+
 export default function AboutStarfiiPage() {
   return (
     <main className="bg-white">
@@ -102,10 +154,10 @@ export default function AboutStarfiiPage() {
             We build the products enterprises bet their next decade on.
           </h1>
           <p className={`mt-6 max-w-2xl text-[18px] leading-relaxed ${T.muted}`}>
-            Starfii is a product engineering partner for teams who need to
-            ship real software, not slideware. We pair senior engineers with
-            an AI-native delivery model to take products from first sketch to
-            production — and keep them running once they're live.
+            Starfii Technologies builds intelligent technology solutions that
+            help businesses move from ideas to meaningful digital outcomes —
+            with senior engineers and an AI-native delivery model, from first
+            sketch to production.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <Link
@@ -137,71 +189,41 @@ export default function AboutStarfiiPage() {
         </div>
       </section>
 
-      {/* Mission */}
+      {/* 420 — Who We Are */}
       <section className="py-20 lg:py-28">
         <div className={`grid grid-cols-1 gap-14 lg:grid-cols-[0.9fr_1.1fr] ${CONTAINER}`}>
           <div>
             <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
-              Our mission
+              Who We Are
             </p>
             <h2 className={`mt-4 text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
-              Make world-class product engineering accessible to teams who
-              don't have the luxury of hiring 40 engineers.
+              A product engineering partner for teams who need to ship real
+              software, not slideware.
             </h2>
           </div>
           <div className={`space-y-5 text-[16.5px] leading-relaxed ${T.muted}`}>
             <p>
-              Most companies with a strong product idea don't fail on the
-              idea — they stall on execution: the founding engineer leaves,
-              the roadmap outgrows the team, or the MVP was never built to
-              scale past the first hundred users.
+              Starfii Technologies is a team of senior product engineers,
+              data scientists, and AI specialists who embed directly into
+              your roadmap. We've done this for fintech, healthcare, and
+              e-commerce teams building for Fortune 500 customers, and for
+              founders building their very first release.
             </p>
             <p>
-              Starfii exists to close that gap. We embed senior product
-              engineers, data scientists, and AI specialists directly into
-              your team, working against your roadmap and your metrics, so
-              the product ships like it was built in-house — just faster,
-              and with a bench you don't have to carry on your own payroll.
-            </p>
-            <p>
-              We've done this for fintech, healthcare, and e-commerce teams
-              building for Fortune 500 customers, and for founders building
-              their very first release. The scale changes; the standard of
-              engineering doesn't.
+              We don't hand off a spec and disappear — we work against your
+              metrics, in your sprints, as if we were hired in-house. The
+              scale of the engagement changes; the standard of engineering
+              never does.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Values */}
+      {/* 421 — Our Story */}
       <section className={`${T.panelBg} py-20 lg:py-28`}>
         <div className={CONTAINER}>
           <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
-            How we work
-          </p>
-          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
-            Four principles every engagement is held to.
-          </h2>
-
-          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
-            {values.map((v) => (
-              <div key={v.title} className={`rounded-lg border ${T.border} bg-white p-7`}>
-                <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
-                  <v.icon size={20} className="text-white" strokeWidth={2.25} />
-                </div>
-                <h3 className={`mt-5 text-[18px] font-semibold ${T.ink}`}>{v.title}</h3>
-                <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{v.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Timeline */}
-      <section className="py-20 lg:py-28">
-        <div className={CONTAINER}>
-          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
-            Our story
+            Our Story
           </p>
           <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
             From a two-person build to an AI-native engineering partner.
@@ -228,7 +250,205 @@ export default function AboutStarfiiPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* 422 — What We Do */}
+      <section className="py-20 lg:py-28">
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            What We Do
+          </p>
+          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            We take products from first sketch to production — and keep
+            them running once they're live.
+          </h2>
+          <p className={`mt-5 max-w-2xl text-[16.5px] leading-relaxed ${T.muted}`}>
+            From product strategy and design through engineering, data, and
+            AI, our pods cover the full lifecycle of a build so you're not
+            stitching together five different vendors to ship one product.
+          </p>
+        </div>
+      </section>
+
+      {/* 423 / 424 — Mission & Vision */}
+      <section className={`${T.panelBg} py-20 lg:py-28`}>
+        <div className={`grid grid-cols-1 gap-10 lg:grid-cols-2 ${CONTAINER}`}>
+          <div className={`rounded-lg border ${T.border} bg-white p-8`}>
+            <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+              <Compass size={20} className="text-white" strokeWidth={2.25} />
+            </div>
+            <p className={`mt-5 text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+              Mission
+            </p>
+            <h3 className={`mt-2 text-[22px] font-bold leading-snug ${T.ink}`}>
+              Make world-class product engineering accessible to teams who
+              don't have the luxury of hiring 40 engineers.
+            </h3>
+            <p className={`mt-3 text-[14.5px] leading-relaxed ${T.muted}`}>
+              We embed senior engineers directly into your team so the
+              product ships like it was built in-house — just faster, and
+              with a bench you don't have to carry on your own payroll.
+            </p>
+          </div>
+
+          <div className={`rounded-lg border ${T.border} bg-white p-8`}>
+            <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+              <Eye size={20} className="text-white" strokeWidth={2.25} />
+            </div>
+            <p className={`mt-5 text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+              Vision
+            </p>
+            <h3 className={`mt-2 text-[22px] font-bold leading-snug ${T.ink}`}>
+              A future where great engineering isn't gated by headcount.
+            </h3>
+            <p className={`mt-3 text-[14.5px] leading-relaxed ${T.muted}`}>
+              We're building toward a delivery model where AI-native teams
+              give any founder or enterprise the engineering bench of a
+              much larger company, on demand.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 425 — Values */}
+      <section className="py-20 lg:py-28">
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            Values
+          </p>
+          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            Four principles every engagement is held to.
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            {values.map((v) => (
+              <div key={v.title} className={`rounded-lg border ${T.border} ${T.panelBg} p-7`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+                  <v.icon size={20} className="text-white" strokeWidth={2.25} />
+                </div>
+                <h3 className={`mt-5 text-[18px] font-semibold ${T.ink}`}>{v.title}</h3>
+                <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{v.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 426 — Technology expertise */}
+      <section className={`${T.panelBg} py-20 lg:py-28`}>
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            Technology Expertise
+          </p>
+          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            Deep enough in each stack to be trusted with the hard parts.
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {expertise.map((e) => (
+              <div key={e.title} className={`rounded-lg border ${T.border} bg-white p-7`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+                  <e.icon size={20} className="text-white" strokeWidth={2.25} />
+                </div>
+                <h3 className={`mt-5 text-[18px] font-semibold ${T.ink}`}>{e.title}</h3>
+                <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{e.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 427 — Delivery approach */}
+      <section className="py-20 lg:py-28">
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            Delivery Approach
+          </p>
+          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            How an engagement actually runs, week to week.
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {delivery.map((d) => (
+              <div key={d.title} className={`rounded-lg border ${T.border} ${T.panelBg} p-7`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+                  <d.icon size={20} className="text-white" strokeWidth={2.25} />
+                </div>
+                <h3 className={`mt-5 text-[18px] font-semibold ${T.ink}`}>{d.title}</h3>
+                <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{d.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 428 — Global presence */}
+      <section className={`${T.panelBg} py-20 lg:py-28`}>
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            Global Presence
+          </p>
+          <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            Serving clients across 6 countries and counting.
+          </h2>
+
+          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3">
+            {presence.map((p) => (
+              <div key={p.region} className={`rounded-lg border ${T.border} bg-white p-7`}>
+                <div className={`flex h-11 w-11 items-center justify-center rounded-md ${T.primaryBg}`}>
+                  <MapPin size={20} className="text-white" strokeWidth={2.25} />
+                </div>
+                <h3 className={`mt-5 text-[18px] font-semibold ${T.ink}`}>{p.region}</h3>
+                <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{p.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 429 — Leadership */}
+      <section className="py-20 lg:py-28">
+        <div className={`flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center ${CONTAINER}`}>
+          <div>
+            <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+              Leadership
+            </p>
+            <h2 className={`mt-4 max-w-xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+              Led by engineers who've shipped at scale, not just managed it.
+            </h2>
+            <p className={`mt-4 max-w-xl text-[15px] leading-relaxed ${T.muted}`}>
+              Meet the people setting the technical and delivery standard
+              behind every Starfii engagement.
+            </p>
+          </div>
+          <Link
+            href="/about/leadership"
+            className={`inline-flex shrink-0 items-center gap-2 rounded-md border ${T.border} px-6 py-3 text-[15px] font-semibold ${T.ink} transition-colors hover:bg-[#F5F5F9]`}
+          >
+            Meet the leadership team
+            <ArrowUpRight size={16} />
+          </Link>
+        </div>
+      </section>
+
+      {/* 430 — Why Starfii */}
+      <section className={`${T.panelBg} py-20 lg:py-28`}>
+        <div className={CONTAINER}>
+          <p className={`text-[13px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+            Why Starfii
+          </p>
+          <h2 className={`mt-4 max-w-2xl text-[30px] font-bold leading-tight ${T.ink} lg:text-[34px]`}>
+            Senior engineering, AI-native delivery, and a team that's
+            accountable for outcomes — not just tickets.
+          </h2>
+          <p className={`mt-5 max-w-2xl text-[16.5px] leading-relaxed ${T.muted}`}>
+            120+ products shipped for 40+ enterprise and SaaS clients across
+            6 countries. Whether you're a founder shipping your first
+            release or an enterprise team scaling past your MVP, Starfii
+            brings the same standard of engineering to the table.
+          </p>
+        </div>
+      </section>
+
+      {/* 431 — CTA */}
       <section className={`${T.inkBg} py-20 lg:py-24`}>
         <div className={`flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center ${CONTAINER}`}>
           <div>

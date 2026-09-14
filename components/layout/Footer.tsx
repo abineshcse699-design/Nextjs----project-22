@@ -10,6 +10,8 @@
  * lucide-react's icon set.
  */
 
+import Link from "next/link";
+
 interface FooterColumn {
   title: string;
   links: string[];
@@ -81,11 +83,18 @@ const columns: FooterColumn[] = [
   },
 ];
 
-const legalLinks = [
-  // "Beware of Fake Job Offer",
-  // "Disclaimers",
-  "Privacy Policy",
-  // "Cookie Policy",
+// Legal footer links — each maps to its real page from the sitemap
+// (Page 44 Privacy Policy, Page 45 Terms of Service, Page 46 Cookie Policy)
+// so clicking actually opens the corresponding page instead of "#".
+interface LegalLink {
+  label: string;
+  href: string;
+}
+
+const legalLinks: LegalLink[] = [
+  { label: "Privacy Policy", href: "/policy/privacy-policy" },
+  { label: "Terms of Service", href: "/policy/TermsOfService" },
+  { label: "Cookie Policy", href: "/policy/Cookie-Policy" },
 ];
 
 // Brand glyphs aren't part of lucide-react, so each social icon is drawn
@@ -151,13 +160,13 @@ export default function Footer() {
           same edges as the nav. Padding used to sit directly on
           <footer>; it now lives on this wrapper instead. */}
       <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-        <a href="/" className="inline-block" aria-label="Starfii home">
+        <Link href="/" className="inline-block" aria-label="Starfii home">
           <img
             src="/starfii_logo_black.svg"
             alt="Starfii"
             className="h-14 w-auto md:h-16"
           />
-        </a>
+        </Link>
 
         <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-5 lg:gap-x-10">
           {columns.map((col, i) => (
@@ -192,13 +201,13 @@ export default function Footer() {
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
             {legalLinks.map((link) => (
-              <a
-                key={link}
-                href="#"
+              <Link
+                key={link.label}
+                href={link.href}
                 className="transition-colors duration-200 hover:text-[#3a3ff0]"
               >
-                {link}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </div>
 

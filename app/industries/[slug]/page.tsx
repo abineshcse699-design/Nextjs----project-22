@@ -30,11 +30,15 @@ type Props = {
 | industries (from data.ts).
 |--------------------------------------------------------------------------
 */
-
 const slugAliases: Record<string, string> = {
   banking: "finance",
   retail: "ecommerce-retail",
   "travel-hospitality": "travel-booking",
+
+  "healthcare-life-sciences": "healthcare",
+  "retail-consumer": "ecommerce-retail",
+  "telecom-utilities": "telecom",
+  "education": "education-institutions",   // 👈 புது alias
 };
 
 /*
@@ -93,6 +97,21 @@ const displayOverrides: Record<
     name: "Banking & Finance",
     kicker: "Industry Expertise / Banking & Finance",
     headline: "Banking & Fintech Software Development",
+  },
+  "healthcare-life-sciences": {
+    name: "Healthcare & Life Sciences",
+    kicker: "Industry Expertise / Healthcare & Life Sciences",
+    headline: "Connected Care, Designed Around People",
+  },
+  "retail-consumer": {
+    name: "Retail & Consumer",
+    kicker: "Industry Expertise / Retail & Consumer",
+    headline: "Engineering Commerce Experiences Built for Growth",
+  },
+  "telecom-utilities": {
+    name: "Telecom & Utilities",
+    kicker: "Industry Expertise / Telecom & Utilities",
+    headline: "Connecting Networks, Customers and Revenue",
   },
 };
 

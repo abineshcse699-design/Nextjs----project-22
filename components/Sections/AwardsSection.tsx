@@ -15,6 +15,7 @@ const services = [
     description:
       "Transform your workflows with intelligent, scalable AI/ML, GenAI and LLM solutions. From reducing manual tasks to enhancing efficiency, we deliver tailored automation that drives results.",
   },
+  
   {
     icon: Cloud,
     title: "Cloud Engineering",
@@ -181,5 +182,7 @@ export default function GrowthSection() {
         </div>
       </div>
     </section>
+    
   );
+
 }

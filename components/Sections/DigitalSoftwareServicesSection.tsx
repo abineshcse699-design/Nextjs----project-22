@@ -1,3 +1,5 @@
+// Software & Product Engineering 
+
 "use client";
 import Link from "next/link";
 
@@ -37,19 +39,54 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Digital and Software Services" tab list
+// Autoplay timing for the "Software & Product Engineering" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
+
+   Headings/subheadings are aligned to the recommended section list:
+   28. Product engineering overview   -> Hero + Key Takeaways
+   29. Product strategy                -> Q&A section
+   30. UI/UX engineering               -> Focus area card
+   31. Web application development     -> Focus area card
+   32. Mobile application development  -> Focus area card
+   33. Backend engineering             -> Focus area card
+   34. API & integrations              -> Focus area card
+   35. SaaS engineering                -> Focus area card
+   36. Enterprise application development -> Focus area card
+   37. Product modernization           -> Focus area card
+   38. QA and release engineering      -> Focus area card
+   39. Case studies                    -> Case Studies section
+   40. CTA                             -> Closing CTA section
 ================================================================ */
+
+// Small dash-led eyebrow, matching the "— Software & Product Engineering"
+// heading style used across the page.
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+    >
+      <span aria-hidden="true">—</span>
+      <span>{children}</span>
+    </span>
+  );
+}
 
 const keyTakeaways = [
   {
     title: "Build",
-    body: "Design and engineer scalable digital products across web, mobile, SaaS, and enterprise platforms with AI driven software engineering.",
+    body: "Design and engineer scalable digital products across web, mobile, SaaS, and enterprise platforms with AI driven software and product engineering.",
   },
   {
     title: "Modernize",
@@ -57,7 +94,7 @@ const keyTakeaways = [
   },
   {
     title: "Scale",
-    body: "Accelerate delivery through cloud engineering, DevOps automation, data, AI, and quality engineering while keeping performance and customer experience at the center.",
+    body: "Accelerate delivery through product strategy, UI/UX engineering, cloud engineering, and quality engineering while keeping performance and customer experience at the center.",
   },
 ];
 
@@ -65,64 +102,49 @@ type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Enterprise Product Engineering",
-    body: "Starfii is an enterprise product engineering company that partners with clients from ideation through launch, combining AI driven software development with proven engineering practices to deliver breakthrough growth, value, and performance.",
-    tags: ["WEB", "MOBILE", "SAAS"],
-  },
-  {
-    title: "Enterprise AI/ML, Gen AI and LLM",
-    body: "As a Generative AI and LLM engineering company, Starfii works closely with you to define the business problem and identify the right AI models, delivering enterprise AI/ML solutions that solve real business challenges.",
-    tags: ["LLM", "GEN AI", "ML"],
-  },
-  {
-    title: "SaaS Product Engineering",
-    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS product engineering capability on real production projects.",
-    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
-  },
-  {
-    title: "Data Engineering & Data Science",
-    body: "Our certified data engineers build your entire data infrastructure, while Starfii's data scientists apply data engineering and data science expertise to surface the insights that drive smarter, faster decisions.",
-    tags: ["DATA", "BI", "ANALYTICS"],
-  },
-  {
-    title: "Cloud Engineering – AWS, Azure, GCP",
-    body: "Starfii delivers end to end cloud engineering services on AWS, Azure, and GCP, covering cloud architecture, migration, and managed support so your platform stays reliable, secure, and cost efficient.",
-    tags: ["AWS", "AZURE", "GCP"],
-  },
-  {
-    title: "Legacy Software Modernization",
-    body: "Starfii's legacy software modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
-    tags: ["MIGRATION", "APIS", "CLOUD"],
-  },
-  {
-    title: "Reporting and Dashboard – BI",
-    body: "Starfii helps enterprises transform raw data into actionable insights using Tableau and Power BI, delivering business intelligence dashboards that support faster, more informed decisions and long term growth.",
-    tags: ["TABLEAU", "POWER BI", "ANALYTICS"],
-  },
-  {
-    title: "Automotive Engineering Services",
-    body: "Starfii delivers automotive engineering services covering embedded software, connected vehicle platforms, and digital mobility solutions that support the industry's shift to smarter, software defined vehicles.",
-    tags: ["AUTOMOTIVE", "MOBILITY", "ENGINEERING"],
-  },
-  {
-    title: "Revenue Cycle Management Service",
-    body: "Starfii assists healthcare organizations with HIPAA compliant revenue cycle management services, streamlining billing, claims, and patient care workflows to improve cash flow and operational efficiency.",
-    tags: ["HEALTHCARE", "RCM", "COMPLIANCE"],
-  },
-  {
-    title: "Cybersecurity",
-    body: "Starfii's cybersecurity consulting services help build a resilient security framework that protects your cloud infrastructure and applications against evolving threats, backed by continuous risk monitoring.",
-    tags: ["SECURITY", "RISK", "CLOUD"],
-  },
-  {
-    title: "UI/UX Consulting",
-    body: "Starfii's UI/UX consulting team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
+    title: "UI/UX Engineering",
+    body: "Starfii's UI/UX engineering team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
     tags: ["UX", "UI", "DESIGN"],
   },
   {
-    title: "DevOps & Quality Engineering",
-    body: "Starfii's DevOps and quality engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
-    tags: ["DEVOPS", "QA", "AUTOMATION"],
+    title: "Web Application Development",
+    body: "Starfii builds web applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
+    tags: ["WEB", "FRONTEND", "FULL STACK"],
+  },
+  {
+    title: "Mobile Application Development",
+    body: "Starfii's mobile application development team ships native and cross platform apps that combine performance, polish, and reliability across iOS and Android.",
+    tags: ["IOS", "ANDROID", "CROSS PLATFORM"],
+  },
+  {
+    title: "Backend Engineering",
+    body: "Starfii's backend engineering practice builds resilient services, data models, and infrastructure that keep your software product fast, secure, and ready to scale.",
+    tags: ["BACKEND", "MICROSERVICES", "CLOUD"],
+  },
+  {
+    title: "API & Integrations",
+    body: "Starfii designs and builds API and integrations layers that connect your software product to partners, internal systems, and third party platforms without adding fragility.",
+    tags: ["API", "INTEGRATIONS", "CLOUD"],
+  },
+  {
+    title: "SaaS Engineering",
+    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS engineering capability on real production projects.",
+    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
+  },
+  {
+    title: "Enterprise Application Development",
+    body: "Starfii is an enterprise application development partner that works from ideation through launch, combining AI driven software engineering with proven practices to deliver breakthrough growth, value, and performance.",
+    tags: ["ENTERPRISE", "PLATFORMS", "SCALE"],
+  },
+  {
+    title: "Product Modernization",
+    body: "Starfii's product modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
+    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
+  },
+  {
+    title: "QA and Release Engineering",
+    body: "Starfii's QA and release engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
+    tags: ["QA", "RELEASE", "AUTOMATION"],
   },
 ];
 
@@ -135,37 +157,37 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Shape Product Vision Clearly",
-    heading: "Product led thinking to shape and realize your product vision",
-    body: "Starfii crafts product and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
+    label: "Product Strategy",
+    heading: "Product strategy that shapes and realizes your product vision",
+    body: "Starfii crafts product strategy and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Build Apps for Digital Markets",
-    heading: "Applications engineered for how digital markets actually move",
-    body: "Starfii builds web and mobile applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
+    label: "Web Application Development",
+    heading: "Web applications engineered for how digital markets actually move",
+    body: "Starfii's web application development team builds products that adapt to shifting user expectations and market conditions, so your software stays competitive long after launch instead of needing a rebuild every cycle.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Drive AI-led Software Results",
-    heading: "AI embedded in delivery, not bolted on at the end",
-    body: "Starfii's engineering teams build Generative AI and LLM capability into the software delivery process itself, from requirements to release, so outcomes improve measurably rather than anecdotally.",
+    label: "Mobile Application Development",
+    heading: "Mobile applications built for engagement across every device",
+    body: "Starfii's mobile application development practice ships fast, reliable iOS, Android, and cross platform experiences that keep users coming back and support the business behind the app.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Modernize Legacy for Growth",
-    heading: "Modernization that clears the path for what comes next",
-    body: "Starfii assesses your legacy technology estate, builds a tailored legacy software modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
+    label: "Backend Engineering",
+    heading: "Backend engineering built to carry your product as it grows",
+    body: "Starfii's backend engineering teams design resilient services and data architectures, so performance and reliability hold up as usage, features, and integrations multiply.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Embed AI Across Ecosystems",
-    heading: "AI that works across your whole ecosystem, not one tool",
-    body: "Starfii connects enterprise AI capability across your applications, data, and operations so intelligence compounds across the business instead of living in a single silo or point solution.",
+    label: "Product Modernization",
+    heading: "Product modernization that clears the path for what comes next",
+    body: "Starfii assesses your legacy technology estate, builds a tailored product modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
@@ -174,12 +196,12 @@ const tabs: ServiceTab[] = [
 type EcosystemImpact = { title: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Digital Journeys and Transformation" },
-  { title: "Product Engineering for Customer Value" },
-  { title: "Composable Architecture for Scale" },
-  { title: "Vibe Coding for Faster Delivery" },
-  { title: "Enterprise AI and LLM Integration" },
-  { title: "Cloud Engineering and DevOps Automation" },
+  { title: "UI/UX Engineering" },
+  { title: "Enterprise Application Development" },
+  { title: "API & Integrations" },
+  { title: "SaaS Engineering" },
+  { title: "Product Modernization" },
+  { title: "QA and Release Engineering" },
 ];
 
 type IndustryAward = {
@@ -197,7 +219,7 @@ const industryAwards: IndustryAward[] = [
     subcategory: "Application Modernization Services",
     rank: "Leader, U.S.",
     description:
-      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our legacy software modernization expertise.",
+      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our product modernization expertise.",
   },
   {
     year: "2025 Quadrant",
@@ -213,7 +235,7 @@ const industryAwards: IndustryAward[] = [
     subcategory: "Migration and Modernization",
     rank: "Leader, U.S.",
     description:
-      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our cloud engineering and data engineering services.",
+      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our backend engineering and cloud engineering services.",
   },
 ];
 
@@ -232,7 +254,7 @@ const caseStudies: CaseStudy[] = [
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
     title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
-    body: "See how Starfii's SaaS product engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
+    body: "See how Starfii's SaaS engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
   },
   {
     slug: "utilities-digital-transformation-microsoft",
@@ -265,13 +287,11 @@ type InsightPost = {
   body: string;
 };
 
-
 const insights: InsightPost[] = [
   {
     slug: "generative-ai-software-development",
     large: true,
-    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop", // ← இங்க change
-  // title: "Generative AI for Software Development...",
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
     title:
       "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
     body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
@@ -282,7 +302,7 @@ const insights: InsightPost[] = [
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
     title: "AI Powered Automation: Transforming Enterprise Software Delivery",
-    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise software delivery.",
+    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise application development.",
   },
   {
     slug: "agile-product-engineering-mach-technologies",
@@ -810,7 +830,7 @@ function StepCarousel<T>({
    SECTION
 ================================================================ */
 
-export default function DigitalSoftwareServicesSection(): ReactElement {
+export default function SoftwareProductEngineeringSection(): ReactElement {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
@@ -834,6 +854,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
+          (28. Product engineering overview)
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -859,14 +880,21 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Digital & Software Solutions</span>
+            <span className="text-slate-500">Software &amp; Product Engineering</span>
           </nav>
 
+          <div
+            className="mt-8 opacity-0"
+            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
+          >
+            <Eyebrow>Software &amp; Product Engineering</Eyebrow>
+          </div>
+
           <h1
-            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
+            className="font-heading mt-4 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Digital and Software Services for Modern Enterprises
+            Software and Product Engineering for Modern Enterprises
           </h1>
 
           <p
@@ -874,8 +902,8 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Starfii turns ideas into scalable software products and modern
-            platforms with AI driven engineering, enterprise product
-            engineering, and faster delivery cycles.
+            platforms with product strategy, AI driven engineering, and
+            faster delivery cycles.
           </p>
 
           <a
@@ -895,6 +923,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS
+            (28. Product engineering overview)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
@@ -919,7 +948,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   className="font-body text-[17px] font-semibold"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  Digital &amp; Software at a Glance
+                  Product Engineering Overview
                 </span>
               </div>
 
@@ -930,7 +959,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   color: INDIGO_CTA,
                 }}
               >
-                WEB • MOBILE • SAAS • AI
+                STRATEGY • UI/UX • WEB • MOBILE
               </span>
             </div>
 
@@ -957,9 +986,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A leader in digital products and software engineering, Starfii
-            designs and engineers customer focused digital experiences
-            while modernizing complex application portfolios for speed and
+            A leader in software and product engineering, Starfii designs
+            and engineers customer focused digital experiences while
+            modernizing complex application portfolios for speed and
             scale.
           </p>
         </Reveal>
@@ -967,6 +996,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         {/* ============================================================
             Q&A BLOCK
+            (29. Product strategy)
         ============================================================ */}
 
         <Reveal as="section" className="mt-20">
@@ -975,28 +1005,29 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             style={{ backgroundColor: "#F5F3FC" }}
           >
             <div>
+              <Eyebrow>Product Strategy</Eyebrow>
               <h2
-                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Scale and Optimize Digital and Software
-                Operations?
+                How Do Enterprises Build Product Strategy Into Software
+                Engineering?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize digital and software
-                operations by combining product thinking, AI led
-                engineering, and scalable architectures. Starfii brings
-                these together to accelerate software development, improve
-                quality, and modernize legacy systems, turning ideas into
-                digital experiences that users value and businesses depend
-                on every day.
+                Enterprises scale and optimize software operations by
+                combining product strategy, AI led engineering, and
+                scalable architectures. Starfii brings these together to
+                accelerate software development, improve quality, and
+                modernize legacy systems, turning ideas into digital
+                experiences that users value and businesses depend on
+                every day.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a digital roadmap"
+                alt="Two colleagues reviewing a product strategy roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1006,6 +1037,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
       {/* ============================================================
           FOCUS AREAS
+          (30-38. UI/UX engineering through QA and release engineering)
       ============================================================ */}
 
 
@@ -1027,8 +1059,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Services &amp; Consulting Capabilities
+            <Eyebrow variant="dark">Software &amp; Product Engineering</Eyebrow>
+            <h2 className="font-heading mt-4 text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our Software &amp; Product Engineering Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
               Starfii plans, designs, and scales customer focused digital
@@ -1062,7 +1095,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
                   <div className="mt-16">
                     <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
+                      — {area.title}
                     </h3>
                     <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
@@ -1091,14 +1124,16 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
+            (29-33. Product strategy through Backend engineering)
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
+          <Eyebrow>Software &amp; Product Engineering</Eyebrow>
           <h2
-            className="font-heading text-[34px] font-medium"
+            className="font-heading mt-4 text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Digital and Software Services
+            Software and Product Engineering Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1160,7 +1195,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                   className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  {current.heading}
+                  — {current.heading}
                 </h3>
                 <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
@@ -1182,6 +1217,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
       {/* ============================================================
           IMPACT ACROSS ECOSYSTEM (dark)
+          (34-38. API & integrations through QA and release engineering)
       ============================================================ */}
     
 <section className="relative overflow-hidden bg-[#08070F] py-24">
@@ -1202,10 +1238,11 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your Digital
+            <Eyebrow variant="dark">Enterprise Application Development</Eyebrow>
+            <h2 className="font-heading mt-4 max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your Software
               <br />
-              Software Ecosystem
+              Product Engineering Ecosystem
             </h2>
           </Reveal>
 
@@ -1220,7 +1257,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    {item.title}
+                    — {item.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
@@ -1246,6 +1283,7 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
+          (39. Case studies)
       ============================================================ */}
 
       <section
@@ -1257,12 +1295,15 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Case Studies
-            </h2>
+            <div>
+              <Eyebrow>Case Studies</Eyebrow>
+              <h2
+                className="font-heading mt-4 text-[36px] font-medium lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Case Studies
+              </h2>
+            </div>
             <a
               href="#"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
@@ -1287,7 +1328,9 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
       delay={(i % 3) * 90}
       className="h-full"
     >
-      <article
+      <Link
+        href={`/services/digital-software/casestudies/${study.slug}`}
+        aria-label={`Read case study: ${study.title}`}
         className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
         style={{
           border: "1px solid #E5E1F5",
@@ -1327,20 +1370,21 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
             {study.body}
           </p>
 
-          {/* LEARN MORE */}
-          <Link
-            href={`/services/digital-software/casestudies/${study.slug}`}
-            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 hover:translate-x-1"
+          {/* LEARN MORE — no longer its own <Link>: the whole card above
+              is now the Link, so this is just a visual affordance that
+              reacts to the card's hover state via the shared "group" class. */}
+          <span
+            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
             style={{
               color: INDIGO_CTA,
             }}
           >
             Learn More
             <ArrowUpRight size={15} />
-          </Link>
+          </span>
 
         </div>
-      </article>
+      </Link>
     </Reveal>
   )}
 />
@@ -1356,12 +1400,15 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
 <section className="bg-[#EEF0F7] py-24">
   <div className={ALIGN}>
     <Reveal className="flex items-center justify-between">
-      <h2
-        className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-        style={{ color: CHAMPION_BLUE }}
-      >
-        {"What's New in Digital and Software"}
-      </h2>
+      <div>
+        <Eyebrow>Software &amp; Product Engineering</Eyebrow>
+        <h2
+          className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          {"What's New in Software & Product Engineering"}
+        </h2>
+      </div>
 
       <Link
         href="/services/digital-software/blogs"
@@ -1498,6 +1545,37 @@ export default function DigitalSoftwareServicesSection(): ReactElement {
     </div>
   </div>
 </section>
+
+      {/* ============================================================
+          CLOSING CTA
+          (40. CTA)
+      ============================================================ */}
+      <section id="connect" className="bg-white py-24">
+        <div className={ALIGN}>
+          <Reveal
+            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
+            style={{ backgroundColor: CHAMPION_BLUE }}
+          >
+            <Eyebrow variant="dark">CTA</Eyebrow>
+            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+              Ready to Build Your Next Software Product?
+            </h2>
+            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
+              Talk to Starfii about product strategy, UI/UX engineering,
+              web and mobile application development, backend engineering,
+              or modernizing an existing platform.
+            </p>
+            <a
+              href="mailto:hello@starfii.com"
+              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
+              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </a>
+          </Reveal>
+        </div>
+      </section>
     </main>
   );
 }

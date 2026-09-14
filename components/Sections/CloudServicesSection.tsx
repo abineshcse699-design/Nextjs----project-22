@@ -42,16 +42,16 @@ const TAB_AUTOPLAY_MS = 4000;
 
 const keyTakeaways = [
   {
-    title: "Migrate",
-    body: "Move workloads to AWS, Azure, or GCP through a structured migration approach designed to reduce disruption and keep business operations running.",
+    title: "Architect & Migrate",
+    body: "Design well architected cloud blueprints and move workloads to AWS, Azure, or GCP through a structured migration approach designed to reduce disruption and keep business operations running.",
   },
   {
-    title: "Modernize",
-    body: "Build cloud native applications and multi cloud environments with architecture focused on scalability, resilience, security, and long term performance.",
+    title: "Modernize & Automate",
+    body: "Build cloud native applications on modern, multi cloud architecture, backed by DevOps, CI/CD pipelines, and infrastructure as code that turn manual releases into repeatable automation.",
   },
   {
-    title: "Optimize",
-    body: "Continuously improve cloud cost, reliability, and operations through FinOps, DevOps automation, security controls, and proactive cloud management.",
+    title: "Operate & Optimize",
+    body: "Continuously improve cloud cost, reliability, and security through FinOps, monitoring and observability, security controls, and proactive managed cloud operations.",
   },
 ];
 
@@ -63,9 +63,19 @@ type FocusArea = {
 
 const focusAreas: FocusArea[] = [
   {
+    title: "Cloud Architecture & Design",
+    body: "Starfii designs well architected cloud blueprints across AWS, Azure, and GCP, covering landing zones, networking, and account structure before a single workload moves.",
+    tags: ["ARCHITECTURE", "LANDING ZONES", "WELL-ARCHITECTED"],
+  },
+  {
     title: "Cloud Migration Services",
     body: "Starfii assesses workloads, sequences the migration plan around business risk, and moves systems to AWS, Azure, or GCP with minimal disruption to day to day operations.",
     tags: ["AWS", "AZURE", "GCP"],
+  },
+  {
+    title: "Cloud Modernization",
+    body: "Starfii refactors legacy monoliths into modular, cloud ready services, replacing brittle infrastructure with architecture that scales cleanly as the business grows.",
+    tags: ["MODERNIZATION", "REFACTORING", "LEGACY SYSTEMS"],
   },
   {
     title: "Cloud Native Application Development",
@@ -73,9 +83,24 @@ const focusAreas: FocusArea[] = [
     tags: ["CONTAINERS", "MICROSERVICES", "SERVERLESS"],
   },
   {
-    title: "Multi Cloud & Hybrid Cloud Architecture",
-    body: "Starfii architects across AWS, Azure, and GCP so workloads run where they perform best, giving you multi cloud flexibility without vendor lock in.",
-    tags: ["MULTI-CLOUD", "HYBRID", "ARCHITECTURE"],
+    title: "DevOps Engineering",
+    body: "Starfii embeds DevOps practices across development and operations teams, aligning tooling, culture, and workflows so releases move faster without added risk.",
+    tags: ["DEVOPS", "COLLABORATION", "AUTOMATION"],
+  },
+  {
+    title: "CI/CD Pipeline Automation",
+    body: "Starfii builds automated CI/CD pipelines that get code to production faster and safer, with testing, monitoring, and rollback built into every release.",
+    tags: ["CI/CD", "TESTING", "RELEASE MANAGEMENT"],
+  },
+  {
+    title: "Infrastructure Automation & IaC",
+    body: "Starfii provisions cloud infrastructure as code with Terraform and native tooling, so environments stay consistent, version controlled, and repeatable across every stage.",
+    tags: ["TERRAFORM", "IaC", "CONFIGURATION"],
+  },
+  {
+    title: "Monitoring & Observability",
+    body: "Starfii instruments applications and infrastructure with unified metrics, logs, and traces, giving teams the visibility to catch issues before they become incidents.",
+    tags: ["OBSERVABILITY", "METRICS", "ALERTING"],
   },
   {
     title: "Cloud Security & Compliance",
@@ -88,39 +113,14 @@ const focusAreas: FocusArea[] = [
     tags: ["FINOPS", "COST", "OPTIMIZATION"],
   },
   {
-    title: "Cloud Operations & Site Reliability Engineering",
-    body: "Starfii runs day to day cloud operations with site reliability engineering practices, keeping uptime high and incidents rare across your AWS, Azure, and GCP estate.",
-    tags: ["SRE", "UPTIME", "OPERATIONS"],
-  },
-  {
-    title: "DevOps & CI/CD Automation",
-    body: "Starfii builds automated CI/CD pipelines that get code to production faster and safer, with testing, monitoring, and rollback built into every release.",
-    tags: ["DEVOPS", "CI/CD", "AUTOMATION"],
-  },
-  {
-    title: "Data & AI Workloads on Cloud",
-    body: "Starfii designs cloud infrastructure purpose built for data engineering and AI/ML workloads, so pipelines and models run efficiently and reliably at scale.",
-    tags: ["DATA", "AI/ML", "PIPELINES"],
-  },
-  {
-    title: "Cloud Managed Services",
-    body: "Starfii's managed services team monitors, patches, and optimizes your cloud environment around the clock, so internal teams stay focused on building product, not babysitting infrastructure.",
-    tags: ["MANAGED", "MONITORING", "SUPPORT"],
-  },
-  {
     title: "Kubernetes & Container Orchestration",
     body: "Starfii designs and operates Kubernetes clusters across AWS, Azure, and GCP, giving containerized workloads consistent scaling, deployment, and recovery wherever they run.",
     tags: ["KUBERNETES", "EKS/AKS/GKE", "ORCHESTRATION"],
   },
   {
-    title: "Disaster Recovery & Business Continuity",
-    body: "Starfii architects cloud disaster recovery and backup strategies that meet real recovery time objectives, so an outage in one region never becomes an outage for the business.",
-    tags: ["DR", "BACKUP", "RESILIENCE"],
-  },
-  {
-    title: "Cloud Governance & FinOps Reporting",
-    body: "Starfii sets up tagging, budgets, and governance guardrails across your cloud accounts, giving finance and engineering the same real time view of spend and usage.",
-    tags: ["GOVERNANCE", "REPORTING", "BUDGETS"],
+    title: "Cloud Managed Services",
+    body: "Starfii's managed services team monitors, patches, and optimizes your cloud environment around the clock, so internal teams stay focused on building product, not babysitting infrastructure.",
+    tags: ["MANAGED", "SUPPORT", "OPERATIONS"],
   },
 ];
 
@@ -133,6 +133,15 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
+    label: "Architecture: Design for Scale",
+    heading:
+      "Cloud architecture blueprints built for scale, security, and cost, before migration begins",
+    body: "Starfii designs landing zones, network topology, and account structure across AWS, Azure, and GCP up front, so every workload that moves in has a foundation built to last.",
+    // Network of connected nodes — cloud architecture
+    image:
+      "https://images.unsplash.com/photo-1664854953181-b12e6dda8b7c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
     label: "Migration: Plan a Move That Fits",
     heading:
       "A cloud migration roadmap sequenced around business risk, not just technical ease",
@@ -142,22 +151,40 @@ const tabs: ServiceTab[] = [
       "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Cloud Native: Built For the Cloud",
+    label: "Modernize: Cloud Native by Design",
     heading:
-      "Applications engineered for the cloud, not just moved onto it",
-    body: "Starfii builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
+      "Applications modernized and engineered for the cloud, not just moved onto it",
+    body: "Starfii refactors legacy systems and builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
     // Cloud icon with data layers — cloud native architecture
     image:
       "https://images.unsplash.com/photo-1690627931320-16ac56eb2588?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "FinOps: Control Cost as You Scale",
+    label: "DevOps & CI/CD: Ship Faster, Safer",
     heading:
-      "FinOps that keeps cloud spend predictable, not a surprise on the invoice",
-    body: "Starfii monitors cloud usage continuously and right sizes resources to match actual demand, so infrastructure cost scales with the business instead of running ahead of it.",
-    // Financial market data line graph — cost/spend trend
+      "DevOps culture and CI/CD pipelines that get code to production faster, without sacrificing stability",
+    body: "Starfii aligns development and operations around automated pipelines, with testing, monitoring, and rollback built into every release, so teams ship more often with less risk.",
+    // Engineer at a desk with laptop and monitor — DevOps / CI/CD workflow
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Automation: Infrastructure as Code",
+    heading:
+      "Infrastructure provisioned as code, so environments stay consistent and repeatable",
+    body: "Starfii codifies infrastructure with Terraform and native tooling, replacing manual provisioning with version controlled environments that spin up the same way every time.",
+    // Performance analytics graphs on a laptop
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Observability: See Issues Before Impact",
+    heading:
+      "Monitoring and observability that surfaces problems before they become incidents",
+    body: "Starfii unifies metrics, logs, and traces across your cloud estate into a single view, with alerting tuned to cut noise so on call teams act on what actually matters.",
+    // Live monitoring / dashboard screen
+    image:
+      "https://images.unsplash.com/photo-1655000278839-b7d7b11251c5?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Security: Secure by Design",
@@ -169,13 +196,13 @@ const tabs: ServiceTab[] = [
       "https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "SRE: Keep Operations Reliable",
+    label: "Managed Services: Run With Confidence",
     heading:
-      "Site reliability engineering that keeps uptime high as complexity grows",
-    body: "Starfii's SRE led cloud operations team monitors, automates, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
-    // Performance analytics graphs on a laptop — SRE monitoring
+      "Cloud operations and managed services that keep environments running around the clock",
+    body: "Starfii's managed services and SRE led operations team monitors, patches, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
+    // Server racks in a data center
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
@@ -185,22 +212,28 @@ type EcosystemImpact = {
 
 const ecosystemImpact: EcosystemImpact[] = [
   {
+    title: "Cloud Architecture and Multi Cloud Design",
+  },
+  {
     title: "Cloud Migration and Modernization",
   },
   {
-    title: "Multi Cloud Architecture and Governance",
-  },
-  {
-    title: "FinOps and Cost Optimization at Scale",
+    title: "Cloud Native Application Development",
   },
   {
     title: "DevOps and CI/CD Automation",
   },
   {
+    title: "Infrastructure Automation and IaC",
+  },
+  {
+    title: "Monitoring and Observability",
+  },
+  {
     title: "Cloud Security and Compliance Engineering",
   },
   {
-    title: "Data and AI Workloads on Cloud",
+    title: "Cloud Managed Services and Operations",
   },
 ];
 
@@ -1221,11 +1254,11 @@ export default function CloudServicesSection(): ReactElement {
                 "ss-fade-up 0.7s ease-out 0.28s forwards",
             }}
           >
-            Starfii migrates, modernizes, and runs
-            workloads on AWS, Azure, and GCP with
-            cloud architecture designed for
-            performance, security, and cost control
-            from day one.
+            Starfii architects, migrates, modernizes,
+            and runs workloads on AWS, Azure, and GCP,
+            backed by DevOps, CI/CD, and infrastructure
+            automation built for performance, security,
+            and cost control from day one.
           </p>
 
           <a
@@ -1361,9 +1394,11 @@ export default function CloudServicesSection(): ReactElement {
                 cloud adoption by sequencing migration
                 around business risk, designing cloud
                 native applications from the start,
-                and treating cost and security as
-                ongoing FinOps and compliance
-                practices.
+                and automating delivery through DevOps,
+                CI/CD, and infrastructure as code, while
+                treating cost, security, and
+                observability as ongoing FinOps and
+                compliance practices.
               </p>
             </div>
 

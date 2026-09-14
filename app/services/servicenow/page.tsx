@@ -1,27 +1,24 @@
-// Save this file as: app/servicenow/page.tsx
+// Save this file as: app/services/servicenow/page.tsx
 "use client";
 
 import { useEffect, useRef, useState } from "react";
 import {
   ArrowUpRight,
   MessageSquare,
-  Ticket,
-  ServerCog,
-  Headphones,
-  Users,
-  ShoppingCart,
-  LayoutGrid,
   CheckCircle2,
-  Compass,
-  Wrench,
-  LifeBuoy,
   ShieldCheck,
   Sparkles,
   Layers,
-  Plus,
+  AlertCircle,
+  Search,
+  GitBranch,
+  Inbox,
+  LayoutGrid,
+  Database,
+  Boxes,
   Zap,
-  TrendingUp,
-  FileCheck2,
+  Plug,
+  Code2,
 } from "lucide-react";
 
 /* ===============================================================
@@ -31,40 +28,43 @@ import {
    export a `metadata` object directly (Next.js App Router only
    reads `metadata` / `generateMetadata` from Server Components).
 
-   Create a sibling file at:  app/servicenow/layout.tsx  (Server
-   Component, no "use client") with the block below, so the
+   Create a sibling file at:  app/services/servicenow/layout.tsx
+   (Server Component, no "use client") with the block below, so the
    <title>, meta description, keywords and Open Graph tags are
    emitted correctly for Google/Bing to index:
 
    export const metadata = {
-     title:
-       "ServiceNow Implementation Partner | ITSM, ITOM, CSM & HRSD Services – Starfii",
+     title: "ServiceNow ITSM Services | ServiceNow Implementation Partner – Starfii",
      description:
-       "Starfii is a certified ServiceNow implementation partner delivering ITSM, ITOM, CSM, HR Service Delivery, Source to Pay and App Engine Studio workflow solutions. AI led ServiceNow consulting, integration and managed support for enterprises.",
+       "Design, implement and optimize ServiceNow solutions that modernize enterprise IT service management. Certified ServiceNow ITSM consulting, implementation, and managed support.",
      keywords: [
-       "ServiceNow implementation partner",
-       "ServiceNow consulting services",
-       "ServiceNow ITSM solutions",
-       "ServiceNow ITOM services",
-       "ServiceNow CSM implementation",
-       "ServiceNow HR Service Delivery",
-       "ServiceNow Source to Pay",
-       "ServiceNow App Engine Studio",
-       "certified ServiceNow partner",
-       "ServiceNow workflow automation",
-       "ServiceNow managed support",
-       "ServiceNow integration services",
+       "ServiceNow ITSM",
+       "ServiceNow ITSM services",
+       "ServiceNow consulting",
+       "ServiceNow implementation",
+       "incident management",
+       "problem management",
+       "change management",
+       "request management",
+       "service catalog",
+       "CMDB",
+       "IT asset management",
+       "workflow automation",
+       "ServiceNow integrations",
+       "ServiceNow custom applications",
+       "ServiceNow optimization",
+       "ServiceNow support and managed services",
      ],
      openGraph: {
-       title: "ServiceNow Implementation & Consulting Partner | Starfii",
+       title: "ServiceNow ITSM Services | Starfii",
        description:
-         "Certified ServiceNow implementation partner for ITSM, ITOM, CSM, HRSD, Source to Pay and App Engine Studio. AI led workflow automation, integration and support.",
-       url: "https://www.starfii.com/servicenow",
+         "Design, implement and optimize ServiceNow solutions that modernize enterprise IT service management.",
+       url: "https://www.starfii.com/services/servicenow",
        siteName: "Starfii Technology",
        type: "website",
      },
      alternates: {
-       canonical: "https://www.starfii.com/servicenow",
+       canonical: "https://www.starfii.com/services/servicenow",
      },
    };
 ================================================================ */
@@ -77,11 +77,7 @@ const primary = "#7C5CFC";
 /* ===============================================================
    SHARED CONTAINER — this single string controls the left/right
    edge of EVERY section on the page. Change it here once and every
-   section (hero, capabilities, outcomes, engagements, industries,
-   process, why-starfii, faq, insights, cta) moves together.
-
-   ✅ Matches navbar's outer wrapper exactly:
-   max-w-[1830px] px-4 sm:px-6 md:px-8 lg:px-10 xl:px-12
+   section moves together.
 ================================================================ */
 const CONTAINER = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
@@ -131,7 +127,7 @@ function Reveal({
 
 /* ===============================================================
    GLOW CARD — icon tile, faded number, title + colored underline,
-   description, divider, arrow-bullet list. Hover glows in accent.
+   description. Used for the ITSM capability grid.
 ================================================================ */
 function GlowCard({
   id,
@@ -140,7 +136,6 @@ function GlowCard({
   title,
   accent,
   desc,
-  items,
   delay = 0,
 }: {
   id?: string;
@@ -149,240 +144,223 @@ function GlowCard({
   title: string;
   accent: string;
   desc: string;
-  items: string[];
   delay?: number;
 }) {
   return (
     <Reveal delay={delay}>
       <div
         id={id}
-        className="svc-target group relative h-full scroll-mt-32 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/40 hover:shadow-[0_24px_70px_-20px_var(--glow)]"
+        className="svc-target group relative h-full scroll-mt-32 overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/40 hover:shadow-[0_24px_70px_-20px_var(--glow)]"
         style={{ ["--accent" as string]: accent, ["--glow" as string]: `${accent}55` }}
       >
         <span
           aria-hidden
-          className="pointer-events-none absolute right-6 top-2 select-none text-[64px] font-extrabold leading-none text-white/[0.05] transition-colors duration-300 group-hover:text-white/[0.08]"
+          className="pointer-events-none absolute right-5 top-1 select-none text-[52px] font-extrabold leading-none text-white/[0.05] transition-colors duration-300 group-hover:text-white/[0.08]"
         >
           {number}
         </span>
 
-        <div className="relative flex h-14 w-14 items-center justify-center rounded-xl bg-white/[0.06] transition-transform duration-300 group-hover:scale-105">
-          <Icon size={24} strokeWidth={2} style={{ color: accent }} />
+        <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-white/[0.06] transition-transform duration-300 group-hover:scale-105">
+          <Icon size={22} strokeWidth={2} style={{ color: accent }} />
         </div>
 
-        <h3 className="relative mt-6 text-[20px] font-bold tracking-tight text-white">{title}</h3>
+        <h3 className="relative mt-5 text-[17px] font-bold tracking-tight text-white">{title}</h3>
         <div
-          className="mt-3 h-[3px] w-10 rounded-full transition-all duration-300 group-hover:w-14"
+          className="mt-3 h-[3px] w-9 rounded-full transition-all duration-300 group-hover:w-12"
           style={{ backgroundColor: accent }}
         />
-
-        <p className="relative mt-5 text-[14.5px] leading-relaxed text-white/55">{desc}</p>
-
-        <div className="relative my-6 h-px bg-white/10" />
-
-        <ul className="relative space-y-3">
-          {items.map((it) => (
-            <li key={it} className="flex items-center gap-2.5 text-[14px] text-white/75">
-              <ArrowUpRight size={15} className="shrink-0" style={{ color: accent }} />
-              {it}
-            </li>
-          ))}
-        </ul>
+        <p className="relative mt-4 text-[13.5px] leading-relaxed text-white/55">{desc}</p>
       </div>
     </Reveal>
   );
 }
 
 /* ===============================================================
-   DATA — capabilities (titles + copy enriched with the ServiceNow
-   module keywords people actually search: "ITSM services",
-   "ServiceNow ITOM", "CSM implementation", "HR Service Delivery",
-   "Source to Pay", "App Engine Studio / low code")
+   SPLIT SECTION — eyebrow + heading + copy on one side, a checklist
+   of points on the other. Reused for Consulting, Implementation,
+   Optimization, and Support & Managed Services.
 ================================================================ */
+function SplitSection({
+  eyebrow,
+  title,
+  desc,
+  points,
+  reverse = false,
+  bordered = false,
+}: {
+  eyebrow: string;
+  title: string;
+  desc: string;
+  points: string[];
+  reverse?: boolean;
+  bordered?: boolean;
+}) {
+  return (
+    <section
+      className={`relative py-16 lg:py-20 ${
+        bordered ? "border-y border-white/10 bg-white/[0.015]" : ""
+      }`}
+    >
+      <div className={`relative grid grid-cols-1 items-center gap-14 lg:grid-cols-2 ${CONTAINER}`}>
+        <Reveal className={reverse ? "lg:order-2" : ""}>
+          <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
+            {eyebrow}
+          </p>
+          <h2 className="mt-4 text-[28px] font-bold leading-tight tracking-tight sm:text-[34px]">
+            {title}
+          </h2>
+          <p className="mt-5 max-w-lg text-[15px] leading-relaxed text-white/55">{desc}</p>
+        </Reveal>
+
+        <Reveal delay={120} className={reverse ? "lg:order-1" : ""}>
+          <ul className="space-y-4">
+            {points.map((p) => (
+              <li
+                key={p}
+                className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-5 text-[14px] leading-relaxed text-white/75 transition-colors duration-200 hover:border-white/20"
+              >
+                <CheckCircle2 size={18} className="mt-0.5 shrink-0" style={{ color: primary }} />
+                {p}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+/* ===============================================================
+   DATA
+================================================================ */
+
+// ITSM overview + the 10 capabilities from the outline
 const CAPABILITIES = [
   {
-    id: "itsm",
+    id: "incident-management",
     number: "01",
-    icon: Ticket,
+    icon: AlertCircle,
     accent: "#8B7CFF",
-    title: "ServiceNow ITSM (IT Service Management)",
-    desc: "Our ServiceNow ITSM implementation replaces scattered inboxes and spreadsheets with a single governed workflow, so IT incidents get resolved faster, changes stay auditable, and service requests never fall through the cracks.",
-    items: ["Incident & Problem Management", "Change & Release Management", "Request Fulfilment", "Knowledge Base & Self Service Portal"],
+    title: "Incident Management",
+    desc: "Log, prioritize, and resolve incidents through one governed queue, so nothing sits unassigned and every SLA is visible in real time.",
   },
   {
-    id: "itom",
+    id: "problem-management",
     number: "02",
-    icon: ServerCog,
+    icon: Search,
     accent: "#F45B9E",
-    title: "ServiceNow ITOM (IT Operations Management)",
-    desc: "ServiceNow ITOM gives you a live, dependency aware view of your infrastructure and cloud estate, so your operations team spots service degradation and outages before customers ever notice.",
-    items: ["Discovery & CMDB", "Event & Alert Management", "Service Mapping", "Cloud & Hybrid Infrastructure Insights"],
+    title: "Problem Management",
+    desc: "Trace recurring incidents back to root cause and track the fix through to closure, instead of firefighting the same issue every month.",
   },
   {
-    id: "csm",
+    id: "change-management",
     number: "03",
-    icon: Headphones,
+    icon: GitBranch,
     accent: "#F5B942",
-    title: "ServiceNow CSM (Customer Service Management)",
-    desc: "With ServiceNow CSM implementation, support cases are linked directly to the systems and orders behind them, so agents see full customer context and resolve cases on the first reply, not the fifth.",
-    items: ["Case Management", "Customer & Partner Self Service Portals", "Field Service Management", "Omnichannel Customer Support"],
+    title: "Change Management",
+    desc: "Route every change through the right approvals and risk checks automatically, so releases stay controlled without slowing teams down.",
   },
   {
-    id: "hrsd",
+    id: "request-management",
     number: "04",
-    icon: Users,
+    icon: Inbox,
     accent: "#4EA1FF",
-    title: "ServiceNow HR Service Delivery (HRSD)",
-    desc: "ServiceNow HRSD creates a single, self service front door for every employee request, so your HR team spends less time answering status queries and more time on people strategy.",
-    items: ["Employee Onboarding & Offboarding", "HR Case Management", "Employee Center Portal", "Document & Policy Management"],
+    title: "Request Management",
+    desc: "Give employees a single place to ask for what they need, with status tracking that replaces email threads and follow-up pings.",
   },
   {
-    id: "s2p",
+    id: "service-catalog",
     number: "05",
-    icon: ShoppingCart,
-    accent: "#34D399",
-    title: "ServiceNow Source to Pay (S2P) Operations",
-    desc: "Our ServiceNow Source to Pay workflows run procurement and payments on one platform, giving finance teams and vendors complete visibility from purchase request through to final payment.",
-    items: ["Requisition to Purchase Order", "Vendor & Contract Management", "Invoice Automation", "Spend Analytics & Reporting"],
-  },
-  {
-    id: "aes",
-    number: "06",
     icon: LayoutGrid,
+    accent: "#34D399",
+    title: "Service Catalog",
+    desc: "Present every IT service as a clear, orderable item with the right approvals built in, so requesting something is a click, not a ticket essay.",
+  },
+  {
+    id: "cmdb",
+    number: "06",
+    icon: Database,
     accent: "#22D3EE",
-    title: "ServiceNow App Engine Studio (Low Code Apps)",
-    desc: "Using App Engine Studio, we build purpose fit, low code ServiceNow applications for the workflows the out of the box platform doesn't cover, governed on the same instance as everything else.",
-    items: ["Custom Workflow Apps", "Low Code / No Code Studio", "Business Process Automation", "Platform Integration Hub"],
+    title: "CMDB",
+    desc: "Keep a live, accurate map of your infrastructure and its dependencies, so impact analysis is a lookup instead of a guess.",
   },
-];
-
-const ENGAGEMENTS = [
   {
-    icon: Compass,
+    id: "it-asset-management",
+    number: "07",
+    icon: Boxes,
     accent: "#8B7CFF",
-    title: "ServiceNow Assess & Advise",
-    desc: "A structured ServiceNow consulting review of your current state workflows, licensing, and technical debt, closing with a prioritized implementation roadmap and business case.",
+    title: "IT Asset Management",
+    desc: "Track hardware, software, and license usage against your CMDB, so renewals, audits, and spend are never a last-minute scramble.",
   },
   {
-    icon: Wrench,
-    accent: "#F45B9E",
-    title: "ServiceNow Implement & Integrate",
-    desc: "End to end ServiceNow configuration, custom app development, and integration with your existing IT, HR, and business systems, delivered by certified engineers.",
-  },
-  {
-    icon: LifeBuoy,
-    accent: "#4EA1FF",
-    title: "ServiceNow Support & Evolve",
-    desc: "Ongoing ServiceNow managed support, release upgrades, and platform governance, so your instance keeps pace as workflows, teams, and compliance needs change.",
-  },
-];
-
-const PROCESS = [
-  { number: "01", accent: "#8B7CFF", title: "Discover", desc: "We map how work actually moves through your teams today, not how the org chart says it should, and that is the foundation of every good ServiceNow implementation." },
-  { number: "02", accent: "#F45B9E", title: "Design", desc: "ServiceNow workflows are designed around the modules and business outcomes you need, not the other way round." },
-  { number: "03", accent: "#F5B942", title: "Build & configure", desc: "Certified ServiceNow engineers configure, integrate, and test every workflow against your real systems and data." },
-  { number: "04", accent: "#4EA1FF", title: "Adopt & scale", desc: "We stay on to support rollout, train your teams, and extend the ServiceNow platform as new workflows and modules come up." },
-];
-
-const INDUSTRIES = [
-  { label: "Banking", href: "/industries/banking" },
-  { label: "Financial Services", href: "/industries/financial-services" },
-  { label: "Insurance", href: "/industries/insurance" },
-  { label: "Healthcare", href: "/industries/healthcare" },
-  { label: "Life Sciences", href: "/industries/life-sciences" },
-  { label: "Manufacturing", href: "/industries/manufacturing" },
-  { label: "Retail", href: "/industries/retail" },
-  { label: "Telecom", href: "/industries/telecom" },
-  { label: "Public Sector", href: "/industries/public-sector" },
-  { label: "Travel & Hospitality", href: "/industries/travel-hospitality" },
-];
-
-const OUTCOMES = [
-  {
+    id: "workflow-automation",
+    number: "08",
     icon: Zap,
-    accent: "#8B7CFF",
-    title: "Faster resolution",
-    desc: "Incidents and requests move through one governed ServiceNow queue instead of scattered inboxes, so response times drop and nothing falls through.",
-  },
-  {
-    icon: TrendingUp,
     accent: "#F45B9E",
-    title: "Fewer escalations",
-    desc: "Context travels with every ticket, so agents resolve on first contact instead of bouncing cases between teams and departments.",
+    title: "Workflow Automation",
+    desc: "Automate the repetitive parts of ITSM, approvals, assignments, notifications, so your team spends time on the work that needs judgment.",
   },
   {
-    icon: FileCheck2,
+    id: "integrations",
+    number: "09",
+    icon: Plug,
     accent: "#F5B942",
-    title: "A full audit trail",
-    desc: "Every change, approval, and request is logged automatically inside ServiceNow, so compliance reporting stops being a quarterly scramble.",
+    title: "Integrations",
+    desc: "Connect ServiceNow ITSM to identity providers, monitoring tools, and the rest of your IT stack, so data flows in one direction, not five.",
   },
   {
-    icon: Users,
+    id: "custom-applications",
+    number: "10",
+    icon: Code2,
     accent: "#4EA1FF",
-    title: "Higher adoption",
-    desc: "Employees use one self service ServiceNow portal for IT, HR, and support requests, instead of learning five different tools.",
+    title: "Custom Applications",
+    desc: "For the workflows the out of the box platform doesn't cover, we build governed, low code applications on the same ServiceNow instance.",
   },
 ];
 
-const DELIVERABLES = [
-  "Discovery workshop and current state ServiceNow assessment",
-  "Workflow blueprint aligned to your operating model",
-  "Configured and tested ServiceNow instance",
-  "Integration with your existing IT, HR, and business systems",
-  "Admin and end user training",
-  "Hypercare support through go live",
+const CONSULTING_POINTS = [
+  "Current state assessment of your ITSM workflows, licensing, and technical debt",
+  "Gap analysis against ServiceNow ITSM best practice and your operating model",
+  "A prioritized implementation roadmap with a clear business case",
+  "Recommendations on which ITSM modules to adopt first, and in what order",
 ];
 
-const RELATED_INSIGHTS = [
+const IMPLEMENTATION_POINTS = [
+  "End to end configuration of incident, problem, change, and request management",
+  "Service catalog, CMDB, and IT asset management set up against your real data",
+  "Integrations with your identity provider, monitoring tools, and business systems",
+  "Admin and end user training, plus hypercare support through go live",
+];
+
+const OPTIMIZATION_POINTS = [
+  "Regular health checks against ITSM KPIs: resolution time, escalations, backlog age",
+  "License and usage optimization so you pay for what teams actually use",
+  "Workflow tuning as ticket volumes, teams, and priorities change",
+  "Release upgrade planning so your instance stays current without disruption",
+];
+
+const SUPPORT_POINTS = [
+  "Ongoing ServiceNow ITSM managed support with defined response times",
+  "Proactive monitoring of instance health and upcoming release changes",
+  "A named team that knows your configuration, not a rotating help desk",
+  "Flexible support tiers, from break-fix to fully managed operations",
+];
+
+const CASE_STUDIES = [
   {
     title: "How Starfii and ServiceNow FSO Are Reimagining Insurance Servicing",
     tag: "Case Study",
   },
   {
-    title: "What's Changed in Microsoft Fabric for Responsible AI at Scale",
-    tag: "Insight",
-  },
-];
-
-const FAQS = [
-  {
-    q: "Is Starfii a certified ServiceNow implementation partner?",
-    a: "Yes. We design, build, and run ServiceNow workflows as a certified ServiceNow implementation partner, with engineers who stay accountable through go live and beyond, not just through the design phase.",
-  },
-  {
-    q: "Which ServiceNow modules do you work with?",
-    a: "Our core ServiceNow consulting practice covers ITSM, ITOM, CSM, HR Service Delivery (HRSD), Source to Pay Operations, and custom App Engine Studio builds. If your instance spans other modules, we scope that during the Assess & Advise phase.",
-  },
-  {
-    q: "What does a typical ServiceNow implementation engagement look like?",
-    a: "Most engagements start with a discovery workshop and current state assessment, move into workflow design and configuration, and close with training and hypercare support through go live. Timelines depend on scope and the number of modules involved.",
-  },
-  {
-    q: "Do we need a new ServiceNow license, or can you work with our existing one?",
-    a: "We work with your existing ServiceNow license and instance wherever possible. If your licensing doesn't cover the modules you need, we'll flag that during the Assess & Advise phase before any build work starts.",
-  },
-  {
-    q: "Can you integrate ServiceNow with our existing systems?",
-    a: "Integration is central to most ServiceNow implementation engagements. We connect ServiceNow to identity providers, ITOM data sources, HRIS, ERP, and other business systems your teams already rely on.",
-  },
-  {
-    q: "Do you provide ServiceNow managed support after go live?",
-    a: "Yes. Our Support & Evolve engagement covers ServiceNow managed support, release upgrades, and ongoing configuration as your workflows and organization change.",
-  },
-  {
-    q: "How much does a ServiceNow implementation cost?",
-    a: "Cost depends on the number of modules, integrations, and level of customization involved. We scope this precisely during the Assess & Advise phase and share a clear business case before any build work begins.",
-  },
-  {
-    q: "How does this connect to Starfii's other platforms?",
-    a: "Our Zerovity™ platform maps how your applications actually behave, which informs how we configure ServiceNow workflows, so the platform reflects how your systems really run, not just how they're documented.",
+    title: "Cutting Incident Resolution Time by 40% with a Unified ITSM Rollout",
+    tag: "Case Study",
   },
 ];
 
 /* ===============================================================
-   SIGNATURE VISUAL — hub-and-spoke diagram
+   SIGNATURE VISUAL — hub-and-spoke diagram of core ITSM processes
 ================================================================ */
-function WorkflowHub() {
+function ITSMHub() {
   const [started, setStarted] = useState(false);
   useEffect(() => {
     const t = setTimeout(() => setStarted(true), 200);
@@ -390,12 +368,12 @@ function WorkflowHub() {
   }, []);
 
   const nodes = [
-    { label: "ITSM", x: 70, y: 60, accent: "#8B7CFF" },
-    { label: "ITOM", x: 330, y: 60, accent: "#F45B9E" },
-    { label: "CSM", x: 40, y: 200, accent: "#F5B942" },
-    { label: "HRSD", x: 360, y: 200, accent: "#4EA1FF" },
-    { label: "S2P", x: 100, y: 330, accent: "#34D399" },
-    { label: "AES", x: 300, y: 330, accent: "#22D3EE" },
+    { label: "Incident", x: 70, y: 60, accent: "#8B7CFF" },
+    { label: "Problem", x: 330, y: 60, accent: "#F45B9E" },
+    { label: "Change", x: 40, y: 200, accent: "#F5B942" },
+    { label: "Request", x: 360, y: 200, accent: "#4EA1FF" },
+    { label: "Catalog", x: 100, y: 330, accent: "#34D399" },
+    { label: "CMDB", x: 300, y: 330, accent: "#22D3EE" },
   ];
   const cx = 200;
   const cy = 195;
@@ -445,14 +423,14 @@ function WorkflowHub() {
             ServiceNow
           </text>
           <text x={cx} y={cy + 14} textAnchor="middle" fill="#B7ACFF" fontSize="10" fontWeight={600}>
-            One platform
+            ITSM
           </text>
         </g>
 
         {nodes.map((n, i) => (
           <g key={n.label} className={`svc-node ${started ? "svc-run" : ""}`} style={{ animationDelay: `${650 + i * 90}ms` }}>
             <circle cx={n.x} cy={n.y} r={30} fill="#12121C" stroke={n.accent} strokeWidth={1.5} />
-            <text x={n.x} y={n.y + 4} textAnchor="middle" fill="#FFFFFF" fontSize="11.5" fontWeight={700}>
+            <text x={n.x} y={n.y + 4} textAnchor="middle" fill="#FFFFFF" fontSize="10.5" fontWeight={700}>
               {n.label}
             </text>
           </g>
@@ -493,8 +471,8 @@ function AmbientGlow() {
 function TrustBadges() {
   const badges = [
     { icon: ShieldCheck, label: "Certified ServiceNow Implementation Partner" },
-    { icon: Sparkles, label: "AI Led ServiceNow Delivery" },
-    { icon: Layers, label: "Full Stack ServiceNow Platform Coverage" },
+    { icon: Sparkles, label: "AI Led ITSM Delivery" },
+    { icon: Layers, label: "End-to-End ITSM Coverage" },
   ];
   return (
     <div className="flex flex-wrap gap-3">
@@ -515,75 +493,12 @@ function TrustBadges() {
 }
 
 /* ===============================================================
-   FAQ ACCORDION
+   STRUCTURED DATA (JSON-LD)
 ================================================================ */
-function FaqItem({ q, a, defaultOpen = false }: { q: string; a: string; defaultOpen?: boolean }) {
-  const [open, setOpen] = useState(defaultOpen);
-  const ref = useRef<HTMLDivElement>(null);
-
-  return (
-    <div className="border-b border-white/10 py-2">
-      <button
-        type="button"
-        onClick={() => setOpen((o) => !o)}
-        className="flex w-full items-center justify-between gap-4 py-5 text-left"
-        aria-expanded={open}
-      >
-        <span className="text-[16px] font-semibold text-white">{q}</span>
-        <span
-          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/15 transition-transform duration-300"
-          style={{ transform: open ? "rotate(45deg)" : "rotate(0deg)" }}
-        >
-          <Plus size={16} className="text-white/70" />
-        </span>
-      </button>
-      <div
-        className="grid overflow-hidden transition-all duration-300 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div ref={ref} className="min-h-0 overflow-hidden">
-          <p className="pb-5 pr-12 text-[14.5px] leading-relaxed text-white/55">{a}</p>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===============================================================
-   STRUCTURED DATA (JSON-LD) — for AEO/GEO
-   ------------------------------------------------------------
-   This is what actually helps AI answer engines (Google AI
-   Overviews, ChatGPT, Perplexity, Gemini) and rich-result snippets
-   understand and quote this page correctly. Keywords in prose help
-   humans read it; this schema is what machines parse directly, and
-   it's the single biggest lever for AEO/GEO that keyword text alone
-   can't provide.
-
-   - FAQPage schema: mirrors FAQS below, verbatim question + a
-     concise version of the answer, so answer engines can lift a
-     direct quote in response to "who is a ServiceNow implementation
-     partner" type queries.
-   - Service schema: tells engines "Starfii = provider of ServiceNow
-     implementation services", which entity ("ServiceNow") it
-     relates to, and what the service area/offer catalog is.
-================================================================ */
-const FAQ_JSON_LD = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: {
-      "@type": "Answer",
-      text: f.a,
-    },
-  })),
-};
-
 const SERVICE_JSON_LD = {
   "@context": "https://schema.org",
   "@type": "Service",
-  serviceType: "ServiceNow Implementation and Consulting",
+  serviceType: "ServiceNow ITSM Implementation and Consulting",
   provider: {
     "@type": "Organization",
     name: "Starfii Technology",
@@ -591,10 +506,10 @@ const SERVICE_JSON_LD = {
   },
   areaServed: "Worldwide",
   description:
-    "Certified ServiceNow implementation partner delivering ITSM, ITOM, CSM, HR Service Delivery, Source to Pay, and App Engine Studio workflow solutions, backed by AI led consulting, integration, and managed support.",
+    "Design, implement and optimize ServiceNow solutions that modernize enterprise IT service management, covering incident, problem, change, and request management, service catalog, CMDB, IT asset management, workflow automation, integrations, and custom applications.",
   hasOfferCatalog: {
     "@type": "OfferCatalog",
-    name: "ServiceNow Services",
+    name: "ServiceNow ITSM Services",
     itemListElement: CAPABILITIES.map((c) => ({
       "@type": "Offer",
       itemOffered: {
@@ -609,16 +524,12 @@ const SERVICE_JSON_LD = {
 /* ===============================================================
    PAGE
 ================================================================ */
-export default function ServiceNowPage() {
+export default function ServiceNowITSMPage() {
   return (
     <main className="relative overflow-hidden bg-[#08080D] text-white">
       {/* JSON-LD structured data — read by search + AI answer engines,
-         invisible to human visitors. Keep this in sync if FAQS or
-         CAPABILITIES copy changes. */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
-      />
+         invisible to human visitors. Keep this in sync if CAPABILITIES
+         copy changes. */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(SERVICE_JSON_LD) }}
@@ -639,34 +550,29 @@ export default function ServiceNowPage() {
       `}</style>
       <AmbientGlow />
 
-      {/* ---------------- HERO ---------------- */}
+      {/* ---------------- HERO — ServiceNow overview ---------------- */}
       <section className="relative pt-[150px] pb-20 lg:pt-[180px] lg:pb-28">
         <div className={`relative grid grid-cols-1 items-center gap-16 lg:grid-cols-2 ${CONTAINER}`}>
           <div>
             <Reveal>
               <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-                Certified ServiceNow Implementation Partner
+                ServiceNow ITSM Implementation Partner
               </p>
             </Reveal>
             <Reveal delay={80}>
-              {/* H1 carries the primary keyword: "ServiceNow implementation partner" */}
               <h1 className="mt-5 text-[38px] font-bold leading-[1.12] tracking-tight sm:text-[46px] lg:text-[52px]">
-                Every ServiceNow workflow.
+                ServiceNow ITSM
                 <br />
-                One platform.
-                <br />
-                <span style={{ color: primary }}>Zero friction.</span>
+                <span style={{ color: primary }}>Services</span>
               </h1>
             </Reveal>
             <Reveal delay={160}>
               <p className="mt-6 max-w-lg text-[16px] leading-relaxed text-white/55">
-                As a certified ServiceNow implementation partner, Starfii
-                designs, builds, and runs ServiceNow ITSM, ITOM, CSM, HR
-                Service Delivery, Source to Pay, and App Engine Studio
-                workflows that connect IT operations, customer service, and
-                HR on a single platform, backed by an AI led ServiceNow
-                consulting and engineering practice that treats ServiceNow
-                as core infrastructure, not a side project.
+                Design, implement and optimize ServiceNow solutions that
+                modernize enterprise IT service management. Starfii is a
+                certified ServiceNow implementation partner covering the
+                full ITSM lifecycle, from incident and change management to
+                CMDB, workflow automation, and custom applications.
               </p>
             </Reveal>
             <Reveal delay={220} className="pt-7">
@@ -682,41 +588,58 @@ export default function ServiceNowPage() {
                 Talk to a ServiceNow expert
               </button>
               <a
-                href="#capabilities"
+                href="#itsm"
                 className="flex h-12 items-center gap-1.5 rounded-md border border-white/15 px-6 text-[15px] font-semibold text-white/85 transition-colors duration-150 hover:bg-white/5"
               >
-                See our ServiceNow services
+                See our ITSM capabilities
                 <ArrowUpRight size={16} />
               </a>
             </Reveal>
           </div>
 
           <Reveal delay={200}>
-            <WorkflowHub />
+            <ITSMHub />
           </Reveal>
         </div>
       </section>
 
-      {/* ---------------- CAPABILITIES ---------------- */}
-      <section id="capabilities" className="relative py-20 lg:py-28">
+      {/* ---------------- SERVICENOW CONSULTING ---------------- */}
+      <SplitSection
+        eyebrow="ServiceNow Consulting"
+        title="Start with a clear picture of where ITSM stands today."
+        desc="Our ServiceNow consulting engagement reviews your current workflows, licensing, and technical debt, and closes with a prioritized roadmap, so every implementation decision is backed by a business case, not a guess."
+        points={CONSULTING_POINTS}
+      />
+
+      {/* ---------------- SERVICENOW IMPLEMENTATION ---------------- */}
+      <SplitSection
+        eyebrow="ServiceNow Implementation"
+        title="A ServiceNow ITSM build that matches how your teams actually work."
+        desc="Certified engineers configure, integrate, and test every ITSM workflow against your real systems and data, then stay through training and go live, so the platform is adopted, not just switched on."
+        points={IMPLEMENTATION_POINTS}
+        reverse
+        bordered
+      />
+
+      {/* ---------------- ITSM CAPABILITIES ---------------- */}
+      <section id="itsm" className="relative py-20 lg:py-28">
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              ServiceNow Services We Deliver
+              ITSM
             </p>
             <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              Six ServiceNow modules. One consistent way of working.
+              Everything IT Service Management needs, on one instance.
             </h2>
             <p className="mt-4 text-[15px] leading-relaxed text-white/50">
-              From ServiceNow ITSM and ITOM to CSM, HR Service Delivery,
-              Source to Pay, and App Engine Studio, every module is
+              From incident and problem management through to CMDB, asset
+              tracking, and custom applications, every capability below is
               delivered by the same certified ServiceNow team, on the same
-              platform conventions, so your workflow automation stays
-              consistent as it scales across departments.
+              platform conventions.
             </p>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {CAPABILITIES.map((c, i) => (
               <GlowCard
                 key={c.number}
@@ -726,234 +649,45 @@ export default function ServiceNowPage() {
                 accent={c.accent}
                 title={c.title}
                 desc={c.desc}
-                items={c.items}
-                delay={i * 70}
+                delay={i * 60}
               />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------------- OUTCOMES ---------------- */}
-      <section className="relative border-y border-white/10 bg-white/[0.015] py-20 lg:py-24">
-        <div className={`relative ${CONTAINER}`}>
-          <Reveal className="max-w-2xl">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              ServiceNow Business Outcomes
-            </p>
-            <h2 className="mt-4 text-[28px] font-bold leading-tight tracking-tight sm:text-[32px]">
-              Outcomes teams actually feel, not just dashboards that say so.
-            </h2>
-          </Reveal>
+      {/* ---------------- OPTIMIZATION ---------------- */}
+      <SplitSection
+        eyebrow="Optimization"
+        title="ITSM that keeps getting better after go live."
+        desc="A ServiceNow instance drifts out of shape as teams, ticket volumes, and priorities change. We run regular health checks and tune workflows and licensing so ITSM keeps up with the business, not the other way round."
+        points={OPTIMIZATION_POINTS}
+        bordered
+      />
 
-          <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {OUTCOMES.map((o, i) => {
-              const Icon = o.icon;
-              return (
-                <Reveal key={o.title} delay={i * 80}>
-                  <div className="h-full rounded-xl border border-white/10 bg-white/[0.025] p-6 transition-colors duration-200 hover:border-white/20">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-white/[0.06]">
-                      <Icon size={20} strokeWidth={2} style={{ color: o.accent }} />
-                    </div>
-                    <h3 className="mt-5 text-[15.5px] font-bold">{o.title}</h3>
-                    <p className="mt-2.5 text-[13.5px] leading-relaxed text-white/55">{o.desc}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-        </div>
-      </section>
+      {/* ---------------- SUPPORT AND MANAGED SERVICES ---------------- */}
+      <SplitSection
+        eyebrow="Support and Managed Services"
+        title="A team that knows your instance, on call when you need them."
+        desc="Our ServiceNow ITSM managed support covers day to day break-fix, release upgrades, and platform governance, delivered by a named team rather than a rotating help desk."
+        points={SUPPORT_POINTS}
+        reverse
+      />
 
-      {/* ---------------- ENGAGEMENT MODELS ---------------- */}
-      <section className="relative py-20 lg:py-28">
-        <div className={`relative ${CONTAINER}`}>
-          <Reveal className="max-w-2xl">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              ServiceNow Engagement Models
-            </p>
-            <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              Work with our ServiceNow consulting team at whichever stage you're at.
-            </h2>
-          </Reveal>
-
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-3">
-            {ENGAGEMENTS.map((e, i) => {
-              const Icon = e.icon;
-              return (
-                <Reveal key={e.title} delay={i * 90}>
-                  <div
-                    className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/40 hover:shadow-[0_24px_70px_-20px_var(--glow)]"
-                    style={{ ["--accent" as string]: e.accent, ["--glow" as string]: `${e.accent}55` }}
-                  >
-                    <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/[0.06] transition-transform duration-300 group-hover:scale-105">
-                      <Icon size={24} strokeWidth={2} style={{ color: e.accent }} />
-                    </div>
-                    <h3 className="mt-6 text-[19px] font-bold tracking-tight">{e.title}</h3>
-                    <div className="mt-3 h-[3px] w-10 rounded-full" style={{ backgroundColor: e.accent }} />
-                    <p className="mt-5 text-[14.5px] leading-relaxed text-white/55">{e.desc}</p>
-                  </div>
-                </Reveal>
-              );
-            })}
-          </div>
-
-          <Reveal delay={200} className="mt-14 rounded-2xl border border-white/10 bg-white/[0.025] p-8 lg:p-10">
-            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-              <div>
-                <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-                  What's included
-                </p>
-                <h3 className="mt-3 text-[22px] font-bold leading-snug tracking-tight">
-                  Every ServiceNow engagement ends with a working platform, not a slide deck.
-                </h3>
-              </div>
-              <ul className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-                {DELIVERABLES.map((d) => (
-                  <li key={d} className="flex items-start gap-2.5 text-[14px] leading-relaxed text-white/75">
-                    <CheckCircle2 size={17} className="mt-0.5 shrink-0" style={{ color: primary }} />
-                    {d}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------------- INDUSTRIES ---------------- */}
-      <section className="relative py-20 lg:py-24">
-        <div className={`relative ${CONTAINER}`}>
-          <Reveal className="max-w-2xl">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              Industries We Serve
-            </p>
-            <h2 className="mt-4 text-[26px] font-bold leading-tight tracking-tight sm:text-[30px]">
-              ServiceNow implementation and consulting, tuned to your sector.
-            </h2>
-          </Reveal>
-
-          <Reveal delay={100} className="mt-9 flex flex-wrap gap-3">
-            {INDUSTRIES.map((ind) => (
-              <a
-                key={ind.label}
-                href={ind.href}
-                className="rounded-full border border-white/10 bg-white/[0.03] px-5 py-2.5 text-[13.5px] font-medium text-white/70 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/25 hover:bg-white/[0.06] hover:text-white"
-              >
-                {ind.label}
-              </a>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ---------------- PROCESS ---------------- */}
-      <section className="relative py-20 lg:py-28">
-        <div className={`relative ${CONTAINER}`}>
-          <Reveal className="max-w-2xl">
-            <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              How We Deliver ServiceNow Projects
-            </p>
-            <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[36px]">
-              A ServiceNow rollout built around how your teams already work.
-            </h2>
-          </Reveal>
-
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {PROCESS.map((step, i) => (
-              <Reveal key={step.number} delay={i * 90}>
-                <div
-                  className="group relative h-full overflow-hidden rounded-2xl border border-white/10 bg-white/[0.025] p-7 transition-all duration-300 hover:-translate-y-1.5 hover:border-[var(--accent)]/40 hover:shadow-[0_24px_70px_-20px_var(--glow)]"
-                  style={{ ["--accent" as string]: step.accent, ["--glow" as string]: `${step.accent}55` }}
-                >
-                  <span
-                    aria-hidden
-                    className="pointer-events-none absolute right-5 top-1 select-none text-[48px] font-extrabold leading-none text-white/[0.05]"
-                  >
-                    {step.number}
-                  </span>
-                  <h3 className="relative text-[17px] font-bold">{step.title}</h3>
-                  <div className="mt-3 h-[3px] w-8 rounded-full" style={{ backgroundColor: step.accent }} />
-                  <p className="relative mt-4 text-[14px] leading-relaxed text-white/55">{step.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- WHY STARFII ---------------- */}
-      <section className="relative border-y border-white/10 bg-white/[0.015] py-20 lg:py-28">
-        <div className={`relative grid grid-cols-1 gap-16 lg:grid-cols-[0.9fr_1.1fr] ${CONTAINER}`}>
-          <Reveal>
-            <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-white/50">
-              Why Choose Starfii for ServiceNow
-            </p>
-            <h2 className="mt-4 text-[30px] font-bold leading-tight tracking-tight sm:text-[34px]">
-              ServiceNow implementation, built on an AI led engineering practice.
-            </h2>
-            <p className="mt-5 max-w-md text-[14.5px] leading-relaxed text-white/55">
-              Your ServiceNow instance doesn't sit in isolation. Our
-              Zerovity™ platform maps how your applications actually
-              behave, so the ServiceNow workflows we configure reflect how
-              your systems really run, not just how they're documented.
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {[
-              "Certified ServiceNow implementation partner",
-              "AI led ServiceNow delivery through our Zero Friction Enterprise™ approach",
-              "ServiceNow engineers who configure, integrate, and support, not just consult",
-              "Delivery informed by Zerovity™ and Tensai®, our own platforms",
-            ].map((point, i) => (
-              <Reveal key={point} delay={i * 80}>
-                <div className="flex gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-5 transition-colors duration-200 hover:border-white/20">
-                  <CheckCircle2 size={20} className="mt-0.5 shrink-0" style={{ color: primary }} strokeWidth={2} />
-                  <p className="text-[14px] leading-relaxed text-white/75">{point}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- FAQ ---------------- */}
-      <section className="relative py-20 lg:py-28">
-        <div className={`relative ${CONTAINER}`}>
-          <div className="mx-auto max-w-[880px]">
-            <Reveal className="text-center">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-                FAQ
-              </p>
-              <h2 className="mt-4 text-[28px] font-bold leading-tight tracking-tight sm:text-[32px]">
-                Common questions about our ServiceNow implementation practice
-              </h2>
-            </Reveal>
-
-            <Reveal delay={100} className="mt-10">
-              {FAQS.map((f, i) => (
-                <FaqItem key={f.q} q={f.q} a={f.a} defaultOpen={i === 0} />
-              ))}
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-      {/* ---------------- RELATED INSIGHTS ---------------- */}
+      {/* ---------------- CASE STUDIES ---------------- */}
       <section className="relative border-t border-white/10 py-20 lg:py-24">
         <div className={`relative ${CONTAINER}`}>
           <Reveal className="max-w-2xl">
             <p className="text-[12px] font-semibold uppercase tracking-[0.16em]" style={{ color: primary }}>
-              Related Insights
+              Case Studies
             </p>
             <h2 className="mt-4 text-[26px] font-bold leading-tight tracking-tight sm:text-[30px]">
-              More on how we put ServiceNow to work
+              How teams put ServiceNow ITSM to work
             </h2>
           </Reveal>
 
           <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2">
-            {RELATED_INSIGHTS.map((item, i) => (
+            {CASE_STUDIES.map((item, i) => (
               <Reveal key={item.title} delay={i * 90}>
                 <a
                   href="#"
@@ -991,13 +725,13 @@ export default function ServiceNowPage() {
             >
               <div>
                 <h2 className="text-[26px] font-bold leading-tight tracking-tight sm:text-[30px]">
-                  Ready to put ServiceNow to work?
+                  Ready to put ServiceNow ITSM to work?
                 </h2>
                 <p className="mt-3 max-w-md text-[14.5px] leading-relaxed text-white/55">
-                  Tell us which workflows are slowing your teams down. We'll
-                  show you how they fit inside a single ServiceNow instance,
-                  built and supported by a certified ServiceNow implementation
-                  partner.
+                  Tell us which ITSM workflows are slowing your teams down.
+                  We'll show you how they fit inside a single ServiceNow
+                  instance, built and supported by a certified ServiceNow
+                  implementation partner.
                 </p>
               </div>
               <button
@@ -1013,7 +747,5 @@ export default function ServiceNowPage() {
         </div>
       </section>
     </main>
-
   );
-  
 }

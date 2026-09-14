@@ -1,3 +1,5 @@
+// Legacy Modernization
+
 "use client";
 import Link from "next/link";
 
@@ -14,6 +16,7 @@ import {
 } from "react";
 import {
   ChevronRight,
+  ChevronDown,
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
@@ -21,119 +24,126 @@ import {
   Trophy,
 } from "lucide-react";
 
-import { caseStudies } from "./data/case-studies";
-import { blogPosts } from "./blogs/blogData";
-
 /* ===============================================================
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
    Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
-   Kept identical to the Digital & Software Services, Global
-   Capability Centers, Business Process Services, and Legacy
-   Modernization pages so this page reads as the same product line,
-   not a one-off template.
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
-// Route base for this service. Every internal link on this page is
-// built from this constant so the case-study / blog hrefs can never
-// silently point at the wrong service folder again.
-const BASE_PATH = "/services/global-capability-centers";
-
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
+
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Freshservice Implementation Journey" tab list
+// Autoplay timing for the "Legacy Modernization" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
-   Primary keyword targets: Freshservice implementation, Freshservice
-   ITSM, IT service desk, incident management, problem management,
-   change management, service catalog, CMDB, workflow automation,
-   Freshservice migration.
 
-   Page 10 spec: /services/freshservice
-   Subtitle: Implement, customize, migrate and optimize Freshservice
-   for modern, efficient and automated IT service operations.
+   Headings/subheadings are aligned to the recommended section list:
+   93.  Legacy assessment          -> Hero + Key Takeaways
+   94.  Modernization strategy     -> Q&A section
+   95.  Application modernization  -> Focus area card
+   96.  Re-engineering             -> Focus area card
+   97.  Re-platforming             -> Focus area card
+   98.  Cloud migration            -> Focus area card
+   99.  Architecture modernization -> Focus area card
+   100. API modernization          -> Focus area card
+   101. Database modernization     -> Focus area card
+   102. Modernization roadmap      -> Focus area card
+   103. Case studies               -> Case Studies section
+   104. CTA                        -> Closing CTA section
 ================================================================ */
+
+// Small dash-led eyebrow, matching the "— Legacy Modernization"
+// heading style used across the page.
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+    >
+      <span aria-hidden="true">—</span>
+      <span>{children}</span>
+    </span>
+  );
+}
 
 const keyTakeaways = [
   {
-    title: "Implement",
-    body: "Configure Freshservice around your actual IT service management processes, service desk, incident, problem, and change, so it fits how your teams already work.",
+    title: "Assess",
+    body: "Evaluate legacy applications, technical debt, and infrastructure risk to build a clear, prioritized picture of what to modernize first and why.",
   },
   {
-    title: "Automate",
-    body: "Build workflow automation, service catalog, and integrations that remove manual ticket handling and route requests to the right team automatically.",
+    title: "Modernize",
+    body: "Re engineer, re platform, or migrate legacy systems to modern, cloud ready architectures with minimal disruption to daily business operations.",
   },
   {
-    title: "Optimize",
-    body: "Migrate historical data, tune CMDB and asset records, and provide ongoing managed support so Freshservice keeps improving after go live.",
+    title: "Scale",
+    body: "Modernize APIs, databases, and application architecture so performance, security, and delivery speed hold up as the business grows.",
   },
-];
-
-type StatOutcome = { stat: string; label: string };
-
-const statOutcomes: StatOutcome[] = [
-  { stat: "30 to 50%", label: "Reduction in average ticket resolution time after implementation" },
-  { stat: "6 to 10 wks", label: "Typical timeline from kickoff to a live, configured Freshservice instance" },
-  { stat: "100%", label: "Historical ticket, asset, and CMDB data migrated without loss" },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Freshservice Implementation",
-    body: "Starfii configures Freshservice end to end, service desk, workflows, roles, and SLAs, matched to your existing ITSM processes instead of a generic default setup.",
-    tags: ["IMPLEMENTATION", "CONFIGURATION", "SLA"],
+    title: "Legacy Assessment",
+    body: "Starfii's legacy assessment maps your existing applications, dependencies, and technical debt, so modernization decisions are grounded in real risk and real business impact instead of guesswork.",
+    tags: ["ASSESSMENT", "TECH DEBT", "RISK"],
   },
   {
-    title: "Service Desk Setup",
-    body: "Starfii builds a Freshservice service desk with structured queues, ticket categorization, and self service options that reduce inbound volume on IT teams.",
-    tags: ["SERVICE DESK", "SELF SERVICE", "TICKETING"],
+    title: "Application Modernization",
+    body: "Starfii modernizes legacy applications into maintainable, cloud ready systems, preserving business logic that works while replacing what slows the business down.",
+    tags: ["APPLICATIONS", "CLOUD", "MAINTAINABILITY"],
   },
   {
-    title: "Incident Management",
-    body: "Starfii configures Freshservice incident management with clear priority matrices, escalation paths, and major incident workflows to cut resolution time.",
-    tags: ["INCIDENTS", "ESCALATION", "MTTR"],
+    title: "Re-engineering",
+    body: "Starfii's re engineering practice rebuilds outdated codebases and workflows around modern languages and frameworks, improving performance without losing years of embedded business rules.",
+    tags: ["RE-ENGINEERING", "REFACTORING", "PERFORMANCE"],
   },
   {
-    title: "Problem & Change Management",
-    body: "Starfii sets up problem management for root cause tracking and change management with approval workflows, so changes roll out with less risk.",
-    tags: ["PROBLEM", "CHANGE", "APPROVALS"],
+    title: "Re-platforming",
+    body: "Starfii re platforms legacy systems onto modern runtime environments with targeted code changes, unlocking cloud scalability faster than a full rebuild.",
+    tags: ["RE-PLATFORMING", "CLOUD", "SPEED"],
   },
   {
-    title: "Service Catalog & Requests",
-    body: "Starfii builds a Freshservice service catalog and request forms that let employees raise the right request the first time, with automatic routing.",
-    tags: ["CATALOG", "REQUESTS", "ROUTING"],
+    title: "Cloud Migration",
+    body: "Starfii plans and executes cloud migration for legacy workloads, moving applications and data to scalable infrastructure with minimal downtime and a clear rollback path.",
+    tags: ["CLOUD", "MIGRATION", "INFRASTRUCTURE"],
   },
   {
-    title: "Asset Management & CMDB",
-    body: "Starfii configures Freshservice asset management and CMDB to track hardware, software, and configuration items with accurate relationships and lifecycle data.",
-    tags: ["ASSETS", "CMDB", "LIFECYCLE"],
+    title: "Architecture Modernization",
+    body: "Starfii redesigns monolithic and outdated architectures into modular, service based systems that are easier to scale, test, and extend over time.",
+    tags: ["ARCHITECTURE", "MICROSERVICES", "SCALE"],
   },
   {
-    title: "Workflow Automation",
-    body: "Starfii builds Freshservice workflow automation that assigns, escalates, and closes tickets automatically based on rules, cutting manual triage work.",
-    tags: ["AUTOMATION", "WORKFLOWS", "TRIAGE"],
+    title: "API Modernization",
+    body: "Starfii modernizes legacy interfaces into secure, well documented APIs, so your systems can connect to partners, mobile apps, and third party platforms without added fragility.",
+    tags: ["API", "INTEGRATIONS", "SECURITY"],
   },
   {
-    title: "Integrations & Customization",
-    body: "Starfii integrates Freshservice with your existing tools, directory, monitoring, and collaboration platforms, and customizes fields, forms, and views to match your operation.",
-    tags: ["INTEGRATIONS", "CUSTOMIZATION", "API"],
+    title: "Database Modernization",
+    body: "Starfii migrates and re architects legacy databases for performance, scalability, and cost efficiency, with a data migration approach that protects data integrity throughout.",
+    tags: ["DATABASE", "MIGRATION", "DATA INTEGRITY"],
   },
   {
-    title: "Data Migration & Optimization",
-    body: "Starfii migrates historical tickets, assets, and CMDB data into Freshservice, then continuously optimizes configuration as ticket volume and team structure evolve.",
-    tags: ["MIGRATION", "OPTIMIZATION", "DATA"],
+    title: "Modernization Roadmap",
+    body: "Starfii builds a phased modernization roadmap that sequences assessment, migration, and re engineering work around business priorities, so value shows up early and often.",
+    tags: ["ROADMAP", "STRATEGY", "PLANNING"],
   },
 ];
 
@@ -146,51 +156,51 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Overview: Assess Current ITSM",
-    heading: "A Freshservice overview built around how your IT team actually works today",
-    body: "Starfii reviews your current service desk, ticket volume, and ITSM maturity, then scopes a Freshservice configuration that fits your processes instead of forcing a generic template on your team.",
-    image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Implement: Configure the Core",
-    heading: "Service desk, incident, problem, and change configured as one connected setup",
-    body: "Starfii implements the Freshservice service desk alongside incident, problem, and change management, so ticket flow, escalation, and approvals work together from day one.",
-    image:
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Migrate: Bring Your Data In",
-    heading: "Historical tickets, assets, and CMDB data migrated without disruption",
-    body: "Starfii migrates existing ticket history, asset records, and CMDB relationships into Freshservice, validating data integrity before your team switches over.",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Automate: Catalog & Workflows",
-    heading: "A service catalog and workflow automation that cuts manual ticket handling",
-    body: "Starfii builds out the service catalog, request forms, and workflow automation rules that route, assign, and escalate tickets automatically, reducing manual triage.",
+    label: "Modernization Strategy",
+    heading: "A modernization strategy sequenced around real business priorities",
+    body: "Starfii builds modernization strategy and roadmaps that go beyond a technology audit to align every phase of the work with the outcomes the business actually needs, so investment lands where it matters first.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Optimize: Support & Improve",
-    heading: "Ongoing optimization and managed support after go live",
-    body: "Starfii's managed support team monitors adoption, tunes automation rules, and keeps Freshservice optimized as ticket volume, integrations, and team structure change over time.",
+    label: "Application Modernization",
+    heading: "Application modernization that keeps what works and replaces what doesn't",
+    body: "Starfii's application modernization team rebuilds legacy software into maintainable, cloud ready systems, preserving proven business logic while removing the constraints that slow delivery down.",
     image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Re-engineering",
+    heading: "Re engineering legacy codebases without losing years of business logic",
+    body: "Starfii's re engineering practice modernizes outdated languages, frameworks, and workflows, improving performance and maintainability while carrying forward the rules the business depends on.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Re-platforming",
+    heading: "Re platforming that unlocks cloud scale faster than a full rebuild",
+    body: "Starfii re platforms legacy systems onto modern runtime environments with targeted, low risk code changes, so you get cloud scalability and lower operating costs without a ground up rewrite.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Cloud Migration",
+    heading: "Cloud migration planned around uptime, not just infrastructure",
+    body: "Starfii plans and executes cloud migration for legacy workloads and data, minimizing downtime and business disruption while giving you a clear, tested rollback path at every stage.",
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 type EcosystemImpact = { title: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Service Desk & Incident Management" },
-  { title: "Problem & Change Management" },
-  { title: "Service Catalog & Requests" },
-  { title: "Asset Management & CMDB" },
-  { title: "Workflow Automation & Integrations" },
-  { title: "Data Migration & Optimization" },
+  { title: "Legacy Assessment" },
+  { title: "Architecture Modernization" },
+  { title: "API Modernization" },
+  { title: "Database Modernization" },
+  { title: "Modernization Roadmap" },
+  { title: "Re-engineering" },
 ];
 
 type IndustryAward = {
@@ -204,45 +214,130 @@ type IndustryAward = {
 const industryAwards: IndustryAward[] = [
   {
     year: "2026 Quadrant",
-    category: "IT Service Management Services",
-    subcategory: "Freshworks Implementation Partners",
+    category: "Mainframes, Services and Solutions",
+    subcategory: "Application Modernization Services",
     rank: "Leader, U.S.",
     description:
-      "Starfii named a Leader in Freshworks Implementation Services in the ISG Provider Lens® IT Service Management Services 2026 U.S. Quadrant Report, recognizing our Freshservice configuration and rollout practice.",
+      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our legacy modernization expertise.",
   },
   {
     year: "2025 Quadrant",
     category: "Digital Engineering Services",
-    subcategory: "Workflow Automation",
+    subcategory: "Design and Development",
     rank: "Leader, U.S.",
     description:
-      "Starfii named a Leader in Workflow Automation in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting the automation capability behind our Freshservice delivery.",
+      "Starfii named a Leader in Design and Development (Products, Services and Experiences) in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting our modernization capability.",
   },
   {
     year: "2025 Quadrant",
-    category: "Managed IT Services",
-    subcategory: "Service Desk & Support",
-    rank: "Rising Star, U.S.",
+    category: "Cloud and Data Engineering",
+    subcategory: "Migration and Modernization",
+    rank: "Leader, U.S.",
     description:
-      "Starfii named a Rising Star in Service Desk and Support in the ISG Provider Lens™ Managed IT Services 2025 US Quadrant Report, validating our ongoing Freshservice support and optimization model.",
+      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our cloud migration and re platforming services.",
   },
 ];
 
-// Case studies and blog posts are pulled from the real data files that
-// back the [slug] detail routes — NOT hardcoded here. A hardcoded list
-// with invented slugs will always 404, because generateStaticParams()
-// on the [slug] pages only ever knows about slugs that exist in these
-// two files. If you add a new case study or blog post, add it to
-// data/case-studies.ts or blogData.ts and it will automatically show
-// up here with a working link — never add it only to this page.
-const insights = blogPosts.map((post, i) => ({
-  slug: post.slug,
-  large: i === 0,
-  image: post.heroImage,
-  title: post.title,
-  body: post.excerpt,
-}));
+type CaseStudy = { slug: string; image: string; title: string; body: string };
 
+const caseStudies: CaseStudy[] = [
+  {
+    slug: "reinsurance-mainframe-application-modernization",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Modernizes a Legacy Mainframe for a Global Reinsurer",
+    body: "Explore how Starfii re engineered a decades old mainframe claims system into a modern, cloud ready platform, cutting processing time and unlocking new integrations.",
+  },
+  {
+    slug: "regional-bank-core-banking-replatform",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Re Platforms Core Banking Systems for a Regional Bank",
+    body: "See how Starfii's re platforming approach moved a legacy core banking system to the cloud with zero unplanned downtime and lower operating costs.",
+  },
+  {
+    slug: "utilities-legacy-data-migration",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+    title: "Legacy Data Migration for a Utilities Provider",
+    body: "Discover how Starfii migrated decades of legacy operational data into a modern database architecture, giving field teams real time visibility across the grid.",
+  },
+  {
+    slug: "insurance-api-modernization",
+    image:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Modernizes Legacy APIs for a National Insurer",
+    body: "Learn how Starfii replaced brittle point to point integrations with modern, secure APIs, cutting partner onboarding time from months to weeks.",
+  },
+  {
+    slug: "healthcare-legacy-architecture-modernization",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Modernizes a Monolithic Platform for a Healthcare Provider",
+    body: "See how Starfii broke apart a legacy monolith into a modular, service based architecture that scaled to millions of users while staying HIPAA compliant.",
+  },
+];
+
+type InsightPost = {
+  slug: string;
+  large: boolean;
+  image: string;
+  title: string;
+  body: string;
+};
+
+const insights: InsightPost[] = [
+  {
+    slug: "legacy-modernization-with-generative-ai",
+    large: true,
+    image:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
+    title:
+      "Legacy Modernization with Generative AI: Faster Assessment, Safer Migration, Future Ready Systems",
+    body:
+      "Explore how Starfii uses generative AI to accelerate legacy assessment, automate code translation, and de risk cloud migration for complex application portfolios.",
+  },
+  {
+    slug: "when-to-rearchitect-vs-replatform",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+    title:
+      "When to Re Architect vs Re Platform a Legacy System",
+    body:
+      "Not every legacy system needs a rebuild. See how Starfii decides between re architecting, re platforming, and re engineering based on risk, cost, and timeline.",
+  },
+  {
+    slug: "cloud-migration-without-downtime",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
+    title:
+      "Cloud Migration Without Downtime: A Practical Playbook",
+    body:
+      "Stop trading uptime for modernization. See how Starfii's phased cloud migration approach keeps legacy systems running while the new platform comes online.",
+  },
+  {
+    slug: "database-modernization-strategies",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    title:
+      "Database Modernization Strategies for Legacy Enterprises",
+    body:
+      "Discover how database modernization improves performance and cost efficiency for enterprises still running on decades old data platforms.",
+  },
+  {
+    slug: "building-a-modernization-roadmap",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title:
+      "Building a Modernization Roadmap Enterprises Can Actually Follow",
+    body:
+      "Learn how a phased modernization roadmap sequences legacy assessment, migration, and re engineering work so value shows up early and risk stays contained.",
+  },
+];
 /* ===============================================================
    GLOBAL KEYFRAMES
 ================================================================ */
@@ -511,7 +606,6 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onClick={
           clickToAdvance
             ? (event) => {
@@ -522,6 +616,7 @@ function Carousel({
               }
             : undefined
         }
+        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
@@ -571,9 +666,9 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: One-card-at-a-time Carousel
-   Next/Previous advances exactly ONE card while keeping the
-   responsive visible-card count unchanged.
+   REUSABLE: StepCarousel
+   Moves exactly ONE card per arrow click.
+   Used only for Industry Recognition and Case Studies.
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -591,61 +686,79 @@ function StepCarousel<T>({
 }: StepCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
   const trackRef = useRef<HTMLDivElement | null>(null);
+
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
   const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
 
-  useEffect(() => {
-    setPosition((p) => Math.min(p, maxPosition));
-  }, [maxPosition]);
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return undefined;
-
-    const measure = () => {
-      const firstCard = track.firstElementChild as HTMLElement | null;
-      if (!firstCard) return;
-      const gap = 24;
-      setStepWidth(firstCard.getBoundingClientRect().width + gap);
-    };
+    if (!track) return;
 
     measure();
+
     const observer = new ResizeObserver(measure);
     observer.observe(track);
-    if (track.firstElementChild) observer.observe(track.firstElementChild);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
 
     window.addEventListener("resize", measure);
+
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [perPage, items.length]);
+  }, [measure, perPage]);
+
+  useEffect(() => {
+    setPosition((current) => Math.min(current, maxPosition));
+  }, [maxPosition]);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track || !stepWidth) return;
-    track.scrollTo({ left: position * stepWidth, behavior: "smooth" });
+    if (!track) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
   }, [position, stepWidth]);
 
-  const goTo = (next: number) => {
-    setPosition(Math.min(Math.max(next, 0), maxPosition));
+  const goTo = (nextPosition: number) => {
+    const next = Math.min(
+      Math.max(nextPosition, 0),
+      maxPosition
+    );
+
+    setPosition(next);
   };
 
-  const totalSteps = Math.max(1, maxPosition + 1);
-  const progress = ((position + 1) / totalSteps) * 100;
+  const progress = ((position + 1) / totalPositions) * 100;
 
   return (
     <div>
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-6 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
       >
-        {items.map((item, index) => (
+        {items.map((item, i) => (
           <div
-            key={index}
+            key={i}
             className="min-w-0 flex-shrink-0 snap-start"
             style={{
               width:
@@ -654,7 +767,7 @@ function StepCarousel<T>({
                   : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
             }}
           >
-            {renderItem(item, index)}
+            {renderItem(item, i)}
           </div>
         ))}
       </div>
@@ -662,7 +775,11 @@ function StepCarousel<T>({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
@@ -675,9 +792,12 @@ function StepCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
         >
-          {String(position + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
@@ -688,12 +808,15 @@ function StepCarousel<T>({
             disabled={position === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
               color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
@@ -710,121 +833,13 @@ function StepCarousel<T>({
   );
 }
 
-/* ===============================================================
-   REUSABLE: PagedCarousel
-================================================================ */
-
-type PagedCarouselProps<T> = {
-  items: T[];
-  itemsPerPage: Breakpoints;
-  renderItem: (item: T, index: number) => ReactNode;
-  arrowVariant?: "light" | "dark";
-};
-
-function PagedCarousel<T>({
-  items,
-  itemsPerPage,
-  renderItem,
-  arrowVariant = "light",
-}: PagedCarouselProps<T>): ReactElement {
-  const perPage = useItemsPerPage(itemsPerPage);
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
-
-  const pages: T[][] = [];
-  for (let i = 0; i < totalPages; i += 1) {
-    pages.push(items.slice(i * perPage, i * perPage + perPage));
-  }
-
-  const isDark = arrowVariant === "dark";
-  const goTo = (next: number) =>
-    setPage(Math.min(Math.max(next, 0), totalPages - 1));
-
-  return (
-    <div>
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((pageItems, pi) => (
-            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
-              {pageItems.map((item, ii) => (
-                <div key={ii} className="min-w-0 flex-1">
-                  {renderItem(item, pi * perPage + ii)}
-                </div>
-              ))}
-              {pageItems.length < perPage &&
-                Array.from({ length: perPage - pageItems.length }).map(
-                  (_, gi) => (
-                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
-                  )
-                )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-8 flex items-center gap-6">
-        <div
-          className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
-        >
-          <div
-            className="h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{
-              width: `${((page + 1) / totalPages) * 100}%`,
-              backgroundColor: INDIGO_CTA,
-            }}
-          />
-        </div>
-
-        <span
-          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
-        >
-          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
-        </span>
-
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => goTo(page - 1)}
-            disabled={page === 0}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => goTo(page + 1)}
-            disabled={page === totalPages - 1}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ===============================================================
    SECTION
 ================================================================ */
 
-export default function FreshserviceITSMSection(): ReactElement {
+export default function LegacyModernizationSection(): ReactElement {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
@@ -847,11 +862,12 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
+          (93. Legacy assessment)
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -872,24 +888,30 @@ export default function FreshserviceITSMSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Freshservice ITSM Services</span>
+            <span className="text-slate-500">Legacy Modernization</span>
           </nav>
 
+          <div
+            className="mt-8 opacity-0"
+            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
+          >
+            <Eyebrow>Legacy Modernization</Eyebrow>
+          </div>
+
           <h1
-            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
+            className="font-heading mt-4 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Freshservice Implementation for Modern IT Operations
+            Legacy Modernization for Secure, Scalable Digital Platforms
           </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Implement, customize, migrate and optimize Freshservice for
-            modern, efficient and automated IT service operations, from
-            service desk setup through workflow automation and ongoing
-            managed support.
+            Starfii transforms legacy applications into secure, scalable and
+            modern digital platforms with a structured modernization
+            approach, from assessment through migration.
           </p>
 
           <a
@@ -900,7 +922,7 @@ export default function FreshserviceITSMSection(): ReactElement {
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
             }}
           >
-            Talk to Us
+            Connect Now
             <ArrowUpRight size={17} />
           </a>
         </div>
@@ -908,31 +930,8 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            OUTCOMES STRIP
-        ============================================================ */}
-        <Reveal
-          as="section"
-          className="mt-16 grid grid-cols-1 gap-8 border-y py-10 sm:grid-cols-3"
-          style={{ borderColor: LAVENDER_ACCENT }}
-        >
-          {statOutcomes.map((o) => (
-            <div key={o.label}>
-              <p
-                className="font-heading text-[32px] font-medium"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                {o.stat}
-              </p>
-              <p className="font-body mt-2 text-[14px] leading-relaxed text-slate-600">
-                {o.label}
-              </p>
-            </div>
-          ))}
-        </Reveal>
-
-        {/* ============================================================
-            FRESHSERVICE AT A GLANCE
-            Same reference-style three-column design
+            KEY TAKEAWAYS
+            (93. Legacy assessment)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
@@ -952,11 +951,12 @@ export default function FreshserviceITSMSection(): ReactElement {
                   strokeWidth={1.8}
                   style={{ color: LAVENDER_ACCENT }}
                 />
+
                 <span
                   className="font-body text-[17px] font-semibold"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  Freshservice Implementation at a Glance
+                  Legacy Assessment Overview
                 </span>
               </div>
 
@@ -967,7 +967,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   color: INDIGO_CTA,
                 }}
               >
-                End to End ITSM Delivery
+                ASSESSMENT • STRATEGY • MIGRATION
               </span>
             </div>
 
@@ -981,6 +981,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   >
                     {point.title}
                   </h3>
+
                   <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
                     {point.body}
                   </p>
@@ -993,15 +994,17 @@ export default function FreshserviceITSMSection(): ReactElement {
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A Freshservice implementation partner to enterprises and
-            growing IT teams, Starfii configures service desk, incident,
-            problem, and change management as one connected setup, then
-            keeps it optimized as your operation scales.
+            A leader in legacy modernization, Starfii assesses complex
+            application portfolios and transitions them to secure,
+            scalable digital platforms with minimal disruption to daily
+            business operations.
           </p>
         </Reveal>
 
+
         {/* ============================================================
             Q&A BLOCK
+            (94. Modernization strategy)
         ============================================================ */}
 
         <Reveal as="section" className="mt-20">
@@ -1010,27 +1013,28 @@ export default function FreshserviceITSMSection(): ReactElement {
             style={{ backgroundColor: "#F5F3FC" }}
           >
             <div>
+              <Eyebrow>Modernization Strategy</Eyebrow>
               <h2
-                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                Why Does a Default Freshservice Setup Rarely Fit an IT Team?
+                How Do Enterprises Build a Modernization Strategy That
+                Sticks?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                A default Freshservice setup rarely fits an IT team because
-                every service desk has its own ticket volume, escalation
-                paths, and approval chains. Starfii configures service
-                desk, incident, problem, and change management around your
-                actual processes, migrates existing ticket and asset data,
-                and layers in workflow automation so the platform fits
-                your operation instead of the other way around.
+                Enterprises modernize successfully by sequencing legacy
+                assessment, migration, and re engineering work around
+                business priorities rather than technology alone. Starfii
+                brings these together into a structured modernization
+                strategy that reduces risk, controls cost, and delivers
+                measurable value at every phase of the transition.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop"
-                alt="IT team reviewing a Freshservice configuration"
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues reviewing a modernization strategy roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1040,7 +1044,9 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           FOCUS AREAS
+          (95-102. Application modernization through Modernization roadmap)
       ============================================================ */}
+
 
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
@@ -1060,14 +1066,15 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Freshservice Capabilities
+            <Eyebrow variant="dark">Legacy Modernization</Eyebrow>
+            <h2 className="font-heading mt-4 text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our Legacy Modernization Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii implements, customizes, migrates, and optimizes
-              Freshservice across service desk, ITSM processes, asset
-              management, and automation, backed by ongoing managed
-              support after go live.
+              Starfii assesses, re engineers, and migrates legacy
+              applications, architectures, APIs, and databases into
+              secure, scalable platforms built for long term business
+              value.
             </p>
           </Reveal>
 
@@ -1095,7 +1102,7 @@ export default function FreshserviceITSMSection(): ReactElement {
 
                   <div className="mt-16">
                     <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
+                      — {area.title}
                     </h3>
                     <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
@@ -1121,16 +1128,19 @@ export default function FreshserviceITSMSection(): ReactElement {
       </section>
 
       <div className={ALIGN}>
+
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
+            (94-98. Modernization strategy through Cloud migration)
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
+          <Eyebrow>Legacy Modernization</Eyebrow>
           <h2
-            className="font-heading text-[34px] font-medium"
+            className="font-heading mt-4 text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Freshservice Implementation Journey
+            Legacy Modernization Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1184,7 +1194,7 @@ export default function FreshserviceITSMSection(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -1192,7 +1202,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  {current.heading}
+                  — {current.heading}
                 </h3>
                 <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
@@ -1203,7 +1213,8 @@ export default function FreshserviceITSMSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+  
                 />
               </div>
             </div>
@@ -1213,9 +1224,10 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           IMPACT ACROSS ECOSYSTEM (dark)
+          (99-102. Architecture modernization through Modernization roadmap)
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#08070F] py-24">
+    
+<section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
@@ -1233,10 +1245,11 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your IT
+            <Eyebrow variant="dark">Architecture Modernization</Eyebrow>
+            <h2 className="font-heading mt-4 max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your Legacy
               <br />
-              Service Operations
+              Modernization Ecosystem
             </h2>
           </Reveal>
 
@@ -1251,7 +1264,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    {item.title}
+                    — {item.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
@@ -1264,10 +1277,20 @@ export default function FreshserviceITSMSection(): ReactElement {
             ))}
           </div>
         </div>
-      </section>
+
+</section>
+
+
+      {/* ============================================================
+          INDUSTRY RECOGNITION
+      ============================================================ */}
+
+
+
 
       {/* ============================================================
           CASE STUDIES
+          (103. Case studies)
       ============================================================ */}
 
       <section
@@ -1279,208 +1302,282 @@ export default function FreshserviceITSMSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Case Studies
-            </h2>
-            <Link
-              href={`${BASE_PATH}`}
+            <div>
+              <Eyebrow>Case Studies</Eyebrow>
+              <h2
+                className="font-heading mt-4 text-[36px] font-medium lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Case Studies
+              </h2>
+            </div>
+            <a
+              href="#"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </Link>
+            </a>
           </Reveal>
 
-          <div className="mt-12">
-            <StepCarousel
-              items={caseStudies}
-              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-              arrowVariant="light"
-              renderItem={(study, i) => (
-                <Reveal delay={(i % 3) * 90} className="h-full">
-                <Link
-  href={`${BASE_PATH}/${study.slug}`}
-  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
+         <div className="mt-12">
+ <StepCarousel
+  items={caseStudies}
+  itemsPerPage={{
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+  }}
+  arrowVariant="light"
+  renderItem={(study, i) => (
+    <Reveal
+      delay={(i % 3) * 90}
+      className="h-full"
+    >
+     <Link
+  href={`/services/legacy-Modernization/casestudies/${study.slug}`}
+  aria-label={`Read case study: ${study.title}`}
+  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
 >
-                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        CASE STUDY
-                      </span>
-                      <h3
-                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {study.title}
-                      </h3>
-                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {study.body}
-                      </p>
-                      <span
-                        className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              )}
-            />
-          </div>
+        {/* IMAGE */}
+        <div className="h-[220px] flex-shrink-0 overflow-hidden">
+          <img
+            src={study.image}
+            alt={study.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col p-6">
+
+          <span
+            className="font-body text-[12px] font-semibold tracking-wide"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            CASE STUDY
+          </span>
+
+          <h3
+            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            {study.title}
+          </h3>
+
+          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+            {study.body}
+          </p>
+
+          {/* LEARN MORE — no longer its own <Link>: the whole card above
+              is now the Link, so this is just a visual affordance that
+              reacts to the card's hover state via the shared "group" class. */}
+          <span
+            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            Learn More
+            <ArrowUpRight size={15} />
+          </span>
+
+        </div>
+      </Link>
+    </Reveal>
+  )}
+/>
+</div>
+
         </div>
       </section>
 
-      {/* ============================================================
-          INSIGHTS / WHAT'S NEW
-      ============================================================ */}
+   
+{/* ============================================================
+    INSIGHTS / WHAT'S NEW
+============================================================ */}
+<section className="bg-[#EEF0F7] py-24">
+  <div className={ALIGN}>
+    <Reveal className="flex items-center justify-between">
+      <div>
+        <Eyebrow>Legacy Modernization</Eyebrow>
+        <h2
+          className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          {"What's New in Legacy Modernization"}
+        </h2>
+      </div>
 
-      <section className="bg-[#EEF0F7] py-24">
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {"What's New in Freshservice ITSM"}
-            </h2>
-            <Link
-              href={`${BASE_PATH}/blogs`}
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Blogs
-              <ArrowUpRight size={16} />
-            </Link>
-          </Reveal>
-
-          <div className="mt-12">
-          <Carousel
-  itemCount={insights.length}
-  arrowVariant="light"
-  clickToAdvance={false}
->
-  {insights.map((post, i) => (
-    <Reveal
-      key={post.slug}
-      delay={i * 90}
-      className={`flex-shrink-0 snap-start ${
-        post.large
-          ? "w-[420px]"
-          : "w-[340px]"
-      }`}
-    >
       <Link
-        href={`${BASE_PATH}/blogs/${post.slug}`}
-        className="group block h-full"
-        aria-label={`Read ${post.title}`}
+        href="/services/legacy-modernization/blogs"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
       >
-        {post.large ? (
-          <div className="relative h-[420px] overflow-hidden rounded-2xl">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+        View All Insights
 
-            <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-              <span
-                className="font-body text-[12px] font-semibold tracking-wide"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                BLOG
-              </span>
-
-              <h3
-                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                {post.title}
-              </h3>
-
-              <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                {post.body}
-              </p>
-
-              <span
-                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Read More
-                <ArrowUpRight size={14} />
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="group">
-            <div className="h-[220px] overflow-hidden rounded-2xl">
-              <img
-                src={post.image}
-                alt={post.title}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-
-            <div className="pt-5">
-              <span
-                className="font-body text-[12px] font-semibold tracking-wide"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                BLOG
-              </span>
-
-              <h3
-                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                {post.title}
-              </h3>
-
-              <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                {post.body}
-              </p>
-
-              <span
-                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Read More
-                <ArrowUpRight size={14} />
-              </span>
-            </div>
-          </div>
-        )}
+        <ArrowUpRight size={16} />
       </Link>
     </Reveal>
-  ))}
-</Carousel>
-          </div>
+
+    <div className="mt-12">
+      <Carousel
+        itemCount={insights.length}
+        arrowVariant="light"
+        clickToAdvance
+      >
+        {insights.map((post, i) => (
+          <Reveal
+            key={post.slug}
+            delay={i * 90}
+            data-carousel-card
+            className={`flex-shrink-0 snap-start ${
+              post.large
+                ? "w-[420px]"
+                : "w-[340px]"
+            }`}
+          >
+            <Link
+              href={`/services/legacy-modernization/blogs/${post.slug}`}
+              className="block h-full"
+              aria-label={`Read ${post.title}`}
+            >
+              {post.large ? (
+                <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="group">
+                  <div className="h-[220px] overflow-hidden rounded-2xl">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="pt-5">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              )}
+            </Link>
+          </Reveal>
+        ))}
+      </Carousel>
+    </div>
+  </div>
+</section>
+
+      {/* ============================================================
+          CLOSING CTA
+          (104. CTA)
+      ============================================================ */}
+      <section id="connect" className="bg-white py-24">
+        <div className={ALIGN}>
+          <Reveal
+            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
+            style={{ backgroundColor: CHAMPION_BLUE }}
+          >
+            <Eyebrow variant="dark">CTA</Eyebrow>
+            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+              Ready to Modernize Your Legacy Systems?
+            </h2>
+            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
+              Talk to Starfii about legacy assessment, modernization
+              strategy, application modernization, cloud migration, or
+              re engineering an existing platform.
+            </p>
+            <a
+              href="mailto:hello@starfii.com"
+              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
+              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </a>
+          </Reveal>
         </div>
       </section>
     </main>

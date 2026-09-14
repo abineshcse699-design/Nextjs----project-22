@@ -1,1025 +1,585 @@
 "use client";
-import Link from "next/link";
 
+import { useEffect, useState, type ReactNode } from "react";
+import Link from "next/link";
 import {
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-  type ReactNode,
-  type Ref,
-  type ElementType,
-  type ReactElement,
-  type HTMLAttributes,
-} from "react";
-import {
-  ChevronRight,
+  ArrowUpRight,
   ChevronDown,
   ChevronLeft,
-  Sparkles,
-  ArrowUpRight,
+  ChevronRight,
   Plus,
-  Trophy,
+  Sparkles,
 } from "lucide-react";
-
-/* ===============================================================
-   BRAND TOKENS
-   Primary   Champion Blue  #1B2560
-   Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
-================================================================ */
+import { motion, type Variants } from "framer-motion";
 
 const CHAMPION_BLUE = "#1B2560";
-const LAVENDER_ACCENT = "#A48FEA";
-const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
-
-// Shared page width wrapper, kept in sync with the navbar's own
-// max width/padding so every section lines up with it exactly.
+const LAVENDER = "#A48FEA";
+const INDIGO = "#6C5DD3";
+const DARK_BG = "#0A0A18";
+const DARK_CARD = "rgba(255,255,255,0.045)";
+const DARK_BORDER = "rgba(255,255,255,0.10)";
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-const BLOG_BASE =
-  "/services/offerings/generative-ai/blogs";
-// Autoplay timing for the "AI Chat Box" tab list
-const TAB_AUTOPLAY_MS = 4000;
+const AUTOPLAY_MS = 4500;
 
-/* ===============================================================
-   CONTENT
-   AI cHAT BOX
-================================================================ */
+const heroContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.22, delayChildren: 0.2 },
+  },
+};
 
-const keyTakeaways: string[] = [
-  "Starfii's AI Chat Box creates natural, context-aware conversations that connect customers and employees with trusted business information.",
-  "We combine conversational AI, knowledge retrieval, workflow automation, and enterprise integrations to turn questions into useful outcomes.",
-  "The assistant can work across approved documents, knowledge bases, product content, databases, APIs, and internal business systems.",
-  "Our approach emphasizes relevance, security, human escalation, monitoring, governance, and measurable business value from production AI.",
+const heroItem: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.9, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 36 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.85, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const stagger: Variants = {
+  hidden: {},
+  visible: {
+    transition: { staggerChildren: 0.12, delayChildren: 0.05 },
+  },
+};
+
+const cardItem: Variants = {
+  hidden: { opacity: 0, y: 28 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+type Capability = {
+  title: string;
+  body: string;
+  tags: string[];
+};
+
+const capabilities: Capability[] = [
+  {
+    title: "AI/ML Engineering",
+    body: "Design, build, deploy, and operate machine learning solutions that turn enterprise data into predictive and intelligent outcomes.",
+    tags: ["MACHINE LEARNING", "MLOPS", "PREDICTIONS"],
+  },
+  {
+    title: "Generative AI",
+    body: "Build production-ready GenAI experiences that use large language models to create, summarize, reason over, and transform enterprise content.",
+    tags: ["GENAI", "LLM", "MULTIMODAL"],
+  },
+  {
+    title: "LLM Engineering",
+    body: "Engineer reliable LLM applications with prompt design, model selection, structured outputs, tool use, guardrails, and production observability.",
+    tags: ["PROMPTING", "MODELS", "GUARDRAILS"],
+  },
+  {
+    title: "AI Agents",
+    body: "Create intelligent agents that plan tasks, use tools, retrieve information, and execute multi-step workflows with appropriate human oversight.",
+    tags: ["AGENTS", "TOOLS", "WORKFLOWS"],
+  },
+  {
+    title: "RAG",
+    body: "Ground AI responses in trusted enterprise knowledge using retrieval-augmented generation, semantic search, vector stores, and source-aware responses.",
+    tags: ["RAG", "VECTOR SEARCH", "KNOWLEDGE"],
+  },
+  {
+    title: "AI Automation",
+    body: "Automate repetitive knowledge work by combining AI reasoning with business rules, APIs, documents, and human approval steps.",
+    tags: ["AUTOMATION", "COPILOTS", "ORCHESTRATION"],
+  },
+  {
+    title: "AI Integration",
+    body: "Connect AI capabilities to existing applications, data platforms, APIs, SaaS tools, and enterprise workflows without creating disconnected AI islands.",
+    tags: ["APIs", "INTEGRATION", "ENTERPRISE"],
+  },
+  {
+    title: "Intelligent Application Development",
+    body: "Embed AI directly into customer and employee products so recommendations, search, assistants, summaries, and decisions become part of the experience.",
+    tags: ["APPLICATIONS", "UX", "AI FEATURES"],
+  },
+  {
+    title: "AI Evaluation and Testing",
+    body: "Measure quality, groundedness, safety, latency, cost, and task success with evaluation datasets, automated checks, and production feedback loops.",
+    tags: ["EVALUATION", "TESTING", "OBSERVABILITY"],
+  },
+  {
+    title: "AI Governance",
+    body: "Put practical controls around AI systems with security, privacy, access controls, auditability, responsible AI practices, and human oversight.",
+    tags: ["GOVERNANCE", "SECURITY", "RESPONSIBLE AI"],
+  },
 ];
 
-type FocusArea = { title: string; body: string; tags: string[]; image: string };
-
-const focusAreas: FocusArea[] = [
-  {
-    title: "AI-Powered Conversations",
-    body: "Create natural, context-aware conversations that let users interact with your business using everyday language instead of rigid menus or scripted flows.",
-    tags: ["CONVERSATION", "CONTEXT", "AI"],
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Knowledge-Based AI",
-    body: "Ground answers in approved company documents, policies, product information, knowledge bases, and other trusted enterprise content.",
-    tags: ["KNOWLEDGE", "RAG", "SEARCH"],
-    image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Context-Aware Responses",
-    body: "Maintain relevant conversation context so users can ask follow-up questions naturally and receive responses that reflect the ongoing interaction.",
-    tags: ["CONTEXT", "MEMORY", "NLP"],
-    image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Workflow Automation",
-    body: "Connect conversations to real business actions such as ticket creation, information retrieval, recommendations, requests, and process initiation.",
-    tags: ["AUTOMATION", "ACTIONS", "WORKFLOW"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Enterprise Integrations",
-    body: "Connect the AI chat experience with CRM, ERP, databases, APIs, ticketing tools, websites, portals, and internal applications.",
-    tags: ["CRM", "ERP", "APIs"],
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Human Handoff",
-    body: "Route complex, sensitive, or low-confidence interactions to the right team while preserving the conversation context needed for a fast handoff.",
-    tags: ["ESCALATION", "HUMAN", "SUPPORT"],
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Multi-Channel AI",
-    body: "Deliver a consistent conversational experience across websites, customer portals, applications, employee platforms, and other digital touchpoints.",
-    tags: ["WEB", "PORTAL", "OMNICHANNEL"],
-    image: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Conversation Analytics",
-    body: "Measure intent, response quality, unresolved questions, engagement, escalation, and outcomes to continuously improve the assistant.",
-    tags: ["ANALYTICS", "QUALITY", "OPTIMIZATION"],
-    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Security & Governance",
-    body: "Design conversational AI around permissions, approved knowledge sources, data protection, monitoring, access control, and responsible AI practices.",
-    tags: ["SECURITY", "GOVERNANCE", "ACCESS"],
-    image: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
-  },
-];
-
-type ServiceTab = {
+type DeepDive = {
   label: string;
   heading: string;
   body: string;
   image: string;
 };
 
-const tabs: ServiceTab[] = [
+const deepDives: DeepDive[] = [
   {
-    label: "Understand Intent",
-    heading: "Understand what users need in natural language",
-    body: "The assistant interprets user intent and relevant context so people can ask questions naturally without learning rigid commands, menu structures, or scripted journeys.",
+    label: "AI/ML Engineering",
+    heading: "From experimentation to machine learning in production",
+    body: "We design data, model, deployment, and monitoring workflows that move ML initiatives beyond notebooks and into reliable production systems.",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1400&auto=format&fit=crop",
   },
   {
-    label: "Retrieve Trusted Knowledge",
-    heading: "Ground answers in the information your organization trusts",
-    body: "Connect the assistant to approved documents, knowledge bases, product information, policies, databases, and other enterprise sources to deliver relevant answers from trusted context.",
+    label: "Generative AI",
+    heading: "Generative AI grounded in your business context",
+    body: "Build assistants and GenAI experiences that work with your enterprise knowledge, business rules, and workflows rather than generic model output alone.",
     image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1400&auto=format&fit=crop",
   },
   {
-    label: "Respond With Context",
-    heading: "Make conversations more natural, relevant, and continuous",
-    body: "Context-aware response generation allows users to ask follow-up questions while the assistant maintains the relevant history and intent of the interaction.",
+    label: "LLM Engineering",
+    heading: "LLM applications engineered for reliability",
+    body: "Select the right model and architecture, design prompts and tools, add guardrails, and create evaluation loops before the application reaches production.",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=1400&auto=format&fit=crop",
   },
   {
-    label: "Trigger Business Actions",
-    heading: "Move from questions to real business actions",
-    body: "Connect conversations to business systems and workflows to retrieve information, create requests, support processes, and help users complete tasks without unnecessary handoffs.",
+    label: "AI Agents",
+    heading: "Agents that can reason, retrieve, and act",
+    body: "Connect models to tools and enterprise systems so agents can complete meaningful multi-step work while staying inside defined permissions and controls.",
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1400&auto=format&fit=crop",
   },
   {
-    label: "Escalate When Needed",
-    heading: "Bring the right human into the conversation at the right time",
-    body: "Use business rules, confidence thresholds, and escalation paths to hand complex or sensitive requests to the right expert with the relevant context already available.",
+    label: "RAG",
+    heading: "Enterprise knowledge available through natural language",
+    body: "Create retrieval pipelines that find relevant information, provide context to models, and return answers that are traceable back to enterprise sources.",
     image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1400&auto=format&fit=crop",
+  },
+  {
+    label: "AI Automation",
+    heading: "Automate knowledge workflows without losing control",
+    body: "Combine AI with APIs, rules, documents, and approvals to reduce manual effort across operations while keeping people in the loop where it matters.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1400&auto=format&fit=crop",
+  },
+  {
+    label: "AI Integration",
+    heading: "Make AI part of the systems your teams already use",
+    body: "Integrate AI services into products, CRM, service platforms, data platforms, and internal applications so adoption happens inside existing workflows.",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1400&auto=format&fit=crop",
+  },
+  {
+    label: "Intelligent Applications",
+    heading: "Turn ordinary software into intelligent experiences",
+    body: "Add copilots, recommendations, natural-language search, summarization, classification, and decision support directly into business applications.",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1400&auto=format&fit=crop",
   },
 ];
 
-type EcosystemImpact = { title: string; image: string };
-
-const ecosystemImpact: EcosystemImpact[] = [
-  {
-    title: "Customer Support and Service",
-    image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Employee and Internal Knowledge",
-    image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Sales Engagement and Lead Qualification",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "IT Helpdesk and Operational Support",
-    image:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Product Discovery and Recommendations",
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    title: "Document and Knowledge Base Q&A",
-    image:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
-  },
-];
-
-type IndustryAward = {
-  year: string;
-  category: string;
-  subcategory: string;
-  rank: string;
-  description: string;
-};
-
-const industryAwards: IndustryAward[] = [
-  {
-    year: "AI Capability",
-    category: "Conversational AI",
-    subcategory: "Natural Language & Context",
-    rank: "Enterprise Ready",
-    description:
-      "Conversational AI experiences designed to understand natural-language requests, maintain context, and support relevant interactions across customer and employee journeys.",
-  },
-  {
-    year: "AI Capability",
-    category: "Knowledge Intelligence",
-    subcategory: "Grounded Retrieval",
-    rank: "Enterprise Ready",
-    description:
-      "Enterprise AI assistants connected to approved knowledge sources so users can access relevant business information through natural-language questions.",
-  },
-  {
-    year: "AI Capability",
-    category: "Workflow Automation",
-    subcategory: "Actions & Integrations",
-    rank: "Enterprise Ready",
-    description:
-      "Conversational experiences connected to enterprise systems and workflows so users can move from a question or request to an appropriate business action.",
-  },
-];
-
-type CaseStudy = { slug: string; image: string; title: string; body: string };
-
-const caseStudies: CaseStudy[] = [
-  {
-    slug: "customer-support-ai-chat",
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
-    title: "Building an AI Chat Experience for Customer Support",
-    body: "See how grounded conversational AI can answer common questions, retrieve trusted information, and route more complex requests to the right support team.",
-  },
-  {
-    slug: "employee-knowledge-assistant",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-    title: "Making Enterprise Knowledge Easier to Access",
-    body: "Explore how an internal AI assistant can give employees a natural-language interface to policies, procedures, documentation, and organizational knowledge.",
-  },
-  {
-    slug: "sales-ai-assistant",
-    image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=900&auto=format&fit=crop",
-    title: "Supporting Sales With Context-Aware AI Conversations",
-    body: "Discover how AI chat can answer product questions, qualify intent, surface relevant information, and support a faster customer journey.",
-  },
-  {
-    slug: "it-helpdesk-ai",
-    image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=900&auto=format&fit=crop",
-    title: "Automating Repetitive IT Helpdesk Interactions",
-    body: "Learn how conversational AI can resolve common employee requests, guide troubleshooting, and connect interactions to existing support workflows.",
-  },
-  {
-    slug: "document-qa-assistant",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=900&auto=format&fit=crop",
-    title: "Creating a Natural-Language Interface for Enterprise Documents",
-    body: "Explore how document-grounded AI lets users ask questions across reports, manuals, policies, contracts, and other business content.",
-  },
-];
-
-type InsightPost = {
-    slug: string;
-  large: boolean;
-  image: string;
+type UseCase = {
+  industry: string;
   title: string;
   body: string;
 };
-const insights: InsightPost[] = [
+
+const useCases: UseCase[] = [
   {
-    slug:
-      "ai-meeting-assistant-from-conversations-to-actionable-intelligence",
-
-    large: true,
-
-    image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=900&auto=format&fit=crop",
-
-    title:
-      "From Scripted Chatbots to Enterprise Conversational AI",
-
-    body:
-      "Explore how organizations are moving beyond scripted experiences toward AI assistants that understand intent, retrieve trusted knowledge, and support real business workflows.",
+    industry: "Customer Service",
+    title: "AI Customer Support Copilot",
+    body: "Give service teams conversational access to policies, product knowledge, customer history, and suggested next actions.",
   },
-
   {
-    slug:
-      "ai-meeting-assistant-smart-summaries-and-follow-ups",
-
-    large: false,
-
-  title: "Designing Reliable AI Chat With Grounded Business Knowledge",
-  // description:
-    // "Understand how retrieval and approved knowledge sources can improve relevance and give AI assistants stronger business context.",
-  image:
-    "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
-
-
-    body:
-      "Understand how retrieval and approved knowledge sources can improve relevance and give AI assistants stronger business context.",
+    industry: "Financial Services",
+    title: "Document Intelligence",
+    body: "Extract, classify, summarize, and validate information from financial documents while routing exceptions for human review.",
   },
-
   {
-    slug:
-      "ai-meeting-assistant-action-items-and-accountability",
-
-    large: false,
-
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
-
-    title:
-      "Building Secure AI Assistants for Enterprise Workflows",
-
-    body:
-      "Learn the architecture, governance, escalation, monitoring, and integration considerations that matter when conversational AI moves into production.",
+    industry: "Healthcare",
+    title: "Clinical Knowledge Assistant",
+    body: "Make approved internal knowledge easier to search and summarize while maintaining access controls and source traceability.",
   },
-
   {
-    slug:
-      "enterprise-ai-meeting-intelligence",
-
-    large: false,
-
-    image:
-      "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=800&auto=format&fit=crop",
-
-    title:
-      "AI Customer Support: Turning Conversations Into Faster Resolution",
-
-    body:
-      "Explore how conversational AI can resolve routine customer questions, retrieve trusted information, and route complex requests to the right support team.",
+    industry: "Retail & E-Commerce",
+    title: "Personalized Shopping Experiences",
+    body: "Use customer, catalog, and behavioral data to power recommendations, conversational discovery, and personalized product journeys.",
   },
-
   {
-    slug:
-      "how-ai-meeting-assistants-improve-team-productivity",
-
-    large: false,
-
-    image:
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=800&auto=format&fit=crop",
-
-    title:
-      "Enterprise Knowledge Assistants: Connecting People to Trusted Information",
-
-    body:
-      "See how AI assistants can connect employees with approved documents, policies, and business knowledge through natural-language conversations.",
+    industry: "Manufacturing",
+    title: "Operations Intelligence",
+    body: "Combine machine data, maintenance history, and operational knowledge to surface anomalies and recommend actions before downtime.",
+  },
+  {
+    industry: "Enterprise Operations",
+    title: "Workflow Automation",
+    body: "Use AI agents and automation to classify requests, retrieve information, update systems, and route decisions across business processes.",
   },
 ];
-/* ===============================================================
-   GLOBAL KEYFRAMES
-================================================================ */
 
-function AnimationStyles(): ReactElement {
-  return (
-    <style>{`
-      @keyframes ss-fade-up {
-        from { opacity: 0; transform: translateY(28px) scale(0.97); }
-        to   { opacity: 1; transform: translateY(0) scale(1); }
-      }
-      @keyframes ss-fade-in {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-      }
-      @keyframes ss-drift {
-        0%   { transform: translate3d(0, 0, 0) scale(1); }
-        50%  { transform: translate3d(-2%, 2%, 0) scale(1.06); }
-        100% { transform: translate3d(0, 0, 0) scale(1); }
-      }
-      @keyframes ss-pulse-soft {
-        0%, 100% { opacity: 0.55; }
-        50%      { opacity: 1; }
-      }
-      /* Autoplay progress fill for the tab list's active indicator line */
-      @keyframes ss-tab-progress {
-        from { transform: scaleY(0); }
-        to   { transform: scaleY(1); }
-      }
+type Impact = {
+  title: string;
+  body: string;
+};
 
-      .ss-reveal {
-        opacity: 0;
-      }
-      .ss-reveal.ss-in-view {
-        animation: ss-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      }
-      .ss-tab-panel {
-        animation: ss-fade-in 0.45s ease-out;
-      }
-      .ss-drift-slow {
-        animation: ss-drift 16s ease-in-out infinite;
-      }
-      .ss-drift-slower {
-        animation: ss-drift 22s ease-in-out infinite reverse;
-      }
-      .ss-arrow-pulse:not(:disabled):hover {
-        animation: ss-pulse-soft 1.2s ease-in-out infinite;
-      }
+const impactAreas: Impact[] = [
+  {
+    title: "Build AI Into Products",
+    body: "Add intelligence to customer and employee applications so AI improves the product experience instead of living as a separate experiment.",
+  },
+  {
+    title: "Ground AI in Enterprise Knowledge",
+    body: "Connect models to trusted internal information through RAG, retrieval, permissions, and source-aware responses.",
+  },
+  {
+    title: "Automate Business Work",
+    body: "Combine agents, APIs, business rules, and approvals to automate repeatable knowledge workflows with measurable outcomes.",
+  },
+  {
+    title: "Improve Decision Making",
+    body: "Use predictive ML and GenAI to help teams discover patterns, summarize complex information, and act faster.",
+  },
+  {
+    title: "Scale AI Responsibly",
+    body: "Create governance, evaluation, security, and monitoring practices that let AI initiatives grow without sacrificing trust.",
+  },
+  {
+    title: "Measure AI Outcomes",
+    body: "Track quality, adoption, latency, cost, safety, and business impact so AI programs can continuously improve.",
+  },
+];
 
-      .ss-award-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        box-shadow: 0 0 0 rgba(164, 143, 234, 0);
-      }
-      .ss-award-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 22px 45px -18px rgba(79, 63, 224, 0.55),
-          0 0 0 1px rgba(164, 143, 234, 0.35);
-      }
-      .ss-award-card:hover .ss-trophy {
-        transform: rotate(-14deg) scale(1.15);
-      }
-      .ss-trophy {
-        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
+type Insight = {
+  title: string;
+  body: string;
+  image: string;
+  href: string;
+};
 
-      .ss-focus-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          border-color 0.4s ease, background-color 0.4s ease;
-      }
-      .ss-focus-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(164, 143, 234, 0.55);
-        background-color: #14121F;
-      }
-      .ss-focus-card:hover .ss-focus-arrow {
-        transform: rotate(45deg);
-        background-color: ${INDIGO_CTA};
-        border-color: ${INDIGO_CTA};
-      }
-      .ss-focus-arrow {
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-          background-color 0.3s ease, border-color 0.3s ease;
-      }
+const insights: Insight[] = [
+  {
+    title: "Generative AI in the Enterprise",
+    body: "A practical view of moving GenAI from experiments to secure, measurable production use cases.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+    href: "/services/ai-generative-ai/blogs/generative-ai-enterprise",
+  },
+  {
+    title: "RAG vs. Fine-Tuning",
+    body: "Understand when enterprise knowledge retrieval is the right architecture and when model customization makes sense.",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+    href: "/services/ai-generative-ai/blogs/rag-vs-fine-tuning",
+  },
+  {
+    title: "AI Agents and Enterprise Workflows",
+    body: "How tool-using agents can connect reasoning with the systems and processes your teams already depend on.",
+    image:
+      "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=1200&auto=format&fit=crop",
+    href: "/services/ai-generative-ai/blogs/ai-agents-enterprise-workflows",
+  },
+  {
+    title: "Evaluating LLM Applications",
+    body: "Why production AI needs evaluation for quality, groundedness, safety, cost, and task success.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+    href: "/services/ai-generative-ai/blogs/llm-evaluation",
+  },
+];
 
-      .ss-clamp-2 {
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-      .ss-clamp-3 {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-arrow-pulse {
-          animation: none !important;
-          opacity: 1 !important;
-          transform: none !important;
-        }
-        .ss-tab-progress-fill {
-          animation: none !important;
-          transform: scaleY(1) !important;
-        }
-      }
-    `}</style>
-  );
-}
-
-/* ===============================================================
-   HOOK: reveal-on-scroll
-================================================================ */
-
-function useReveal<T extends HTMLElement = HTMLElement>(
-  options?: IntersectionObserverInit
-): [React.RefObject<T | null>, boolean] {
-  const ref = useRef<T | null>(null);
-  const [inView, setInView] = useState(false);
+function Carousel<T>({
+  items,
+  renderItem,
+  dark = false,
+}: {
+  items: T[];
+  renderItem: (item: T, index: number) => ReactNode;
+  dark?: boolean;
+}) {
+  const [page, setPage] = useState(0);
+  const [perPage, setPerPage] = useState(3);
 
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return undefined;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.15, ...options }
-    );
-
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [options]);
-
-  return [ref, inView];
-}
-
-/* ===============================================================
-   HOOK: responsive items-per-page
-================================================================ */
-
-type Breakpoints = { mobile: number; tablet: number; desktop: number };
-
-function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
-  const [count, setCount] = useState(desktop);
-
-  useEffect(() => {
-    const mqTablet = window.matchMedia("(max-width: 1023px)");
-    const mqMobile = window.matchMedia("(max-width: 639px)");
-
     const update = () => {
-      if (mqMobile.matches) setCount(mobile);
-      else if (mqTablet.matches) setCount(tablet);
-      else setCount(desktop);
+      if (window.innerWidth < 640) setPerPage(1);
+      else if (window.innerWidth < 1024) setPerPage(2);
+      else setPerPage(3);
     };
 
     update();
-    mqTablet.addEventListener("change", update);
-    mqMobile.addEventListener("change", update);
-    return () => {
-      mqTablet.removeEventListener("change", update);
-      mqMobile.removeEventListener("change", update);
-    };
-  }, [mobile, tablet, desktop]);
-
-  return count;
-}
-
-/* ===============================================================
-   REUSABLE: Reveal wrapper
-================================================================ */
-
-type RevealProps = {
-  as?: ElementType;
-  delay?: number;
-  className?: string;
-  children: ReactNode;
-} & HTMLAttributes<HTMLElement>;
-
-function Reveal({
-  as,
-  delay = 0,
-  className = "",
-  children,
-  ...rest
-}: RevealProps): ReactElement {
-  const Tag = (as ?? "div") as ElementType;
-  const [ref, inView] = useReveal<HTMLElement>();
-
-  return (
-    <Tag
-      ref={ref as Ref<HTMLElement>}
-      className={`ss-reveal ${inView ? "ss-in-view" : ""} ${className}`}
-      style={{ animationDelay: inView ? `${delay}ms` : undefined }}
-      {...rest}
-    >
-      {children}
-    </Tag>
-  );
-}
-
-/* ===============================================================
-   REUSABLE: Free-scroll Carousel
-================================================================ */
-
-type CarouselProps = {
-  children: ReactNode;
-  itemCount: number;
-  arrowVariant?: "light" | "dark";
-  clickToAdvance?: boolean;
-};
-
-function Carousel({
-  children,
-  itemCount,
-  arrowVariant = "light",
-  clickToAdvance = false,
-}: CarouselProps): ReactElement {
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-
-  const updateProgress = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    const pct = maxScroll <= 0 ? 1 : el.scrollLeft / maxScroll;
-    setProgress(pct);
-    setAtStart(el.scrollLeft <= 4);
-    setAtEnd(el.scrollLeft >= maxScroll - 4);
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
   }, []);
 
+  const pageCount = Math.max(1, Math.ceil(items.length / perPage));
+
   useEffect(() => {
-    const el = trackRef.current;
-    updateProgress();
-    if (!el) return undefined;
-    el.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
-    return () => {
-      el.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
-    };
-  }, [updateProgress]);
+    setPage((p) => Math.min(p, pageCount - 1));
+  }, [pageCount]);
 
-  const scrollByCard = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-    const firstCard = el.firstElementChild as HTMLElement | null;
-    const cardWidth = firstCard
-      ? firstCard.getBoundingClientRect().width + 24
-      : 320;
-    el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
-  };
-
-  const isDark = arrowVariant === "dark";
+  const visible = items.slice(page * perPage, page * perPage + perPage);
 
   return (
     <div>
-      <div
-        ref={trackRef}
-        onClick={
-          clickToAdvance
-            ? (event) => {
-                const target = event.target as HTMLElement;
-                if (target.closest("[data-carousel-card]")) {
-                  scrollByCard(1);
-                }
-              }
-            : undefined
-        }
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {children}
-      </div>
-
-      <div className="mt-8 flex items-center gap-6">
-        <div
-          className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
-        >
-          <div
-            className="h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{
-              width: `${Math.max(progress * 100, itemCount ? 100 / itemCount : 10)}%`,
-              backgroundColor: INDIGO_CTA,
-            }}
-          />
-        </div>
-
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => scrollByCard(-1)}
-            disabled={atStart}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => scrollByCard(1)}
-            disabled={atEnd}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===============================================================
-   REUSABLE: PagedCarousel
-================================================================ */
-
-type PagedCarouselProps<T> = {
-  items: T[];
-  itemsPerPage: Breakpoints;
-  renderItem: (item: T, index: number) => ReactNode;
-  arrowVariant?: "light" | "dark";
-};
-
-function PagedCarousel<T>({
-  items,
-  itemsPerPage,
-  renderItem,
-  arrowVariant = "light",
-}: PagedCarouselProps<T>): ReactElement {
-  const perPage = useItemsPerPage(itemsPerPage);
-  const maxPosition = Math.max(0, items.length - perPage);
-  const [position, setPosition] = useState(0);
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [stepWidth, setStepWidth] = useState(0);
-
-  useEffect(() => {
-    setPosition((p) => Math.min(p, maxPosition));
-  }, [maxPosition]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return undefined;
-
-    const measure = () => {
-      const firstCard = track.firstElementChild as HTMLElement | null;
-
-      if (!firstCard) {
-        setStepWidth(0);
-        return;
-      }
-
-      const gap = 24;
-      setStepWidth(firstCard.getBoundingClientRect().width + gap);
-    };
-
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-
-    const firstCard = track.firstElementChild as HTMLElement | null;
-    if (firstCard) observer.observe(firstCard);
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [perPage, items.length]);
-
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track || !stepWidth) return;
-
-    track.scrollTo({
-      left: position * stepWidth,
-      behavior: "smooth",
-    });
-  }, [position, stepWidth]);
-
-  const isDark = arrowVariant === "dark";
-
-  const goTo = (next: number) => {
-    setPosition(Math.min(Math.max(next, 0), maxPosition));
-  };
-
-  // Position-based progress:
-  // Desktop 3 cards visible + 5 items = 3 steps:
-  // 1-2-3 -> 2-3-4 -> 3-4-5
-  // Desktop 2 cards visible + 3 items = 2 steps:
-  // 1-2 -> 2-3
-  // Mobile always advances one card.
-  const totalSteps = Math.max(1, maxPosition + 1);
-
-  return (
-    <div>
-      <div
-        ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-hidden pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {items.map((item, i) => (
-          <div
-            key={i}
-            className="min-w-0 flex-shrink-0 snap-start"
-            style={{
-              width:
-                perPage === 1
-                  ? "100%"
-                  : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
-            }}
-          >
-            {renderItem(item, i)}
-          </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {visible.map((item, index) => (
+          <div key={index}>{renderItem(item, page * perPage + index)}</div>
         ))}
       </div>
 
-      <div className="mt-8 flex items-center gap-6">
+      <div className="mt-10 flex items-center gap-5">
         <div
-          className="h-[3px] flex-1 overflow-hidden rounded-full"
+          className="h-[2px] flex-1 overflow-hidden rounded-full"
           style={{
-            backgroundColor: isDark
-              ? "rgba(255,255,255,0.18)"
-              : "#E5E1F5",
+            backgroundColor: dark ? "rgba(255,255,255,0.16)" : "#CBD5E1",
           }}
         >
           <div
-            className="h-full rounded-full transition-[width] duration-300 ease-out"
+            className="h-full transition-all duration-500"
             style={{
-              width: `${((position + 1) / totalSteps) * 100}%`,
-              backgroundColor: INDIGO_CTA,
+              width: `${((page + 1) / pageCount) * 100}%`,
+              backgroundColor: INDIGO,
             }}
           />
         </div>
 
         <span
-          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{
-            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
-          }}
+          className="font-body text-[13px] tabular-nums"
+          style={{ color: dark ? "#94A3B8" : "#64748B" }}
         >
-          {String(position + 1).padStart(2, "0")} /{" "}
-          {String(totalSteps).padStart(2, "0")}
+          {String(page + 1).padStart(2, "0")} /{" "}
+          {String(pageCount).padStart(2, "0")}
         </span>
 
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => goTo(position - 1)}
-            disabled={position === 0}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark
-                ? "rgba(255,255,255,0.12)"
-                : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
+        <button
+          type="button"
+          aria-label="Previous"
+          disabled={page === 0}
+          onClick={() => setPage((p) => Math.max(0, p - 1))}
+          className="flex h-11 w-11 items-center justify-center rounded-full transition hover:scale-105 disabled:opacity-35"
+          style={{
+            backgroundColor: dark ? "rgba(255,255,255,0.10)" : "#E9E6F6",
+            color: dark ? "#fff" : CHAMPION_BLUE,
+          }}
+        >
+          <ChevronLeft size={18} />
+        </button>
 
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => goTo(position + 1)}
-            disabled={position === maxPosition}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
+        <button
+          type="button"
+          aria-label="Next"
+          disabled={page === pageCount - 1}
+          onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
+          className="flex h-11 w-11 items-center justify-center rounded-full text-white transition hover:scale-105 disabled:opacity-35"
+          style={{ backgroundColor: INDIGO }}
+        >
+          <ChevronRight size={18} />
+        </button>
       </div>
     </div>
   );
 }
 
-/* ===============================================================
-   SECTION
-================================================================ */
-
-export default function AIChatBoxSection(): ReactElement {
-  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
+export default function AIGenerativeAIServicesPage() {
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
-  const current = tabs[activeTab];
+  const [openImpact, setOpenImpact] = useState<number | null>(0);
 
-  // --- Autoplay for the left-side tab list ---
-  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
-  // Pausing on hover, and restarting the timer whenever the user
-  // manually clicks a tab, so it never fights with manual control.
+  const current = deepDives[activeTab];
+
   useEffect(() => {
-    if (tabHovered) return undefined;
-    const id = setInterval(() => {
-      setActiveTab((prev) => (prev + 1) % tabs.length);
-    }, TAB_AUTOPLAY_MS);
-    return () => clearInterval(id);
-  }, [tabHovered, activeTab]);
+    if (tabHovered) return;
+
+    const timer = setInterval(() => {
+      setActiveTab((current) => (current + 1) % deepDives.length);
+    }, AUTOPLAY_MS);
+
+    return () => clearInterval(timer);
+  }, [tabHovered]);
 
   return (
-    <main className="bg-white">
-      <AnimationStyles />
+    <main className="bg-white pt-[92px] lg:pt-[100px]">
+      <style>{`
+        @keyframes ai-tab-progress {
+          from { transform: scaleY(0); }
+          to { transform: scaleY(1); }
+        }
 
-      {/* ============================================================
-          BREADCRUMB + HERO
-      ============================================================ */}
+        @media (prefers-reduced-motion: reduce) {
+          .ai-tab-progress-fill {
+            animation: none !important;
+            transform: scaleY(1) !important;
+          }
+        }
+      `}</style>
+
+      {/* HERO */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+          <motion.img
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            src="https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/96 to-white/35" />
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
-          <nav
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className={`${ALIGN} py-24 lg:py-32`}
+        >
+          <motion.nav
+            variants={heroItem}
             aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
+            className="font-body flex items-center gap-2 text-[14px] font-medium"
+            style={{ color: CHAMPION_BLUE }}
           >
-            <a href="/" className="hover:underline">
+            <Link href="/" className="hover:underline">
               Home
-            </a>
+            </Link>
             <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
+            <Link href="/services" className="hover:underline">
               Services
-            </a>
+            </Link>
             <ChevronRight size={14} />
-            <span className="text-slate-500">AI Chat Box</span>
-          </nav>
+            <span className="text-slate-500">AI & Generative AI</span>
+          </motion.nav>
 
-          <h1
-            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+          <motion.div variants={heroItem} className="mt-8">
+            <span
+              className="font-body inline-flex items-center gap-2 rounded-full px-4 py-2 text-[12px] font-semibold tracking-wide"
+              style={{ backgroundColor: "#F1EEFC", color: INDIGO }}
+            >
+              <Sparkles size={15} />
+              AI & GENERATIVE AI
+            </span>
+          </motion.div>
+
+          <motion.h1
+            variants={heroItem}
+            className="font-heading mt-6 max-w-3xl text-[44px] font-medium leading-[1.1] lg:text-[60px]"
+            style={{ color: CHAMPION_BLUE }}
           >
-            AI Chat Box for Modern Enterprises
-          </h1>
+            AI & Generative AI
+          </motion.h1>
 
-          <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
-            style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+          <motion.p
+            variants={heroItem}
+            className="font-body mt-6 max-w-2xl text-[17px] leading-[1.8] text-slate-600"
           >
-            Starfii turns ideas into scalable software products and modern
-            platforms with AI driven engineering, enterprise product
-            engineering, and faster delivery cycles.
-          </p>
+            Build intelligent applications, automate workflows and embed AI into products and enterprise operations.
+          </motion.p>
 
-          <a
+          <motion.a
+            variants={heroItem}
             href="#connect"
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
-            style={{
-              backgroundColor: CHAMPION_BLUE,
-              animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-            }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
+            style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            Explore AI Chat Solutions
+            Talk to Our AI Team
             <ArrowUpRight size={17} />
-          </a>
-        </div>
+          </motion.a>
+        </motion.div>
       </section>
 
+      {/* AI CAPABILITIES OVERVIEW */}
       <div className={ALIGN}>
-        {/* ============================================================
-            CONVERSATIONAL AI INTELLIGENCE
-        ============================================================ */}
-
-        <Reveal as="section" className="mt-16">
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-16"
+        >
           <div
-            className="overflow-hidden rounded-2xl border"
-            style={{ borderColor: LAVENDER_ACCENT }}
+            className="overflow-hidden rounded-[22px] border bg-white"
+            style={{ borderColor: LAVENDER }}
           >
-            <div className="flex items-center justify-between px-8 py-6">
-              <span
-                className="font-body flex items-center gap-2.5 text-[16px] font-semibold"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
-                Conversational AI Intelligence
-              </span>
+            <div
+              className="flex min-h-[104px] items-center justify-between gap-5 px-8 py-6 lg:px-10"
+              style={{ borderBottom: `1px solid ${LAVENDER}` }}
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles size={21} style={{ color: LAVENDER }} />
+                <span
+                  className="font-body text-[17px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  AI Capabilities Overview
+                </span>
+              </div>
 
               <span
-                className="font-body rounded-full px-4 py-2 text-[12px] font-semibold"
-                style={{
-                  backgroundColor: "#F1EEFC",
-                  color: INDIGO_CTA,
-                }}
+                className="font-body rounded-full px-5 py-2.5 text-[13px] font-semibold"
+                style={{ backgroundColor: "#F1EEFC", color: INDIGO }}
               >
-                Intelligent Interactions
+                Intelligent by Design
               </span>
             </div>
 
-            <div
-              className="grid grid-cols-1 gap-8 px-8 pb-8 lg:grid-cols-3"
-              style={{ borderTop: `1px solid ${LAVENDER_ACCENT}` }}
-            >
-              <div className="pt-7">
-                <h3
-                  className="font-heading text-[19px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Understand
-                </h3>
-                <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                  Understand user intent and context so people can ask questions naturally and receive relevant answers.
-                </p>
-              </div>
-
-              <div className="pt-7">
-                <h3
-                  className="font-heading text-[19px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Respond
-                </h3>
-                <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                  Ground responses in approved business knowledge and connected enterprise systems.
-                </p>
-              </div>
-
-              <div className="pt-7">
-                <h3
-                  className="font-heading text-[19px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Act
-                </h3>
-                <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                  Turn conversations into useful business actions through integrations, automation, and human escalation.
-                </p>
-              </div>
+            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+              {[
+                {
+                  title: "Build",
+                  body: "Engineer AI/ML, GenAI, LLM, agent, and intelligent application capabilities that solve real business problems.",
+                },
+                {
+                  title: "Connect",
+                  body: "Ground AI in enterprise data and integrate models with applications, APIs, knowledge, and business workflows.",
+                },
+                {
+                  title: "Scale",
+                  body: "Evaluate, govern, monitor, and continuously improve AI systems so they can scale securely across the enterprise.",
+                },
+              ].map((item) => (
+                <div key={item.title}>
+                  <h3
+                    className="font-heading text-[23px] font-semibold"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
+                    {item.title}
+                  </h3>
+                  <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                    {item.body}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-4xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            Turn every question into a faster path to trusted information,
-            useful answers, and meaningful business action.
+            We help enterprises turn AI from an isolated experiment into a
+            trusted capability embedded across products, data, and operations.
           </p>
-        </Reveal>
+        </motion.section>
 
-        {/* ============================================================
-            Q&A BLOCK
-        ============================================================ */}
-
-        <Reveal as="section" className="mt-20">
+        {/* Q&A */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-20"
+        >
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
@@ -1027,177 +587,284 @@ export default function AIChatBoxSection(): ReactElement {
             <div>
               <h2
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
-                style={{ color: LAVENDER_ACCENT }}
+                style={{ color: LAVENDER }}
               >
-                How Do Enterprises Scale and Optimize Digital and Software
-                Operations?
+                How Do Enterprises Turn AI Into a Production Capability?
               </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize digital and software
-                operations by combining product thinking, AI led
-                engineering, and scalable architectures. Starfii brings
-                these together to accelerate software development, improve
-                quality, and modernize legacy systems, turning ideas into
-                digital experiences that users value and businesses depend
-                on every day.
+              <p className="font-body mt-5 text-[15px] leading-[1.8] text-slate-600">
+                Successful AI programs connect the right models to trusted data,
+                business context, applications, and workflows. Starfii combines
+                engineering, integration, evaluation, and governance so AI
+                systems are useful in production—not just impressive in a demo.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=800&auto=format&fit=crop"
-                alt="Two colleagues reviewing a digital roadmap"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop"
+                alt="Team working on an AI application"
+                className="h-[320px] w-full object-cover"
               />
             </div>
           </div>
-        </Reveal>
+        </motion.section>
       </div>
 
-      {/* ============================================================
-          FOCUS AREAS
-      ============================================================ */}
-
-
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 0%, rgba(164,143,234,0.32) 0%, rgba(79,63,224,0.18) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-        <div
-          className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
-          style={{
-            background:
-              "radial-gradient(55% 80% at 0% 100%, rgba(63,90,214,0.28) 0%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <Reveal className="max-w-xl">
-            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Services &amp; Consulting Capabilities
+      {/* AI/ML + GENAI CAPABILITIES */}
+      <section
+        className="relative mt-24 overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(120% 140% at 85% 100%, rgba(108,93,211,0.35), transparent 55%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="max-w-3xl"
+          >
+            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[46px]">
+              AI & Generative AI
+              <br />
+              Capabilities
             </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii plans, designs, and scales customer focused digital
-              products and platforms with AI led engineering, seamless
-              experiences, and modernization strategies that drive speed,
-              efficiency, and long term business value.
+            <p className="font-body mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-300">
+              From AI/ML engineering to agents, RAG, automation, evaluation,
+              and governance, we build the technical foundation for practical,
+              enterprise-ready AI.
             </p>
-          </Reveal>
+          </motion.div>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {focusAreas.map((area, i) => (
-              <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div
-                  className="ss-focus-card group flex h-full flex-col overflow-hidden rounded-2xl border"
-                  style={{
-                    backgroundColor: "#0F0E18",
-                    borderColor: "rgba(255,255,255,0.10)",
-                  }}
-                >
-                  <div className="relative h-[190px] overflow-hidden">
-                    <img
-                      src={area.image}
-                      alt={`${area.title} IT and AI technology`}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading={i < 3 ? "eager" : "lazy"}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F0E18] via-transparent to-transparent" />
-                    <div className="absolute left-5 right-5 top-5 flex items-center justify-between">
-                      <span className="font-body rounded-full bg-black/45 px-3 py-1 text-[11px] font-semibold tracking-wide text-white backdrop-blur">
-                        IT / AI
-                      </span>
-                      <span className="font-body text-[13px] font-medium text-white/70">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-1 flex-col justify-between p-8">
-                    <div>
-                      <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                        {area.title}
-                      </h3>
-                      <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
-                        {area.body}
-                      </p>
-                    </div>
-
-                    <div className="mt-8 flex flex-wrap gap-2">
-                      {area.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                          style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {capabilities.map((capability, index) => (
+              <motion.div
+                key={capability.title}
+                variants={cardItem}
+                className="flex min-h-[290px] flex-col rounded-2xl p-8 transition-colors duration-300 hover:bg-white/[0.07]"
+                style={{
+                  backgroundColor: DARK_CARD,
+                  border: `1px solid ${DARK_BORDER}`,
+                }}
+              >
+                <div className="flex items-start justify-between">
+                  <span className="font-body text-[14px] text-slate-500">
+                    {String(index + 41).padStart(2, "0")}
+                  </span>
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white">
+                    <ArrowUpRight size={16} />
+                  </span>
                 </div>
-              </Reveal>
+
+                <h3 className="font-heading mt-6 text-[19px] font-semibold text-white">
+                  {capability.title}
+                </h3>
+
+                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-400">
+                  {capability.body}
+                </p>
+
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {capability.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="font-body rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium tracking-wide text-slate-300"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
 
       <div className={ALIGN}>
+        {/* USE CASES */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-24"
+        >
+          <h2
+            className="font-heading text-[36px] font-medium leading-[1.15]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            AI & Generative AI Use Cases
+          </h2>
+          <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600">
+            Practical examples of how AI, GenAI, agents, and intelligent
+            applications can create measurable value across the enterprise.
+          </p>
 
-        {/* ============================================================
-            TABBED DEEP-DIVE — auto-advancing tab list
-        ============================================================ */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+          >
+            {useCases.map((useCase) => (
+              <motion.div
+                key={useCase.title}
+                variants={cardItem}
+                className="flex h-full flex-col rounded-2xl border p-7 transition-colors duration-300 hover:bg-[#F8F7FD]"
+                style={{ borderColor: "#E5E1F5" }}
+              >
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{ color: LAVENDER }}
+                >
+                  {useCase.industry.toUpperCase()}
+                </span>
 
-        <Reveal as="section" className="mt-24 pb-28">
+                <h3
+                  className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  {useCase.title}
+                </h3>
+
+                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
+                  {useCase.body}
+                </p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </motion.section>
+
+        {/* CASE STUDIES */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-24"
+        >
+          <div className="flex items-end justify-between gap-6">
+            <div>
+              <h2
+                className="font-heading text-[36px] font-medium leading-[1.15]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                AI & Generative AI
+                <br />
+                Case Studies
+              </h2>
+              <p className="font-body mt-4 max-w-2xl text-[15px] text-slate-600">
+                Real-world examples of applying intelligent systems to products,
+                operations, knowledge, and decision making.
+              </p>
+            </div>
+
+            <Link
+              href="/services/ai-generative-ai/casestudies"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              style={{ color: INDIGO }}
+            >
+              View All Case Studies
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
+
+          <div className="mt-10">
+            <Carousel
+              items={useCases.slice(0, 4)}
+              renderItem={(study) => (
+                <div
+                  className="flex h-full min-h-[280px] flex-col rounded-2xl p-7"
+                  style={{
+                    backgroundColor: "#F5F3FC",
+                    border: "1px solid #E5E1F5",
+                  }}
+                >
+                  <span
+                    className="font-body text-[12px] font-semibold tracking-wide"
+                    style={{ color: LAVENDER }}
+                  >
+                    {study.industry.toUpperCase()}
+                  </span>
+                  <h3
+                    className="font-heading mt-2 text-[19px] font-semibold leading-snug"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
+                    {study.title}
+                  </h3>
+                  <p className="font-body mt-4 flex-1 text-[14px] leading-relaxed text-slate-600">
+                    {study.body}
+                  </p>
+                  <Link
+                    href="/services/ai-generative-ai/casestudies"
+                    className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                    style={{ color: INDIGO }}
+                  >
+                    Learn More
+                    <ArrowUpRight size={15} />
+                  </Link>
+                </div>
+              )}
+            />
+          </div>
+        </motion.section>
+
+        {/* SERVICE DEEP DIVE */}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          variants={fadeUp}
+          className="mt-24 pb-28"
+        >
           <h2
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Conversational AI That Moves Work Forward
+            AI Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
               onMouseEnter={() => setTabHovered(true)}
               onMouseLeave={() => setTabHovered(false)}
             >
-              {tabs.map((tab, i) => {
-                const isActive = i === activeTab;
+              {deepDives.map((tab, index) => {
+                const active = index === activeTab;
+
                 return (
                   <li key={tab.label} className="relative -ml-px">
-                    {/* Static base line */}
-                    <span
-                      className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
-                      style={{ backgroundColor: "transparent" }}
-                    />
-                    {/* Animated progress fill — only rendered on the active tab,
-                        remounted via key so the fill restarts from empty each time */}
-                    {isActive && (
+                    {active && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
-                        className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                        className="ai-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
                         style={{
                           backgroundColor: CHAMPION_BLUE,
                           animation: tabHovered
                             ? "none"
-                            : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                            : `ai-tab-progress ${AUTOPLAY_MS}ms linear forwards`,
                           transform: tabHovered ? "scaleY(1)" : undefined,
                         }}
                       />
                     )}
+
                     <button
                       type="button"
-                      onClick={() => setActiveTab(i)}
+                      onClick={() => setActiveTab(index)}
                       className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
                       style={{
-                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 600 : 500,
+                        color: active ? CHAMPION_BLUE : "#94A3B8",
+                        fontWeight: active ? 600 : 500,
                       }}
                     >
                       {tab.label}
@@ -1207,15 +874,23 @@ export default function AIChatBoxSection(): ReactElement {
               })}
             </ul>
 
-            {/* Right panel */}
-            <div
+            <motion.div
               key={activeTab}
-  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[360px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
+                <span
+                  className="font-body text-[12px] font-semibold tracking-wide"
+                  style={{ color: LAVENDER }}
+                >
+                  {current.label.toUpperCase()}
+                </span>
                 <h3
-                  className="font-heading text-[22px] font-semibold leading-snug"
+                  className="font-heading mt-3 text-[23px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
@@ -1225,390 +900,218 @@ export default function AIChatBoxSection(): ReactElement {
                 </p>
               </div>
 
-              <div className="min-h-[280px] overflow-hidden">
+              <div className="h-[300px] md:h-full">
                 <img
                   src={current.image}
                   alt={current.label}
-                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-  
+                  className="h-full w-full object-cover"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
-        </Reveal>
+        </motion.section>
       </div>
 
-      {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark)
-      ============================================================ */}
-    
-<section className="relative overflow-hidden bg-[#08070F] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
-          style={{
-            background:
-              "radial-gradient(60% 90% at 100% 100%, rgba(232,110,90,0.55) 0%, rgba(164,143,234,0.35) 35%, rgba(8,7,15,0) 70%)",
-          }}
-        />
-        <div
-          className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
-          style={{
-            background:
-              "radial-gradient(60% 80% at 0% 100%, rgba(63,90,214,0.35) 0%, rgba(8,7,15,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your Digital
-              <br />
-              Software Ecosystem
+      {/* IMPACT */}
+      <section
+        className="relative overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(110% 130% at 90% 100%, rgba(164,143,234,0.22), transparent 50%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+          >
+            <span
+              className="font-body text-[12px] font-semibold tracking-[0.18em]"
+              style={{ color: "#B9AEF3" }}
+            >
+              AI AT SCALE
+            </span>
+            <h2 className="font-heading mt-4 max-w-3xl text-[36px] font-medium leading-[1.15] text-white lg:text-[46px]">
+              Impact Across Your AI & Generative AI Ecosystem
             </h2>
-          </Reveal>
+          </motion.div>
 
-          <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {ecosystemImpact.map((item, i) => (
-              <Reveal key={item.title} delay={i * 90}>
-                <a
-                  href="#"
-                  className="group flex min-h-[128px] items-center gap-5 overflow-hidden rounded-2xl bg-white p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                >
-                  <div className="h-24 w-28 flex-shrink-0 overflow-hidden rounded-xl">
-                    <img
-                      src={item.image}
-                      alt={`${item.title} IT and AI technology`}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                  </div>
-                  <span
-                    className="font-body flex-1 text-[18px] font-medium leading-snug"
-                    style={{ color: CHAMPION_BLUE }}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.1 }}
+            variants={stagger}
+            className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2"
+          >
+            {impactAreas.map((area, index) => {
+              const isOpen = openImpact === index;
+
+              return (
+                <motion.div key={area.title} variants={cardItem}>
+                  <button
+                    type="button"
+                    onClick={() => setOpenImpact(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 rounded-2xl bg-white px-8 py-6 text-left"
                   >
-                    {item.title}
-                  </span>
-                  <span
-                    className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
-                    style={{ backgroundColor: INDIGO_CTA }}
-                  >
-                    <Plus size={18} />
-                  </span>
-                </a>
-              </Reveal>
-            ))}
+                    <span
+                      className="font-body text-[16px] font-medium"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </span>
+
+                    <span
+                      className="flex h-9 w-9 flex-none items-center justify-center rounded-full text-white transition-transform duration-300"
+                      style={{
+                        backgroundColor: INDIGO,
+                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      <Plus size={18} />
+                    </span>
+                  </button>
+
+                  {isOpen && (
+                    <p className="font-body mt-3 px-8 text-[14px] leading-relaxed text-slate-300">
+                      {area.body}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* WHAT'S NEW */}
+      <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="flex items-end justify-between gap-6"
+          >
+            <div>
+              <h2
+                className="font-heading max-w-2xl text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                What&apos;s New in AI
+                <br />
+                & Generative AI
+              </h2>
+              <p className="font-body mt-4 max-w-xl text-[15px] leading-relaxed text-slate-600">
+                Perspectives on GenAI, LLM engineering, agents, RAG, evaluation,
+                and responsible enterprise AI.
+              </p>
+            </div>
+
+            <Link
+              href="/services/ai-generative-ai/blogs"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              style={{ color: INDIGO }}
+            >
+              View All Insights
+              <ArrowUpRight size={16} />
+            </Link>
+          </motion.div>
+
+          <div className="mt-14">
+            <Carousel
+              items={insights}
+              renderItem={(post) => (
+                <Link href={post.href} className="block h-full">
+                  <article className="flex min-h-[380px] h-full flex-col overflow-hidden rounded-2xl bg-white transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                    <div className="h-[220px] overflow-hidden bg-slate-900">
+                      <img
+                        src={post.image}
+                        alt={post.title}
+                        className="h-full w-full object-cover opacity-85 transition-transform duration-700 hover:scale-105"
+                      />
+                    </div>
+
+                    <div className="flex flex-1 flex-col p-6">
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-wide"
+                        style={{ color: INDIGO }}
+                      >
+                        AI INSIGHT
+                      </span>
+
+                      <h3
+                        className="font-heading mt-2 text-[19px] font-semibold leading-snug"
+                        style={{ color: CHAMPION_BLUE }}
+                      >
+                        {post.title}
+                      </h3>
+
+                      <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
+                        {post.body}
+                      </p>
+
+                      <span
+                        className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                        style={{ color: INDIGO }}
+                      >
+                        Read More
+                        <ArrowUpRight size={15} />
+                      </span>
+                    </div>
+                  </article>
+                </Link>
+              )}
+            />
           </div>
         </div>
+      </section>
 
-</section>
-
-
-      {/* ============================================================
-          INDUSTRY RECOGNITION
-      ============================================================ */}
-
-
-      {/* ============================================================
-          CASE STUDIES
-      ============================================================ */}
-
-      <section
-  className="py-24"
-  style={{
-    background:
-      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
-  }}
->
-  <div className={ALIGN}>
-    <Reveal className="flex items-center justify-between">
-      <h2
-        className="font-heading text-[36px] font-medium lg:text-[44px]"
-        style={{ color: CHAMPION_BLUE }}
-      >
-        AI Chat Box Use Cases
-      </h2>
-
-      <a
-        href="#"
-        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-        style={{ color: INDIGO_CTA }}
-      >
-        View All AI Chat Box Use Cases
-        <ArrowUpRight size={16} />
-      </a>
-    </Reveal>
-
-    <div className="mt-12">
-      <PagedCarousel
-        items={caseStudies}
-        itemsPerPage={{
-          mobile: 1,
-          tablet: 2,
-          desktop: 3,
-        }}
-        arrowVariant="light"
-        renderItem={(study, i) => (
-          <Reveal
-            delay={(i % 3) * 90}
-            className="h-full"
+      {/* CTA */}
+      <section id="connect" className="relative overflow-hidden py-28">
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+            variants={fadeUp}
+            className="relative overflow-hidden rounded-[28px] px-8 py-16 text-center lg:px-16"
+            style={{
+              background: `radial-gradient(80% 120% at 50% 0%, rgba(164,143,234,0.28), transparent 65%), ${DARK_BG}`,
+            }}
           >
-            <Link
-              href={`/services/offerings/generative-ai/${study.slug}`}
-              className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
-            >
-              <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                <img
-                  src={study.image}
-                  alt={study.title}
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                />
-              </div>
+            <div className="mx-auto max-w-3xl">
+              <span
+                className="font-body inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[12px] font-semibold tracking-wide text-white/80"
+                style={{ borderColor: "rgba(255,255,255,0.14)" }}
+              >
+                <Sparkles size={15} />
+                BUILD WITH AI
+              </span>
 
-              <div className="flex flex-1 flex-col p-6">
-                <span
-                  className="font-body text-[12px] font-semibold tracking-wide"
-                  style={{ color: INDIGO_CTA }}
-                >
-                  CASE STUDY
-                </span>
+              <h2 className="font-heading mt-6 text-[38px] font-medium leading-[1.12] text-white lg:text-[52px]">
+                Ready to Turn Your AI Idea Into a Production Capability?
+              </h2>
 
-                <h3
-                  className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {study.title}
-                </h3>
+              <p className="font-body mx-auto mt-5 max-w-2xl text-[15px] leading-relaxed text-slate-300">
+                Bring us your use case, data challenge, product idea, or
+                automation opportunity. We&apos;ll help you define the right AI
+                architecture and path to production.
+              </p>
 
-                <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                  {study.body}
-                </p>
-
-                <span
-                  className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                  style={{ color: INDIGO_CTA }}
-                >
-                  Learn More
-                  <ArrowUpRight size={15} />
-                </span>
-              </div>
-            </Link>
-          </Reveal>
-        )}
-      />
-    </div>
-  </div>
-</section>
-
-      {/* ============================================================
-          INSIGHTS / WHAT'S NEW
-      ============================================================ */}
-
-{/* ============================================================
-    INSIGHTS / WHAT'S NEW
-============================================================ */}
-
-<section className="bg-[#EEF0F7] py-24">
-  <div className={ALIGN}>
-
-    {/* HEADER */}
-
-    <Reveal className="flex items-center justify-between">
-      <h2
-        className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-        style={{
-          color: CHAMPION_BLUE,
-        }}
-      >
-        Insights on AI Meeting Assistant
-      </h2>
-
-      <Link
-        href={BLOG_BASE}
-        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-        style={{
-          color: INDIGO_CTA,
-        }}
-      >
-        View All Insights
-
-        <ArrowUpRight size={16} />
-      </Link>
-    </Reveal>
-
-    {/* CAROUSEL */}
-
-    <div className="mt-12">
-
-      <Carousel
-        itemCount={insights.length}
-        arrowVariant="light"
-      >
-
-        {insights.map((post, i) => (
-
-          <Reveal
-            key={post.slug}
-            delay={i * 90}
-            className={`flex-shrink-0 snap-start ${
-              post.large
-                ? "w-[420px]"
-                : "w-[340px]"
-            }`}
-          >
-
-            {/* ==================================================
-                CLICKABLE BLOG CARD
-            ================================================== */}
-
-            <Link
-              href={`${BLOG_BASE}/${post.slug}`}
-              className="group block h-full cursor-pointer"
-            >
-
-              {/* ==============================================
-                  LARGE CARD
-              ============================================== */}
-
-              {post.large ? (
-
-                <div className="relative h-[420px] overflow-hidden rounded-2xl">
-
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      BLOG
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <span
-                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-
-                      <ArrowUpRight
-                        size={14}
-                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </span>
-
-                  </div>
-
-                </div>
-
-              ) : (
-
-                /* ==============================================
-                    NORMAL CARD
-                ============================================== */
-
-                <div>
-
-                  <div className="h-[220px] overflow-hidden rounded-2xl">
-
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-
-                  </div>
-
-                  <div className="pt-5">
-
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      BLOG
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <span
-                      className="mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-
-                      <ArrowUpRight
-                        size={15}
-                        className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                      />
-                    </span>
-
-                  </div>
-
-                </div>
-
-              )}
-
-            </Link>
-
-          </Reveal>
-
-        ))}
-
-      </Carousel>
-
-    </div>
-
-    {/* MOBILE VIEW ALL */}
-
-    <Link
-      href={BLOG_BASE}
-      className="mt-8 inline-flex items-center gap-1.5 text-[15px] font-semibold sm:hidden"
-      style={{
-        color: INDIGO_CTA,
-      }}
-    >
-      View All Insights
-
-      <ArrowUpRight size={16} />
-    </Link>
-
-  </div>
-</section>
+              <Link
+                href="/contact"
+                className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
+                style={{ backgroundColor: INDIGO }}
+              >
+                Connect Now
+                <ArrowUpRight size={17} />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
     </main>
   );
 }

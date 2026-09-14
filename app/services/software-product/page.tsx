@@ -5,21 +5,19 @@ import Link from "next/link";
 import {
   ChevronRight,
   ChevronLeft,
-  ChevronDown,
   Sparkles,
   ArrowUpRight,
   Plus,
-  Trophy,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
+import { caseStudies as sharedCaseStudies } from "@/app/services/software-product/casestudies/data/case-studies";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
 // Colors for the two dark, full-bleed sections (capability cards + impact
 // accordion) so they read as a distinct "showcase" register against the
-// light sections, matching the reference design.
+// light sections, matching the Data & Analytics reference page.
 const DARK_BG = "#0A0A18";
 const DARK_CARD = "rgba(255,255,255,0.04)";
 const DARK_BORDER = "rgba(255,255,255,0.09)";
@@ -29,7 +27,7 @@ const ACCENT_INDIGO = "#6C5DD3";
 // max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Data & Analytics Services" tab list
+// Autoplay timing for the "Software & Product Engineering Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 // --- Shared animation variants ---
@@ -82,269 +80,206 @@ const fadeUp: Variants = {
   },
 };
 
-const keyTakeaways: string[] = [
-  "Starfii helps enterprises turn fragmented, siloed data into a single governed platform that every team can trust and act on.",
-  "Our data engineering and cloud platform teams build resilient pipelines that scale with the business, so growth never means rebuilding your data stack.",
-  "We connect Generative AI and LLMs safely to your own enterprise data, so teams can query, summarize, and act on it in plain language.",
-  "Our approach combines data governance, quality checks, and stewardship with modern BI and analytics to deliver decisions your business can rely on.",
-];
-
-// Each capability now carries short tags, shown as pills on the dark
-// numbered cards (mirrors the DATA / BI / ANALYTICS style pills in the
-// reference screenshots).
+// Each capability carries short tags, shown as pills on the dark numbered
+// cards, mirroring the "Our Data & Analytics Capabilities" pill style.
+// Titles map to the recommended sections: Product Strategy, UI/UX
+// Engineering, Web App Development, Mobile App Development, Backend
+// Engineering, API & Integrations, SaaS Engineering, Enterprise Application
+// Development, Product Modernization, QA & Release Engineering.
 const focusAreas = [
   {
-    title: "Data Engineering",
-    body: "Starfii's certified data engineers design and build resilient pipelines and data platforms, so every downstream system works from clean, timely, well governed data.",
-    tags: ["PIPELINES", "ETL", "ORCHESTRATION"],
+    title: "Product Strategy",
+    body: "Starfii shapes product direction before a line of code is written, aligning roadmap, scope, and success metrics so engineering effort lands on what the business actually needs.",
+    tags: ["ROADMAPPING", "DISCOVERY", "MVP SCOPING"],
   },
   {
-    title: "Data Architecture",
-    body: "Starfii designs the blueprints for how data flows, is stored, and is accessed across your organization, so every new source and pipeline fits a plan instead of adding to the sprawl.",
-    tags: ["ARCHITECTURE", "DATA MODELING", "SCHEMA DESIGN"],
+    title: "UI/UX Engineering",
+    body: "Our designers and front end engineers build interfaces people can use without thinking about them, grounded in research and validated with real users before launch.",
+    tags: ["UX RESEARCH", "PROTOTYPING", "DESIGN SYSTEMS"],
   },
   {
-    title: "Data Pipelines & Orchestration",
-    body: "We build ingestion and transformation pipelines with automated orchestration and monitoring, so data lands where it is needed, on schedule, without manual babysitting.",
-    tags: ["ORCHESTRATION", "INGESTION", "ETL/ELT"],
+    title: "Web Application Development",
+    body: "Starfii engineers fast, accessible web applications on modern frameworks, built to hold up under real traffic instead of just demo conditions.",
+    tags: ["REACT", "NEXT.JS", "PERFORMANCE"],
   },
   {
-    title: "Cloud Data Platforms",
-    body: "Starfii architects and migrates data estates onto modern cloud data platforms on AWS, Azure, and GCP, built for scale, cost control, and near real time access.",
-    tags: ["AWS", "AZURE", "GCP"],
+    title: "Mobile Application Development",
+    body: "We build native and cross platform mobile apps that feel at home on each device, from first release through the updates that keep users coming back.",
+    tags: ["iOS", "ANDROID", "REACT NATIVE"],
   },
   {
-    title: "Data Analytics",
-    body: "Starfii turns raw, siloed data into clear analysis, surfacing trends and answering the business questions teams actually ask.",
-    tags: ["ANALYTICS", "SELF-SERVICE", "INSIGHTS"],
+    title: "Backend Engineering",
+    body: "Starfii designs backend systems and services that stay reliable as usage grows, so a spike in traffic is a scaling event, not an incident.",
+    tags: ["MICROSERVICES", "APIs", "SCALABILITY"],
   },
   {
-    title: "Business Intelligence & Dashboards",
-    body: "We turn raw data into actionable business intelligence using Tableau and Power BI, so decision makers see what matters without digging for it.",
-    tags: ["TABLEAU", "POWER BI", "DASHBOARDS"],
+    title: "API & Integrations",
+    body: "We design and build APIs and third party integrations that connect your product to the systems your business already depends on, cleanly and securely.",
+    tags: ["REST", "GRAPHQL", "WEBHOOKS"],
   },
   {
-    title: "Data Science & Advanced Analytics",
-    body: "Our data scientists build the models and surface the patterns behind better decisions, from demand forecasting to anomaly detection to product recommendation.",
-    tags: ["ML", "FORECASTING", "STATISTICAL MODELING"],
+    title: "SaaS Engineering",
+    body: "Starfii builds multi tenant SaaS platforms from the ground up, with the billing, onboarding, and account architecture a growing subscription business needs.",
+    tags: ["MULTI-TENANCY", "BILLING", "ONBOARDING"],
   },
   {
-    title: "AI-Ready Data",
-    body: "Starfii prepares and governs enterprise data so it is clean, contextual, and safe for AI and LLM consumption, turning raw records into something models can actually reason over.",
-    tags: ["AI-READY", "RAG", "DATA QUALITY"],
+    title: "Enterprise Application Development",
+    body: "We build internal and customer facing enterprise applications that meet real compliance and integration requirements without slowing teams down.",
+    tags: ["ENTERPRISE", "SECURITY", "INTEGRATION"],
   },
   {
-    title: "Data Modernization",
-    body: "We move legacy warehouses and data marts onto modern cloud platforms with minimal disruption, closing the gap between old systems and new business demands.",
-    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
+    title: "Product Modernization",
+    body: "Starfii re-architects aging products onto current frameworks and infrastructure, closing the gap between legacy systems and what the business needs today.",
+    tags: ["MODERNIZATION", "RE-ARCHITECTURE", "MIGRATION"],
   },
   {
-    title: "Data Governance & Quality",
-    body: "We put stewardship, lineage, and data quality checks in place so your enterprise data stays trustworthy as it moves across systems and teams.",
-    tags: ["GOVERNANCE", "LINEAGE", "QUALITY"],
-  },
-  {
-    title: "MDM & Data Integration",
-    body: "We consolidate fragmented sources into a single, reliable master data record, so every team works from the same version of the truth.",
-    tags: ["MDM", "INTEGRATION", "MASTER DATA"],
-  },
-  {
-    title: "Generative AI on Enterprise Data",
-    body: "Starfii connects Generative AI and LLMs to your own enterprise data safely, so teams can query, summarize, and act on it in plain language.",
-    tags: ["GENAI", "LLM", "RAG"],
+    title: "QA & Release Engineering",
+    body: "Our QA and release engineers build automated testing and deployment pipelines so every release ships with confidence instead of a war room on standby.",
+    tags: ["TEST AUTOMATION", "CI/CD", "RELEASE MGMT"],
   },
 ];
 
 const tabs = [
   {
-    label: "Architecture: Design the Foundation",
-    heading: "A data architecture blueprint before a single pipeline gets built",
-    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl.",
+    label: "Strategy: Set the Product Direction",
+    heading: "A product roadmap grounded in real user and business signals",
+    body: "Starfii runs discovery, defines scope, and sets success metrics before engineering starts, so the team builds toward outcomes instead of a feature list.",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Build a Single Source of Truth",
-    heading: "One governed data foundation, not a dozen conflicting copies",
-    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts.",
+    label: "Design: Build Interfaces People Trust",
+    heading: "UI/UX that holds up once real users get their hands on it",
+    body: "Our designers prototype, test, and refine interfaces with actual users, so what ships in production matches what worked in the research.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Engineer Pipelines That Scale",
-    heading: "Pipelines built for the data volumes you will have next year, not just today",
-    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch.",
+    label: "Web: Engineer for Real Traffic",
+    heading: "Web applications built to perform under production load",
+    body: "Starfii engineers web applications that stay fast and accessible as usage grows, tested against real traffic conditions, not just demo data.",
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Platforms: Pick the Right Cloud Fit",
-    heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
-    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access.",
+    label: "Mobile: Ship on Every Platform",
+    heading: "Mobile apps that feel native, whichever platform users are on",
+    body: "We build iOS, Android, and cross platform apps that respect each platform's own conventions, so the app feels native, not ported.",
+    image:
+      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Backend: Architect for Scale",
+    heading: "Backend systems sized for the load you will have next year",
+    body: "Starfii designs services and data layers that scale with demand, so a traffic spike is a scaling event handled automatically, not a fire drill.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Turn Data into Decisions",
-    heading: "Analytics and dashboards people actually open",
-    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
+    label: "Integrations: Connect What You Already Run",
+    heading: "APIs and integrations that connect cleanly to your existing stack",
+    body: "We design APIs and integrations that plug your product into the systems your business already depends on, without brittle one-off connectors.",
+    image:
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "SaaS: Build for Subscription Growth",
+    heading: "Multi tenant SaaS architecture built for how subscriptions actually grow",
+    body: "Starfii builds the account, billing, and onboarding architecture a growing SaaS business needs, so scaling customers does not mean re-platforming.",
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Modernize Legacy Products",
+    heading: "A clear path off aging codebases and brittle infrastructure",
+    body: "We assess your existing product, build a modernization roadmap, and re-architect onto current frameworks with minimal disruption to users.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
-  {
-    label: "Data Science: Find the Pattern",
-    heading: "Models that surface the pattern behind the decision, not just a dashboard number",
-    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production.",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Modernize Legacy Data Estates",
-    heading: "A clear path off aging warehouses and brittle ETL",
-    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting.",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Apply AI to Your Own Data",
-    heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
-    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
-  },
 ];
 
-// Closing "Impact" accordion — the last section on the page. Each row
+// Closing "Impact" accordion — the last dark section on the page. Each row
 // expands in place to show what that impact area actually covers.
 const impactAreas = [
   {
-    title: "Unify Fragmented Data Sources",
-    body: "Bring scattered warehouses, marts, and spreadsheets into one governed platform so every team works from the same numbers.",
+    title: "Ship Products Users Actually Adopt",
+    body: "Ground every release in real user research and validated design, so what ships gets used instead of ignored.",
   },
   {
-    title: "Engineer Pipelines for Scale",
-    body: "Build ingestion and transformation pipelines that keep pace with data volume as the business grows, not just today's load.",
+    title: "Engineer for Scale From Day One",
+    body: "Build web, mobile, and backend systems that hold up under production load, not just demo conditions.",
   },
   {
-    title: "Govern Data You Can Trust",
-    body: "Put stewardship, lineage, and quality checks in place so data stays trustworthy as it moves across systems and teams.",
+    title: "Connect to the Systems You Run",
+    body: "Design APIs and integrations that plug cleanly into your existing stack, without brittle one-off connectors.",
   },
   {
-    title: "Apply AI to Enterprise Data",
-    body: "Connect Generative AI and LLMs safely to your own data, so teams can query and act on it in plain language.",
+    title: "Build SaaS That Grows With You",
+    body: "Put multi tenant architecture, billing, and onboarding in place so scaling customers does not mean re-platforming.",
   },
   {
-    title: "Modernize Legacy Data Estates",
-    body: "Move aging warehouses and brittle ETL onto modern cloud platforms with a clear roadmap and minimal disruption.",
+    title: "Modernize Without Disrupting Users",
+    body: "Move legacy products onto current frameworks and infrastructure with a clear roadmap and minimal downtime.",
   },
   {
-    title: "Turn Analytics into Action",
-    body: "Design BI and reporting around the decisions teams make every day, not just the metrics that are easiest to compute.",
+    title: "Release With Confidence, Not a War Room",
+    body: "Automate testing and deployment pipelines so every release ships predictably, with rollback ready if it doesn't.",
   },
 ];
 
-// Industry Recognition — quadrant/award callouts, shown two at a time in a
-// carousel with a progress bar, matching the reference layout.
-type Recognition = {
-  program: string;
-  year: string;
-  title: string;
-  subtitle: string;
-  standing: string;
-  body: string;
-};
-
-const recognitions: Recognition[] = [
-  {
-    program: "ISG Provider Lens™",
-    year: "2026 Quadrant",
-    title: "Data Modernization Services",
-    subtitle: "Data Engineering & Migration",
-    standing: "Leader, U.S.",
-    body: "Starfii named a Leader in Data Engineering & Migration in the ISG Provider Lens® Data Modernization Services 2026 U.S. Quadrant Report, recognizing our legacy warehouse migration and pipeline rebuild work.",
-  },
-  {
-    program: "ISG Provider Lens™",
-    year: "2025 Quadrant",
-    title: "Data & Analytics Services",
-    subtitle: "Data Platforms and BI",
-    standing: "Leader, U.S.",
-    body: "Starfii named a Leader in Data Platforms and BI in the ISG Provider Lens™ Data & Analytics Services 2025 US Quadrant Report, reflecting our governed reporting and dashboarding delivery.",
-  },
-  {
-    program: "ISG Provider Lens™",
-    year: "2025 Quadrant",
-    title: "Cloud Data Platform Services",
-    subtitle: "AWS, Azure & GCP Delivery",
-    standing: "Rising Star, U.S.",
-    body: "Starfii recognized as a Rising Star in Cloud Data Platform Services in the ISG Provider Lens™ 2025 US Quadrant Report, citing our multi cloud data architecture and migration practice.",
-  },
-  {
-    program: "ISG Provider Lens™",
-    year: "2026 Quadrant",
-    title: "Generative AI on Enterprise Data",
-    subtitle: "AI and LLM Integration",
-    standing: "Leader, U.S.",
-    body: "Starfii named a Leader in AI and LLM Integration in the ISG Provider Lens® Generative AI Services 2026 U.S. Quadrant Report, recognizing how we ground models in governed enterprise data.",
-  },
-];
-
-// What's New — insight/blog teasers, shown three at a time with the same
-// progress bar and arrow pagination as the recognition carousel.
+// What's New — insight/blog teasers, shown three at a time with a
+// progress bar and arrow pagination, matching the reference layout.
 type Insight = {
   slug: string;
   title: string;
   body: string;
   image: string;
-  gradient?: boolean;
 };
 
 const insights: Insight[] = [
   {
-    slug: "generative-ai-enterprise-data-warehouses-to-answers",
-    title: "Generative AI on Enterprise Data: From Warehouses to Answers",
-    body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
+    slug: "product-strategy-before-the-first-sprint",
+    title: "Product Strategy Before the First Sprint",
+    body: "Why the roadmap and success metrics need to be settled before engineering starts, not discovered halfway through the build.",
     image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
-    gradient: false, // ← changed from true, so the actual AI-chip image now renders
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "cloud-data-platforms-aws-azure-gcp",
-    title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
-    body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right fit.",
-   image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop", // ← changed to server/data-center image
-  },
-  {
-    slug: "data-governance-at-scale-trust-every-pipeline",
-    title: "Data Governance at Scale: Building Trust Into Every Pipeline",
-    body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
+    slug: "designing-interfaces-that-survive-contact-with-users",
+    title: "Designing Interfaces That Survive Contact With Users",
+    body: "How prototyping and usability testing close the gap between what looks good in a design file and what works in production.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "mdm-in-practice-one-customer-record",
-    title: "MDM in Practice: Getting Every Team to One Customer Record",
-    body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
+    slug: "scaling-backend-systems-before-you-need-to",
+    title: "Scaling Backend Systems Before You Need To",
+    body: "A look at the architecture decisions that make a traffic spike a non-event instead of an incident.",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    slug: "multi-tenant-saas-architecture-getting-it-right-early",
+    title: "Multi Tenant SaaS Architecture: Getting It Right Early",
+    body: "Why account, billing, and tenancy decisions made at the start are expensive to unwind later, and how to make them well.",
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
-    title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
-    body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
+    slug: "legacy-product-to-modern-stack-a-migration-playbook",
+    title: "Legacy Product to Modern Stack: A Migration Playbook",
+    body: "Starfii's phased approach to re-architecting aging products without breaking the experience users already rely on.",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "bi-dashboards-designed-around-decisions",
-    title: "BI That Gets Opened: Designing Dashboards Around Decisions",
-    body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
+    slug: "shipping-with-confidence-ci-cd-that-teams-trust",
+    title: "Shipping With Confidence: CI/CD That Teams Trust",
+    body: "How automated testing and release pipelines turn deployment from a risky event into a routine one.",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
   },
 ];
-
 
 // Use Cases — concrete, industry-grounded examples of the capabilities
 // above in action. Sits above Case Studies as a lighter, scannable list
@@ -358,37 +293,35 @@ type UseCase = {
 const useCases: UseCase[] = [
   {
     industry: "Retail & E-Commerce",
-    title: "Real Time Demand Forecasting",
-    body: "Unify point-of-sale, inventory, and web data into one pipeline so merchandising teams forecast demand and avoid stockouts before they happen.",
+    title: "Headless Storefront Rebuild",
+    body: "Re-architect an aging storefront onto a headless, API driven stack so merchandising teams ship new experiences without waiting on a platform release.",
   },
   {
     industry: "Financial Services",
-    title: "Fraud & Anomaly Detection",
-    body: "Apply data science models to transaction streams so unusual patterns get flagged in near real time, not after the fraud has already settled.",
+    title: "Customer Onboarding Portal",
+    body: "Build a secure web and mobile onboarding flow that integrates with identity verification and core banking APIs, cutting account setup from days to minutes.",
   },
   {
     industry: "Healthcare",
-    title: "Unified Patient Data Platform",
-    body: "Bring records from EHR, labs, and claims systems into a governed data platform, giving clinicians and analysts one trustworthy view of patient history.",
+    title: "Patient Scheduling Application",
+    body: "Engineer a HIPAA-aware scheduling application across web and mobile so patients and staff both work from the same real time availability.",
+  },
+  {
+    industry: "Logistics",
+    title: "Real Time Fleet Tracking",
+    body: "Build a backend and mobile app that streams live fleet telemetry to dispatchers, so delays get caught before they cascade.",
+  },
+  {
+    industry: "B2B SaaS",
+    title: "Multi Tenant Platform Launch",
+    body: "Design the account, billing, and permissioning architecture for a new SaaS product from its first enterprise customer onward.",
   },
   {
     industry: "Manufacturing",
-    title: "Predictive Maintenance Analytics",
-    body: "Pipe sensor and equipment telemetry into a cloud data platform so maintenance teams predict failures before they cause downtime.",
-  },
-  {
-    industry: "Insurance",
-    title: "Claims Data Governance",
-    body: "Apply lineage, stewardship, and quality checks across claims data so audit and compliance teams trust every number they report on.",
-  },
-  {
-    industry: "Telecom",
-    title: "Customer Churn Prediction",
-    body: "Combine usage, billing, and support data into AI-ready datasets so retention teams act on churn risk weeks before a customer cancels.",
+    title: "Legacy ERP Modernization",
+    body: "Re-platform a legacy ERP front end onto a modern stack with minimal disruption to the shop floor workflows built around it.",
   },
 ];
-
-
 
 type StepCarouselProps<T> = {
   items: T[];
@@ -558,8 +491,7 @@ function StepCarousel<T>({
   );
 }
 
-export default function DataAnalyticsServicesSection() {
-  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
+export default function SoftwareProductEngineeringSection() {
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const [openImpact, setOpenImpact] = useState<number | null>(null);
@@ -608,6 +540,7 @@ export default function DataAnalyticsServicesSection() {
 
       {/* ============================================================
           HERO — animates once, right after page load
+          Section 28: Product engineering overview
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
@@ -615,7 +548,7 @@ export default function DataAnalyticsServicesSection() {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -642,7 +575,7 @@ export default function DataAnalyticsServicesSection() {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Data & Analytics</span>
+            <span className="text-slate-500">Software & Product Engineering</span>
           </motion.nav>
 
           <motion.h1
@@ -650,17 +583,17 @@ export default function DataAnalyticsServicesSection() {
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] lg:text-[54px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            Data & Analytics Services for Decisions You Can Trust
+            Software & Product Engineering From Concept to Production
           </motion.h1>
 
           <motion.p
             variants={heroItem}
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
           >
-            Starfii architects, engineers, and modernizes data platforms
-            and pipelines, turning scattered, siloed data into a governed,
-            AI-ready foundation that powers faster, more confident
-            decisions across the enterprise.
+            Starfii designs, develops, and scales secure digital products,
+            applications, and platforms, taking teams from an early
+            concept to a production system real users and customers
+            depend on.
           </motion.p>
 
           <motion.a
@@ -679,116 +612,114 @@ export default function DataAnalyticsServicesSection() {
 
       <div className={ALIGN}>
         {/* ============================================================
-            KEY TAKEAWAYS — animates on scroll into view
+            WHY SOFTWARE & PRODUCT ENGINEERING MATTERS
         ============================================================ */}
-      {/* ============================================================
-    WHY DATA & ANALYTICS MATTERS
-============================================================ */}
-<motion.section
-  initial="hidden"
-  whileInView="visible"
-  viewport={{ once: true, amount: 0.2 }}
-  variants={fadeUp}
-  className="mt-16"
->
-  <div
-    className="overflow-hidden rounded-[22px] border bg-white"
-    style={{ borderColor: LAVENDER_ACCENT }}
-  >
-    {/* Header */}
-    <div
-      className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
-      style={{
-        borderBottom: `1px solid ${LAVENDER_ACCENT}`,
-      }}
-    >
-      <div className="flex items-center gap-3">
-        <Sparkles
-          size={21}
-          strokeWidth={1.8}
-          style={{ color: LAVENDER_ACCENT }}
-        />
-
-        <span
-          className="font-body text-[17px] font-semibold"
-          style={{ color: CHAMPION_BLUE }}
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-16"
         >
-          Why Data & Analytics Matters
-        </span>
-      </div>
+          <div
+            className="overflow-hidden rounded-[22px] border bg-white"
+            style={{ borderColor: LAVENDER_ACCENT }}
+          >
+            {/* Header */}
+            <div
+              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
+              style={{
+                borderBottom: `1px solid ${LAVENDER_ACCENT}`,
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles
+                  size={21}
+                  strokeWidth={1.8}
+                  style={{ color: LAVENDER_ACCENT }}
+                />
 
-      <span
-        className="font-body rounded-full px-5 py-2.5 text-[13px] font-semibold"
-        style={{
-          backgroundColor: "#F1EEFC",
-          color: ACCENT_INDIGO,
-        }}
-      >
-        Trusted Data
-      </span>
-    </div>
+                <span
+                  className="font-body text-[17px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Why Software & Product Engineering Matters
+                </span>
+              </div>
 
-    {/* Content */}
-    <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
-      <div>
-        <h3
-          className="font-heading text-[23px] font-semibold"
-          style={{ color: CHAMPION_BLUE }}
-        >
-          Unify
-        </h3>
+              <span
+                className="font-body rounded-full px-5 py-2.5 text-[13px] font-semibold"
+                style={{
+                  backgroundColor: "#F1EEFC",
+                  color: ACCENT_INDIGO,
+                }}
+              >
+                Built to Scale
+              </span>
+            </div>
 
-        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
-          Bring fragmented enterprise data together into a governed,
-          reliable foundation that teams can trust across the business.
-        </p>
-      </div>
+            {/* Content */}
+            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+              <div>
+                <h3
+                  className="font-heading text-[23px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Design
+                </h3>
 
-      <div>
-        <h3
-          className="font-heading text-[23px] font-semibold"
-          style={{ color: CHAMPION_BLUE }}
-        >
-          Analyze
-        </h3>
+                <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Ground every product decision in real user research and
+                  validated design, so what ships gets adopted instead of
+                  ignored.
+                </p>
+              </div>
 
-        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
-          Turn complex data into meaningful analytics, dashboards, and
-          insights that help teams understand performance and make
-          faster, more confident decisions.
-        </p>
-      </div>
+              <div>
+                <h3
+                  className="font-heading text-[23px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Build
+                </h3>
 
-      <div>
-        <h3
-          className="font-heading text-[23px] font-semibold"
-          style={{ color: CHAMPION_BLUE }}
-        >
-          Accelerate
-        </h3>
+                <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Engineer web, mobile, and backend systems that hold up
+                  under real usage, not just demo conditions, from the
+                  first sprint onward.
+                </p>
+              </div>
 
-        <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
-          Modernize data platforms and connect AI to trusted enterprise
-          data so organizations can scale analytics, automation, and
-          intelligent decision-making.
-        </p>
-      </div>
-    </div>
-  </div>
+              <div>
+                <h3
+                  className="font-heading text-[23px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Scale
+                </h3>
 
-  {/* Existing supporting paragraph */}
-  <p
-    className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
-    style={{ color: CHAMPION_BLUE }}
-  >
-    A trusted data and analytics partner, Starfii builds governed
-    platforms and AI ready pipelines that turn scattered
-    enterprise data into decisions your business can rely on.
-  </p>
-</motion.section>
+                <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                  Modernize legacy products and harden release pipelines
+                  so growth means more customers, not more incidents.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Supporting paragraph */}
+          <p
+            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            A trusted product engineering partner, Starfii takes digital
+            products from concept to production, and keeps them reliable
+            as usage, teams, and scope all grow.
+          </p>
+        </motion.section>
 
         {/* ============================================================
             Q&A BLOCK — animates on scroll into view
+            Section 29: Product strategy
         ============================================================ */}
         <motion.section
           initial="hidden"
@@ -806,22 +737,22 @@ export default function DataAnalyticsServicesSection() {
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Turn Raw Data Into a Trusted Asset?
+                How Do You Turn a Product Idea Into a Scalable System?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises build trust in their data by combining strong
-                governance, scalable data engineering, and analytics that
-                answer real business questions. Starfii brings these
-                together to reduce data silos, speed up reporting, and
-                give every team a foundation of numbers they do not have
-                to second guess.
+                Strong products start with a clear strategy: what the
+                product needs to do, for whom, and how success will be
+                measured. Starfii pairs that strategy with UI/UX research
+                and disciplined engineering, so scope decisions made on
+                day one hold up once the product is in front of real
+                customers.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop"
-                alt="Analysts reviewing a data dashboard"
+                src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop"
+                alt="Product team reviewing a roadmap"
                 className="h-full w-full object-cover"
               />
             </div>
@@ -830,9 +761,9 @@ export default function DataAnalyticsServicesSection() {
       </div>
 
       {/* ============================================================
-          OUR DATA & ANALYTICS CAPABILITIES — full-bleed dark section,
-          numbered cards with a tag pill row, matching the reference
-          "Our Services & Consulting Capabilities" layout.
+          OUR SOFTWARE & PRODUCT ENGINEERING CAPABILITIES — full-bleed
+          dark section, numbered cards with a tag pill row. Covers
+          sections 30–38 (UI/UX through QA & release engineering).
       ============================================================ */}
       <section
         className="relative mt-24 overflow-hidden py-24"
@@ -849,14 +780,14 @@ export default function DataAnalyticsServicesSection() {
             className="max-w-2xl"
           >
             <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Data & Analytics
+              Our Software & Product
               <br />
-              Capabilities
+              Engineering Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-300">
-              Starfii plans, engineers, and governs data platforms that
-              scale with the business, so analytics and AI stay grounded
-              in data you can trust.
+              Starfii designs, builds, and modernizes digital products
+              end to end, so every release is grounded in strategy and
+              built to hold up in production.
             </p>
           </motion.div>
 
@@ -929,11 +860,11 @@ export default function DataAnalyticsServicesSection() {
             className="font-heading text-[36px] font-medium leading-[1.15]"
             style={{ color: CHAMPION_BLUE }}
           >
-            Data & Analytics Use Cases
+            Software & Product Engineering Use Cases
           </h2>
           <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600">
             A look at how these capabilities play out across industries,
-            from real time forecasting to governed claims reporting.
+            from headless storefronts to real time fleet tracking.
           </p>
 
           <motion.div
@@ -972,9 +903,7 @@ export default function DataAnalyticsServicesSection() {
 
         {/* ============================================================
             CASE STUDIES — grid cards stagger in on scroll
-            (now pulling from the shared casestudies data source so
-            "Learn More" links actually navigate to the case study
-            detail page instead of a dead "#" anchor)
+            Section 39: Case studies
         ============================================================ */}
         <section className="mt-24">
           <motion.div
@@ -988,12 +917,12 @@ export default function DataAnalyticsServicesSection() {
               className="font-heading text-[36px] font-medium leading-[1.15]"
               style={{ color: CHAMPION_BLUE }}
             >
-              Data & Analytics
+              Software & Product
               <br />
-              Case Studies
+              Engineering Case Studies
             </h2>
             <Link
-              href="/services/data-analytics/casestudies"
+              href="/services/software-product-engineering/casestudies"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: LAVENDER_ACCENT }}
             >
@@ -1039,7 +968,7 @@ export default function DataAnalyticsServicesSection() {
                       {study.body}
                     </p>
                     <Link
-                      href={`/services/data-analytics/casestudies/${study.slug}`}
+                      href={`/services/software-product-engineering/casestudies/${study.slug}`}
                       className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-medium"
                       style={{ color: LAVENDER_ACCENT }}
                     >
@@ -1055,6 +984,7 @@ export default function DataAnalyticsServicesSection() {
 
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
+            Covers sections 29–37 as a walkthrough
         ============================================================ */}
         <motion.section
           initial="hidden"
@@ -1067,7 +997,7 @@ export default function DataAnalyticsServicesSection() {
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Data & Analytics Services
+            Software & Product Engineering Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1146,10 +1076,8 @@ export default function DataAnalyticsServicesSection() {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS YOUR DATA ECOSYSTEM — full-bleed dark section,
-          expandable rows. This is the LAST section on the page, matching
-          the reference "Impact Across Your Digital Software Ecosystem"
-          closing block.
+          IMPACT ACROSS YOUR PRODUCT ECOSYSTEM — full-bleed dark
+          section, expandable rows.
       ============================================================ */}
       <section
         className="relative overflow-hidden py-24"
@@ -1165,7 +1093,7 @@ export default function DataAnalyticsServicesSection() {
             variants={fadeUp}
             className="font-heading max-w-xl text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]"
           >
-            Impact Across Your Data & Analytics Ecosystem
+            Impact Across Your Product Engineering Ecosystem
           </motion.h2>
 
           <motion.div
@@ -1214,15 +1142,9 @@ export default function DataAnalyticsServicesSection() {
       </section>
 
       {/* ============================================================
-          INDUSTRY RECOGNITION — dark, full-bleed, matches the reference
-          ISG Provider Lens quadrant callouts with a 2-up carousel.
-      ============================================================ */}
-     
-
-      {/* ============================================================
-          WHAT'S NEW IN DATA & ANALYTICS — light section, 3-up insight
-          carousel with the same progress bar + arrow pagination.
-          This is the LAST section on the page.
+          WHAT'S NEW IN SOFTWARE & PRODUCT ENGINEERING — light section,
+          3-up insight carousel with a progress bar + arrow pagination.
+          This is the LAST section on the page (CTA lives in the hero).
       ============================================================ */}
       <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
         <div className={ALIGN}>
@@ -1237,12 +1159,11 @@ export default function DataAnalyticsServicesSection() {
               className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
               style={{ color: CHAMPION_BLUE }}
             >
-              What's New in Data
-              <br />
-              & Analytics
+              What's New in Software
+              <br />& Product Engineering
             </h2>
             <Link
-              href="/services/data-analytics/blogs"
+              href="/services/software-product-engineering/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: ACCENT_INDIGO }}
             >
@@ -1261,78 +1182,43 @@ export default function DataAnalyticsServicesSection() {
             {visibleInsights.map((post) => (
               <Link
                 key={post.slug}
-                href={`/services/data-analytics/blogs/${post.slug}`}
+                href={`/services/software-product-engineering/blogs/${post.slug}`}
                 aria-label={`Read ${post.title}`}
                 className="block h-full"
               >
-                {post.gradient ? (
-                  <div
-                    className="relative flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-2xl p-1 transition-transform duration-300 hover:-translate-y-1"
-                    style={{
-                      background:
-                        "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
-                    }}
-                  >
-                    <div className="m-4 rounded-xl bg-white/95 p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: ACCENT_INDIGO }}
-                      >
-                        BLOG
-                      </span>
-                      <h3
-                        className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {post.title}
-                      </h3>
-                      <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {post.body}
-                      </p>
-                      <span
-                        className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                        style={{ color: ACCENT_INDIGO }}
-                      >
-                        Read More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
+                <div className="flex min-h-[360px] h-full flex-col overflow-hidden rounded-2xl bg-white transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
+                  <div className="h-[220px] overflow-hidden bg-slate-900/90">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover opacity-80 transition-transform duration-700 hover:scale-105"
+                    />
                   </div>
-                ) : (
-                  <div className="flex min-h-[360px] h-full flex-col overflow-hidden rounded-2xl bg-white transition-transform duration-300 hover:-translate-y-1 hover:shadow-lg">
-                    <div className="h-[220px] overflow-hidden bg-slate-900/90">
-                      <img
-                        src={post.image}
-                        alt={post.title}
-                        className="h-full w-full object-cover opacity-80 transition-transform duration-700 hover:scale-105"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: ACCENT_INDIGO }}
-                      >
-                        BLOG
-                      </span>
-                      <h3
-                        className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {post.title}
-                      </h3>
-                      <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
-                        {post.body}
-                      </p>
-                      <span
-                        className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                        style={{ color: ACCENT_INDIGO }}
-                      >
-                        Read More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
+                  <div className="flex flex-1 flex-col p-6">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{ color: ACCENT_INDIGO }}
+                    >
+                      BLOG
+                    </span>
+                    <h3
+                      className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+                    <span
+                      className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                      style={{ color: ACCENT_INDIGO }}
+                    >
+                      Read More
+                      <ArrowUpRight size={15} />
+                    </span>
                   </div>
-                )}
+                </div>
               </Link>
             ))}
           </motion.div>

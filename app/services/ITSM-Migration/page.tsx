@@ -1,3 +1,5 @@
+// ITSM Migration & Transformation
+
 "use client";
 import Link from "next/link";
 
@@ -14,6 +16,7 @@ import {
 } from "react";
 import {
   ChevronRight,
+  ChevronDown,
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
@@ -21,119 +24,131 @@ import {
   Trophy,
 } from "lucide-react";
 
-import { caseStudies } from "./data/case-studies";
-import { blogPosts } from "./blogs/blogData";
-
 /* ===============================================================
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
    Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
-   Kept identical to the Digital & Software Services, Global
-   Capability Centers, Business Process Services, and Legacy
-   Modernization pages so this page reads as the same product line,
-   not a one-off template.
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
-// Route base for this service. Every internal link on this page is
-// built from this constant so the case-study / blog hrefs can never
-// silently point at the wrong service folder again.
-const BASE_PATH = "/services/global-capability-centers";
-
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
+
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Freshservice Implementation Journey" tab list
+// Autoplay timing for the "ITSM Migration & Transformation" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
-   Primary keyword targets: Freshservice implementation, Freshservice
-   ITSM, IT service desk, incident management, problem management,
-   change management, service catalog, CMDB, workflow automation,
-   Freshservice migration.
 
-   Page 10 spec: /services/freshservice
-   Subtitle: Implement, customize, migrate and optimize Freshservice
-   for modern, efficient and automated IT service operations.
+   Headings/subheadings are aligned to the recommended section list:
+   157. ITSM migration overview        -> Hero + Key Takeaways
+   158. Migration assessment            -> Q&A section
+   159. Current-state analysis          -> Focus area card
+   160. Target-state design             -> Focus area card
+   161. Migration strategy              -> Focus area card
+   162. Data migration                  -> Focus area card / Ecosystem impact
+   163. Configuration migration         -> Focus area card / Ecosystem impact
+   164. Workflow migration              -> Focus area card / Ecosystem impact
+   165. Service catalog migration       -> Focus area card / Ecosystem impact
+   166. CMDB / asset migration          -> Focus area card / Ecosystem impact
+   167. Integration migration           -> Focus area card / Ecosystem impact
+   168. Testing and validation          -> Tabbed deep dive
+   169. User acceptance                 -> Tabbed deep dive
+   170. Cutover                         -> Tabbed deep dive
+   171. Post-migration support          -> Tabbed deep dive / Case studies
+   172. Managed services                -> Case studies
+   173. CTA                             -> Closing CTA section
 ================================================================ */
+
+// Small dash-led eyebrow, matching the "— ITSM Migration & Transformation"
+// heading style used across the page.
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+    >
+      <span aria-hidden="true">—</span>
+      <span>{children}</span>
+    </span>
+  );
+}
 
 const keyTakeaways = [
   {
-    title: "Implement",
-    body: "Configure Freshservice around your actual IT service management processes, service desk, incident, problem, and change, so it fits how your teams already work.",
+    title: "Assess",
+    body: "Evaluate existing ITSM platforms, workflows, and integrations to build a clear current state picture and a low risk, structured migration plan.",
   },
   {
-    title: "Automate",
-    body: "Build workflow automation, service catalog, and integrations that remove manual ticket handling and route requests to the right team automatically.",
+    title: "Migrate",
+    body: "Move data, configurations, workflows, service catalogs, and CMDB records to a modern service management environment without disrupting daily operations.",
   },
   {
-    title: "Optimize",
-    body: "Migrate historical data, tune CMDB and asset records, and provide ongoing managed support so Freshservice keeps improving after go live.",
+    title: "Support",
+    body: "Validate every migrated process through testing and user acceptance, manage cutover carefully, and provide post migration and managed services support.",
   },
-];
-
-type StatOutcome = { stat: string; label: string };
-
-const statOutcomes: StatOutcome[] = [
-  { stat: "30 to 50%", label: "Reduction in average ticket resolution time after implementation" },
-  { stat: "6 to 10 wks", label: "Typical timeline from kickoff to a live, configured Freshservice instance" },
-  { stat: "100%", label: "Historical ticket, asset, and CMDB data migrated without loss" },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Freshservice Implementation",
-    body: "Starfii configures Freshservice end to end, service desk, workflows, roles, and SLAs, matched to your existing ITSM processes instead of a generic default setup.",
-    tags: ["IMPLEMENTATION", "CONFIGURATION", "SLA"],
+    title: "Current State Analysis",
+    body: "Starfii's ITSM migration team audits your existing service management platform, workflows, and technical debt, so every migration decision is grounded in how the platform is actually used today.",
+    tags: ["AUDIT", "DISCOVERY", "ITSM"],
   },
   {
-    title: "Service Desk Setup",
-    body: "Starfii builds a Freshservice service desk with structured queues, ticket categorization, and self service options that reduce inbound volume on IT teams.",
-    tags: ["SERVICE DESK", "SELF SERVICE", "TICKETING"],
+    title: "Target State Design",
+    body: "Starfii designs the target ITSM environment around your future operating model, mapping processes, roles, and platform capabilities before a single record is moved.",
+    tags: ["ARCHITECTURE", "DESIGN", "ITSM"],
   },
   {
-    title: "Incident Management",
-    body: "Starfii configures Freshservice incident management with clear priority matrices, escalation paths, and major incident workflows to cut resolution time.",
-    tags: ["INCIDENTS", "ESCALATION", "MTTR"],
+    title: "Migration Strategy",
+    body: "Starfii builds a phased migration strategy that sequences data, configuration, and workflow moves to minimize risk and keep service desks running throughout the transition.",
+    tags: ["STRATEGY", "ROADMAP", "PLANNING"],
   },
   {
-    title: "Problem & Change Management",
-    body: "Starfii sets up problem management for root cause tracking and change management with approval workflows, so changes roll out with less risk.",
-    tags: ["PROBLEM", "CHANGE", "APPROVALS"],
+    title: "Data Migration",
+    body: "Starfii's data migration practice extracts, cleanses, and transforms incidents, requests, problems, and change records so historical service data arrives accurate and query ready.",
+    tags: ["DATA", "ETL", "VALIDATION"],
   },
   {
-    title: "Service Catalog & Requests",
-    body: "Starfii builds a Freshservice service catalog and request forms that let employees raise the right request the first time, with automatic routing.",
-    tags: ["CATALOG", "REQUESTS", "ROUTING"],
+    title: "Configuration Migration",
+    body: "Starfii migrates forms, business rules, SLAs, and platform configurations from legacy ITSM tools, preserving the logic teams depend on while modernizing the underlying platform.",
+    tags: ["CONFIGURATION", "RULES", "SLA"],
   },
   {
-    title: "Asset Management & CMDB",
-    body: "Starfii configures Freshservice asset management and CMDB to track hardware, software, and configuration items with accurate relationships and lifecycle data.",
-    tags: ["ASSETS", "CMDB", "LIFECYCLE"],
+    title: "Workflow Migration",
+    body: "Starfii rebuilds and optimizes approval chains, escalation paths, and automation workflows in the new environment instead of copying legacy limitations forward.",
+    tags: ["WORKFLOW", "AUTOMATION", "APPROVALS"],
   },
   {
-    title: "Workflow Automation",
-    body: "Starfii builds Freshservice workflow automation that assigns, escalates, and closes tickets automatically based on rules, cutting manual triage work.",
-    tags: ["AUTOMATION", "WORKFLOWS", "TRIAGE"],
+    title: "Service Catalog Migration",
+    body: "Starfii restructures and migrates your service catalog, so end users find the right service requests quickly and IT can manage offerings from a single source of truth.",
+    tags: ["CATALOG", "SELF SERVICE", "ITSM"],
   },
   {
-    title: "Integrations & Customization",
-    body: "Starfii integrates Freshservice with your existing tools, directory, monitoring, and collaboration platforms, and customizes fields, forms, and views to match your operation.",
-    tags: ["INTEGRATIONS", "CUSTOMIZATION", "API"],
+    title: "CMDB and Asset Migration",
+    body: "Starfii migrates configuration items, asset records, and relationship maps into a clean CMDB, giving teams accurate visibility into infrastructure and service dependencies.",
+    tags: ["CMDB", "ASSETS", "DEPENDENCIES"],
   },
   {
-    title: "Data Migration & Optimization",
-    body: "Starfii migrates historical tickets, assets, and CMDB data into Freshservice, then continuously optimizes configuration as ticket volume and team structure evolve.",
-    tags: ["MIGRATION", "OPTIMIZATION", "DATA"],
+    title: "Integration Migration",
+    body: "Starfii re-establishes integrations with monitoring, identity, HR, and collaboration tools, so the new ITSM platform connects to your broader technology ecosystem from day one.",
+    tags: ["INTEGRATIONS", "API", "ECOSYSTEM"],
   },
 ];
 
@@ -146,102 +161,143 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Overview: Assess Current ITSM",
-    heading: "A Freshservice overview built around how your IT team actually works today",
-    body: "Starfii reviews your current service desk, ticket volume, and ITSM maturity, then scopes a Freshservice configuration that fits your processes instead of forcing a generic template on your team.",
-    image:
-      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Implement: Configure the Core",
-    heading: "Service desk, incident, problem, and change configured as one connected setup",
-    body: "Starfii implements the Freshservice service desk alongside incident, problem, and change management, so ticket flow, escalation, and approvals work together from day one.",
-    image:
-      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Migrate: Bring Your Data In",
-    heading: "Historical tickets, assets, and CMDB data migrated without disruption",
-    body: "Starfii migrates existing ticket history, asset records, and CMDB relationships into Freshservice, validating data integrity before your team switches over.",
-    image:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Automate: Catalog & Workflows",
-    heading: "A service catalog and workflow automation that cuts manual ticket handling",
-    body: "Starfii builds out the service catalog, request forms, and workflow automation rules that route, assign, and escalate tickets automatically, reducing manual triage.",
+    label: "Migration Assessment",
+    heading: "A migration assessment that removes guesswork from ITSM transformation",
+    body: "Starfii runs a structured migration assessment across your current ITSM platform, uncovering technical debt, data quality issues, and process gaps before migration planning begins.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Optimize: Support & Improve",
-    heading: "Ongoing optimization and managed support after go live",
-    body: "Starfii's managed support team monitors adoption, tunes automation rules, and keeps Freshservice optimized as ticket volume, integrations, and team structure change over time.",
+    label: "Testing and Validation",
+    heading: "Testing and validation that confirm every migrated process actually works",
+    body: "Starfii's testing and validation team verifies data integrity, workflow logic, and integrations in the new environment, so nothing breaks quietly after go live.",
     image:
-      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "User Acceptance",
+    heading: "User acceptance testing that keeps service desk teams confident and ready",
+    body: "Starfii runs structured user acceptance testing with real service desk scenarios, so agents and end users trust the new platform before it goes live.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Cutover",
+    heading: "Cutover planning that protects service continuity during go live",
+    body: "Starfii manages cutover with detailed runbooks, rollback plans, and hypercare coverage, so the switch to your new ITSM platform happens with minimal disruption.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Post Migration Support",
+    heading: "Post migration support that keeps the new platform running smoothly",
+    body: "Starfii provides post migration support and managed services, resolving issues quickly and tuning the platform as usage patterns and business needs evolve.",
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 type EcosystemImpact = { title: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Service Desk & Incident Management" },
-  { title: "Problem & Change Management" },
-  { title: "Service Catalog & Requests" },
-  { title: "Asset Management & CMDB" },
-  { title: "Workflow Automation & Integrations" },
-  { title: "Data Migration & Optimization" },
+  { title: "Data Migration" },
+  { title: "Configuration Migration" },
+  { title: "Workflow Migration" },
+  { title: "Service Catalog Migration" },
+  { title: "CMDB and Asset Migration" },
+  { title: "Integration Migration" },
 ];
 
-type IndustryAward = {
-  year: string;
-  category: string;
-  subcategory: string;
-  rank: string;
-  description: string;
+type CaseStudy = { slug: string; image: string; title: string; body: string };
+
+const caseStudies: CaseStudy[] = [
+  {
+    slug: "legacy-itsm-platform-migration-insurer",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Migrates a Global Insurer From a Legacy ITSM Platform",
+    body: "Explore how Starfii moved a global insurer off an end of life ITSM platform, migrating incidents, changes, and CMDB data without a single day of service desk downtime.",
+  },
+  {
+    slug: "service-catalog-modernization-retail",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Modernizes a Retail Service Catalog for Faster Self Service",
+    body: "See how Starfii restructured a sprawling service catalog into a clean, self service experience that cut average request fulfillment time significantly.",
+  },
+  {
+    slug: "cmdb-asset-consolidation-manufacturer",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+    title: "CMDB and Asset Consolidation for a Global Manufacturer",
+    body: "Discover how Starfii consolidated fragmented asset records into a single CMDB, giving IT teams accurate dependency mapping across every plant and facility.",
+  },
+  {
+    slug: "workflow-automation-healthcare-itsm",
+    image:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Automates ITSM Workflows for a Healthcare Provider",
+    body: "Learn how Starfii rebuilt approval chains and escalation workflows during migration, reducing manual handoffs and improving incident resolution times.",
+  },
+  {
+    slug: "managed-services-post-migration-bank",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
+    title: "Post Migration Managed Services for a Regional Bank",
+    body: "See how Starfii's managed services team supported a regional bank after ITSM migration, keeping the platform tuned as usage and compliance needs grew.",
+  },
+];
+
+type InsightPost = {
+  slug: string;
+  large: boolean;
+  image: string;
+  title: string;
+  body: string;
 };
 
-const industryAwards: IndustryAward[] = [
+const insights: InsightPost[] = [
   {
-    year: "2026 Quadrant",
-    category: "IT Service Management Services",
-    subcategory: "Freshworks Implementation Partners",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii named a Leader in Freshworks Implementation Services in the ISG Provider Lens® IT Service Management Services 2026 U.S. Quadrant Report, recognizing our Freshservice configuration and rollout practice.",
+    slug: "planning-a-low-risk-itsm-migration",
+    large: true,
+    image: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
+    title:
+      "Planning a Low Risk ITSM Migration: A Practical Roadmap for Enterprises",
+    body: "Explore how Starfii structures ITSM migrations into assessment, design, and phased execution, so enterprises modernize service management without disrupting daily operations.",
   },
   {
-    year: "2025 Quadrant",
-    category: "Digital Engineering Services",
-    subcategory: "Workflow Automation",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii named a Leader in Workflow Automation in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting the automation capability behind our Freshservice delivery.",
+    slug: "cmdb-data-quality-before-migration",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
+    title: "Why CMDB Data Quality Determines ITSM Migration Success",
+    body: "Stop migrating bad data into a new platform. See how Starfii cleanses and validates CMDB records before migration to prevent downstream service disruptions.",
   },
   {
-    year: "2025 Quadrant",
-    category: "Managed IT Services",
-    subcategory: "Service Desk & Support",
-    rank: "Rising Star, U.S.",
-    description:
-      "Starfii named a Rising Star in Service Desk and Support in the ISG Provider Lens™ Managed IT Services 2025 US Quadrant Report, validating our ongoing Freshservice support and optimization model.",
+    slug: "cutover-runbooks-service-continuity",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
+    title: "Building Cutover Runbooks That Protect Service Continuity",
+    body: "Learn how detailed cutover runbooks and rollback plans help IT teams move to a new ITSM platform with confidence and minimal downtime.",
+  },
+  {
+    slug: "modernizing-service-catalogs-self-service",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
+    title: "Modernizing Service Catalogs to Drive Self Service Adoption",
+    body: "Discover how a restructured service catalog improves employee self service adoption and reduces ticket volume for overloaded service desks.",
+  },
+  {
+    slug: "managed-services-after-itsm-go-live",
+    large: false,
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
+    title: "What Good Managed Services Look Like After ITSM Go Live",
+    body: "Learn what to expect from managed services after an ITSM migration, from hypercare support to ongoing platform tuning and optimization.",
   },
 ];
-
-// Case studies and blog posts are pulled from the real data files that
-// back the [slug] detail routes — NOT hardcoded here. A hardcoded list
-// with invented slugs will always 404, because generateStaticParams()
-// on the [slug] pages only ever knows about slugs that exist in these
-// two files. If you add a new case study or blog post, add it to
-// data/case-studies.ts or blogData.ts and it will automatically show
-// up here with a working link — never add it only to this page.
-const insights = blogPosts.map((post, i) => ({
-  slug: post.slug,
-  large: i === 0,
-  image: post.heroImage,
-  title: post.title,
-  body: post.excerpt,
-}));
 
 /* ===============================================================
    GLOBAL KEYFRAMES
@@ -511,7 +567,6 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onClick={
           clickToAdvance
             ? (event) => {
@@ -522,6 +577,7 @@ function Carousel({
               }
             : undefined
         }
+        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
@@ -571,9 +627,9 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: One-card-at-a-time Carousel
-   Next/Previous advances exactly ONE card while keeping the
-   responsive visible-card count unchanged.
+   REUSABLE: StepCarousel
+   Moves exactly ONE card per arrow click.
+   Used only for Case Studies.
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -591,61 +647,79 @@ function StepCarousel<T>({
 }: StepCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
   const trackRef = useRef<HTMLDivElement | null>(null);
+
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
   const maxPosition = Math.max(0, items.length - perPage);
+  const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
 
-  useEffect(() => {
-    setPosition((p) => Math.min(p, maxPosition));
-  }, [maxPosition]);
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+
+    setStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return undefined;
-
-    const measure = () => {
-      const firstCard = track.firstElementChild as HTMLElement | null;
-      if (!firstCard) return;
-      const gap = 24;
-      setStepWidth(firstCard.getBoundingClientRect().width + gap);
-    };
+    if (!track) return;
 
     measure();
+
     const observer = new ResizeObserver(measure);
     observer.observe(track);
-    if (track.firstElementChild) observer.observe(track.firstElementChild);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) observer.observe(firstCard);
 
     window.addEventListener("resize", measure);
+
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, [perPage, items.length]);
+  }, [measure, perPage]);
+
+  useEffect(() => {
+    setPosition((current) => Math.min(current, maxPosition));
+  }, [maxPosition]);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track || !stepWidth) return;
-    track.scrollTo({ left: position * stepWidth, behavior: "smooth" });
+    if (!track) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
   }, [position, stepWidth]);
 
-  const goTo = (next: number) => {
-    setPosition(Math.min(Math.max(next, 0), maxPosition));
+  const goTo = (nextPosition: number) => {
+    const next = Math.min(
+      Math.max(nextPosition, 0),
+      maxPosition
+    );
+
+    setPosition(next);
   };
 
-  const totalSteps = Math.max(1, maxPosition + 1);
-  const progress = ((position + 1) / totalSteps) * 100;
+  const progress = ((position + 1) / totalPositions) * 100;
 
   return (
     <div>
       <div
         ref={trackRef}
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex gap-6 overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth" }}
       >
-        {items.map((item, index) => (
+        {items.map((item, i) => (
           <div
-            key={index}
+            key={i}
             className="min-w-0 flex-shrink-0 snap-start"
             style={{
               width:
@@ -654,7 +728,7 @@ function StepCarousel<T>({
                   : `calc((100% - ${(perPage - 1) * 24}px) / ${perPage})`,
             }}
           >
-            {renderItem(item, index)}
+            {renderItem(item, i)}
           </div>
         ))}
       </div>
@@ -662,7 +736,11 @@ function StepCarousel<T>({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark
+              ? "rgba(255,255,255,0.18)"
+              : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
@@ -675,9 +753,12 @@ function StepCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+          style={{
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
         >
-          {String(position + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
@@ -688,12 +769,15 @@ function StepCarousel<T>({
             disabled={position === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              backgroundColor: isDark
+                ? "rgba(255,255,255,0.12)"
+                : "#E5E1F5",
               color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
@@ -710,121 +794,13 @@ function StepCarousel<T>({
   );
 }
 
-/* ===============================================================
-   REUSABLE: PagedCarousel
-================================================================ */
-
-type PagedCarouselProps<T> = {
-  items: T[];
-  itemsPerPage: Breakpoints;
-  renderItem: (item: T, index: number) => ReactNode;
-  arrowVariant?: "light" | "dark";
-};
-
-function PagedCarousel<T>({
-  items,
-  itemsPerPage,
-  renderItem,
-  arrowVariant = "light",
-}: PagedCarouselProps<T>): ReactElement {
-  const perPage = useItemsPerPage(itemsPerPage);
-  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
-  const [page, setPage] = useState(0);
-
-  useEffect(() => {
-    setPage((p) => Math.min(p, totalPages - 1));
-  }, [totalPages]);
-
-  const pages: T[][] = [];
-  for (let i = 0; i < totalPages; i += 1) {
-    pages.push(items.slice(i * perPage, i * perPage + perPage));
-  }
-
-  const isDark = arrowVariant === "dark";
-  const goTo = (next: number) =>
-    setPage(Math.min(Math.max(next, 0), totalPages - 1));
-
-  return (
-    <div>
-      <div className="overflow-hidden">
-        <div
-          className="flex transition-transform duration-500 ease-out"
-          style={{ transform: `translateX(-${page * 100}%)` }}
-        >
-          {pages.map((pageItems, pi) => (
-            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
-              {pageItems.map((item, ii) => (
-                <div key={ii} className="min-w-0 flex-1">
-                  {renderItem(item, pi * perPage + ii)}
-                </div>
-              ))}
-              {pageItems.length < perPage &&
-                Array.from({ length: perPage - pageItems.length }).map(
-                  (_, gi) => (
-                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
-                  )
-                )}
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-8 flex items-center gap-6">
-        <div
-          className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
-        >
-          <div
-            className="h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{
-              width: `${((page + 1) / totalPages) * 100}%`,
-              backgroundColor: INDIGO_CTA,
-            }}
-          />
-        </div>
-
-        <span
-          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
-        >
-          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
-        </span>
-
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => goTo(page - 1)}
-            disabled={page === 0}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => goTo(page + 1)}
-            disabled={page === totalPages - 1}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ===============================================================
    SECTION
 ================================================================ */
 
-export default function FreshserviceITSMSection(): ReactElement {
+export default function ItsmMigrationTransformationSection(): ReactElement {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
@@ -847,11 +823,12 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
+          (157. ITSM migration overview)
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -872,24 +849,29 @@ export default function FreshserviceITSMSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Freshservice ITSM Services</span>
+            <span className="text-slate-500">ITSM Migration &amp; Transformation</span>
           </nav>
 
+          <div
+            className="mt-8 opacity-0"
+            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
+          >
+            <Eyebrow>ITSM Migration &amp; Transformation</Eyebrow>
+          </div>
+
           <h1
-            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
+            className="font-heading mt-4 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Freshservice Implementation for Modern IT Operations
+            ITSM Migration and Transformation for Modern Service Management
           </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Implement, customize, migrate and optimize Freshservice for
-            modern, efficient and automated IT service operations, from
-            service desk setup through workflow automation and ongoing
-            managed support.
+            Migrate from legacy or existing ITSM platforms to modern service
+            management environments with a structured, low risk approach.
           </p>
 
           <a
@@ -900,7 +882,7 @@ export default function FreshserviceITSMSection(): ReactElement {
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
             }}
           >
-            Talk to Us
+            Connect Now
             <ArrowUpRight size={17} />
           </a>
         </div>
@@ -908,31 +890,8 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            OUTCOMES STRIP
-        ============================================================ */}
-        <Reveal
-          as="section"
-          className="mt-16 grid grid-cols-1 gap-8 border-y py-10 sm:grid-cols-3"
-          style={{ borderColor: LAVENDER_ACCENT }}
-        >
-          {statOutcomes.map((o) => (
-            <div key={o.label}>
-              <p
-                className="font-heading text-[32px] font-medium"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                {o.stat}
-              </p>
-              <p className="font-body mt-2 text-[14px] leading-relaxed text-slate-600">
-                {o.label}
-              </p>
-            </div>
-          ))}
-        </Reveal>
-
-        {/* ============================================================
-            FRESHSERVICE AT A GLANCE
-            Same reference-style three-column design
+            KEY TAKEAWAYS
+            (157. ITSM migration overview)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
@@ -952,11 +911,12 @@ export default function FreshserviceITSMSection(): ReactElement {
                   strokeWidth={1.8}
                   style={{ color: LAVENDER_ACCENT }}
                 />
+
                 <span
                   className="font-body text-[17px] font-semibold"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  Freshservice Implementation at a Glance
+                  ITSM Migration Overview
                 </span>
               </div>
 
@@ -967,7 +927,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   color: INDIGO_CTA,
                 }}
               >
-                End to End ITSM Delivery
+                ASSESSMENT • MIGRATION • CUTOVER • SUPPORT
               </span>
             </div>
 
@@ -981,6 +941,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   >
                     {point.title}
                   </h3>
+
                   <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
                     {point.body}
                   </p>
@@ -993,15 +954,17 @@ export default function FreshserviceITSMSection(): ReactElement {
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A Freshservice implementation partner to enterprises and
-            growing IT teams, Starfii configures service desk, incident,
-            problem, and change management as one connected setup, then
-            keeps it optimized as your operation scales.
+            A trusted ITSM migration and transformation partner, Starfii
+            moves enterprises off legacy service management platforms and
+            onto modern environments with a structured, low risk approach
+            that protects daily operations.
           </p>
         </Reveal>
 
+
         {/* ============================================================
             Q&A BLOCK
+            (158. Migration assessment)
         ============================================================ */}
 
         <Reveal as="section" className="mt-20">
@@ -1010,27 +973,28 @@ export default function FreshserviceITSMSection(): ReactElement {
             style={{ backgroundColor: "#F5F3FC" }}
           >
             <div>
+              <Eyebrow>Migration Assessment</Eyebrow>
               <h2
-                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                Why Does a Default Freshservice Setup Rarely Fit an IT Team?
+                How Do Enterprises Assess Readiness for ITSM Migration?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                A default Freshservice setup rarely fits an IT team because
-                every service desk has its own ticket volume, escalation
-                paths, and approval chains. Starfii configures service
-                desk, incident, problem, and change management around your
-                actual processes, migrates existing ticket and asset data,
-                and layers in workflow automation so the platform fits
-                your operation instead of the other way around.
+                Enterprises assess ITSM migration readiness by reviewing
+                current state processes, data quality, integrations, and
+                platform limitations before committing to a target
+                environment. Starfii runs this assessment early, turning
+                fragmented legacy platforms into a clear, structured
+                migration plan that protects the service desk and the
+                people who depend on it every day.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop"
-                alt="IT team reviewing a Freshservice configuration"
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues reviewing an ITSM migration assessment"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1040,7 +1004,9 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           FOCUS AREAS
+          (159-167. Current state analysis through Integration migration)
       ============================================================ */}
+
 
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
         <div
@@ -1060,14 +1026,15 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Freshservice Capabilities
+            <Eyebrow variant="dark">ITSM Migration &amp; Transformation</Eyebrow>
+            <h2 className="font-heading mt-4 text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our ITSM Migration &amp; Transformation Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii implements, customizes, migrates, and optimizes
-              Freshservice across service desk, ITSM processes, asset
-              management, and automation, backed by ongoing managed
-              support after go live.
+              Starfii assesses, designs, and migrates ITSM platforms end to
+              end, moving data, configurations, workflows, and integrations
+              into a modern service management environment with minimal
+              disruption to the business.
             </p>
           </Reveal>
 
@@ -1095,7 +1062,7 @@ export default function FreshserviceITSMSection(): ReactElement {
 
                   <div className="mt-16">
                     <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      {area.title}
+                      — {area.title}
                     </h3>
                     <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
@@ -1121,16 +1088,19 @@ export default function FreshserviceITSMSection(): ReactElement {
       </section>
 
       <div className={ALIGN}>
+
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
+            (158, 168-171. Migration assessment through Post-migration support)
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
+          <Eyebrow>ITSM Migration &amp; Transformation</Eyebrow>
           <h2
-            className="font-heading text-[34px] font-medium"
+            className="font-heading mt-4 text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Freshservice Implementation Journey
+            ITSM Migration and Transformation Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1184,7 +1154,7 @@ export default function FreshserviceITSMSection(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+  className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-center p-10">
@@ -1192,7 +1162,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                   className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  {current.heading}
+                  — {current.heading}
                 </h3>
                 <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
@@ -1203,7 +1173,8 @@ export default function FreshserviceITSMSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+  
                 />
               </div>
             </div>
@@ -1213,9 +1184,10 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           IMPACT ACROSS ECOSYSTEM (dark)
+          (162-167. Data migration through Integration migration)
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#08070F] py-24">
+    
+<section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
@@ -1233,10 +1205,11 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your IT
+            <Eyebrow variant="dark">ITSM Migration &amp; Transformation</Eyebrow>
+            <h2 className="font-heading mt-4 max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your Service
               <br />
-              Service Operations
+              Management Ecosystem
             </h2>
           </Reveal>
 
@@ -1251,7 +1224,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    {item.title}
+                    — {item.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
@@ -1264,10 +1237,13 @@ export default function FreshserviceITSMSection(): ReactElement {
             ))}
           </div>
         </div>
-      </section>
+
+</section>
+
 
       {/* ============================================================
           CASE STUDIES
+          (171-172. Post-migration support / Managed services)
       ============================================================ */}
 
       <section
@@ -1279,208 +1255,285 @@ export default function FreshserviceITSMSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Case Studies
-            </h2>
-            <Link
-              href={`${BASE_PATH}`}
+            <div>
+              <Eyebrow>Case Studies</Eyebrow>
+              <h2
+                className="font-heading mt-4 text-[36px] font-medium lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Case Studies
+              </h2>
+            </div>
+            <a
+              href="#"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </Link>
+            </a>
           </Reveal>
 
-          <div className="mt-12">
-            <StepCarousel
-              items={caseStudies}
-              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
-              arrowVariant="light"
-              renderItem={(study, i) => (
-                <Reveal delay={(i % 3) * 90} className="h-full">
-                <Link
-  href={`${BASE_PATH}/${study.slug}`}
-  className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 ease-out hover:-translate-y-1.5 hover:shadow-2xl"
->
-                    <div className="h-[220px] flex-shrink-0 overflow-hidden">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="flex flex-1 flex-col p-6">
-                      <span
-                        className="font-body text-[12px] font-semibold tracking-wide"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        CASE STUDY
-                      </span>
-                      <h3
-                        className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                        style={{ color: CHAMPION_BLUE }}
-                      >
-                        {study.title}
-                      </h3>
-                      <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                        {study.body}
-                      </p>
-                      <span
-                        className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        Learn More
-                        <ArrowUpRight size={15} />
-                      </span>
-                    </div>
-                  </Link>
-                </Reveal>
-              )}
-            />
-          </div>
+         <div className="mt-12">
+ <StepCarousel
+  items={caseStudies}
+  itemsPerPage={{
+    mobile: 1,
+    tablet: 2,
+    desktop: 3,
+  }}
+  arrowVariant="light"
+  renderItem={(study, i) => (
+    <Reveal
+      delay={(i % 3) * 90}
+      className="h-full"
+    >
+      <Link
+         href={`/services/ITSM-Migration/casestudies/${study.slug}`}
+        aria-label={`Read case study: ${study.title}`}
+        className="group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl"
+        style={{
+          border: "1px solid #E5E1F5",
+        }}
+      >
+        {/* IMAGE */}
+        <div className="h-[220px] flex-shrink-0 overflow-hidden">
+          <img
+            src={study.image}
+            alt={study.title}
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </div>
+
+        {/* CONTENT */}
+        <div className="flex flex-1 flex-col p-6">
+
+          <span
+            className="font-body text-[12px] font-semibold tracking-wide"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            CASE STUDY
+          </span>
+
+          <h3
+            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+            style={{
+              color: CHAMPION_BLUE,
+            }}
+          >
+            {study.title}
+          </h3>
+
+          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+            {study.body}
+          </p>
+
+          {/* LEARN MORE — no longer its own <Link>: the whole card above
+              is now the Link, so this is just a visual affordance that
+              reacts to the card's hover state via the shared "group" class. */}
+          <span
+            className="font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-1"
+            style={{
+              color: INDIGO_CTA,
+            }}
+          >
+            Learn More
+            <ArrowUpRight size={15} />
+          </span>
+
+        </div>
+      </Link>
+    </Reveal>
+  )}
+/>
+</div>
+
         </div>
       </section>
 
-      {/* ============================================================
-          INSIGHTS / WHAT'S NEW
-      ============================================================ */}
+   
+{/* ============================================================
+    INSIGHTS / WHAT'S NEW
+============================================================ */}
+<section className="bg-[#EEF0F7] py-24">
+  <div className={ALIGN}>
+    <Reveal className="flex items-center justify-between">
+      <div>
+        <Eyebrow>ITSM Migration &amp; Transformation</Eyebrow>
+        <h2
+          className="font-heading mt-4 max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          {"What's New in ITSM Migration & Transformation"}
+        </h2>
+      </div>
 
-      <section className="bg-[#EEF0F7] py-24">
-        <div className={ALIGN}>
-          <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {"What's New in Freshservice ITSM"}
-            </h2>
-            <Link
-              href={`${BASE_PATH}/blogs`}
-              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-              style={{ color: INDIGO_CTA }}
-            >
-              View All Blogs
-              <ArrowUpRight size={16} />
-            </Link>
-          </Reveal>
-
-          <div className="mt-12">
-          <Carousel
-  itemCount={insights.length}
-  arrowVariant="light"
-  clickToAdvance={false}
->
-  {insights.map((post, i) => (
-    <Reveal
-      key={post.slug}
-      delay={i * 90}
-      className={`flex-shrink-0 snap-start ${
-        post.large
-          ? "w-[420px]"
-          : "w-[340px]"
-      }`}
-    >
       <Link
-        href={`${BASE_PATH}/blogs/${post.slug}`}
-        className="group block h-full"
-        aria-label={`Read ${post.title}`}
+        href="/services/itsm-migration/blogs"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+        style={{ color: INDIGO_CTA }}
       >
-        {post.large ? (
-          <div className="relative h-[420px] overflow-hidden rounded-2xl">
-            <img
-              src={post.image}
-              alt={post.title}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
+        View All Insights
 
-            <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-              <span
-                className="font-body text-[12px] font-semibold tracking-wide"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                BLOG
-              </span>
-
-              <h3
-                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                {post.title}
-              </h3>
-
-              <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                {post.body}
-              </p>
-
-              <span
-                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Read More
-                <ArrowUpRight size={14} />
-              </span>
-            </div>
-          </div>
-        ) : (
-          <div className="group">
-            <div className="h-[220px] overflow-hidden rounded-2xl">
-              <img
-                src={post.image}
-                alt={post.title}
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-
-            <div className="pt-5">
-              <span
-                className="font-body text-[12px] font-semibold tracking-wide"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                BLOG
-              </span>
-
-              <h3
-                className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                style={{
-                  color: CHAMPION_BLUE,
-                }}
-              >
-                {post.title}
-              </h3>
-
-              <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                {post.body}
-              </p>
-
-              <span
-                className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
-                style={{
-                  color: INDIGO_CTA,
-                }}
-              >
-                Read More
-                <ArrowUpRight size={14} />
-              </span>
-            </div>
-          </div>
-        )}
+        <ArrowUpRight size={16} />
       </Link>
     </Reveal>
-  ))}
-</Carousel>
-          </div>
+
+    <div className="mt-12">
+      <Carousel
+        itemCount={insights.length}
+        arrowVariant="light"
+        clickToAdvance
+      >
+        {insights.map((post, i) => (
+          <Reveal
+            key={post.slug}
+            delay={i * 90}
+            data-carousel-card
+            className={`flex-shrink-0 snap-start ${
+              post.large
+                ? "w-[420px]"
+                : "w-[340px]"
+            }`}
+          >
+            <Link
+              href={`/services/itsm-migration/blogs/${post.slug}`}
+              className="block h-full"
+              aria-label={`Read ${post.title}`}
+            >
+              {post.large ? (
+                <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                  <img
+                    src={post.image}
+                    alt={post.title}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+
+                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="group">
+                  <div className="h-[220px] overflow-hidden rounded-2xl">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
+
+                  <div className="pt-5">
+                    <span
+                      className="font-body text-[12px] font-semibold tracking-wide"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      BLOG
+                    </span>
+
+                    <h3
+                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                      style={{
+                        color: CHAMPION_BLUE,
+                      }}
+                    >
+                      {post.title}
+                    </h3>
+
+                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                      {post.body}
+                    </p>
+
+                    <span
+                      className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      style={{
+                        color: INDIGO_CTA,
+                      }}
+                    >
+                      Read More
+
+                      <ArrowUpRight
+                        size={14}
+                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                      />
+                    </span>
+                  </div>
+                </div>
+              )}
+            </Link>
+          </Reveal>
+        ))}
+      </Carousel>
+    </div>
+  </div>
+</section>
+
+      {/* ============================================================
+          CLOSING CTA
+          (173. CTA)
+      ============================================================ */}
+      <section id="connect" className="bg-white py-24">
+        <div className={ALIGN}>
+          <Reveal
+            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
+            style={{ backgroundColor: CHAMPION_BLUE }}
+          >
+            <Eyebrow variant="dark">CTA</Eyebrow>
+            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+              Ready to Migrate to a Modern ITSM Platform?
+            </h2>
+            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
+              Talk to Starfii about migration assessment, data and
+              configuration migration, cutover planning, or post migration
+              managed services for your ITSM platform.
+            </p>
+            <a
+              href="mailto:hello@starfii.com"
+              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
+              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </a>
+          </Reveal>
         </div>
       </section>
     </main>

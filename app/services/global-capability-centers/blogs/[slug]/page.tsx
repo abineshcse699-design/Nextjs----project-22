@@ -1,6 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+// NOTE: blogData.ts and BlogDetail.tsx live at the ROOT of
+// global-capability-centers/ (siblings of the "blogs" folder), not
+// inside "blogs" itself. This file sits at
+// global-capability-centers/blogs/[slug]/page.tsx, so it needs to
+// climb up TWO directory levels ("../../") to reach them — one
+// level ("../") only reaches global-capability-centers/blogs/,
+// where these files don't exist. That single missing "../" was
+// what broke every blog page.
 import {
   blogPosts,
   getBlogBySlug,

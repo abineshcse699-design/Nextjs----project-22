@@ -1,3 +1,5 @@
+// app/services/legacy-modernization/blogsData.ts
+
 export type BlogHighlight = {
   number: string;
   title: string;
@@ -68,1029 +70,901 @@ export type BlogPost = {
 };
 
 const AUTHOR = {
-  name: "Starfii Business Process Services Team",
-  role: "Business Process Services",
+  name: "Starfii Legacy Modernization Team",
+  role: "Legacy Modernization",
   photo:
     "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=400&auto=format&fit=crop",
   bio:
-    "Starfii helps enterprises redesign, automate, and operate critical business processes with measurable SLAs, compliance controls, and continuous improvement.",
+    "Starfii helps enterprises assess, re-engineer, re-platform, and migrate legacy applications onto secure, scalable, modern architecture.",
 };
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "automating-broken-business-processes",
+    slug: "why-legacy-assessment-comes-first",
     title:
-      "Why Automating a Broken Process Just Moves the Breakage Somewhere Else",
-    category: "Process Automation",
+      "Why a Legacy Assessment Has to Come Before Any Modernization Decision",
+    category: "Legacy Assessment",
     lastUpdated: "September 2026",
     readTime: "6 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1758873269035-aae0e1fd3422?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Automation works best after the underlying business process is redesigned. Learn how to remove handoffs, duplicate approvals, and exception chaos before applying RPA.",
+      "Explore why Starfii scores every application on debt, risk, and value first, so re-engineering, re-platforming, or replacement decisions are based on evidence, not guesswork.",
 
     seo: {
-      title: "Why Automating a Broken Business Process Just Moves the Breakage",
+      title: "Why a Legacy Assessment Has to Come Before Modernization",
       description:
-        "Learn why business process redesign should come before automation, and how to remove unnecessary handoffs, approvals, and rework before applying RPA.",
+        "Learn why scoring applications on technical debt, business risk, and modernization value should come before any re-engineering, re-platforming, or replacement decision.",
       keywords: [
-        "business process automation",
-        "process redesign",
-        "RPA",
-        "business process services",
-        "workflow automation",
-        "process improvement",
+        "legacy assessment",
+        "application modernization",
+        "technical debt",
+        "modernization strategy",
+        "legacy system re-engineering",
+        "portfolio prioritization",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Business process automation creates the most value when the process underneath it is already clear, measurable, and repeatable. Automating a broken workflow can simply make the same inefficiency run faster.",
-      "Starfii starts with the current state, identifies unnecessary work and failure points, and then defines a target process before deciding where robotic process automation or workflow automation belongs.",
+      "Modernization programs that skip a structured assessment tend to modernize the applications that are easiest to talk about, not the ones carrying the most risk or the most value.",
+      "Starfii starts every legacy modernization engagement by scoring the application portfolio on technical debt, business criticality, and modernization value, before recommending a single re-engineering, re-platforming, or replacement decision.",
     ],
 
     highlights: [
       {
         number: "01",
-        title: "Fix the Process First",
-        body: "Redesign broken workflows before applying automation so technology does not simply accelerate waste.",
+        title: "Score Before You Sequence",
+        body: "Rank every application on debt, risk, and value before deciding what gets modernized first.",
       },
       {
         number: "02",
-        title: "Automate the Right Work",
-        body: "Use automation for stable, repetitive, rules-based activities where the business case is measurable.",
+        title: "Avoid the Loudest Voice Trap",
+        body: "Without evidence, the applications people complain about most win the roadmap, not the ones that matter most.",
       },
       {
         number: "03",
-        title: "Measure the Outcome",
-        body: "Track cycle time, accuracy, cost, and exception rates against a clear baseline.",
+        title: "Match Effort to Outcome",
+        body: "A clear score makes it obvious which applications deserve a rebuild and which just need a lighter touch.",
       },
     ],
+
     sections: [
       {
-        heading: "Start With the Process, Not the Automation Tool",
+        heading: "What a Legacy Assessment Actually Measures",
         paragraphs: [
-          "The first step is to map how work actually moves from request to completion. Real transaction data helps reveal where approvals, rework, queues, and manual data entry consume time.",
-          "This gives operations leaders a fact based view of cost to serve and makes it easier to separate essential controls from legacy steps that no longer add value.",
-          "Talking directly to the people doing the work often surfaces informal shortcuts and workarounds that never show up in a system generated process diagram.",
-          "Starting with the tool instead of the process tends to lock in whatever the current workflow looks like today, even the parts nobody can fully explain anymore.",
+          "A useful assessment scores each application against a small number of consistent dimensions: technical debt, business criticality, operational risk, and the value modernization would unlock.",
+          "Technical debt covers outdated languages, unsupported runtimes, and code that is difficult to change safely. Business criticality reflects how central the application is to revenue or operations. Risk captures vendor end of life dates, security exposure, and single points of failure.",
+          "Scoring these dimensions consistently, rather than describing each application in a different way, is what makes the results comparable across a large portfolio.",
+          "Without this consistency, prioritization conversations tend to default to whichever application was mentioned most recently in a leadership meeting.",
         ],
         image:
-          "https://images.unsplash.com/photo-1760952851538-17a59f691efe?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Operations team mapping a business process end to end",
+          "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team reviewing a scored legacy application portfolio",
       },
       {
-        heading: "Remove Unnecessary Handoffs and Approvals",
+        heading: "Why Skipping the Assessment Backfires",
         paragraphs: [
-          "Every handoff creates an opportunity for delay, misunderstanding, or duplicate work. Process redesign should establish clear ownership and a practical RACI before automation is introduced.",
-          "Standardizing common exceptions also reduces the number of decisions that require manual intervention.",
-          "Approvals that exist mainly out of habit, rather than genuine risk, are usually the easiest to remove and often deliver the fastest reduction in cycle time.",
-          "A single accountable owner for each step also makes it much easier to diagnose where a transaction actually got stuck when something goes wrong.",
+          "Without a structured score, modernization roadmaps tend to follow whichever application generates the most internal complaints, not the one carrying the most business risk.",
+          "This can mean a low risk, easily maintained application gets rebuilt first simply because it is visible, while an end of life system quietly running core operations stays untouched.",
+          "The cost of this misprioritization usually only becomes obvious after an outage or a vendor support cutoff forces an unplanned, rushed modernization effort.",
+          "An assessment turns that risk into a visible, ranked list well before it becomes an emergency.",
         ],
       },
       {
-        heading: "Automate Only the Repeatable Work",
+        heading: "Turning Scores Into a Sequenced Roadmap",
         paragraphs: [
-          "RPA is strongest where transaction volume is high, rules are stable, and inputs and outputs are well understood. Those characteristics make the return on automation easier to measure.",
-          "Document AI and workflow rules can then be added around the automated step without forcing the entire process into a rigid pattern.",
-          "Forcing genuinely judgment based work into an automated path usually creates more exceptions than it resolves, which defeats the purpose of automating in the first place.",
-          "A short pilot on a narrow slice of the process helps confirm the rules are as stable as they appear before committing to a full scale rollout.",
-        ],
-      },
-      {
-        heading: "Measure the Result Against Business Outcomes",
-        paragraphs: [
-          "A successful automation program should track cycle time, accuracy, exception rates, throughput, and cost per transaction rather than bot counts alone.",
-          "These measures provide the baseline for continuous improvement and show whether the redesigned process is producing the intended operational result.",
-          "Comparing results against the pre-automation baseline, not just against expectations, keeps the program honest about how much value was actually created.",
-          "Sharing these metrics openly with the teams who do the work also builds trust that automation is meant to remove drudgery, not simply cut headcount.",
+          "Once applications are scored, the roadmap can sequence work by combining risk urgency with business value, rather than defaulting to whichever team asks loudest.",
+          "High risk, high value applications move first. Low risk, low value applications may not need modernization investment at all in the near term.",
+          "This sequencing also makes it easier to communicate the roadmap to stakeholders, since every priority decision can be traced back to a specific score rather than an opinion.",
+          "Revisiting the scores periodically keeps the roadmap current as vendor support windows shift and business priorities change.",
         ],
         quote:
-          "Automation should accelerate a process that already works, not preserve one that doesn't.",
+          "A modernization roadmap without an assessment behind it is just a list of opinions.",
       },
       {
-        heading: "Where Broken Processes Create Hidden Cost",
+        heading: "Matching the Right Modernization Path to Each Score",
         paragraphs: [
-          "Broken processes rarely fail in one obvious place. Delays often appear as repeated approvals, duplicate data entry, unclear ownership, exception queues, and manual reconciliation between teams.",
-          "These friction points create hidden operating cost because employees spend time chasing information instead of completing customer or revenue generating work. The first step is to make that work visible and measurable.",
-          "A useful process baseline should capture cycle time, handoffs, rework, exception volume, SLA performance, and the systems involved at each stage.",
-          "Because this cost is spread across many small delays rather than one large failure, it often goes unnoticed until someone deliberately measures the total effort a transaction consumes end to end.",
-          "Surveying the teams closest to the work is frequently the fastest way to surface these hidden costs, since they experience the friction daily even when it never appears in a formal report.",
-        ],
-      },
-      {
-        heading: "Designing a Better Operating Flow",
-        paragraphs: [
-          "Once the current state is understood, teams can remove unnecessary handoffs, clarify decision rights, standardize inputs, and define clear exception paths.",
-          "The future state should be simpler before it becomes more automated. A clean workflow gives automation fewer edge cases to manage and makes ownership easier to maintain.",
-          "This approach also creates a stronger foundation for continuous improvement because process performance can be compared against an agreed baseline.",
-          "Designing the target flow around the outcome the customer or business actually needs, rather than around how the current organization is structured, often reveals opportunities to remove entire steps rather than just speed them up.",
-        ],
-      },
-      {
-        heading: "Governance and Continuous Improvement",
-        paragraphs: [
-          "Business process transformation needs governance that connects operational ownership with measurable outcomes. Process owners should know which controls matter, where exceptions are reviewed, and how changes are approved.",
-          "Regular performance reviews can identify recurring bottlenecks and determine whether a process needs redesign, additional automation, training, or a change in service levels.",
-          "The result is an operating model that improves over time rather than a one-time automation project.",
-          "Building a lightweight cadence for these reviews, rather than a heavy annual audit, keeps improvement continuous and makes it far easier to catch problems while they are still small.",
+          "Not every application needs the same treatment. A high debt, high value application may justify a full re-engineering, while a moderate debt application might only need re-platforming to remove immediate risk.",
+          "The assessment makes this distinction explicit, so teams are not defaulting to the most expensive option out of habit or the cheapest option out of time pressure.",
+          "This matching of effort to outcome is often where the largest cost savings in a modernization program come from.",
+          "It also prevents the common failure mode of over-investing in an application that did not need a rebuild in the first place.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Clearer Root Causes",
+        title: "Evidence Based Prioritization",
         body:
-          "Mapping the current state exposes duplicate work and failure points hidden inside daily operations.",
+          "Modernization investment goes where the score says it matters most, not where the loudest complaint points.",
       },
       {
-        title: "Simpler Ownership",
+        title: "Fewer Surprise Outages",
         body:
-          "Removing unnecessary handoffs gives each step a clear owner and reduces delay.",
+          "High risk, end of life applications are identified and sequenced before they fail unexpectedly.",
       },
       {
-        title: "Higher Automation ROI",
+        title: "Right Sized Effort",
         body:
-          "Automating a redesigned process delivers a stronger return than automating existing inefficiency.",
+          "Each application gets the modernization path its score actually justifies, not a default rebuild.",
       },
       {
-        title: "Fewer Exceptions",
+        title: "Clearer Stakeholder Conversations",
         body:
-          "Standardizing common scenarios reduces the volume of manual intervention automation still requires.",
+          "Every roadmap decision can be traced back to a specific, comparable score.",
       },
       {
-        title: "Sustainable Controls",
+        title: "Lower Total Cost",
         body:
-          "Redesigned processes make it easier to build audit trails and exception handling around automation.",
+          "Avoiding over-investment in low risk applications frees budget for the ones that truly need it.",
       },
       {
-        title: "Outcome Based Tracking",
+        title: "A Living Roadmap",
         body:
-          "Measuring cycle time and cost per transaction keeps the program accountable to business results.",
+          "Periodic rescoring keeps the modernization plan current as risk and priorities shift.",
       },
     ],
 
     process: [
       {
         number: "01",
-        title: "Map",
-        body:
-          "Document the current process end to end using real transaction data.",
+        title: "Inventory",
+        body: "Catalog every application in scope along with its runtime, dependencies, and ownership.",
       },
       {
         number: "02",
-        title: "Redesign",
-        body:
-          "Remove unnecessary handoffs, approvals, and duplicate work.",
+        title: "Score",
+        body: "Rate each application on technical debt, business criticality, and risk.",
       },
       {
         number: "03",
-        title: "Standardize",
-        body:
-          "Separate repeatable work from genuine exceptions.",
+        title: "Prioritize",
+        body: "Sequence the roadmap by combining risk urgency with modernization value.",
       },
       {
         number: "04",
-        title: "Automate",
-        body:
-          "Apply RPA or workflow automation to the stable, rules based portion of the process.",
+        title: "Match",
+        body: "Assign each application the modernization path its score actually justifies.",
       },
       {
         number: "05",
-        title: "Measure",
-        body:
-          "Track cycle time, accuracy, and cost per transaction against the original baseline.",
+        title: "Revisit",
+        body: "Rescore periodically as vendor support windows and business priorities change.",
       },
     ],
 
     keyTakeaways: [
-      "Automating a broken process usually just makes the same inefficiency run faster.",
-      "Current state mapping reveals unnecessary handoffs, approvals, and rework.",
-      "Removing legacy steps before automation improves the return on investment.",
-      "RPA works best on high volume, rules based, well understood transactions.",
-      "Success should be measured through cycle time, accuracy, and cost per transaction, not bot counts.",
-      "Starfii redesigns the process first and automates what remains.",
+      "Modernization roadmaps built without an assessment tend to follow the loudest complaint, not the biggest risk.",
+      "A useful assessment scores technical debt, business criticality, and risk consistently across the portfolio.",
+      "Sequencing should combine risk urgency with business value, not default to whichever team asks first.",
+      "Not every application needs the same modernization path — the score should decide the path.",
+      "Skipping the assessment often means the real risk only becomes visible after an outage.",
+      "Starfii scores the full portfolio before recommending any re-engineering, re-platforming, or replacement.",
     ],
 
     conclusion:
-      "Automation is most valuable when it accelerates a process that has already been simplified. Organizations that redesign ownership, remove unnecessary handoffs, and separate standard work from exceptions before introducing RPA see a stronger, more sustainable return than those that automate the existing workflow as is.",
+      "A structured legacy assessment turns modernization from a series of opinions into a sequenced, evidence based roadmap. Scoring every application on debt, risk, and value first means investment goes where it will actually reduce risk and unlock value, not just where the most recent complaint happened to land.",
 
     cta: {
-      title: "Ready to Fix the Process Before You Automate It?",
+      title: "Score Your Legacy Portfolio Before You Modernize",
       body:
-        "Talk to Starfii about redesigning your workflow and identifying where automation will actually pay back.",
+        "Talk to Starfii about assessing your application estate before committing to a re-engineering, re-platforming, or replacement roadmap.",
       buttonText: "Talk to Starfii",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "rpa-where-automation-pays-back",
-    title: "RPA in Practice: Where Automation Actually Pays Back",
-    category: "RPA & Intelligent Automation",
-    lastUpdated: "September 2026",
-    readTime: "5 min read",
-
-    heroImage:
-      "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?q=80&w=1600&auto=format&fit=crop",
-
-    excerpt:
-      "Not every task should be automated. Learn how to identify the transaction patterns where RPA can deliver measurable operational payback.",
-
-    seo: {
-      title: "RPA in Practice: Where Automation Actually Pays Back",
-      description:
-        "Learn how to identify high-volume, rules-based processes where RPA can deliver measurable operational payback with strong controls.",
-      keywords: ["RPA", "robotic process automation", "intelligent automation", "business process automation", "automation ROI", "process automation"],
-    },
-
-    author: AUTHOR,
-
-    intro: [
-      "Robotic process automation can remove repetitive manual work, but the business case depends on choosing the right processes. High volume alone is not enough.",
-      "Starfii evaluates transaction volume, rule clarity, exception frequency, process stability, and integration effort before recommending automation.",
-    ],
-
-    highlights: [
-      {
-        number: "01",
-        title: "Prioritize Repetitive Work",
-        body: "RPA creates the strongest value when work is repetitive, rules-based, and high in transaction volume.",
-      },
-      {
-        number: "02",
-        title: "Build a Clear Business Case",
-        body: "Evaluate effort, exception rates, maintenance, and expected payback before automating.",
-      },
-      {
-        number: "03",
-        title: "Design for Scale",
-        body: "Treat automation as an operating capability with governance, monitoring, and continuous improvement.",
-      },
-    ],
-    sections: [
-      {
-        heading: "Look for High Volume, Rules Based Work",
-        paragraphs: [
-          "Repetitive activities with predictable inputs and decisions are strong RPA candidates. Examples include data entry, system to system transfers, matching, routing, and standard status updates.",
-          "The more consistent the task, the easier it is to build and maintain automation with predictable outcomes.",
-          "Reviewing several months of transaction history, rather than a single week, helps confirm that a candidate process is genuinely stable and not just quiet during the sample period chosen.",
-          "Tasks that touch several different systems in a consistent, predictable sequence are often excellent candidates, since that is exactly the kind of repetitive coordination software handles well.",
-        ],
-      },
-      {
-        heading: "Calculate the Full Cost of Manual Work",
-        paragraphs: [
-          "A useful automation business case includes labor time, error correction, queue delays, rework, and the cost of exceptions. This produces a better view of the true cost of the current state.",
-          "Automation should be prioritized where that cost is material enough to justify implementation and ongoing support.",
-          "Indirect costs, such as the time supervisors spend reassigning backlog or answering status questions, are easy to overlook but often add up to a meaningful share of the total.",
-          "Comparing this full cost against the ongoing cost of maintaining a bot, including licenses and support, gives a much more realistic payback timeline than labor hours alone.",
-        ],
-        image:
-          "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Team calculating the operational cost of manual work",
-      },
-      {
-        heading: "Design Controls Into the Workflow",
-        paragraphs: [
-          "Production automation needs clear exception handling, audit trails, ownership, and rollback procedures. A bot without operational controls simply creates a different kind of risk.",
-          "Human review should remain available for ambiguous or high impact transactions.",
-          "Logging every decision a bot makes, not just the final output, makes it far easier to investigate a disputed transaction months after it was originally processed.",
-          "Defining a clear owner for bot failures, separate from the process owner, ensures technical issues get resolved quickly instead of sitting in a queue between teams.",
-        ],
-      },
-      {
-        heading: "Track Payback After Launch",
-        paragraphs: [
-          "Post launch measurement should compare the original baseline with actual throughput, cycle time, accuracy, and cost per transaction.",
-          "The results can then guide the next wave of automation rather than creating an automation backlog without measurable priorities.",
-          "Reviewing payback at fixed intervals, such as thirty, sixty, and ninety days after go live, helps distinguish a genuine improvement from a temporary boost caused by extra attention during launch.",
-          "Sharing these results with sponsors keeps automation funding tied to demonstrated value rather than assumptions made before the project began.",
-        ],
-        quote:
-          "High volume alone is not a business case, it is only half of one.",
-      },
-      {
-        heading: "Finding the Right RPA Candidates",
-        paragraphs: [
-          "The strongest RPA opportunities usually involve high-volume, rules-based work with stable inputs, predictable decisions, and measurable manual effort.",
-          "Examples include data transfer between systems, routine validation, report preparation, invoice processing, account updates, and repetitive reconciliation activities.",
-          "Before automating, teams should confirm transaction volume, exception rates, process stability, system dependencies, and the cost of maintaining the automation.",
-          "Ranking candidate processes side by side on these criteria, rather than automating whichever request arrives first, helps ensure the earliest automation investments deliver the clearest wins.",
-        ],
-      },
-      {
-        heading: "Building the Business Case",
-        paragraphs: [
-          "A credible automation business case should consider more than hours saved. Teams should evaluate throughput, error reduction, faster turnaround, control improvements, employee capacity, and customer impact.",
-          "The total cost should include implementation, licenses or platform costs, monitoring, exception handling, support, and ongoing change management.",
-          "This makes it easier to prioritize automation investments based on measurable value rather than the number of tasks a bot can perform.",
-          "Involving finance early in building the business case also helps ensure the payback assumptions will hold up to scrutiny once the project is proposed for funding.",
-        ],
-      },
-      {
-        heading: "Scaling Beyond the First Bot",
-        paragraphs: [
-          "Successful RPA programs establish reusable standards for development, testing, security, credentials, monitoring, and support.",
-          "A centralized governance model can provide common controls while business teams retain ownership of process outcomes.",
-          "As the automation portfolio grows, organizations can combine RPA with workflow orchestration, APIs, analytics, and human review for more complex processes.",
-          "Reusable components, such as shared login modules or common data validation steps, reduce the effort needed to build each new bot once a few automations are already in production.",
-        ],
-      },
-    ],
-
-    benefits: [
-      {
-        title: "Predictable Automation",
-        body:
-          "Rules based, high volume tasks are easier to build, test, and maintain reliably.",
-      },
-      {
-        title: "Stronger Business Case",
-        body:
-          "Including rework, delays, and exception costs gives a more accurate view of automation payback.",
-      },
-      {
-        title: "Reduced Operational Risk",
-        body:
-          "Built-in controls and audit trails keep automated work accountable and traceable.",
-      },
-      {
-        title: "Faster Exception Resolution",
-        body:
-          "Human review stays available for ambiguous or high impact transactions.",
-      },
-      {
-        title: "Prioritized Roadmap",
-        body:
-          "Evaluating volume, stability, and integration effort helps sequence automation investment.",
-      },
-      {
-        title: "Measurable Payback",
-        body:
-          "Post launch tracking confirms whether automation delivered the expected return.",
-      },
-    ],
-
-    process: [
-      {
-        number: "01",
-        title: "Identify",
-        body:
-          "Find high volume, rules based tasks with predictable inputs and outputs.",
-      },
-      {
-        number: "02",
-        title: "Calculate",
-        body:
-          "Determine the full cost of manual work, including errors, delays, and rework.",
-      },
-      {
-        number: "03",
-        title: "Design",
-        body:
-          "Build exception handling, audit trails, and rollback procedures into the automation.",
-      },
-      {
-        number: "04",
-        title: "Deploy",
-        body:
-          "Launch the automation with clear ownership and human review for edge cases.",
-      },
-      {
-        number: "05",
-        title: "Track",
-        body:
-          "Measure throughput, cycle time, accuracy, and cost per transaction against the baseline.",
-      },
-    ],
-
-    keyTakeaways: [
-      "High transaction volume alone does not guarantee a strong automation business case.",
-      "The full cost of manual work includes rework, delays, and exception handling, not just labor time.",
-      "Production automation needs exception handling, audit trails, and rollback procedures.",
-      "Human review should remain available for ambiguous or high impact transactions.",
-      "Post launch measurement should compare actual results against the original baseline.",
-      "Starfii evaluates volume, rule clarity, and stability before recommending automation.",
-    ],
-
-    conclusion:
-      "The strongest automation programs are selective. By evaluating transaction volume, rule clarity, and the true cost of manual work, teams can prioritize the processes where RPA will deliver a measurable, defensible payback instead of building an automation backlog without clear priorities.",
-
-    cta: {
-      title: "Find Out Where Automation Will Pay Back",
-      body:
-        "Talk to Starfii about identifying the transactions and workflows where RPA delivers a measurable return.",
-      buttonText: "Talk to Starfii",
-      buttonHref: "/contact",
-    },
-  },
-
-  {
-    slug: "revenue-cycle-management-cutting-denials",
-    title: "Revenue Cycle Management: Cutting Denials Before They Happen",
-    category: "Healthcare RCM",
+    slug: "re-engineering-vs-re-platforming",
+    title: "Re-engineering vs Re-platforming: Choosing the Right Path",
+    category: "Modernization Strategy",
     lastUpdated: "September 2026",
     readTime: "6 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "A stronger revenue cycle reduces preventable denials upstream. Explore how eligibility, claims accuracy, and denial management work together.",
+      "Stop defaulting to a full rebuild. See how Starfii decides between re-engineering, re-platforming, or replacing a legacy application.",
 
     seo: {
-      title: "Revenue Cycle Management: Cutting Denials Before They Happen",
+      title: "Re-engineering vs Re-platforming: Choosing the Right Path",
       description:
-        "Explore how revenue cycle management can reduce preventable denials through stronger eligibility, claims accuracy, standardized workflows, and continuous improvement.",
-      keywords: ["revenue cycle management", "healthcare RCM", "claims management", "denial management", "healthcare operations", "business process services"],
+        "Learn how to decide between re-engineering, re-platforming, or replacing a legacy application, and why the choice should be driven by evidence, not habit.",
+      keywords: [
+        "re-engineering",
+        "re-platforming",
+        "legacy modernization",
+        "application modernization",
+        "modernization strategy",
+        "legacy system re-engineering",
+      ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Revenue cycle management is not only a collections problem. Many avoidable denials originate earlier in the patient and claims workflow.",
-      "Starfii approaches RCM as an end to end operating process, using controls and standardized workflows to improve claim quality before submission and accelerate resolution when exceptions occur.",
+      "Teams often default to a full rebuild because it feels like the thorough option, even when a lighter touch re-platform would remove the same risk at a fraction of the cost and time.",
+      "Starfii evaluates each legacy application against its assessment score, then chooses re-engineering, re-platforming, or replacement based on what the evidence actually supports.",
     ],
 
     highlights: [
       {
         number: "01",
-        title: "Reduce Preventable Denials",
-        body: "Identify recurring denial patterns and address the upstream process issues causing them.",
+        title: "Re-platform When Code Is Fine",
+        body: "If the business logic still works, moving it to a modern runtime often removes the risk without touching the code.",
       },
       {
         number: "02",
-        title: "Improve Visibility",
-        body: "Use consistent metrics to understand denial trends, aging, turnaround time, and recovery performance.",
+        title: "Re-engineer When Debt Is Structural",
+        body: "When the code itself is the problem, re-engineering rebuilds it into something maintainable.",
       },
       {
         number: "03",
-        title: "Standardize the Workflow",
-        body: "Create repeatable processes for prevention, follow-up, escalation, and continuous improvement.",
+        title: "Replace Only When Justified",
+        body: "Full replacement should be reserved for applications where the underlying business need has also changed.",
       },
     ],
+
     sections: [
       {
-        heading: "Find the Sources of Preventable Denials",
+        heading: "When Re-platforming Is the Right Call",
         paragraphs: [
-          "Denial analysis should distinguish eligibility, authorization, documentation, coding, and submission issues so the root cause can be addressed instead of repeatedly fixing the symptom.",
-          "A categorized denial view also helps prioritize process changes with the greatest financial impact.",
-          "Grouping denials by payer as well as by cause often reveals that a small number of payers or plan types are responsible for a disproportionate share of preventable rework.",
-          "Reviewing denial reason codes alongside the original claim documentation helps confirm whether the stated reason reflects the true root cause or just the payer's shorthand for it.",
-        ],
-      },
-      {
-        heading: "Strengthen Upstream Eligibility Checks",
-        paragraphs: [
-          "Eligibility and coverage verification can prevent avoidable downstream work when performed consistently and documented correctly.",
-          "Standard operating procedures and exception queues make it easier for teams to resolve issues before claims are submitted.",
-          "Verifying eligibility as close as possible to the time of service, rather than only at initial scheduling, catches coverage changes that can occur in the days leading up to an appointment.",
-          "Clear escalation steps for eligibility mismatches keep these cases from sitting unresolved until they eventually surface as a denial.",
+          "Re-platforming makes sense when the application's business logic is still sound but the runtime, infrastructure, or licensing underneath it has become the problem.",
+          "Moving the application onto a currently supported platform with minimal code change removes vendor risk and licensing cost quickly, without the time or budget a rewrite would require.",
+          "This path works best for applications where the code itself is not the source of pain, only its foundation.",
+          "Re-platforming is often the fastest way to remove urgent risk from a portfolio while a longer term re-engineering plan is still being built.",
         ],
         image:
-          "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Team reviewing patient eligibility and coverage checks",
+          "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Engineers reviewing a re-platforming migration plan",
       },
       {
-        heading: "Standardize Claims and Exception Workflows",
+        heading: "When Re-engineering Is the Right Call",
         paragraphs: [
-          "Clear ownership for claim preparation, submission, follow up, and denial resolution reduces delays between teams.",
-          "Operational dashboards can expose aging work, high frequency denial categories, and turnaround time.",
-          "Standard templates and checklists for claim preparation reduce the variation between team members that often leads to preventable submission errors.",
-          "Routing high value or complex claims to specialists, while standard claims move through a faster path, balances thoroughness with overall throughput.",
+          "Re-engineering is the right path when the code itself carries the debt: tightly coupled modules, untestable logic, or business rules buried inside years of undocumented patches.",
+          "This path costs more time and effort than re-platforming, but it addresses the debt at its source rather than moving it to a new runtime.",
+          "Applications that are both business critical and heavily entangled are usually the strongest candidates for re-engineering investment.",
+          "Phasing the re-engineering behind a stable interface layer, rather than attempting it all at once, keeps the business running throughout.",
         ],
       },
       {
-        heading: "Build Continuous Improvement Into RCM",
+        heading: "When Replacement Actually Makes Sense",
         paragraphs: [
-          "RCM performance improves when denial trends feed directly into process redesign, training, and controls.",
-          "The objective is not simply to work denials faster but to reduce the number of preventable denials entering the queue.",
-          "Sharing denial trends directly with the front end teams responsible for registration and scheduling closes the loop between where a problem originates and where it is eventually discovered.",
-          "Tracking the preventable denial rate as its own metric, separate from total denials, makes it possible to see whether upstream improvements are actually taking hold.",
+          "Replacement is justified when the underlying business need has changed enough that the original application no longer reflects how the business actually operates.",
+          "In these cases, modernizing the existing code, however well it is done, only preserves a workflow the business has already moved past.",
+          "Replacement should be the exception, not the default, because it carries the highest cost, risk, and change management burden of the three paths.",
+          "A clear assessment score usually makes it obvious when replacement, rather than re-engineering or re-platforming, is the honest answer.",
         ],
         quote:
-          "The best denial to resolve is the one that never gets filed.",
+          "The most expensive modernization decision is choosing a rebuild for a problem a re-platform would have solved.",
       },
       {
-        heading: "Understanding the Denial Lifecycle",
+        heading: "Building a Decision Framework",
         paragraphs: [
-          "Denials often originate earlier than the point where a claim is rejected. Missing information, eligibility issues, coding inconsistencies, authorization gaps, and documentation problems can create downstream rework.",
-          "A denial-focused operating model traces each issue back to its root cause and identifies which step in the workflow can prevent recurrence.",
-          "This shifts the focus from simply recovering denied revenue to reducing preventable denials before they happen.",
-          "Mapping the full lifecycle of a claim, from scheduling through final payment, makes it much easier to pinpoint exactly where a preventable issue was introduced.",
-        ],
-      },
-      {
-        heading: "Standardizing Revenue Workflows",
-        paragraphs: [
-          "Standardized work queues and clear ownership help teams handle exceptions consistently. Rules can define which cases require specialist review, which can be corrected automatically, and which need additional documentation.",
-          "Visibility into aging, queue volumes, payer patterns, and root causes helps leaders allocate resources where they can have the greatest financial impact.",
-          "Consistent workflows also make performance easier to compare across teams and locations.",
-          "Documenting these standard workflows in a shared playbook also shortens onboarding time for new staff and reduces the variation that often creeps in as teams grow.",
-        ],
-      },
-      {
-        heading: "Using Analytics to Prevent Recurrence",
-        paragraphs: [
-          "Operational analytics can connect denial categories with departments, workflows, documentation patterns, and payer behavior.",
-          "When recurring causes are visible, teams can update upstream processes, training, validation rules, and quality checks.",
-          "The goal is a closed-loop model in which denial data continuously improves the process that generated the claim.",
-          "Reviewing these analytics on a regular cadence, rather than only during an annual audit, allows teams to catch emerging denial patterns while they are still small and easy to correct.",
+          "A simple framework can guide most decisions: if the runtime is the risk, re-platform. If the code is the risk, re-engineer. If the business need has changed, replace.",
+          "Applying this framework consistently across the portfolio avoids the common trap of defaulting to whichever option a particular team is most comfortable delivering.",
+          "Documenting the reasoning behind each decision also makes it easier to revisit the choice later if circumstances change.",
+          "This consistency is what lets a modernization program scale across dozens of applications without every decision becoming a fresh debate.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Fewer Preventable Denials",
+        title: "Right Sized Investment",
         body:
-          "Categorized denial analysis targets the root cause instead of repeatedly fixing symptoms.",
+          "Each application receives the level of effort its actual problem requires, not a default rebuild.",
       },
       {
-        title: "Faster Claim Resolution",
+        title: "Faster Risk Removal",
         body:
-          "Standardized workflows and clear ownership reduce delays between teams.",
+          "Re-platforming can remove urgent runtime risk in months rather than the years a rewrite would take.",
       },
       {
-        title: "Stronger Cash Flow",
+        title: "Debt Addressed at the Source",
         body:
-          "Reducing avoidable denials improves the speed and predictability of revenue collection.",
+          "Re-engineering resolves structural code debt rather than carrying it forward onto a new platform.",
       },
       {
-        title: "Better Visibility",
+        title: "Fewer Unnecessary Rebuilds",
         body:
-          "Operational dashboards expose aging work and high frequency denial categories.",
+          "Replacement is reserved for applications where the business need has genuinely changed.",
       },
       {
-        title: "Improved Compliance",
+        title: "Consistent Decision Making",
         body:
-          "Consistent eligibility and documentation checks reduce downstream compliance risk.",
+          "A shared framework keeps modernization choices consistent across a large application portfolio.",
       },
       {
-        title: "Sustainable RCM Performance",
+        title: "Lower Overall Program Cost",
         body:
-          "Continuous improvement keeps denial rates trending down over time.",
+          "Matching effort to actual need keeps the total modernization budget focused on what matters.",
       },
     ],
 
     process: [
       {
         number: "01",
-        title: "Analyze",
-        body:
-          "Categorize denials by eligibility, authorization, documentation, coding, and submission issues.",
+        title: "Diagnose",
+        body: "Determine whether the runtime, the code, or the business need is the actual source of risk.",
       },
       {
         number: "02",
-        title: "Verify",
-        body:
-          "Strengthen upstream eligibility and coverage checks before claims are submitted.",
+        title: "Classify",
+        body: "Sort each application into a re-platform, re-engineer, or replace candidate.",
       },
       {
         number: "03",
-        title: "Standardize",
-        body:
-          "Define clear ownership for claim preparation, submission, and follow up.",
+        title: "Validate",
+        body: "Confirm the classification against the application's assessment score.",
       },
       {
         number: "04",
-        title: "Monitor",
-        body:
-          "Track aging work, denial categories, and turnaround time through operational dashboards.",
+        title: "Execute",
+        body: "Apply the chosen modernization path using a phased, low risk rollout.",
       },
       {
         number: "05",
-        title: "Improve",
-        body:
-          "Feed denial trends back into process redesign, training, and controls.",
+        title: "Review",
+        body: "Revisit the decision if business needs or platform support change materially.",
       },
     ],
 
     keyTakeaways: [
-      "Many preventable denials originate earlier in the patient and claims workflow, not just at submission.",
-      "Categorized denial analysis helps address root causes instead of symptoms.",
-      "Consistent eligibility and coverage verification prevents avoidable downstream work.",
-      "Clear ownership across claim preparation, submission, and follow up reduces delays.",
-      "Operational dashboards help teams prioritize the highest impact denial categories.",
-      "Starfii treats RCM as an end to end operating process, not just a collections function.",
+      "Teams often default to a full rebuild even when a lighter touch path would remove the same risk.",
+      "Re-platforming fits applications where the runtime, not the code, is the source of risk.",
+      "Re-engineering fits applications where the code itself carries structural debt.",
+      "Replacement should be reserved for cases where the business need has genuinely changed.",
+      "A simple, consistent framework keeps modernization decisions aligned across a large portfolio.",
+      "Starfii chooses the modernization path based on the assessment score, not habit.",
     ],
 
     conclusion:
-      "Reducing denials is less about working the queue faster and more about preventing avoidable denials from entering it in the first place. Strengthening eligibility checks, standardizing claims workflows, and feeding denial trends back into process improvement gives revenue cycle teams a sustainable path to better performance.",
+      "Choosing between re-engineering, re-platforming, and replacement should be a matter of evidence, not default. Matching each application's actual problem to the right modernization path keeps a program's cost, timeline, and risk aligned with what the business genuinely needs.",
 
     cta: {
-      title: "Reduce Denials Before They Happen",
+      title: "Not Sure Which Modernization Path Fits?",
       body:
-        "Talk to Starfii about strengthening your revenue cycle from eligibility through denial resolution.",
+        "Talk to Starfii about evaluating your legacy applications against re-engineering, re-platforming, and replacement.",
       buttonText: "Talk to Starfii",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "process-reengineering-before-automation",
-    title: "Process Re-engineering: Fix the Workflow Before Automation",
-    category: "Business Process Re-engineering",
+    slug: "cloud-migration-patterns-that-work",
+    title: "Cloud Migration Patterns That Actually Reduce Risk",
+    category: "Cloud Migration",
     lastUpdated: "September 2026",
-    readTime: "5 min read",
+    readTime: "6 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Process re-engineering creates the foundation for sustainable automation. Learn how target state design can simplify work before technology is applied.",
+      "Stop treating every workload the same. See how Starfii mixes lift and shift, replatform, and refactor patterns across a single migration program.",
 
     seo: {
-      title: "Process Re-engineering: Fix the Workflow Before Automation",
+      title: "Cloud Migration Patterns That Actually Reduce Risk",
       description:
-        "Learn how process re-engineering removes unnecessary work, clarifies ownership, and creates a stronger foundation for business process automation.",
-      keywords: ["process re-engineering", "business process reengineering", "workflow optimization", "process automation", "business process services", "operational efficiency"],
+        "Learn how mixing lift and shift, replatform, and refactor patterns across a single cloud migration program reduces risk and keeps timelines realistic.",
+      keywords: [
+        "cloud migration",
+        "lift and shift",
+        "replatform",
+        "refactor",
+        "legacy modernization",
+        "migration strategy",
+      ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Process re-engineering is about changing how work is performed, not simply documenting the existing workflow.",
-      "Starfii uses transaction data, process maps, ownership models, and SLA targets to design a simpler target state that can then be automated or operated as a managed service.",
+      "A single migration pattern rarely fits an entire legacy estate. Treating every workload the same, whether that means lift and shift for everything or refactor for everything, tends to create unnecessary risk or unnecessary cost.",
+      "Starfii sequences cloud migrations by matching each workload to the pattern that fits its complexity, criticality, and timeline constraints.",
     ],
 
     highlights: [
       {
         number: "01",
-        title: "Map the Current State",
-        body: "Understand handoffs, approvals, exceptions, and duplicate work before selecting an automation approach.",
+        title: "Match Pattern to Workload",
+        body: "Lift and shift, replatform, and refactor each solve a different problem — use the one that fits.",
       },
       {
         number: "02",
-        title: "Simplify Before Automating",
-        body: "Remove unnecessary steps and standardize the process so automation has a stable foundation.",
+        title: "Sequence Against Real Constraints",
+        body: "Lease deadlines, compliance requirements, and dependencies should drive the migration order.",
       },
       {
         number: "03",
-        title: "Automate After Redesign",
-        body: "Apply workflow or RPA automation only after the improved process is clearly defined.",
+        title: "Build In Rollback",
+        body: "Every migration wave should have a tested path back to the previous state before cutover.",
       },
     ],
+
     sections: [
       {
-        heading: "Document the Current State",
+        heading: "Lift and Shift: When Speed Matters Most",
         paragraphs: [
-          "Current state mapping should capture systems, people, approvals, queues, exceptions, and dependencies. This creates a shared view of how work really gets completed.",
-          "It also exposes duplicate activities that may be invisible when teams only look at their individual step.",
-          "Involving frontline staff in this exercise, rather than relying solely on management's description of the process, usually surfaces details that would otherwise be missed entirely.",
-          "Capturing how exceptions are actually handled today, not just the happy path, gives a much more complete picture of where the real complexity lives.",
+          "Lift and shift moves a workload to the cloud with minimal change, prioritizing speed over optimization. It works best for straightforward applications under time pressure, such as an approaching data center lease deadline.",
+          "The tradeoff is that a lift and shift workload does not automatically gain cloud native scalability or cost efficiency. Those benefits usually require a later replatform or refactor pass.",
+          "Using lift and shift as a starting point, rather than a final destination, keeps this tradeoff manageable.",
+          "It also gives teams breathing room to plan a deeper modernization pass without the pressure of an expiring lease deadline.",
         ],
         image:
-          "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Team documenting the current state of a business process",
+          "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Team planning a phased cloud migration",
       },
       {
-        heading: "Design the Target State Around Outcomes",
+        heading: "Replatform: A Middle Ground With Real Payback",
         paragraphs: [
-          "The target process should define who owns each step, what information is required, and which controls are essential.",
-          "Cycle time, accuracy, throughput, and cost per transaction can then become explicit design criteria.",
-          "Designing backward from the outcome the customer or business actually needs often produces a simpler flow than trying to incrementally improve the existing steps.",
-          "Reviewing the target design with the people who will operate it before implementation helps catch practical issues that a process diagram alone would not reveal.",
+          "Replatforming makes targeted changes, such as moving to a managed database service, without a full application rewrite. This captures meaningful cloud benefits without the cost or risk of a complete refactor.",
+          "It works well for workloads that are stable but would clearly benefit from managed services, reduced operational overhead, or better scalability.",
+          "The targeted nature of replatforming also makes it easier to validate before cutover, since the scope of change is smaller and more contained than a refactor.",
+          "Many workloads that start as lift and shift candidates are strong replatform candidates in a later migration wave.",
         ],
       },
       {
-        heading: "Separate Standard Work From Exceptions",
+        heading: "Refactor: Reserved for the Workloads That Need It",
         paragraphs: [
-          "A strong process handles common transactions through a predictable path while routing genuine exceptions to the right specialists.",
-          "This separation makes later automation easier because repeatable work has clearer rules and inputs.",
-          "Defining exception categories explicitly, rather than treating every unusual case the same way, allows teams to build targeted handling for the exceptions that occur most often.",
-          "Over time, tracking which exceptions recur most frequently can reveal opportunities to fold them into the standard path instead of routing them around it indefinitely.",
-        ],
-      },
-      {
-        heading: "Prepare for Automation and Managed Operations",
-        paragraphs: [
-          "Once the target state is stable, teams can determine which steps should be automated, which require human judgment, and which can be delivered through a managed operations model.",
-          "This sequence avoids locking legacy inefficiencies into a new technology stack.",
-          "Piloting the redesigned process manually for a short period before automating it confirms the new design actually works in practice, not just on paper.",
-          "This staged approach also gives the operating team time to adjust to new ownership and controls before technology adds another layer of change.",
+          "Refactoring rebuilds parts of the application to take full advantage of cloud native architecture, typically for workloads with significant scaling, cost, or architectural constraints in their current form.",
+          "This pattern carries the highest cost and timeline of the three, so it should be reserved for workloads where the payback clearly justifies the investment.",
+          "Refactoring is often where the deepest long term value comes from, but attempting it across an entire portfolio at once is rarely realistic.",
+          "Sequencing refactor work after the lower risk lift and shift and replatform waves keeps the overall program timeline achievable.",
         ],
         quote:
-          "Technology built on top of a broken process just makes the process harder to change later.",
+          "The right migration pattern for one workload is often the wrong one for the next.",
       },
       {
-        heading: "Map the Current State",
+        heading: "Sequencing the Mix Across a Real Program",
         paragraphs: [
-          "Process reengineering starts by documenting how work actually moves, not how teams believe it moves. Interviews, workflow observation, system data, and transaction samples can reveal hidden work and informal approvals.",
-          "The current-state map should show owners, handoffs, decisions, exceptions, systems, controls, and measurable delays.",
-          "This creates a factual baseline for deciding what should be removed, redesigned, standardized, or automated.",
-          "Validating the map with the teams who actually perform the work, rather than relying only on management's version of the process, helps ensure the baseline reflects reality.",
-        ],
-      },
-      {
-        heading: "Simplify the Future State",
-        paragraphs: [
-          "A future-state process should reduce unnecessary decisions and handoffs while preserving the controls that genuinely protect quality, compliance, and customer outcomes.",
-          "Standard inputs and clear decision rules make downstream automation easier to design and maintain.",
-          "Where judgment is required, the process should deliberately preserve human intervention rather than forcing every step into a rigid automated path.",
-          "Testing the simplified design against real historical transactions, rather than only hypothetical scenarios, helps confirm it will actually hold up under normal operating conditions.",
-        ],
-      },
-      {
-        heading: "Prove the Model Before Scaling",
-        paragraphs: [
-          "A focused pilot can validate the redesigned process using real transaction volumes and representative exceptions.",
-          "Teams should compare the pilot against the original baseline using cycle time, error rates, rework, cost, SLA performance, and user experience.",
-          "Only after the operating model is proven should it be expanded across additional teams, regions, or business units.",
-          "Capturing lessons learned from the pilot, including what did not work as expected, makes the eventual rollout to other teams considerably smoother.",
+          "A realistic migration program mixes all three patterns, sequenced against actual constraints like data center lease deadlines, compliance requirements, and workload dependencies.",
+          "Straightforward, low risk workloads typically move first to build momentum and validate the migration process before tackling more complex ones.",
+          "Every wave should include rollback planning, so a migration issue never becomes an extended outage.",
+          "This sequencing turns a large, mixed legacy estate into a series of manageable, lower risk moves rather than one high stakes cutover.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Shared Understanding",
+        title: "Reduced Migration Risk",
         body:
-          "Current state mapping gives every team the same view of how work actually flows.",
+          "Matching each workload to the right pattern avoids forcing complex applications through a rushed lift and shift.",
       },
       {
-        title: "Simpler Target State",
+        title: "Realistic Timelines",
         body:
-          "Explicit design criteria keep the redesigned process focused on measurable outcomes.",
+          "Sequencing by pattern and constraint keeps the overall program achievable within real deadlines.",
       },
       {
-        title: "Cleaner Automation Candidates",
+        title: "Better Cost Outcomes",
         body:
-          "Separating standard work from exceptions makes later automation far easier to build.",
+          "Replatform and refactor waves capture cloud native cost benefits where they matter most.",
       },
       {
-        title: "Avoids Locking In Waste",
+        title: "Safer Cutovers",
         body:
-          "Re-engineering before automation prevents legacy inefficiency from becoming permanent.",
+          "Built in rollback planning keeps migration issues from becoming extended outages.",
       },
       {
-        title: "Clear Accountability",
+        title: "Momentum Early",
         body:
-          "Defined ownership at each step reduces ambiguity and delay.",
+          "Starting with lower risk workloads builds confidence and process before tackling complex ones.",
       },
       {
-        title: "Better Automation Readiness",
+        title: "Long Term Value Where It Counts",
         body:
-          "A stable target state creates a stronger foundation for RPA or managed operations.",
+          "Refactor investment is reserved for the workloads where the payback genuinely justifies it.",
       },
     ],
 
     process: [
       {
         number: "01",
-        title: "Document",
-        body:
-          "Map the current process, including systems, people, approvals, and dependencies.",
+        title: "Inventory",
+        body: "Catalog workloads along with their complexity, criticality, and dependencies.",
       },
       {
         number: "02",
-        title: "Design",
-        body:
-          "Define the target state around cycle time, accuracy, throughput, and cost per transaction.",
+        title: "Classify",
+        body: "Assign each workload a lift and shift, replatform, or refactor pattern.",
       },
       {
         number: "03",
-        title: "Separate",
-        body:
-          "Distinguish standard, repeatable work from genuine exceptions.",
+        title: "Sequence",
+        body: "Order migration waves against lease deadlines, compliance needs, and dependencies.",
       },
       {
         number: "04",
-        title: "Decide",
-        body:
-          "Determine which steps should be automated, handled by people, or delivered as managed operations.",
+        title: "Migrate",
+        body: "Execute each wave with validation testing and a tested rollback path.",
       },
       {
         number: "05",
-        title: "Implement",
-        body:
-          "Roll out the redesigned process before or alongside the chosen automation approach.",
+        title: "Optimize",
+        body: "Revisit lift and shift workloads for a later replatform or refactor pass where it pays back.",
       },
     ],
 
     keyTakeaways: [
-      "Process re-engineering changes how work is performed, not just how it is documented.",
-      "Current state mapping exposes duplicate activities invisible at the individual step level.",
-      "The target process should be designed around explicit, measurable outcomes.",
-      "Separating standard work from exceptions makes automation simpler and more reliable.",
-      "Sequencing re-engineering before automation avoids locking in legacy inefficiency.",
-      "Starfii uses transaction data and ownership models to design a simpler target state.",
+      "A single migration pattern rarely fits an entire legacy estate.",
+      "Lift and shift prioritizes speed, useful under time pressure like an expiring lease deadline.",
+      "Replatform captures real cloud benefits without the cost of a full rewrite.",
+      "Refactor delivers the deepest value but should be reserved for workloads that justify it.",
+      "Sequencing should follow real constraints, not just technical complexity.",
+      "Starfii mixes all three patterns across a single migration program based on each workload's needs.",
     ],
 
     conclusion:
-      "The organizations that get the most out of automation and managed operations are the ones that re-engineer the process first. A target state built around clear ownership, explicit outcomes, and a clean separation between standard work and exceptions creates a foundation that technology can actually build on.",
+      "The strongest cloud migration programs do not pick one pattern and apply it everywhere. Matching lift and shift, replatform, and refactor to what each workload actually needs, then sequencing the moves against real business constraints, is what keeps a large migration both achievable and low risk.",
 
     cta: {
-      title: "Redesign the Process Before You Scale It",
+      title: "Plan a Migration That Fits Your Actual Workloads",
       body:
-        "Talk to Starfii about re-engineering your workflow before applying automation or managed operations.",
+        "Talk to Starfii about sequencing your cloud migration using the pattern that fits each application.",
       buttonText: "Talk to Starfii",
       buttonHref: "/contact",
     },
   },
 
   {
-    slug: "managed-operations-sla-performance",
-    title: "Managed Operations: Measuring Performance Against SLAs",
-    category: "Managed Business Operations",
+    slug: "architecture-modernization-breaking-the-monolith",
+    title: "Architecture Modernization: Breaking Apart the Monolith Safely",
+    category: "Architecture Modernization",
     lastUpdated: "September 2026",
-    readTime: "5 min read",
+    readTime: "7 min read",
 
     heroImage:
-      "https://images.unsplash.com/photo-1759752393975-7ca7b302fcc6?q=80&w=1600&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Managed operations need more than staffing. Learn how SLAs, operational dashboards, and continuous improvement keep service delivery measurable.",
+      "See how a phased architecture modernization turns a brittle monolith into modular, independently deployable services without a risky big bang rewrite.",
 
     seo: {
-      title: "Managed Operations: Measuring Performance Against SLAs",
+      title: "Architecture Modernization: Breaking Apart the Monolith Safely",
       description:
-        "Learn how managed business operations use SLAs, operational dashboards, governance, and continuous improvement to deliver predictable performance.",
-      keywords: ["managed operations", "business process services", "SLA management", "operations management", "service delivery", "continuous improvement"],
+        "Learn how a phased strangler pattern approach turns a brittle monolith into modular, independently deployable services without a risky big bang rewrite.",
+      keywords: [
+        "architecture modernization",
+        "monolith to microservices",
+        "strangler pattern",
+        "legacy modernization",
+        "service oriented architecture",
+        "application modernization",
+      ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Managed business operations work when service performance is visible and accountability is clear. An SLA gives the operating team and business stakeholders a shared definition of success.",
-      "Starfii combines transition planning, standardized operating procedures, dashboards, and continuous improvement to keep day to day delivery aligned with agreed outcomes.",
+      "A monolith rarely needs to be replaced in one high risk cutover. The strangler pattern, extracting functionality incrementally while the monolith keeps serving everything else, is usually the safer path.",
+      "Starfii uses this phased approach to modernize monolithic architectures without the disruption a big bang rewrite typically brings.",
     ],
 
     highlights: [
       {
         number: "01",
-        title: "Outcome Based SLAs",
-        body: "Define service targets around turnaround time, accuracy, and cost, not just staffing levels.",
+        title: "Identify Domain Boundaries First",
+        body: "Extraction only works cleanly once the natural service boundaries inside the monolith are understood.",
       },
       {
         number: "02",
-        title: "Operational Visibility",
-        body: "Give leaders dashboards that show throughput, exceptions, and aging work in real time.",
+        title: "Extract Incrementally",
+        body: "Route functionality to new services piece by piece, while the monolith handles what is not yet migrated.",
       },
       {
         number: "03",
-        title: "Continuous Improvement",
-        body: "Use recurring issues and SLA data to prioritize ongoing process changes.",
+        title: "Validate Each Service Before Moving On",
+        body: "Every extracted service should prove itself in production before the next extraction begins.",
       },
     ],
+
     sections: [
       {
-        heading: "Define the SLA Around Business Outcomes",
+        heading: "Why a Big Bang Rewrite Usually Fails",
         paragraphs: [
-          "Useful SLAs measure outcomes such as turnaround time, accuracy, backlog age, first contact resolution, or cost per transaction.",
-          "The right measures depend on the process, but they should be specific enough to identify when service quality is moving off target.",
-          "Agreeing on these definitions jointly with business stakeholders, rather than having the operating team set them alone, avoids disputes later about what a given metric was actually meant to capture.",
-          "SLAs that are reviewed and adjusted periodically stay relevant as the underlying process, volume, or business priorities change over time.",
-        ],
-      },
-      {
-        heading: "Build Operational Visibility",
-        paragraphs: [
-          "Dashboards should show throughput, exceptions, aging work, and service performance in a way that operations leaders can act on quickly.",
-          "Consistent reporting also makes transition and stabilization periods easier to manage.",
-          "Presenting the same metrics consistently over time, rather than changing the reporting format frequently, makes it much easier for leaders to spot genuine trends instead of noise.",
-          "Giving frontline supervisors access to the same dashboards used in leadership reviews helps issues get addressed at the point of work rather than waiting for a formal escalation.",
+          "Rewriting a monolith from scratch requires freezing feature development on the old system while the new one is built, often for a year or more, only to discover missing edge cases once the new system finally goes live.",
+          "This approach concentrates all of the risk into a single cutover event, with no way to validate incrementally along the way.",
+          "By the time the rewrite is ready, business requirements have often shifted enough that parts of the new system are already out of date.",
+          "The strangler pattern avoids this by never freezing the old system and never requiring a single high stakes cutover.",
         ],
         image:
-          "https://images.unsplash.com/photo-1763718528755-4bca23f82ac3?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Operations dashboard showing service level performance",
+          "https://images.unsplash.com/photo-1622557850710-7cbf3b64d3e2?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Architecture diagram showing a monolith being broken into services",
       },
       {
-        heading: "Use Governance to Manage Exceptions",
+        heading: "Finding the Right Domain Boundaries",
         paragraphs: [
-          "Escalation paths, ownership, audit trails, and regular service reviews help prevent individual exceptions from becoming recurring process failures.",
-          "Governance should support the operation rather than create unnecessary administrative overhead.",
-          "Setting clear thresholds for when an exception must be escalated, rather than leaving it to individual judgment, keeps response times consistent across the team.",
-          "Reviewing the root cause of major exceptions in a structured forum, rather than only tracking that they were resolved, is what actually prevents them from repeating.",
+          "The first step is identifying which parts of the monolith represent genuinely separate business domains, such as inventory, pricing, or checkout, rather than arbitrary technical divisions.",
+          "Clear domain boundaries make it possible to extract a service that can operate independently, with a well defined interface to the rest of the system.",
+          "Getting this boundary wrong, by extracting something too tightly coupled to the rest of the monolith, usually creates more complexity than it removes.",
+          "Time spent understanding the domain model before extraction begins pays back many times over during the actual migration.",
         ],
       },
       {
-        heading: "Maintain a Continuous Improvement Backlog",
+        heading: "Extracting Incrementally With the Strangler Pattern",
         paragraphs: [
-          "Stable operations create the baseline for improvement. Teams can use recurring issues, SLA misses, and process data to prioritize targeted changes.",
-          "This creates a managed service that improves over time rather than simply transferring the same process to another team.",
-          "Ranking backlog items by expected impact and effort helps the team focus on the changes that will move SLA performance the most, rather than the easiest ones to implement.",
-          "Revisiting the backlog on a fixed cadence keeps improvement work from being crowded out by day to day operational pressure.",
+          "Once boundaries are clear, functionality is routed to new services one domain at a time, while the monolith continues serving everything not yet extracted.",
+          "This means the system is never in a broken or half finished state. Each extraction is a complete, working change that can be validated on its own.",
+          "A routing layer in front of the monolith directs traffic to either the new service or the legacy code, depending on what has been migrated.",
+          "Over time, the monolith shrinks to just the functionality that has not yet been worth extracting, rather than disappearing all at once.",
         ],
         quote:
-          "An SLA is a starting point for accountability, not the finish line for improvement.",
+          "The safest way to replace a monolith is to never have a single day where it is fully replaced.",
       },
       {
-        heading: "What Strong SLAs Should Measure",
+        heading: "Validating Before Moving to the Next Domain",
         paragraphs: [
-          "Effective SLAs translate operational expectations into measurable service outcomes. Depending on the process, useful measures can include turnaround time, accuracy, backlog, first-time-right performance, availability, and escalation response.",
-          "Metrics should be limited to measures that influence business outcomes. Too many metrics can create reporting effort without improving performance.",
-          "Clear definitions and ownership ensure that service results can be reviewed consistently between the service provider and business stakeholders.",
-          "Pairing each SLA metric with a named owner who is accountable for it makes performance reviews far more productive than reviewing numbers without clear responsibility attached.",
-        ],
-      },
-      {
-        heading: "Operational Visibility and Control",
-        paragraphs: [
-          "Managed operations work best when leaders can see performance before an SLA breach occurs. Dashboards, alerts, queue monitoring, and exception reporting create an early-warning system for operational risk.",
-          "Regular governance reviews can separate isolated incidents from structural issues and assign corrective actions to the right owners.",
-          "This visibility turns managed services from a task-execution model into a measurable operating partnership.",
-          "Setting early warning thresholds well before the actual SLA limit gives teams enough lead time to intervene before a breach actually occurs.",
-        ],
-      },
-      {
-        heading: "Continuous Improvement in Managed Services",
-        paragraphs: [
-          "Continuous improvement should be built into the service model through recurring root-cause reviews, automation opportunities, process changes, and knowledge improvements.",
-          "Teams can use SLA trends and exception patterns to identify where standardization or automation can reduce future workload.",
-          "Over time, the service should become more predictable, efficient, and resilient while maintaining the controls required by the business.",
-          "Recognizing and sharing improvements that worked well in one part of the operation often helps other teams identify similar opportunities in their own workflows.",
+          "Each extracted service should run in production, under real load, before the team moves on to the next domain. This limits the blast radius of any issue to a single, well understood piece of functionality.",
+          "Rolling back a single service extraction, if something goes wrong, is far simpler than rolling back an entire rewrite.",
+          "This validation discipline is what makes the strangler pattern safer in practice, not just in theory, compared to a big bang rewrite.",
+          "Teams that skip this validation step and extract multiple domains simultaneously tend to reintroduce the same concentrated risk the pattern was meant to avoid.",
         ],
       },
     ],
 
     benefits: [
       {
-        title: "Shared Definition of Success",
+        title: "No Single Point of Failure Cutover",
         body:
-          "Clear SLAs align the operating team and business stakeholders around the same outcomes.",
+          "Risk is spread across many small extractions instead of concentrated into one rewrite event.",
       },
       {
-        title: "Faster Issue Detection",
+        title: "Continuous Feature Delivery",
         body:
-          "Real time dashboards make it easier to spot service performance moving off target.",
+          "The monolith keeps shipping features throughout the modernization, with no development freeze.",
       },
       {
-        title: "Reduced Recurring Failures",
+        title: "Independent Scaling",
         body:
-          "Governance and escalation paths prevent individual exceptions from repeating.",
+          "Extracted services can scale independently based on their own load patterns.",
       },
       {
-        title: "Smoother Transitions",
+        title: "Faster Team Autonomy",
         body:
-          "Standardized operating procedures make transition and stabilization periods more predictable.",
+          "Teams owning an extracted service can release changes without coordinating a monolith wide deployment.",
       },
       {
-        title: "Accountable Delivery",
+        title: "Simpler Rollback",
         body:
-          "Regular service reviews keep day to day operations aligned with agreed outcomes.",
+          "Rolling back a single extraction is far less disruptive than rolling back an entire rewrite.",
       },
       {
-        title: "Ongoing Performance Gains",
+        title: "Architecture That Reflects the Business",
         body:
-          "A continuous improvement backlog keeps the operation getting better over time.",
+          "Domain based extraction results in services that map cleanly to how the business actually operates.",
       },
     ],
 
     process: [
       {
         number: "01",
-        title: "Define",
-        body:
-          "Set SLAs around measurable outcomes such as turnaround time, accuracy, and cost per transaction.",
+        title: "Map Domains",
+        body: "Identify the genuine business domain boundaries inside the monolith.",
       },
       {
         number: "02",
-        title: "Transition",
-        body:
-          "Stabilize operations with standardized procedures and clear ownership.",
+        title: "Prioritize",
+        body: "Choose the first domain to extract based on risk, value, and independence.",
       },
       {
         number: "03",
-        title: "Monitor",
-        body:
-          "Build dashboards that expose throughput, exceptions, and aging work.",
+        title: "Extract",
+        body: "Build the new service and route matching traffic to it through a routing layer.",
       },
       {
         number: "04",
-        title: "Govern",
-        body:
-          "Use escalation paths and service reviews to manage exceptions before they recur.",
+        title: "Validate",
+        body: "Run the extracted service in production under real load before moving on.",
       },
       {
         number: "05",
-        title: "Improve",
-        body:
-          "Prioritize a continuous improvement backlog based on recurring issues and SLA data.",
+        title: "Repeat",
+        body: "Continue extracting domains until the monolith holds only what remains genuinely coupled.",
       },
     ],
 
     keyTakeaways: [
-      "Managed operations work when service performance is visible and accountability is clear.",
-      "SLAs should measure business outcomes, not just staffing or activity levels.",
-      "Operational dashboards help leaders act quickly on emerging issues.",
-      "Governance should support the operation without creating unnecessary overhead.",
-      "A continuous improvement backlog turns operational data into targeted changes.",
-      "Starfii combines transition planning, dashboards, and governance to keep delivery aligned with outcomes.",
+      "A big bang monolith rewrite concentrates risk into a single, high stakes cutover.",
+      "The strangler pattern extracts functionality incrementally while the monolith keeps running.",
+      "Clear domain boundaries are essential before any extraction begins.",
+      "Each extracted service should be validated in production before the next extraction starts.",
+      "This approach avoids freezing feature development during the modernization.",
+      "Starfii uses phased extraction to modernize monolithic architecture without a risky rewrite.",
     ],
 
     conclusion:
-      "Managed operations succeed when performance is visible, ownership is clear, and improvement is continuous. Organizations that define outcome based SLAs, build operational dashboards, and govern exceptions consistently end up with a service that gets better over time rather than one that simply maintains the status quo.",
+      "Breaking apart a monolith does not require betting the business on a single rewrite. A phased, domain by domain extraction using the strangler pattern spreads risk across many small, validated changes, keeping the business running and shipping features throughout the entire modernization.",
 
     cta: {
-      title: "Get More From Your Managed Operations",
+      title: "Ready to Modernize Your Architecture Safely?",
       body:
-        "Talk to Starfii about SLA design, operational visibility, and continuous improvement for your managed business processes.",
+        "Talk to Starfii about breaking apart a monolith using a phased, low risk extraction approach.",
+      buttonText: "Talk to Starfii",
+      buttonHref: "/contact",
+    },
+  },
+
+  {
+    slug: "api-and-database-modernization-together",
+    title: "Why API and Database Modernization Have to Move Together",
+    category: "API & Database Modernization",
+    lastUpdated: "September 2026",
+    readTime: "6 min read",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?q=80&w=1600&auto=format&fit=crop",
+
+    excerpt:
+      "Explore how modernizing APIs without touching the database underneath just moves the bottleneck, and why Starfii tackles both layers together.",
+
+    seo: {
+      title: "Why API and Database Modernization Have to Move Together",
+      description:
+        "Learn why modernizing APIs without also modernizing the database underneath often just relocates the bottleneck, and why both layers should be tackled together.",
+      keywords: [
+        "API modernization",
+        "database modernization",
+        "legacy modernization",
+        "application modernization",
+        "integration architecture",
+        "modernization roadmap",
+      ],
+    },
+
+    author: AUTHOR,
+
+    intro: [
+      "A modern, well documented API in front of a slow, brittle legacy database does not remove the bottleneck. It just gives it a cleaner interface.",
+      "Starfii treats API and database modernization as a single workstream, so the new integration layer is actually backed by the performance and reliability it promises.",
+    ],
+
+    highlights: [
+      {
+        number: "01",
+        title: "APIs Expose, They Don't Fix",
+        body: "A clean API surface does not change what is happening underneath it in the database.",
+      },
+      {
+        number: "02",
+        title: "Bottlenecks Move, They Don't Disappear",
+        body: "Fixing only the API layer often just relocates the slow query problem to a new door.",
+      },
+      {
+        number: "03",
+        title: "Sequence Both Layers Together",
+        body: "Planning API and database modernization as one workstream avoids doing the same work twice.",
+      },
+    ],
+
+    sections: [
+      {
+        heading: "The Trap of API-Only Modernization",
+        paragraphs: [
+          "It is tempting to modernize only the API layer, since it is often faster to deliver and immediately visible to integration partners and consuming applications.",
+          "But if the database underneath is still running the same slow queries, poor indexing, or brittle schema it always had, the new API simply becomes a well documented front door to the same performance problem.",
+          "Consumers of the new API will still experience slow response times and unreliable behavior, just with better error messages describing it.",
+          "This often creates a false sense of progress, since the API modernization milestone gets marked complete while the underlying issue remains untouched.",
+        ],
+        image:
+          "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+        imageAlt: "Diagram showing an API layer sitting on top of a legacy database",
+      },
+      {
+        heading: "How Database Debt Surfaces Through APIs",
+        paragraphs: [
+          "A legacy database with poor indexing, outdated schema design, or connection limits will surface as slow, inconsistent, or rate limited API responses, regardless of how clean the API code itself is.",
+          "Consumers of the API have no visibility into the database underneath, so they experience the symptom as an API problem, even though the root cause sits a layer deeper.",
+          "This mismatch between where the symptom appears and where the cause lives is exactly why treating the layers separately leads to repeated, unresolved complaints.",
+          "Diagnosing the true source early avoids months of API level tuning that never actually fixes the underlying issue.",
+        ],
+      },
+      {
+        heading: "Sequencing Both Layers as One Workstream",
+        paragraphs: [
+          "Planning API and database modernization together does not necessarily mean doing all of the work simultaneously. It means sequencing the database changes that matter most before or alongside the API work that depends on them.",
+          "This might mean re-architecting a specific set of tables ahead of exposing the corresponding API endpoints, so the endpoint launches with the performance it needs from day one.",
+          "Coordinating the two workstreams also avoids the wasted effort of building an API against a database schema that is about to change anyway.",
+          "Teams that treat these as one initiative, with shared milestones, consistently deliver a more reliable end result than teams that hand off from one workstream to the next.",
+        ],
+        quote:
+          "A fast API in front of a slow database is just a well dressed bottleneck.",
+      },
+      {
+        heading: "What a Combined Modernization Delivers",
+        paragraphs: [
+          "When API and database modernization move together, the resulting integration layer actually delivers the performance and reliability its documentation promises.",
+          "Downstream consumers, whether internal applications or external partners, experience the improvement directly, rather than discovering the same old bottleneck behind a new interface.",
+          "This combined approach also creates a cleaner foundation for future modernization work, since the schema and the API contract were designed together rather than patched independently over time.",
+          "The result is a modernization effort that solves the actual problem once, rather than requiring a second pass later to fix what the first pass missed.",
+        ],
+      },
+    ],
+
+    benefits: [
+      {
+        title: "Real Performance Gains",
+        body:
+          "Consumers of the modernized API experience genuine speed and reliability improvements, not just a cleaner interface.",
+      },
+      {
+        title: "No Wasted Rework",
+        body:
+          "Building the API against a schema that is about to change is avoided by sequencing both layers together.",
+      },
+      {
+        title: "Faster Root Cause Resolution",
+        body:
+          "Diagnosing whether the API or the database is the true source of an issue happens earlier, not after repeated complaints.",
+      },
+      {
+        title: "Cleaner Long Term Foundation",
+        body:
+          "A schema and API contract designed together creates a more coherent foundation for future changes.",
+      },
+      {
+        title: "Better Partner Experience",
+        body:
+          "External integration partners experience consistent performance instead of intermittent slowness.",
+      },
+      {
+        title: "One Modernization Effort, Not Two",
+        body:
+          "Combining the workstreams avoids the cost of a second modernization pass to fix what the first one missed.",
+      },
+    ],
+
+    process: [
+      {
+        number: "01",
+        title: "Diagnose",
+        body: "Determine whether API design, database performance, or both are contributing to the current bottleneck.",
+      },
+      {
+        number: "02",
+        title: "Prioritize",
+        body: "Identify which database changes must happen before or alongside specific API endpoints.",
+      },
+      {
+        number: "03",
+        title: "Sequence",
+        body: "Plan the database and API modernization as coordinated phases of one workstream.",
+      },
+      {
+        number: "04",
+        title: "Build",
+        body: "Deliver each API endpoint backed by the database performance it actually needs.",
+      },
+      {
+        number: "05",
+        title: "Validate",
+        body: "Confirm real world performance with downstream consumers, not just internal testing.",
+      },
+    ],
+
+    keyTakeaways: [
+      "A clean API in front of a legacy database often just relocates the bottleneck, not removes it.",
+      "Database performance issues surface through the API as slow or inconsistent responses.",
+      "Sequencing database and API modernization together avoids wasted rework.",
+      "Diagnosing the true source of a bottleneck early prevents months of ineffective tuning.",
+      "A schema and API contract designed together creates a more coherent long term foundation.",
+      "Starfii treats API and database modernization as one coordinated workstream.",
+    ],
+
+    conclusion:
+      "Modernizing the API layer without addressing the database underneath rarely solves the problem consumers actually experience. Treating both layers as one coordinated modernization effort, sequenced together rather than handed off separately, is what delivers an integration layer that performs the way its documentation promises.",
+
+    cta: {
+      title: "Modernize Your APIs and Database Together",
+      body:
+        "Talk to Starfii about sequencing your API and database modernization as one coordinated workstream.",
       buttonText: "Talk to Starfii",
       buttonHref: "/contact",
     },
