@@ -62,7 +62,7 @@ const TAB_AUTOPLAY_MS = 4000;
    104. CTA                        -> Closing CTA section
 ================================================================ */
 
-// Small dash-led eyebrow, matching the "— Legacy Modernization"
+// Small dash-led eyebrow, matching the "Legacy Modernization"
 // heading style used across the page.
 function Eyebrow({
   children,
@@ -76,7 +76,7 @@ function Eyebrow({
       className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
       style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
     >
-      <span aria-hidden="true">—</span>
+      <span aria-hidden="true"></span>
       <span>{children}</span>
     </span>
   );
@@ -1101,7 +1101,7 @@ export default function LegacyModernizationSection(): ReactElement {
 
                   <div className="mt-16">
                     <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      — {area.title}
+                      {area.title}
                     </h3>
                     <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
@@ -1129,7 +1129,7 @@ export default function LegacyModernizationSection(): ReactElement {
       <div className={ALIGN}>
 
         {/* ============================================================
-            TABBED DEEP-DIVE — auto-advancing tab list
+            TABBED DEEP-DIVE auto-advancing tab list
             (94-98. Modernization strategy through Cloud migration)
         ============================================================ */}
 
@@ -1143,7 +1143,7 @@ export default function LegacyModernizationSection(): ReactElement {
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
+            {/* Left nav autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1159,7 +1159,7 @@ export default function LegacyModernizationSection(): ReactElement {
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
-                    {/* Animated progress fill — only rendered on the active tab,
+                    {/* Animated progress fill only rendered on the active tab,
                         remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
@@ -1201,7 +1201,7 @@ export default function LegacyModernizationSection(): ReactElement {
                   className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  — {current.heading}
+                  {current.heading}
                 </h3>
                 <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
@@ -1263,7 +1263,7 @@ export default function LegacyModernizationSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    — {item.title}
+                    {item.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
@@ -1373,7 +1373,7 @@ export default function LegacyModernizationSection(): ReactElement {
             {study.body}
           </p>
 
-          {/* LEARN MORE — no longer its own <Link>: the whole card above
+          {/* LEARN MORE no longer its own <Link>: the whole card above
               is now the Link, so this is just a visual affordance that
               reacts to the card's hover state via the shared "group" class. */}
           <span

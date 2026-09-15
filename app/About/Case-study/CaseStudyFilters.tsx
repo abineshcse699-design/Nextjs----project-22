@@ -11,7 +11,19 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
-const PINNED_KEYS = ["ai", "digital-software", "cloud"];
+//
+// Added the 3 new ITSM / Legacy Modernization groups here so they
+// render as top-level clickable pills instead of being tucked away
+// in the search dropdown. These keys MUST exactly match the `key`
+// values used in the `groups` array passed in from page.tsx.
+const PINNED_KEYS = [
+  "ai",
+  "digital-software",
+  "cloud",
+  "itsm-migration",
+  "itsm-service-management",
+  "legacy-modernization",
+];
 
 // Pagination: 5 rows per page. Grid tops out at 3 columns (lg),
 // so a "page" is 5 rows x 3 columns worth of cards.

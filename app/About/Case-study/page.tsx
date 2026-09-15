@@ -10,6 +10,8 @@ import { caseStudies as dataAnalyticsCaseStudies_ } from "@/app/services/data-an
 // service page and its [slug] detail page read from. Add a new
 // case study there once and it appears everywhere, including here.
 import { caseStudies as aiCaseStudiesRaw } from "@/app/services/artificial-intelligence/data/case-studies";
+
+import { caseStudies as itsmServiceMgmtCaseStudiesRaw } from "@/app/services/itsm-service-management/casestudies/data/case-studies";
 // Single source of truth for Business Process case studies — same
 // file the business-process-services page and its [slug] detail
 // page read from. Add a new case study there once and it appears
@@ -29,6 +31,10 @@ import { caseStudies as gccCaseStudiesRaw } from "@/app/services/global-capabili
 import { caseStudies as cloudCaseStudiesRaw } from "@/app/services/cloud/casestudies/data.tsx/casestudies";
 import { caseStudies as aiFileStorageCaseStudiesRaw } from "@/app/services/offerings/sustainability-services/data/case-studies";
 import { caseStudies as aiMeetingAssistantCaseStudiesRaw } from "@/app/services/offerings/vibe-coding/data/case-studies";
+import { caseStudies as itsmMigrationCaseStudiesRaw } from "@/app/services/ITSM-Migration/casestudies/data/caseStudies";
+import { caseStudies as legacyModernizationCaseStudiesRaw } from "@/app/services/legacy-Modernization/casestudies/data/caseStudies";
+
+import { caseStudies as qualityEngineeringCaseStudiesRaw } from "@/app/services/Quality-Engineering/casestudies/data/caseStudies";
 
 /* ===============================================================
    SORT HELPER — newest date first.
@@ -46,6 +52,39 @@ function sortByDateDesc<T extends { date?: string }>(items: T[]): T[] {
   });
 }
 
+
+const legacyModernizationCaseStudies = sortByDateDesc(
+  legacyModernizationCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.body,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
+
+const itsmServiceMgmtCaseStudies = sortByDateDesc(
+  itsmServiceMgmtCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.cardDescription,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
+
+const itsmMigrationCaseStudies = sortByDateDesc(
+  itsmMigrationCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.body,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
 /* ===============================================================
    DATA — Artificial Intelligence case studies (from shared source)
 ================================================================ */
@@ -235,6 +274,20 @@ const aiMeetingAssistantCaseStudies = sortByDateDesc(
   }))
 );
 
+
+// ^ adjust path to wherever this file actually lives
+
+const qualityEngineeringCaseStudies = sortByDateDesc(
+  qualityEngineeringCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.body,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
+
 export const metadata = {
   title: "Case Studies | Starfii",
   description:
@@ -325,8 +378,37 @@ const groups: CaseStudyGroup[] = [
     basePath: "/services/offerings/vibe-coding",
     items: aiMeetingAssistantCaseStudies,
   },
+
+  {
+  key: "itsm-migration",
+  label: "ITSM Migration",
+  basePath: "/services/ITSM-Migration/casestudies",
+  items: itsmMigrationCaseStudies,
+},
+{
+  key: "legacy-modernization",
+  label: "Legacy Modernization",
+  basePath: "/services/legacy-Modernization/casestudies",
+  items: legacyModernizationCaseStudies,
+},
+
+{
+  key: "itsm-service-management",
+  label: "ITSM Service Management",
+  basePath: "/services/itsm-service-management/casestudies",
+  items: itsmServiceMgmtCaseStudies,
+},
+
+{
+  key: "Quality-Engineering",
+  label: "Quality Engineering",
+  basePath: "/services/Quality-Engineering/casestudies",
+  items: qualityEngineeringCaseStudies,
+},
+
 ];
 
 export default function CaseStudyPage(): ReactElement {
   return <CaseStudyFilters groups={groups} />;
 }
+

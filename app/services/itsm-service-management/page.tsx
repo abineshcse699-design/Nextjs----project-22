@@ -1,7 +1,9 @@
-//  Quality Engineering -- page
+//  ITSM & Enterprise Service Management -- page
 
 "use client";
 import Link from "next/link";
+import { caseStudies as itsmCaseStudies } from "./casestudies/data/case-studies";
+import { blogPosts } from "./blogs/blogData";
 
 import {
   useRef,
@@ -20,8 +22,6 @@ import {
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
-  Plus,
-  Trophy,
 } from "lucide-react";
 
 /* ===============================================================
@@ -39,92 +39,111 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Quality Engineering" tab list
+// Autoplay timing for the ITSM service capability tab list
 const TAB_AUTOPLAY_MS = 4000;
 
-// Page 7 — Quality Engineering
-// URL: /services/enterprise-platform-services
-// (kept in sync with the actual folder this file lives in — see
-// CASE_STUDY_BASE / BLOG_BASE below, which must match [slug] routes)
-const BLOG_BASE = "/services/Quality-Engineering/blogs";
+// Page 9  ITSM & Enterprise Service Management
+// URL: /services/itsm
+// (kept in sync with the actual folder this file lives in  see
+// CASE_STUDY_BASE below must match the casestudies/[slug] route)
+const CASE_STUDY_BASE = "/services/itsm-service-management/casestudies";
+// Reusable section eyebrow used by the ITSM sections.
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+    >
+      <span aria-hidden="true"></span>
+      <span>{children}</span>
+    </span>
+  );
+}
 
-const CASE_STUDY_BASE =
-  "/services/Quality-Engineering/casestudies";
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
 
    Headings/subheadings are aligned to the recommended section list:
-   80. Quality engineering overview -> Key Takeaways
-   81. Manual testing               -> Focus area card
-   82. Test automation              -> Focus area card
-   83. API testing                  -> Focus area card
-   84. Performance testing          -> Focus area card
-   85. Security testing             -> Focus area card
-   86. Mobile testing               -> Focus area card
-   87. Continuous testing           -> Focus area card
-   88. AI-assisted testing          -> Focus area card
-   89. QA automation                -> Focus area card
-   90. Quality strategy             -> Q&A section
-   91. Case studies                 -> Case Studies section
-   92. CTA                          -> Closing CTA section
+   105. ITSM overview                     -> Hero + Key Takeaways
+   106. ITSM consulting                  -> Strategy Q&A section
+   107. ITSM implementation               -> Focus area card
+   108. Service desk transformation       -> Focus area card
+   109. Incident management               -> Focus area card
+   110. Problem management                -> Focus area card
+   111. Change management                 -> Focus area card
+   112. Request management                -> Focus area card
+   113. Service catalog                   -> Focus area card
+   114. Asset and configuration management-> Focus area card
+   115. Workflow automation              -> Focus area card
+   116. AI powered ITSM                  -> Service tab
+   117. ITSM integrations                -> Service tab
+   118. Platform expertise               -> Service tab
+   119. Case studies                     -> Case Studies section
+   120. CTA                              -> Closing CTA section
 ================================================================ */
 
 const keyTakeaways: string[] = [
-  "Starfii is a quality engineering company helping organizations improve software reliability with intelligent testing, automation, and continuous quality practices.",
-  "We engineer testing strategies that cover manual testing, test automation, API testing, performance testing, and security testing across web and mobile platforms.",
-  "Our quality engineering capabilities span continuous testing, AI assisted testing, and QA automation embedded directly into the software delivery lifecycle.",
-  "We help enterprises catch defects earlier, ship with confidence, and build a quality strategy that scales alongside every release.",
+  "Starfii helps enterprises modernize IT service operations with modern ITSM platforms, intelligent workflows, and scalable service management solutions.",
+  "Our ITSM consulting and implementation services align service management processes, platform capabilities, governance, and user experience around measurable business outcomes.",
+  "We transform service desks and core practices across incident management, problem management, change management, request management, service catalogs, and asset and configuration management.",
+  "We extend ITSM with workflow automation, AI powered service operations, enterprise integrations, and platform expertise so service management can scale with the business.",
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "Manual Testing",
-    body: "Starfii's manual testing teams validate real user journeys and edge cases that automation alone can miss, giving your product a human check before every release.",
-    tags: ["MANUAL", "EXPLORATORY", "UAT"],
+    title: "ITSM Implementation",
+    body: "Starfii designs and implements ITSM platforms around your operating model, service processes, governance, integrations, and adoption goals.",
+    tags: ["IMPLEMENTATION", "ITIL", "GOVERNANCE"],
   },
   {
-    title: "Test Automation",
-    body: "We build durable, maintainable test automation suites that cut regression time and give teams fast, reliable feedback on every build.",
-    tags: ["AUTOMATION", "REGRESSION", "CI/CD"],
+    title: "Service Desk Transformation",
+    body: "We redesign service desk experiences, workflows, knowledge practices, and escalation paths to make support faster, more consistent, and easier to use.",
+    tags: ["SERVICE DESK", "SELF SERVICE", "EXPERIENCE"],
   },
   {
-    title: "API Testing",
-    body: "Starfii validates API contracts, payloads, and integrations so services stay reliable as your architecture grows more distributed.",
-    tags: ["API", "CONTRACT", "INTEGRATION"],
+    title: "Incident Management",
+    body: "Starfii streamlines incident intake, triage, routing, escalation, communications, and resolution so teams can restore services quickly and consistently.",
+    tags: ["INCIDENTS", "SLA", "ESCALATION"],
   },
   {
-    title: "Performance Testing",
-    body: "We load test and stress test critical systems to uncover bottlenecks before customers do, keeping platforms fast under real world traffic.",
-    tags: ["LOAD", "STRESS", "SCALABILITY"],
+    title: "Problem Management",
+    body: "We connect recurring incidents to root cause analysis, known error management, and corrective actions to reduce repeat disruption and improve service stability.",
+    tags: ["ROOT CAUSE", "KNOWN ERRORS", "PREVENTION"],
   },
   {
-    title: "Security Testing",
-    body: "Starfii's security testing practice identifies vulnerabilities in applications and APIs early, reducing risk before code reaches production.",
-    tags: ["SECURITY", "PENTEST", "RISK"],
+    title: "Change Management",
+    body: "Starfii builds controlled change workflows with approvals, risk assessment, scheduling, and auditability so teams can move quickly without losing operational control.",
+    tags: ["CHANGE", "RISK", "APPROVALS"],
   },
   {
-    title: "Mobile Testing",
-    body: "We test mobile applications across real devices, operating systems, and network conditions to make sure quality holds up everywhere your users are.",
-    tags: ["IOS", "ANDROID", "DEVICE LAB"],
+    title: "Request Management",
+    body: "We automate common employee and customer requests with clear fulfillment workflows, approvals, SLAs, and self service experiences.",
+    tags: ["REQUESTS", "FULFILLMENT", "SELF SERVICE"],
   },
   {
-    title: "Continuous Testing",
-    body: "Starfii embeds continuous testing into CI/CD pipelines so quality gates run automatically with every commit, not just before a release.",
-    tags: ["CI/CD", "PIPELINES", "SHIFT LEFT"],
+    title: "Service Catalog",
+    body: "Starfii structures business and technology services into intuitive catalogs that make service offerings discoverable, requestable, and measurable.",
+    tags: ["CATALOG", "SERVICES", "PORTAL"],
   },
   {
-    title: "AI Assisted Testing",
-    body: "We use AI assisted testing to generate test cases, detect flaky tests, and prioritize the checks that matter most, cutting manual test maintenance.",
-    tags: ["AI", "SMART TESTING", "COVERAGE"],
+    title: "Asset and Configuration Management",
+    body: "We establish reliable asset and configuration visibility so teams can understand relationships, ownership, dependencies, and operational impact.",
+    tags: ["ASSETS", "CMDB", "DEPENDENCIES"],
   },
   {
-    title: "QA Automation",
-    body: "Starfii's QA automation practice builds the frameworks, tooling, and reporting that let quality engineering teams scale coverage without scaling headcount.",
-    tags: ["QA", "FRAMEWORKS", "REPORTING"],
+    title: "Workflow Automation",
+    body: "Starfii automates repetitive service operations across intake, approvals, routing, fulfillment, notifications, and cross team handoffs.",
+    tags: ["AUTOMATION", "WORKFLOWS", "ORCHESTRATION"],
   },
 ];
 
@@ -137,140 +156,75 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Test Automation",
-    heading: "Test automation that keeps pace with every release",
-    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle.",
+    label: "AI Powered ITSM",
+    heading: "AI powered ITSM for faster, smarter service operations",
+    body: "Starfii applies AI to service classification, knowledge discovery, agent assistance, request routing, summarization, and operational insights so service teams can resolve work with less friction.",
     image:
-      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "API Testing",
-    heading: "API testing that protects every integration point",
-    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows.",
+    label: "ITSM Integrations",
+    heading: "ITSM integrations that connect the enterprise",
+    body: "Starfii connects ITSM platforms with identity, monitoring, collaboration, cloud, business applications, and other enterprise systems to keep service workflows moving across teams.",
     image:
-      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Performance Testing",
-    heading: "Performance testing built for real world traffic",
-    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most.",
+    label: "Platform Expertise",
+    heading: "Platform expertise built around your service management goals",
+    body: "Our platform specialists configure, extend, integrate, and optimize ITSM environments while keeping architecture, governance, usability, and long term maintainability in view.",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "ITSM Analytics",
+    heading: "ITSM analytics that turn service data into better decisions",
+    body: "Starfii helps teams turn service data into actionable insights across SLAs, incidents, requests, workloads, service quality, and operational performance so leaders can continuously improve service delivery.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Security Testing",
-    heading: "Security testing that finds risk before attackers do",
-    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production.",
+    label: "Workflow Automation",
+    heading: "Workflow automation that removes repetitive service work",
+    body: "Starfii automates intake, approvals, routing, fulfillment, notifications, and cross team handoffs to reduce manual effort and create consistent service experiences at scale.",
     image:
-      "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Continuous Testing",
-    heading: "Continuous testing wired into your delivery pipeline",
-    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day.",
+    label: "Service Desk Transformation",
+    heading: "Service desk transformation for faster employee support",
+    body: "Starfii redesigns service desk journeys with self service, knowledge, intelligent routing, escalation, and modern support experiences that help teams resolve requests faster.",
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-  },
-];
-
-type EcosystemImpact = { title: string };
-
-const ecosystemImpact: EcosystemImpact[] = [
-  { title: "Manual Testing and Exploratory QA" },
-  { title: "Mobile Testing Across Devices" },
-  { title: "AI Assisted Testing and Insights" },
-  { title: "QA Automation at Scale" },
-  { title: "API Testing and Contract Validation" },
-  { title: "Continuous Testing in CI/CD" },
-];
-
-type IndustryAward = {
-  year: string;
-  category: string;
-  subcategory: string;
-  rank: string;
-  description: string;
-};
-
-const industryAwards: IndustryAward[] = [
-  {
-    year: "Quality Engineering",
-    category: "Test Automation",
-    subcategory: "Frameworks and Coverage",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii builds test automation frameworks that scale coverage across web, mobile, and API layers while keeping maintenance costs low.",
-  },
-  {
-    year: "Quality Engineering",
-    category: "Performance and Security",
-    subcategory: "Load, Stress, and Vulnerability Testing",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii applies performance and security testing practices that catch bottlenecks and vulnerabilities before they reach production.",
-  },
-  {
-    year: "Quality Engineering",
-    category: "Continuous and AI Assisted Testing",
-    subcategory: "CI/CD Quality Gates",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii embeds continuous testing and AI assisted testing into delivery pipelines to keep every release measurably reliable.",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
 /* ===============================================================
    CASE STUDIES
-   FIXED: these slugs, titles, images and copy now come directly
-   from the real entries in data/case-studies.tsx (getCaseStudyBySlug
-   source of truth). The old list referenced slugs like
-   "fintech-test-automation-regression-cycle" that don't exist
-   anywhere in that data file, so every card 404'd. Nothing here is
-   invented — each entry below matches an existing case study.
-================================================================ */
+   ITSM & Enterprise Service Management case studies
 
-type CaseStudy = { slug: string; image: string; title: string; body: string };
+   IMPORTANT:
+   These slugs match the canonical case-study records in
+   casestudies/data/case-studies.ts so the cards on this page
+   open the correct [slug] detail pages.
+=============================================================== */
 
-const caseStudies: CaseStudy[] = [
-  {
-    slug: "fintech-saas-platform-mvp-to-scale",
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
-    body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
-  },
-  {
-    slug: "regional-bank-digital-banking-experience",
-    image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Modernizes a Regional Bank's Digital Banking Experience",
-    body: "Explore how Starfii's legacy software modernization team rebuilt a bank's front end into a fast, secure digital experience that cut onboarding time.",
-  },
-  {
-    slug: "healthcare-saas-generative-ai-features",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
-    body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
-  },
-  {
-    slug: "ecommerce-platform-peak-season-scale",
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Scales an E Commerce Platform for Peak Season Traffic",
-    body: "See how Starfii's cloud engineering team re-architected an e commerce platform on AWS to handle peak season load without downtime.",
-  },
-  {
-    slug: "enterprise-legacy-modernization-timeline",
-    image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
-    body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
-  },
-];
+type CaseStudyCard = {
+  slug: string;
+  image: string;
+  title: string;
+  body: string;
+};
+
+// Always derive the cards from the canonical ITSM case-study data.
+// This keeps the listing page and [slug] detail pages in sync.
+const caseStudies: CaseStudyCard[] = itsmCaseStudies.map((study) => ({
+  slug: study.slug,
+  image: study.image,
+  title: study.title,
+  body: study.cardDescription,
+}));
+
 
 type InsightPost = {
   slug: string;
@@ -280,58 +234,49 @@ type InsightPost = {
   body: string;
 };
 
-/* ===============================================================
-   NOTE ON BLOG SLUGS BELOW:
-   These slugs (quality-engineering-overview, test-automation-roi,
-   etc.) have NOT been verified against blogsData.ts because that
-   file wasn't shared. The [slug]/page.tsx for blogs filters by
-   `post.service === "enterprise-platform-services"` AND slug, so if
-   these slugs (or that service value) don't match what's actually in
-   blogsData.ts, these cards will 404 the same way the case studies
-   did. Share blogsData.ts and this list can be corrected the same way.
-================================================================ */
-const insights: InsightPost[] = [
+// Always derive insight cards from the canonical ITSM blog data
+// (blogs/blogData.ts). This is the same source of truth used by
+// generateStaticParams() in blogs/[slug]/page.tsx, so any slug
+// pulled from here is guaranteed to resolve to a real blog page
+// instead of 404ing.
+const insights: InsightPost[] = blogPosts.map((post, i) => ({
+  slug: post.slug,
+  large: i === 0,
+  image: post.heroImage,
+  title: post.title,
+  body: post.excerpt,
+}));
+
+
+type ITSMImpactItem = {
+  title: string;
+  body: string;
+};
+
+const itsmImpact: ITSMImpactItem[] = [
   {
-    slug: "ai-automation-quality-engineering",
-    large: true,
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "AI Automation in Quality Engineering: Faster and Smarter Software Testing",
-    body: "Explore how AI automation can modernize quality engineering, increase test coverage, reduce repetitive testing, and support faster enterprise software releases.",
+    title: "Service Desk Transformation",
+    body: "Modernize employee and customer support with self service, knowledge, intelligent routing, and consistent escalation experiences.",
   },
   {
-    slug: "enterprise-devops-reliability",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
-    title: "Enterprise DevOps and Reliability for Always On Digital Platforms",
-    body: "Learn how automation, observability, SRE, and quality engineering create safer releases and more reliable enterprise technology operations.",
+    title: "Incident and Problem Management",
+    body: "Connect incident response with root cause analysis and known error practices to reduce repeat disruption and improve service stability.",
   },
   {
-    slug: "enterprise-integration-api-strategy",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
-    title: "Enterprise Integration and API Strategy for Connected Systems",
-    body: "See how APIs and modern integration patterns help enterprises connect applications, data, partners, and workflows without creating new technology silos.",
+    title: "Change and Request Management",
+    body: "Create governed workflows for approvals, risk assessment, fulfillment, SLAs, and service requests without unnecessary manual effort.",
   },
   {
-    slug: "enterprise-ai-platforms",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
-    title: "Enterprise AI Platforms: Moving From Experiments to Business Value",
-    body: "Discover how organizations can operationalize Generative AI and LLM capabilities with the platform, data, security, and governance needed for enterprise scale.",
+    title: "Service Catalog and Self Service",
+    body: "Make business and technology services easy to discover and request through intuitive catalogs and modern service portals.",
   },
   {
-    slug: "enterprise-cloud-modernization",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
-    title:
-      "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
-    body: "Learn how enterprises can modernize critical workloads incrementally while improving resilience, agility, security, and operational efficiency.",
+    title: "Asset and Configuration Management",
+    body: "Build reliable visibility into assets, configuration items, ownership, dependencies, and operational impact across the enterprise.",
+  },
+  {
+    title: "AI and Workflow Automation",
+    body: "Use AI powered classification, knowledge discovery, routing, summarization, and workflow automation to scale service operations.",
   },
 ];
 
@@ -544,196 +489,6 @@ function Reveal({
 }
 
 /* ===============================================================
-   REUSABLE: Free-scroll Carousel
-================================================================ */
-
-type CarouselProps = {
-  children: ReactNode;
-  itemCount: number;
-  arrowVariant?: "light" | "dark";
-  clickToAdvance?: boolean;
-};
-
-function Carousel({
-  children,
-  itemCount,
-  arrowVariant = "light",
-  clickToAdvance = false,
-}: CarouselProps): ReactElement {
-  const trackRef = useRef<HTMLDivElement | null>(null);
-  const [progress, setProgress] = useState(0);
-  const [atStart, setAtStart] = useState(true);
-  const [atEnd, setAtEnd] = useState(false);
-
-  const updateProgress = useCallback(() => {
-    const el = trackRef.current;
-    if (!el) return;
-
-    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
-    const pct = maxScroll === 0 ? 1 : el.scrollLeft / maxScroll;
-
-    setProgress(pct);
-    setAtStart(el.scrollLeft <= 4);
-    setAtEnd(el.scrollLeft >= maxScroll - 4);
-  }, []);
-
-  useEffect(() => {
-    const el = trackRef.current;
-    if (!el) return undefined;
-
-    updateProgress();
-
-    const handleScroll = () => updateProgress();
-    const handleResize = () => updateProgress();
-
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleResize);
-
-    return () => {
-      el.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [updateProgress, itemCount]);
-
-  const getCardElements = () => {
-    const el = trackRef.current;
-    if (!el) return [] as HTMLElement[];
-
-    return Array.from(el.children).filter(
-      (child): child is HTMLElement => child instanceof HTMLElement,
-    );
-  };
-
-  const scrollByCard = (dir: number) => {
-    const el = trackRef.current;
-    if (!el) return;
-
-    const cards = getCardElements();
-    if (!cards.length) return;
-
-    const currentScroll = el.scrollLeft;
-    const tolerance = 8;
-
-    if (dir > 0) {
-      // Find the first card whose left edge is still meaningfully
-      // ahead of the current viewport. This guarantees exactly one
-      // card advance even when card widths are different.
-      const nextCard = cards.find(
-        (card) => card.offsetLeft > currentScroll + tolerance,
-      );
-
-      if (nextCard) {
-        el.scrollTo({
-          left: nextCard.offsetLeft,
-          behavior: "smooth",
-        });
-      } else {
-        el.scrollTo({
-          left: el.scrollWidth - el.clientWidth,
-          behavior: "smooth",
-        });
-      }
-    } else {
-      // Find the last card whose left edge is before the current
-      // position, then move exactly one card backward.
-      const previousCards = cards.filter(
-        (card) => card.offsetLeft < currentScroll - tolerance,
-      );
-
-      const previousCard = previousCards[previousCards.length - 1];
-
-      el.scrollTo({
-        left: Math.max(0, previousCard?.offsetLeft ?? 0),
-        behavior: "smooth",
-      });
-    }
-  };
-
-  const isDark = arrowVariant === "dark";
-
-  return (
-    <div>
-      <div
-        ref={trackRef}
-        onClick={
-          clickToAdvance
-            ? (event) => {
-                const target = event.target as HTMLElement;
-                if (target.closest("[data-carousel-card]")) {
-                  scrollByCard(1);
-                }
-              }
-            : undefined
-        }
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-      >
-        {children}
-      </div>
-
-      <div className="mt-8 flex items-center gap-6">
-        <div
-          className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5",
-          }}
-        >
-          <div
-            className="h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{
-              width: `${Math.max(
-                progress * 100,
-                itemCount ? 100 / itemCount : 10,
-              )}%`,
-              backgroundColor: INDIGO_CTA,
-            }}
-          />
-        </div>
-
-        <span
-          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
-        >
-          {String(
-            Math.min(
-              itemCount,
-              Math.max(1, Math.round(progress * Math.max(1, itemCount - 1)) + 1),
-            ),
-          ).padStart(2, "0")}{" "}
-          / {String(itemCount).padStart(2, "0")}
-        </span>
-
-        <div className="flex flex-shrink-0 items-center gap-3">
-          <button
-            type="button"
-            aria-label="Previous"
-            onClick={() => scrollByCard(-1)}
-            disabled={atStart}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
-          >
-            <ChevronLeft size={18} />
-          </button>
-
-          <button
-            type="button"
-            aria-label="Next"
-            onClick={() => scrollByCard(1)}
-            disabled={atEnd}
-            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            <ChevronRight size={18} />
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===============================================================
    REUSABLE: PagedCarousel
 ================================================================ */
 
@@ -751,12 +506,10 @@ function PagedCarousel<T>({
   arrowVariant = "light",
 }: PagedCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
-  const maxStart = Math.max(0, items.length - perPage);
-  const totalPositions = maxStart + 1;
-
-  const [position, setPosition] = useState(0);
+  const maxPage = Math.max(0, items.length - perPage);
+  const totalPositions = maxPage + 1;
+  const [page, setPage] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
-
   const viewportRef = useRef<HTMLDivElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
 
@@ -767,13 +520,12 @@ function PagedCarousel<T>({
 
     const trackStyles = window.getComputedStyle(track);
     const gap = parseFloat(trackStyles.columnGap || trackStyles.gap || "0");
-
     setStepWidth(firstItem.getBoundingClientRect().width + gap);
   }, []);
 
   useEffect(() => {
-    setPosition((current) => Math.min(current, maxStart));
-  }, [maxStart]);
+    setPage((p) => Math.min(p, maxPage));
+  }, [maxPage]);
 
   useEffect(() => {
     measureStep();
@@ -783,7 +535,6 @@ function PagedCarousel<T>({
 
     const viewport = viewportRef.current;
     const track = trackRef.current;
-
     if (!viewport || !track) {
       return () => window.removeEventListener("resize", handleResize);
     }
@@ -802,10 +553,8 @@ function PagedCarousel<T>({
   }, [measureStep, perPage, items.length]);
 
   const isDark = arrowVariant === "dark";
-
-  const goTo = (next: number) => {
-    setPosition(Math.min(Math.max(next, 0), maxStart));
-  };
+  const goTo = (next: number) =>
+    setPage(Math.min(Math.max(next, 0), maxPage));
 
   const itemWidthClass =
     perPage === 1
@@ -821,7 +570,7 @@ function PagedCarousel<T>({
           ref={trackRef}
           className="flex gap-6 transition-transform duration-500 ease-out"
           style={{
-            transform: `translate3d(-${position * stepWidth}px, 0, 0)`,
+            transform: `translate3d(-${page * stepWidth}px, 0, 0)`,
           }}
         >
           {items.map((item, index) => (
@@ -845,7 +594,7 @@ function PagedCarousel<T>({
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${((position + 1) / totalPositions) * 100}%`,
+              width: `${((page + 1) / totalPositions) * 100}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
@@ -855,7 +604,7 @@ function PagedCarousel<T>({
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
           style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
         >
-          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(page + 1).padStart(2, "0")} /{" "}
           {String(totalPositions).padStart(2, "0")}
         </span>
 
@@ -863,8 +612,8 @@ function PagedCarousel<T>({
           <button
             type="button"
             aria-label="Previous"
-            onClick={() => goTo(position - 1)}
-            disabled={position === 0}
+            onClick={() => goTo(page - 1)}
+            disabled={page === 0}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{
               backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
@@ -873,12 +622,11 @@ function PagedCarousel<T>({
           >
             <ChevronLeft size={18} />
           </button>
-
           <button
             type="button"
             aria-label="Next"
-            onClick={() => goTo(position + 1)}
-            disabled={position === maxStart}
+            onClick={() => goTo(page + 1)}
+            disabled={page === maxPage}
             className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
             style={{ backgroundColor: INDIGO_CTA }}
           >
@@ -894,7 +642,7 @@ function PagedCarousel<T>({
    SECTION
 ================================================================ */
 
-export default function QualityEngineeringSection(): ReactElement {
+export default function ITSMSection(): ReactElement {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
@@ -910,7 +658,7 @@ export default function QualityEngineeringSection(): ReactElement {
       setActiveTab((prev) => (prev + 1) % tabs.length);
     }, TAB_AUTOPLAY_MS);
     return () => clearInterval(id);
-  }, [tabHovered, activeTab]);
+  }, [tabHovered]);
 
   return (
     <main className="bg-white">
@@ -918,12 +666,12 @@ export default function QualityEngineeringSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
-          (80. Quality engineering overview)
+          (105. ITSM overview)
       ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -944,22 +692,22 @@ export default function QualityEngineeringSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Quality Engineering</span>
+            <span className="text-slate-500">ITSM & Enterprise Service Management</span>
           </nav>
 
           <h1
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Quality Engineering for Modern Enterprises
+            ITSM & Enterprise Service Management for Modern Enterprises
           </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Improve software reliability with intelligent testing,
-            automation, and continuous quality engineering.
+            Transform IT service operations with modern ITSM platforms,
+            intelligent workflows and scalable service management solutions.
           </p>
 
           <a
@@ -979,7 +727,7 @@ export default function QualityEngineeringSection(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS
-            (80. Quality engineering overview)
+            (105. ITSM overview)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <div
@@ -996,7 +744,7 @@ export default function QualityEngineeringSection(): ReactElement {
                 style={{ color: CHAMPION_BLUE }}
               >
                 <Sparkles size={18} style={{ color: LAVENDER_ACCENT }} />
-                Quality Engineering Overview
+                ITSM & Enterprise Service Management Overview
               </span>
               <ChevronDown
                 size={20}
@@ -1029,17 +777,16 @@ export default function QualityEngineeringSection(): ReactElement {
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            Starfii helps enterprises improve software reliability by
-            engineering testing strategies that combine manual testing,
-            automation, and continuous quality checks across every layer
-            of the stack.
+            Starfii helps enterprises modernize service operations with ITSM consulting,
+            implementation, service desk transformation, workflow automation,
+            AI powered service management, and connected enterprise integrations.
           </p>
         </Reveal>
 
 
         {/* ============================================================
             Q&A BLOCK
-            (90. Quality strategy)
+            (106. ITSM consulting)
         ============================================================ */}
 
         <Reveal as="section" className="mt-20">
@@ -1052,22 +799,21 @@ export default function QualityEngineeringSection(): ReactElement {
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Build a Quality Strategy That Scales?
+                How Do Enterprises Build an ITSM Strategy That Scales?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises build a lasting quality strategy by combining
-                manual testing, test automation, API and performance
-                testing, security testing, and continuous testing inside
-                the delivery pipeline. Starfii brings these together with
-                AI assisted testing and QA automation, so quality holds up
-                as release frequency and system complexity grow.
+                Enterprises build a scalable ITSM strategy by aligning service management
+                processes, platform capabilities, governance, integrations, and user
+                experience with business priorities. Starfii brings consulting and
+                implementation expertise together to design practical service operations
+                that can evolve as the organization grows.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a quality strategy roadmap"
+                src="https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues reviewing an ITSM strategy roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1077,7 +823,7 @@ export default function QualityEngineeringSection(): ReactElement {
 
       {/* ============================================================
           FOCUS AREAS
-          (81-89. Manual testing through QA automation)
+          (107-115. Implementation through Workflow automation)
       ============================================================ */}
 
 
@@ -1100,13 +846,12 @@ export default function QualityEngineeringSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
             <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Quality Engineering &amp; Testing Capabilities
+              Our ITSM &amp; Enterprise Service Management Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii covers the full testing lifecycle, from manual
-              testing and automation to performance, security, mobile,
-              and AI assisted testing, so quality is engineered in, not
-              checked at the end.
+              Starfii covers the core service management lifecycle, from service desk
+              transformation and incident management to change, requests,
+              configuration, automation, and AI powered ITSM.
             </p>
           </Reveal>
 
@@ -1162,8 +907,8 @@ export default function QualityEngineeringSection(): ReactElement {
       <div className={ALIGN}>
 
         {/* ============================================================
-            TABBED DEEP-DIVE — auto-advancing tab list
-            (82-87. Test automation through Continuous testing)
+            TABBED DEEP-DIVE  auto-advancing tab list
+            (116-121. AI powered ITSM through Service Desk Transformation)
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
@@ -1171,11 +916,11 @@ export default function QualityEngineeringSection(): ReactElement {
             className="font-heading text-[34px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            Quality Engineering Services
+            ITSM & Enterprise Service Management Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
+            {/* Left nav  autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1191,7 +936,7 @@ export default function QualityEngineeringSection(): ReactElement {
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
-                    {/* Animated progress fill — only rendered on the active tab,
+                    {/* Animated progress fill  only rendered on the active tab,
                         remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
@@ -1244,8 +989,7 @@ export default function QualityEngineeringSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
-                     className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-  
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </div>
@@ -1253,17 +997,19 @@ export default function QualityEngineeringSection(): ReactElement {
         </Reveal>
       </div>
 
+
+
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark)
-          (81, 86, 88, 89, 83, 87. mixed testing disciplines)
+          IMPACT ACROSS THE ITSM ECOSYSTEM
+          ITSM equivalent of the ITSM & Enterprise Service Management
+          "Impact Across Your Ecosystem" section.
       ============================================================ */}
-    
-<section className="relative overflow-hidden bg-[#08070F] py-24">
+      <section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
           style={{
             background:
-              "radial-gradient(60% 90% at 100% 100%, rgba(232,110,90,0.55) 0%, rgba(164,143,234,0.35) 35%, rgba(8,7,15,0) 70%)",
+              "radial-gradient(60% 90% at 100% 100%, rgba(164,143,234,0.55) 0%, rgba(79,63,224,0.28) 35%, rgba(8,7,15,0) 70%)",
           }}
         />
         <div
@@ -1276,44 +1022,192 @@ export default function QualityEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
-              Impact Across Your Quality
+            <Eyebrow variant="dark">
+              ITSM &amp; Enterprise Service Management
+            </Eyebrow>
+
+            <h2 className="font-heading mt-4 max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your ITSM
               <br />
-              Engineering Ecosystem
+              Service Management Ecosystem
             </h2>
+
+            <p className="font-body mt-5 max-w-2xl text-[15px] leading-relaxed text-white/60">
+              Starfii connects service desk transformation, core ITSM
+              practices, automation, AI, integrations, and service visibility
+              to create a more connected and scalable service operation.
+            </p>
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2">
-            {ecosystemImpact.map((item, i) => (
+            {itsmImpact.map((item, i) => (
               <Reveal key={item.title} delay={i * 90}>
                 <a
-                  href="#"
-                  className="group flex items-center justify-between rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  href="#connect"
+                  className="group flex min-h-[104px] items-center justify-between gap-6 rounded-2xl bg-white px-8 py-7 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                 >
-                  <span
-                    className="font-body text-[19px] font-medium"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {item.title}
-                  </span>
+                  <div>
+                    <span
+                      className="font-body text-[19px] font-medium"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                       {item.title}
+                    </span>
+                    <p className="font-body mt-2 max-w-xl text-[13px] leading-relaxed text-slate-500">
+                      {item.body}
+                    </p>
+                  </div>
+
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"
                     style={{ backgroundColor: INDIGO_CTA }}
                   >
-                    <Plus size={18} />
+                    <ArrowUpRight size={18} />
                   </span>
                 </a>
               </Reveal>
             ))}
           </div>
         </div>
+      </section>
 
-</section>
+      {/* ============================================================
+          INSIGHTS / BLOGS
+          Derived from blogs/blogData.ts so every card links to a
+          real, statically generated blog page (see fix note above).
+      ============================================================ */}
+      <section className="bg-[#EEF0F7] py-24">
+        <div className={ALIGN}>
+          <Reveal className="flex items-center justify-between">
+            <div>
+              <span
+                className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                <span aria-hidden="true"></span>
+                <span>ITSM &amp; Enterprise Service Management</span>
+              </span>
 
+              <h2
+                className="font-heading mt-4 max-w-2xl text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {"Latest Insights & Blogs"}
+              </h2>
+            </div>
+
+            <Link
+              href="/services/itsm-service-management/blogs"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
+              style={{ color: INDIGO_CTA }}
+            >
+              View All Insights
+              <ArrowUpRight size={16} />
+            </Link>
+          </Reveal>
+
+          <div className="mt-12">
+            <PagedCarousel
+              items={insights}
+              itemsPerPage={{ mobile: 1, tablet: 2, desktop: 3 }}
+              arrowVariant="light"
+              renderItem={(post, i) => (
+                <Reveal
+                  key={post.slug}
+                  delay={i * 90}
+                  className="h-full"
+                >
+                  <Link
+                    href={`/services/itsm-service-management/blogs/${post.slug}`}
+                    className="block h-full"
+                    aria-label={`Read ${post.title}`}
+                  >
+                    {post.large ? (
+                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                        />
+
+                        <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{ color: INDIGO_CTA }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{ color: CHAMPION_BLUE }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            style={{ color: INDIGO_CTA }}
+                          >
+                            Read More
+                            <ArrowUpRight size={14} />
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="group">
+                        <div className="h-[220px] overflow-hidden rounded-2xl">
+                          <img
+                            src={post.image}
+                            alt={post.title}
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                          />
+                        </div>
+
+                        <div className="pt-5">
+                          <span
+                            className="font-body text-[12px] font-semibold tracking-wide"
+                            style={{ color: INDIGO_CTA }}
+                          >
+                            BLOG
+                          </span>
+
+                          <h3
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
+                            style={{ color: CHAMPION_BLUE }}
+                          >
+                            {post.title}
+                          </h3>
+
+                          <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
+                            {post.body}
+                          </p>
+
+                          <span
+                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            style={{ color: INDIGO_CTA }}
+                          >
+                            Read More
+                            <ArrowUpRight size={14} />
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </Link>
+                </Reveal>
+              )}
+            />
+          </div>
+        </div>
+      </section>
 
       {/* ============================================================
           CASE STUDIES
-          (91. Case studies)
+          (119. Case studies)
       ============================================================ */}
 
 <section
@@ -1329,7 +1223,7 @@ export default function QualityEngineeringSection(): ReactElement {
         className="font-heading text-[36px] font-medium lg:text-[44px]"
         style={{ color: CHAMPION_BLUE }}
       >
-        Quality Engineering Case Studies
+        ITSM & Enterprise Service Management Case Studies
       </h2>
 
       <Link
@@ -1337,7 +1231,7 @@ export default function QualityEngineeringSection(): ReactElement {
         className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
         style={{ color: INDIGO_CTA }}
       >
-        View All Quality Engineering Case Studies
+        View All ITSM & Enterprise Service Management Case Studies
         <ArrowUpRight size={16} />
       </Link>
     </Reveal>
@@ -1364,7 +1258,7 @@ export default function QualityEngineeringSection(): ReactElement {
             >
               {/* IMAGE */}
               <Link
-               href={`${CASE_STUDY_BASE}/${study.slug}`}
+                href={`${CASE_STUDY_BASE}/${study.slug}`}
                 aria-label={`Read ${study.title}`}
                 className="block h-[220px] flex-shrink-0 overflow-hidden"
               >
@@ -1387,7 +1281,7 @@ export default function QualityEngineeringSection(): ReactElement {
                 </span>
 
                 <Link
-                  href={`${CASE_STUDY_BASE}/${study.slug}`}
+                   href={`${CASE_STUDY_BASE}/${study.slug}`}
                   className="block"
                 >
                   <h3
@@ -1407,7 +1301,7 @@ export default function QualityEngineeringSection(): ReactElement {
                 {/* LEARN MORE */}
                 <div className="mt-auto pt-6">
                   <Link
-                    href={`${CASE_STUDY_BASE}/${study.slug}`}
+                     href={`${CASE_STUDY_BASE}/${study.slug}`}
                     aria-label={`Learn more about ${study.title}`}
                     className="font-body inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold transition-all duration-200 hover:translate-x-1"
                     style={{
@@ -1432,7 +1326,7 @@ export default function QualityEngineeringSection(): ReactElement {
         className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
         style={{ color: INDIGO_CTA }}
       >
-        View All Quality Engineering Case Studies
+        View All ITSM & Enterprise Service Management Case Studies
         <ArrowUpRight size={16} />
       </Link>
     </div>
@@ -1440,148 +1334,8 @@ export default function QualityEngineeringSection(): ReactElement {
 </section>
 
    {/* ============================================================
-    INSIGHTS / WHAT'S NEW
-============================================================ */}
-
-<section className="bg-[#EEF0F7] py-24">
-  <div className={ALIGN}>
-    <Reveal className="flex items-center justify-between">
-      <h2
-        className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-        style={{ color: CHAMPION_BLUE }}
-      >
-        What's New in Quality Engineering
-      </h2>
-
-      <Link
-        href={BLOG_BASE}
-        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
-        style={{ color: INDIGO_CTA }}
-      >
-        View All Blogs
-        <ArrowUpRight size={16} />
-      </Link>
-    </Reveal>
-
-    <div className="mt-12">
-      <Carousel
-        itemCount={insights.length}
-        arrowVariant="light"
-        clickToAdvance={false}
-      >
-        {insights.map((post, i) => (
-          <Reveal
-            key={post.slug}
-            delay={i * 90}
-            className={`flex-shrink-0 snap-start ${
-              post.large
-                ? "w-[420px]"
-                : "w-[340px]"
-            }`}
-          >
-            <Link
-              href={`${BLOG_BASE}/${post.slug}`}
-              className="group block h-full"
-              aria-label={`Read ${post.title}`}
-            >
-              {post.large ? (
-                <div className="relative h-[420px] overflow-hidden rounded-2xl">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-
-                  <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      QUALITY ENGINEERING
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-2 mt-2 text-[13px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <div
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-                      <ArrowUpRight size={15} />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div>
-                  <div className="h-[220px] overflow-hidden rounded-2xl">
-                    <img
-                      src={post.image}
-                      alt={post.title}
-                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                  </div>
-
-                  <div className="pt-5">
-                    <span
-                      className="font-body text-[12px] font-semibold tracking-wide"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      QUALITY ENGINEERING
-                    </span>
-
-                    <h3
-                      className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    >
-                      {post.title}
-                    </h3>
-
-                    <p className="font-body ss-clamp-3 mt-3 text-[14px] leading-relaxed text-slate-600">
-                      {post.body}
-                    </p>
-
-                    <div
-                      className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
-                      style={{
-                        color: INDIGO_CTA,
-                      }}
-                    >
-                      Read More
-                      <ArrowUpRight size={15} />
-                    </div>
-                  </div>
-                </div>
-              )}
-            </Link>
-          </Reveal>
-        ))}
-      </Carousel>
-    </div>
-  </div>
-</section>
-
-      {/* ============================================================
           CLOSING CTA
-          (92. CTA)
+          (120. CTA)
       ============================================================ */}
       <section id="connect" className="bg-white py-24">
         <div className={ALIGN}>
@@ -1590,12 +1344,12 @@ export default function QualityEngineeringSection(): ReactElement {
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
             <h2 className="font-heading mx-auto max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-              Ready to Build a Quality Strategy That Scales?
+              Ready to Build an ITSM Strategy That Scales?
             </h2>
             <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Talk to Starfii about manual testing, test automation, API
-              and performance testing, security testing, or embedding
-              continuous and AI assisted testing into your pipeline.
+              Talk to Starfii about ITSM consulting, implementation, service desk
+              transformation, workflow automation, AI powered ITSM, integrations,
+              or platform expertise for scalable service operations.
             </p>
             <a
               href="mailto:hello@starfii.com"

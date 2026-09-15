@@ -63,7 +63,7 @@ const TAB_AUTOPLAY_MS = 4000;
    40. CTA                             -> Closing CTA section
 ================================================================ */
 
-// Small dash-led eyebrow, matching the "— Software & Product Engineering"
+// Small eyebrow matching the "Software & Product Engineering"
 // heading style used across the page.
 function Eyebrow({
   children,
@@ -77,7 +77,6 @@ function Eyebrow({
       className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
       style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
     >
-      <span aria-hidden="true">—</span>
       <span>{children}</span>
     </span>
   );
@@ -1095,7 +1094,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
                   <div className="mt-16">
                     <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
-                      — {area.title}
+                      {area.title}
                     </h3>
                     <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
                       {area.body}
@@ -1195,7 +1194,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                   className="font-heading text-[22px] font-semibold leading-snug"
                   style={{ color: CHAMPION_BLUE }}
                 >
-                  — {current.heading}
+                  {current.heading}
                 </h3>
                 <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
                   {current.body}
@@ -1257,7 +1256,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                     className="font-body text-[19px] font-medium"
                     style={{ color: CHAMPION_BLUE }}
                   >
-                    — {item.title}
+                    {item.title}
                   </span>
                   <span
                     className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300 group-hover:rotate-45"

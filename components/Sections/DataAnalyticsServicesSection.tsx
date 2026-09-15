@@ -564,15 +564,45 @@ export default function DataAnalyticsServicesSection() {
   const [tabHovered, setTabHovered] = useState(false);
   const [openImpact, setOpenImpact] = useState<number | null>(null);
   const [insightPage, setInsightPage] = useState(0);
+  const [insightStepWidth, setInsightStepWidth] = useState(0);
+  const insightTrackRef = useRef<HTMLDivElement | null>(null);
   const current = tabs[activeTab];
 
-  // Insights carousel: 3 cards per page
+  // Insights carousel: keep 3 cards visible and move exactly 1 card per click.
   const INSIGHTS_PER_PAGE = 3;
-  const insightPages = Math.ceil(insights.length / INSIGHTS_PER_PAGE);
-  const visibleInsights = insights.slice(
-    insightPage * INSIGHTS_PER_PAGE,
-    insightPage * INSIGHTS_PER_PAGE + INSIGHTS_PER_PAGE
-  );
+  const maxInsightPage = Math.max(0, insights.length - INSIGHTS_PER_PAGE);
+  const insightPages = maxInsightPage + 1;
+
+  const measureInsightStep = useCallback(() => {
+    const track = insightTrackRef.current;
+    const firstCard = track?.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+    setInsightStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
+
+  useEffect(() => {
+    measureInsightStep();
+
+    window.addEventListener("resize", measureInsightStep);
+    return () => window.removeEventListener("resize", measureInsightStep);
+  }, [measureInsightStep]);
+
+  useEffect(() => {
+    const track = insightTrackRef.current;
+    if (!track) return;
+
+    const resizeObserver = new ResizeObserver(measureInsightStep);
+    resizeObserver.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) resizeObserver.observe(firstCard);
+
+    return () => resizeObserver.disconnect();
+  }, [measureInsightStep]);
+
+  useEffect(() => {
+    setInsightPage((currentPage) => Math.min(currentPage, maxInsightPage));
+  }, [maxInsightPage]);
 
   // --- Autoplay for the left-side tab list ---
   // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
@@ -1252,18 +1282,24 @@ export default function DataAnalyticsServicesSection() {
           </motion.div>
 
           <motion.div
-            key={insightPage}
-            initial={{ opacity: 0, y: 16 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-3"
+            className="mt-14 overflow-hidden"
           >
-            {visibleInsights.map((post) => (
+            <motion.div
+              ref={insightTrackRef}
+              animate={{
+                x: insightStepWidth ? -(insightPage * insightStepWidth) : 0,
+              }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="flex gap-6"
+            >
+            {insights.map((post) => (
               <Link
                 key={post.slug}
                 href={`/services/data-analytics/blogs/${post.slug}`}
                 aria-label={`Read ${post.title}`}
-                className="block h-full"
+                className="block h-full w-full flex-none md:w-[calc((100%_-_48px)/3)]"
               >
                 {post.gradient ? (
                   <div
@@ -1335,6 +1371,7 @@ export default function DataAnalyticsServicesSection() {
                 )}
               </Link>
             ))}
+            </motion.div>
           </motion.div>
 
           {/* Progress bar + pagination */}
@@ -1353,9 +1390,10 @@ export default function DataAnalyticsServicesSection() {
                 type="button"
                 aria-label="Previous insights"
                 onClick={() =>
-                  setInsightPage((p) => (p - 1 + insightPages) % insightPages)
+                  setInsightPage((p) => Math.max(0, p - 1))
                 }
-                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-400 transition-colors duration-300 hover:text-slate-600"
+                disabled={insightPage === 0}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-400 transition-colors duration-300 hover:text-slate-600 disabled:opacity-40"
               >
                 <ChevronLeft size={18} />
               </button>
@@ -1363,9 +1401,10 @@ export default function DataAnalyticsServicesSection() {
                 type="button"
                 aria-label="Next insights"
                 onClick={() =>
-                  setInsightPage((p) => (p + 1) % insightPages)
+                  setInsightPage((p) => Math.min(maxInsightPage, p + 1))
                 }
-                className="flex h-11 w-11 items-center justify-center rounded-full text-white"
+                disabled={insightPage === maxInsightPage}
+                className="flex h-11 w-11 items-center justify-center rounded-full text-white disabled:opacity-40"
                 style={{ backgroundColor: ACCENT_INDIGO }}
               >
                 <ChevronRight size={18} />

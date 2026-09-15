@@ -512,13 +512,16 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
     { label: "Cloud & DevOps", href: "/services/cloud" },
     // { label: "enter prise", href: "/services/enterprise-platform-services" },
     { label: "legacy-modernization", href: "/services/legacy-Modernization" },
-    { label: "ITSM & Service Management", href: "/services/artificial-intelligence" },
+    { label: "ITSM & Service Management", href: "/services/itsm-service-management" },
+
     { label: "Freshservice", href: "/services/global-capability-centers" },
     // { label: "Software & Product Engineering", href: "/services/Software & Product Engineering" },
        { label: "ITSM & Migration", href: "/services/ITSM-Migration" },
         { label: "quality-engineering", href: "/services/Quality-Engineering" },
 
     { label: "Service Now", href: "/services/servicenow" },
+
+    // ITSM & Enterprise Service Management
   ];
 
   const offeringsLeft = [

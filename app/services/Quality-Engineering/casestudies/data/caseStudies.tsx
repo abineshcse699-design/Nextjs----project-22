@@ -30,6 +30,10 @@ export type CaseStudy = {
   benefits: string[];
   technologies: string[];
   stats: CaseStudyStat[];
+
+  // Publish date, format "YYYY-MM-DD". Used for newest-first ordering
+  // on the combined /About/case-study filter page.
+  date: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -144,6 +148,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Coverage across prioritized critical workflows",
       },
     ],
+
+    date: "2025-02-01",
   },
 
   {
@@ -257,6 +263,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Coverage across prioritized digital journeys",
       },
     ],
+
+    date: "2025-03-15",
   },
 
   {
@@ -370,6 +378,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Coverage across prioritized scenarios",
       },
     ],
+
+    date: "2025-05-01",
   },
 
   {
@@ -483,6 +493,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Target availability supported by validation",
       },
     ],
+
+    date: "2025-07-01",
   },
 
   {
@@ -596,6 +608,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Coverage across prioritized business workflows",
       },
     ],
+
+    date: "2025-09-01",
   },
 ];
 

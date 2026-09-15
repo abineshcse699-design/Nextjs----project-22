@@ -34,6 +34,10 @@ export type CaseStudy = {
   stats: CaseStudyStat[];
 
   phases: CaseStudyPhase[];
+
+  // Publish date, format "YYYY-MM-DD". Used for newest-first ordering
+  // on the combined /About/case-study filter page.
+  date: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -157,6 +161,8 @@ export const caseStudies: CaseStudy[] = [
           "Execute the production migration using detailed runbooks, rollback plans, and hypercare support.",
       },
     ],
+
+    date: "2025-04-01",
   },
 
   {
@@ -273,6 +279,8 @@ export const caseStudies: CaseStudy[] = [
           "Deploy the modern catalog and provide post launch optimization support.",
       },
     ],
+
+    date: "2025-05-01",
   },
 
   {
@@ -389,6 +397,8 @@ export const caseStudies: CaseStudy[] = [
           "Implement ongoing data quality and CMDB governance processes.",
       },
     ],
+
+    date: "2025-06-01",
   },
 
   {
@@ -504,6 +514,8 @@ export const caseStudies: CaseStudy[] = [
           "Monitor workflow performance and continuously improve automation after go live.",
       },
     ],
+
+    date: "2025-07-01",
   },
 
   {
@@ -622,6 +634,8 @@ export const caseStudies: CaseStudy[] = [
           "Continuously introduce improvements as business requirements and technology needs change.",
       },
     ],
+
+    date: "2025-08-01",
   },
 ];
 

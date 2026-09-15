@@ -25,6 +25,10 @@ export type CaseStudy = {
     value: string;
     label: string;
   }[];
+
+  // Publish date, format "YYYY-MM-DD". Used for newest-first ordering
+  // on the combined /About/case-study filter page.
+  date: string;
 };
 
 export const caseStudies: CaseStudy[] = [
@@ -103,6 +107,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Lower maintenance effort",
       },
     ],
+
+    date: "2025-03-01",
   },
 
   {
@@ -180,6 +186,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Improved deployment frequency",
       },
     ],
+
+    date: "2025-04-15",
   },
 
   {
@@ -256,6 +264,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Validated migration accuracy",
       },
     ],
+
+    date: "2025-05-20",
   },
 
   {
@@ -332,6 +342,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Faster API delivery",
       },
     ],
+
+    date: "2025-06-25",
   },
 
   {
@@ -408,6 +420,8 @@ export const caseStudies: CaseStudy[] = [
         label: "Improved application scalability",
       },
     ],
+
+    date: "2025-08-10",
   },
 ];
 
