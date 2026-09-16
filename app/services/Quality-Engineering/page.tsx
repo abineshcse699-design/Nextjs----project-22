@@ -6,6 +6,15 @@ export const metadata = {
   title: "Quality Engineering",
   description:
     "Improve software reliability with intelligent testing, automation, and continuous quality engineering practices.",
+      icons: {
+    icon: [
+      {
+        url: "/starfii_logo_WHITE.svg",
+        type: "image/svg+xml",
+        sizes: "32x32",
+      },
+    ],
+  },
 };
 
 export default function Page() {

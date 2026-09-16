@@ -23,6 +23,7 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
+import { capabilities as focusAreas } from "../../app/services/digital-software/capabilities/data";
 
 /* ===============================================================
    BRAND TOKENS
@@ -61,12 +62,17 @@ function Eyebrow({
   variant = "light",
 }: {
   children: ReactNode;
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "black";
 }): ReactElement {
   return (
     <span
       className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
-      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+      style={{ color:
+        variant === "dark"
+          ? "#FFFFFF"
+          : variant === "black"
+            ? "#000000"
+            : CHAMPION_BLUE }}
     >
       <span>{children}</span>
     </span>
@@ -85,56 +91,6 @@ const keyTakeaways = [
   {
     title: "Scale",
     body: "Accelerate delivery through product strategy, UI/UX engineering, cloud engineering, and quality engineering while keeping performance and customer experience at the center.",
-  },
-];
-
-type FocusArea = { title: string; body: string; tags: string[] };
-
-const focusAreas: FocusArea[] = [
-  {
-    title: "UI/UX Engineering",
-    body: "Starfii's UI/UX engineering team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
-    tags: ["UX", "UI", "DESIGN"],
-  },
-  {
-    title: "Web Application Development",
-    body: "Starfii builds web applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
-    tags: ["WEB", "FRONTEND", "FULL STACK"],
-  },
-  {
-    title: "Mobile Application Development",
-    body: "Starfii's mobile application development team ships native and cross platform apps that combine performance, polish, and reliability across iOS and Android.",
-    tags: ["IOS", "ANDROID", "CROSS PLATFORM"],
-  },
-  {
-    title: "Backend Engineering",
-    body: "Starfii's backend engineering practice builds resilient services, data models, and infrastructure that keep your software product fast, secure, and ready to scale.",
-    tags: ["BACKEND", "MICROSERVICES", "CLOUD"],
-  },
-  {
-    title: "API & Integrations",
-    body: "Starfii designs and builds API and integrations layers that connect your software product to partners, internal systems, and third party platforms without adding fragility.",
-    tags: ["API", "INTEGRATIONS", "CLOUD"],
-  },
-  {
-    title: "SaaS Engineering",
-    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS engineering capability on real production projects.",
-    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
-  },
-  {
-    title: "Enterprise Application Development",
-    body: "Starfii is an enterprise application development partner that works from ideation through launch, combining AI driven software engineering with proven practices to deliver breakthrough growth, value, and performance.",
-    tags: ["ENTERPRISE", "PLATFORMS", "SCALE"],
-  },
-  {
-    title: "Product Modernization",
-    body: "Starfii's product modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
-    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
-  },
-  {
-    title: "QA and Release Engineering",
-    body: "Starfii's QA and release engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
-    tags: ["QA", "RELEASE", "AUTOMATION"],
   },
 ];
 
@@ -380,6 +336,236 @@ function AnimationStyles(): ReactElement {
           background-color 0.3s ease, border-color 0.3s ease;
       }
 
+      /* =============================================================
+         PREMIUM CAPABILITIES GRID
+         Scoped only to the Focus Areas section.
+      ============================================================= */
+      .ss-capabilities-section {
+        isolation: isolate;
+      }
+
+      .ss-capabilities-grid {
+        position: relative;
+      }
+
+      .ss-capabilities-grid::before {
+        content: "";
+        position: absolute;
+        inset: -70px -40px;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.42;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+      }
+
+      .ss-capability-card {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012) 42%, rgba(164,143,234,0.035)),
+          #0F0E18;
+        border: 1px solid rgba(255,255,255,0.10);
+        box-shadow: 0 20px 55px rgba(0,0,0,0.16);
+        transform: translateZ(0);
+        transition:
+          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.4s ease,
+          box-shadow 0.55s ease,
+          background 0.45s ease;
+      }
+
+      .ss-capability-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          radial-gradient(260px 180px at 85% 8%, rgba(164,143,234,0.20), transparent 70%),
+          radial-gradient(220px 180px at 5% 100%, rgba(79,63,224,0.12), transparent 70%);
+        transition: opacity 0.5s ease;
+      }
+
+      .ss-capability-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        opacity: 0;
+        transform: translateX(-105%);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        transition: opacity 0.25s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(164,143,234,0.48);
+        box-shadow:
+          0 28px 75px rgba(0,0,0,0.28),
+          0 0 0 1px rgba(164,143,234,0.05),
+          0 0 55px rgba(79,63,224,0.12);
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.018) 42%, rgba(164,143,234,0.07)),
+          #11101B;
+      }
+
+      .ss-capability-card:hover::before {
+        opacity: 1;
+      }
+
+      .ss-capability-card:hover::after {
+        opacity: 1;
+        transform: translateX(105%);
+      }
+
+      .ss-capability-number {
+        position: absolute;
+        top: -18px;
+        right: 18px;
+        z-index: -1;
+        font-family: var(--font-heading, sans-serif);
+        font-size: 116px;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: -0.08em;
+        color: rgba(255,255,255,0.025);
+        transition: color 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-number {
+        color: rgba(164,143,234,0.065);
+        transform: translate(-8px, 4px);
+      }
+
+      .ss-capability-icon {
+        transition:
+          transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background-color 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-icon {
+        transform: rotate(8deg) scale(1.08);
+        background-color: ${INDIGO_CTA};
+        border-color: ${INDIGO_CTA};
+        box-shadow: 0 10px 28px rgba(79,63,224,0.28);
+      }
+
+      .ss-capability-title {
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-title {
+        transform: translateX(4px);
+      }
+
+      .ss-capability-line {
+        position: relative;
+        height: 1px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.10);
+      }
+
+      .ss-capability-line::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 42%;
+        background: linear-gradient(90deg, ${LAVENDER_ACCENT}, transparent);
+        transform: translateX(-120%);
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-line::after {
+        transform: translateX(250%);
+      }
+
+      .ss-capability-tag {
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-tag {
+        color: rgba(255,255,255,0.78);
+        border-color: rgba(164,143,234,0.28);
+        background-color: rgba(164,143,234,0.06);
+      }
+
+      .ss-capability-orb {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        right: -100px;
+        top: 12%;
+        border: 1px solid rgba(164,143,234,0.12);
+        border-radius: 9999px;
+        pointer-events: none;
+        animation: ss-capability-orbit 14s linear infinite;
+      }
+
+      .ss-capability-orb::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        top: 20px;
+        left: 50%;
+        border-radius: 9999px;
+        background: ${LAVENDER_ACCENT};
+        box-shadow: 0 0 18px rgba(164,143,234,0.75);
+      }
+
+      @keyframes ss-capability-orbit {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      .ss-capability-learn-more {
+        transition: color 0.3s ease;
+      }
+
+      .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(1);
+      }
+
+      .ss-capability-card:hover .ss-capability-learn-more {
+        color: ${LAVENDER_ACCENT};
+      }
+
+      @media (max-width: 639px) {
+        .ss-capability-card {
+          min-height: 390px;
+        }
+
+        .ss-capability-number {
+          font-size: 88px;
+        }
+
+        .ss-capabilities-grid::before {
+          background-size: 52px 52px;
+        }
+      }
+
       .ss-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -407,8 +593,17 @@ function AnimationStyles(): ReactElement {
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
-        .ss-eco-panel {
+        .ss-eco-panel,
+        .ss-capability-card,
+        .ss-capability-icon,
+        .ss-capability-title,
+        .ss-capability-tag,
+        .ss-capability-learn-more .ss-capability-underline {
           transition: none !important;
+        }
+
+        .ss-capability-orb {
+          animation: none !important;
         }
         .ss-case-desc {
           max-height: none !important;
@@ -1068,68 +1263,106 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
+          Full-bleed image with a dark left-side readability gradient,
+          matching the reference design.
       ============================================================ */}
 
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
+        {/* FULL-BLEED HERO IMAGE */}
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1800&auto=format&fit=crop"
-            alt="Software and product engineering team reviewing a digital product"
-            className="h-full w-full object-cover object-[75%_center]"
+            src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=3840&auto=format&fit=crop"
+            alt="Software engineering team collaborating on a digital product"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/0 to-transparent" />
-        </div>
-        <div className={`${ALIGN} py-24 lg:py-32`}>
-          <nav
-            aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
-          >
-            <a href="/" className="hover:underline">
-              Home
-            </a>
-            <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
-              Services
-            </a>
-            <ChevronRight size={14} />
-            <span className="text-slate-500">Software &amp; Product Engineering</span>
-          </nav>
 
+          {/* Dark readability gradient — image remains visible on the right */}
           <div
-            className="mt-8 opacity-0"
-            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-          >
-            <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-          </div>
-
-          <h2
-            className={`${HERO_HEADING} mt-4 max-w-2xl opacity-0`}
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-          >
-            Software and Product Engineering for Modern Enterprises
-          </h2>
-
-          <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
-            style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-          >
-            Starfii turns ideas into scalable software products and modern
-            platforms with product strategy, AI driven engineering, and
-            faster delivery cycles.
-          </p>
-
-          <a
-            href="#connect"
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
+            className="absolute inset-0"
             style={{
-              backgroundColor: CHAMPION_BLUE,
-              animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
             }}
-          >
-            Connect Now
-            <ArrowUpRight size={17} />
-          </a>
+          />
+
+          {/* Small bottom fade for a polished edge */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-20"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+            }}
+          />
+        </div>
+
+        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
+          <div className="w-full max-w-[760px] py-20 lg:py-28">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+              style={{
+                color: "rgba(255,255,255,0.92)",
+                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+              }}
+            >
+              <a href="/" className="transition-opacity hover:opacity-70">
+                Home
+              </a>
+              <ChevronRight size={14} />
+              <a href="/services" className="transition-opacity hover:opacity-70">
+                Services
+              </a>
+              <ChevronRight size={14} />
+              <span className="text-white/60">
+                Software &amp; Product Engineering
+              </span>
+            </nav>
+
+            {/* Eyebrow */}
+            <div
+              className="mt-10 opacity-0"
+              style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
+            >
+              <Eyebrow variant="dark">
+                Software &amp; Product Engineering
+              </Eyebrow>
+            </div>
+
+            {/* Main heading */}
+            <h1
+              className="font-heading mt-5 max-w-[720px] text-[48px] font-medium leading-[1.08] tracking-[-0.025em] text-white opacity-0 sm:text-[58px] lg:text-[68px] xl:text-[74px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            >
+              Software and Product Engineering for Modern Enterprises
+            </h1>
+
+            {/* Description */}
+            <p
+              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+            >
+              Starfii turns ideas into scalable software products and modern
+              platforms with product strategy, AI driven engineering, and
+              faster delivery cycles.
+            </p>
+
+            {/* CTA */}
+            <a
+              href="#connect"
+              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+              style={{
+                color: INDIGO_CTA,
+                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+              }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
         </div>
       </section>
 
@@ -1141,7 +1374,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
           <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A leader in software and product engineering, Starfii designs
@@ -1184,6 +1417,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
                 alt="Two colleagues reviewing a product strategy roadmap"
+                loading="lazy"
+                decoding="async"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1192,32 +1427,42 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          FOCUS AREAS
+          FOCUS AREAS — premium capability grid
+          Each card now links through to its own detail page at
+          /services/digital-software/capabilities/[slug], with a
+          "Learn More" affordance that mirrors the case study cards.
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
+      <section className="ss-capabilities-section relative overflow-hidden bg-[#08070F] py-24 lg:py-28">
         <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
+          className="ss-drift-slow pointer-events-none absolute -right-20 top-[-12%] h-[620px] w-[620px] rounded-full"
           style={{
             background:
-              "radial-gradient(55% 90% at 100% 0%, rgba(164,143,234,0.32) 0%, rgba(79,63,224,0.18) 40%, rgba(10,9,18,0) 70%)",
+              "radial-gradient(circle, rgba(164,143,234,0.24) 0%, rgba(79,63,224,0.10) 38%, rgba(8,7,15,0) 72%)",
+            filter: "blur(4px)",
           }}
         />
         <div
-          className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
+          className="ss-drift-slower pointer-events-none absolute -bottom-40 -left-32 h-[520px] w-[520px] rounded-full"
           style={{
             background:
-              "radial-gradient(55% 80% at 0% 100%, rgba(63,90,214,0.28) 0%, rgba(10,9,18,0) 70%)",
+              "radial-gradient(circle, rgba(63,90,214,0.20) 0%, rgba(8,7,15,0) 70%)",
           }}
         />
 
         <div className={`relative ${ALIGN}`}>
-          <Reveal className="max-w-xl">
-            <Eyebrow variant="dark">Software &amp; Product Engineering</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
+          <Reveal className="max-w-3xl">
+            <div className="flex flex-wrap items-center gap-4">
+              <Eyebrow variant="dark">Software &amp; Product Engineering</Eyebrow>
+              <span className="font-body rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] font-medium tracking-[0.16em] text-white/45">
+                09 CAPABILITIES
+              </span>
+            </div>
+
+            <h2 className={`${SECTION_HEADING} mt-5 max-w-3xl text-white`}>
               Our Software &amp; Product Engineering Capabilities
             </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
+
+            <p className="font-body mt-5 max-w-2xl text-[15px] leading-relaxed text-white/60 sm:text-[16px]">
               Starfii plans, designs, and scales customer focused digital
               products and platforms with AI led engineering, seamless
               experiences, and modernization strategies that drive speed,
@@ -1225,49 +1470,73 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             </p>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="ss-capabilities-grid mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {focusAreas.map((area, i) => (
-              <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
-                  style={{
-                    backgroundColor: "#0F0E18",
-                    borderColor: "rgba(255,255,255,0.10)",
-                  }}
+              <Reveal key={area.slug} delay={(i % 3) * 90} className="h-full">
+                <Link
+                  href={`/services/digital-software/capabilities/${area.slug}`}
+                  aria-label={`Learn more about ${area.title}`}
+                  className="ss-capability-card flex h-full flex-col rounded-[24px] p-7 sm:p-8"
                 >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                  <div className="ss-capability-orb" aria-hidden="true" />
+                  <span className="ss-capability-number" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="relative flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <span
+                        className="font-body text-[12px] font-semibold tracking-[0.18em] text-white/35"
+                      >
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="h-px w-8 bg-white/10" />
+                      <span className="font-body text-[10px] font-semibold tracking-[0.18em] text-white/30">
+                        CAPABILITY
+                      </span>
+                    </div>
+
                     <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
+                      className="ss-capability-icon flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border"
+                      style={{ borderColor: "rgba(255,255,255,0.16)" }}
                     >
-                      <ArrowUpRight size={16} className="text-white" />
+                      <ArrowUpRight size={17} className="text-white" />
                     </span>
                   </div>
 
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                  <div className="relative mt-auto pt-20">
+                    <div className="ss-capability-line mb-6" />
+                    <h3 className="ss-capability-title font-heading text-[22px] font-semibold leading-[1.18] text-white sm:text-[24px]">
                       {area.title}
                     </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+                    <p className="font-body mt-4 text-[14px] leading-[1.75] text-white/50">
                       {area.body}
                     </p>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap gap-2">
+                  <div className="relative mt-6 flex flex-wrap gap-2">
                     {area.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
+                        className="ss-capability-tag font-body rounded-full border px-3 py-1.5 text-[10px] font-semibold tracking-[0.12em] text-white/45"
+                        style={{ borderColor: "rgba(255,255,255,0.12)" }}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                </div>
+
+                  <span className="ss-capability-learn-more font-body relative mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-medium text-white/70">
+                    <span className="relative">
+                      Learn More
+                      <span
+                        className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                        style={{ backgroundColor: LAVENDER_ACCENT }}
+                      />
+                    </span>
+                    <ArrowUpRight size={15} />
+                  </span>
+                </Link>
               </Reveal>
             ))}
           </div>
@@ -1352,6 +1621,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
+                loading="lazy"
+                decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -1383,7 +1654,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal>
             <Eyebrow variant="dark">Enterprise Application Development</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl text-white`}>
+            <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your Software
               <br />
               Product Engineering Ecosystem
@@ -1450,6 +1721,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                       <img
                         src={study.image}
                         alt={study.title}
+                loading="lazy"
+                decoding="async"
                         className="h-full w-full object-cover"
                       />
                     </div>
@@ -1510,7 +1783,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
           <Reveal className="flex items-center justify-between">
             <div>
               <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-              <h2 className={`${SECTION_HEADING} mt-4 max-w-lg`} style={{ color: CHAMPION_BLUE }}>
+              <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
                 {"What's New in Software & Product Engineering"}
               </h2>
             </div>
@@ -1546,6 +1819,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                         <img
                           src={post.image}
                           alt={post.title}
+                loading="lazy"
+                decoding="async"
                           className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                         />
 
@@ -1589,6 +1864,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                           <img
                             src={post.image}
                             alt={post.title}
+                loading="lazy"
+                decoding="async"
                             className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                           />
                         </div>

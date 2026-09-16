@@ -924,11 +924,11 @@ export default function ItsmMigrationTransformationSection() {
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40" />
+
         </div>
 
         <motion.div
@@ -956,15 +956,14 @@ export default function ItsmMigrationTransformationSection() {
 
           <motion.h1
             variants={heroItem}
-            className={`${HERO_HEADING} mt-8 max-w-2xl`}
-            style={{ color: CHAMPION_BLUE }}
+            className={`${HERO_HEADING} mt-8 max-w-2xl text-white`}
           >
             ITSM Migration and Transformation for Modern Service Management
           </motion.h1>
 
           <motion.p
             variants={heroItem}
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white"
           >
             Starfii moves enterprises off legacy service management
             platforms and onto modern environments, migrating data,
@@ -1000,7 +999,7 @@ export default function ItsmMigrationTransformationSection() {
           <OverviewAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A trusted ITSM migration and transformation partner, Starfii

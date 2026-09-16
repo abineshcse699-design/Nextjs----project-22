@@ -154,56 +154,56 @@ const tabs = [
     heading: "A data architecture blueprint before a single pipeline gets built",
     body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl.",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Build a Single Source of Truth",
     heading: "One governed data foundation, not a dozen conflicting copies",
     body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Engineer Pipelines That Scale",
     heading: "Pipelines built for the data volumes you will have next year, not just today",
     body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch.",
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Platforms: Pick the Right Cloud Fit",
     heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
     body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access.",
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Turn Data into Decisions",
     heading: "Analytics and dashboards people actually open",
     body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Data Science: Find the Pattern",
     heading: "Models that surface the pattern behind the decision, not just a dashboard number",
     body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production.",
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Modernize Legacy Data Estates",
     heading: "A clear path off aging warehouses and brittle ETL",
     body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting.",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Apply AI to Your Own Data",
     heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
     body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork.",
     image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1800&auto=format&fit=crop",
   },
 ];
 
@@ -248,7 +248,7 @@ const insights: Insight[] = [
     title: "Generative AI on Enterprise Data: From Warehouses to Answers",
     body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
     image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=90&w=1800&auto=format&fit=crop",
     gradient: false,
   },
   {
@@ -256,35 +256,35 @@ const insights: Insight[] = [
     title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
     body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right ",
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1800&auto=format&fit=crop",
   },
   {
     slug: "data-governance-at-scale-trust-every-pipeline",
     title: "Data Governance at Scale: Building Trust Into Every Pipeline",
     body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=1800&auto=format&fit=crop",
   },
   {
     slug: "mdm-in-practice-one-customer-record",
     title: "MDM in Practice: Getting Every Team to One Customer Record",
     body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=3840&auto=format&fit=crop",
   },
   {
     slug: "legacy-warehouse-to-lakehouse-migration-playbook",
     title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
     body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=90&w=1800&auto=format&fit=crop",
   },
   {
     slug: "bi-dashboards-designed-around-decisions",
     title: "BI That Gets Opened: Designing Dashboards Around Decisions",
     body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=90&w=1800&auto=format&fit=crop",
   },
 ];
 
@@ -710,7 +710,7 @@ export default function DataAnalyticsServicesSection() {
   }, [tabHovered, activeTab]);
 
   return (
-    <main className="bg-white pt-[92px] lg:pt-[100px]">
+    <main className="bg-white">
       <style>{`
         @keyframes ss-tab-progress {
           from { transform: scaleY(0); }
@@ -723,6 +723,57 @@ export default function DataAnalyticsServicesSection() {
         .ss-caret {
           animation: ss-caret-blink 0.9s steps(1) infinite;
         }
+        @keyframes ss-capability-ambient {
+          from { transform: translate3d(0, 0, 0) scale(1); }
+          to { transform: translate3d(-18px, 14px, 0) scale(1.08); }
+        }
+
+        .da-capabilities-grid { position: relative; }
+        .da-capabilities-grid::before {
+          content: ""; position: absolute; inset: -70px -40px; z-index: 0; pointer-events: none; opacity: 0.42;
+          background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+          background-size: 72px 72px; mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%); -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+        }
+        .da-capability-card {
+          position: relative; min-height: 390px; overflow: hidden; isolation: isolate; transform: translateZ(0);
+          background: linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012) 48%, rgba(164,143,234,0.045)), rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.09); box-shadow: 0 18px 50px rgba(0,0,0,0.16);
+          transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), border-color 0.4s ease, box-shadow 0.5s ease, background 0.45s ease;
+        }
+        .da-capability-card::before {
+          content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0;
+          background: radial-gradient(320px 220px at 85% 0%, rgba(164,143,234,0.18), transparent 70%), radial-gradient(240px 180px at 0% 100%, rgba(79,63,224,0.10), transparent 70%);
+          transition: opacity 0.5s ease;
+        }
+        .da-capability-card::after {
+          content: ""; position: absolute; top: 0; left: -110%; width: 70%; height: 1px;
+          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent);
+          transition: left 0.8s cubic-bezier(0.22,1,0.36,1);
+        }
+        .da-capability-card:hover {
+          transform: translateY(-9px); border-color: rgba(164,143,234,0.42);
+          box-shadow: 0 28px 70px rgba(0,0,0,0.28), 0 0 45px rgba(79,63,224,0.10);
+          background: linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.018) 42%, rgba(164,143,234,0.07)), #11101B;
+        }
+        .da-capability-card:hover::before { opacity: 1; }
+        .da-capability-card:hover::after { left: 120%; }
+        .da-capability-grid-texture {
+          position: absolute; inset: 0; pointer-events: none; opacity: 0.22;
+          background-image: linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+          background-size: 54px 54px; mask-image: linear-gradient(to bottom, transparent, black 20%, black 75%, transparent); -webkit-mask-image: linear-gradient(to bottom, transparent, black 20%, black 75%, transparent);
+        }
+        .da-capability-number {
+          position: absolute; top: -18px; right: 14px; font-family: var(--font-heading, sans-serif); font-size: 112px; line-height: 1; font-weight: 600; letter-spacing: -0.08em; color: rgba(255,255,255,0.025);
+          transition: transform 0.55s cubic-bezier(0.22,1,0.36,1), color 0.45s ease;
+        }
+        .da-capability-card:hover .da-capability-number { transform: translate(-8px, 5px); color: rgba(164,143,234,0.07); }
+        .da-capability-icon { transition: transform 0.45s cubic-bezier(0.34,1.56,0.64,1), background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease; }
+        .da-capability-card:hover .da-capability-icon { transform: rotate(8deg) scale(1.08); background: #4F3FE0; border-color: #4F3FE0; box-shadow: 0 10px 28px rgba(79,63,224,0.28); }
+        .da-capability-title { transition: transform 0.45s cubic-bezier(0.22,1,0.36,1); }
+        .da-capability-card:hover .da-capability-title { transform: translateX(4px); }
+        .da-capability-tag { transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease; }
+        .da-capability-card:hover .da-capability-tag { color: rgba(255,255,255,0.78); border-color: rgba(164,143,234,0.28); background: rgba(164,143,234,0.06); transform: translateY(-1px); }
+
         @media (prefers-reduced-motion: reduce) {
           .ss-tab-progress-fill {
             animation: none !important;
@@ -744,71 +795,83 @@ export default function DataAnalyticsServicesSection() {
         }
       `}</style>
 
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
+        {/* Full-bleed hero image: no white split, image covers the complete section */}
         <div className="absolute inset-0 -z-10">
           <motion.img
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0, scale: 1.08 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1800&auto=format&fit=crop"
-            alt=""
-            className="h-full w-full object-cover"
+            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop"
+            alt="Data analytics team collaborating on enterprise technology"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40" />
+
+          {/* Dark left-to-right gradient like the reference design */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
+            }}
+          />
         </div>
 
         <motion.div
           variants={heroContainer}
           initial="hidden"
           animate="visible"
-          className={`${ALIGN} py-24 lg:py-32`}
+          className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}
         >
-          <motion.nav
-            variants={heroItem}
-            aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            <a href="/" className="hover:underline">
-              Home
-            </a>
-            <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
-              Services
-            </a>
-            <ChevronRight size={14} />
-            <span className="text-slate-500">Data &amp; Analytics</span>
-          </motion.nav>
+          <div className="w-full max-w-[760px] py-20 lg:py-28">
+            <motion.nav
+              variants={heroItem}
+              aria-label="Breadcrumb"
+              className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90"
+            >
+              <a href="/" className="transition-colors hover:text-white">
+                Home
+              </a>
+              <ChevronRight size={14} />
+              <a href="/services" className="transition-colors hover:text-white">
+                Services
+              </a>
+              <ChevronRight size={14} />
+              <span className="text-white/70">Data &amp; Analytics</span>
+            </motion.nav>
 
-          <motion.h1
-            variants={heroItem}
-            className={`${HERO_HEADING} mt-8 max-w-2xl`}
-            style={{ color: CHAMPION_BLUE }}
-          >
-            Data &amp; Analytics Services for Decisions You Can Trust
-          </motion.h1>
+            <motion.h1
+              variants={heroItem}
+              className="font-heading mt-5 max-w-[720px] text-[48px] font-medium leading-[1.08] tracking-[-0.025em] text-white opacity-0 sm:text-[58px] lg:text-[68px] xl:text-[74px]"
+            >
+              Data &amp; Analytics Services for Decisions You Can Trust
+            </motion.h1>
 
-          <motion.p
-            variants={heroItem}
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
-          >
-            Starfii architects, engineers, and modernizes data platforms
-            and pipelines, turning scattered, siloed data into a governed,
-            AI-ready foundation that powers faster, more confident
-            decisions across the enterprise.
-          </motion.p>
+            <motion.p
+              variants={heroItem}
+              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px] lg:text-[18px]"
+            >
+              Starfii architects, engineers, and modernizes data platforms
+              and pipelines, turning scattered, siloed data into a governed,
+              AI-ready foundation that powers faster, more confident
+              decisions across the enterprise.
+            </motion.p>
 
-          <motion.a
-            variants={heroItem}
-            href="#connect"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
-            style={{ backgroundColor: CHAMPION_BLUE }}
-          >
-            Connect Now
-            <ArrowUpRight size={17} />
-          </motion.a>
+            <motion.a
+              variants={heroItem}
+              href="#connect"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </motion.a>
+          </div>
         </motion.div>
       </section>
 
@@ -823,7 +886,7 @@ export default function DataAnalyticsServicesSection() {
           <WhyMattersAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A trusted data and analytics partner, Starfii builds governed
@@ -862,7 +925,7 @@ export default function DataAnalyticsServicesSection() {
 
             <div className="group overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop"
                 alt="Analysts reviewing a data dashboard"
                 className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
               />
@@ -871,29 +934,58 @@ export default function DataAnalyticsServicesSection() {
         </motion.section>
       </div>
 
+      {/* ============================================================
+          CAPABILITIES — Software-page reference design applied to Data & Analytics
+          Content remains the original Data & Analytics capabilities.
+      ============================================================ */}
       <section
-        className="relative mt-24 overflow-hidden py-24"
+        className="relative mt-24 overflow-hidden bg-[#0A0912] py-24 lg:py-28"
         style={{
-          background: `radial-gradient(120% 140% at 85% 100%, rgba(108,93,211,0.35), transparent 55%), ${DARK_BG}`,
+          background:
+            "radial-gradient(120% 140% at 85% 100%, rgba(108,93,211,0.34), transparent 55%), #0A0912",
         }}
       >
-        <div className={ALIGN}>
+        <div
+          className="pointer-events-none absolute -right-40 -top-40 h-[620px] w-[620px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(164,143,234,0.20) 0%, rgba(79,63,224,0.08) 42%, transparent 72%)",
+            animation: "ss-capability-ambient 12s ease-in-out infinite alternate",
+          }}
+        />
+        <div
+          className="pointer-events-none absolute -bottom-52 -left-48 h-[560px] w-[560px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(63,90,214,0.18) 0%, transparent 70%)",
+            animation: "ss-capability-ambient 16s ease-in-out infinite alternate-reverse",
+          }}
+        />
+
+        <div className={`relative ${ALIGN}`}>
           <motion.div
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.2 }}
             variants={fadeUp}
-            className="max-w-2xl"
+            className="relative z-10 max-w-2xl"
           >
-            <h2 className={`${SECTION_HEADING} text-white`}>
-              Our Data &amp; Analytics
-              <br />
-              Capabilities
+            <div className="flex flex-wrap items-center gap-4">
+              <span className="font-body inline-flex items-center text-[16px] font-semibold text-white sm:text-[18px]">
+                Data &amp; Analytics
+              </span>
+              <span className="font-body rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 text-[11px] font-semibold tracking-[0.14em] text-white/45">
+                12 CAPABILITIES
+              </span>
+            </div>
+
+            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
+              Our Data &amp; Analytics Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-300">
-              Starfii plans, engineers, and governs data platforms that
-              scale with the business, so analytics and AI stay grounded
-              in data you can trust.
+              Starfii plans, engineers, and governs data platforms that scale
+              with the business, so analytics and AI stay grounded in data you
+              can trust.
             </p>
           </motion.div>
 
@@ -902,48 +994,48 @@ export default function DataAnalyticsServicesSection() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
             variants={container}
-            className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+            className="da-capabilities-grid relative z-10 mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
           >
             {focusAreas.map((area, i) => (
-              <motion.div
-                key={area.title}
-                variants={item}
-                className="flex flex-col rounded-2xl p-8 transition-colors duration-300 hover:bg-white/[0.06]"
-                style={{
-                  backgroundColor: DARK_CARD,
-                  border: `1px solid ${DARK_BORDER}`,
-                }}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="font-body text-[14px] text-slate-500">
+              <motion.div key={area.title} variants={item} className="h-full">
+                <article className="da-capability-card group flex h-full min-h-[390px] flex-col rounded-2xl p-8">
+                  <span className="da-capability-grid-texture" aria-hidden="true" />
+                  <span className="da-capability-number" aria-hidden="true">
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <a
-                    href="#connect"
-                    aria-label={`Learn more about ${area.title}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors duration-300 hover:border-white/40"
-                  >
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
 
-                <h3 className="font-heading mt-6 text-[19px] font-semibold text-white">
-                  {area.title}
-                </h3>
-                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-400">
-                  {area.body}
-                </p>
-
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {area.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-body rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium tracking-wide text-slate-300"
-                    >
-                      {tag}
+                  <div className="relative z-10 flex items-start justify-between gap-5">
+                    <div>
+                      <span className="font-body text-[13px] font-medium tracking-[0.08em] text-slate-500">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div className="mt-3 h-px w-10 bg-white/10 transition-all duration-500 group-hover:w-16 group-hover:bg-[#A48FEA]/60" />
+                    </div>
+                    <span className="da-capability-icon flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-white/15 text-white">
+                      <ArrowUpRight size={17} />
                     </span>
-                  ))}
-                </div>
+                  </div>
+
+                  <div className="relative z-10 mt-auto pt-16">
+                    <h3 className="da-capability-title font-heading text-[21px] font-semibold leading-snug text-white sm:text-[22px]">
+                      {area.title}
+                    </h3>
+                    <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-400">
+                      {area.body}
+                    </p>
+                  </div>
+
+                  <div className="relative z-10 mt-7 flex flex-wrap gap-2">
+                    {area.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="da-capability-tag font-body rounded-full border border-white/15 px-3 py-1.5 text-[10px] font-medium tracking-[0.10em] text-slate-400"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
               </motion.div>
             ))}
           </motion.div>
@@ -1251,10 +1343,10 @@ export default function DataAnalyticsServicesSection() {
             variants={fadeUp}
             className="flex items-end justify-between"
           >
-            <h2 className={`${SECTION_HEADING} max-w-lg`} style={{ color: CHAMPION_BLUE }}>
+            <h2 className={`${SECTION_HEADING} max-w-40px`} style={{ color: CHAMPION_BLUE }}>
               What&apos;s New in Data
-              <br />
-              &amp; Analytics
+              {/* <br />             */}
+               &amp; Analytics
             </h2>
             <Link
               href="/services/data-analytics/blogs"

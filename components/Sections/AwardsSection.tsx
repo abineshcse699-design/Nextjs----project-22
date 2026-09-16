@@ -33,7 +33,7 @@ const services = [
 export default function GrowthSection() {
   return (
     <section
-      className={`${poppins.className} relative overflow-hidden py-24 lg:py-28`}
+      className={`${poppins.className} relative py-24 lg:py-28`}
       style={{
         background:
           "linear-gradient(135deg, #e9e9fb 0%, #dcdcf5 35%, #cfcdf0 70%, #d7d2ee 100%)",
@@ -53,8 +53,8 @@ export default function GrowthSection() {
           lg:px-16
         "
       >
-        {/* Left column */}
-        <div className="flex flex-col justify-start">
+        {/* Left column - sticks in place while right column scrolls past */}
+        <div className="flex flex-col justify-start lg:sticky lg:top-28 lg:self-start">
          <h2
   className="
     max-w-[600px]
@@ -82,10 +82,7 @@ export default function GrowthSection() {
               sm:text-[17px]
             "
           >
-            Scalable, high-performance solutions customized for your
-            business. From Generative AI and cloud engineering to
-            enterprise product development, we deliver technology built for
-            long-term success.
+            Wherever You Are, We Meet You There
           </p>
         </div>
 

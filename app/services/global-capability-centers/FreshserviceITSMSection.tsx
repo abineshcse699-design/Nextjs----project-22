@@ -982,18 +982,17 @@ export default function FreshserviceITSMSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=3840&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
 
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
+            style={{ color: "#000000", animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
           >
             <a href="/" className="hover:underline">
               Home
@@ -1003,18 +1002,18 @@ export default function FreshserviceITSMSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Freshservice ITSM Services</span>
+            <span className="text-black">Freshservice ITSM Services</span>
           </nav>
 
           <h1
             className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            style={{ color: "#000000", animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
             Freshservice Implementation for Modern IT Operations
           </h1>
 
           <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-black opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Implement, customize, migrate and optimize Freshservice for
@@ -1121,7 +1120,7 @@ export default function FreshserviceITSMSection(): ReactElement {
           </div>
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A Freshservice implementation partner to enterprises and

@@ -319,23 +319,203 @@ function AnimationStyles(): ReactElement {
         animation: ss-caret-blink 0.9s steps(1) infinite;
       }
 
-      .ss-focus-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          border-color 0.4s ease, background-color 0.4s ease;
+      /* =============================================================
+         PREMIUM CAPABILITIES GRID
+         Same interaction system used by the Software & Product
+         Engineering capabilities section.
+      ============================================================= */
+      .ss-capabilities-section {
+        isolation: isolate;
       }
-      .ss-focus-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(164, 143, 234, 0.55);
-        background-color: #14121F;
+
+      .ss-capabilities-grid {
+        position: relative;
       }
-      .ss-focus-card:hover .ss-focus-arrow {
-        transform: rotate(45deg);
+
+      .ss-capabilities-grid::before {
+        content: "";
+        position: absolute;
+        inset: -70px -40px;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.42;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+      }
+
+      .ss-capability-card {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012) 42%, rgba(164,143,234,0.035)),
+          #0F0E18;
+        border: 1px solid rgba(255,255,255,0.10);
+        box-shadow: 0 20px 55px rgba(0,0,0,0.16);
+        transform: translateZ(0);
+        transition:
+          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.4s ease,
+          box-shadow 0.55s ease,
+          background 0.45s ease;
+      }
+
+      .ss-capability-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          radial-gradient(260px 180px at 85% 8%, rgba(164,143,234,0.20), transparent 70%),
+          radial-gradient(220px 180px at 5% 100%, rgba(79,63,224,0.12), transparent 70%);
+        transition: opacity 0.5s ease;
+      }
+
+      .ss-capability-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        opacity: 0;
+        transform: translateX(-105%);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        transition: opacity 0.25s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(164,143,234,0.48);
+        box-shadow:
+          0 28px 75px rgba(0,0,0,0.28),
+          0 0 0 1px rgba(164,143,234,0.05),
+          0 0 55px rgba(79,63,224,0.12);
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.018) 42%, rgba(164,143,234,0.07)),
+          #11101B;
+      }
+
+      .ss-capability-card:hover::before {
+        opacity: 1;
+      }
+
+      .ss-capability-card:hover::after {
+        opacity: 1;
+        transform: translateX(105%);
+      }
+
+      .ss-capability-number {
+        position: absolute;
+        top: -18px;
+        right: 18px;
+        z-index: -1;
+        font-family: var(--font-heading, sans-serif);
+        font-size: 116px;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: -0.08em;
+        color: rgba(255,255,255,0.025);
+        transition: color 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-number {
+        color: rgba(164,143,234,0.065);
+        transform: translate(-8px, 4px);
+      }
+
+      .ss-capability-icon {
+        transition:
+          transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background-color 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-icon {
+        transform: rotate(8deg) scale(1.08);
         background-color: ${INDIGO_CTA};
         border-color: ${INDIGO_CTA};
+        box-shadow: 0 10px 28px rgba(79,63,224,0.28);
       }
-      .ss-focus-arrow {
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-          background-color 0.3s ease, border-color 0.3s ease;
+
+      .ss-capability-title {
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-title {
+        transform: translateX(4px);
+      }
+
+      .ss-capability-line {
+        position: relative;
+        height: 1px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.10);
+      }
+
+      .ss-capability-line::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 42%;
+        background: linear-gradient(90deg, ${LAVENDER_ACCENT}, transparent);
+        transform: translateX(-120%);
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-line::after {
+        transform: translateX(250%);
+      }
+
+      .ss-capability-tag {
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-tag {
+        color: rgba(255,255,255,0.78);
+        border-color: rgba(164,143,234,0.28);
+        background-color: rgba(164,143,234,0.06);
+      }
+
+      .ss-capability-orb {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        right: -100px;
+        top: 12%;
+        border: 1px solid rgba(164,143,234,0.12);
+        border-radius: 9999px;
+        pointer-events: none;
+        animation: ss-capability-orbit 14s linear infinite;
+      }
+
+      .ss-capability-orb::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        top: 20px;
+        left: 50%;
+        border-radius: 9999px;
+        background: ${LAVENDER_ACCENT};
+        box-shadow: 0 0 18px rgba(164,143,234,0.75);
+      }
+
+      @keyframes ss-capability-orbit {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
       }
 
       .ss-clamp-2 {
@@ -351,22 +531,46 @@ function AnimationStyles(): ReactElement {
         overflow: hidden;
       }
 
+      @media (max-width: 639px) {
+        .ss-capability-card {
+          min-height: 350px;
+        }
+
+        .ss-capability-number {
+          font-size: 88px;
+        }
+
+        .ss-capabilities-grid::before {
+          background-size: 52px 52px;
+        }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-arrow-pulse, .ss-caret {
           animation: none !important;
           opacity: 1 !important;
           transform: none !important;
         }
+
         .ss-tab-progress-fill {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Case study / blog hover motion stays static */
+
         .ss-case-image,
         .ss-case-desc,
-        .ss-zoom-img {
+        .ss-zoom-img,
+        .ss-capability-card,
+        .ss-capability-icon,
+        .ss-capability-title,
+        .ss-capability-tag {
           transition: none !important;
         }
+
+        .ss-capability-orb {
+          animation: none !important;
+        }
+
         .ss-case-desc {
           max-height: none !important;
           opacity: 1 !important;
@@ -1060,14 +1264,14 @@ export default function ITSMSection(): ReactElement {
             alt=""
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+
         </div>
 
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
+            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
           >
             <a href="/" className="hover:underline">
               Home
@@ -1082,13 +1286,13 @@ export default function ITSMSection(): ReactElement {
 
           <h1
             className={`${HERO_HEADING} mt-8 max-w-xl opacity-0`}
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
             ITSM & Enterprise Service Management for Modern Enterprises
           </h1>
 
           <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Transform IT service operations with modern ITSM platforms,
@@ -1117,7 +1321,7 @@ export default function ITSMSection(): ReactElement {
           <TakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Starfii helps enterprises modernize service operations with ITSM consulting,
@@ -1166,7 +1370,7 @@ export default function ITSMSection(): ReactElement {
           FOCUS AREAS
       ============================================================ */}
 
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
+      <section className="ss-capabilities-section relative overflow-hidden bg-[#0A0912] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
           style={{
@@ -1194,42 +1398,51 @@ export default function ITSMSection(): ReactElement {
             </p>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="ss-capabilities-grid mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
-                  style={{
-                    backgroundColor: "#0F0E18",
-                    borderColor: "rgba(255,255,255,0.10)",
-                  }}
-                >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
-                    >
-                      <ArrowUpRight size={16} className="text-white" />
-                    </span>
+                <div className="ss-capability-card flex h-full flex-col justify-between rounded-[22px] p-8">
+                  <span className="ss-capability-number" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="ss-capability-orb" aria-hidden="true" />
+
+                  <div className="relative z-10">
+                    <div className="flex items-start justify-between">
+                      <span className="font-body text-[12px] font-semibold tracking-[0.12em] text-white/35">
+                        CAPABILITY {String(i + 1).padStart(2, "0")}
+                      </span>
+
+                      <span
+                        className="ss-capability-icon flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border text-white"
+                        style={{
+                          borderColor: "rgba(255,255,255,0.18)",
+                          backgroundColor: "rgba(255,255,255,0.02)",
+                        }}
+                      >
+                        <ArrowUpRight size={16} />
+                      </span>
+                    </div>
+
+                    <div className="mt-14">
+                      <h3 className="ss-capability-title font-heading text-[21px] font-semibold leading-snug text-white">
+                        {area.title}
+                      </h3>
+
+                      <div className="ss-capability-line mt-5" />
+
+                      <p className="font-body mt-4 text-[14px] leading-[1.75] text-white/55">
+                        {area.body}
+                      </p>
+                    </div>
                   </div>
 
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[19px] font-semibold leading-snug text-white">
-                      {area.title}
-                    </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
-                      {area.body}
-                    </p>
-                  </div>
-
-                  <div className="mt-8 flex flex-wrap gap-2">
+                  <div className="relative z-10 mt-8 flex flex-wrap gap-2">
                     {area.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
+                        className="ss-capability-tag font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
                         style={{ borderColor: "rgba(255,255,255,0.16)" }}
                       >
                         {tag}

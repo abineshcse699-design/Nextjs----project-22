@@ -753,20 +753,26 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   // are removed per request. Each renders as an image-topped
   // PlatformCard (see component above), matching the reference
   // "Featured Insight" card layout.
+  //
+  // Images bumped to w=2400 / q=90 (near-4K, high quality) — Unsplash
+  // serves whatever width you ask for via the `w` param, so this pulls
+  // a noticeably crisper source image than the previous w=1200 version
+  // while still rendering into the same fixed-height card via
+  // object-cover in PlatformCard.
   const platforms = [
     {
       name: "Turbodev",
       title: "Turbodev  the revenue engine for Shopify brands",
       image:
-        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=2400&auto=format&fit=crop",
       href: "https://turbodev.ai/",
       newTab: true,
     },
     {
-      name: "TurboDesk",
-      title: "TurboDesk  intelligent service and operations platform",
+      name: "Turbodesk",
+      title: "Turbodesk  intelligent service and operations platform",
       image:
-        "https://images.unsplash.com/photo-1626863905121-3b0c0ed7b94c?q=80&w=1200&auto=format&fit=crop",
+        "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?q=90&w=2400&auto=format&fit=crop",
       href: "/platform/turbodesk",
       newTab: false,
     },
@@ -789,7 +795,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
         ))}
       </div>
 
-      <div className={`mt-8 flex flex-col gap-4 rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}>
+      {/* <div className={`mt-8 flex flex-col gap-4 rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}>
         <div>
           <h4 className="text-[18px] font-semibold">Zerovity™</h4>
           <p className="mt-1.5 max-w-xl text-[13.5px] leading-relaxed text-white/70">
@@ -807,7 +813,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
           Learn more
           <ArrowUpRight size={16} />
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 }

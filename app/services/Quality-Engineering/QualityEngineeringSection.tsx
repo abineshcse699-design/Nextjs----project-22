@@ -1238,18 +1238,17 @@ export default function QualityEngineeringSection(): ReactElement {
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=3840&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
 
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
+            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
           >
             <a href="/" className="hover:underline">
               Home
@@ -1259,18 +1258,18 @@ export default function QualityEngineeringSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Quality Engineering</span>
+            <span className="text-white">Quality Engineering</span>
           </nav>
 
           <h1
             className={`${HERO_HEADING} mt-8 max-w-xl opacity-0`}
-            style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
             Quality Engineering for Modern Enterprises
           </h1>
 
           <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Improve software reliability with intelligent testing,
@@ -1300,7 +1299,7 @@ export default function QualityEngineeringSection(): ReactElement {
           <TakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Starfii helps enterprises improve software reliability by

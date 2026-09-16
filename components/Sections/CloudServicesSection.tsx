@@ -150,7 +150,7 @@ const tabs: ServiceTab[] = [
       "Cloud architecture blueprints built for scale, security, and cost, before migration begins",
     body: "Starfii designs landing zones, network topology, and account structure across AWS, Azure, and GCP up front, so every workload that moves in has a foundation built to last.",
     image:
-      "https://images.unsplash.com/photo-1664854953181-b12e6dda8b7c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Migration: Plan a Move That Fits",
@@ -158,7 +158,7 @@ const tabs: ServiceTab[] = [
       "A cloud migration roadmap sequenced around business risk, not just technical ease",
     body: "Starfii assesses your workloads and builds a cloud migration plan that moves the right systems in the right order, so the business keeps running while the cloud foundation gets built underneath it.",
     image:
-      "https://images.unsplash.com/photo-1695668548342-c0c1ad479aee?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Modernize: Cloud Native by Design",
@@ -166,7 +166,7 @@ const tabs: ServiceTab[] = [
       "Applications modernized and engineered for the cloud, not just moved onto it",
     body: "Starfii refactors legacy systems and builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
     image:
-      "https://images.unsplash.com/photo-1690627931320-16ac56eb2588?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "DevOps & CI/CD: Ship Faster, Safer",
@@ -174,7 +174,7 @@ const tabs: ServiceTab[] = [
       "DevOps culture and CI/CD pipelines that get code to production faster, without sacrificing stability",
     body: "Starfii aligns development and operations around automated pipelines, with testing, monitoring, and rollback built into every release, so teams ship more often with less risk.",
     image:
-      "https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Automation: Infrastructure as Code",
@@ -182,7 +182,7 @@ const tabs: ServiceTab[] = [
       "Infrastructure provisioned as code, so environments stay consistent and repeatable",
     body: "Starfii codifies infrastructure with Terraform and native tooling, replacing manual provisioning with version controlled environments that spin up the same way every time.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Observability: See Issues Before Impact",
@@ -190,14 +190,14 @@ const tabs: ServiceTab[] = [
       "Monitoring and observability that surfaces problems before they become incidents",
     body: "Starfii unifies metrics, logs, and traces across your cloud estate into a single view, with alerting tuned to cut noise so on call teams act on what actually matters.",
     image:
-      "https://images.unsplash.com/photo-1655000278839-b7d7b11251c5?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Security: Secure by Design",
     heading: "Cloud security built into the architecture, not added after launch",
     body: "Starfii embeds identity, network, and compliance controls into the cloud environment from the start, so security scales alongside the workloads it protects.",
     image:
-      "https://images.unsplash.com/photo-1633265486064-086b219458ec?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Managed Services: Run With Confidence",
@@ -205,7 +205,7 @@ const tabs: ServiceTab[] = [
       "Cloud operations and managed services that keep environments running around the clock",
     body: "Starfii's managed services and SRE led operations team monitors, patches, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
     image:
-      "https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=90&w=1400&auto=format&fit=crop",
   },
 ];
 
@@ -302,21 +302,21 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "reinsurer-aws-core-systems-migration",
     image:
-      "https://images.unsplash.com/photo-1683322499436-f4383dd59f5a?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=1200&auto=format&fit=crop",
     title: "Starfii Migrates a Global Reinsurer's Core Systems to AWS",
     body: "See how Starfii sequenced a zero downtime migration of core claims systems to AWS, cutting infrastructure cost while improving failover time for a global reinsurer.",
   },
   {
     slug: "regional-bank-multi-cloud-modernization",
     image:
-      "https://images.unsplash.com/photo-1545987796-200677ee1011?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=90&w=1200&auto=format&fit=crop",
     title: "Starfii Builds a Multi Cloud Foundation for a Regional Bank",
     body: "Explore how Starfii's multi cloud architecture gave a regional bank vendor flexibility across AWS and Azure while meeting strict data residency and compliance requirements.",
   },
   {
     slug: "utilities-kubernetes-platform",
     image:
-      "https://images.unsplash.com/photo-1506399558188-acca6f8cbf41?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=90&w=1200&auto=format&fit=crop",
     title:
       "Starfii Modernizes Field Operations with a Kubernetes Platform on GCP",
     body: "Discover how Starfii's Kubernetes platform on GCP gave a utilities provider real time visibility across the grid while cutting deployment time from days to minutes.",
@@ -324,14 +324,14 @@ const caseStudies: CaseStudy[] = [
   {
     slug: "healthcare-finops-cost-optimization",
     image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=90&w=1200&auto=format&fit=crop",
     title: "Starfii Cuts Cloud Spend 34 Percent for a Healthcare SaaS Platform",
     body: "Learn how Starfii's FinOps program right sized compute and storage across a healthcare SaaS platform without touching uptime or HIPAA compliance.",
   },
   {
     slug: "ecommerce-sre-uptime-program",
     image:
-      "https://images.unsplash.com/photo-1556745753-b2904692b3cd?q=80&w=900&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=90&w=1200&auto=format&fit=crop",
     title: "Starfii's SRE Program Lifts Uptime for a Fortune 500 Retailer",
     body: "See how Starfii's site reliability engineering practice reduced incident response time and lifted uptime during peak shopping seasons for a Fortune 500 retailer.",
   },
@@ -354,7 +354,7 @@ const insights: InsightPost[] = [
     slug: "multi-cloud-architecture-flexibility-control",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1664854953181-b12e6dda8b7c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=90&w=1200&auto=format&fit=crop",
     title:
       "Multi Cloud Architecture: Designing for Flexibility Without Losing Control",
     body: "Explore how Starfii designs multi cloud architecture across AWS, Azure, and GCP that gives enterprises vendor flexibility while keeping governance and cost under control.",
@@ -363,7 +363,7 @@ const insights: InsightPost[] = [
     slug: "finops-cloud-waste-performance",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1560221328-12fe60f83ab8?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=1000&auto=format&fit=crop",
     title: "FinOps in Practice: Cutting Cloud Waste Without Cutting Performance",
     body: "Stop overpaying for idle compute. See how Starfii's FinOps practice identifies waste and right sizes workloads, often cutting cloud spend by 25 to 35 percent.",
   },
@@ -371,7 +371,7 @@ const insights: InsightPost[] = [
     slug: "site-reliability-engineering-cloud-scale",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1655000278839-b7d7b11251c5?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=90&w=1000&auto=format&fit=crop",
     title: "Site Reliability Engineering: Keeping Uptime High as Systems Scale",
     body: "Stop firefighting incidents. See how Starfii's SRE practice combines automation and observability to keep uptime high as cloud environments grow more complex.",
   },
@@ -379,7 +379,7 @@ const insights: InsightPost[] = [
     slug: "cloud-security-by-design",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=90&w=1000&auto=format&fit=crop",
     title: "Cloud Security by Design: Protecting Modern Infrastructure",
     body: "Explore how Starfii builds identity, network, monitoring, and compliance controls into cloud architecture so security scales with every workload.",
   },
@@ -387,7 +387,7 @@ const insights: InsightPost[] = [
     slug: "devops-cicd-cloud-reliability",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1631624215749-b10b3dd7bca7?q=80&w=800&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=90&w=1000&auto=format&fit=crop",
     title: "DevOps and CI/CD: Shipping Faster Without Sacrificing Reliability",
     body: "See how Starfii automates testing, deployment, monitoring, and rollback to help cloud teams release faster while keeping production stable.",
   },
@@ -474,6 +474,220 @@ function AnimationStyles(): ReactElement {
           background-color 0.3s ease, border-color 0.3s ease;
       }
 
+
+      /* =============================================================
+         PREMIUM CAPABILITIES GRID
+         Matches the Software & Product Engineering capabilities interaction.
+         Scoped only to the Cloud Engineering capabilities section.
+      ============================================================= */
+      .ss-capabilities-section {
+        isolation: isolate;
+      }
+
+      .ss-capabilities-grid {
+        position: relative;
+      }
+
+      .ss-capabilities-grid::before {
+        content: "";
+        position: absolute;
+        inset: -70px -40px;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0.42;
+        background-image:
+          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+        background-size: 72px 72px;
+        mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+        -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
+      }
+
+      .ss-capability-card {
+        position: relative;
+        min-height: 390px;
+        overflow: hidden;
+        isolation: isolate;
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012) 42%, rgba(164,143,234,0.035)),
+          #0F0E18;
+        border: 1px solid rgba(255,255,255,0.10);
+        box-shadow: 0 20px 55px rgba(0,0,0,0.16);
+        transform: translateZ(0);
+        transition:
+          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+          border-color 0.4s ease,
+          box-shadow 0.55s ease,
+          background 0.45s ease;
+      }
+
+      .ss-capability-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        opacity: 0;
+        background:
+          radial-gradient(260px 180px at 85% 8%, rgba(164,143,234,0.20), transparent 70%),
+          radial-gradient(220px 180px at 5% 100%, rgba(79,63,224,0.12), transparent 70%);
+        transition: opacity 0.5s ease;
+      }
+
+      .ss-capability-card::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 1px;
+        opacity: 0;
+        transform: translateX(-105%);
+        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
+        transition: opacity 0.25s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(164,143,234,0.48);
+        box-shadow:
+          0 28px 75px rgba(0,0,0,0.28),
+          0 0 0 1px rgba(164,143,234,0.05),
+          0 0 55px rgba(79,63,224,0.12);
+        background:
+          linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.018) 42%, rgba(164,143,234,0.07)),
+          #11101B;
+      }
+
+      .ss-capability-card:hover::before {
+        opacity: 1;
+      }
+
+      .ss-capability-card:hover::after {
+        opacity: 1;
+        transform: translateX(105%);
+      }
+
+      .ss-capability-number {
+        position: absolute;
+        top: -18px;
+        right: 18px;
+        z-index: -1;
+        font-family: var(--font-heading, sans-serif);
+        font-size: 116px;
+        line-height: 1;
+        font-weight: 600;
+        letter-spacing: -0.08em;
+        color: rgba(255,255,255,0.025);
+        transition: color 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-number {
+        color: rgba(164,143,234,0.065);
+        transform: translate(-8px, 4px);
+      }
+
+      .ss-capability-icon {
+        transition:
+          transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
+          background-color 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-icon {
+        transform: rotate(8deg) scale(1.08);
+        background-color: ${INDIGO_CTA};
+        border-color: ${INDIGO_CTA};
+        box-shadow: 0 10px 28px rgba(79,63,224,0.28);
+      }
+
+      .ss-capability-title {
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-title {
+        transform: translateX(4px);
+      }
+
+      .ss-capability-line {
+        position: relative;
+        height: 1px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.10);
+      }
+
+      .ss-capability-line::after {
+        content: "";
+        position: absolute;
+        inset: 0 auto 0 0;
+        width: 42%;
+        background: linear-gradient(90deg, ${LAVENDER_ACCENT}, transparent);
+        transform: translateX(-120%);
+        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .ss-capability-card:hover .ss-capability-line::after {
+        transform: translateX(250%);
+      }
+
+      .ss-capability-tag {
+        transition:
+          transform 0.3s ease,
+          color 0.3s ease,
+          border-color 0.3s ease,
+          background-color 0.3s ease;
+      }
+
+      .ss-capability-card:hover .ss-capability-tag {
+        color: rgba(255,255,255,0.78);
+        border-color: rgba(164,143,234,0.28);
+        background-color: rgba(164,143,234,0.06);
+      }
+
+      .ss-capability-orb {
+        position: absolute;
+        width: 260px;
+        height: 260px;
+        right: -100px;
+        top: 12%;
+        border: 1px solid rgba(164,143,234,0.12);
+        border-radius: 9999px;
+        pointer-events: none;
+        animation: ss-capability-orbit 14s linear infinite;
+      }
+
+      .ss-capability-orb::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        top: 20px;
+        left: 50%;
+        border-radius: 9999px;
+        background: ${LAVENDER_ACCENT};
+        box-shadow: 0 0 18px rgba(164,143,234,0.75);
+      }
+
+      @keyframes ss-capability-orbit {
+        from { transform: rotate(0deg); }
+        to   { transform: rotate(360deg); }
+      }
+
+      @media (max-width: 639px) {
+        .ss-capability-card {
+          min-height: 350px;
+        }
+
+        .ss-capability-number {
+          font-size: 88px;
+        }
+
+        .ss-capabilities-grid::before {
+          background-size: 52px 52px;
+        }
+      }
+
       .ss-clamp-2 {
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -500,8 +714,16 @@ function AnimationStyles(): ReactElement {
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
-        .ss-eco-panel {
+        .ss-eco-panel,
+        .ss-capability-card,
+        .ss-capability-icon,
+        .ss-capability-title,
+        .ss-capability-tag {
           transition: none !important;
+        }
+
+        .ss-capability-orb {
+          animation: none !important;
         }
         .ss-case-desc {
           max-height: none !important;
@@ -994,14 +1216,23 @@ export default function CloudServicesSection(): ReactElement {
           HERO
       ============================================================ */}
 
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1667984390538-3dea7a3fe33d?q=80&w=1800&auto=format&fit=crop"
-            alt=""
-            className="h-full w-full object-cover"
+            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=90&w=2400&auto=format&fit=crop"
+            alt="Modern cloud infrastructure and technology environment"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[65%_center]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)",
+            }}
+          />
         </div>
 
         <div className={`${ALIGN} py-24 lg:py-32`}>
@@ -1009,7 +1240,7 @@ export default function CloudServicesSection(): ReactElement {
             aria-label="Breadcrumb"
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
             style={{
-              color: CHAMPION_BLUE,
+              color: "#FFFFFF",
               animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
             }}
           >
@@ -1021,13 +1252,13 @@ export default function CloudServicesSection(): ReactElement {
               Services
             </Link>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Cloud Engineering</span>
+            <span className="text-white/75">Cloud Engineering</span>
           </nav>
 
           <h1
             className={`${HERO_HEADING} mt-8 max-w-xl opacity-0`}
             style={{
-              color: CHAMPION_BLUE,
+              color: "#FFFFFF",
               animation: "ss-fade-up 0.7s ease-out 0.15s forwards",
             }}
           >
@@ -1035,7 +1266,7 @@ export default function CloudServicesSection(): ReactElement {
           </h1>
 
           <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
+            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white/85 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Starfii architects, migrates, modernizes, and runs workloads on
@@ -1046,9 +1277,9 @@ export default function CloudServicesSection(): ReactElement {
 
           <a
             href="#connect"
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
+            className="font-body mt-9 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-transform duration-300 hover:scale-[1.03]"
             style={{
-              backgroundColor: CHAMPION_BLUE,
+              color: CHAMPION_BLUE,
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
             }}
           >
@@ -1102,7 +1333,7 @@ export default function CloudServicesSection(): ReactElement {
           </div>
 
           <p
-            className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-9xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A specialist cloud engineering partner, Starfii designs and runs
@@ -1139,7 +1370,7 @@ export default function CloudServicesSection(): ReactElement {
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=90&w=1200&auto=format&fit=crop"
                 alt="Cloud engineers reviewing cloud infrastructure architecture"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
@@ -1149,70 +1380,98 @@ export default function CloudServicesSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          FOCUS AREAS
+          FOCUS AREAS — premium capability grid
+          Matches the Software & Product Engineering capabilities interaction.
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
+      <section className="ss-capabilities-section relative overflow-hidden bg-[#08070F] py-24 lg:py-28">
         <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
+          className="ss-drift-slow pointer-events-none absolute -right-20 top-[-12%] h-[620px] w-[620px] rounded-full"
           style={{
             background:
-              "radial-gradient(55% 90% at 100% 0%, rgba(164,143,234,0.32) 0%, rgba(79,63,224,0.18) 40%, rgba(10,9,18,0) 70%)",
+              "radial-gradient(circle, rgba(164,143,234,0.24) 0%, rgba(79,63,224,0.10) 38%, rgba(8,7,15,0) 72%)",
+            filter: "blur(4px)",
+          }}
+        />
+        <div
+          className="ss-drift-slower pointer-events-none absolute -bottom-40 -left-32 h-[520px] w-[520px] rounded-full"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(63,90,214,0.20) 0%, rgba(8,7,15,0) 70%)",
           }}
         />
 
         <div className={`relative ${ALIGN}`}>
-          <Reveal className="max-w-xl">
-            <h2 className={`${SECTION_HEADING} text-white`}>
+          <Reveal className="max-w-3xl">
+            <div className="flex flex-wrap items-center gap-4">
+              <span className="font-body inline-flex items-center gap-2 text-[16px] font-semibold text-white sm:text-[18px]">
+                <span>Cloud Engineering</span>
+              </span>
+              <span className="font-body rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-[11px] font-medium tracking-[0.16em] text-white/45">
+                12 CAPABILITIES
+              </span>
+            </div>
+
+            <h2 className={`${SECTION_HEADING} mt-5 max-w-3xl text-white`}>
               Our Cloud Engineering Capabilities
             </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
+
+            <p className="font-body mt-5 max-w-2xl text-[15px] leading-relaxed text-white/60 sm:text-[16px]">
               Starfii migrates, builds, and operates on AWS, Azure, and GCP
               with architecture designed for scale, resilience, and
               predictable cost.
             </p>
           </Reveal>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="ss-capabilities-grid mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
             {focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
-                  style={{ backgroundColor: "#0F0E18", borderColor: "rgba(255,255,255,0.10)" }}
-                >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
+                <article className="ss-capability-card flex h-full flex-col rounded-[24px] p-7 sm:p-8">
+                  <div className="ss-capability-orb" aria-hidden="true" />
+                  <span className="ss-capability-number" aria-hidden="true">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+
+                  <div className="relative flex items-start justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className="font-body text-[12px] font-semibold tracking-[0.18em] text-white/35">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span className="h-px w-8 bg-white/10" />
+                      <span className="font-body text-[10px] font-semibold tracking-[0.18em] text-white/30">
+                        CAPABILITY
+                      </span>
+                    </div>
+
                     <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
+                      className="ss-capability-icon flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border"
+                      style={{ borderColor: "rgba(255,255,255,0.16)" }}
                     >
-                      <ArrowUpRight size={16} className="text-white" />
+                      <ArrowUpRight size={17} className="text-white" />
                     </span>
                   </div>
 
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
+                  <div className="relative mt-auto pt-20">
+                    <div className="ss-capability-line mb-6" />
+                    <h3 className="ss-capability-title font-heading text-[22px] font-semibold leading-[1.18] text-white sm:text-[24px]">
                       {area.title}
                     </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+                    <p className="font-body mt-4 text-[14px] leading-[1.75] text-white/50">
                       {area.body}
                     </p>
                   </div>
 
-                  <div className="mt-8 flex flex-wrap gap-2">
+                  <div className="relative mt-7 flex flex-wrap gap-2">
                     {area.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
+                        className="ss-capability-tag font-body rounded-full border px-3 py-1.5 text-[10px] font-semibold tracking-[0.12em] text-white/45"
+                        style={{ borderColor: "rgba(255,255,255,0.12)" }}
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
-                </div>
+                </article>
               </Reveal>
             ))}
           </div>
@@ -1343,7 +1602,7 @@ export default function CloudServicesSection(): ReactElement {
           desktop with a 32px gap and a peek card on mobile.
       ============================================================ */}
 
-      <section
+    <section
         className="py-24"
         style={{
           background: "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
@@ -1445,7 +1704,7 @@ export default function CloudServicesSection(): ReactElement {
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2 className={`${SECTION_HEADING} max-w-lg`} style={{ color: CHAMPION_BLUE }}>
+            <h2 className={`${SECTION_HEADING} max-w-40px`} style={{ color: CHAMPION_BLUE }}>
               What&apos;s New in Cloud Engineering
             </h2>
 
