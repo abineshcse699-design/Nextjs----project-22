@@ -756,7 +756,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
       name: "Turbodev",
-      title: "Turbodev — the revenue engine for Shopify brands",
+      title: "Turbodev  the revenue engine for Shopify brands",
       image:
         "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
       href: "https://turbodev.ai/",
@@ -764,7 +764,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     },
     {
       name: "TurboDesk",
-      title: "TurboDesk — intelligent service and operations platform",
+      title: "TurboDesk  intelligent service and operations platform",
       image:
         "https://images.unsplash.com/photo-1626863905121-3b0c0ed7b94c?q=80&w=1200&auto=format&fit=crop",
       href: "/platform/turbodesk",
