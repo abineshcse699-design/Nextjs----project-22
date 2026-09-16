@@ -407,7 +407,26 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
   );
 }
 
-function ColumnTitle({ children }: { children: React.ReactNode }) {
+// `variant` prop:
+// - "default" (unchanged): uppercase, muted-gray heading — used by
+//   Platforms / Industries / About / Careers, exactly as before.
+// - "primary" (new): blue, sentence-case heading — used by the
+//   Services menu's "Services" / "Offerings" column titles to match
+//   the reference screenshot.
+function ColumnTitle({
+  children,
+  variant = "default",
+}: {
+  children: React.ReactNode;
+  variant?: "default" | "primary";
+}) {
+  if (variant === "primary") {
+    return (
+      <h3 className={`mb-4 text-[22px] font-semibold ${T.primary}`}>
+        {children}
+      </h3>
+    );
+  }
   return (
     <h3 className={`mb-4 text-[13.5px] font-semibold uppercase tracking-[0.06em] text-[#8A8CA6]`}>
       {children}
@@ -447,10 +466,15 @@ function LinkItem({
   );
 }
 
+// Added optional `image` prop — when passed, renders a photo between
+// the title and blurb (matches the "Featured Publication" reference
+// screenshot with the eye photo). Cards that don't pass `image`
+// render exactly as before.
 function FeaturedCard({
   eyebrow,
   title,
   blurb,
+  image = "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   dark = true,
   href = "#",
   onClick,
@@ -459,6 +483,7 @@ function FeaturedCard({
   eyebrow: string;
   title: string;
   blurb?: string;
+  image?: string;
   dark?: boolean;
   href?: string;
   onClick?: () => void;
@@ -467,17 +492,33 @@ function FeaturedCard({
   return (
     <div
       className={`
-        overflow-hidden rounded-lg border ${T.border}
-        ${dark ? `${T.inkBg} text-white` : "bg-white"}
-        p-6
+        group relative isolate min-h-[230px] overflow-hidden rounded-lg
+        border ${T.border} p-6
+        ${dark ? "text-white" : "bg-white"}
       `}
     >
-      <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${dark ? "text-white/60" : T.muted}`}>
+      {dark && (
+        <>
+          {/* Photo sits behind everything at -z-10 so it never covers the
+              text; a solid wash plus a top-to-bottom gradient on top of it
+              keep the eyebrow/title/blurb readable over any image. */}
+          <img
+            src={image}
+            alt=""
+            className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+          />
+          <div className={`absolute inset-0 -z-10 ${T.inkBg}/30`} />
+          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-transparent to-black/75" />
+        </>
+      )}
+
+      <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${dark ? "text-white/70" : T.muted}`}>
         {eyebrow}
       </p>
       <h4 className="mt-3 text-[19px] font-semibold leading-snug">{title}</h4>
+
       {blurb && (
-        <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-white/70" : T.muted}`}>
+        <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-white/80" : T.muted}`}>
           {blurb}
         </p>
       )}
@@ -495,6 +536,104 @@ function FeaturedCard({
   );
 }
 
+// Shared background-image panel for the dark "editorial" cards (Case
+// Study, Blogs, Jobs Portal) — one photo behind a dark wash + gradient,
+// content on top. The whole card is a Link so clicking anywhere on it
+// (not just the CTA text) navigates, same as the About team banner below.
+function ImagePanel({
+  title,
+  desc,
+  image,
+  href,
+  onClick,
+  ctaLabel = "Learn more",
+}: {
+  title: string;
+  desc: string;
+  image: string;
+  href: string;
+  onClick?: () => void;
+  ctaLabel?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="group relative isolate flex min-h-[190px] flex-col justify-between overflow-hidden rounded-lg p-6 text-white"
+    >
+      <img
+        src={image}
+        alt=""
+        className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+      />
+      {/* Thin tint so the photo's own colors don't fight the white text,
+          plus dark pads at the top (behind the title) and bottom (behind
+          the CTA) — the middle stays clear so the photo is actually
+          visible, instead of the old 85%-opaque wash that hid it almost
+          entirely. */}
+      <div className={`absolute inset-0 -z-10 ${T.inkBg}/35`} />
+      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/75 via-transparent to-black/80" />
+
+      <div>
+        <h4 className="text-[18px] font-semibold">{title}</h4>
+        <p className="mt-3 text-[14px] leading-relaxed text-white/80">{desc}</p>
+      </div>
+      <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold text-white">
+        {ctaLabel}
+        <ArrowUpRight size={16} />
+      </span>
+    </Link>
+  );
+}
+
+// Image-topped card used in the Platforms menu (Turbodev / TurboDesk),
+// matching the reference "Featured Insight" card style: full-width
+// photo on top, then eyebrow label, title, and a Learn More link —
+// no body paragraph, no dark background.
+function PlatformCard({
+  image,
+  eyebrow,
+  title,
+  href = "#",
+  onClick,
+  newTab = false,
+}: {
+  image: string;
+  eyebrow: string;
+  title: string;
+  href?: string;
+  onClick?: () => void;
+  newTab?: boolean;
+}) {
+  return (
+    <div className={`overflow-hidden rounded-2xl border ${T.border} bg-white`}>
+      <div className="h-44 w-full overflow-hidden bg-[#F5F5F9] sm:h-48 lg:h-44 xl:h-52">
+        <img
+          src={image}
+          alt=""
+          className="h-full w-full object-cover object-center"
+        />
+      </div>
+      <div className="p-6">
+        <p className={`text-[13px] font-medium ${T.primary}`}>{eyebrow}</p>
+        <h4 className={`mt-2 text-[19px] font-semibold leading-snug ${T.ink}`}>
+          {title}
+        </h4>
+        <Link
+          href={href}
+          onClick={onClick}
+          target={newTab ? "_blank" : undefined}
+          rel={newTab ? "noopener noreferrer" : undefined}
+          className={`mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}
+        >
+          Learn More
+          <ArrowUpRight size={15} />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 /* ===============================================================
    SERVICES  (Service Now now lives here as a list item)
 
@@ -503,6 +642,13 @@ function FeaturedCard({
    SERVICES MEGA MENU
    Depends on shared navbar helpers already defined in this module:
    ColumnTitle, LinkItem, FeaturedCard, and the theme token object T.
+
+   Fixes applied here:
+   1. "Services" / "Offerings" headings now use ColumnTitle
+      variant="primary" -> blue, sentence-case (matches reference).
+   2. FeaturedCard now gets an `image` so the dark panel shows a
+      photo above the blurb (matches reference). Replace the
+      Unsplash URL below with your real asset whenever you have one.
 ================================================================ */
 function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const services = [
@@ -541,8 +687,8 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_1.5fr_0.9fr]">
-      <div>
-        <ColumnTitle>Services</ColumnTitle>
+      <div className={`border-r ${T.border} pr-10`}>
+        <ColumnTitle variant="primary">Services</ColumnTitle>
         <div className="space-y-3.5">
           {services.map((s) => (
             <LinkItem key={s.label} href={s.href} onClick={onNavigate}>
@@ -553,7 +699,7 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
       </div>
 
       <div>
-        <ColumnTitle>Offerings</ColumnTitle>
+        <ColumnTitle variant="primary">Offerings</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-8 gap-y-3.5">
           {offeringsLeft.map((o) => (
             <LinkItem key={o.label} href={o.href} onClick={onNavigate}>
@@ -581,6 +727,7 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
         eyebrow="Featured Publication"
         title="Agentic AI, Proven Across 100+ Case Studies"
         blurb="Real results: lower costs, faster delivery, agentic AI at work."
+        image="https://images.unsplash.com/photo-1544396821-4dd40b938ad3?q=80&w=1200&auto=format&fit=crop"
         onClick={onNavigate}
       />
     </div>
@@ -602,35 +749,25 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 // import { T } from "@/lib/theme";
 
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
+  // Only Turbodev and TurboDesk are shown now — Amaze and Agentverse
+  // are removed per request. Each renders as an image-topped
+  // PlatformCard (see component above), matching the reference
+  // "Featured Insight" card layout.
   const platforms = [
     {
-      name: "Turbodev ",
-      desc: "The revenue engine for Shopify brands — recover lost sales and grow profit from existing customers",
+      name: "Turbodev",
+      title: "Turbodev — the revenue engine for Shopify brands",
+      image:
+        "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=1200&auto=format&fit=crop",
       href: "https://turbodev.ai/",
       newTab: true,
     },
     {
       name: "TurboDesk",
-      desc: "Intelligent service and operations platform — unify requests, automate resolution, and speed up every team's workflow",
+      title: "TurboDesk — intelligent service and operations platform",
+      image:
+        "https://images.unsplash.com/photo-1626863905121-3b0c0ed7b94c?q=80&w=1200&auto=format&fit=crop",
       href: "/platform/turbodesk",
-      newTab: false,
-    },
-    // {
-    //   name: "Tensai®",
-    //   desc: "Automate your essential processes to increase quality and efficiency",
-    //   href: "/platform/tensai",
-    //   newTab: false,
-    // },
-    {
-      name: "Amaze®",
-      desc: "Speed up and steady your product, platform, process, and data journey to the cloud",
-      href: "/platform/amaze",
-      newTab: false,
-    },
-    {
-      name: "Agentverse™",
-      desc: "Use intelligent agents to streamline operations, accelerate decisions, and improve outcomes",
-      href: "/platform/agentverse",
       newTab: false,
     },
   ];
@@ -638,22 +775,17 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div>
       <ColumnTitle>Platforms</ColumnTitle>
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {platforms.map((p) => (
-          <div key={p.name} className={`border-l-2 ${T.border} pl-4`}>
-            <h4 className={`text-[17px] font-semibold ${T.ink}`}>{p.name}</h4>
-            <p className={`mt-2 text-[13.5px] leading-relaxed ${T.muted}`}>{p.desc}</p>
-            <Link
-              href={p.href}
-              onClick={onNavigate}
-              target={p.newTab ? "_blank" : undefined}
-              rel={p.newTab ? "noopener noreferrer" : undefined}
-              className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}
-            >
-              Learn more
-              <ArrowUpRight size={14} />
-            </Link>
-          </div>
+          <PlatformCard
+            key={p.name}
+            image={p.image}
+            eyebrow="Featured Insight"
+            title={p.title}
+            href={p.href}
+            newTab={p.newTab}
+            onClick={onNavigate}
+          />
         ))}
       </div>
 
@@ -719,6 +851,7 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
       <FeaturedCard
         eyebrow="Featured Insight"
         title="How gen AI makes supply chains decide faster."
+        image="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1200&auto=format&fit=crop"
         onClick={onNavigate}
       />
     </div>
@@ -775,39 +908,20 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
       </div>
 
       <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
-          <h4 className="text-[18px] font-semibold">Case Study</h4>
-          <p className="mt-3 text-[14px] leading-relaxed text-white/70">
-            A strategic digital transformation that combines thoughtful
-            design, innovative technology, and a seamless user experience to
-            drive meaningful business growth.
-          </p>
-          <Link
-            href="/About/Case-study"
-            onClick={onNavigate}
-            className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
-          >
-            Learn more
-            <ArrowUpRight size={16} />
-          </Link>
-        </div>
-
-        <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
-          <h4 className="text-[18px] font-semibold">Blogs</h4>
-          <p className="mt-3 text-[14px] leading-relaxed text-white/70">
-            Explore insights, ideas, and industry perspectives on emerging
-            technologies, digital innovation, and strategies that shape the
-            future of modern businesses.
-          </p>
-        <Link
-  href="/About/blogs"
-  onClick={onNavigate}
-  className="mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
->
-  Learn more
-  <ArrowUpRight size={16} />
-</Link>
-        </div>
+        <ImagePanel
+          title="Case Study"
+          desc="A strategic digital transformation that combines thoughtful design, innovative technology, and a seamless user experience to drive meaningful business growth."
+          image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
+          href="/About/Case-study"
+          onClick={onNavigate}
+        />
+        <ImagePanel
+          title="Blogs"
+          desc="Explore insights, ideas, and industry perspectives on emerging technologies, digital innovation, and strategies that shape the future of modern businesses."
+          image="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop"
+          href="/About/blogs"
+          onClick={onNavigate}
+        />
       </div>
 
       <Link
@@ -871,20 +985,14 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
         </div>
       ))}
 
-      <div className={`rounded-lg ${T.inkBg} p-6 text-white`}>
-        <h4 className="text-[18px] font-semibold">Jobs Portal</h4>
-        <p className="mt-2.5 text-[14.5px] leading-relaxed text-white/70">
-          Ready to own your game with Starfii? Look for open positions now.
-        </p>
-        <Link
-          href="/careers/jobs"
-          onClick={onNavigate}
-          className="mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold text-white"
-        >
-          Know more
-          <ArrowUpRight size={16} />
-        </Link>
-      </div>
+      <ImagePanel
+        title="Jobs Portal"
+        desc="Ready to own your game with Starfii? Look for open positions now."
+        image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+        href="/careers/jobs"
+        onClick={onNavigate}
+        ctaLabel="Know more"
+      />
     </div>
   );
 }

@@ -172,15 +172,14 @@ export default function GlanceSection() {
         {/* Heading */}
         <h2
           className="
-            max-w-[800px]
-            text-[48px]
-            font-light
-            leading-[1.1]
-            tracking-[-0.03em]
-            text-[#0b1747]
-            sm:text-[54px]
-            lg:text-[62px]
-            xl:text-[68px]
+            max-w-[600px]
+    font-medium
+    leading-[1.08]
+    tracking-[-0.025em]
+    text-[#0b1747]
+    text-[42px]
+    sm:text-[48px]
+    lg:text-[54px]
           "
         >
           Your Tech Partner for

@@ -1,218 +1,168 @@
-import Link from "next/link";
+import { Mail } from "lucide-react";
 
-/* ===============================================================
-   Cookie Policy — /cookie-policy
+const T = {
+  ink: "text-[#14163B]",
+  primary: "text-[#3B2FE0]",
+  muted: "text-[#5B5D78]",
+  border: "border-[#E4E4EF]",
+  panelBg: "bg-[#FAFAFD]",
+};
 
-   Sections:
-   498. Cookie overview
-   499. Cookie categories
-   500. Purpose
-   501. Third-party cookies
-   502. Consent controls
-   503. Managing cookies
-   504. Contact
-================================================================ */
+export const metadata = {
+  title: "Cookie Policy — Starfii",
+  description: "How Starfii uses cookies and similar technologies across its digital properties.",
+};
 
-const DARK_BLUE = "#0b1747";
-const INDIGO = "#3a3ff0";
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="scroll-mt-[140px]">
+      <h2 className={`text-[20px] font-semibold ${T.ink}`}>{title}</h2>
+      <div className={`mt-3 space-y-3 text-[15px] leading-relaxed ${T.muted}`}>{children}</div>
+    </section>
+  );
+}
 
-/* EXACT GLOBAL SITE CONTAINER */
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+const cookieCategories = [
+  {
+    name: "Essential",
+    purpose: "Keep you signed in, remember your session, and support core site functions. These can't be switched off.",
+  },
+  {
+    name: "Performance",
+    purpose: "Tell us how visitors use our site so we can find and fix problems and improve pages over time.",
+  },
+  {
+    name: "Functional",
+    purpose: "Remember choices you make, like region or language, so the site feels tailored on return visits.",
+  },
+  {
+    name: "Advertising",
+    purpose: "Used by our partners to build a profile of your interests and show relevant ads elsewhere.",
+  },
+];
 
-const sections = [
-  {
-    id: "cookie-overview",
-    number: "498",
-    title: "Cookie Overview",
-    body: [
-      "Cookies are small text files placed on your device when you visit a website. They help the website remember your preferences, understand how you interact with it, and improve your overall experience.",
-    ],
-  },
-  {
-    id: "cookie-categories",
-    number: "499",
-    title: "Cookie Categories",
-    body: [
-      "We use the following categories of cookies on our website: essential cookies required for the site to function, performance cookies that help us understand site usage, functional cookies that remember your preferences, and marketing cookies that help us deliver more relevant content.",
-    ],
-  },
-  {
-    id: "purpose",
-    number: "500",
-    title: "Purpose",
-    body: [
-      "Cookies allow us to keep our website secure, remember choices you make while browsing, measure and improve site performance, and understand which content and services are most useful to our visitors.",
-    ],
-  },
-  {
-    id: "third-party-cookies",
-    number: "501",
-    title: "Third Party Cookies",
-    body: [
-      "Some cookies on our website are placed by third party services we use, such as analytics and marketing platforms. These third parties may use cookies to collect information about your visits to our site and other websites.",
-      "We do not control these third party cookies directly. Please review the respective third party's privacy and cookie policies for more information.",
-    ],
-  },
-  {
-    id: "consent-controls",
-    number: "502",
-    title: "Consent Controls",
-    body: [
-      "Where required by law, we will ask for your consent before placing non essential cookies on your device. You can change or withdraw your consent at any time through our cookie preference settings or your browser controls.",
-    ],
-  },
-  {
-    id: "managing-cookies",
-    number: "503",
-    title: "Managing Cookies",
-    body: [
-      "Most web browsers allow you to control cookies through their settings, including blocking or deleting cookies. Please note that disabling certain cookies may affect the functionality of our website.",
-      "For more on how we handle your information more broadly, see our ",
-    ],
-    trailingLink: {
-      label: "Privacy Policy",
-      href: "/privacy-policy",
-    },
-  },
-  {
-    id: "contact",
-    number: "504",
-    title: "Contact",
-    body: [
-      "If you have any questions about how we use cookies, please contact us at privacy@starfii.com.",
-    ],
-  },
+const toc = [
+  { id: "cookie-overview", label: "Cookie overview" },
+  { id: "cookie-categories", label: "Cookie categories" },
+  { id: "purpose", label: "Purpose" },
+  { id: "third-party-cookies", label: "Third-party cookies" },
+  { id: "consent-controls", label: "Consent controls" },
+  { id: "managing-cookies", label: "Managing cookies" },
+  { id: "contact", label: "Contact" },
 ];
 
 export default function CookiePolicyPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-[#dbe6fb]">
-      {/* =========================================================
-          HEADER
-      ========================================================== */}
-      <section className="pb-12 pt-20 lg:pb-16 lg:pt-28">
-        <div className={ALIGN}>
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-sm font-medium"
-            style={{ color: INDIGO }}
-          >
-            <Link
-              href="/"
-              className="transition-colors hover:text-[#0b1747] hover:underline"
-            >
-              Home
-            </Link>
-
-            <span className="text-slate-400">/</span>
-
-            <span className="text-slate-500">
-              Cookie Policy
-            </span>
-          </nav>
-
-          <h1
-            className="mt-6 text-[40px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[48px] lg:text-[56px]"
-            style={{ color: DARK_BLUE }}
-          >
+    <main className="min-h-screen bg-white pt-[140px] pb-24">
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+        <div className="max-w-2xl">
+          <p className={`text-[13px] font-semibold ${T.primary}`}>Legal</p>
+          <h1 className={`mt-3 text-[36px] font-semibold leading-tight ${T.ink} sm:text-[44px]`}>
             Cookie Policy
           </h1>
-
-          <p className="mt-5 max-w-3xl text-[17px] leading-8 text-slate-600 sm:text-[18px]">
-            How Starfii uses cookies and similar technologies
-            across its digital properties.
+          <p className={`mt-4 text-[16px] leading-relaxed ${T.muted}`}>
+            How Starfii uses cookies and similar technologies across its digital properties.
           </p>
-
-          <p className="mt-5 text-sm text-slate-500">
-            Last updated: September 14, 2026
-          </p>
+          <p className={`mt-2 text-[13.5px] ${T.muted}`}>Last updated 15 September 2026</p>
         </div>
-      </section>
 
-      {/* =========================================================
-          CONTENT
-      ========================================================== */}
-      <section className="pb-24 lg:pb-32">
-        <div className={ALIGN}>
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.18)]">
-            {/* Intro */}
-            <div className="border-b border-slate-100 bg-slate-50/70 p-7 sm:p-10 lg:p-12">
-              <p className="max-w-5xl text-[15px] leading-8 text-slate-600 sm:text-[16px]">
-                This Cookie Policy explains how Starfii Technologies
-                uses cookies and similar tracking technologies on our
-                website. By continuing to use our website, you consent
-                to our use of cookies as described here, unless you have
-                disabled them through your browser settings.
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_260px] lg:gap-16">
+          <div className="max-w-[720px] space-y-12">
+            <Section id="cookie-overview" title="Cookie overview">
+              <p>
+                Cookies are small text files placed on your device when you visit a website. Starfii
+                uses cookies and similar technologies, like local storage and pixels, to make our
+                site work reliably, understand how it's used, and — where you've allowed it —
+                personalise what you see.
               </p>
-            </div>
+            </Section>
 
-            {/* Sections */}
-            <div className="p-7 sm:p-10 lg:p-14">
-              <div className="flex flex-col divide-y divide-slate-100">
-                {sections.map((section) => (
-                  <div
-                    key={section.id}
-                    id={section.id}
-                    className="scroll-mt-24 py-9 first:pt-0 last:pb-0"
-                  >
-                    <div className="grid gap-6 lg:grid-cols-[100px_1fr]">
-                      {/* Section number */}
-                      <div>
-                        <span className="text-[13px] font-semibold tracking-wide text-[#3a3ff0]">
-                          {section.number}
-                        </span>
-                      </div>
-
-                      {/* Content */}
-                      <div>
-                        <h2
-                          className="text-[24px] font-semibold leading-tight tracking-[-0.02em]"
-                          style={{ color: DARK_BLUE }}
-                        >
-                          {section.title}
-                        </h2>
-
-                        <div className="mt-4 space-y-4">
-                          {section.body.map(
-                            (paragraph, i) => (
-                              <p
-                                key={i}
-                                className="max-w-5xl text-[15px] leading-8 text-slate-600"
-                              >
-                                {paragraph}
-
-                                {section.trailingLink &&
-                                  i ===
-                                    section.body.length - 1 && (
-                                    <Link
-                                      href={
-                                        section.trailingLink.href
-                                      }
-                                      className="font-semibold transition-colors hover:underline"
-                                      style={{
-                                        color: INDIGO,
-                                      }}
-                                    >
-                                      {
-                                        section.trailingLink
-                                          .label
-                                      }
-                                    </Link>
-                                  )}
-                              </p>
-                            ),
-                          )}
-                        </div>
-                      </div>
-                    </div>
+            <Section id="cookie-categories" title="Cookie categories">
+              <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {cookieCategories.map((cat) => (
+                  <div key={cat.name} className={`rounded-lg border ${T.border} p-4`}>
+                    <h3 className={`text-[14.5px] font-semibold ${T.ink}`}>{cat.name}</h3>
+                    <p className={`mt-1.5 text-[13.5px] leading-relaxed ${T.muted}`}>{cat.purpose}</p>
                   </div>
                 ))}
               </div>
-            </div>
+            </Section>
+
+            <Section id="purpose" title="Purpose">
+              <p>
+                We rely on cookies to keep the site secure and functional, to measure how our pages
+                perform, to remember your preferences between visits, and, for the advertising
+                category only, to make the ads you see elsewhere more relevant. We never use cookies
+                to sell your personal information.
+              </p>
+            </Section>
+
+            <Section id="third-party-cookies" title="Third-party cookies">
+              <p>
+                Some cookies on our site are set by third parties we work with — such as analytics
+                providers and, where used, advertising partners. These third parties may combine
+                information collected on our site with other data they hold. We choose partners who
+                are contractually required to handle your data responsibly, but their own privacy
+                policies govern how they use it.
+              </p>
+            </Section>
+
+            <Section id="consent-controls" title="Consent controls">
+              <p>
+                Where required by law, we show a cookie banner on your first visit so you can choose
+                which categories to allow beyond the essential ones. You can change your choice at
+                any time from the cookie preferences link in our site footer.
+              </p>
+            </Section>
+
+            <Section id="managing-cookies" title="Managing cookies">
+              <p>
+                In addition to our on-site controls, you can manage or delete cookies through your
+                browser settings — most browsers let you view, block, or remove cookies on a
+                site-by-site basis. Blocking essential cookies may affect how our site works.
+              </p>
+            </Section>
+
+            <Section id="contact" title="Contact">
+              <p>Questions about how we use cookies can be sent to our privacy team.</p>
+              <a
+                href="mailto:privacy@starfii.com"
+                className={`inline-flex items-center gap-2 text-[14.5px] font-semibold ${T.primary}`}
+              >
+                <Mail size={16} />
+                privacy@starfii.com
+              </a>
+            </Section>
           </div>
+
+          <aside className="lg:sticky lg:top-[140px] lg:self-start">
+            <div className={`rounded-lg border ${T.border} ${T.panelBg} p-5`}>
+              <h3 className={`text-[12.5px] font-semibold uppercase tracking-[0.06em] ${T.muted}`}>
+                On this page
+              </h3>
+              <nav className="mt-3 space-y-2.5">
+                {toc.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`block text-[13.5px] ${T.muted} hover:${T.primary} transition-colors`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

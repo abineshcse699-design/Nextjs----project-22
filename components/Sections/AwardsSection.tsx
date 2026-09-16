@@ -55,23 +55,21 @@ export default function GrowthSection() {
       >
         {/* Left column */}
         <div className="flex flex-col justify-start">
-          <h2
-            className="
-              max-w-[600px]
-              text-[36px]
-              font-light
-              leading-[1.15]
-              tracking-[-0.02em]
-              text-[#0b1747]
-              sm:text-[42px]
-              lg:text-[48px]
-              xl:text-[52px]
-            "
-          >
-            AI-Driven Software and Product Engineering, Built to Scale With
-            You
-          </h2>
-
+         <h2
+  className="
+    max-w-[600px]
+    font-medium
+    leading-[1.08]
+    tracking-[-0.025em]
+    text-[#0b1747]
+    text-[42px]
+    sm:text-[48px]
+    lg:text-[54px]
+  "
+>
+  AI-Driven Software and Product Engineering, Built to Scale With
+  You
+</h2>
           <p
             className="
               mt-6

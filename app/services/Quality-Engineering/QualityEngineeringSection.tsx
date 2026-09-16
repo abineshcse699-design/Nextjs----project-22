@@ -1,4 +1,4 @@
-// Software & Product Engineering
+//  Quality Engineering -- page
 
 "use client";
 import Link from "next/link";
@@ -22,6 +22,7 @@ import {
   ArrowUpRight,
   Plus,
   Minus,
+  Trophy,
 } from "lucide-react";
 
 /* ===============================================================
@@ -39,11 +40,14 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Software & Product Engineering" tab list
+// Autoplay timing for the "Quality Engineering" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
    TYPOGRAPHY TOKENS
+   Same scale used on the Cloud / Software & Product Engineering
+   pages, so every service page's Hero <h1> and big section <h2>s
+   render at identical sizes across the site.
 ================================================================ */
 
 const HERO_HEADING =
@@ -52,89 +56,92 @@ const HERO_HEADING =
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 
+// Page 7 — Quality Engineering
+// URL: /services/enterprise-platform-services
+// (kept in sync with the actual folder this file lives in — see
+// CASE_STUDY_BASE / BLOG_BASE below, which must match [slug] routes)
+const BLOG_BASE = "/services/Quality-Engineering/blogs";
+
+const CASE_STUDY_BASE =
+  "/services/Quality-Engineering/casestudies";
 /* ===============================================================
    CONTENT
+   SEO / AEO optimized: entity first statements ("Starfii is...",
+   "Starfii offers..."), keyword rich but natural, no hyphens.
+
+   Headings/subheadings are aligned to the recommended section list:
+   80. Quality engineering overview -> Key Takeaways
+   81. Manual testing               -> Focus area card
+   82. Test automation              -> Focus area card
+   83. API testing                  -> Focus area card
+   84. Performance testing          -> Focus area card
+   85. Security testing             -> Focus area card
+   86. Mobile testing               -> Focus area card
+   87. Continuous testing           -> Focus area card
+   88. AI-assisted testing          -> Focus area card
+   89. QA automation                -> Focus area card
+   90. Quality strategy             -> Q&A section
+   91. Case studies                 -> Case Studies section
+   92. CTA                          -> Closing CTA section
 ================================================================ */
 
-function Eyebrow({
-  children,
-  variant = "light",
-}: {
-  children: ReactNode;
-  variant?: "light" | "dark";
-}): ReactElement {
-  return (
-    <span
-      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
-      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
-    >
-      <span>{children}</span>
-    </span>
-  );
-}
-
-const keyTakeaways = [
-  {
-    title: "Build",
-    body: "Design and engineer scalable digital products across web, mobile, SaaS, and enterprise platforms with AI driven software and product engineering.",
-  },
-  {
-    title: "Modernize",
-    body: "Transform legacy applications and complex technology portfolios into modern, cloud ready platforms with minimal disruption to business operations.",
-  },
-  {
-    title: "Scale",
-    body: "Accelerate delivery through product strategy, UI/UX engineering, cloud engineering, and quality engineering while keeping performance and customer experience at the center.",
-  },
+// Key Takeaways — same flat, typewriter-friendly string format used on
+// the Legacy Modernization / Data & Analytics pages, so every service
+// page shares the identical open/close + typing interaction.
+const keyTakeaways: string[] = [
+  "Starfii is a quality engineering company helping organizations improve software reliability with intelligent testing, automation, and continuous quality practices.",
+  "We engineer testing strategies that cover manual testing, test automation, API testing, performance testing, and security testing across web and mobile platforms.",
+  "Our quality engineering capabilities span continuous testing, AI assisted testing, and QA automation embedded directly into the software delivery lifecycle.",
+  "We help enterprises catch defects earlier, ship with confidence, and build a quality strategy that scales alongside every release.",
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "UI/UX Engineering",
-    body: "Starfii's UI/UX engineering team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
-    tags: ["UX", "UI", "DESIGN"],
+    title: "Manual Testing",
+    body: "Starfii's manual testing teams validate real user journeys and edge cases that automation alone can miss, giving your product a human check before every release.",
+    tags: ["MANUAL", "EXPLORATORY", "UAT"],
   },
   {
-    title: "Web Application Development",
-    body: "Starfii builds web applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
-    tags: ["WEB", "FRONTEND", "FULL STACK"],
+    title: "Test Automation",
+    body: "We build durable, maintainable test automation suites that cut regression time and give teams fast, reliable feedback on every build.",
+    tags: ["AUTOMATION", "REGRESSION", "CI/CD"],
   },
   {
-    title: "Mobile Application Development",
-    body: "Starfii's mobile application development team ships native and cross platform apps that combine performance, polish, and reliability across iOS and Android.",
-    tags: ["IOS", "ANDROID", "CROSS PLATFORM"],
+    title: "API Testing",
+    body: "Starfii validates API contracts, payloads, and integrations so services stay reliable as your architecture grows more distributed.",
+    tags: ["API", "CONTRACT", "INTEGRATION"],
   },
   {
-    title: "Backend Engineering",
-    body: "Starfii's backend engineering practice builds resilient services, data models, and infrastructure that keep your software product fast, secure, and ready to scale.",
-    tags: ["BACKEND", "MICROSERVICES", "CLOUD"],
+    title: "Performance Testing",
+    body: "We load test and stress test critical systems to uncover bottlenecks before customers do, keeping platforms fast under real world traffic.",
+    tags: ["LOAD", "STRESS", "SCALABILITY"],
   },
   {
-    title: "API & Integrations",
-    body: "Starfii designs and builds API and integrations layers that connect your software product to partners, internal systems, and third party platforms without adding fragility.",
-    tags: ["API", "INTEGRATIONS", "CLOUD"],
+    title: "Security Testing",
+    body: "Starfii's security testing practice identifies vulnerabilities in applications and APIs early, reducing risk before code reaches production.",
+    tags: ["SECURITY", "PENTEST", "RISK"],
   },
   {
-    title: "SaaS Engineering",
-    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS engineering capability on real production projects.",
-    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
+    title: "Mobile Testing",
+    body: "We test mobile applications across real devices, operating systems, and network conditions to make sure quality holds up everywhere your users are.",
+    tags: ["IOS", "ANDROID", "DEVICE LAB"],
   },
   {
-    title: "Enterprise Application Development",
-    body: "Starfii is an enterprise application development partner that works from ideation through launch, combining AI driven software engineering with proven practices to deliver breakthrough growth, value, and performance.",
-    tags: ["ENTERPRISE", "PLATFORMS", "SCALE"],
+    title: "Continuous Testing",
+    body: "Starfii embeds continuous testing into CI/CD pipelines so quality gates run automatically with every commit, not just before a release.",
+    tags: ["CI/CD", "PIPELINES", "SHIFT LEFT"],
   },
   {
-    title: "Product Modernization",
-    body: "Starfii's product modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
-    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
+    title: "AI Assisted Testing",
+    body: "We use AI assisted testing to generate test cases, detect flaky tests, and prioritize the checks that matter most, cutting manual test maintenance.",
+    tags: ["AI", "SMART TESTING", "COVERAGE"],
   },
   {
-    title: "QA and Release Engineering",
-    body: "Starfii's QA and release engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
-    tags: ["QA", "RELEASE", "AUTOMATION"],
+    title: "QA Automation",
+    body: "Starfii's QA automation practice builds the frameworks, tooling, and reporting that let quality engineering teams scale coverage without scaling headcount.",
+    tags: ["QA", "FRAMEWORKS", "REPORTING"],
   },
 ];
 
@@ -147,108 +154,163 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Product Strategy",
-    heading: "Product strategy that shapes and realizes your product vision",
-    body: "Starfii crafts product strategy and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
+    label: "Test Automation",
+    heading: "Test automation that keeps pace with every release",
+    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle.",
+    image:
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "API Testing",
+    heading: "API testing that protects every integration point",
+    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows.",
+    image:
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Performance Testing",
+    heading: "Performance testing built for real world traffic",
+    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Web Application Development",
-    heading: "Web applications engineered for how digital markets actually move",
-    body: "Starfii's web application development team builds products that adapt to shifting user expectations and market conditions, so your software stays competitive long after launch instead of needing a rebuild every cycle.",
+    label: "Security Testing",
+    heading: "Security testing that finds risk before attackers do",
+    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production.",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Mobile Application Development",
-    heading: "Mobile applications built for engagement across every device",
-    body: "Starfii's mobile application development practice ships fast, reliable iOS, Android, and cross platform experiences that keep users coming back and support the business behind the app.",
+    label: "Continuous Testing",
+    heading: "Continuous testing wired into your delivery pipeline",
+    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
-  {
-    label: "Backend Engineering",
-    heading: "Backend engineering built to carry your product as it grows",
-    body: "Starfii's backend engineering teams design resilient services and data architectures, so performance and reliability hold up as usage, features, and integrations multiply.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Product Modernization",
-    heading: "Product modernization that clears the path for what comes next",
-    body: "Starfii assesses your legacy technology estate, builds a tailored product modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
-  },
 ];
+
+/* ===============================================================
+   IMPACT ACROSS YOUR QUALITY ENGINEERING ECOSYSTEM
+   Each item now carries a body so the section can expand in place
+   like the Cloud / Software & Product Engineering ecosystem
+   accordions.
+================================================================ */
 
 type EcosystemImpact = { title: string; body: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
   {
-    title: "UI/UX Engineering",
-    body: "Design digital products that balance user needs with business goals. Starfii's UI/UX engineering teams build research backed interfaces, design systems, and accessible experiences so every screen earns its place and drives measurable engagement.",
+    title: "Manual Testing and Exploratory QA",
+    body: "Catch what automation misses. Starfii's manual and exploratory testing validates real user journeys, edge cases, and usability issues before release, giving every build a human check that scripted tests alone can't provide.",
   },
   {
-    title: "Enterprise Application Development",
-    body: "Build enterprise platforms from ideation through launch. Starfii combines AI driven software engineering with proven delivery practices to ship secure, high performance applications that scale with your organization.",
+    title: "Mobile Testing Across Devices",
+    body: "Verify quality where users actually are. Starfii tests mobile apps across real devices, operating systems, and network conditions, so performance and behavior hold up consistently across the fragmented mobile landscape.",
   },
   {
-    title: "API & Integrations",
-    body: "Connect your software product to partners, internal systems, and third party platforms. Starfii designs API layers and integration architectures that add capability without adding fragility.",
+    title: "AI Assisted Testing and Insights",
+    body: "Cut manual test maintenance with AI. Starfii uses AI assisted testing to generate test cases, flag flaky tests, and prioritize the checks that matter most, so teams focus effort where risk is highest.",
   },
   {
-    title: "SaaS Engineering",
-    body: "From fintech and healthcare to e commerce, Starfii engineers multi tenant SaaS products with composable architecture, usage based scaling, and the reliability Fortune 500 customers expect.",
+    title: "QA Automation at Scale",
+    body: "Scale coverage without scaling headcount. Starfii builds the frameworks, tooling, and reporting that let quality engineering teams expand test coverage steadily as the codebase and release cadence grow.",
   },
   {
-    title: "Product Modernization",
-    body: "Assess your existing systems, build a tailored migration roadmap, and transition to a scalable, cloud ready, future proof platform with minimal disruption to daily business operations.",
+    title: "API Testing and Contract Validation",
+    body: "Keep every integration point reliable. Starfii validates API contracts, payloads, and error handling across your service surface, catching breaking changes before they reach downstream systems or partners.",
   },
   {
-    title: "QA and Release Engineering",
-    body: "Get products to market faster with CI/CD automation and test automation built into every stage of the software development lifecycle, so quality is a gate and not an afterthought.",
+    title: "Continuous Testing in CI/CD",
+    body: "Move quality gates earlier in the pipeline. Starfii embeds continuous testing directly into CI/CD, so every commit is tested automatically and issues surface in minutes rather than at release time.",
   },
 ];
+
+type IndustryAward = {
+  year: string;
+  category: string;
+  subcategory: string;
+  rank: string;
+  description: string;
+};
+
+const industryAwards: IndustryAward[] = [
+  {
+    year: "Quality Engineering",
+    category: "Test Automation",
+    subcategory: "Frameworks and Coverage",
+    rank: "Enterprise Capability",
+    description:
+      "Starfii builds test automation frameworks that scale coverage across web, mobile, and API layers while keeping maintenance costs low.",
+  },
+  {
+    year: "Quality Engineering",
+    category: "Performance and Security",
+    subcategory: "Load, Stress, and Vulnerability Testing",
+    rank: "Enterprise Capability",
+    description:
+      "Starfii applies performance and security testing practices that catch bottlenecks and vulnerabilities before they reach production.",
+  },
+  {
+    year: "Quality Engineering",
+    category: "Continuous and AI Assisted Testing",
+    subcategory: "CI/CD Quality Gates",
+    rank: "Enterprise Capability",
+    description:
+      "Starfii embeds continuous testing and AI assisted testing into delivery pipelines to keep every release measurably reliable.",
+  },
+];
+
+/* ===============================================================
+   CASE STUDIES
+   FIXED: these slugs, titles, images and copy now come directly
+   from the real entries in data/case-studies.tsx (getCaseStudyBySlug
+   source of truth). The old list referenced slugs like
+   "fintech-test-automation-regression-cycle" that don't exist
+   anywhere in that data file, so every card 404'd. Nothing here is
+   invented — each entry below matches an existing case study.
+================================================================ */
 
 type CaseStudy = { slug: string; image: string; title: string; body: string };
 
 const caseStudies: CaseStudy[] = [
   {
-    slug: "insurance-claims-low-code-platform",
+    slug: "fintech-saas-platform-mvp-to-scale",
     image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
-    body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title:
+      "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
+    body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
   },
   {
     slug: "regional-bank-digital-banking-experience",
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
-    body: "See how Starfii's SaaS engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
-  },
-  {
-    slug: "utilities-digital-transformation-microsoft",
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
-    body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
-  },
-  {
-    slug: "digital-mortgage-automation",
-    image:
       "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Automates the Digital Mortgage Application Process",
-    body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+    title: "Starfii Modernizes a Regional Bank's Digital Banking Experience",
+    body: "Explore how Starfii's legacy software modernization team rebuilt a bank's front end into a fast, secure digital experience that cut onboarding time.",
   },
   {
-    slug: "healthcare-saas-platform-scale",
+    slug: "healthcare-saas-generative-ai-features",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
-    body: "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
+    title:
+      "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
+    body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
+  },
+  {
+    slug: "ecommerce-platform-peak-season-scale",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Scales an E Commerce Platform for Peak Season Traffic",
+    body: "See how Starfii's cloud engineering team re-architected an e commerce platform on AWS to handle peak season load without downtime.",
+  },
+  {
+    slug: "enterprise-legacy-modernization-timeline",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title:
+      "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
+    body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
   },
 ];
 
@@ -260,47 +322,58 @@ type InsightPost = {
   body: string;
 };
 
+/* ===============================================================
+   NOTE ON BLOG SLUGS BELOW:
+   These slugs (quality-engineering-overview, test-automation-roi,
+   etc.) have NOT been verified against blogsData.ts because that
+   file wasn't shared. The [slug]/page.tsx for blogs filters by
+   `post.service === "enterprise-platform-services"` AND slug, so if
+   these slugs (or that service value) don't match what's actually in
+   blogsData.ts, these cards will 404 the same way the case studies
+   did. Share blogsData.ts and this list can be corrected the same way.
+================================================================ */
 const insights: InsightPost[] = [
   {
-    slug: "generative-ai-software-development",
+    slug: "ai-automation-quality-engineering",
     large: true,
     image:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
     title:
-      "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
-    body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
+      "AI Automation in Quality Engineering: Faster and Smarter Software Testing",
+    body: "Explore how AI automation can modernize quality engineering, increase test coverage, reduce repetitive testing, and support faster enterprise software releases.",
   },
   {
-    slug: "ai-powered-automation-enterprise-software",
+    slug: "enterprise-devops-reliability",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "AI Powered Automation: Transforming Enterprise Software Delivery",
-    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise application development.",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise DevOps and Reliability for Always On Digital Platforms",
+    body: "Learn how automation, observability, SRE, and quality engineering create safer releases and more reliable enterprise technology operations.",
   },
   {
-    slug: "agile-product-engineering-mach-technologies",
+    slug: "enterprise-integration-api-strategy",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
-    title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
-    body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise Integration and API Strategy for Connected Systems",
+    body: "See how APIs and modern integration patterns help enterprises connect applications, data, partners, and workflows without creating new technology silos.",
   },
   {
-    slug: "ai-led-engineering-digital-products",
+    slug: "enterprise-ai-platforms",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-    title: "Building Smarter Digital Products with AI Led Engineering",
-    body: "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=800&auto=format&fit=crop",
+    title: "Enterprise AI Platforms: Moving From Experiments to Business Value",
+    body: "Discover how organizations can operationalize Generative AI and LLM capabilities with the platform, data, security, and governance needed for enterprise scale.",
   },
   {
-    slug: "modern-software-delivery-enterprise-growth",
+    slug: "enterprise-cloud-modernization",
     large: false,
     image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
-    title: "Modern Software Delivery for Enterprise Growth",
-    body: "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=800&auto=format&fit=crop",
+    title:
+      "Enterprise Cloud Modernization: From Legacy Complexity to Scalable Platforms",
+    body: "Learn how enterprises can modernize critical workloads incrementally while improving resilience, agility, security, and operational efficiency.",
   },
 ];
 
@@ -333,7 +406,7 @@ function AnimationStyles(): ReactElement {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
-      /* Typewriter cursor blink for Key Takeaways */
+      /* Typewriter caret blink for the Key Takeaways accordion */
       @keyframes ss-caret-blink {
         0%, 100% { opacity: 1; }
         50%      { opacity: 0; }
@@ -359,6 +432,23 @@ function AnimationStyles(): ReactElement {
       }
       .ss-caret {
         animation: ss-caret-blink 0.9s steps(1) infinite;
+      }
+
+      .ss-award-card {
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 0 0 rgba(164, 143, 234, 0);
+      }
+      .ss-award-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 45px -18px rgba(79, 63, 224, 0.55),
+          0 0 0 1px rgba(164, 143, 234, 0.35);
+      }
+      .ss-award-card:hover .ss-trophy {
+        transform: rotate(-14deg) scale(1.15);
+      }
+      .ss-trophy {
+        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .ss-focus-card {
@@ -403,7 +493,7 @@ function AnimationStyles(): ReactElement {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Card height/description reveal stays static for reduced motion */
+        /* Card height / description reveal stays static for reduced motion */
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
@@ -449,37 +539,6 @@ function useReveal<T extends HTMLElement = HTMLElement>(
   }, [options]);
 
   return [ref, inView];
-}
-
-/* ===============================================================
-   HOOK: responsive items-per-page
-================================================================ */
-
-type Breakpoints = { mobile: number; tablet: number; desktop: number };
-
-function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
-  const [count, setCount] = useState(desktop);
-
-  useEffect(() => {
-    const mqTablet = window.matchMedia("(max-width: 1023px)");
-    const mqMobile = window.matchMedia("(max-width: 639px)");
-
-    const update = () => {
-      if (mqMobile.matches) setCount(mobile);
-      else if (mqTablet.matches) setCount(tablet);
-      else setCount(desktop);
-    };
-
-    update();
-    mqTablet.addEventListener("change", update);
-    mqMobile.addEventListener("change", update);
-    return () => {
-      mqTablet.removeEventListener("change", update);
-      mqMobile.removeEventListener("change", update);
-    };
-  }, [mobile, tablet, desktop]);
-
-  return count;
 }
 
 /* ===============================================================
@@ -550,6 +609,37 @@ function useTypewriterList(
 }
 
 /* ===============================================================
+   HOOK: responsive items-per-page
+================================================================ */
+
+type Breakpoints = { mobile: number; tablet: number; desktop: number };
+
+function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
+  const [count, setCount] = useState(desktop);
+
+  useEffect(() => {
+    const mqTablet = window.matchMedia("(max-width: 1023px)");
+    const mqMobile = window.matchMedia("(max-width: 639px)");
+
+    const update = () => {
+      if (mqMobile.matches) setCount(mobile);
+      else if (mqTablet.matches) setCount(tablet);
+      else setCount(desktop);
+    };
+
+    update();
+    mqTablet.addEventListener("change", update);
+    mqMobile.addEventListener("change", update);
+    return () => {
+      mqTablet.removeEventListener("change", update);
+      mqMobile.removeEventListener("change", update);
+    };
+  }, [mobile, tablet, desktop]);
+
+  return count;
+}
+
+/* ===============================================================
    REUSABLE: Reveal wrapper
 ================================================================ */
 
@@ -583,6 +673,188 @@ function Reveal({
 }
 
 /* ===============================================================
+   KEY TAKEAWAYS ACCORDION
+   Click the header to expand/collapse. While open, each line types
+   out letter by letter, one after another — identical interaction
+   to the Legacy Modernization / Data & Analytics pages, so every
+   service page feels like one consistent product.
+================================================================ */
+
+function TakeawaysAccordion({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (updater: (prev: boolean) => boolean) => void;
+}): ReactElement {
+  const { displayed, typingIndex } = useTypewriterList(keyTakeaways, open);
+
+  return (
+    <div
+      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
+      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        style={{
+          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
+          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+            Quality Engineering Overview
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span
+            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
+          >
+            TESTING • AUTOMATION • AI
+          </span>
+
+          <ChevronDown
+            size={20}
+            strokeWidth={2.2}
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{
+              color: INDIGO_CTA,
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
+      </button>
+
+      <div
+        className="grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-5 px-8 py-10 lg:px-10">
+            {keyTakeaways.map((line, i) => {
+              const text = displayed[i];
+              if (!text && i !== 0) return null;
+
+              const isTyping = i === typingIndex && text.length < line.length;
+
+              return (
+                <li
+                  key={line}
+                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
+                >
+                  <span
+                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: INDIGO_CTA }}
+                  />
+                  <span>
+                    {text}
+                    {isTyping && (
+                      <span
+                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
+                        style={{ backgroundColor: INDIGO_CTA }}
+                      />
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   ECOSYSTEM ACCORDION
+   Click the "+" and the matching content expands in place.
+   Two independent columns, so opening a card on the left does not
+   stretch the card sitting next to it on the right.
+================================================================ */
+
+function EcosystemAccordion(): ReactElement {
+  // null = everything closed. 0 keeps the first card open by default.
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
+  ecosystemImpact.forEach((item, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ item, index });
+  });
+
+  return (
+    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="flex flex-col gap-5">
+          {column.map(({ item, index }) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <Reveal key={item.title} delay={index * 80}>
+                <div
+                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                  style={{
+                    boxShadow: isOpen
+                      ? "0 18px 40px rgba(15,23,42,0.18)"
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`qe-ecosystem-panel-${index}`}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                  >
+                    <span
+                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
+                      style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
+                    >
+                      {item.title}
+                    </span>
+
+                    <span
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
+                        color: isOpen ? "#8B93A7" : "#FFFFFF",
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                    </span>
+                  </button>
+
+                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
+                  <div
+                    id={`qe-ecosystem-panel-${index}`}
+                    className="ss-eco-panel grid transition-all duration-500 ease-out"
+                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                      >
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ===============================================================
    REUSABLE: Free-scroll Carousel
 ================================================================ */
 
@@ -607,8 +879,10 @@ function Carousel({
   const updateProgress = useCallback(() => {
     const el = trackRef.current;
     if (!el) return;
-    const maxScroll = el.scrollWidth - el.clientWidth;
-    const pct = maxScroll <= 0 ? 1 : el.scrollLeft / maxScroll;
+
+    const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+    const pct = maxScroll === 0 ? 1 : el.scrollLeft / maxScroll;
+
     setProgress(pct);
     setAtStart(el.scrollLeft <= 4);
     setAtEnd(el.scrollLeft >= maxScroll - 4);
@@ -616,24 +890,74 @@ function Carousel({
 
   useEffect(() => {
     const el = trackRef.current;
-    updateProgress();
     if (!el) return undefined;
-    el.addEventListener("scroll", updateProgress, { passive: true });
-    window.addEventListener("resize", updateProgress);
+
+    updateProgress();
+
+    const handleScroll = () => updateProgress();
+    const handleResize = () => updateProgress();
+
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleResize);
+
     return () => {
-      el.removeEventListener("scroll", updateProgress);
-      window.removeEventListener("resize", updateProgress);
+      el.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
     };
-  }, [updateProgress]);
+  }, [updateProgress, itemCount]);
+
+  const getCardElements = () => {
+    const el = trackRef.current;
+    if (!el) return [] as HTMLElement[];
+
+    return Array.from(el.children).filter(
+      (child): child is HTMLElement => child instanceof HTMLElement,
+    );
+  };
 
   const scrollByCard = (dir: number) => {
     const el = trackRef.current;
     if (!el) return;
-    const firstCard = el.firstElementChild as HTMLElement | null;
-    const cardWidth = firstCard
-      ? firstCard.getBoundingClientRect().width + 24
-      : 320;
-    el.scrollBy({ left: dir * cardWidth, behavior: "smooth" });
+
+    const cards = getCardElements();
+    if (!cards.length) return;
+
+    const currentScroll = el.scrollLeft;
+    const tolerance = 8;
+
+    if (dir > 0) {
+      // Find the first card whose left edge is still meaningfully
+      // ahead of the current viewport. This guarantees exactly one
+      // card advance even when card widths are different.
+      const nextCard = cards.find(
+        (card) => card.offsetLeft > currentScroll + tolerance,
+      );
+
+      if (nextCard) {
+        el.scrollTo({
+          left: nextCard.offsetLeft,
+          behavior: "smooth",
+        });
+      } else {
+        el.scrollTo({
+          left: el.scrollWidth - el.clientWidth,
+          behavior: "smooth",
+        });
+      }
+    } else {
+      // Find the last card whose left edge is before the current
+      // position, then move exactly one card backward.
+      const previousCards = cards.filter(
+        (card) => card.offsetLeft < currentScroll - tolerance,
+      );
+
+      const previousCard = previousCards[previousCards.length - 1];
+
+      el.scrollTo({
+        left: Math.max(0, previousCard?.offsetLeft ?? 0),
+        behavior: "smooth",
+      });
+    }
   };
 
   const isDark = arrowVariant === "dark";
@@ -660,16 +984,34 @@ function Carousel({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+          style={{
+            backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5",
+          }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${Math.max(progress * 100, itemCount ? 100 / itemCount : 10)}%`,
+              width: `${Math.max(
+                progress * 100,
+                itemCount ? 100 / itemCount : 10,
+              )}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
         </div>
+
+        <span
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
+          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+        >
+          {String(
+            Math.min(
+              itemCount,
+              Math.max(1, Math.round(progress * Math.max(1, itemCount - 1)) + 1),
+            ),
+          ).padStart(2, "0")}{" "}
+          / {String(itemCount).padStart(2, "0")}
+        </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
           <button
@@ -685,6 +1027,7 @@ function Carousel({
           >
             <ChevronLeft size={18} />
           </button>
+
           <button
             type="button"
             aria-label="Next"
@@ -703,7 +1046,10 @@ function Carousel({
 
 /* ===============================================================
    REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click.
+   Moves exactly ONE card per arrow click. Supports a fractional
+   perPage (e.g. 1.15 for a "peek" card) and a configurable gap,
+   matching the Cloud / Software & Product Engineering pages.
+   Used for Case Studies.
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -711,7 +1057,7 @@ type StepCarouselProps<T> = {
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards — matches Swiper's spaceBetween
+  gap?: number; // px gap between cards
 };
 
 function StepCarousel<T>({
@@ -727,8 +1073,8 @@ function StepCarousel<T>({
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
-  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card) still
-  // lands on a whole card instead of stopping mid-card.
+  // Math.ceil so a fractional perPage still lands on a whole card
+  // instead of stopping mid-card at the end of the track.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
@@ -816,18 +1162,13 @@ function StepCarousel<T>({
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
-            style={{
-              width: `${progress}%`,
-              backgroundColor: INDIGO_CTA,
-            }}
+            style={{ width: `${progress}%`, backgroundColor: INDIGO_CTA }}
           />
         </div>
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{
-            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
-          }}
+          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
         >
           {String(position + 1).padStart(2, "0")} /{" "}
           {String(totalPositions).padStart(2, "0")}
@@ -865,195 +1206,19 @@ function StepCarousel<T>({
 }
 
 /* ===============================================================
-   KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
-================================================================ */
-
-function KeyTakeawaysAccordion({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (updater: (prev: boolean) => boolean) => void;
-}): ReactElement {
-  const lines = keyTakeaways.map((point) => `${point.title}. ${point.body}`);
-  const { displayed, typingIndex } = useTypewriterList(lines, open);
-
-  return (
-    <div
-      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
-      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
-        style={{
-          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Product Engineering Overview
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <span
-            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
-            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
-          >
-            STRATEGY • UI/UX • WEB • MOBILE
-          </span>
-
-          <ChevronDown
-            size={20}
-            strokeWidth={2.2}
-            className="flex-shrink-0 transition-transform duration-300"
-            style={{
-              color: INDIGO_CTA,
-              transform: open ? "rotate(180deg)" : "rotate(0deg)",
-            }}
-          />
-        </div>
-      </button>
-
-      <div
-        className="grid transition-all duration-500 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <ul className="space-y-5 px-8 py-10 lg:px-10">
-            {lines.map((line, i) => {
-              const text = displayed[i];
-              if (!text && i !== 0) return null;
-
-              const isTyping = i === typingIndex && text.length < line.length;
-
-              return (
-                <li
-                  key={line}
-                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                    style={{ backgroundColor: INDIGO_CTA }}
-                  />
-                  <span>
-                    {text}
-                    {isTyping && (
-                      <span
-                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
-                        style={{ backgroundColor: INDIGO_CTA }}
-                      />
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===============================================================
-   ECOSYSTEM ACCORDION
-   Click the "+" and the matching content expands in place.
-   Two independent columns, so opening a card on the left does not
-   stretch the card sitting next to it on the right.
-================================================================ */
-
-function EcosystemAccordion(): ReactElement {
-  // null = everything closed. Use 0 to have the first card open by default.
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
-  ecosystemImpact.forEach((item, index) => {
-    const target = columns[index % 2];
-    if (target) target.push({ item, index });
-  });
-
-  return (
-    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
-      {columns.map((column, colIndex) => (
-        <div key={colIndex} className="flex flex-col gap-5">
-          {column.map(({ item, index }) => {
-            const isOpen = openIndex === index;
-
-            return (
-              <Reveal key={item.title} delay={index * 80}>
-                <div
-                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
-                  style={{
-                    boxShadow: isOpen
-                      ? "0 18px 40px rgba(15,23,42,0.18)"
-                      : undefined,
-                  }}
-                >
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`ecosystem-panel-${index}`}
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
-                  >
-                    <span
-                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
-                      style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
-                    >
-                      {item.title}
-                    </span>
-
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
-                  </button>
-
-                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
-                  <div
-                    id={`ecosystem-panel-${index}`}
-                    className="ss-eco-panel grid transition-all duration-500 ease-out"
-                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <p
-                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
-                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
-                      >
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ===============================================================
    SECTION
 ================================================================ */
 
-export default function SoftwareProductEngineeringSection(): ReactElement {
+export default function QualityEngineeringSection(): ReactElement {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
 
   // --- Autoplay for the left-side tab list ---
+  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
+  // Pausing on hover, and restarting the timer whenever the user
+  // manually clicks a tab, so it never fights with manual control.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -1068,17 +1233,18 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
+          (80. Quality engineering overview)
       ============================================================ */}
-
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1800&auto=format&fit=crop"
-            alt="Software and product engineering team reviewing a digital product"
-            className="h-full w-full object-cover object-[75%_center]"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
+            alt=""
+            className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/0 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
+
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
@@ -1093,30 +1259,22 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Software &amp; Product Engineering</span>
+            <span className="text-slate-500">Quality Engineering</span>
           </nav>
 
-          <div
-            className="mt-8 opacity-0"
-            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-          >
-            <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-          </div>
-
-          <h2
-            className={`${HERO_HEADING} mt-4 max-w-2xl opacity-0`}
+          <h1
+            className={`${HERO_HEADING} mt-8 max-w-xl opacity-0`}
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Software and Product Engineering for Modern Enterprises
-          </h2>
+            Quality Engineering for Modern Enterprises
+          </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Starfii turns ideas into scalable software products and modern
-            platforms with product strategy, AI driven engineering, and
-            faster delivery cycles.
+            Improve software reliability with intelligent testing,
+            automation, and continuous quality engineering.
           </p>
 
           <a
@@ -1136,23 +1294,25 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS — collapsible, typewriter bullets
+            (80. Quality engineering overview)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
-          <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+          <TakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A leader in software and product engineering, Starfii designs
-            and engineers customer focused digital experiences while
-            modernizing complex application portfolios for speed and
-            scale.
+            Starfii helps enterprises improve software reliability by
+            engineering testing strategies that combine manual testing,
+            automation, and continuous quality checks across every layer
+            of the stack.
           </p>
         </Reveal>
 
         {/* ============================================================
             Q&A BLOCK
+            (90. Quality strategy)
         ============================================================ */}
 
         <Reveal as="section" className="mt-20">
@@ -1161,29 +1321,26 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             style={{ backgroundColor: "#F5F3FC" }}
           >
             <div>
-              <Eyebrow>Product Strategy</Eyebrow>
               <h2
-                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Build Product Strategy Into Software
-                Engineering?
+                How Do Enterprises Build a Quality Strategy That Scales?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize software operations by
-                combining product strategy, AI led engineering, and
-                scalable architectures. Starfii brings these together to
-                accelerate software development, improve quality, and
-                modernize legacy systems, turning ideas into digital
-                experiences that users value and businesses depend on
-                every day.
+                Enterprises build a lasting quality strategy by combining
+                manual testing, test automation, API and performance
+                testing, security testing, and continuous testing inside
+                the delivery pipeline. Starfii brings these together with
+                AI assisted testing and QA automation, so quality holds up
+                as release frequency and system complexity grow.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a product strategy roadmap"
+                alt="Two colleagues reviewing a quality strategy roadmap"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1193,6 +1350,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           FOCUS AREAS
+          (81-89. Manual testing through QA automation)
       ============================================================ */}
 
       <section className="relative overflow-hidden bg-[#0A0912] py-24">
@@ -1213,15 +1371,14 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <Eyebrow variant="dark">Software &amp; Product Engineering</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
-              Our Software &amp; Product Engineering Capabilities
+            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our Quality Engineering &amp; Testing Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii plans, designs, and scales customer focused digital
-              products and platforms with AI led engineering, seamless
-              experiences, and modernization strategies that drive speed,
-              efficiency, and long term business value.
+              Starfii covers the full testing lifecycle, from manual
+              testing and automation to performance, security, mobile,
+              and AI assisted testing, so quality is engineered in, not
+              checked at the end.
             </p>
           </Reveal>
 
@@ -1277,12 +1434,15 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
+            (82-87. Test automation through Continuous testing)
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-            Software and Product Engineering Services
+          <h2
+            className="font-heading text-[34px] font-medium"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            Quality Engineering Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1297,10 +1457,13 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
+                    {/* Static base line */}
                     <span
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
@@ -1361,7 +1524,10 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark) — click "+" to expand content
+          IMPACT ACROSS ECOSYSTEM (dark)
+          (81, 86, 88, 89, 83, 87. mixed testing disciplines)
+          Same accordion behaviour as the Cloud / Software & Product
+          Engineering pages: click "+" and the content expands in place.
       ============================================================ */}
 
       <section className="relative overflow-hidden bg-[#08070F] py-24">
@@ -1382,11 +1548,10 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Enterprise Application Development</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl text-white`}>
-              Impact Across Your Software
+            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your Quality
               <br />
-              Product Engineering Ecosystem
+              Engineering Ecosystem
             </h2>
           </Reveal>
 
@@ -1396,10 +1561,15 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
-          Hover behaviour copied from the homepage CaseStudiesSection:
-          the card height is FIXED, the image frame collapses from
-          260px to 0, and the description fades/slides into the space
-          the image gives up. Card size never changes.
+          (91. Case studies)
+          Card sizing and hover behaviour now match the Cloud /
+          Software & Product Engineering pages: 500px fixed card
+          height, 260px image frame that collapses to 0 on hover,
+          description sliding into the space the image gives up,
+          4 per row on desktop with a 32px gap and a peek card on
+          mobile (StepCarousel instead of the 3-per-page
+          PagedCarousel used before). The whole card is now a
+          single Link, matching the other service pages.
       ============================================================ */}
 
       <section
@@ -1411,20 +1581,21 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <div>
-              <Eyebrow>Case Studies</Eyebrow>
-              <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-                Case Studies
-              </h2>
-            </div>
-            <a
-              href="#"
+            <h2
+              className="font-heading text-[36px] font-medium lg:text-[44px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Quality Engineering Case Studies
+            </h2>
+
+            <Link
+              href={CASE_STUDY_BASE}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Case Studies
+              View All Quality Engineering Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
@@ -1440,7 +1611,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/services/digital-software/casestudies/${study.slug}`}
+                    href={`${CASE_STUDY_BASE}/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}
@@ -1465,7 +1636,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                         </span>
 
                         <h3
-                          className="font-heading shrink-0 text-[20px] font-semibold leading-snug"
+                          className="font-heading ss-clamp-2 shrink-0 text-[20px] font-semibold leading-snug transition-colors duration-200 group-hover:text-[#4F3FE0]"
                           style={{ color: CHAMPION_BLUE }}
                         >
                           {study.title}
@@ -1497,36 +1668,51 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               )}
             />
           </div>
+
+          {/* MOBILE VIEW ALL */}
+          <div className="mt-8 flex justify-center sm:hidden">
+            <Link
+              href={CASE_STUDY_BASE}
+              className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
+              style={{ color: INDIGO_CTA }}
+            >
+              View All Quality Engineering Case Studies
+              <ArrowUpRight size={16} />
+            </Link>
+          </div>
         </div>
       </section>
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
-          Blog images zoom in on hover (scale 1 → 1.1) inside a fixed
-          frame, so only the picture grows, never the card.
       ============================================================ */}
+
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <div>
-              <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-              <h2 className={`${SECTION_HEADING} mt-4 max-w-lg`} style={{ color: CHAMPION_BLUE }}>
-                {"What's New in Software & Product Engineering"}
-              </h2>
-            </div>
+            <h2
+              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              {"What's New in Quality Engineering"}
+            </h2>
 
             <Link
-              href="/services/digital-software/blogs"
+              href={BLOG_BASE}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Insights
+              View All Blogs
               <ArrowUpRight size={16} />
             </Link>
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light" clickToAdvance>
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance={false}
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.slug}
@@ -1537,16 +1723,16 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                   }`}
                 >
                   <Link
-                    href={`/services/digital-software/blogs/${post.slug}`}
-                    className="block h-full"
+                    href={`${BLOG_BASE}/${post.slug}`}
+                    className="group block h-full"
                     aria-label={`Read ${post.title}`}
                   >
                     {post.large ? (
-                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                      <div className="relative h-[420px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
                           alt={post.title}
-                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
 
                         <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
@@ -1554,7 +1740,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             className="font-body text-[12px] font-semibold tracking-wide"
                             style={{ color: INDIGO_CTA }}
                           >
-                            BLOG
+                            QUALITY ENGINEERING
                           </span>
 
                           <h3
@@ -1568,28 +1754,22 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             {post.body}
                           </p>
 
-                          <span
-                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                          <div
+                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            <span className="relative">
-                              Read More
-                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
-                            </span>
-                            <ArrowUpRight
-                              size={14}
-                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            />
-                          </span>
+                            Read More
+                            <ArrowUpRight size={15} />
+                          </div>
                         </div>
                       </div>
                     ) : (
-                      <div className="group">
+                      <div>
                         <div className="h-[220px] overflow-hidden rounded-2xl">
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />
                         </div>
 
@@ -1598,7 +1778,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             className="font-body text-[12px] font-semibold tracking-wide"
                             style={{ color: INDIGO_CTA }}
                           >
-                            BLOG
+                            QUALITY ENGINEERING
                           </span>
 
                           <h3
@@ -1612,19 +1792,13 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             {post.body}
                           </p>
 
-                          <span
-                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                          <div
+                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            <span className="relative">
-                              Read More
-                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
-                            </span>
-                            <ArrowUpRight
-                              size={14}
-                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            />
-                          </span>
+                            Read More
+                            <ArrowUpRight size={15} />
+                          </div>
                         </div>
                       </div>
                     )}
@@ -1638,6 +1812,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           CLOSING CTA
+          (92. CTA)
       ============================================================ */}
       <section id="connect" className="bg-white py-24">
         <div className={ALIGN}>
@@ -1645,14 +1820,13 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            <Eyebrow variant="dark">CTA</Eyebrow>
-            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-              Ready to Build Your Next Software Product?
+            <h2 className="font-heading mx-auto max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+              Ready to Build a Quality Strategy That Scales?
             </h2>
             <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Talk to Starfii about product strategy, UI/UX engineering,
-              web and mobile application development, backend engineering,
-              or modernizing an existing platform.
+              Talk to Starfii about manual testing, test automation, API
+              and performance testing, security testing, or embedding
+              continuous and AI assisted testing into your pipeline.
             </p>
             <a
               href="mailto:hello@starfii.com"

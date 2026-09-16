@@ -1,190 +1,156 @@
-import Link from "next/link";
+import { Mail } from "lucide-react";
 
-/* ===============================================================
-   Terms of Service — /terms
+const T = {
+  ink: "text-[#14163B]",
+  primary: "text-[#3B2FE0]",
+  muted: "text-[#5B5D78]",
+  border: "border-[#E4E4EF]",
+  panelBg: "bg-[#FAFAFD]",
+};
 
-   Sections:
-   491. Terms content -> Intro
-   492. Website use
-   493. Intellectual property
-   494. Disclaimers
-   495. Liability
-   496. Governing terms
-   497. Contact
-================================================================ */
+export const metadata = {
+  title: "Terms of Service — Starfii",
+  description: "Terms governing use of the Starfii website and services.",
+};
 
-const DARK_BLUE = "#0b1747";
-const INDIGO = "#3a3ff0";
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="scroll-mt-[140px]">
+      <h2 className={`text-[20px] font-semibold ${T.ink}`}>{title}</h2>
+      <div className={`mt-3 space-y-3 text-[15px] leading-relaxed ${T.muted}`}>{children}</div>
+    </section>
+  );
+}
 
-/* EXACT GLOBAL SITE CONTAINER */
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-
-const sections = [
-  {
-    id: "website-use",
-    number: "492",
-    title: "Website Use",
-    body: [
-      "You may use our website for lawful purposes only. You agree not to use the site in any way that could damage, disable, overburden, or impair it, or interfere with any other party's use and enjoyment of the site.",
-      "You are responsible for ensuring that any information you submit through our website is accurate and that you have the right to share it with us.",
-    ],
-  },
-  {
-    id: "intellectual-property",
-    number: "493",
-    title: "Intellectual Property",
-    body: [
-      "All content on this website, including text, graphics, logos, images, case studies, and software, is the property of Starfii Technologies or its licensors and is protected by applicable intellectual property laws.",
-      "You may not reproduce, distribute, modify, or create derivative works from any content on this site without our prior written consent.",
-    ],
-  },
-  {
-    id: "disclaimers",
-    number: "494",
-    title: "Disclaimers",
-    body: [
-      'Our website and its content are provided on an "as is" and "as available" basis without warranties of any kind, either express or implied, including but not limited to accuracy, completeness, or fitness for a particular purpose.',
-      "We do not guarantee that the website will be uninterrupted, error free, or free of viruses or other harmful components.",
-    ],
-  },
-  {
-    id: "liability",
-    number: "495",
-    title: "Liability",
-    body: [
-      "To the fullest extent permitted by law, Starfii Technologies shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of, or inability to use, our website or services.",
-    ],
-  },
-  {
-    id: "governing-terms",
-    number: "496",
-    title: "Governing Terms",
-    body: [
-      "These Terms of Service are governed by and construed in accordance with the laws of India, without regard to its conflict of law principles. Any disputes arising under these terms shall be subject to the exclusive jurisdiction of the courts located in India.",
-      "We may update these terms from time to time, and continued use of the website after changes are posted constitutes acceptance of the revised terms.",
-    ],
-  },
-  {
-    id: "contact",
-    number: "497",
-    title: "Contact",
-    body: [
-      "If you have any questions about these Terms of Service, please contact us at hello@starfii.com.",
-    ],
-  },
+const toc = [
+  { id: "website-use", label: "Website use" },
+  { id: "intellectual-property", label: "Intellectual property" },
+  { id: "disclaimers", label: "Disclaimers" },
+  { id: "liability", label: "Liability" },
+  { id: "governing-terms", label: "Governing terms" },
+  { id: "contact", label: "Contact" },
 ];
 
-export default function TermsOfServicePage() {
+export default function TermsPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-[#dbe6fb]">
-      {/* =========================================================
-          HEADER
-      ========================================================== */}
-      <section className="pb-12 pt-20 lg:pb-16 lg:pt-28">
-        <div className={ALIGN}>
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-sm font-medium"
-            style={{ color: INDIGO }}
-          >
-            <Link
-              href="/"
-              className="transition-colors hover:text-[#0b1747] hover:underline"
-            >
-              Home
-            </Link>
-
-            <span className="text-slate-400">/</span>
-
-            <span className="text-slate-500">
-              Terms of Service
-            </span>
-          </nav>
-
-          <h1
-            className="mt-6 text-[40px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[48px] lg:text-[56px]"
-            style={{ color: DARK_BLUE }}
-          >
+    <main className="min-h-screen bg-white pt-[140px] pb-24">
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+        <div className="max-w-2xl">
+          <p className={`text-[13px] font-semibold ${T.primary}`}>Legal</p>
+          <h1 className={`mt-3 text-[36px] font-semibold leading-tight ${T.ink} sm:text-[44px]`}>
             Terms of Service
           </h1>
-
-          <p className="mt-5 max-w-3xl text-[17px] leading-8 text-slate-600 sm:text-[18px]">
-            Terms governing use of the Starfii website and
-            services.
+          <p className={`mt-4 text-[16px] leading-relaxed ${T.muted}`}>
+            Terms governing use of the Starfii website and services.
           </p>
-
-          <p className="mt-5 text-sm text-slate-500">
-            Last updated: September 14, 2026
-          </p>
+          <p className={`mt-2 text-[13.5px] ${T.muted}`}>Last updated 15 September 2026</p>
         </div>
-      </section>
 
-      {/* =========================================================
-          CONTENT
-      ========================================================== */}
-      <section className="pb-24 lg:pb-32">
-        <div className={ALIGN}>
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.18)]">
-            {/* Intro */}
-            <div className="border-b border-slate-100 bg-slate-50/70 p-7 sm:p-10 lg:p-12">
-              <p className="max-w-5xl text-[15px] leading-8 text-slate-600 sm:text-[16px]">
-                These Terms of Service (&ldquo;Terms&rdquo;) govern
-                your access to and use of the Starfii Technologies
-                website and services. By accessing or using our
-                website, you agree to be bound by these Terms. If you
-                do not agree with these Terms, please do not use our
-                website.
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_260px] lg:gap-16">
+          <div className="max-w-[720px] space-y-12">
+            <Section id="terms-content" title="Agreement to terms">
+              <p>
+                These terms govern your access to and use of the Starfii website and products,
+                including TurboDesk and Agentverse. By accessing or using any Starfii service, you
+                agree to be bound by these terms. If you're using our services on behalf of a
+                company, you're confirming you have the authority to bind that company to these
+                terms.
               </p>
-            </div>
+            </Section>
 
-            {/* Sections */}
-            <div className="p-7 sm:p-10 lg:p-14">
-              <div className="flex flex-col divide-y divide-slate-100">
-                {sections.map((section) => (
-                  <div
-                    key={section.id}
-                    id={section.id}
-                    className="scroll-mt-24 py-9 first:pt-0 last:pb-0"
-                  >
-                    <div className="grid gap-6 lg:grid-cols-[100px_1fr]">
-                      {/* Number */}
-                      <div>
-                        <span className="text-[13px] font-semibold tracking-wide text-[#3a3ff0]">
-                          {section.number}
-                        </span>
-                      </div>
+            <Section id="website-use" title="Website use">
+              <p>
+                You may use our website and products only for lawful purposes and in line with these
+                terms. You agree not to:
+              </p>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>Interfere with or disrupt the operation of our services or servers</li>
+                <li>Attempt to gain unauthorised access to any part of our systems</li>
+                <li>Use automated means to scrape or extract data without our permission</li>
+                <li>Use the service to transmit unlawful, harmful, or infringing content</li>
+              </ul>
+            </Section>
 
-                      {/* Content */}
-                      <div>
-                        <h2
-                          className="text-[24px] font-semibold leading-tight tracking-[-0.02em]"
-                          style={{ color: DARK_BLUE }}
-                        >
-                          {section.title}
-                        </h2>
+            <Section id="intellectual-property" title="Intellectual property">
+              <p>
+                All content on our website and within our products — including text, graphics,
+                logos, and software — is owned by Starfii Technologies or our licensors and is
+                protected by intellectual property law. Nothing in these terms grants you any right
+                to use our trademarks or branding without prior written permission. Where you submit
+                content to us — such as a job application or a piece of feedback — you retain
+                ownership, but you grant us the right to use it for the purpose you submitted it for.
+              </p>
+            </Section>
 
-                        <div className="mt-4 space-y-4">
-                          {section.body.map(
-                            (paragraph, i) => (
-                              <p
-                                key={i}
-                                className="max-w-5xl text-[15px] leading-8 text-slate-600"
-                              >
-                                {paragraph}
-                              </p>
-                            ),
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Section id="disclaimers" title="Disclaimers">
+              <p>
+                Our website and products are provided "as is" and "as available," without warranties
+                of any kind, whether express or implied. We don't warrant that our services will be
+                uninterrupted, error-free, or completely secure. Any reliance you place on
+                information from our services is at your own risk.
+              </p>
+            </Section>
+
+            <Section id="liability" title="Liability">
+              <p>
+                To the fullest extent permitted by law, Starfii Technologies will not be liable for
+                any indirect, incidental, or consequential damages arising from your use of our
+                website or products. Our total liability for any claim arising from these terms will
+                not exceed the amount you paid us, if any, in the twelve months before the claim
+                arose.
+              </p>
+            </Section>
+
+            <Section id="governing-terms" title="Governing terms">
+              <p>
+                These terms are governed by the laws of India, without regard to conflict-of-law
+                principles. Any dispute arising from these terms will be subject to the exclusive
+                jurisdiction of the courts of Bengaluru, Karnataka. We may update these terms from
+                time to time; continued use of our services after an update means you accept the
+                revised terms.
+              </p>
+            </Section>
+
+            <Section id="contact" title="Contact">
+              <p>Questions about these terms can be sent to our legal team.</p>
+              <a
+                href="mailto:legal@starfii.com"
+                className={`inline-flex items-center gap-2 text-[14.5px] font-semibold ${T.primary}`}
+              >
+                <Mail size={16} />
+                legal@starfii.com
+              </a>
+            </Section>
           </div>
+
+          <aside className="lg:sticky lg:top-[140px] lg:self-start">
+            <div className={`rounded-lg border ${T.border} ${T.panelBg} p-5`}>
+              <h3 className={`text-[12.5px] font-semibold uppercase tracking-[0.06em] ${T.muted}`}>
+                On this page
+              </h3>
+              <nav className="mt-3 space-y-2.5">
+                {toc.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`block text-[13.5px] ${T.muted} hover:${T.primary} transition-colors`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

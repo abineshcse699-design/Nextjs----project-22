@@ -48,6 +48,74 @@ const pillars = [
 ];
 
 /* ===============================================================
+   HEADING BLOCK
+   Same fade/slide-in-on-scroll animation used for each StepRow in
+   AIJourneySection: starts translated + transparent, then eases
+   into place the first time it enters the viewport.
+================================================================ */
+
+function HeadingBlock() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const element = ref.current;
+
+    if (!element) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      {
+        threshold: 0.15,
+      }
+    );
+
+    observer.observe(element);
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`
+        relative z-20 w-full transition-all duration-700 ease-out
+        lg:sticky lg:top-32 lg:h-fit lg:w-[520px] lg:flex-shrink-0
+        ${visible ? "translate-x-0 opacity-100" : "-translate-x-8 opacity-0"}
+      `}
+    >
+      {/* font-medium instead of a heavier weight avoids the
+          same "popping" look on this heading. */}
+      <h2
+        className="
+          font-medium
+          tracking-[-0.025em]
+          leading-[1.08]
+          text-[42px]
+          text-white
+          sm:text-[48px]
+          lg:-mt-2
+          lg:text-[54px]
+        "
+      >
+        Technical Competencies & Service Capabilities
+      </h2>
+
+      <p className="mt-6 text-lg font-medium text-slate-200">
+        Starfii delivers engineering depth across every layer of the
+        enterprise stack, from product engineering to cloud platforms
+        to enterprise data systems
+      </p>
+    </div>
+  );
+}
+
+/* ===============================================================
    PILLAR CARD
 ================================================================ */
 
@@ -117,25 +185,6 @@ function PillarCard({ title, body }: { title: string; body: string }) {
 }
 
 /* ===============================================================
-   IMAGE
-================================================================ */
-
-const PHOTO_SRC = "/ch.png";
-
-function PortraitCircle() {
-  return (
-    <div className="relative mx-auto mt-4 flex w-full max-w-[520px] items-center justify-center">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={PHOTO_SRC}
-        alt="Starfii AI driven software and product engineering illustration"
-        className="block h-auto w-full max-w-[520px] object-contain"
-      />
-    </div>
-  );
-}
-
-/* ===============================================================
    ZERO FRICTION SECTION
 ================================================================ */
 
@@ -146,9 +195,16 @@ export default function ZeroFrictionSection() {
     // keeps the original larger spacing (lg:pt-24).
     // helveticaStyle set here once — every child below inherits it,
     // so no font-heading / font-body classes are needed anywhere.
+    // FIX: removed `overflow-hidden` from here, same reason as
+    // AIJourneySection — position: sticky on the left heading is
+    // calculated relative to the nearest ancestor with overflow
+    // != visible. With overflow-hidden on this <section>, THIS
+    // became that ancestor, so the heading never actually stuck
+    // to the viewport while scrolling — it just scrolled normally
+    // instead of staying pinned like in the reference video.
     <section
       style={helveticaStyle}
-      className="relative isolate overflow-hidden pb-20 pt-8 lg:pb-24 lg:pt-24"
+      className="relative isolate pb-20 pt-8 lg:pb-24 lg:pt-24"
     >
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute inset-0 bg-[#171335]" />
@@ -180,39 +236,15 @@ export default function ZeroFrictionSection() {
       </div>
 
       <div className="relative z-10 mx-auto flex max-w-[1520px] flex-col items-start gap-10 px-6 sm:px-10 lg:flex-row lg:items-start lg:gap-16 lg:px-16">
-        {/* LEFT CONTENT */}
-        <div className="w-full lg:sticky lg:top-0 lg:w-[520px] lg:flex-shrink-0 lg:self-start">
-          {/* font-medium instead of a heavier weight avoids the
-              same "popping" look on this heading. */}
-          <h2 className="text-[34px] font-medium leading-[1.15] tracking-[-0.01em] text-white sm:text-[40px] lg:-mt-2 lg:text-[46px]">
-            Technical Competencies & Service Capabilities
-          </h2>
-
-          <p className="mt-6 text-lg font-medium text-slate-200">
-            Starfii delivers engineering depth across every layer of the
-            enterprise stack, from product engineering to cloud platforms
-            to enterprise data systems
-          </p>
-
-          <p className="mt-6 text-[15px] leading-relaxed text-slate-300">
-            Starfii is an AI driven software and product engineering company
-            trusted by startups and Fortune 500 enterprises worldwide.
-            Building resilient, scalable technology takes more than a single
-            specialism. It takes software engineering, artificial
-            intelligence, data engineering, and quality assurance working
-            together as one system. Our core service capabilities span
-            end to end enterprise product engineering, SaaS product
-            engineering, Generative AI and LLM engineering, data engineering
-            and data science, legacy software modernization, and DevOps and
-            quality engineering, giving every enterprise the full technology
-            stack it needs under one roof.
-          </p>
-
-          {/* IMAGE */}
-          <div className="mt-10">
-            <PortraitCircle />
-          </div>
-        </div>
+        {/* LEFT CONTENT
+            Image removed — this column is now just the heading +
+            subtext, kept "stable" while the right column of cards
+            scrolls past it. Sticky offset/behavior (lg:sticky
+            lg:top-32 lg:h-fit) matches how the left column in
+            AIJourneySection stays pinned in place, and HeadingBlock
+            carries the same fade/slide-in scroll animation as
+            AIJourneySection's StepRow. */}
+        <HeadingBlock />
 
         {/* RIGHT CARDS */}
         <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2">

@@ -1,215 +1,241 @@
-import Link from "next/link";
+import { Mail } from "lucide-react";
 
-/* ===============================================================
-   Privacy Policy — /privacy-policy
+const T = {
+  ink: "text-[#14163B]",
+  primary: "text-[#3B2FE0]",
+  muted: "text-[#5B5D78]",
+  border: "border-[#E4E4EF]",
+  panelBg: "bg-[#FAFAFD]",
+};
 
-   Sections:
-   484. Privacy policy content -> Intro
-   485. Data collection
-   486. Use of information
-   487. Cookies
-   488. Third parties
-   489. User rights
-   490. Contact
-================================================================ */
+export const metadata = {
+  title: "Privacy Policy — Starfii",
+  description: "How Starfii Technologies collects, uses and protects information.",
+};
 
-const DARK_BLUE = "#0b1747";
-const INDIGO = "#3a3ff0";
+function Section({
+  id,
+  title,
+  children,
+}: {
+  id: string;
+  title: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <section id={id} className="scroll-mt-[140px]">
+      <h2 className={`text-[20px] font-semibold ${T.ink}`}>{title}</h2>
+      <div className={`mt-3 space-y-3 text-[15px] leading-relaxed ${T.muted}`}>{children}</div>
+    </section>
+  );
+}
 
-/* EXACT GLOBAL SITE CONTAINER */
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
-
-const sections = [
-  {
-    id: "data-collection",
-    number: "485",
-    title: "Data Collection",
-    body: [
-      "We collect information you provide directly to us, such as your name, email address, phone number, and company details when you fill out a contact form, request a proposal, subscribe to updates, or apply for a role with us.",
-      "We also collect information automatically when you visit our website, including your IP address, browser type, device information, pages viewed, and the date and time of your visit, using cookies and similar technologies.",
-    ],
-  },
-  {
-    id: "use-of-information",
-    number: "486",
-    title: "Use of Information",
-    body: [
-      "We use the information we collect to respond to your inquiries, provide the services you request, improve our website and offerings, communicate with you about updates and opportunities, and comply with our legal obligations.",
-      "We do not sell your personal information to third parties.",
-    ],
-  },
-  {
-    id: "cookies",
-    number: "487",
-    title: "Cookies",
-    body: [
-      "Our website uses cookies and similar technologies to remember your preferences, understand how visitors use our site, and improve your browsing experience. You can control or disable cookies through your browser settings at any time.",
-      "For more detail on the specific types of cookies we use and how to manage them, see our ",
-    ],
-    trailingLink: {
-      label: "Cookie Policy",
-      href: "/cookie-policy",
-    },
-  },
-  {
-    id: "third-parties",
-    number: "488",
-    title: "Third Parties",
-    body: [
-      "We may share information with trusted third party service providers who help us operate our website, deliver our services, and communicate with you, such as hosting providers, analytics platforms, and email service providers.",
-      "These third parties are only permitted to use your information as necessary to provide services to us and are required to protect it in accordance with this policy.",
-    ],
-  },
-  {
-    id: "user-rights",
-    number: "489",
-    title: "User Rights",
-    body: [
-      "Depending on your location, you may have the right to access, correct, update, or request deletion of your personal information, object to or restrict certain processing, and request a copy of the information we hold about you.",
-      "To exercise any of these rights, please reach out to us using the contact details below and we will respond within a reasonable timeframe.",
-    ],
-  },
-  {
-    id: "contact",
-    number: "490",
-    title: "Contact",
-    body: [
-      "If you have any questions about this Privacy Policy or how we handle your information, please contact us at privacy@starfii.com.",
-    ],
-  },
+const toc = [
+  { id: "data-collection", label: "Data collection" },
+  { id: "use-of-information", label: "Use of information" },
+  { id: "cookies", label: "Cookies" },
+  { id: "data-retention", label: "Data retention" },
+  { id: "security", label: "Security" },
+  { id: "international-transfers", label: "International transfers" },
+  { id: "third-parties", label: "Third parties" },
+  { id: "childrens-privacy", label: "Children's privacy" },
+  { id: "user-rights", label: "User rights" },
+  { id: "changes", label: "Changes to this policy" },
+  { id: "contact", label: "Contact" },
 ];
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-[#dbe6fb]">
-      {/* =========================================================
-          HEADER
-      ========================================================== */}
-      <section className="pb-12 pt-20 lg:pb-16 lg:pt-28">
-        <div className={ALIGN}>
-          <nav
-            aria-label="Breadcrumb"
-            className="flex items-center gap-2 text-sm font-medium"
-            style={{ color: INDIGO }}
-          >
-            <Link
-              href="/"
-              className="transition-colors hover:text-[#0b1747] hover:underline"
-            >
-              Home
-            </Link>
-
-            <span className="text-slate-400">/</span>
-
-            <span className="text-slate-500">
-              Privacy Policy
-            </span>
-          </nav>
-
-          <h1
-            className="mt-6 text-[40px] font-semibold leading-[1.08] tracking-[-0.035em] sm:text-[48px] lg:text-[56px]"
-            style={{ color: DARK_BLUE }}
-          >
+    <main className="min-h-screen bg-white pt-[140px] pb-24">
+      <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
+        <div className="max-w-2xl">
+          <p className={`text-[13px] font-semibold ${T.primary}`}>Legal</p>
+          <h1 className={`mt-3 text-[36px] font-semibold leading-tight ${T.ink} sm:text-[44px]`}>
             Privacy Policy
           </h1>
-
-          <p className="mt-5 max-w-3xl text-[17px] leading-8 text-slate-600 sm:text-[18px]">
-            How Starfii Technologies collects, uses and protects
-            information.
+          <p className={`mt-4 text-[16px] leading-relaxed ${T.muted}`}>
+            How Starfii Technologies collects, uses and protects information.
           </p>
-
-          <p className="mt-5 text-sm text-slate-500">
-            Last updated: September 14, 2026
-          </p>
+          <p className={`mt-2 text-[13.5px] ${T.muted}`}>Last updated 15 September 2026</p>
         </div>
-      </section>
 
-      {/* =========================================================
-          CONTENT
-      ========================================================== */}
-      <section className="pb-24 lg:pb-32">
-        <div className={ALIGN}>
-          <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-[0_20px_60px_-30px_rgba(15,23,42,0.18)]">
-            {/* Intro */}
-            <div className="border-b border-slate-100 bg-slate-50/70 p-7 sm:p-10 lg:p-12">
-              <p className="max-w-5xl text-[15px] leading-8 text-slate-600 sm:text-[16px]">
-                This Privacy Policy explains how Starfii Technologies
-                (&ldquo;Starfii&rdquo;, &ldquo;we&rdquo;,
-                &ldquo;us&rdquo;, or &ldquo;our&rdquo;) collects,
-                uses, discloses, and safeguards information when you
-                visit our website or interact with our services. By
-                using our website, you agree to the practices described
-                in this policy.
+        <div className="mt-12 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_260px] lg:gap-16">
+          <div className="max-w-[720px] space-y-12">
+            <Section id="privacy-policy-content" title="Overview">
+              <p>
+                This policy explains what information Starfii Technologies collects when you use our
+                websites and products, how we use it, who we share it with, and the choices you have
+                over it. It applies to everyone who visits starfii.com, applies for a role with us, or
+                uses TurboDesk, Agentverse, or any other Starfii product.
               </p>
-            </div>
+              <p>
+                By using our sites or products, you agree to the practices described here. If we make
+                a material change to this policy, we'll update the date above and, where required by
+                law, notify you directly — by email or an in-product notice — before the change takes
+                effect.
+              </p>
+              <p>
+                If anything here is unclear, or you'd like a plain-language explanation of a
+                particular section, write to us using the contact details at the end of this page.
+              </p>
+            </Section>
 
-            {/* Sections */}
-            <div className="p-7 sm:p-10 lg:p-14">
-              <div className="flex flex-col divide-y divide-slate-100">
-                {sections.map((section) => (
-                  <div
-                    key={section.id}
-                    id={section.id}
-                    className="scroll-mt-24 py-9 first:pt-0 last:pb-0"
-                  >
-                    <div className="grid gap-6 lg:grid-cols-[100px_1fr]">
-                      {/* Number */}
-                      <div>
-                        <span className="text-[13px] font-semibold tracking-wide text-[#3a3ff0]">
-                          {section.number}
-                        </span>
-                      </div>
+            <Section id="data-collection" title="Data collection">
+              <p>We collect information in three ways:</p>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>
+                  <span className={`font-medium ${T.ink}`}>Information you give us</span> — your name,
+                  email, phone number, company, resume, and anything you write to us through a form,
+                  a job application, or a support request.
+                </li>
+                <li>
+                  <span className={`font-medium ${T.ink}`}>Information collected automatically</span> —
+                  device and browser type, IP address, approximate location, pages visited, referring
+                  pages, and how you interact with our products, gathered through server logs,
+                  cookies, and similar technologies.
+                </li>
+                <li>
+                  <span className={`font-medium ${T.ink}`}>Information from third parties</span> — such
+                  as a recruiting partner, background-check provider, payment processor, or
+                  integration you've connected to a Starfii product.
+                </li>
+              </ul>
+            </Section>
 
-                      {/* Content */}
-                      <div>
-                        <h2
-                          className="text-[24px] font-semibold leading-tight tracking-[-0.02em]"
-                          style={{ color: DARK_BLUE }}
-                        >
-                          {section.title}
-                        </h2>
+            <Section id="use-of-information" title="Use of information">
+              <p>We use the information we collect to:</p>
+              <ul className="list-disc space-y-2 pl-5">
+                <li>Provide, maintain, and improve our products and services</li>
+                <li>Respond to inquiries, job applications, and support requests</li>
+                <li>Process and evaluate job applications, including sharing them internally with hiring teams</li>
+                <li>Send updates about products you use, unless you've opted out</li>
+                <li>Personalise content and measure how our site and products perform</li>
+                <li>Detect, investigate, and prevent fraud, abuse, or security incidents</li>
+                <li>Meet legal, tax, and regulatory obligations</li>
+              </ul>
+            </Section>
 
-                        <div className="mt-4 space-y-4">
-                          {section.body.map(
-                            (paragraph, i) => (
-                              <p
-                                key={i}
-                                className="max-w-5xl text-[15px] leading-8 text-slate-600"
-                              >
-                                {paragraph}
+            <Section id="cookies" title="Cookies">
+              <p>
+                We use cookies and similar technologies to keep you signed in, remember your
+                preferences, and understand how our sites are used. You can control cookies through
+                your browser settings, and where required by law we'll ask for your consent before
+                setting non-essential cookies. See our{" "}
+                <a href="/policy/Cookie-Policy" className={`font-medium ${T.primary}`}>
+                  Cookie Policy
+                </a>{" "}
+                for a full breakdown of the categories we use and how to manage them.
+              </p>
+            </Section>
 
-                                {section.trailingLink &&
-                                  i ===
-                                    section.body.length - 1 && (
-                                    <Link
-                                      href={
-                                        section.trailingLink.href
-                                      }
-                                      className="font-semibold transition-colors hover:underline"
-                                      style={{
-                                        color: INDIGO,
-                                      }}
-                                    >
-                                      {
-                                        section.trailingLink
-                                          .label
-                                      }
-                                    </Link>
-                                  )}
-                              </p>
-                            ),
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <Section id="data-retention" title="Data retention">
+              <p>
+                We keep personal information only as long as it's needed for the purpose it was
+                collected for. Account and product data is kept for as long as you have an active
+                relationship with us, plus a limited period afterward to meet legal or accounting
+                requirements. Job application data is generally retained for up to 12 months after a
+                hiring decision, unless you ask us to delete it sooner or applicable law requires a
+                longer period.
+              </p>
+            </Section>
+
+            <Section id="security" title="Security">
+              <p>
+                We use administrative, technical, and physical safeguards designed to protect
+                personal information against unauthorised access, alteration, disclosure, or
+                destruction — including encryption in transit, access controls, and regular security
+                reviews. No method of transmission or storage is completely secure, so we can't
+                guarantee absolute security, but we work to keep these protections current.
+              </p>
+            </Section>
+
+            <Section id="international-transfers" title="International transfers">
+              <p>
+                Starfii is based in India, and some of the service providers we work with — such as
+                cloud hosting or analytics vendors — may process data outside your home country. Where
+                we transfer personal information across borders, we put appropriate safeguards in
+                place, such as contractual protections, consistent with applicable data protection
+                law.
+              </p>
+            </Section>
+
+            <Section id="third-parties" title="Third parties">
+              <p>
+                We share information with service providers who help us run our business — hosting,
+                analytics, email delivery, background checks for hiring, and payment processing —
+                under contracts that limit how they can use your data. We do not sell personal
+                information. We may disclose information if required by law, in connection with a
+                merger or acquisition, or to protect the rights, property, or safety of Starfii, our
+                users, or the public.
+              </p>
+            </Section>
+
+            <Section id="childrens-privacy" title="Children's privacy">
+              <p>
+                Our products and services are intended for people who are old enough to enter into a
+                binding agreement in their jurisdiction, and are not directed at children. We do not
+                knowingly collect personal information from children. If you believe a child has
+                provided us with personal information, please contact us and we'll take steps to
+                remove it.
+              </p>
+            </Section>
+
+            <Section id="user-rights" title="User rights">
+              <p>
+                Depending on where you're located, you may have the right to access, correct, export,
+                or delete the personal information we hold about you, to withdraw consent, and to
+                object to or restrict certain uses of it. To exercise any of these rights, write to us
+                using the contact details below — we'll verify your request and respond within a
+                reasonable time, and in any event within any period required by applicable law.
+              </p>
+            </Section>
+
+            <Section id="changes" title="Changes to this policy">
+              <p>
+                We may update this policy from time to time to reflect changes in our practices, our
+                products, or legal requirements. When we make a material change, we'll update the
+                "last updated" date at the top of this page and, where required, give you additional
+                notice before the change applies to you. We encourage you to review this page
+                periodically.
+              </p>
+            </Section>
+
+            <Section id="contact" title="Contact">
+              <p>
+                Questions about this policy or how we handle your information can be sent to our
+                privacy team.
+              </p>
+              <a
+                href="mailto:privacy@starfii.com"
+                className={`inline-flex items-center gap-2 text-[14.5px] font-semibold ${T.primary}`}
+              >
+                <Mail size={16} />
+                privacy@starfii.com
+              </a>
+            </Section>
           </div>
+
+          {/* Table of contents */}
+          <aside className="lg:sticky lg:top-[140px] lg:self-start">
+            <div className={`rounded-lg border ${T.border} ${T.panelBg} p-5`}>
+              <h3 className={`text-[12.5px] font-semibold uppercase tracking-[0.06em] ${T.muted}`}>
+                On this page
+              </h3>
+              <nav className="mt-3 space-y-2.5">
+                {toc.map((item) => (
+                  <a
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`block text-[13.5px] ${T.muted} hover:${T.primary} transition-colors`}
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </nav>
+            </div>
+          </aside>
         </div>
-      </section>
+      </div>
     </main>
   );
 }

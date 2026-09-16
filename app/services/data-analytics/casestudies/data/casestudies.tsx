@@ -181,6 +181,104 @@ const rawCaseStudies: CaseStudyDetail[] = [
 
     date: "2026-08-17",
   },
+
+  {
+    slug: "global-manufacturer-predictive-maintenance-analytics",
+
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1800&auto=format&fit=crop",
+
+    title:
+      "Predictive Maintenance Analytics Cuts Unplanned Downtime by 45% for a Global Manufacturer",
+
+    body:
+      "Starfii piped sensor and equipment telemetry from plant floors into a cloud data platform, building predictive models that flag failures before they happen and give maintenance teams a clear window to act.",
+
+    client: "Global Manufacturing Company",
+
+    industry: "Manufacturing",
+
+    services: [
+      "Data Engineering",
+      "Cloud Data Platforms",
+      "Data Science & Advanced Analytics",
+      "IoT Data Integration",
+    ],
+
+    duration: "11 Months",
+
+    overview:
+      "A global manufacturer with plants across multiple regions needed a way to move from reactive equipment repairs to predictive maintenance, using the sensor data its machines were already generating but not fully using.",
+
+    challenge:
+      "Equipment telemetry was captured locally at each plant but rarely centralized or analyzed. Maintenance teams found out about failures only after they happened, leading to unplanned downtime, rushed repairs, and inconsistent production schedules across sites.",
+
+    solution:
+      "Starfii built ingestion pipelines that streamed sensor and equipment telemetry from every plant into a single cloud data platform. Data science models trained on this unified data set surfaced early warning signs of equipment failure, feeding directly into maintenance team dashboards and alerts.",
+
+    results:
+      "The manufacturer moved from reactive to predictive maintenance across its plant network. Maintenance teams now get advance warning of likely failures, letting them schedule repairs before equipment goes down instead of after.",
+
+    stats: [
+      { value: "45%", label: "Less unplanned downtime" },
+      { value: "30%", label: "Lower maintenance costs" },
+      { value: "12+", label: "Plants unified on one platform" },
+    ],
+
+    date: "2026-09-10",
+  },
+
+  {
+    slug: "regional-bank-fraud-anomaly-detection",
+
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
+
+    heroImage:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1800&auto=format&fit=crop",
+
+    title:
+      "Real Time Fraud Detection Cuts Loss Exposure by 55% for a Regional Bank",
+
+    body:
+      "Starfii applied data science models to a regional bank's transaction streams, flagging unusual patterns in near real time so fraud analysts could act on risk before losses settled, not after.",
+
+    client: "Regional Bank",
+
+    industry: "Financial Services",
+
+    services: [
+      "Data Science & Advanced Analytics",
+      "Data Engineering",
+      "Real Time Data Pipelines",
+      "Data Governance",
+    ],
+
+    duration: "8 Months",
+
+    overview:
+      "A regional bank relied on batch fraud reviews that ran hours behind live transactions, leaving a window where fraudulent activity could go undetected until it was too late to intervene.",
+
+    challenge:
+      "Fraud analysts worked from end of day reports, so suspicious transactions were often flagged well after funds had already moved. Rule based detection alone produced too many false positives, and the team could not keep pace with transaction volume growth.",
+
+    solution:
+      "Starfii built real time ingestion pipelines from the bank's transaction systems and layered anomaly detection models on top of the governed data stream. Alerts routed to fraud analysts within seconds of a suspicious transaction, with model scoring tuned to cut false positives without missing real risk.",
+
+    results:
+      "The bank now catches suspicious activity while transactions are still in flight instead of after settlement. Fraud analysts spend less time chasing false alarms and more time on genuine risk, and loss exposure from confirmed fraud cases dropped sharply.",
+
+    stats: [
+      { value: "55%", label: "Lower fraud loss exposure" },
+      { value: "Seconds", label: "Detection to alert time" },
+      { value: "40%", label: "Fewer false positive alerts" },
+    ],
+
+    date: "2026-09-15",
+  },
 ];
 
 // Newest date first — this is what every page actually imports.

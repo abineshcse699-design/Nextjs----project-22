@@ -9,27 +9,60 @@ import {
   Sparkles,
   ArrowUpRight,
   Plus,
+  Minus,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
-import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
+
+/* ===============================================================
+   BRAND TOKENS
+   Kept identical to the Data & Analytics page so both service
+   pages render at exactly the same scale and rhythm.
+================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
+// Colors for the two dark, full-bleed sections (capability cards +
+// impact accordion) so they read as a distinct "showcase" register
+// against the light sections.
 const DARK_BG = "#0A0A18";
 const DARK_CARD = "rgba(255,255,255,0.04)";
 const DARK_BORDER = "rgba(255,255,255,0.09)";
 const ACCENT_INDIGO = "#6C5DD3";
 
+// Shared page width wrapper, kept in sync with the navbar's own
+// max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// Autoplay timing for the "ITSM Migration Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
+
+// -----------------------------------------------------------------
+// Single source of truth for this service's route base. Every
+// internal link is built from this constant, so the folder name and
+// the links can never drift apart. This MUST match the folder on
+// disk exactly, letter for letter, including case.
+// -----------------------------------------------------------------
+const BASE_PATH = "/services/ITSM-Migration";
+
+/* ===============================================================
+   TYPOGRAPHY TOKENS
+   Same scale used on the Data & Analytics and Software & Product
+   Engineering pages, so every service page's Hero <h1> and big
+   section <h2>s render at identical sizes across the site.
+================================================================ */
 
 const HERO_HEADING =
   "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
 
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+
+/* ===============================================================
+   SHARED ANIMATION VARIANTS
+   heroContainer / heroItem: play once on page load (hero only)
+   container / item / fadeUp: play once, on scroll into view
+================================================================ */
 
 const heroContainer: Variants = {
   hidden: {},
@@ -78,159 +111,218 @@ const fadeUp: Variants = {
   },
 };
 
+/* ===============================================================
+   CONTENT
+================================================================ */
+
 const keyTakeaways: string[] = [
-  "Starfii helps enterprises turn fragmented, siloed data into a single governed platform that every team can trust and act on.",
-  "Our data engineering and cloud platform teams build resilient pipelines that scale with the business, so growth never means rebuilding your data stack.",
-  "We connect Generative AI and LLMs safely to your own enterprise data, so teams can query, summarize, and act on it in plain language.",
-  "Our approach combines data governance, quality checks, and stewardship with modern BI and analytics to deliver decisions your business can rely on.",
+  "Starfii evaluates existing ITSM platforms, workflows, and integrations to build a clear current state picture and a low risk, structured migration plan.",
+  "We move data, configurations, workflows, service catalogs, and CMDB records onto a modern service management environment without disrupting daily operations.",
+  "Every migrated process is validated through testing and user acceptance, so agents and end users trust the new platform before it goes live.",
+  "Starfii manages cutover with runbooks and rollback plans, then stays on through post migration support and managed services.",
 ];
 
-const focusAreas = [
+type FocusArea = { title: string; body: string; tags: string[] };
+
+const focusAreas: FocusArea[] = [
   {
-    title: "Data Engineering",
-    body: "Starfii's certified data engineers design and build resilient pipelines and data platforms, so every downstream system works from clean, timely, well governed data.",
-    tags: ["PIPELINES", "ETL", "ORCHESTRATION"],
+    title: "Current State Analysis",
+    body: "Starfii's ITSM migration team audits your existing service management platform, workflows, and technical debt, so every migration decision is grounded in how the platform is actually used today.",
+    tags: ["AUDIT", "DISCOVERY", "ITSM"],
   },
   {
-    title: "Data Architecture",
-    body: "Starfii designs the blueprints for how data flows, is stored, and is accessed across your organization, so every new source and pipeline fits a plan instead of adding to the sprawl.",
-    tags: ["ARCHITECTURE", "DATA MODELING", "SCHEMA DESIGN"],
+    title: "Target State Design",
+    body: "Starfii designs the target ITSM environment around your future operating model, mapping processes, roles, and platform capabilities before a single record is moved.",
+    tags: ["ARCHITECTURE", "DESIGN", "ITSM"],
   },
   {
-    title: "Data Pipelines & Orchestration",
-    body: "We build ingestion and transformation pipelines with automated orchestration and monitoring, so data lands where it is needed, on schedule, without manual babysitting.",
-    tags: ["ORCHESTRATION", "INGESTION", "ETL/ELT"],
+    title: "Migration Strategy",
+    body: "Starfii builds a phased migration strategy that sequences data, configuration, and workflow moves to minimize risk and keep service desks running throughout the transition.",
+    tags: ["STRATEGY", "ROADMAP", "PLANNING"],
   },
   {
-    title: "Cloud Data Platforms",
-    body: "Starfii architects and migrates data estates onto modern cloud data platforms on AWS, Azure, and GCP, built for scale, cost control, and near real time access.",
-    tags: ["AWS", "AZURE", "GCP"],
+    title: "Data Migration",
+    body: "Starfii's data migration practice extracts, cleanses, and transforms incidents, requests, problems, and change records so historical service data arrives accurate and query ready.",
+    tags: ["DATA", "ETL", "VALIDATION"],
   },
   {
-    title: "Data Analytics",
-    body: "Starfii turns raw, siloed data into clear analysis, surfacing trends and answering the business questions teams actually ask.",
-    tags: ["ANALYTICS", "SELF-SERVICE", "INSIGHTS"],
+    title: "Configuration Migration",
+    body: "Starfii migrates forms, business rules, SLAs, and platform configurations from legacy ITSM tools, preserving the logic teams depend on while modernizing the underlying platform.",
+    tags: ["CONFIGURATION", "RULES", "SLA"],
   },
   {
-    title: "Business Intelligence & Dashboards",
-    body: "We turn raw data into actionable business intelligence using Tableau and Power BI, so decision makers see what matters without digging for it.",
-    tags: ["TABLEAU", "POWER BI", "DASHBOARDS"],
+    title: "Workflow Migration",
+    body: "Starfii rebuilds and optimizes approval chains, escalation paths, and automation workflows in the new environment instead of copying legacy limitations forward.",
+    tags: ["WORKFLOW", "AUTOMATION", "APPROVALS"],
   },
   {
-    title: "Data Science & Advanced Analytics",
-    body: "Our data scientists build the models and surface the patterns behind better decisions, from demand forecasting to anomaly detection to product recommendation.",
-    tags: ["ML", "FORECASTING", "STATISTICAL MODELING"],
+    title: "Service Catalog Migration",
+    body: "Starfii restructures and migrates your service catalog, so end users find the right service requests quickly and IT can manage offerings from a single source of truth.",
+    tags: ["CATALOG", "SELF SERVICE", "ITSM"],
   },
   {
-    title: "AI-Ready Data",
-    body: "Starfii prepares and governs enterprise data so it is clean, contextual, and safe for AI and LLM consumption, turning raw records into something models can actually reason over.",
-    tags: ["AI-READY", "RAG", "DATA QUALITY"],
+    title: "CMDB and Asset Migration",
+    body: "Starfii migrates configuration items, asset records, and relationship maps into a clean CMDB, giving teams accurate visibility into infrastructure and service dependencies.",
+    tags: ["CMDB", "ASSETS", "DEPENDENCIES"],
   },
   {
-    title: "Data Modernization",
-    body: "We move legacy warehouses and data marts onto modern cloud platforms with minimal disruption, closing the gap between old systems and new business demands.",
-    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
-  },
-  {
-    title: "Data Governance & Quality",
-    body: "We put stewardship, lineage, and data quality checks in place so your enterprise data stays trustworthy as it moves across systems and teams.",
-    tags: ["GOVERNANCE", "LINEAGE", "QUALITY"],
-  },
-  {
-    title: "MDM & Data Integration",
-    body: "We consolidate fragmented sources into a single, reliable master data record, so every team works from the same version of the truth.",
-    tags: ["MDM", "INTEGRATION", "MASTER DATA"],
-  },
-  {
-    title: "Generative AI on Enterprise Data",
-    body: "Starfii connects Generative AI and LLMs to your own enterprise data safely, so teams can query, summarize, and act on it in plain language.",
-    tags: ["GENAI", "LLM", "RAG"],
+    title: "Integration Migration",
+    body: "Starfii re-establishes integrations with monitoring, identity, HR, and collaboration tools, so the new ITSM platform connects to your broader technology ecosystem from day one.",
+    tags: ["INTEGRATIONS", "API", "ECOSYSTEM"],
   },
 ];
 
-const tabs = [
+type ServiceTab = {
+  label: string;
+  heading: string;
+  body: string;
+  image: string;
+};
+
+const tabs: ServiceTab[] = [
   {
-    label: "Architecture: Design the Foundation",
-    heading: "A data architecture blueprint before a single pipeline gets built",
-    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Build a Single Source of Truth",
-    heading: "One governed data foundation, not a dozen conflicting copies",
-    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts.",
+    label: "Migration Assessment",
+    heading: "A migration assessment that removes guesswork from ITSM transformation",
+    body: "Starfii runs a structured migration assessment across your current ITSM platform, uncovering technical debt, data quality issues, and process gaps before migration planning begins.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Engineer Pipelines That Scale",
-    heading: "Pipelines built for the data volumes you will have next year, not just today",
-    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch.",
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Platforms: Pick the Right Cloud Fit",
-    heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
-    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access.",
-    image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Turn Data into Decisions",
-    heading: "Analytics and dashboards people actually open",
-    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Data Science: Find the Pattern",
-    heading: "Models that surface the pattern behind the decision, not just a dashboard number",
-    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production.",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Modernize Legacy Data Estates",
-    heading: "A clear path off aging warehouses and brittle ETL",
-    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting.",
+    label: "Testing and Validation",
+    heading: "Testing and validation that confirm every migrated process actually works",
+    body: "Starfii's testing and validation team verifies data integrity, workflow logic, and integrations in the new environment, so nothing breaks quietly after go live.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Apply AI to Your Own Data",
-    heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
-    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork.",
+    label: "User Acceptance",
+    heading: "User acceptance testing that keeps service desk teams confident and ready",
+    body: "Starfii runs structured user acceptance testing with real service desk scenarios, so agents and end users trust the new platform before it goes live.",
+    image:
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Cutover",
+    heading: "Cutover planning that protects service continuity during go live",
+    body: "Starfii manages cutover with detailed runbooks, rollback plans, and hypercare coverage, so the switch to your new ITSM platform happens with minimal disruption.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Post Migration Support",
+    heading: "Post migration support that keeps the new platform running smoothly",
+    body: "Starfii provides post migration support and managed services, resolving issues quickly and tuning the platform as usage patterns and business needs evolve.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
+// Closing "Impact" accordion — each row expands in place to show what
+// that migration area actually covers.
 const impactAreas = [
   {
-    title: "Unify Fragmented Data Sources",
-    body: "Bring scattered warehouses, marts, and spreadsheets into one governed platform so every team works from the same numbers.",
+    title: "Data Migration",
+    body: "Extract, cleanse, and transform incidents, requests, problems, and change records so historical service data arrives accurate and query ready.",
   },
   {
-    title: "Engineer Pipelines for Scale",
-    body: "Build ingestion and transformation pipelines that keep pace with data volume as the business grows, not just today's load.",
+    title: "Configuration Migration",
+    body: "Move forms, business rules, and SLAs across from legacy tools, keeping the logic teams depend on while modernizing the platform underneath.",
   },
   {
-    title: "Govern Data You Can Trust",
-    body: "Put stewardship, lineage, and quality checks in place so data stays trustworthy as it moves across systems and teams.",
+    title: "Workflow Migration",
+    body: "Rebuild approval chains, escalation paths, and automation in the new environment instead of carrying legacy limitations forward.",
   },
   {
-    title: "Apply AI to Enterprise Data",
-    body: "Connect Generative AI and LLMs safely to your own data, so teams can query and act on it in plain language.",
+    title: "Service Catalog Migration",
+    body: "Restructure the catalog so employees find the right request quickly and IT manages every offering from one source of truth.",
   },
   {
-    title: "Modernize Legacy Data Estates",
-    body: "Move aging warehouses and brittle ETL onto modern cloud platforms with a clear roadmap and minimal disruption.",
+    title: "CMDB and Asset Migration",
+    body: "Migrate configuration items, asset records, and relationship maps into a clean CMDB with accurate dependency visibility.",
   },
   {
-    title: "Turn Analytics into Action",
-    body: "Design BI and reporting around the decisions teams make every day, not just the metrics that are easiest to compute.",
+    title: "Integration Migration",
+    body: "Re-establish monitoring, identity, HR, and collaboration integrations so the new platform is connected from day one.",
+  },
+];
+
+type UseCase = { industry: string; title: string; body: string };
+
+const useCases: UseCase[] = [
+  {
+    industry: "Insurance",
+    title: "End of Life Platform Exit",
+    body: "Move incidents, changes, and CMDB records off an unsupported ITSM platform on a phased schedule, without a single day of service desk downtime.",
+  },
+  {
+    industry: "Retail",
+    title: "Self Service Catalog Rebuild",
+    body: "Restructure a sprawling service catalog into a clean request experience, so employees resolve common asks without opening a ticket.",
+  },
+  {
+    industry: "Manufacturing",
+    title: "CMDB Consolidation",
+    body: "Merge fragmented asset records from every plant into one CMDB with accurate dependency mapping for change impact analysis.",
+  },
+  {
+    industry: "Healthcare",
+    title: "Approval Workflow Automation",
+    body: "Rebuild approval chains and escalation paths during migration, cutting manual handoffs and shortening incident resolution times.",
+  },
+  {
+    industry: "Banking",
+    title: "Audit Ready Change Records",
+    body: "Migrate change and approval history with full traceability, so compliance teams can evidence every control after go live.",
+  },
+  {
+    industry: "Technology",
+    title: "Integration Re-Platforming",
+    body: "Reconnect monitoring, identity, and HR systems to the new ITSM platform so automation keeps running through the cutover window.",
+  },
+];
+
+type CaseStudy = { slug: string; industry: string; image: string; title: string; body: string };
+
+const caseStudies: CaseStudy[] = [
+  {
+    slug: "legacy-itsm-platform-migration-insurer",
+    industry: "Insurance",
+    image:
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Migrates a Global Insurer From a Legacy ITSM Platform",
+    body: "Explore how Starfii moved a global insurer off an end of life ITSM platform, migrating incidents, changes, and CMDB data without a single day of service desk downtime.",
+  },
+  {
+    slug: "service-catalog-modernization-retail",
+    industry: "Retail",
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Modernizes a Retail Service Catalog for Faster Self Service",
+    body: "See how Starfii restructured a sprawling service catalog into a clean, self service experience that cut average request fulfillment time significantly.",
+  },
+  {
+    slug: "cmdb-asset-consolidation-manufacturer",
+    industry: "Manufacturing",
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
+    title: "CMDB and Asset Consolidation for a Global Manufacturer",
+    body: "Discover how Starfii consolidated fragmented asset records into a single CMDB, giving IT teams accurate dependency mapping across every plant and facility.",
+  },
+  {
+    slug: "workflow-automation-healthcare-itsm",
+    industry: "Healthcare",
+    image:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
+    title: "Starfii Automates ITSM Workflows for a Healthcare Provider",
+    body: "Learn how Starfii rebuilt approval chains and escalation workflows during migration, reducing manual handoffs and improving incident resolution times.",
+  },
+  {
+    slug: "managed-services-post-migration-bank",
+    industry: "Banking",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
+    title: "Post Migration Managed Services for a Regional Bank",
+    body: "See how Starfii's managed services team supported a regional bank after ITSM migration, keeping the platform tuned as usage and compliance needs grew.",
   },
 ];
 
@@ -244,88 +336,57 @@ type Insight = {
 
 const insights: Insight[] = [
   {
-    slug: "generative-ai-enterprise-data-warehouses-to-answers",
-    title: "Generative AI on Enterprise Data: From Warehouses to Answers",
-    body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
+    slug: "planning-a-low-risk-itsm-migration",
+    title: "Planning a Low Risk ITSM Migration: A Practical Roadmap for Enterprises",
+    body: "Explore how Starfii structures ITSM migrations into assessment, design, and phased execution, so enterprises modernize without disrupting daily operations.",
     image:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
     gradient: false,
   },
   {
-    slug: "cloud-data-platforms-aws-azure-gcp",
-    title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
-    body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right ",
-    image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    slug: "data-governance-at-scale-trust-every-pipeline",
-    title: "Data Governance at Scale: Building Trust Into Every Pipeline",
-    body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    slug: "mdm-in-practice-one-customer-record",
-    title: "MDM in Practice: Getting Every Team to One Customer Record",
-    body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
+    slug: "cmdb-data-quality-before-migration",
+    title: "Why CMDB Data Quality Determines ITSM Migration Success",
+    body: "Stop migrating bad data into a new platform. See how Starfii cleanses and validates CMDB records before migration to prevent downstream service disruptions.",
     image:
       "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
-    title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
-    body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
+    slug: "cutover-runbooks-service-continuity",
+    title: "Building Cutover Runbooks That Protect Service Continuity",
+    body: "Learn how detailed cutover runbooks and rollback plans help IT teams move to a new ITSM platform with confidence and minimal downtime.",
     image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    slug: "bi-dashboards-designed-around-decisions",
-    title: "BI That Gets Opened: Designing Dashboards Around Decisions",
-    body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
+    slug: "modernizing-service-catalogs-self-service",
+    title: "Modernizing Service Catalogs to Drive Self Service Adoption",
+    body: "Discover how a restructured service catalog improves employee self service adoption and reduces ticket volume for overloaded service desks.",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    slug: "managed-services-after-itsm-go-live",
+    title: "What Good Managed Services Look Like After ITSM Go Live",
+    body: "Learn what to expect from managed services after an ITSM migration, from hypercare support to ongoing platform tuning and optimization.",
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    slug: "measuring-itsm-migration-success",
+    title: "Measuring ITSM Migration Success Beyond Go Live Day",
+    body: "The metrics that actually show a migration worked, from first contact resolution to change failure rate in the first ninety days.",
     image:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200&auto=format&fit=crop",
   },
 ];
 
-type UseCase = {
-  industry: string;
-  title: string;
-  body: string;
-};
-
-const useCases: UseCase[] = [
-  {
-    industry: "Retail & E-Commerce",
-    title: "Real Time Demand Forecasting",
-    body: "Unify point-of-sale, inventory, and web data into one pipeline so merchandising teams forecast demand and avoid stockouts before they happen.",
-  },
-  {
-    industry: "Financial Services",
-    title: "Fraud & Anomaly Detection",
-    body: "Apply data science models to transaction streams so unusual patterns get flagged in near real time, not after the fraud has already settled.",
-  },
-  {
-    industry: "Healthcare",
-    title: "Unified Patient Data Platform",
-    body: "Bring records from EHR, labs, and claims systems into a governed data platform, giving clinicians and analysts one trustworthy view of patient history.",
-  },
-  {
-    industry: "Manufacturing",
-    title: "Predictive Maintenance Analytics",
-    body: "Pipe sensor and equipment telemetry into a cloud data platform so maintenance teams predict failures before they cause downtime.",
-  },
-  {
-    industry: "Insurance",
-    title: "Claims Data Governance",
-    body: "Apply lineage, stewardship, and quality checks across claims data so audit and compliance teams trust every number they report on.",
-  },
-  {
-    industry: "Telecom",
-    title: "Customer Churn Prediction",
-    body: "Combine usage, billing, and support data into AI-ready datasets so retention teams act on churn risk weeks before a customer cancels.",
-  },
-];
+/* ===============================================================
+   HOOK: sequential typewriter for a list of lines
+   Types line 0 char-by-char, then line 1, then line 2...
+   Resets to empty whenever `active` becomes false. Guarded against
+   out-of-bounds reads so it can never crash if the list changes
+   shape while a typing loop is still running.
+================================================================ */
 
 function useTypewriterList(
   items: string[],
@@ -390,7 +451,13 @@ function useTypewriterList(
   return { displayed, typingIndex };
 }
 
-function WhyMattersAccordion({
+/* ===============================================================
+   KEY TAKEAWAYS ACCORDION — "ITSM Migration Overview"
+   Click the header to expand/collapse. While open, each line types
+   out letter by letter, one after another.
+================================================================ */
+
+function OverviewAccordion({
   open,
   setOpen,
 }: {
@@ -415,7 +482,7 @@ function WhyMattersAccordion({
         <div className="flex items-center gap-3">
           <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Why Data &amp; Analytics Matters
+            Why ITSM Migration Matters
           </span>
         </div>
 
@@ -424,7 +491,7 @@ function WhyMattersAccordion({
             className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
             style={{ backgroundColor: "#F1EEFC", color: ACCENT_INDIGO }}
           >
-            Trusted Data
+            Low Risk Migration
           </span>
 
           <ChevronDown
@@ -480,12 +547,7 @@ function WhyMattersAccordion({
 }
 
 /* ===============================================================
-   REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click. `gap` controls both the
-   spacing between cards AND is baked into the per-card width calc,
-   so it must match whatever gap-* / spaceBetween value the caller
-   actually renders with. Also supports fractional `perPage` values
-   (e.g. 1.15) for a "peek" of the next card on mobile.
+   REUSABLE: StepCarousel — moves exactly ONE card per arrow click
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -496,21 +558,22 @@ type StepCarouselProps<T> = {
     desktop: number;
   };
   renderItem: (item: T, index: number) => ReactNode;
-  dark?: boolean;
-  gap?: number; // px — must match the gap actually applied to the track
+  arrowVariant?: "light" | "dark";
+  gap?: number; // px gap between cards
 };
 
 function StepCarousel<T>({
   items,
   itemsPerPage,
   renderItem,
-  dark = false,
+  arrowVariant = "light",
   gap = 24,
 }: StepCarouselProps<T>) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [perPage, setPerPage] = useState(itemsPerPage.desktop);
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
+  const isDark = arrowVariant === "dark";
 
   const updatePerPage = useCallback(() => {
     if (window.innerWidth <= 639) {
@@ -555,8 +618,8 @@ function StepCarousel<T>({
     return () => resizeObserver.disconnect();
   }, [measure, perPage]);
 
-  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card) still
-  // lands on a whole card instead of stopping mid-card.
+  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card on
+  // mobile) still lands on a whole card instead of stopping mid-card.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
 
@@ -603,7 +666,7 @@ function StepCarousel<T>({
         <div
           className="h-[2px] flex-1 overflow-hidden rounded-full"
           style={{
-            backgroundColor: dark ? "rgba(255,255,255,0.15)" : "#CBD5E1",
+            backgroundColor: isDark ? "rgba(255,255,255,0.15)" : "#CBD5E1",
           }}
         >
           <div
@@ -618,7 +681,7 @@ function StepCarousel<T>({
         <span
           className="font-body flex-none text-[14px] tabular-nums"
           style={{
-            color: dark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
           }}
         >
           {String(position + 1).padStart(2, "0")} /{" "}
@@ -633,8 +696,8 @@ function StepCarousel<T>({
             disabled={position === 0}
             className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
             style={{
-              backgroundColor: dark ? "rgba(255,255,255,0.10)" : "#E5E1F5",
-              color: dark ? "#fff" : CHAMPION_BLUE,
+              backgroundColor: isDark ? "rgba(255,255,255,0.10)" : "#E5E1F5",
+              color: isDark ? "#fff" : CHAMPION_BLUE,
             }}
           >
             <ChevronLeft size={18} />
@@ -656,16 +719,115 @@ function StepCarousel<T>({
   );
 }
 
-export default function DataAnalyticsServicesSection() {
+/* ===============================================================
+   IMPACT ACCORDION — matches the Cloud Engineering page's
+   "Impact Across Your Cloud Infrastructure" accordion exactly:
+   two independent columns (so opening a card on the left never
+   stretches its neighbor on the right), a smooth 0fr → 1fr height
+   expand, and a plus/minus toggle that rotates in place.
+================================================================ */
+
+type ImpactItem = { title: string; body: string };
+
+function ImpactAccordion({ items }: { items: ImpactItem[] }) {
+  // null = everything closed. 0 keeps the first card open by default,
+  // matching the Cloud page's accordion.
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const columns: { entry: ImpactItem; index: number }[][] = [[], []];
+  items.forEach((entry, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ entry, index });
+  });
+
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={container}
+      className="mt-12 grid grid-cols-1 items-start gap-5 sm:grid-cols-2"
+    >
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="flex flex-col gap-5">
+          {column.map(({ entry, index }) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <motion.div key={entry.title} variants={item}>
+                <div
+                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                  style={{
+                    boxShadow: isOpen
+                      ? "0 18px 40px rgba(15,23,42,0.18)"
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`itsm-impact-panel-${index}`}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                  >
+                    <span
+                      className="font-body text-[17px] font-medium leading-snug transition-colors duration-300"
+                      style={{ color: isOpen ? ACCENT_INDIGO : CHAMPION_BLUE }}
+                    >
+                      {entry.title}
+                    </span>
+
+                    <span
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: isOpen ? "#E5E1F5" : ACCENT_INDIGO,
+                        color: isOpen ? "#8B93A7" : "#FFFFFF",
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                    </span>
+                  </button>
+
+                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
+                  <div
+                    id={`itsm-impact-panel-${index}`}
+                    className="ss-eco-panel grid transition-all duration-500 ease-out"
+                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                      >
+                        {entry.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      ))}
+    </motion.div>
+  );
+}
+
+/* ===============================================================
+   PAGE
+================================================================ */
+
+export default function ItsmMigrationTransformationSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
-  const [openImpact, setOpenImpact] = useState<number | null>(null);
   const [insightPage, setInsightPage] = useState(0);
   const [insightStepWidth, setInsightStepWidth] = useState(0);
   const insightTrackRef = useRef<HTMLDivElement | null>(null);
   const current = tabs[activeTab];
 
+  // Insights carousel: keep 3 cards visible and move exactly 1 card per click.
   const INSIGHTS_PER_PAGE = 3;
   const maxInsightPage = Math.max(0, insights.length - INSIGHTS_PER_PAGE);
   const insightPages = maxInsightPage + 1;
@@ -701,6 +863,9 @@ export default function DataAnalyticsServicesSection() {
     setInsightPage((currentPage) => Math.min(currentPage, maxInsightPage));
   }, [maxInsightPage]);
 
+  // --- Autoplay for the left-side tab list ---
+  // Advances every TAB_AUTOPLAY_MS, pauses on hover, and restarts the
+  // timer whenever the user manually clicks a tab.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -710,7 +875,11 @@ export default function DataAnalyticsServicesSection() {
   }, [tabHovered, activeTab]);
 
   return (
+    // pt-[92px] / lg:pt-[100px] offsets the fixed Navbar so the
+    // hero/breadcrumb no longer sits underneath it.
     <main className="bg-white pt-[92px] lg:pt-[100px]">
+      {/* Progress-fill keyframe for the autoplaying tab indicator line,
+          plus the typewriter caret blink used in the overview block */}
       <style>{`
         @keyframes ss-tab-progress {
           from { transform: scaleY(0); }
@@ -731,9 +900,11 @@ export default function DataAnalyticsServicesSection() {
           .ss-caret {
             animation: none !important;
           }
+          /* Case study / blog hover motion stays static */
           .ss-case-image,
           .ss-case-desc,
-          .ss-zoom-img {
+          .ss-zoom-img,
+          .ss-eco-panel {
             transition: none !important;
           }
           .ss-case-desc {
@@ -744,13 +915,16 @@ export default function DataAnalyticsServicesSection() {
         }
       `}</style>
 
+      {/* ============================================================
+          HERO — animates once, right after page load
+      ============================================================ */}
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <motion.img
             initial={{ opacity: 0, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1800&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1800&auto=format&fit=crop"
             alt=""
             className="h-full w-full object-cover"
           />
@@ -769,15 +943,15 @@ export default function DataAnalyticsServicesSection() {
             className="font-body flex items-center gap-2 text-[14px] font-medium"
             style={{ color: CHAMPION_BLUE }}
           >
-            <a href="/" className="hover:underline">
+            <Link href="/" className="hover:underline">
               Home
-            </a>
+            </Link>
             <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
+            <Link href="/services" className="hover:underline">
               Services
-            </a>
+            </Link>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Data &amp; Analytics</span>
+            <span className="text-slate-500">ITSM Migration &amp; Transformation</span>
           </motion.nav>
 
           <motion.h1
@@ -785,17 +959,17 @@ export default function DataAnalyticsServicesSection() {
             className={`${HERO_HEADING} mt-8 max-w-2xl`}
             style={{ color: CHAMPION_BLUE }}
           >
-            Data &amp; Analytics Services for Decisions You Can Trust
+            ITSM Migration and Transformation for Modern Service Management
           </motion.h1>
 
           <motion.p
             variants={heroItem}
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600"
           >
-            Starfii architects, engineers, and modernizes data platforms
-            and pipelines, turning scattered, siloed data into a governed,
-            AI-ready foundation that powers faster, more confident
-            decisions across the enterprise.
+            Starfii moves enterprises off legacy service management
+            platforms and onto modern environments, migrating data,
+            configurations, workflows, and integrations with a structured,
+            low risk approach that protects daily operations.
           </motion.p>
 
           <motion.a
@@ -813,6 +987,9 @@ export default function DataAnalyticsServicesSection() {
       </section>
 
       <div className={ALIGN}>
+        {/* ============================================================
+            WHY ITSM MIGRATION MATTERS — collapsible, typewriter bullets
+        ============================================================ */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -820,18 +997,22 @@ export default function DataAnalyticsServicesSection() {
           variants={fadeUp}
           className="mt-16"
         >
-          <WhyMattersAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+          <OverviewAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A trusted data and analytics partner, Starfii builds governed
-            platforms and AI ready pipelines that turn scattered
-            enterprise data into decisions your business can rely on.
+            A trusted ITSM migration and transformation partner, Starfii
+            moves enterprises off legacy service management platforms with
+            a structured, low risk approach that protects the service desk
+            and the people who depend on it every day.
           </p>
         </motion.section>
 
+        {/* ============================================================
+            Q&A BLOCK — migration assessment
+        ============================================================ */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -848,22 +1029,23 @@ export default function DataAnalyticsServicesSection() {
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Turn Raw Data Into a Trusted Asset?
+                How Do Enterprises Assess Readiness for ITSM Migration?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises build trust in their data by combining strong
-                governance, scalable data engineering, and analytics that
-                answer real business questions. Starfii brings these
-                together to reduce data silos, speed up reporting, and
-                give every team a foundation of numbers they do not have
-                to second guess.
+                Enterprises assess ITSM migration readiness by reviewing
+                current state processes, data quality, integrations, and
+                platform limitations before committing to a target
+                environment. Starfii runs this assessment early, turning
+                fragmented legacy platforms into a clear, structured
+                migration plan that protects the service desk and the
+                people who depend on it every day.
               </p>
             </div>
 
             <div className="group overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200&auto=format&fit=crop"
-                alt="Analysts reviewing a data dashboard"
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues reviewing an ITSM migration assessment"
                 className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
               />
             </div>
@@ -871,6 +1053,10 @@ export default function DataAnalyticsServicesSection() {
         </motion.section>
       </div>
 
+      {/* ============================================================
+          OUR ITSM MIGRATION CAPABILITIES — full-bleed dark section,
+          numbered cards with a tag pill row
+      ============================================================ */}
       <section
         className="relative mt-24 overflow-hidden py-24"
         style={{
@@ -886,14 +1072,15 @@ export default function DataAnalyticsServicesSection() {
             className="max-w-2xl"
           >
             <h2 className={`${SECTION_HEADING} text-white`}>
-              Our Data &amp; Analytics
+              Our ITSM Migration &amp;
               <br />
-              Capabilities
+              Transformation Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-300">
-              Starfii plans, engineers, and governs data platforms that
-              scale with the business, so analytics and AI stay grounded
-              in data you can trust.
+              Starfii assesses, designs, and migrates ITSM platforms end to
+              end, moving data, configurations, workflows, and integrations
+              into a modern service management environment with minimal
+              disruption to the business.
             </p>
           </motion.div>
 
@@ -951,6 +1138,9 @@ export default function DataAnalyticsServicesSection() {
       </section>
 
       <div className={ALIGN}>
+        {/* ============================================================
+            USE CASES — scannable industry examples
+        ============================================================ */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -959,11 +1149,11 @@ export default function DataAnalyticsServicesSection() {
           className="mt-24"
         >
           <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-            Data &amp; Analytics Use Cases
+            ITSM Migration Use Cases
           </h2>
           <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600">
             A look at how these capabilities play out across industries,
-            from real time forecasting to governed claims reporting.
+            from end of life platform exits to audit ready change records.
           </p>
 
           <motion.div
@@ -1002,8 +1192,10 @@ export default function DataAnalyticsServicesSection() {
 
         {/* ============================================================
             CASE STUDIES
-            Sizing matched to the reference Swiper carousel:
-            slidesPerView 1.15 / 2 / 4, spaceBetween 32, desc max-h-40.
+            Hover behaviour matches the homepage CaseStudiesSection /
+            Software & Product Engineering page: card height is FIXED,
+            the image frame collapses from 180px to 0, and the
+            description fades/slides into the space the image gives up.
         ============================================================ */}
         <section className="mt-24">
           <motion.div
@@ -1014,12 +1206,12 @@ export default function DataAnalyticsServicesSection() {
             className="flex items-end justify-between"
           >
             <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-              Data &amp; Analytics
+              ITSM Migration
               <br />
               Case Studies
             </h2>
             <Link
-              href="/services/data-analytics/casestudies"
+              href={`${BASE_PATH}/casestudies`}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: LAVENDER_ACCENT }}
             >
@@ -1030,9 +1222,10 @@ export default function DataAnalyticsServicesSection() {
 
           <div className="mt-10">
             <StepCarousel
-              items={sharedCaseStudies}
+              items={caseStudies}
               itemsPerPage={{ mobile: 1.15, tablet: 2, desktop: 4 }}
               gap={32}
+              arrowVariant="light"
               renderItem={(study) => (
                 <motion.div
                   initial="hidden"
@@ -1042,11 +1235,12 @@ export default function DataAnalyticsServicesSection() {
                   className="h-full"
                 >
                   <Link
-                    href={`/services/data-analytics/casestudies/${study.slug}`}
+                    href={`${BASE_PATH}/casestudies/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #EDEAFB" }}
                   >
+                    {/* IMAGE FRAME — height animates 260px → 0 on hover */}
                     <div className="ss-case-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
                       <img
                         src={study.image}
@@ -1055,6 +1249,7 @@ export default function DataAnalyticsServicesSection() {
                       />
                     </div>
 
+                    {/* CONTENT — flex-1 grows into the space the image gives up */}
                     <div className="flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
                       <div className="flex flex-1 flex-col gap-3.5 overflow-hidden">
                         <span
@@ -1071,11 +1266,13 @@ export default function DataAnalyticsServicesSection() {
                           {study.title}
                         </h3>
 
+                        {/* DESCRIPTION — hidden at rest, fades + slides in on hover */}
                         <p className="ss-case-desc font-body max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
                           {study.body}
                         </p>
                       </div>
 
+                      {/* CTA — sliding underline reveal */}
                       <span
                         className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium"
                         style={{ color: LAVENDER_ACCENT }}
@@ -1097,6 +1294,9 @@ export default function DataAnalyticsServicesSection() {
           </div>
         </section>
 
+        {/* ============================================================
+            TABBED DEEP-DIVE — auto-advancing tab list
+        ============================================================ */}
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -1105,10 +1305,11 @@ export default function DataAnalyticsServicesSection() {
           className="mt-24 pb-28"
         >
           <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-            Data &amp; Analytics Services
+            ITSM Migration Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
+            {/* Left nav — autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1119,6 +1320,8 @@ export default function DataAnalyticsServicesSection() {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
@@ -1180,6 +1383,10 @@ export default function DataAnalyticsServicesSection() {
         </motion.section>
       </div>
 
+      {/* ============================================================
+          IMPACT ACROSS YOUR SERVICE MANAGEMENT ECOSYSTEM —
+          full-bleed dark section, expandable rows
+      ============================================================ */}
       <section
         className="relative overflow-hidden py-24"
         style={{
@@ -1194,54 +1401,19 @@ export default function DataAnalyticsServicesSection() {
             variants={fadeUp}
             className={`${SECTION_HEADING} max-w-xl text-white`}
           >
-            Impact Across Your Data &amp; Analytics Ecosystem
+            Impact Across Your Service Management Ecosystem
           </motion.h2>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={container}
-            className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2"
-          >
-            {impactAreas.map((area, i) => {
-              const isOpen = openImpact === i;
-              return (
-                <motion.div key={area.title} variants={item}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenImpact(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-6 rounded-2xl bg-white px-8 py-6 text-left"
-                  >
-                    <span
-                      className="font-body text-[16px] font-medium"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {area.title}
-                    </span>
-                    <span
-                      className="flex h-9 w-9 flex-none items-center justify-center rounded-full text-white transition-transform duration-300"
-                      style={{
-                        backgroundColor: ACCENT_INDIGO,
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      <Plus size={18} />
-                    </span>
-                  </button>
-
-                  {isOpen && (
-                    <p className="font-body mt-3 px-8 text-[14px] leading-relaxed text-slate-300">
-                      {area.body}
-                    </p>
-                  )}
-                </motion.div>
-              );
-            })}
-          </motion.div>
+          <ImpactAccordion items={impactAreas} />
         </div>
       </section>
 
+      {/* ============================================================
+          WHAT'S NEW IN ITSM MIGRATION — light section, 3-up insight
+          carousel with progress bar + arrow pagination. Blog images
+          zoom in on hover inside a fixed frame, so only the picture
+          grows, never the card.
+      ============================================================ */}
       <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
         <div className={ALIGN}>
           <motion.div
@@ -1252,12 +1424,12 @@ export default function DataAnalyticsServicesSection() {
             className="flex items-end justify-between"
           >
             <h2 className={`${SECTION_HEADING} max-w-lg`} style={{ color: CHAMPION_BLUE }}>
-              What&apos;s New in Data
+              What&apos;s New in ITSM
               <br />
-              &amp; Analytics
+              Migration
             </h2>
             <Link
-              href="/services/data-analytics/blogs"
+              href={`${BASE_PATH}/blogs`}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
               style={{ color: ACCENT_INDIGO }}
             >
@@ -1282,7 +1454,7 @@ export default function DataAnalyticsServicesSection() {
               {insights.map((post) => (
                 <Link
                   key={post.slug}
-                  href={`/services/data-analytics/blogs/${post.slug}`}
+                  href={`${BASE_PATH}/blogs/${post.slug}`}
                   aria-label={`Read ${post.title}`}
                   className="group block h-full w-full flex-none md:w-[calc((100%_-_48px)/3)]"
                 >
@@ -1371,6 +1543,7 @@ export default function DataAnalyticsServicesSection() {
             </motion.div>
           </motion.div>
 
+          {/* Progress bar + pagination */}
           <div className="mt-10 flex items-center gap-6">
             <div className="h-[2px] flex-1 bg-slate-300">
               <div
@@ -1403,6 +1576,41 @@ export default function DataAnalyticsServicesSection() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          CLOSING CTA
+      ============================================================ */}
+      <section id="connect" className="bg-white py-24">
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
+            style={{ backgroundColor: CHAMPION_BLUE }}
+          >
+            <h2 className="font-heading mx-auto max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+              Ready to Migrate to a Modern ITSM Platform?
+            </h2>
+            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
+              Talk to Starfii about migration assessment, data and
+              configuration migration, cutover planning, or post migration
+              managed services for your ITSM platform.
+            </p>
+            <motion.a
+              href="mailto:hello@starfii.com"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold"
+              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </motion.a>
+          </motion.div>
         </div>
       </section>
     </main>

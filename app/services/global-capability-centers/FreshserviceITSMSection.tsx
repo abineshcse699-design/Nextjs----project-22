@@ -1,5 +1,3 @@
-// Software & Product Engineering
-
 "use client";
 import Link from "next/link";
 
@@ -16,125 +14,127 @@ import {
 } from "react";
 import {
   ChevronRight,
-  ChevronDown,
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
   Plus,
   Minus,
+  Trophy,
 } from "lucide-react";
+
+import { caseStudies } from "./data/case-studies";
+import { blogPosts } from "./blogs/blogData";
 
 /* ===============================================================
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
    Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
+   Kept identical to the Digital & Software Services, Global
+   Capability Centers, Business Process Services, and Legacy
+   Modernization pages so this page reads as the same product line,
+   not a one-off template.
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
+// Route base for this service. Every internal link on this page is
+// built from this constant so the case-study / blog hrefs can never
+// silently point at the wrong service folder again.
+const BASE_PATH = "/services/global-capability-centers";
+
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
-
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "Software & Product Engineering" tab list
+// Autoplay timing for the "Freshservice Implementation Journey" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
 /* ===============================================================
-   TYPOGRAPHY TOKENS
-================================================================ */
-
-const HERO_HEADING =
-  "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
-
-const SECTION_HEADING =
-  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
-
-/* ===============================================================
    CONTENT
-================================================================ */
+   SEO / AEO optimized: entity first statements ("Starfii is...",
+   "Starfii offers..."), keyword rich but natural, no hyphens.
+   Primary keyword targets: Freshservice implementation, Freshservice
+   ITSM, IT service desk, incident management, problem management,
+   change management, service catalog, CMDB, workflow automation,
+   Freshservice migration.
 
-function Eyebrow({
-  children,
-  variant = "light",
-}: {
-  children: ReactNode;
-  variant?: "light" | "dark";
-}): ReactElement {
-  return (
-    <span
-      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
-      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
-    >
-      <span>{children}</span>
-    </span>
-  );
-}
+   Page 10 spec: /services/freshservice
+   Subtitle: Implement, customize, migrate and optimize Freshservice
+   for modern, efficient and automated IT service operations.
+================================================================ */
 
 const keyTakeaways = [
   {
-    title: "Build",
-    body: "Design and engineer scalable digital products across web, mobile, SaaS, and enterprise platforms with AI driven software and product engineering.",
+    title: "Implement",
+    body: "Configure Freshservice around your actual IT service management processes, service desk, incident, problem, and change, so it fits how your teams already work.",
   },
   {
-    title: "Modernize",
-    body: "Transform legacy applications and complex technology portfolios into modern, cloud ready platforms with minimal disruption to business operations.",
+    title: "Automate",
+    body: "Build workflow automation, service catalog, and integrations that remove manual ticket handling and route requests to the right team automatically.",
   },
   {
-    title: "Scale",
-    body: "Accelerate delivery through product strategy, UI/UX engineering, cloud engineering, and quality engineering while keeping performance and customer experience at the center.",
+    title: "Optimize",
+    body: "Migrate historical data, tune CMDB and asset records, and provide ongoing managed support so Freshservice keeps improving after go live.",
   },
+];
+
+type StatOutcome = { stat: string; label: string };
+
+const statOutcomes: StatOutcome[] = [
+  { stat: "30 to 50%", label: "Reduction in average ticket resolution time after implementation" },
+  { stat: "6 to 10 wks", label: "Typical timeline from kickoff to a live, configured Freshservice instance" },
+  { stat: "100%", label: "Historical ticket, asset, and CMDB data migrated without loss" },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
 
 const focusAreas: FocusArea[] = [
   {
-    title: "UI/UX Engineering",
-    body: "Starfii's UI/UX engineering team designs digital products that balance what users need with what the business needs, so every screen in your software product earns its place and drives measurable engagement.",
-    tags: ["UX", "UI", "DESIGN"],
+    title: "Freshservice Implementation",
+    body: "Starfii configures Freshservice end to end, service desk, workflows, roles, and SLAs, matched to your existing ITSM processes instead of a generic default setup.",
+    tags: ["IMPLEMENTATION", "CONFIGURATION", "SLA"],
   },
   {
-    title: "Web Application Development",
-    body: "Starfii builds web applications that adapt to shifting user expectations and market conditions, so your software product stays competitive long after launch instead of needing a rebuild every cycle.",
-    tags: ["WEB", "FRONTEND", "FULL STACK"],
+    title: "Service Desk Setup",
+    body: "Starfii builds a Freshservice service desk with structured queues, ticket categorization, and self service options that reduce inbound volume on IT teams.",
+    tags: ["SERVICE DESK", "SELF SERVICE", "TICKETING"],
   },
   {
-    title: "Mobile Application Development",
-    body: "Starfii's mobile application development team ships native and cross platform apps that combine performance, polish, and reliability across iOS and Android.",
-    tags: ["IOS", "ANDROID", "CROSS PLATFORM"],
+    title: "Incident Management",
+    body: "Starfii configures Freshservice incident management with clear priority matrices, escalation paths, and major incident workflows to cut resolution time.",
+    tags: ["INCIDENTS", "ESCALATION", "MTTR"],
   },
   {
-    title: "Backend Engineering",
-    body: "Starfii's backend engineering practice builds resilient services, data models, and infrastructure that keep your software product fast, secure, and ready to scale.",
-    tags: ["BACKEND", "MICROSERVICES", "CLOUD"],
+    title: "Problem & Change Management",
+    body: "Starfii sets up problem management for root cause tracking and change management with approval workflows, so changes roll out with less risk.",
+    tags: ["PROBLEM", "CHANGE", "APPROVALS"],
   },
   {
-    title: "API & Integrations",
-    body: "Starfii designs and builds API and integrations layers that connect your software product to partners, internal systems, and third party platforms without adding fragility.",
-    tags: ["API", "INTEGRATIONS", "CLOUD"],
+    title: "Service Catalog & Requests",
+    body: "Starfii builds a Freshservice service catalog and request forms that let employees raise the right request the first time, with automatic routing.",
+    tags: ["CATALOG", "REQUESTS", "ROUTING"],
   },
   {
-    title: "SaaS Engineering",
-    body: "From fintech and healthcare to e commerce and enterprise software, Starfii has built SaaS products for leading Fortune 500 companies, proving our SaaS engineering capability on real production projects.",
-    tags: ["SAAS", "FINTECH", "HEALTHCARE"],
+    title: "Asset Management & CMDB",
+    body: "Starfii configures Freshservice asset management and CMDB to track hardware, software, and configuration items with accurate relationships and lifecycle data.",
+    tags: ["ASSETS", "CMDB", "LIFECYCLE"],
   },
   {
-    title: "Enterprise Application Development",
-    body: "Starfii is an enterprise application development partner that works from ideation through launch, combining AI driven software engineering with proven practices to deliver breakthrough growth, value, and performance.",
-    tags: ["ENTERPRISE", "PLATFORMS", "SCALE"],
+    title: "Workflow Automation",
+    body: "Starfii builds Freshservice workflow automation that assigns, escalates, and closes tickets automatically based on rules, cutting manual triage work.",
+    tags: ["AUTOMATION", "WORKFLOWS", "TRIAGE"],
   },
   {
-    title: "Product Modernization",
-    body: "Starfii's product modernization team assesses your existing systems, builds a tailored migration roadmap, and transitions you to a scalable, cloud ready, future proof platform with minimal disruption.",
-    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
+    title: "Integrations & Customization",
+    body: "Starfii integrates Freshservice with your existing tools, directory, monitoring, and collaboration platforms, and customizes fields, forms, and views to match your operation.",
+    tags: ["INTEGRATIONS", "CUSTOMIZATION", "API"],
   },
   {
-    title: "QA and Release Engineering",
-    body: "Starfii's QA and release engineering services get your products to market faster, with CI/CD automation and test automation built into every stage of the software development lifecycle.",
-    tags: ["QA", "RELEASE", "AUTOMATION"],
+    title: "Data Migration & Optimization",
+    body: "Starfii migrates historical tickets, assets, and CMDB data into Freshservice, then continuously optimizes configuration as ticket volume and team structure evolve.",
+    tags: ["MIGRATION", "OPTIMIZATION", "DATA"],
   },
 ];
 
@@ -147,162 +147,126 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
-    label: "Product Strategy",
-    heading: "Product strategy that shapes and realizes your product vision",
-    body: "Starfii crafts product strategy and experience roadmaps that go beyond planning to bring your vision into reality. Every phase of our product engineering process is clearly structured and strategically aligned with digital solutions that support innovation.",
+    label: "Overview: Assess Current ITSM",
+    heading: "A Freshservice overview built around how your IT team actually works today",
+    body: "Starfii reviews your current service desk, ticket volume, and ITSM maturity, then scopes a Freshservice configuration that fits your processes instead of forcing a generic template on your team.",
+    image:
+      "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Implement: Configure the Core",
+    heading: "Service desk, incident, problem, and change configured as one connected setup",
+    body: "Starfii implements the Freshservice service desk alongside incident, problem, and change management, so ticket flow, escalation, and approvals work together from day one.",
+    image:
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Migrate: Bring Your Data In",
+    heading: "Historical tickets, assets, and CMDB data migrated without disruption",
+    body: "Starfii migrates existing ticket history, asset records, and CMDB relationships into Freshservice, validating data integrity before your team switches over.",
+    image:
+      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
+  },
+  {
+    label: "Automate: Catalog & Workflows",
+    heading: "A service catalog and workflow automation that cuts manual ticket handling",
+    body: "Starfii builds out the service catalog, request forms, and workflow automation rules that route, assign, and escalate tickets automatically, reducing manual triage.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
-    label: "Web Application Development",
-    heading: "Web applications engineered for how digital markets actually move",
-    body: "Starfii's web application development team builds products that adapt to shifting user expectations and market conditions, so your software stays competitive long after launch instead of needing a rebuild every cycle.",
+    label: "Optimize: Support & Improve",
+    heading: "Ongoing optimization and managed support after go live",
+    body: "Starfii's managed support team monitors adoption, tunes automation rules, and keeps Freshservice optimized as ticket volume, integrations, and team structure change over time.",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Mobile Application Development",
-    heading: "Mobile applications built for engagement across every device",
-    body: "Starfii's mobile application development practice ships fast, reliable iOS, Android, and cross platform experiences that keep users coming back and support the business behind the app.",
-    image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Backend Engineering",
-    heading: "Backend engineering built to carry your product as it grows",
-    body: "Starfii's backend engineering teams design resilient services and data architectures, so performance and reliability hold up as usage, features, and integrations multiply.",
-    image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
-  },
-  {
-    label: "Product Modernization",
-    heading: "Product modernization that clears the path for what comes next",
-    body: "Starfii assesses your legacy technology estate, builds a tailored product modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
-    image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
+/* ===============================================================
+   IMPACT ACROSS YOUR IT SERVICE OPERATIONS
+   Each item now carries a body so the section can expand in place
+   like the Software & Product Engineering ecosystem accordion.
+================================================================ */
 
 type EcosystemImpact = { title: string; body: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
   {
-    title: "UI/UX Engineering",
-    body: "Design digital products that balance user needs with business goals. Starfii's UI/UX engineering teams build research backed interfaces, design systems, and accessible experiences so every screen earns its place and drives measurable engagement.",
+    title: "Service Desk & Incident Management",
+    body: "Structure queues, ticket categorization, and self service so inbound volume drops on day one. Starfii configures priority matrices, escalation paths, and major incident workflows in Freshservice, cutting average resolution time without adding headcount to the service desk.",
   },
   {
-    title: "Enterprise Application Development",
-    body: "Build enterprise platforms from ideation through launch. Starfii combines AI driven software engineering with proven delivery practices to ship secure, high performance applications that scale with your organization.",
+    title: "Problem & Change Management",
+    body: "Track root causes instead of repeatedly closing the same ticket. Starfii sets up Freshservice problem management alongside change management with approval workflows and risk scoring, so fixes stick and changes roll out with far less disruption.",
   },
   {
-    title: "API & Integrations",
-    body: "Connect your software product to partners, internal systems, and third party platforms. Starfii designs API layers and integration architectures that add capability without adding fragility.",
+    title: "Service Catalog & Requests",
+    body: "Let employees raise the right request the first time. Starfii builds a Freshservice service catalog with request forms, approval chains, and automatic routing, so requests land with the correct team without a single manual reassignment.",
   },
   {
-    title: "SaaS Engineering",
-    body: "From fintech and healthcare to e commerce, Starfii engineers multi tenant SaaS products with composable architecture, usage based scaling, and the reliability Fortune 500 customers expect.",
+    title: "Asset Management & CMDB",
+    body: "Know what you own and how it connects. Starfii configures Freshservice asset management and CMDB to track hardware, software, and configuration items with accurate relationships and lifecycle data, giving change and incident teams real context.",
   },
   {
-    title: "Product Modernization",
-    body: "Assess your existing systems, build a tailored migration roadmap, and transition to a scalable, cloud ready, future proof platform with minimal disruption to daily business operations.",
+    title: "Workflow Automation & Integrations",
+    body: "Remove manual triage from the daily routine. Starfii builds automation rules that assign, escalate, and close tickets based on your own logic, and integrates Freshservice with directory, monitoring, and collaboration tools your teams already use.",
   },
   {
-    title: "QA and Release Engineering",
-    body: "Get products to market faster with CI/CD automation and test automation built into every stage of the software development lifecycle, so quality is a gate and not an afterthought.",
+    title: "Data Migration & Optimization",
+    body: "Bring ticket history, assets, and CMDB relationships across without loss. Starfii validates data integrity before cutover, then keeps tuning configuration and automation as ticket volume, integrations, and team structure change after go live.",
   },
 ];
 
-type CaseStudy = { slug: string; image: string; title: string; body: string };
-
-const caseStudies: CaseStudy[] = [
-  {
-    slug: "insurance-claims-low-code-platform",
-    image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
-    body: "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
-  },
-  {
-    slug: "regional-bank-digital-banking-experience",
-    image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
-    body: "See how Starfii's SaaS engineering team rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction scores.",
-  },
-  {
-    slug: "utilities-digital-transformation-microsoft",
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=900&auto=format&fit=crop",
-    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
-    body: "Discover how Starfii used Microsoft Business Applications to help a utilities provider modernize field operations and give teams real time visibility across the grid.",
-  },
-  {
-    slug: "digital-mortgage-automation",
-    image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Automates the Digital Mortgage Application Process",
-    body: "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
-  },
-  {
-    slug: "healthcare-saas-platform-scale",
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
-    body: "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
-  },
-];
-
-type InsightPost = {
-  slug: string;
-  large: boolean;
-  image: string;
-  title: string;
-  body: string;
+type IndustryAward = {
+  year: string;
+  category: string;
+  subcategory: string;
+  rank: string;
+  description: string;
 };
 
-const insights: InsightPost[] = [
+const industryAwards: IndustryAward[] = [
   {
-    slug: "generative-ai-software-development",
-    large: true,
-    image:
-      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1200&auto=format&fit=crop",
-    title:
-      "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
-    body: "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
+    year: "2026 Quadrant",
+    category: "IT Service Management Services",
+    subcategory: "Freshworks Implementation Partners",
+    rank: "Leader, U.S.",
+    description:
+      "Starfii named a Leader in Freshworks Implementation Services in the ISG Provider Lens® IT Service Management Services 2026 U.S. Quadrant Report, recognizing our Freshservice configuration and rollout practice.",
   },
   {
-    slug: "ai-powered-automation-enterprise-software",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=800&auto=format&fit=crop",
-    title: "AI Powered Automation: Transforming Enterprise Software Delivery",
-    body: "Stop trading speed for quality. See how Starfii's AI automation cuts test cycles by 70%, boosts developer productivity by 40%, and accelerates enterprise application development.",
+    year: "2025 Quadrant",
+    category: "Digital Engineering Services",
+    subcategory: "Workflow Automation",
+    rank: "Leader, U.S.",
+    description:
+      "Starfii named a Leader in Workflow Automation in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting the automation capability behind our Freshservice delivery.",
   },
   {
-    slug: "agile-product-engineering-mach-technologies",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=800&auto=format&fit=crop",
-    title: "Driving ROI Through Agile Product Engineering and MACH Technologies",
-    body: "Stop rebuilding for every channel. See how Starfii combines MACH architecture with agile product engineering to enable modular software products with 30% lower total cost of ownership.",
-  },
-  {
-    slug: "ai-led-engineering-digital-products",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=800&auto=format&fit=crop",
-    title: "Building Smarter Digital Products with AI Led Engineering",
-    body: "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
-  },
-  {
-    slug: "modern-software-delivery-enterprise-growth",
-    large: false,
-    image:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=800&auto=format&fit=crop",
-    title: "Modern Software Delivery for Enterprise Growth",
-    body: "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+    year: "2025 Quadrant",
+    category: "Managed IT Services",
+    subcategory: "Service Desk & Support",
+    rank: "Rising Star, U.S.",
+    description:
+      "Starfii named a Rising Star in Service Desk and Support in the ISG Provider Lens™ Managed IT Services 2025 US Quadrant Report, validating our ongoing Freshservice support and optimization model.",
   },
 ];
+
+// Case studies and blog posts are pulled from the real data files that
+// back the [slug] detail routes — NOT hardcoded here. A hardcoded list
+// with invented slugs will always 404, because generateStaticParams()
+// on the [slug] pages only ever knows about slugs that exist in these
+// two files. If you add a new case study or blog post, add it to
+// data/case-studies.ts or blogData.ts and it will automatically show
+// up here with a working link — never add it only to this page.
+const insights = blogPosts.map((post, i) => ({
+  slug: post.slug,
+  large: i === 0,
+  image: post.heroImage,
+  title: post.title,
+  body: post.excerpt,
+}));
 
 /* ===============================================================
    GLOBAL KEYFRAMES
@@ -333,11 +297,6 @@ function AnimationStyles(): ReactElement {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
-      /* Typewriter cursor blink for Key Takeaways */
-      @keyframes ss-caret-blink {
-        0%, 100% { opacity: 1; }
-        50%      { opacity: 0; }
-      }
 
       .ss-reveal {
         opacity: 0;
@@ -357,8 +316,22 @@ function AnimationStyles(): ReactElement {
       .ss-arrow-pulse:not(:disabled):hover {
         animation: ss-pulse-soft 1.2s ease-in-out infinite;
       }
-      .ss-caret {
-        animation: ss-caret-blink 0.9s steps(1) infinite;
+
+      .ss-award-card {
+        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 0 0 rgba(164, 143, 234, 0);
+      }
+      .ss-award-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 45px -18px rgba(79, 63, 224, 0.55),
+          0 0 0 1px rgba(164, 143, 234, 0.35);
+      }
+      .ss-award-card:hover .ss-trophy {
+        transform: rotate(-14deg) scale(1.15);
+      }
+      .ss-trophy {
+        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
       }
 
       .ss-focus-card {
@@ -394,7 +367,7 @@ function AnimationStyles(): ReactElement {
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-arrow-pulse, .ss-caret {
+        .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-arrow-pulse {
           animation: none !important;
           opacity: 1 !important;
           transform: none !important;
@@ -403,7 +376,7 @@ function AnimationStyles(): ReactElement {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Card height/description reveal stays static for reduced motion */
+        /* Card height / description reveal stays static for reduced motion */
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
@@ -480,73 +453,6 @@ function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
   }, [mobile, tablet, desktop]);
 
   return count;
-}
-
-/* ===============================================================
-   HOOK: sequential typewriter for a list of lines
-================================================================ */
-
-function useTypewriterList(
-  items: string[],
-  active: boolean,
-  speed: number = 16,
-  pauseBetween: number = 300
-): { displayed: string[]; typingIndex: number } {
-  const [displayed, setDisplayed] = useState<string[]>(() => items.map(() => ""));
-  const [typingIndex, setTypingIndex] = useState(-1);
-
-  const itemsRef = useRef(items);
-  itemsRef.current = items;
-
-  useEffect(() => {
-    if (!active) {
-      setDisplayed(items.map(() => ""));
-      setTypingIndex(-1);
-      return undefined;
-    }
-
-    let cancelled = false;
-    let itemIndex = 0;
-    let charIndex = 0;
-    let timeoutId: ReturnType<typeof setTimeout>;
-
-    const typeStep = () => {
-      if (cancelled) return;
-
-      const currentItems = itemsRef.current;
-      if (itemIndex >= currentItems.length) return;
-
-      const currentLine = currentItems[itemIndex];
-      if (currentLine === undefined) return;
-
-      charIndex += 1;
-      setTypingIndex(itemIndex);
-      setDisplayed((prev) => {
-        const next = [...prev];
-        while (next.length < currentItems.length) next.push("");
-        next[itemIndex] = currentLine.slice(0, charIndex);
-        return next;
-      });
-
-      if (charIndex >= currentLine.length) {
-        itemIndex += 1;
-        charIndex = 0;
-        timeoutId = setTimeout(typeStep, pauseBetween);
-      } else {
-        timeoutId = setTimeout(typeStep, speed);
-      }
-    };
-
-    timeoutId = setTimeout(typeStep, pauseBetween);
-
-    return () => {
-      cancelled = true;
-      clearTimeout(timeoutId);
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active, items.join("|"), speed, pauseBetween]);
-
-  return { displayed, typingIndex };
 }
 
 /* ===============================================================
@@ -642,6 +548,7 @@ function Carousel({
     <div>
       <div
         ref={trackRef}
+        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         onClick={
           clickToAdvance
             ? (event) => {
@@ -652,7 +559,6 @@ function Carousel({
               }
             : undefined
         }
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {children}
       </div>
@@ -702,8 +608,11 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click.
+   REUSABLE: One-card-at-a-time Carousel
+   Next/Previous advances exactly ONE card while keeping the
+   responsive visible-card count unchanged. Supports a fractional
+   perPage (e.g. 1.15 for a "peek" card) and a configurable gap,
+   matching the Software & Product Engineering page.
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -711,7 +620,7 @@ type StepCarouselProps<T> = {
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards — matches Swiper's spaceBetween
+  gap?: number; // px gap between cards
 };
 
 function StepCarousel<T>({
@@ -723,77 +632,63 @@ function StepCarousel<T>({
 }: StepCarouselProps<T>): ReactElement {
   const perPage = useItemsPerPage(itemsPerPage);
   const trackRef = useRef<HTMLDivElement | null>(null);
-
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
-  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card) still
-  // lands on a whole card instead of stopping mid-card.
+  // Math.ceil so a fractional perPage still lands on a whole card
+  // instead of stopping mid-card at the end of the track.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
-  const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
 
-  const measure = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const firstCard = track.firstElementChild as HTMLElement | null;
-    if (!firstCard) return;
-
-    setStepWidth(firstCard.getBoundingClientRect().width + gap);
-  }, [gap]);
-
   useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    measure();
-
-    const observer = new ResizeObserver(measure);
-    observer.observe(track);
-
-    const firstCard = track.firstElementChild as HTMLElement | null;
-    if (firstCard) observer.observe(firstCard);
-
-    window.addEventListener("resize", measure);
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", measure);
-    };
-  }, [measure, perPage]);
-
-  useEffect(() => {
-    setPosition((current) => Math.min(current, maxPosition));
+    setPosition((p) => Math.min(p, maxPosition));
   }, [maxPosition]);
 
   useEffect(() => {
     const track = trackRef.current;
-    if (!track) return;
+    if (!track) return undefined;
 
-    track.scrollTo({
-      left: position * stepWidth,
-      behavior: "smooth",
-    });
+    const measure = () => {
+      const firstCard = track.firstElementChild as HTMLElement | null;
+      if (!firstCard) return;
+      setStepWidth(firstCard.getBoundingClientRect().width + gap);
+    };
+
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    if (track.firstElementChild) observer.observe(track.firstElementChild);
+
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [perPage, items.length, gap]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+    track.scrollTo({ left: position * stepWidth, behavior: "smooth" });
   }, [position, stepWidth]);
 
-  const goTo = (nextPosition: number) => {
-    const next = Math.min(Math.max(nextPosition, 0), maxPosition);
-    setPosition(next);
+  const goTo = (next: number) => {
+    setPosition(Math.min(Math.max(next, 0), maxPosition));
   };
 
-  const progress = ((position + 1) / totalPositions) * 100;
+  const totalSteps = Math.max(1, maxPosition + 1);
+  const progress = ((position + 1) / totalSteps) * 100;
 
   return (
     <div>
       <div
         ref={trackRef}
-        className="flex overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollBehavior: "smooth", gap: `${gap}px` }}
       >
-        {items.map((item, i) => (
+        {items.map((item, index) => (
           <div
-            key={i}
+            key={index}
             className="min-w-0 flex-shrink-0 snap-start"
             style={{
               width:
@@ -802,7 +697,7 @@ function StepCarousel<T>({
                   : `calc((100% - ${(perPage - 1) * gap}px) / ${perPage})`,
             }}
           >
-            {renderItem(item, i)}
+            {renderItem(item, index)}
           </div>
         ))}
       </div>
@@ -810,9 +705,7 @@ function StepCarousel<T>({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5",
-          }}
+          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
@@ -825,12 +718,9 @@ function StepCarousel<T>({
 
         <span
           className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{
-            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
-          }}
+          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
         >
-          {String(position + 1).padStart(2, "0")} /{" "}
-          {String(totalPositions).padStart(2, "0")}
+          {String(position + 1).padStart(2, "0")} / {String(totalSteps).padStart(2, "0")}
         </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
@@ -847,7 +737,6 @@ function StepCarousel<T>({
           >
             <ChevronLeft size={18} />
           </button>
-
           <button
             type="button"
             aria-label="Next"
@@ -865,93 +754,109 @@ function StepCarousel<T>({
 }
 
 /* ===============================================================
-   KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
+   REUSABLE: PagedCarousel
 ================================================================ */
 
-function KeyTakeawaysAccordion({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (updater: (prev: boolean) => boolean) => void;
-}): ReactElement {
-  const lines = keyTakeaways.map((point) => `${point.title}. ${point.body}`);
-  const { displayed, typingIndex } = useTypewriterList(lines, open);
+type PagedCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: Breakpoints;
+  renderItem: (item: T, index: number) => ReactNode;
+  arrowVariant?: "light" | "dark";
+};
+
+function PagedCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  arrowVariant = "light",
+}: PagedCarouselProps<T>): ReactElement {
+  const perPage = useItemsPerPage(itemsPerPage);
+  const totalPages = Math.max(1, Math.ceil(items.length / perPage));
+  const [page, setPage] = useState(0);
+
+  useEffect(() => {
+    setPage((p) => Math.min(p, totalPages - 1));
+  }, [totalPages]);
+
+  const pages: T[][] = [];
+  for (let i = 0; i < totalPages; i += 1) {
+    pages.push(items.slice(i * perPage, i * perPage + perPage));
+  }
+
+  const isDark = arrowVariant === "dark";
+  const goTo = (next: number) =>
+    setPage(Math.min(Math.max(next, 0), totalPages - 1));
 
   return (
-    <div
-      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
-      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
-        style={{
-          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Product Engineering Overview
-          </span>
+    <div>
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-500 ease-out"
+          style={{ transform: `translateX(-${page * 100}%)` }}
+        >
+          {pages.map((pageItems, pi) => (
+            <div key={pi} className="flex w-full flex-shrink-0 gap-6">
+              {pageItems.map((item, ii) => (
+                <div key={ii} className="min-w-0 flex-1">
+                  {renderItem(item, pi * perPage + ii)}
+                </div>
+              ))}
+              {pageItems.length < perPage &&
+                Array.from({ length: perPage - pageItems.length }).map(
+                  (_, gi) => (
+                    <div key={`pad-${gi}`} aria-hidden className="flex-1" />
+                  )
+                )}
+            </div>
+          ))}
         </div>
+      </div>
 
-        <div className="flex items-center gap-4">
-          <span
-            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
-            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
-          >
-            STRATEGY • UI/UX • WEB • MOBILE
-          </span>
-
-          <ChevronDown
-            size={20}
-            strokeWidth={2.2}
-            className="flex-shrink-0 transition-transform duration-300"
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[3px] flex-1 overflow-hidden rounded-full"
+          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
+        >
+          <div
+            className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              color: INDIGO_CTA,
-              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+              width: `${((page + 1) / totalPages) * 100}%`,
+              backgroundColor: INDIGO_CTA,
             }}
           />
         </div>
-      </button>
 
-      <div
-        className="grid transition-all duration-500 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <ul className="space-y-5 px-8 py-10 lg:px-10">
-            {lines.map((line, i) => {
-              const text = displayed[i];
-              if (!text && i !== 0) return null;
+        <span
+          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
+          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
+        >
+          {String(page + 1).padStart(2, "0")} / {String(totalPages).padStart(2, "0")}
+        </span>
 
-              const isTyping = i === typingIndex && text.length < line.length;
-
-              return (
-                <li
-                  key={line}
-                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                    style={{ backgroundColor: INDIGO_CTA }}
-                  />
-                  <span>
-                    {text}
-                    {isTyping && (
-                      <span
-                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
-                        style={{ backgroundColor: INDIGO_CTA }}
-                      />
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
+        <div className="flex flex-shrink-0 items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => goTo(page - 1)}
+            disabled={page === 0}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: isDark ? "rgba(255,255,255,0.12)" : "#E5E1F5",
+              color: isDark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => goTo(page + 1)}
+            disabled={page === totalPages - 1}
+            className="ss-arrow-pulse flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-110 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: INDIGO_CTA }}
+          >
+            <ChevronRight size={18} />
+          </button>
         </div>
       </div>
     </div>
@@ -966,7 +871,7 @@ function KeyTakeawaysAccordion({
 ================================================================ */
 
 function EcosystemAccordion(): ReactElement {
-  // null = everything closed. Use 0 to have the first card open by default.
+  // null = everything closed. 0 keeps the first card open by default.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
@@ -995,7 +900,7 @@ function EcosystemAccordion(): ReactElement {
                   <button
                     type="button"
                     aria-expanded={isOpen}
-                    aria-controls={`ecosystem-panel-${index}`}
+                    aria-controls={`itsm-ecosystem-panel-${index}`}
                     onClick={() => setOpenIndex(isOpen ? null : index)}
                     className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
                   >
@@ -1020,7 +925,7 @@ function EcosystemAccordion(): ReactElement {
 
                   {/* 0fr -> 1fr gives a smooth auto-height expand */}
                   <div
-                    id={`ecosystem-panel-${index}`}
+                    id={`itsm-ecosystem-panel-${index}`}
                     className="ss-eco-panel grid transition-all duration-500 ease-out"
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
@@ -1047,13 +952,18 @@ function EcosystemAccordion(): ReactElement {
    SECTION
 ================================================================ */
 
-export default function SoftwareProductEngineeringSection(): ReactElement {
-  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
+export default function FreshserviceITSMSection(): ReactElement {
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
 
+
+  
+
   // --- Autoplay for the left-side tab list ---
+  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
+  // Pausing on hover, and restarting the timer whenever the user
+  // manually clicks a tab, so it never fights with manual control.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -1069,16 +979,16 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       {/* ============================================================
           BREADCRUMB + HERO
       ============================================================ */}
-
       <section className="relative isolate overflow-hidden">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1800&auto=format&fit=crop"
-            alt="Software and product engineering team reviewing a digital product"
-            className="h-full w-full object-cover object-[75%_center]"
+            src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1800&auto=format&fit=crop"
+            alt=""
+            className="h-full w-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/0 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/85 to-white/10" />
         </div>
+
         <div className={`${ALIGN} py-24 lg:py-32`}>
           <nav
             aria-label="Breadcrumb"
@@ -1093,30 +1003,24 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               Services
             </a>
             <ChevronRight size={14} />
-            <span className="text-slate-500">Software &amp; Product Engineering</span>
+            <span className="text-slate-500">Freshservice ITSM Services</span>
           </nav>
 
-          <div
-            className="mt-8 opacity-0"
-            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-          >
-            <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-          </div>
-
-          <h2
-            className={`${HERO_HEADING} mt-4 max-w-2xl opacity-0`}
+          <h1
+            className="font-heading mt-8 max-w-xl text-[44px] font-medium leading-[1.15] opacity-0 lg:text-[54px]"
             style={{ color: CHAMPION_BLUE, animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
-            Software and Product Engineering for Modern Enterprises
-          </h2>
+            Freshservice Implementation for Modern IT Operations
+          </h1>
 
           <p
             className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-slate-600 opacity-0"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Starfii turns ideas into scalable software products and modern
-            platforms with product strategy, AI driven engineering, and
-            faster delivery cycles.
+            Implement, customize, migrate and optimize Freshservice for
+            modern, efficient and automated IT service operations, from
+            service desk setup through workflow automation and ongoing
+            managed support.
           </p>
 
           <a
@@ -1127,7 +1031,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
             }}
           >
-            Connect Now
+            Talk to Us
             <ArrowUpRight size={17} />
           </a>
         </div>
@@ -1135,19 +1039,95 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            KEY TAKEAWAYS — collapsible, typewriter bullets
+            OUTCOMES STRIP
+        ============================================================ */}
+        <Reveal
+          as="section"
+          className="mt-16 grid grid-cols-1 gap-8 border-y py-10 sm:grid-cols-3"
+          style={{ borderColor: LAVENDER_ACCENT }}
+        >
+          {statOutcomes.map((o) => (
+            <div key={o.label}>
+              <p
+                className="font-heading text-[32px] font-medium"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {o.stat}
+              </p>
+              <p className="font-body mt-2 text-[14px] leading-relaxed text-slate-600">
+                {o.label}
+              </p>
+            </div>
+          ))}
+        </Reveal>
+
+        {/* ============================================================
+            FRESHSERVICE AT A GLANCE
+            Same reference-style three-column design
         ============================================================ */}
         <Reveal as="section" className="mt-16">
-          <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+          <div
+            className="overflow-hidden rounded-[22px] border bg-white"
+            style={{ borderColor: LAVENDER_ACCENT }}
+          >
+            {/* Header */}
+            <div
+              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
+              style={{
+                borderBottom: `1px solid ${LAVENDER_ACCENT}`,
+              }}
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles
+                  size={21}
+                  strokeWidth={1.8}
+                  style={{ color: LAVENDER_ACCENT }}
+                />
+                <span
+                  className="font-body text-[17px] font-semibold"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  Freshservice Implementation at a Glance
+                </span>
+              </div>
+
+              <span
+                className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+                style={{
+                  backgroundColor: "#F1EEFC",
+                  color: INDIGO_CTA,
+                }}
+              >
+                End to End ITSM Delivery
+              </span>
+            </div>
+
+            {/* Three-column content */}
+            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
+              {keyTakeaways.map((point) => (
+                <div key={point.title}>
+                  <h3
+                    className="font-heading text-[23px] font-semibold"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
+                    {point.title}
+                  </h3>
+                  <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
+                    {point.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
 
           <p
             className="font-heading mt-10 max-w-3xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
-            A leader in software and product engineering, Starfii designs
-            and engineers customer focused digital experiences while
-            modernizing complex application portfolios for speed and
-            scale.
+            A Freshservice implementation partner to enterprises and
+            growing IT teams, Starfii configures service desk, incident,
+            problem, and change management as one connected setup, then
+            keeps it optimized as your operation scales.
           </p>
         </Reveal>
 
@@ -1161,29 +1141,27 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             style={{ backgroundColor: "#F5F3FC" }}
           >
             <div>
-              <Eyebrow>Product Strategy</Eyebrow>
               <h2
-                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
+                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
               >
-                How Do Enterprises Build Product Strategy Into Software
-                Engineering?
+                Why Does a Default Freshservice Setup Rarely Fit an IT Team?
               </h2>
               <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize software operations by
-                combining product strategy, AI led engineering, and
-                scalable architectures. Starfii brings these together to
-                accelerate software development, improve quality, and
-                modernize legacy systems, turning ideas into digital
-                experiences that users value and businesses depend on
-                every day.
+                A default Freshservice setup rarely fits an IT team because
+                every service desk has its own ticket volume, escalation
+                paths, and approval chains. Starfii configures service
+                desk, incident, problem, and change management around your
+                actual processes, migrates existing ticket and asset data,
+                and layers in workflow automation so the platform fits
+                your operation instead of the other way around.
               </p>
             </div>
 
             <div className="overflow-hidden rounded-2xl">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a product strategy roadmap"
+                src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop"
+                alt="IT team reviewing a Freshservice configuration"
                 className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
@@ -1213,15 +1191,14 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal className="max-w-xl">
-            <Eyebrow variant="dark">Software &amp; Product Engineering</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
-              Our Software &amp; Product Engineering Capabilities
+            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
+              Our Freshservice Capabilities
             </h2>
             <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii plans, designs, and scales customer focused digital
-              products and platforms with AI led engineering, seamless
-              experiences, and modernization strategies that drive speed,
-              efficiency, and long term business value.
+              Starfii implements, customizes, migrates, and optimizes
+              Freshservice across service desk, ITSM processes, asset
+              management, and automation, backed by ongoing managed
+              support after go live.
             </p>
           </Reveal>
 
@@ -1280,9 +1257,11 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
         ============================================================ */}
 
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-            Software and Product Engineering Services
+          <h2
+            className="font-heading text-[34px] font-medium"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            Freshservice Implementation Journey
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1297,10 +1276,13 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
+                    {/* Static base line */}
                     <span
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
+                    {/* Animated progress fill — only rendered on the active tab,
+                        remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
@@ -1361,7 +1343,9 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark) — click "+" to expand content
+          IMPACT ACROSS ECOSYSTEM (dark)
+          Same accordion behaviour as the Software & Product
+          Engineering page: click "+" and the content expands in place.
       ============================================================ */}
 
       <section className="relative overflow-hidden bg-[#08070F] py-24">
@@ -1382,11 +1366,10 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Enterprise Application Development</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl text-white`}>
-              Impact Across Your Software
+            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+              Impact Across Your IT
               <br />
-              Product Engineering Ecosystem
+              Service Operations
             </h2>
           </Reveal>
 
@@ -1396,10 +1379,11 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
-          Hover behaviour copied from the homepage CaseStudiesSection:
-          the card height is FIXED, the image frame collapses from
-          260px to 0, and the description fades/slides into the space
-          the image gives up. Card size never changes.
+          Card sizing and hover behaviour now match the Software &
+          Product Engineering page: 500px fixed card height, 260px
+          image frame that collapses to 0 on hover, description
+          sliding into the space the image gives up, 4 per row on
+          desktop with a 32px gap and a peek card on mobile.
       ============================================================ */}
 
       <section
@@ -1411,20 +1395,20 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <div>
-              <Eyebrow>Case Studies</Eyebrow>
-              <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-                Case Studies
-              </h2>
-            </div>
-            <a
-              href="#"
+            <h2
+              className="font-heading text-[36px] font-medium lg:text-[44px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Case Studies
+            </h2>
+            <Link
+              href={`${BASE_PATH}`}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
               View All Case Studies
               <ArrowUpRight size={16} />
-            </a>
+            </Link>
           </Reveal>
 
           <div className="mt-12">
@@ -1440,7 +1424,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/services/digital-software/casestudies/${study.slug}`}
+                    href={`${BASE_PATH}/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}
@@ -1502,31 +1486,33 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
-          Blog images zoom in on hover (scale 1 → 1.1) inside a fixed
-          frame, so only the picture grows, never the card.
       ============================================================ */}
+
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <div>
-              <Eyebrow>Software &amp; Product Engineering</Eyebrow>
-              <h2 className={`${SECTION_HEADING} mt-4 max-w-lg`} style={{ color: CHAMPION_BLUE }}>
-                {"What's New in Software & Product Engineering"}
-              </h2>
-            </div>
-
+            <h2
+              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              {"What's New in Freshservice ITSM"}
+            </h2>
             <Link
-              href="/services/digital-software/blogs"
+              href={`${BASE_PATH}/blogs`}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Insights
+              View All Blogs
               <ArrowUpRight size={16} />
             </Link>
           </Reveal>
 
           <div className="mt-12">
-            <Carousel itemCount={insights.length} arrowVariant="light" clickToAdvance>
+            <Carousel
+              itemCount={insights.length}
+              arrowVariant="light"
+              clickToAdvance={false}
+            >
               {insights.map((post, i) => (
                 <Reveal
                   key={post.slug}
@@ -1537,16 +1523,16 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                   }`}
                 >
                   <Link
-                    href={`/services/digital-software/blogs/${post.slug}`}
-                    className="block h-full"
+                    href={`${BASE_PATH}/blogs/${post.slug}`}
+                    className="group block h-full"
                     aria-label={`Read ${post.title}`}
                   >
                     {post.large ? (
-                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
+                      <div className="relative h-[420px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
                           alt={post.title}
-                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                         />
 
                         <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
@@ -1572,14 +1558,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            <span className="relative">
-                              Read More
-                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
-                            </span>
-                            <ArrowUpRight
-                              size={14}
-                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            />
+                            Read More
+                            <ArrowUpRight size={14} />
                           </span>
                         </div>
                       </div>
@@ -1589,7 +1569,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />
                         </div>
 
@@ -1616,14 +1596,8 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                             className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            <span className="relative">
-                              Read More
-                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
-                            </span>
-                            <ArrowUpRight
-                              size={14}
-                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            />
+                            Read More
+                            <ArrowUpRight size={14} />
                           </span>
                         </div>
                       </div>
@@ -1633,36 +1607,6 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               ))}
             </Carousel>
           </div>
-        </div>
-      </section>
-
-      {/* ============================================================
-          CLOSING CTA
-      ============================================================ */}
-      <section id="connect" className="bg-white py-24">
-        <div className={ALIGN}>
-          <Reveal
-            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
-            style={{ backgroundColor: CHAMPION_BLUE }}
-          >
-            <Eyebrow variant="dark">CTA</Eyebrow>
-            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-              Ready to Build Your Next Software Product?
-            </h2>
-            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Talk to Starfii about product strategy, UI/UX engineering,
-              web and mobile application development, backend engineering,
-              or modernizing an existing platform.
-            </p>
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </a>
-          </Reveal>
         </div>
       </section>
     </main>

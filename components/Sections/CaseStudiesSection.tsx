@@ -50,22 +50,36 @@ export default function CaseStudiesSection() {
   ref={sectionRef}
   className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16"
 >
-        {/* copy — slides up + fades in once scrolled into view */}
+        {/* copy — slides up + fades in once scrolled into view.
+            NOTE: removed `max-w-2xl` (672px) that used to sit here —
+            it was capping this whole wrapper's width, so the
+            paragraph's own `max-w-[1500px]` below could never take
+            effect (a child can't be wider than its constrained
+            parent). Each child now controls its own width instead:
+            the heading via its own max-w-[650px], the paragraph via
+            its own max-w-[1500px]. */}
         <div
-          className={`mb-14 max-w-2xl transition-all duration-[900ms] ease-out ${
+          className={`mb-14 transition-all duration-[900ms] ease-out ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
           }`}
         >
-          <h2 className="text-4xl font-semibold tracking-tight text-[#0b1747] md:text-5xl">
-            Real Results, Real Impact
+          <h2 className="  max-w-[800px]
+    font-medium
+    leading-[1.08]
+    tracking-[-0.025em]
+    text-[#0b1747]
+    text-[42px]
+    sm:text-[48px]
+    lg:text-[54px]">
+            Real Results and Real Impact
           </h2>
-          <p className="mt-4 text-lg leading-relaxed text-slate-600">
-            Starfii helps enterprises like yours unlock unparalleled value
-            through AI driven software development, enterprise product
-            engineering, and data engineering. Explore our case studies to
-            discover how Starfii delivers as a true end to end technology
-            transformation partner.
-          </p>
+        <p className="mt-4 max-w-[1500px] text-lg leading-relaxed text-slate-600">
+  Starfii helps enterprises like yours unlock unparalleled value
+  through AI driven software development, enterprise product
+  engineering, and data engineering. Explore our case studies to
+  discover how Starfii delivers as a true end to end technology
+  transformation partner.
+</p>
         </div>
 
         {/* Swiper carousel — rises up + fades in on scroll, slightly after
