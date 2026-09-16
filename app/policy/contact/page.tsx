@@ -1,3 +1,5 @@
+// components/ContactForm.tsx
+
 "use client";
 
 import { useState } from "react";
@@ -17,10 +19,22 @@ const inputClasses = `w-full rounded-md border ${T.border} bg-white px-4 py-3 te
 
 type InquiryType = { key: string; label: string; blurb: string };
 
-export default function ContactForm({ inquiryTypes }: { inquiryTypes: InquiryType[] }) {
+// Fallback so the form never crashes if the caller forgets to pass
+// inquiryTypes, or passes an empty/undefined array.
+const DEFAULT_INQUIRY_TYPES: InquiryType[] = [
+  { key: "general", label: "General Inquiry", blurb: "" },
+];
+
+export default function ContactForm({
+  inquiryTypes = DEFAULT_INQUIRY_TYPES,
+}: {
+  inquiryTypes?: InquiryType[];
+}) {
   const [submitted, setSubmitted] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [inquiry, setInquiry] = useState(inquiryTypes[0]?.key ?? "general");
+  // Guard both the array AND the optional key access — undefined[0]
+  // throws even with ?. on .key, since ?. only guards the .key part.
+  const [inquiry, setInquiry] = useState(inquiryTypes?.[0]?.key ?? "general");
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
