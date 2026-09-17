@@ -38,7 +38,7 @@ const slugAliases: Record<string, string> = {
   "healthcare-life-sciences": "healthcare",
   "retail-consumer": "ecommerce-retail",
   "telecom-utilities": "telecom",
-  "education": "education-institutions",   // 👈 புது alias
+  "education": "education-institutions",
 };
 
 /*

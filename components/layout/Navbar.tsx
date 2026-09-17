@@ -458,7 +458,7 @@ function LinkItem({
       onClick={onClick}
       target={newTab ? "_blank" : undefined}
       rel={newTab ? "noopener noreferrer" : undefined}
-      className={`block text-[15.5px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
+      className={`block text-[18px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
     >
       {children}
     </Link>
@@ -574,10 +574,10 @@ function ImagePanel({
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/75 via-transparent to-black/80" />
 
       <div>
-        <h4 className="text-[18px] font-semibold">{title}</h4>
-        <p className="mt-3 text-[14px] leading-relaxed text-white/80">{desc}</p>
+        <h4 className="text-[21px] font-semibold">{title}</h4>
+        <p className="mt-3 text-[16px] leading-relaxed text-white/80">{desc}</p>
       </div>
-      <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold text-white">
+      <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[15px] font-semibold text-white">
         {ctaLabel}
         <ArrowUpRight size={16} />
       </span>
@@ -586,9 +586,9 @@ function ImagePanel({
 }
 
 // Image-topped card used in the Platforms menu (Turbodev / TurboDesk),
-// matching the reference "Featured Insight" card style: full-width
-// photo on top, then eyebrow label, title, and a Learn More link —
-// no body paragraph, no dark background.
+// pixel-matched to the reference "Featured Insight" card: full-width
+// photo on top (no border, soft shadow instead), blue eyebrow label,
+// bold dark title, then a "Learn More" link with an arrow.
 function PlatformCard({
   image,
   eyebrow,
@@ -605,8 +605,8 @@ function PlatformCard({
   newTab?: boolean;
 }) {
   return (
-    <div className={`overflow-hidden rounded-2xl border ${T.border} bg-white`}>
-      <div className="h-44 w-full overflow-hidden bg-[#F5F5F9] sm:h-48 lg:h-44 xl:h-52">
+    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_1px_3px_rgba(10,14,40,0.08)]">
+      <div className="h-[190px] w-full overflow-hidden bg-[#F5F5F9]">
         <img
           src={image}
           alt=""
@@ -614,8 +614,8 @@ function PlatformCard({
         />
       </div>
       <div className="p-6">
-        <p className={`text-[13px] font-medium ${T.primary}`}>{eyebrow}</p>
-        <h4 className={`mt-2 text-[19px] font-semibold leading-snug ${T.ink}`}>
+        <p className={`text-[14px] font-medium ${T.primary}`}>{eyebrow}</p>
+        <h4 className={`mt-2 text-[20px] font-semibold leading-snug ${T.ink}`}>
           {title}
         </h4>
         <Link
@@ -630,6 +630,78 @@ function PlatformCard({
         </Link>
       </div>
     </div>
+  );
+}
+
+// Dark "Insights Hub" card with an animated glowing ring — first slot
+// in the Products mega menu, matching the reference screenshot exactly.
+function AnimatedInsightCard({
+  eyebrow = "Insights Hub",
+  title,
+  href = "#",
+  onClick,
+}: {
+  eyebrow?: string;
+  title: string;
+  href?: string;
+  onClick?: () => void;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="group relative flex h-full min-h-[330px] flex-col justify-between overflow-hidden rounded-2xl bg-[#0A0B26] p-7"
+    >
+      <style>{`
+        @keyframes ss-ring-spin {
+          from { transform: rotate(0deg); }
+          to   { transform: rotate(360deg); }
+        }
+        @keyframes ss-ring-pulse {
+          0%, 100% { opacity: 0.75; }
+          50%      { opacity: 1; }
+        }
+        .ss-nav-ring {
+          animation: ss-ring-spin 7s linear infinite, ss-ring-pulse 3.5s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* Glowing animated ring, centered behind the text */}
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div
+          className="ss-nav-ring h-[260px] w-[260px] rounded-full"
+          style={{
+            background:
+              "conic-gradient(from 0deg, #38BDF8 0deg, #60A5FA 90deg, transparent 180deg, #38BDF8 360deg)",
+            WebkitMaskImage:
+              "radial-gradient(circle, transparent 60%, black 62%, black 68%, transparent 70%)",
+            maskImage:
+              "radial-gradient(circle, transparent 60%, black 62%, black 68%, transparent 70%)",
+            filter: "blur(1.5px)",
+          }}
+        />
+        <div
+          className="absolute h-[260px] w-[260px] rounded-full"
+          style={{
+            boxShadow: "0 0 60px 10px rgba(56,189,248,0.25)",
+          }}
+        />
+      </div>
+
+      <p className="relative text-[14px] font-medium text-white/70">
+        {eyebrow}
+      </p>
+
+      <div className="relative">
+        <h4 className="text-[28px] font-semibold leading-[1.2] text-white">
+          {title}
+        </h4>
+        <span className="mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold text-white">
+          Learn More
+          <ArrowUpRight size={16} />
+        </span>
+      </div>
+    </Link>
   );
 }
 
@@ -659,7 +731,7 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
     { label: "legacy-modernization", href: "/services/legacy-Modernization" },
     { label: "ITSM & Service Management", href: "/services/itsm-service-management" },
 
-    { label: "Freshservice", href: "/services/global-capability-centers" },
+    { label: "Freshservice", href: "/services/freshService" },
     // { label: "Software & Product Engineering", href: "/services/Software & Product Engineering" },
        { label: "ITSM & Migration", href: "/services/ITSM-Migration" },
         { label: "quality-engineering", href: "/services/Quality-Engineering" },
@@ -738,14 +810,13 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 ================================================================ */
 
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
-  // Only Turbodev and TurboDesk are shown now — Amaze and Agentverse
-  // are removed per request. Each renders as an image-topped
-  // PlatformCard (see component above), matching the reference
-  // "Featured Insight" card layout.
+  // 3-card row matching the reference screenshot: an animated
+  // "Insights Hub" card first, then Turbodev and Turbodesk as
+  // image-topped Featured Insight cards.
   const platforms = [
     {
       name: "Turbodev",
-      title: "Turbodev  the revenue engine for Shopify brands",
+      title: "Turbodev — the revenue engine for Shopify brands",
       image:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=2400&auto=format&fit=crop",
       href: "https://turbodev.ai/",
@@ -753,19 +824,24 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     },
     {
       name: "Turbodesk",
-      title: "Turbodesk  intelligent service and operations platform",
+      title: "Turbodesk — intelligent service and operations platform",
       image:
         "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?q=90&w=2400&auto=format&fit=crop",
-      href: "/platform/turbodesk",
+      href: "https://turbodesk.in/",
       newTab: false,
     },
   ];
 
   return (
     <div>
-      {/* FIX: Products heading now blue (variant="primary") to match reference */}
       <ColumnTitle variant="primary">Products</ColumnTitle>
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        <AnimatedInsightCard
+          eyebrow="Insights Hub"
+          title="Discover What's Next in Your Sector"
+          href="/insights"
+          onClick={onNavigate}
+        />
         {platforms.map((p) => (
           <PlatformCard
             key={p.name}
@@ -852,15 +928,15 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
         {aboutItems.map((item) => (
           <div key={item.name} className={`border-l-2 ${T.border} pl-4`}>
-            <h4 className={`text-[17px] font-semibold ${T.ink}`}>{item.name}</h4>
-            <p className={`mt-2 text-[13.5px] leading-relaxed ${T.muted}`}>{item.desc}</p>
+            <h4 className={`text-[20px] font-semibold ${T.ink}`}>{item.name}</h4>
+            <p className={`mt-2 text-[16px] leading-relaxed ${T.muted}`}>{item.desc}</p>
             <Link
               href={item.href}
               onClick={onNavigate}
-              className={`mt-3 inline-flex items-center gap-1.5 text-[13.5px] font-semibold ${T.primary}`}
+              className={`mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold ${T.primary}`}
             >
               Learn more
-              <ArrowUpRight size={14} />
+              <ArrowUpRight size={15} />
             </Link>
           </div>
         ))}
@@ -932,12 +1008,12 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
       {cards.map((card) => (
         <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
-          <h4 className={`text-[18px] font-semibold ${T.ink}`}>{card.title}</h4>
-          <p className={`mt-2.5 text-[14.5px] leading-relaxed ${T.muted}`}>{card.desc}</p>
+          <h4 className={`text-[20px] font-semibold ${T.ink}`}>{card.title}</h4>
+          <p className={`mt-2.5 text-[16px] leading-relaxed ${T.muted}`}>{card.desc}</p>
           <Link
             href={card.href}
             onClick={onNavigate}
-            className={`mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}
+            className={`mt-6 inline-flex items-center gap-1.5 text-[15px] font-semibold ${T.primary}`}
           >
             Know more
             <ArrowUpRight size={16} />

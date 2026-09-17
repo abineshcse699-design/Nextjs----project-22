@@ -413,13 +413,30 @@ function WhyMattersAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Why Data &amp; Analytics Matters
+          <span
+            aria-hidden="true"
+            className="relative inline-flex h-8 w-8 flex-shrink-0 items-center justify-center"
+            style={{ color: INDIGO_CTA }}
+          >
+            <svg
+              viewBox="0 0 32 32"
+              className="h-8 w-8"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M16 1.5C16.7 8.9 18.1 13.2 21.1 14.9C22.8 16 27.1 16 30.5 16C23.1 16.7 18.8 18.1 17.1 21.1C16 22.8 16 27.1 16 30.5C15.3 23.1 13.9 18.8 10.9 17.1C9.2 16 4.9 16 1.5 16C8.9 15.3 13.2 13.9 14.9 10.9C16 9.2 16 4.9 16 1.5Z" />
+            </svg>
+            <svg
+              viewBox="0 0 20 20"
+              className="absolute bottom-0 right-0 h-3.5 w-3.5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 1.5C10.35 6.15 11.15 8.1 12.9 9.05C13.85 9.55 15.8 9.65 18.5 10C15.8 10.35 13.85 10.45 12.9 10.95C11.15 11.9 10.35 13.85 10 18.5C9.65 13.85 8.85 11.9 7.1 10.95C6.15 10.45 4.2 10.35 1.5 10C4.2 9.65 6.15 9.55 7.1 9.05C8.85 8.1 9.65 6.15 10 1.5Z" />
+            </svg>
+          </span>
+          <span className="font-body text-[17px] font-semibold" style={{ color: INDIGO_CTA }}>
+            Key Takeaways
           </span>
         </div>
 
@@ -1503,6 +1520,99 @@ export default function DataAnalyticsServicesSection() {
           </div>
         </div>
       </section>
+
+
+
+<section id="connect" className="scroll-mt-28 bg-white py-24">
+  <div className={ALIGN}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeUp}
+      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
+      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
+    >
+      {/* Decorative gradient blob, offset to one side */}
+      <div
+        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
+        }}
+      />
+      {/* Subtle diagonal lines */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
+        }}
+      />
+
+      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+        {/* Left: heading + copy */}
+        <div>
+          <span
+            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
+            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
+          >
+            GET STARTED
+          </span>
+
+          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
+            Ready to Build a Quality Strategy That Scales?
+          </h2>
+
+          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
+            Talk to Starfii about manual testing, test automation, API
+            and performance testing, security testing, or embedding
+            continuous and AI assisted testing into your pipeline.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <Link
+              href="/#form"
+              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+              style={{ backgroundColor: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </Link>
+
+<a            
+              href="mailto:hello@starfii.com"
+              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
+              style={{ borderColor: "rgba(0,0,0,0.15)" }}
+            >
+              Email Us
+            </a>
+          </div>
+        </div>
+
+        {/* Right: floating contact card */}
+        <div
+          className="relative rounded-2xl p-7"
+          style={{
+            backgroundColor: "rgba(29,53,87,0.04)",
+            border: "1px solid rgba(0,0,0,0.08)",
+          }}
+        >
+          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
+            Prefer to talk directly?
+          </p>
+          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
+            hello@starfii.com
+          </p>
+          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
+            Typical response time: within 24 hours on business days.
+          </p>
+        </div>
+      </div>
+    </motion.div>
+  </div>
+</section>
     </main>
   );
 }

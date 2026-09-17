@@ -1734,32 +1734,92 @@ export default function ServiceNowITSMPage(): ReactElement {
       {/* ============================================================
           156. CLOSING CTA
       ============================================================ */}
-      <section id="connect" className="scroll-mt-28 bg-white py-24">
-        <div className={ALIGN}>
-          <Reveal
-            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
-            style={{ backgroundColor: CHAMPION_BLUE }}
+    <section id="connect" className="scroll-mt-28 bg-white py-24">
+  <div className={ALIGN}>
+    <Reveal
+      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
+      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
+    >
+      {/* Decorative gradient blob, offset to one side */}
+      <div
+        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
+        style={{
+          background:
+            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
+        }}
+      />
+      {/* Subtle diagonal lines */}
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.05]"
+        style={{
+          backgroundImage:
+            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
+        }}
+      />
+
+      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+        {/* Left: heading + copy */}
+        <div>
+          <span
+            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
+            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
           >
-            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-              Ready to Put ServiceNow ITSM to Work?
-            </h2>
-            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Tell us which ITSM workflows are slowing your teams down. We
-              will show you how they fit inside a single ServiceNow
-              instance, built and supported by a certified implementation
-              partner.
-            </p>
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+            GET STARTED
+          </span>
+
+          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
+            Ready to Build a Quality Strategy That Scales?
+          </h2>
+
+          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
+            Talk to Starfii about manual testing, test automation, API
+            and performance testing, security testing, or embedding
+            continuous and AI assisted testing into your pipeline.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+            <Link
+              href="/#form"
+              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+              style={{ backgroundColor: CHAMPION_BLUE }}
             >
               Connect Now
               <ArrowUpRight size={17} />
+            </Link>
+
+            <a
+              href="mailto:hello@starfii.com"
+              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
+              style={{ borderColor: "rgba(0,0,0,0.15)" }}
+            >
+              Email Us
             </a>
-          </Reveal>
+          </div>
         </div>
-      </section>
+
+        {/* Right: floating contact card */}
+        <div
+          className="relative rounded-2xl p-7"
+          style={{
+            backgroundColor: "rgba(29,53,87,0.04)",
+            border: "1px solid rgba(0,0,0,0.08)",
+          }}
+        >
+          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
+            Prefer to talk directly?
+          </p>
+          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
+            hello@starfii.com
+          </p>
+          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
+            Typical response time: within 24 hours on business days.
+          </p>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>
     </main>
   );
 }
