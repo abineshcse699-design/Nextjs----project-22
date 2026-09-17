@@ -215,14 +215,15 @@ export default function Hero() {
         </motion.h1>
 
         {/* Description */}
-        <motion.p
-          variants={item}
-          className="mt-6 max-w-lg text-[17px] font-normal leading-[1.7] text-slate-200/85"
-        >
-          Starfii designs, builds, and scales high performance web, mobile,
+  {/* Description */}
+<motion.p
+  variants={item}
+  className="mt-6 max-w-[900px] text-[17px] font-normal leading-[1.7] text-slate-200/85"
+>
+     Starfii designs, builds, and scales high performance web, mobile,
           and AI powered products for enterprises, so your business moves
           from idea to launch with zero friction and unstoppable momentum.
-        </motion.p>
+</motion.p>
 
         {/* CTAs */}
         <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-4">

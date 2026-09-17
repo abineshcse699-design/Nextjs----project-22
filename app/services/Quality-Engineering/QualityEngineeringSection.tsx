@@ -1,4 +1,6 @@
 //  Quality Engineering -- page
+//  Rebuilt on the same design system as "Software & Product Engineering"
+//  (Champion Blue / Lavender / Indigo, light theme).
 
 "use client";
 import Link from "next/link";
@@ -18,11 +20,9 @@ import {
   ChevronRight,
   ChevronDown,
   ChevronLeft,
-  Sparkles,
   ArrowUpRight,
   Plus,
   Minus,
-  Trophy,
 } from "lucide-react";
 
 /* ===============================================================
@@ -33,122 +33,145 @@ import {
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
-const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
+const INDIGO_CTA = "#4F3FE0";
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
-
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Quality Engineering" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
-// Shared card gap, kept identical to the previous service pages.
+// Shared card gap, kept identical to the other service pages.
 const CARD_GAP = 32;
 
 /* ===============================================================
    TYPOGRAPHY TOKENS
-   Same scale used on the Cloud / Software & Product Engineering
-   pages, so every service page's Hero <h1> and big section <h2>s
-   render at identical sizes across the site.
 ================================================================ */
-
-const HERO_HEADING =
-  "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
 
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 
-// Page 7 — Quality Engineering
-// URL: /services/enterprise-platform-services
-// (kept in sync with the actual folder this file lives in — see
-// CASE_STUDY_BASE / BLOG_BASE below, which must match [slug] routes)
+/* ---------------------------------------------------------------
+   ROUTES — must match the actual [slug] folders on disk.
+   If you do not have a capabilities route yet, change
+   CAPABILITY_BASE usage below to `#${area.slug}` and the cards
+   will act as in-page anchors instead of links.
+---------------------------------------------------------------- */
 const BLOG_BASE = "/services/Quality-Engineering/blogs";
+const CASE_STUDY_BASE = "/services/Quality-Engineering/casestudies";
+const CAPABILITY_BASE = "/services/Quality-Engineering/capabilities";
 
-const CASE_STUDY_BASE =
-  "/services/Quality-Engineering/casestudies";
 /* ===============================================================
    CONTENT
-   SEO / AEO optimized: entity first statements ("Starfii is...",
-   "Starfii offers..."), keyword rich but natural, no hyphens.
-
-   Headings/subheadings are aligned to the recommended section list:
-   80. Quality engineering overview -> Key Takeaways
-   81. Manual testing               -> Focus area card
-   82. Test automation              -> Focus area card
-   83. API testing                  -> Focus area card
-   84. Performance testing          -> Focus area card
-   85. Security testing             -> Focus area card
-   86. Mobile testing               -> Focus area card
-   87. Continuous testing           -> Focus area card
-   88. AI-assisted testing          -> Focus area card
-   89. QA automation                -> Focus area card
+   Section list this page covers:
+   80. Quality engineering overview -> Hero + Key Takeaways
+   81. Manual testing               -> Capability card
+   82. Test automation              -> Capability card + tab
+   83. API testing                  -> Capability card + tab
+   84. Performance testing          -> Capability card + tab
+   85. Security testing             -> Capability card + tab
+   86. Mobile testing               -> Capability card
+   87. Continuous testing           -> Capability card + tab
+   88. AI assisted testing          -> Capability card
+   89. QA automation                -> Capability card
    90. Quality strategy             -> Q&A section
    91. Case studies                 -> Case Studies section
    92. CTA                          -> Closing CTA section
 ================================================================ */
 
-// Key Takeaways — same flat, typewriter-friendly string format used on
-// the Legacy Modernization / Data & Analytics pages, so every service
-// page shares the identical open/close + typing interaction.
-const keyTakeaways: string[] = [
-  "Starfii is a quality engineering company helping organizations improve software reliability with intelligent testing, automation, and continuous quality practices.",
-  "We engineer testing strategies that cover manual testing, test automation, API testing, performance testing, and security testing across web and mobile platforms.",
-  "Our quality engineering capabilities span continuous testing, AI assisted testing, and QA automation embedded directly into the software delivery lifecycle.",
-  "We help enterprises catch defects earlier, ship with confidence, and build a quality strategy that scales alongside every release.",
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark" | "black";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{
+        color:
+          variant === "dark"
+            ? "#FFFFFF"
+            : variant === "black"
+              ? "#000000"
+              : CHAMPION_BLUE,
+      }}
+    >
+      <span>{children}</span>
+    </span>
+  );
+}
+
+const keyTakeaways = [
+  {
+    title: "Test",
+    body: "Starfii is a quality engineering company helping organizations improve software reliability with intelligent testing, automation, and continuous quality practices across web and mobile platforms.",
+  },
+  {
+    title: "Automate",
+    body: "We engineer testing strategies that cover manual testing, test automation, API testing, performance testing, and security testing, so regression stops being the bottleneck in your release cycle.",
+  },
+  {
+    title: "Scale",
+    body: "Our capabilities span continuous testing, AI assisted testing, and QA automation embedded directly into the delivery lifecycle, so teams catch defects earlier and ship with confidence as release frequency grows.",
+  },
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+/* --- 81–89. The nine quality engineering capabilities ----------- */
+type Capability = { slug: string; title: string; body: string };
 
-const focusAreas: FocusArea[] = [
+const capabilities: Capability[] = [
   {
+    slug: "manual-testing",
     title: "Manual Testing",
     body: "Starfii's manual testing teams validate real user journeys and edge cases that automation alone can miss, giving your product a human check before every release.",
-    tags: ["MANUAL", "EXPLORATORY", "UAT"],
   },
   {
+    slug: "test-automation",
     title: "Test Automation",
     body: "We build durable, maintainable test automation suites that cut regression time and give teams fast, reliable feedback on every build.",
-    tags: ["AUTOMATION", "REGRESSION", "CI/CD"],
   },
   {
+    slug: "api-testing",
     title: "API Testing",
     body: "Starfii validates API contracts, payloads, and integrations so services stay reliable as your architecture grows more distributed.",
-    tags: ["API", "CONTRACT", "INTEGRATION"],
   },
   {
+    slug: "performance-testing",
     title: "Performance Testing",
     body: "We load test and stress test critical systems to uncover bottlenecks before customers do, keeping platforms fast under real world traffic.",
-    tags: ["LOAD", "STRESS", "SCALABILITY"],
   },
   {
+    slug: "security-testing",
     title: "Security Testing",
     body: "Starfii's security testing practice identifies vulnerabilities in applications and APIs early, reducing risk before code reaches production.",
-    tags: ["SECURITY", "PENTEST", "RISK"],
   },
   {
+    slug: "mobile-testing",
     title: "Mobile Testing",
     body: "We test mobile applications across real devices, operating systems, and network conditions to make sure quality holds up everywhere your users are.",
-    tags: ["IOS", "ANDROID", "DEVICE LAB"],
   },
   {
+    slug: "continuous-testing",
     title: "Continuous Testing",
     body: "Starfii embeds continuous testing into CI/CD pipelines so quality gates run automatically with every commit, not just before a release.",
-    tags: ["CI/CD", "PIPELINES", "SHIFT LEFT"],
   },
   {
+    slug: "ai-assisted-testing",
     title: "AI Assisted Testing",
     body: "We use AI assisted testing to generate test cases, detect flaky tests, and prioritize the checks that matter most, cutting manual test maintenance.",
-    tags: ["AI", "SMART TESTING", "COVERAGE"],
   },
   {
+    slug: "qa-automation",
     title: "QA Automation",
     body: "Starfii's QA automation practice builds the frameworks, tooling, and reporting that let quality engineering teams scale coverage without scaling headcount.",
-    tags: ["QA", "FRAMEWORKS", "REPORTING"],
   },
 ];
 
 type ServiceTab = {
+  id: string;
   label: string;
   heading: string;
   body: string;
@@ -157,59 +180,57 @@ type ServiceTab = {
 
 const tabs: ServiceTab[] = [
   {
+    id: "test-automation",
     label: "Test Automation",
     heading: "Test automation that keeps pace with every release",
-    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle.",
+    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle. Frameworks, reporting, and CI integration come as part of the build, not as an afterthought.",
     image:
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    id: "api-testing",
     label: "API Testing",
     heading: "API testing that protects every integration point",
-    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows.",
+    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows. Breaking changes surface in the pipeline rather than in a partner's inbox.",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    id: "performance-testing",
     label: "Performance Testing",
     heading: "Performance testing built for real world traffic",
-    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most.",
+    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most. Results come back as tuning actions, not just a graph of response times.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    id: "security-testing",
     label: "Security Testing",
     heading: "Security testing that finds risk before attackers do",
-    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production.",
+    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production and giving you evidence you can take to an audit.",
     image:
       "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1200&auto=format&fit=crop",
   },
   {
+    id: "continuous-testing",
     label: "Continuous Testing",
     heading: "Continuous testing wired into your delivery pipeline",
-    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day.",
+    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day. Flaky tests get triaged instead of ignored, so the pipeline stays trusted.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
 ];
-
-/* ===============================================================
-   IMPACT ACROSS YOUR QUALITY ENGINEERING ECOSYSTEM
-   Each item now carries a body so the section can expand in place
-   like the Cloud / Software & Product Engineering ecosystem
-   accordions.
-================================================================ */
 
 type EcosystemImpact = { title: string; body: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
   {
     title: "Manual Testing and Exploratory QA",
-    body: "Catch what automation misses. Starfii's manual and exploratory testing validates real user journeys, edge cases, and usability issues before release, giving every build a human check that scripted tests alone can't provide.",
+    body: "Catch what automation misses. Starfii's manual and exploratory testing validates real user journeys, edge cases, and usability issues before release, giving every build a human check that scripted tests alone cannot provide.",
   },
   {
     title: "Mobile Testing Across Devices",
-    body: "Verify quality where users actually are. Starfii tests mobile apps across real devices, operating systems, and network conditions, so performance and behavior hold up consistently across the fragmented mobile landscape.",
+    body: "Verify quality where users actually are. Starfii tests mobile apps across real devices, operating systems, and network conditions, so performance and behavior hold up consistently across a fragmented mobile landscape.",
   },
   {
     title: "AI Assisted Testing and Insights",
@@ -229,49 +250,9 @@ const ecosystemImpact: EcosystemImpact[] = [
   },
 ];
 
-type IndustryAward = {
-  year: string;
-  category: string;
-  subcategory: string;
-  rank: string;
-  description: string;
-};
-
-const industryAwards: IndustryAward[] = [
-  {
-    year: "Quality Engineering",
-    category: "Test Automation",
-    subcategory: "Frameworks and Coverage",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii builds test automation frameworks that scale coverage across web, mobile, and API layers while keeping maintenance costs low.",
-  },
-  {
-    year: "Quality Engineering",
-    category: "Performance and Security",
-    subcategory: "Load, Stress, and Vulnerability Testing",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii applies performance and security testing practices that catch bottlenecks and vulnerabilities before they reach production.",
-  },
-  {
-    year: "Quality Engineering",
-    category: "Continuous and AI Assisted Testing",
-    subcategory: "CI/CD Quality Gates",
-    rank: "Enterprise Capability",
-    description:
-      "Starfii embeds continuous testing and AI assisted testing into delivery pipelines to keep every release measurably reliable.",
-  },
-];
-
 /* ===============================================================
    CASE STUDIES
-   FIXED: these slugs, titles, images and copy now come directly
-   from the real entries in data/case-studies.tsx (getCaseStudyBySlug
-   source of truth). The old list referenced slugs like
-   "fintech-test-automation-regression-cycle" that don't exist
-   anywhere in that data file, so every card 404'd. Nothing here is
-   invented — each entry below matches an existing case study.
+   Slugs below match real entries in data/case-studies.tsx.
 ================================================================ */
 
 type CaseStudy = { slug: string; image: string; title: string; body: string };
@@ -281,8 +262,7 @@ const caseStudies: CaseStudy[] = [
     slug: "fintech-saas-platform-mvp-to-scale",
     image:
       "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
+    title: "Starfii Builds a Fortune 500 Fintech SaaS Platform From MVP to Scale",
     body: "See how Starfii's enterprise product engineering team took a fintech SaaS platform from a three month MVP to a full featured product serving Fortune 500 clients.",
   },
   {
@@ -296,8 +276,7 @@ const caseStudies: CaseStudy[] = [
     slug: "healthcare-saas-generative-ai-features",
     image:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
+    title: "Starfii Ships a Generative AI Feature Set for a Healthcare SaaS Platform",
     body: "Discover how Starfii's Generative AI and LLM engineering team embedded Gen AI features into a HIPAA compliant SaaS platform for a healthcare client.",
   },
   {
@@ -311,8 +290,7 @@ const caseStudies: CaseStudy[] = [
     slug: "enterprise-legacy-modernization-timeline",
     image:
       "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=900&auto=format&fit=crop",
-    title:
-      "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
+    title: "Starfii Cuts Legacy Modernization Timelines for an Enterprise Client",
     body: "Learn how Starfii's modernization roadmap moved a complex legacy application portfolio to a scalable cloud platform with minimal business disruption.",
   },
 ];
@@ -327,13 +305,10 @@ type InsightPost = {
 
 /* ===============================================================
    NOTE ON BLOG SLUGS BELOW:
-   These slugs (quality-engineering-overview, test-automation-roi,
-   etc.) have NOT been verified against blogsData.ts because that
-   file wasn't shared. The [slug]/page.tsx for blogs filters by
-   `post.service === "enterprise-platform-services"` AND slug, so if
-   these slugs (or that service value) don't match what's actually in
-   blogsData.ts, these cards will 404 the same way the case studies
-   did. Share blogsData.ts and this list can be corrected the same way.
+   These have NOT been verified against blogsData.ts. The blog
+   [slug]/page.tsx filters by `post.service` AND slug, so if these
+   slugs or that service value do not match blogsData.ts, the cards
+   will 404. Share blogsData.ts and this list can be corrected.
 ================================================================ */
 const insights: InsightPost[] = [
   {
@@ -404,73 +379,63 @@ function AnimationStyles(): ReactElement {
         0%, 100% { opacity: 0.55; }
         50%      { opacity: 1; }
       }
-      /* Autoplay progress fill for the tab list's active indicator line */
       @keyframes ss-tab-progress {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
-      /* Typewriter caret blink for the Key Takeaways accordion */
       @keyframes ss-caret-blink {
         0%, 100% { opacity: 1; }
         50%      { opacity: 0; }
       }
 
-      .ss-reveal {
-        opacity: 0;
-      }
+      .ss-reveal { opacity: 0; }
       .ss-reveal.ss-in-view {
         animation: ss-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
       }
-      .ss-tab-panel {
-        animation: ss-fade-in 0.45s ease-out;
-      }
-      .ss-drift-slow {
-        animation: ss-drift 16s ease-in-out infinite;
-      }
-      .ss-drift-slower {
-        animation: ss-drift 22s ease-in-out infinite reverse;
-      }
+      .ss-tab-panel { animation: ss-fade-in 0.45s ease-out; }
+      .ss-drift-slow { animation: ss-drift 16s ease-in-out infinite; }
+      .ss-drift-slower { animation: ss-drift 22s ease-in-out infinite reverse; }
       .ss-arrow-pulse:not(:disabled):hover {
         animation: ss-pulse-soft 1.2s ease-in-out infinite;
       }
-      .ss-caret {
-        animation: ss-caret-blink 0.9s steps(1) infinite;
-      }
+      .ss-caret { animation: ss-caret-blink 0.9s steps(1) infinite; }
 
-      .ss-award-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        box-shadow: 0 0 0 rgba(164, 143, 234, 0);
+      /* =============================================================
+         LIGHT CAPABILITIES GRID
+      ============================================================= */
+      .ss-capability-card {
+        position: relative;
+        background-color: #EEF0F5;
+        border-radius: 20px;
+        transition:
+          background-color 0.35s ease,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.35s ease;
       }
-      .ss-award-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 22px 45px -18px rgba(79, 63, 224, 0.55),
-          0 0 0 1px rgba(164, 143, 234, 0.35);
+      .ss-capability-card:hover {
+        background-color: #E4E7F3;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(27, 37, 96, 0.08);
       }
-      .ss-award-card:hover .ss-trophy {
-        transform: rotate(-14deg) scale(1.15);
+      .ss-capability-title { transition: color 0.3s ease; }
+      .ss-capability-learn-more { color: ${INDIGO_CTA}; }
+      .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .ss-trophy {
-        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+      .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(1);
       }
-
-      .ss-focus-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          border-color 0.4s ease, background-color 0.4s ease;
+      .ss-capability-card:hover .ss-capability-learn-more svg {
+        transform: translate(2px, -2px);
       }
-      .ss-focus-card:hover {
-        transform: translateY(-6px);
-        border-color: rgba(164, 143, 234, 0.55);
-        background-color: #14121F;
+      .ss-capability-learn-more svg {
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       }
-      .ss-focus-card:hover .ss-focus-arrow {
-        transform: rotate(45deg);
-        background-color: ${INDIGO_CTA};
-        border-color: ${INDIGO_CTA};
-      }
-      .ss-focus-arrow {
-        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-          background-color 0.3s ease, border-color 0.3s ease;
+      .ss-capability-card:target {
+        background-color: #E4E7F3;
+        box-shadow: 0 0 0 2px ${INDIGO_CTA};
       }
 
       .ss-clamp-2 {
@@ -496,11 +461,13 @@ function AnimationStyles(): ReactElement {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Card height / description reveal stays static for reduced motion */
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
-        .ss-eco-panel {
+        .ss-eco-panel,
+        .ss-capability-card,
+        .ss-capability-title,
+        .ss-capability-learn-more .ss-capability-underline {
           transition: none !important;
         }
         .ss-case-desc {
@@ -676,21 +643,18 @@ function Reveal({
 }
 
 /* ===============================================================
-   KEY TAKEAWAYS ACCORDION
-   Click the header to expand/collapse. While open, each line types
-   out letter by letter, one after another — identical interaction
-   to the Legacy Modernization / Data & Analytics pages, so every
-   service page feels like one consistent product.
+   KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
 ================================================================ */
 
-function TakeawaysAccordion({
+function KeyTakeawaysAccordion({
   open,
   setOpen,
 }: {
   open: boolean;
   setOpen: (updater: (prev: boolean) => boolean) => void;
 }): ReactElement {
-  const { displayed, typingIndex } = useTypewriterList(keyTakeaways, open);
+  const lines = keyTakeaways.map((point) => `${point.title}. ${point.body}`);
+  const { displayed, typingIndex } = useTypewriterList(lines, open);
 
   return (
     <div
@@ -700,18 +664,23 @@ function TakeawaysAccordion({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        className="flex min-h-[104px] w-full items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
         style={{
-          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
+          borderBottom: open
+            ? `1px solid ${LAVENDER_ACCENT}`
+            : "1px solid transparent",
         }}
       >
         <div className="flex items-center gap-3">
-<img
+          <img
             src="/starfii_logo_black.svg"
             alt="Starfii"
             className="h-10 w-20 flex-shrink-0 object-contain"
           />
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+          <span
+            className="font-body text-[17px] font-semibold"
+            style={{ color: CHAMPION_BLUE }}
+          >
             Quality Engineering Overview
           </span>
         </div>
@@ -721,7 +690,7 @@ function TakeawaysAccordion({
             className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
             style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
           >
-            TESTING • AUTOMATION • AI
+            TESTING • AUTOMATION • PERFORMANCE • AI
           </span>
 
           <ChevronDown
@@ -742,7 +711,7 @@ function TakeawaysAccordion({
       >
         <div className="overflow-hidden">
           <ul className="space-y-5 px-8 py-10 lg:px-10">
-            {keyTakeaways.map((line, i) => {
+            {lines.map((line, i) => {
               const text = displayed[i];
               if (!text && i !== 0) return null;
 
@@ -751,7 +720,7 @@ function TakeawaysAccordion({
               return (
                 <li
                   key={line}
-                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
+                  className="font-body flex gap-2 text-[15px] leading-[1.8] text-slate-600"
                 >
                   <span
                     className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
@@ -778,13 +747,9 @@ function TakeawaysAccordion({
 
 /* ===============================================================
    ECOSYSTEM ACCORDION
-   Click the "+" and the matching content expands in place.
-   Two independent columns, so opening a card on the left does not
-   stretch the card sitting next to it on the right.
 ================================================================ */
 
 function EcosystemAccordion(): ReactElement {
-  // null = everything closed. 0 keeps the first card open by default.
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
@@ -805,9 +770,7 @@ function EcosystemAccordion(): ReactElement {
                 <div
                   className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
                   style={{
-                    boxShadow: isOpen
-                      ? "0 18px 40px rgba(15,23,42,0.18)"
-                      : undefined,
+                    boxShadow: isOpen ? "0 18px 40px rgba(15,23,42,0.18)" : undefined,
                   }}
                 >
                   <button
@@ -818,7 +781,7 @@ function EcosystemAccordion(): ReactElement {
                     className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
                   >
                     <span
-                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
+                      className="font-heading text-[19px] font-medium leading-snug transition-colors duration-300"
                       style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
                     >
                       {item.title}
@@ -918,7 +881,7 @@ function Carousel({
     if (!el) return [] as HTMLElement[];
 
     return Array.from(el.children).filter(
-      (child): child is HTMLElement => child instanceof HTMLElement,
+      (child): child is HTMLElement => child instanceof HTMLElement
     );
   };
 
@@ -933,31 +896,20 @@ function Carousel({
     const tolerance = 8;
 
     if (dir > 0) {
-      // Find the first card whose left edge is still meaningfully
-      // ahead of the current viewport. This guarantees exactly one
-      // card advance even when card widths are different.
+      // First card whose left edge is still ahead of the viewport,
+      // so mixed card widths still advance exactly one card.
       const nextCard = cards.find(
-        (card) => card.offsetLeft > currentScroll + tolerance,
+        (card) => card.offsetLeft > currentScroll + tolerance
       );
 
-      if (nextCard) {
-        el.scrollTo({
-          left: nextCard.offsetLeft,
-          behavior: "smooth",
-        });
-      } else {
-        el.scrollTo({
-          left: el.scrollWidth - el.clientWidth,
-          behavior: "smooth",
-        });
-      }
+      el.scrollTo({
+        left: nextCard ? nextCard.offsetLeft : el.scrollWidth - el.clientWidth,
+        behavior: "smooth",
+      });
     } else {
-      // Find the last card whose left edge is before the current
-      // position, then move exactly one card backward.
       const previousCards = cards.filter(
-        (card) => card.offsetLeft < currentScroll - tolerance,
+        (card) => card.offsetLeft < currentScroll - tolerance
       );
-
       const previousCard = previousCards[previousCards.length - 1];
 
       el.scrollTo({
@@ -991,34 +943,16 @@ function Carousel({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5",
-          }}
+          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
             style={{
-              width: `${Math.max(
-                progress * 100,
-                itemCount ? 100 / itemCount : 10,
-              )}%`,
+              width: `${Math.max(progress * 100, itemCount ? 100 / itemCount : 10)}%`,
               backgroundColor: INDIGO_CTA,
             }}
           />
         </div>
-
-        <span
-          className="font-body flex-shrink-0 text-[13px] font-medium tabular-nums"
-          style={{ color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8" }}
-        >
-          {String(
-            Math.min(
-              itemCount,
-              Math.max(1, Math.round(progress * Math.max(1, itemCount - 1)) + 1),
-            ),
-          ).padStart(2, "0")}{" "}
-          / {String(itemCount).padStart(2, "0")}
-        </span>
 
         <div className="flex flex-shrink-0 items-center gap-3">
           <button
@@ -1052,11 +986,7 @@ function Carousel({
 }
 
 /* ===============================================================
-   REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click. Supports a fractional
-   perPage (e.g. 1.15 for a "peek" card) and a configurable gap,
-   matching the Cloud / Software & Product Engineering pages.
-   Used for Case Studies.
+   REUSABLE: StepCarousel — one card per arrow click
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -1064,7 +994,7 @@ type StepCarouselProps<T> = {
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards
+  gap?: number;
 };
 
 function StepCarousel<T>({
@@ -1080,8 +1010,6 @@ function StepCarousel<T>({
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
-  // Math.ceil so a fractional perPage still lands on a whole card
-  // instead of stopping mid-card at the end of the track.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
@@ -1124,10 +1052,7 @@ function StepCarousel<T>({
     const track = trackRef.current;
     if (!track) return;
 
-    track.scrollTo({
-      left: position * stepWidth,
-      behavior: "smooth",
-    });
+    track.scrollTo({ left: position * stepWidth, behavior: "smooth" });
   }, [position, stepWidth]);
 
   const goTo = (nextPosition: number) => {
@@ -1141,7 +1066,7 @@ function StepCarousel<T>({
     <div>
       <div
         ref={trackRef}
-        className="flex overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         style={{ scrollBehavior: "smooth", gap: `${gap}px` }}
       >
         {items.map((item, i) => (
@@ -1163,9 +1088,7 @@ function StepCarousel<T>({
       <div className="mt-8 flex items-center gap-6">
         <div
           className="h-[3px] flex-1 overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5",
-          }}
+          style={{ backgroundColor: isDark ? "rgba(255,255,255,0.18)" : "#E5E1F5" }}
         >
           <div
             className="h-full rounded-full transition-[width] duration-300 ease-out"
@@ -1223,9 +1146,6 @@ export default function QualityEngineeringSection(): ReactElement {
   const current = tabs[activeTab];
 
   // --- Autoplay for the left-side tab list ---
-  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
-  // Pausing on hover, and restarting the timer whenever the user
-  // manually clicks a tab, so it never fights with manual control.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -1234,79 +1154,114 @@ export default function QualityEngineeringSection(): ReactElement {
     return () => clearInterval(id);
   }, [tabHovered, activeTab]);
 
+  // Deep links such as ...#performance-testing open that tab
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    const index = tabs.findIndex((t) => t.id === hash);
+    if (index >= 0) {
+      setActiveTab(index);
+      setTabHovered(true); // pause autoplay so the linked tab stays put
+    }
+  }, []);
+
   return (
     <main className="bg-white">
       <AnimationStyles />
 
       {/* ============================================================
-          BREADCRUMB + HERO
-          (80. Quality engineering overview)
+          BREADCRUMB + HERO  (80. Quality engineering overview)
+          Full-bleed image with a dark left-side readability gradient.
       ============================================================ */}
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=3840&auto=format&fit=crop"
-            alt=""
-            className="h-full w-full object-cover"
+            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=90&w=3840&auto=format&fit=crop"
+            alt="Quality engineering team reviewing automated test results"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
+          />
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+
+          <div
+            className="absolute inset-x-0 bottom-0 h-20"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+            }}
           />
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
-          <nav
-            aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
-          >
-            <a href="/" className="hover:underline">
-              Home
+        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
+          <div className="w-full max-w-[760px] py-20 lg:py-28">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium opacity-0"
+              style={{
+                color: "rgba(255,255,255,0.92)",
+                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+              }}
+            >
+              <a href="/" className="transition-opacity hover:opacity-70">
+                Home
+              </a>
+              <ChevronRight size={14} />
+              <a href="/services" className="transition-opacity hover:opacity-70">
+                Services
+              </a>
+              <ChevronRight size={14} />
+              <span className="text-white/60">Quality Engineering</span>
+            </nav>
+
+            <h1
+              className="font-heading mt-10 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            >
+              Quality Engineering for Modern Enterprises
+            </h1>
+
+            <p
+              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+            >
+              Starfii improves software reliability with intelligent testing,
+              automation, and continuous quality engineering built into every
+              stage of your delivery pipeline.
+            </p>
+
+            <a
+              href="#connect"
+              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+              style={{
+                color: INDIGO_CTA,
+                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+              }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
             </a>
-            <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
-              Services
-            </a>
-            <ChevronRight size={14} />
-            <span className="text-white">Quality Engineering</span>
-          </nav>
-
-          <h1
-            className={`${HERO_HEADING} mt-8 max-w-xl opacity-0`}
-            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-          >
-            Quality Engineering for Modern Enterprises
-          </h1>
-
-          <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white opacity-0"
-            style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-          >
-            Improve software reliability with intelligent testing,
-            automation, and continuous quality engineering.
-          </p>
-
-          <a
-            href="#connect"
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
-            style={{
-              backgroundColor: CHAMPION_BLUE,
-              animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-            }}
-          >
-            Connect Now
-            <ArrowUpRight size={17} />
-          </a>
+          </div>
         </div>
       </section>
 
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS — collapsible, typewriter bullets
-            (80. Quality engineering overview)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
-          <TakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+          <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Starfii helps enterprises improve software reliability by
@@ -1317,37 +1272,31 @@ export default function QualityEngineeringSection(): ReactElement {
         </Reveal>
 
         {/* ============================================================
-            Q&A BLOCK
-            (90. Quality strategy)
+            Q&A BLOCK  (90. Quality strategy)
         ============================================================ */}
-
-        <Reveal as="section" className="mt-20 mb-20 lg:mb-[100px]">
-          <div
-            className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
-            style={{ backgroundColor: "#F5F3FC" }}
-          >
-            <div>
-              <h2
-                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
-                style={{ color: LAVENDER_ACCENT }}
-              >
+        <Reveal as="section" className="mb-20 mt-20 lg:mb-24">
+          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+            <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
+              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
                 How Do Enterprises Build a Quality Strategy That Scales?
               </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises build a lasting quality strategy by combining
-                manual testing, test automation, API and performance
-                testing, security testing, and continuous testing inside
-                the delivery pipeline. Starfii brings these together with
-                AI assisted testing and QA automation, so quality holds up
-                as release frequency and system complexity grow.
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
+                They combine manual testing, test automation, API and
+                performance testing, security testing, and continuous
+                testing inside the delivery pipeline. Starfii brings these
+                together with AI assisted testing and QA automation, so
+                quality holds up as release frequency and system
+                complexity grow.
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-2xl">
+            <div className="relative min-h-[320px] overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
                 alt="Two colleagues reviewing a quality strategy roadmap"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
               />
             </div>
           </div>
@@ -1355,84 +1304,68 @@ export default function QualityEngineeringSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          FOCUS AREAS
-          (81-89. Manual testing through QA automation)
+          CAPABILITIES  (81–89. Manual testing through QA automation)
       ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 0%, rgba(164,143,234,0.32) 0%, rgba(79,63,224,0.18) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-        <div
-          className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
-          style={{
-            background:
-              "radial-gradient(55% 80% at 0% 100%, rgba(63,90,214,0.28) 0%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
+    <section
+        id="capabilities"
+        className="relative scroll-mt-28 bg-white py-24 lg:py-28"
+      >
         <div className={`relative ${ALIGN}`}>
-          <Reveal className="max-w-xl">
-            <h2 className="font-heading text-[36px] font-medium leading-[1.15] text-white lg:text-[44px]">
-              Our Quality Engineering &amp; Testing Capabilities
-            </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii covers the full testing lifecycle, from manual
-              testing and automation to performance, security, mobile,
-              and AI assisted testing, so quality is engineered in, not
-              checked at the end.
-            </p>
-          </Reveal>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+            {/* LEFT — eyebrow, heading, description */}
+            <Reveal className="self-start lg:sticky lg:top-28">
+              <Eyebrow variant="light">Quality Engineering</Eyebrow>
 
-          <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {focusAreas.map((area, i) => (
-              <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div
-                  className="ss-focus-card flex h-full flex-col justify-between rounded-2xl border p-8"
-                  style={{
-                    backgroundColor: "#0F0E18",
-                    borderColor: "rgba(255,255,255,0.10)",
-                  }}
-                >
-                  <div className="flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <span
-                      className="ss-focus-arrow flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{ borderColor: "rgba(255,255,255,0.18)" }}
+              <h2
+                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Our Quality Engineering &amp; Testing Capabilities
+              </h2>
+
+              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                Starfii covers the full testing lifecycle, from manual
+                testing and automation to performance, security, mobile,
+                and AI assisted testing, so quality is engineered in, not
+                checked at the end.
+              </p>
+            </Reveal>
+
+            {/* RIGHT — capability card grid */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {capabilities.map((area, i) => (
+                <Reveal key={area.slug} delay={(i % 4) * 90} className="h-full">
+                  <Link
+                    id={area.slug}
+                    href={`${CAPABILITY_BASE}/${area.slug}`}
+                    aria-label={`Learn more about ${area.title}`}
+                    className="ss-capability-card flex h-full scroll-mt-28 flex-col p-8"
+                  >
+                    <h3
+                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                      style={{ color: CHAMPION_BLUE }}
                     >
-                      <ArrowUpRight size={16} className="text-white" />
-                    </span>
-                  </div>
-
-                  <div className="mt-16">
-                    <h3 className="font-heading text-[22px] font-semibold leading-snug text-white">
                       {area.title}
                     </h3>
-                    <p className="font-body mt-3 text-[14px] leading-relaxed text-white/55">
+
+                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
                       {area.body}
                     </p>
-                  </div>
 
-                  <div className="mt-8 flex flex-wrap gap-2">
-                    {area.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="font-body rounded-full border px-3 py-1 text-[11px] font-medium tracking-wide text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                      >
-                        {tag}
+                    <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                      <span className="relative">
+                        Learn More
+                        <span
+                          className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                          style={{ backgroundColor: INDIGO_CTA }}
+                        />
                       </span>
-                    ))}
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1440,12 +1373,12 @@ export default function QualityEngineeringSection(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             TABBED DEEP-DIVE — auto-advancing tab list
-            (82-87. Test automation through Continuous testing)
+            (82–87. Test automation through Continuous testing)
         ============================================================ */}
-
         <Reveal as="section" className="mt-24 pb-28">
+          <Eyebrow>Quality Engineering</Eyebrow>
           <h2
-            className="font-heading text-[34px] font-medium"
+            className={`${SECTION_HEADING} mt-4 font-bold`}
             style={{ color: CHAMPION_BLUE }}
           >
             Quality Engineering Services
@@ -1462,14 +1395,14 @@ export default function QualityEngineeringSection(): ReactElement {
               {tabs.map((tab, i) => {
                 const isActive = i === activeTab;
                 return (
-                  <li key={tab.label} className="relative -ml-px">
+                  <li key={tab.label} id={tab.id} className="relative -ml-px scroll-mt-28">
                     {/* Static base line */}
                     <span
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
-                    {/* Animated progress fill — only rendered on the active tab,
-                        remounted via key so the fill restarts from empty each time */}
+                    {/* Animated progress fill — remounted via key so it
+                        restarts from empty on every tab change */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
@@ -1486,10 +1419,10 @@ export default function QualityEngineeringSection(): ReactElement {
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
                       style={{
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 600 : 500,
+                        fontWeight: isActive ? 700 : 500,
                       }}
                     >
                       {tab.label}
@@ -1502,26 +1435,28 @@ export default function QualityEngineeringSection(): ReactElement {
             {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+              className="ss-tab-panel isolate grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
-              <div className="flex flex-col justify-center p-10">
+              <div className="flex flex-col justify-start self-start p-3 pt-2 lg:p-6 lg:pt-5">
                 <h3
-                  className="font-heading text-[22px] font-semibold leading-snug"
+                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
                 </h3>
-                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>
 
-              <div className="min-h-[280px] overflow-hidden">
+              <div className="relative min-h-[280px] overflow-hidden">
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform hover:scale-105"
                 />
               </div>
             </div>
@@ -1530,12 +1465,8 @@ export default function QualityEngineeringSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark)
-          (81, 86, 88, 89, 83, 87. mixed testing disciplines)
-          Same accordion behaviour as the Cloud / Software & Product
-          Engineering pages: click "+" and the content expands in place.
+          IMPACT ACROSS ECOSYSTEM (dark) — click "+" to expand
       ============================================================ */}
-
       <section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
@@ -1554,7 +1485,8 @@ export default function QualityEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <h2 className="font-heading max-w-2xl text-[36px] font-medium leading-[1.2] text-white lg:text-[44px]">
+            <Eyebrow variant="dark">Continuous Quality</Eyebrow>
+            <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your Quality
               <br />
               Engineering Ecosystem
@@ -1566,20 +1498,11 @@ export default function QualityEngineeringSection(): ReactElement {
       </section>
 
       {/* ============================================================
-          CASE STUDIES
-          (91. Case studies)
-          Card sizing and hover behaviour now match the Cloud /
-          Software & Product Engineering pages: 500px fixed card
-          height, 260px image frame that collapses to 0 on hover,
-          description sliding into the space the image gives up,
-          4 per row on desktop with a 32px gap and a peek card on
-          mobile (StepCarousel instead of the 3-per-page
-          PagedCarousel used before). The whole card is now a
-          single Link, matching the other service pages.
+          CASE STUDIES  (91. Case studies)
       ============================================================ */}
-
       <section
-        className="py-24"
+        id="case-studies"
+        className="scroll-mt-28 py-24"
         style={{
           background:
             "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
@@ -1587,19 +1510,19 @@ export default function QualityEngineeringSection(): ReactElement {
       >
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading text-[36px] font-medium lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Quality Engineering Case Studies
-            </h2>
+            <div>
+              <Eyebrow>Case Studies</Eyebrow>
+              <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+                Quality Engineering Case Studies
+              </h2>
+            </div>
 
             <Link
               href={CASE_STUDY_BASE}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Quality Engineering Case Studies
+              View All Case Studies
               <ArrowUpRight size={16} />
             </Link>
           </Reveal>
@@ -1607,11 +1530,7 @@ export default function QualityEngineeringSection(): ReactElement {
           <div className="mt-12">
             <StepCarousel
               items={caseStudies}
-              itemsPerPage={{
-                mobile: 1.15,
-                tablet: 2,
-                desktop: 4,
-              }}
+              itemsPerPage={{ mobile: 1.15, tablet: 2, desktop: 4 }}
               gap={CARD_GAP}
               arrowVariant="light"
               renderItem={(study, i) => (
@@ -1627,6 +1546,8 @@ export default function QualityEngineeringSection(): ReactElement {
                       <img
                         src={study.image}
                         alt={study.title}
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover"
                       />
                     </div>
@@ -1642,7 +1563,7 @@ export default function QualityEngineeringSection(): ReactElement {
                         </span>
 
                         <h3
-                          className="font-heading ss-clamp-2 shrink-0 text-[20px] font-semibold leading-snug transition-colors duration-200 group-hover:text-[#4F3FE0]"
+                          className="font-heading ss-clamp-2 shrink-0 text-[20px] font-semibold leading-snug"
                           style={{ color: CHAMPION_BLUE }}
                         >
                           {study.title}
@@ -1665,7 +1586,7 @@ export default function QualityEngineeringSection(): ReactElement {
                         </span>
                         <ArrowUpRight
                           size={16}
-                          className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          className="transition-transform duration-500 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                         />
                       </span>
                     </div>
@@ -1682,7 +1603,7 @@ export default function QualityEngineeringSection(): ReactElement {
               className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
               style={{ color: INDIGO_CTA }}
             >
-              View All Quality Engineering Case Studies
+              View All Case Studies
               <ArrowUpRight size={16} />
             </Link>
           </div>
@@ -1692,33 +1613,31 @@ export default function QualityEngineeringSection(): ReactElement {
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
       ============================================================ */}
-
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
-            <h2
-              className="font-heading max-w-lg text-[36px] font-medium leading-[1.15] lg:text-[44px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              {"What's New in Quality Engineering"}
-            </h2>
+            <div>
+              <Eyebrow>Quality Engineering</Eyebrow>
+              <h2
+                className={`${SECTION_HEADING} mt-4 max-w-500`}
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {"What's New in Quality Engineering"}
+              </h2>
+            </div>
 
             <Link
               href={BLOG_BASE}
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
-              View All Blogs
+              View All Insights
               <ArrowUpRight size={16} />
             </Link>
           </Reveal>
 
           <div className="mt-12">
-            <Carousel
-              itemCount={insights.length}
-              arrowVariant="light"
-              clickToAdvance={false}
-            >
+            <Carousel itemCount={insights.length} arrowVariant="light" clickToAdvance>
               {insights.map((post, i) => (
                 <Reveal
                   key={post.slug}
@@ -1730,15 +1649,17 @@ export default function QualityEngineeringSection(): ReactElement {
                 >
                   <Link
                     href={`${BLOG_BASE}/${post.slug}`}
-                    className="group block h-full"
+                    className="block h-full"
                     aria-label={`Read ${post.title}`}
                   >
                     {post.large ? (
-                      <div className="relative h-[420px] overflow-hidden rounded-2xl">
+                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
                           alt={post.title}
-                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                          loading="lazy"
+                          decoding="async"
+                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                         />
 
                         <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
@@ -1746,7 +1667,7 @@ export default function QualityEngineeringSection(): ReactElement {
                             className="font-body text-[12px] font-semibold tracking-wide"
                             style={{ color: INDIGO_CTA }}
                           >
-                            QUALITY ENGINEERING
+                            BLOG
                           </span>
 
                           <h3
@@ -1760,22 +1681,30 @@ export default function QualityEngineeringSection(): ReactElement {
                             {post.body}
                           </p>
 
-                          <div
-                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
+                          <span
+                            className="font-body mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            Read More
-                            <ArrowUpRight size={15} />
-                          </div>
+                            <span className="relative">
+                              Read More
+                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                            </span>
+                            <ArrowUpRight
+                              size={14}
+                              className="transition-transform duration-500 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            />
+                          </span>
                         </div>
                       </div>
                     ) : (
-                      <div>
+                      <div className="group">
                         <div className="h-[220px] overflow-hidden rounded-2xl">
                           <img
                             src={post.image}
                             alt={post.title}
-                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                            decoding="async"
+                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                           />
                         </div>
 
@@ -1784,7 +1713,7 @@ export default function QualityEngineeringSection(): ReactElement {
                             className="font-body text-[12px] font-semibold tracking-wide"
                             style={{ color: INDIGO_CTA }}
                           >
-                            QUALITY ENGINEERING
+                            BLOG
                           </span>
 
                           <h3
@@ -1798,13 +1727,19 @@ export default function QualityEngineeringSection(): ReactElement {
                             {post.body}
                           </p>
 
-                          <div
-                            className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold"
+                          <span
+                            className="font-body mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            Read More
-                            <ArrowUpRight size={15} />
-                          </div>
+                            <span className="relative">
+                              Read More
+                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                            </span>
+                            <ArrowUpRight
+                              size={14}
+                              className="transition-transform duration-500 ease-out group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                            />
+                          </span>
                         </div>
                       </div>
                     )}
@@ -1817,31 +1752,68 @@ export default function QualityEngineeringSection(): ReactElement {
       </section>
 
       {/* ============================================================
-          CLOSING CTA
-          (92. CTA)
+          CLOSING CTA  (92. CTA)
       ============================================================ */}
-      <section id="connect" className="bg-white py-24">
+       <section id="connect" className="scroll-mt-28 bg-white py-24">
         <div className={ALIGN}>
           <Reveal
-            className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
+            className="relative overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16 sm:py-20"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            <h2 className="font-heading mx-auto max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-              Ready to Build a Quality Strategy That Scales?
-            </h2>
-            <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-              Talk to Starfii about manual testing, test automation, API
-              and performance testing, security testing, or embedding
-              continuous and AI assisted testing into your pipeline.
-            </p>
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </a>
+            {/* Decorative glow accents for a less flat, more premium feel */}
+            <div
+              className="pointer-events-none absolute -top-1/2 left-1/2 h-[140%] w-[70%] -translate-x-1/2"
+              style={{
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.35) 0%, rgba(164,143,234,0) 70%)",
+              }}
+            />
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.06]"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                backgroundSize: "40px 40px",
+              }}
+            />
+
+            <div className="relative">
+              <span
+                className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
+                style={{ backgroundColor: "rgba(255,255,255,0.10)", color: "#C9BEF5" }}
+              >
+                GET STARTED
+              </span>
+
+              <h2 className="font-heading mx-auto mt-6 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
+                Ready to Build a Quality Strategy That Scales?
+              </h2>
+
+              <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
+                Talk to Starfii about manual testing, test automation, API
+                and performance testing, security testing, or embedding
+                continuous and AI assisted testing into your pipeline.
+              </p>
+
+              <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <Link
+                  href=""
+                  className="font-body inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
+                  style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
+                >
+                  Connect Now
+                  <ArrowUpRight size={17} />
+                </Link>
+
+                <a
+                  href="mailto:hello@starfii.com"
+                  className="font-body inline-flex items-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-white/10"
+                  style={{ borderColor: "rgba(255,255,255,0.30)" }}
+                >
+                  Email Us
+                </a>
+              </div>
+            </div>
           </Reveal>
         </div>
       </section>

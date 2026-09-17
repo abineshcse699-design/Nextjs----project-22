@@ -23,27 +23,27 @@ const helveticaStyle = {
 const pillars = [
   {
     title: "Enterprise Product Engineering",
-    body: "Starfii is an enterprise product engineering company that designs, builds, and ships digital products end to end for global businesses. Our AI driven approach combines proven engineering practices with intelligent frameworks for scalable, measurable growth.",
+    body: "We design, build, and ship digital products end to end for global businesses, combining proven engineering with AI driven frameworks.",
   },
   {
     title: "SaaS Product Engineering",
-    body: "As a trusted SaaS product engineering partner, Starfii builds custom SaaS platforms for fintech, healthcare, e commerce, and enterprise businesses. We bring deep expertise in building secure, complex, and highly scalable cloud based products for growing teams.",
+    body: "Starfii builds custom SaaS platforms for fintech, healthcare, e commerce, and enterprise teams that are secure, scalable, and cloud native.",
   },
   {
     title: "Enterprise AI/ML, Gen AI & LLM Engineering",
-    body: "Starfii specializes in enterprise AI/ML, Generative AI, and LLM engineering that turns manual workflows into intelligent, automated systems. From custom model integration to Gen AI powered automation, we help businesses cut costs and unlock measurable ROI.",
+    body: "We turn manual workflows into intelligent, automated systems through custom model integration and Gen AI powered automation.",
   },
   {
     title: "Data Engineering & Data Science",
-    body: "Our certified data engineers and data scientists build reliable, scalable data infrastructure and advanced analytics solutions. Through expert data engineering and data science services, we help enterprises uncover insights and enable faster, data driven decisions.",
+    body: "Our certified data engineers build reliable infrastructure and advanced analytics that help enterprises make faster, data driven decisions.",
   },
   {
     title: "Legacy Software Modernization",
-    body: "Starfii offers legacy software modernization services from start to finish, beginning with a detailed assessment of your existing systems. We design a tailored roadmap and migrate your business to a scalable, cloud ready platform with zero disruption.",
+    body: "We assess your existing systems and design a tailored roadmap to migrate your business onto a scalable, cloud ready platform.",
   },
   {
     title: "DevOps & Quality Engineering",
-    body: "Starfii's DevOps and quality engineering services help businesses accelerate delivery through seamless CI/CD integration and automated testing. Our DevOps consulting and QA practices ensure every release ships faster while meeting enterprise grade standards.",
+    body: "Our DevOps and QA practices accelerate delivery through seamless CI/CD and automated testing at enterprise grade quality.",
   },
 ];
 
@@ -106,11 +106,24 @@ function HeadingBlock() {
         Technical Competencies & Service Capabilities
       </h2>
 
-      <p className="mt-6 text-lg font-medium text-slate-200">
-        Starfii delivers engineering depth across every layer of the
-        enterprise stack, from product engineering to cloud platforms
-        to enterprise data systems
-      </p>
+    {/* SUBTITLE — Helvetica */}
+<p
+  className="
+    font-body
+    mt-5
+    max-w-[420px]
+    text-lg
+    font-medium
+    text-slate-200
+  "
+>
+    Starfii delivers engineering depth across every layer of the
+  enterprise stack, from product engineering to cloud platforms
+  to enterprise data systems
+ 
+</p>
+
+ 
     </div>
   );
 }

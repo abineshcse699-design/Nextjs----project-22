@@ -6,72 +6,38 @@ import {
   ChevronRight,
   ChevronLeft,
   ChevronDown,
-  Sparkles,
   ArrowUpRight,
   Plus,
-  Minus,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 
 /* ===============================================================
-   BRAND TOKENS
-   Kept identical to the Data & Analytics page so both service
-   pages render at exactly the same scale and rhythm.
+   BRAND TOKENS — kept identical to the Data & Analytics page
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
 
-// Colors for the two dark, full-bleed sections (capability cards +
-// impact accordion) so they read as a distinct "showcase" register
-// against the light sections.
 const DARK_BG = "#0A0A18";
-const DARK_CARD = "rgba(255,255,255,0.04)";
-const DARK_BORDER = "rgba(255,255,255,0.09)";
 const ACCENT_INDIGO = "#6C5DD3";
+const INDIGO_CTA = "#4F3FE0";
 
-// Shared page width wrapper, kept in sync with the navbar's own
-// max width/padding so every section lines up with it exactly.
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
-// Autoplay timing for the "ITSM Migration Services" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
-// -----------------------------------------------------------------
-// Single source of truth for this service's route base. Every
-// internal link is built from this constant, so the folder name and
-// the links can never drift apart. This MUST match the folder on
-// disk exactly, letter for letter, including case.
-// -----------------------------------------------------------------
 const BASE_PATH = "/services/ITSM-Migration";
-
-/* ===============================================================
-   TYPOGRAPHY TOKENS
-   Same scale used on the Data & Analytics and Software & Product
-   Engineering pages, so every service page's Hero <h1> and big
-   section <h2>s render at identical sizes across the site.
-================================================================ */
-
-const HERO_HEADING =
-  "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
 
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 
 /* ===============================================================
    SHARED ANIMATION VARIANTS
-   heroContainer / heroItem: play once on page load (hero only)
-   container / item / fadeUp: play once, on scroll into view
 ================================================================ */
 
 const heroContainer: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.3,
-      delayChildren: 0.4,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.3, delayChildren: 0.4 } },
 };
 
 const heroItem: Variants = {
@@ -85,12 +51,7 @@ const heroItem: Variants = {
 
 const container: Variants = {
   hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.2,
-      delayChildren: 0.1,
-    },
-  },
+  visible: { transition: { staggerChildren: 0.2, delayChildren: 0.1 } },
 };
 
 const item: Variants = {
@@ -112,7 +73,7 @@ const fadeUp: Variants = {
 };
 
 /* ===============================================================
-   CONTENT
+   CONTENT (ITSM-specific)
 ================================================================ */
 
 const keyTakeaways: string[] = [
@@ -122,62 +83,48 @@ const keyTakeaways: string[] = [
   "Starfii manages cutover with runbooks and rollback plans, then stays on through post migration support and managed services.",
 ];
 
-type FocusArea = { title: string; body: string; tags: string[] };
+type FocusArea = { title: string; body: string };
 
 const focusAreas: FocusArea[] = [
   {
     title: "Current State Analysis",
     body: "Starfii's ITSM migration team audits your existing service management platform, workflows, and technical debt, so every migration decision is grounded in how the platform is actually used today.",
-    tags: ["AUDIT", "DISCOVERY", "ITSM"],
   },
   {
     title: "Target State Design",
     body: "Starfii designs the target ITSM environment around your future operating model, mapping processes, roles, and platform capabilities before a single record is moved.",
-    tags: ["ARCHITECTURE", "DESIGN", "ITSM"],
   },
   {
     title: "Migration Strategy",
     body: "Starfii builds a phased migration strategy that sequences data, configuration, and workflow moves to minimize risk and keep service desks running throughout the transition.",
-    tags: ["STRATEGY", "ROADMAP", "PLANNING"],
   },
   {
     title: "Data Migration",
     body: "Starfii's data migration practice extracts, cleanses, and transforms incidents, requests, problems, and change records so historical service data arrives accurate and query ready.",
-    tags: ["DATA", "ETL", "VALIDATION"],
   },
   {
     title: "Configuration Migration",
     body: "Starfii migrates forms, business rules, SLAs, and platform configurations from legacy ITSM tools, preserving the logic teams depend on while modernizing the underlying platform.",
-    tags: ["CONFIGURATION", "RULES", "SLA"],
   },
   {
     title: "Workflow Migration",
     body: "Starfii rebuilds and optimizes approval chains, escalation paths, and automation workflows in the new environment instead of copying legacy limitations forward.",
-    tags: ["WORKFLOW", "AUTOMATION", "APPROVALS"],
   },
   {
     title: "Service Catalog Migration",
     body: "Starfii restructures and migrates your service catalog, so end users find the right service requests quickly and IT can manage offerings from a single source of truth.",
-    tags: ["CATALOG", "SELF SERVICE", "ITSM"],
   },
   {
     title: "CMDB and Asset Migration",
     body: "Starfii migrates configuration items, asset records, and relationship maps into a clean CMDB, giving teams accurate visibility into infrastructure and service dependencies.",
-    tags: ["CMDB", "ASSETS", "DEPENDENCIES"],
   },
   {
     title: "Integration Migration",
     body: "Starfii re-establishes integrations with monitoring, identity, HR, and collaboration tools, so the new ITSM platform connects to your broader technology ecosystem from day one.",
-    tags: ["INTEGRATIONS", "API", "ECOSYSTEM"],
   },
 ];
 
-type ServiceTab = {
-  label: string;
-  heading: string;
-  body: string;
-  image: string;
-};
+type ServiceTab = { label: string; heading: string; body: string; image: string };
 
 const tabs: ServiceTab[] = [
   {
@@ -185,40 +132,38 @@ const tabs: ServiceTab[] = [
     heading: "A migration assessment that removes guesswork from ITSM transformation",
     body: "Starfii runs a structured migration assessment across your current ITSM platform, uncovering technical debt, data quality issues, and process gaps before migration planning begins.",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Testing and Validation",
     heading: "Testing and validation that confirm every migrated process actually works",
     body: "Starfii's testing and validation team verifies data integrity, workflow logic, and integrations in the new environment, so nothing breaks quietly after go live.",
     image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "User Acceptance",
     heading: "User acceptance testing that keeps service desk teams confident and ready",
     body: "Starfii runs structured user acceptance testing with real service desk scenarios, so agents and end users trust the new platform before it goes live.",
     image:
-      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Cutover",
     heading: "Cutover planning that protects service continuity during go live",
     body: "Starfii manages cutover with detailed runbooks, rollback plans, and hypercare coverage, so the switch to your new ITSM platform happens with minimal disruption.",
     image:
-      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Post Migration Support",
     heading: "Post migration support that keeps the new platform running smoothly",
     body: "Starfii provides post migration support and managed services, resolving issues quickly and tuning the platform as usage patterns and business needs evolve.",
     image:
-      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop",
   },
 ];
 
-// Closing "Impact" accordion — each row expands in place to show what
-// that migration area actually covers.
 const impactAreas = [
   {
     title: "Data Migration",
@@ -326,13 +271,7 @@ const caseStudies: CaseStudy[] = [
   },
 ];
 
-type Insight = {
-  slug: string;
-  title: string;
-  body: string;
-  image: string;
-  gradient?: boolean;
-};
+type Insight = { slug: string; title: string; body: string; image: string; gradient?: boolean };
 
 const insights: Insight[] = [
   {
@@ -382,10 +321,6 @@ const insights: Insight[] = [
 
 /* ===============================================================
    HOOK: sequential typewriter for a list of lines
-   Types line 0 char-by-char, then line 1, then line 2...
-   Resets to empty whenever `active` becomes false. Guarded against
-   out-of-bounds reads so it can never crash if the list changes
-   shape while a typing loop is still running.
 ================================================================ */
 
 function useTypewriterList(
@@ -414,10 +349,8 @@ function useTypewriterList(
 
     const typeStep = () => {
       if (cancelled) return;
-
       const currentItems = itemsRef.current;
       if (itemIndex >= currentItems.length) return;
-
       const currentLine = currentItems[itemIndex];
       if (currentLine === undefined) return;
 
@@ -452,9 +385,8 @@ function useTypewriterList(
 }
 
 /* ===============================================================
-   KEY TAKEAWAYS ACCORDION — "ITSM Migration Overview"
-   Click the header to expand/collapse. While open, each line types
-   out letter by letter, one after another.
+   "WHY ITSM MIGRATION MATTERS" ACCORDION — matches Data & Analytics
+   WhyMattersAccordion exactly (same logo icon, same font sizes)
 ================================================================ */
 
 function OverviewAccordion({
@@ -523,10 +455,7 @@ function OverviewAccordion({
               const isTyping = i === typingIndex && text.length < line.length;
 
               return (
-                <li
-                  key={line}
-                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
-                >
+                <li key={line} className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600">
                   <span
                     className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
                     style={{ backgroundColor: ACCENT_INDIGO }}
@@ -551,42 +480,26 @@ function OverviewAccordion({
 }
 
 /* ===============================================================
-   REUSABLE: StepCarousel — moves exactly ONE card per arrow click
+   REUSABLE: StepCarousel
 ================================================================ */
 
 type StepCarouselProps<T> = {
   items: T[];
-  itemsPerPage: {
-    mobile: number;
-    tablet: number;
-    desktop: number;
-  };
+  itemsPerPage: { mobile: number; tablet: number; desktop: number };
   renderItem: (item: T, index: number) => ReactNode;
-  arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards
+  gap?: number;
 };
 
-function StepCarousel<T>({
-  items,
-  itemsPerPage,
-  renderItem,
-  arrowVariant = "light",
-  gap = 24,
-}: StepCarouselProps<T>) {
+function StepCarousel<T>({ items, itemsPerPage, renderItem, gap = 24 }: StepCarouselProps<T>) {
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [perPage, setPerPage] = useState(itemsPerPage.desktop);
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
-  const isDark = arrowVariant === "dark";
 
   const updatePerPage = useCallback(() => {
-    if (window.innerWidth <= 639) {
-      setPerPage(itemsPerPage.mobile);
-    } else if (window.innerWidth <= 1023) {
-      setPerPage(itemsPerPage.tablet);
-    } else {
-      setPerPage(itemsPerPage.desktop);
-    }
+    if (window.innerWidth <= 639) setPerPage(itemsPerPage.mobile);
+    else if (window.innerWidth <= 1023) setPerPage(itemsPerPage.tablet);
+    else setPerPage(itemsPerPage.desktop);
   }, [itemsPerPage]);
 
   const measure = useCallback(() => {
@@ -599,10 +512,8 @@ function StepCarousel<T>({
   useEffect(() => {
     updatePerPage();
     measure();
-
     window.addEventListener("resize", updatePerPage);
     window.addEventListener("resize", measure);
-
     return () => {
       window.removeEventListener("resize", updatePerPage);
       window.removeEventListener("resize", measure);
@@ -612,18 +523,13 @@ function StepCarousel<T>({
   useEffect(() => {
     const track = trackRef.current;
     if (!track) return;
-
     const resizeObserver = new ResizeObserver(measure);
     resizeObserver.observe(track);
-
     const firstCard = track.firstElementChild as HTMLElement | null;
     if (firstCard) resizeObserver.observe(firstCard);
-
     return () => resizeObserver.disconnect();
   }, [measure, perPage]);
 
-  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card on
-  // mobile) still lands on a whole card instead of stopping mid-card.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
 
@@ -634,11 +540,7 @@ function StepCarousel<T>({
   useEffect(() => {
     const track = trackRef.current;
     if (!track || !stepWidth) return;
-
-    track.scrollTo({
-      left: position * stepWidth,
-      behavior: "smooth",
-    });
+    track.scrollTo({ left: position * stepWidth, behavior: "smooth" });
   }, [position, stepWidth]);
 
   const progress = ((position + 1) / totalPositions) * 100;
@@ -667,29 +569,15 @@ function StepCarousel<T>({
       </div>
 
       <div className="mt-8 flex items-center gap-6">
-        <div
-          className="h-[2px] flex-1 overflow-hidden rounded-full"
-          style={{
-            backgroundColor: isDark ? "rgba(255,255,255,0.15)" : "#CBD5E1",
-          }}
-        >
+        <div className="h-[2px] flex-1 overflow-hidden rounded-full" style={{ backgroundColor: "#CBD5E1" }}>
           <div
             className="h-full transition-[width] duration-500 ease-out"
-            style={{
-              width: `${progress}%`,
-              backgroundColor: ACCENT_INDIGO,
-            }}
+            style={{ width: `${progress}%`, backgroundColor: ACCENT_INDIGO }}
           />
         </div>
 
-        <span
-          className="font-body flex-none text-[14px] tabular-nums"
-          style={{
-            color: isDark ? "rgba(255,255,255,0.55)" : "#94A3B8",
-          }}
-        >
-          {String(position + 1).padStart(2, "0")} /{" "}
-          {String(totalPositions).padStart(2, "0")}
+        <span className="font-body flex-none text-[14px] tabular-nums" style={{ color: "#94A3B8" }}>
+          {String(position + 1).padStart(2, "0")} / {String(totalPositions).padStart(2, "0")}
         </span>
 
         <div className="flex flex-none items-center gap-3">
@@ -699,10 +587,7 @@ function StepCarousel<T>({
             onClick={() => setPosition((p) => Math.max(0, p - 1))}
             disabled={position === 0}
             className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
-            style={{
-              backgroundColor: isDark ? "rgba(255,255,255,0.10)" : "#E5E1F5",
-              color: isDark ? "#fff" : CHAMPION_BLUE,
-            }}
+            style={{ backgroundColor: "#E5E1F5", color: CHAMPION_BLUE }}
           >
             <ChevronLeft size={18} />
           </button>
@@ -724,48 +609,37 @@ function StepCarousel<T>({
 }
 
 /* ===============================================================
-   IMPACT ACCORDION — matches the Cloud Engineering page's
-   "Impact Across Your Cloud Infrastructure" accordion exactly:
-   two independent columns (so opening a card on the left never
-   stretches its neighbor on the right), a smooth 0fr → 1fr height
-   expand, and a plus/minus toggle that rotates in place.
+   IMPACT ACCORDION — matches Data & Analytics EcosystemAccordion
+   exactly: 19px title, single Plus icon rotating 45deg
 ================================================================ */
 
-type ImpactItem = { title: string; body: string };
-
-function ImpactAccordion({ items }: { items: ImpactItem[] }) {
-  // null = everything closed. 0 keeps the first card open by default,
-  // matching the Cloud page's accordion.
+function ImpactAccordion({ items }: { items: { title: string; body: string }[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const columns: { entry: ImpactItem; index: number }[][] = [[], []];
+  const columns: { entry: { title: string; body: string }; index: number }[][] = [[], []];
   items.forEach((entry, index) => {
     const target = columns[index % 2];
     if (target) target.push({ entry, index });
   });
 
   return (
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
-      variants={container}
-      className="mt-12 grid grid-cols-1 items-start gap-5 sm:grid-cols-2"
-    >
+    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
       {columns.map((column, colIndex) => (
         <div key={colIndex} className="flex flex-col gap-5">
           {column.map(({ entry, index }) => {
             const isOpen = openIndex === index;
 
             return (
-              <motion.div key={entry.title} variants={item}>
+              <motion.div
+                key={entry.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={item}
+              >
                 <div
                   className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
-                  style={{
-                    boxShadow: isOpen
-                      ? "0 18px 40px rgba(15,23,42,0.18)"
-                      : undefined,
-                  }}
+                  style={{ boxShadow: isOpen ? "0 18px 40px rgba(15,23,42,0.18)" : undefined }}
                 >
                   <button
                     type="button"
@@ -775,7 +649,7 @@ function ImpactAccordion({ items }: { items: ImpactItem[] }) {
                     className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
                   >
                     <span
-                      className="font-body text-[17px] font-medium leading-snug transition-colors duration-300"
+                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
                       style={{ color: isOpen ? ACCENT_INDIGO : CHAMPION_BLUE }}
                     >
                       {entry.title}
@@ -786,17 +660,21 @@ function ImpactAccordion({ items }: { items: ImpactItem[] }) {
                       style={{
                         backgroundColor: isOpen ? "#E5E1F5" : ACCENT_INDIGO,
                         color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
                       }}
                     >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                      <Plus
+                        size={18}
+                        style={{
+                          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
                     </span>
                   </button>
 
-                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
                   <div
                     id={`itsm-impact-panel-${index}`}
-                    className="ss-eco-panel grid transition-all duration-500 ease-out"
+                    className="grid transition-all duration-500 ease-out"
                     style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                   >
                     <div className="overflow-hidden">
@@ -814,7 +692,7 @@ function ImpactAccordion({ items }: { items: ImpactItem[] }) {
           })}
         </div>
       ))}
-    </motion.div>
+    </div>
   );
 }
 
@@ -831,7 +709,6 @@ export default function ItsmMigrationTransformationSection() {
   const insightTrackRef = useRef<HTMLDivElement | null>(null);
   const current = tabs[activeTab];
 
-  // Insights carousel: keep 3 cards visible and move exactly 1 card per click.
   const INSIGHTS_PER_PAGE = 3;
   const maxInsightPage = Math.max(0, insights.length - INSIGHTS_PER_PAGE);
   const insightPages = maxInsightPage + 1;
@@ -845,7 +722,6 @@ export default function ItsmMigrationTransformationSection() {
 
   useEffect(() => {
     measureInsightStep();
-
     window.addEventListener("resize", measureInsightStep);
     return () => window.removeEventListener("resize", measureInsightStep);
   }, [measureInsightStep]);
@@ -853,13 +729,10 @@ export default function ItsmMigrationTransformationSection() {
   useEffect(() => {
     const track = insightTrackRef.current;
     if (!track) return;
-
     const resizeObserver = new ResizeObserver(measureInsightStep);
     resizeObserver.observe(track);
-
     const firstCard = track.firstElementChild as HTMLElement | null;
     if (firstCard) resizeObserver.observe(firstCard);
-
     return () => resizeObserver.disconnect();
   }, [measureInsightStep]);
 
@@ -867,9 +740,6 @@ export default function ItsmMigrationTransformationSection() {
     setInsightPage((currentPage) => Math.min(currentPage, maxInsightPage));
   }, [maxInsightPage]);
 
-  // --- Autoplay for the left-side tab list ---
-  // Advances every TAB_AUTOPLAY_MS, pauses on hover, and restarts the
-  // timer whenever the user manually clicks a tab.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -879,11 +749,7 @@ export default function ItsmMigrationTransformationSection() {
   }, [tabHovered, activeTab]);
 
   return (
-    // pt-[92px] / lg:pt-[100px] offsets the fixed Navbar so the
-    // hero/breadcrumb no longer sits underneath it.
-    <main className="bg-white pt-[92px] lg:pt-[100px]">
-      {/* Progress-fill keyframe for the autoplaying tab indicator line,
-          plus the typewriter caret blink used in the overview block */}
+    <main className="bg-white">
       <style>{`
         @keyframes ss-tab-progress {
           from { transform: scaleY(0); }
@@ -896,6 +762,43 @@ export default function ItsmMigrationTransformationSection() {
         .ss-caret {
           animation: ss-caret-blink 0.9s steps(1) infinite;
         }
+
+        /* LIGHT CAPABILITIES GRID — matched to Data & Analytics page */
+        .ss-capability-card {
+          position: relative;
+          background-color: #EEF0F5;
+          border-radius: 20px;
+          transition:
+            background-color 0.35s ease,
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.35s ease;
+        }
+        .ss-capability-card:hover {
+          background-color: #E4E7F3;
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(27, 37, 96, 0.08);
+        }
+        .ss-capability-title {
+          transition: color 0.3s ease;
+        }
+        .ss-capability-learn-more {
+          color: ${INDIGO_CTA};
+        }
+        .ss-capability-learn-more .ss-capability-underline {
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+          transform: scaleX(1);
+        }
+        .ss-capability-card:hover .ss-capability-learn-more svg {
+          transform: translate(2px, -2px);
+        }
+        .ss-capability-learn-more svg {
+          transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .ss-tab-progress-fill {
             animation: none !important;
@@ -904,11 +807,12 @@ export default function ItsmMigrationTransformationSection() {
           .ss-caret {
             animation: none !important;
           }
-          /* Case study / blog hover motion stays static */
           .ss-case-image,
           .ss-case-desc,
           .ss-zoom-img,
-          .ss-eco-panel {
+          .ss-capability-card,
+          .ss-capability-title,
+          .ss-capability-learn-more .ss-capability-underline {
             transition: none !important;
           }
           .ss-case-desc {
@@ -920,78 +824,88 @@ export default function ItsmMigrationTransformationSection() {
       `}</style>
 
       {/* ============================================================
-          HERO — animates once, right after page load
+          HERO — full-bleed dark gradient hero, matches Data & Analytics
       ============================================================ */}
-      <section className="relative isolate overflow-hidden">
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
         <div className="absolute inset-0 -z-10">
           <motion.img
-            initial={{ opacity: 0, scale: 1.1 }}
+            initial={{ opacity: 0, scale: 1.08 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=1800&auto=format&fit=crop"
-            alt=""
-            className="h-full w-full object-cover"
+            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1800&auto=format&fit=crop"
+            alt="ITSM migration and transformation team collaborating"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
           />
-
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
+            }}
+          />
         </div>
 
         <motion.div
           variants={heroContainer}
           initial="hidden"
           animate="visible"
-          className={`${ALIGN} py-24 lg:py-32`}
+          className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}
         >
-          <motion.nav
-            variants={heroItem}
-            aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            <Link href="/" className="hover:underline">
-              Home
-            </Link>
-            <ChevronRight size={14} />
-            <Link href="/services" className="hover:underline">
-              Services
-            </Link>
-            <ChevronRight size={14} />
-            <span className="text-slate-500">ITSM Migration &amp; Transformation</span>
-          </motion.nav>
+          <div className="w-full max-w-[760px] py-20 lg:py-28">
+            <motion.nav
+              variants={heroItem}
+              aria-label="Breadcrumb"
+              className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium text-white/90"
+            >
+              <Link href="/" className="transition-colors hover:text-white">
+                Home
+              </Link>
+              <ChevronRight size={14} />
+              <Link href="/services" className="transition-colors hover:text-white">
+                Services
+              </Link>
+              <ChevronRight size={14} />
+              <span className="text-white/70">ITSM Migration &amp; Transformation</span>
+            </motion.nav>
 
-          <motion.h1
-            variants={heroItem}
-            className={`${HERO_HEADING} mt-8 max-w-2xl text-white`}
-          >
-            ITSM Migration and Transformation for Modern Service Management
-          </motion.h1>
+            <motion.h1
+              variants={heroItem}
+              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white sm:text-[44px] lg:text-[52px] xl:text-[58px]"
+            >
+              ITSM Migration and Transformation for Modern Service Management
+            </motion.h1>
 
-          <motion.p
-            variants={heroItem}
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white"
-          >
-            Starfii moves enterprises off legacy service management
-            platforms and onto modern environments, migrating data,
-            configurations, workflows, and integrations with a structured,
-            low risk approach that protects daily operations.
-          </motion.p>
+            <motion.p
+              variants={heroItem}
+              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px] lg:text-[18px]"
+            >
+              Starfii moves enterprises off legacy service management
+              platforms and onto modern environments, migrating data,
+              configurations, workflows, and integrations with a structured,
+              low risk approach that protects daily operations.
+            </motion.p>
 
-          <motion.a
-            variants={heroItem}
-            href="#connect"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white"
-            style={{ backgroundColor: CHAMPION_BLUE }}
-          >
-            Connect Now
-            <ArrowUpRight size={17} />
-          </motion.a>
+            <motion.a
+              variants={heroItem}
+              href="#connect"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </motion.a>
+          </div>
         </motion.div>
       </section>
 
       <div className={ALIGN}>
         {/* ============================================================
-            WHY ITSM MIGRATION MATTERS — collapsible, typewriter bullets
+            WHY ITSM MIGRATION MATTERS
         ============================================================ */}
         <motion.section
           initial="hidden"
@@ -1014,27 +928,21 @@ export default function ItsmMigrationTransformationSection() {
         </motion.section>
 
         {/* ============================================================
-            Q&A BLOCK — migration assessment
+            Q&A BLOCK — whole-card hover, matches Data & Analytics exactly
         ============================================================ */}
         <motion.section
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
           variants={fadeUp}
-          className="mt-20"
+          className="mt-20 mb-20 lg:mb-24"
         >
-          <div
-            className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
-            style={{ backgroundColor: "#F5F3FC" }}
-          >
-            <div>
-              <h2
-                className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
-                style={{ color: LAVENDER_ACCENT }}
-              >
+          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+            <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
+              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
                 How Do Enterprises Assess Readiness for ITSM Migration?
               </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises assess ITSM migration readiness by reviewing
                 current state processes, data quality, integrations, and
                 platform limitations before committing to a target
@@ -1045,11 +953,13 @@ export default function ItsmMigrationTransformationSection() {
               </p>
             </div>
 
-            <div className="group overflow-hidden rounded-2xl">
+            <div className="relative min-h-[320px] overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=90&w=1800&auto=format&fit=crop"
                 alt="Two colleagues reviewing an ITSM migration assessment"
-                className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
               />
             </div>
           </div>
@@ -1057,92 +967,84 @@ export default function ItsmMigrationTransformationSection() {
       </div>
 
       {/* ============================================================
-          OUR ITSM MIGRATION CAPABILITIES — full-bleed dark section,
-          numbered cards with a tag pill row
+          OUR ITSM MIGRATION CAPABILITIES — light 2-col sticky layout,
+          matches Data & Analytics "Our Data & Analytics Capabilities"
+          section exactly (no dark bg, no numbering, no tags)
       ============================================================ */}
-      <section
-        className="relative mt-24 overflow-hidden py-24"
-        style={{
-          background: `radial-gradient(120% 140% at 85% 100%, rgba(108,93,211,0.35), transparent 55%), ${DARK_BG}`,
-        }}
-      >
-        <div className={ALIGN}>
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={fadeUp}
-            className="max-w-2xl"
-          >
-            <h2 className={`${SECTION_HEADING} text-white`}>
-              Our ITSM Migration &amp;
-              <br />
-              Transformation Capabilities
-            </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-300">
-              Starfii assesses, designs, and migrates ITSM platforms end to
-              end, moving data, configurations, workflows, and integrations
-              into a modern service management environment with minimal
-              disruption to the business.
-            </p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={container}
-            className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
-          >
-            {focusAreas.map((area, i) => (
-              <motion.div
-                key={area.title}
-                variants={item}
-                className="flex flex-col rounded-2xl p-8 transition-colors duration-300 hover:bg-white/[0.06]"
-                style={{
-                  backgroundColor: DARK_CARD,
-                  border: `1px solid ${DARK_BORDER}`,
-                }}
+   <section className="relative bg-white py-24 lg:py-28">
+        <div className={`relative ${ALIGN}`}>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+              className="self-start lg:sticky lg:top-28"
+            >
+              <span
+                className="font-body inline-flex items-center text-[16px] font-semibold sm:text-[18px]"
+                style={{ color: CHAMPION_BLUE }}
               >
-                <div className="flex items-start justify-between">
-                  <span className="font-body text-[14px] text-slate-500">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <a
-                    href="#connect"
-                    aria-label={`Learn more about ${area.title}`}
-                    className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 text-white transition-colors duration-300 hover:border-white/40"
-                  >
-                    <ArrowUpRight size={16} />
-                  </a>
-                </div>
+                ITSM Migration &amp; Transformation
+              </span>
 
-                <h3 className="font-heading mt-6 text-[19px] font-semibold text-white">
-                  {area.title}
-                </h3>
-                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-400">
-                  {area.body}
-                </p>
+              <h2
+                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Our ITSM Migration &amp; Transformation Capabilities
+              </h2>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {area.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="font-body rounded-full border border-white/15 px-3 py-1 text-[11px] font-medium tracking-wide text-slate-300"
+              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                Starfii assesses, designs, and migrates ITSM platforms end
+                to end, moving data, configurations, workflows, and
+                integrations into a modern service management environment
+                with minimal disruption to the business.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={container}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            >
+              {focusAreas.map((area) => (
+                <motion.div key={area.title} variants={item} className="h-full">
+                  <div className="ss-capability-card flex h-full flex-col p-8">
+                    <h3
+                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                      style={{ color: CHAMPION_BLUE }}
                     >
-                      {tag}
+                      {area.title}
+                    </h3>
+
+                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
+                      {area.body}
+                    </p>
+
+                    <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                      <span className="relative">
+                        Learn More
+                        <span
+                          className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                          style={{ backgroundColor: INDIGO_CTA }}
+                        />
+                      </span>
+                      <ArrowUpRight size={16} />
                     </span>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
         </div>
       </section>
 
       <div className={ALIGN}>
         {/* ============================================================
-            USE CASES — scannable industry examples
+            USE CASES
         ============================================================ */}
         <motion.section
           initial="hidden"
@@ -1173,16 +1075,10 @@ export default function ItsmMigrationTransformationSection() {
                 className="flex h-full flex-col rounded-2xl border p-7 transition-colors duration-300 hover:bg-[#F8F7FD]"
                 style={{ borderColor: "#E5E1F5" }}
               >
-                <span
-                  className="font-body text-[12px] font-semibold tracking-wide"
-                  style={{ color: LAVENDER_ACCENT }}
-                >
+                <span className="font-body text-[12px] font-semibold tracking-wide" style={{ color: LAVENDER_ACCENT }}>
                   {useCase.industry.toUpperCase()}
                 </span>
-                <h3
-                  className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                  style={{ color: CHAMPION_BLUE }}
-                >
+                <h3 className="font-heading mt-2 text-[18px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
                   {useCase.title}
                 </h3>
                 <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
@@ -1195,10 +1091,6 @@ export default function ItsmMigrationTransformationSection() {
 
         {/* ============================================================
             CASE STUDIES
-            Hover behaviour matches the homepage CaseStudiesSection /
-            Software & Product Engineering page: card height is FIXED,
-            the image frame collapses from 180px to 0, and the
-            description fades/slides into the space the image gives up.
         ============================================================ */}
         <section className="mt-24">
           <motion.div
@@ -1228,7 +1120,6 @@ export default function ItsmMigrationTransformationSection() {
               items={caseStudies}
               itemsPerPage={{ mobile: 1.15, tablet: 2, desktop: 4 }}
               gap={32}
-              arrowVariant="light"
               renderItem={(study) => (
                 <motion.div
                   initial="hidden"
@@ -1243,51 +1134,31 @@ export default function ItsmMigrationTransformationSection() {
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #EDEAFB" }}
                   >
-                    {/* IMAGE FRAME — height animates 260px → 0 on hover */}
                     <div className="ss-case-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
-                      <img
-                        src={study.image}
-                        alt={study.title}
-                        className="h-full w-full object-cover"
-                      />
+                      <img src={study.image} alt={study.title} className="h-full w-full object-cover" />
                     </div>
 
-                    {/* CONTENT — flex-1 grows into the space the image gives up */}
                     <div className="flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
                       <div className="flex flex-1 flex-col gap-3.5 overflow-hidden">
-                        <span
-                          className="font-body shrink-0 text-[12px] font-semibold tracking-[0.08em]"
-                          style={{ color: LAVENDER_ACCENT }}
-                        >
+                        <span className="font-body shrink-0 text-[12px] font-semibold tracking-[0.08em]" style={{ color: LAVENDER_ACCENT }}>
                           {study.industry.toUpperCase()}
                         </span>
 
-                        <h3
-                          className="font-heading shrink-0 text-[20px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
+                        <h3 className="font-heading shrink-0 text-[20px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
                           {study.title}
                         </h3>
 
-                        {/* DESCRIPTION — hidden at rest, fades + slides in on hover */}
                         <p className="ss-case-desc font-body max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
                           {study.body}
                         </p>
                       </div>
 
-                      {/* CTA — sliding underline reveal */}
-                      <span
-                        className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium"
-                        style={{ color: LAVENDER_ACCENT }}
-                      >
+                      <span className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium" style={{ color: LAVENDER_ACCENT }}>
                         <span className="relative">
                           Learn More
                           <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
                         </span>
-                        <ArrowUpRight
-                          size={16}
-                          className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                        />
+                        <ArrowUpRight size={16} className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                       </span>
                     </div>
                   </Link>
@@ -1298,7 +1169,8 @@ export default function ItsmMigrationTransformationSection() {
         </section>
 
         {/* ============================================================
-            TABBED DEEP-DIVE — auto-advancing tab list
+            TABBED DEEP-DIVE — matches Data & Analytics font sizes,
+            min-height, and top-aligned content padding
         ============================================================ */}
         <motion.section
           initial="hidden"
@@ -1312,7 +1184,6 @@ export default function ItsmMigrationTransformationSection() {
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1323,17 +1194,13 @@ export default function ItsmMigrationTransformationSection() {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
-                    {/* Animated progress fill — only rendered on the active tab,
-                        remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
                         className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
                         style={{
                           backgroundColor: CHAMPION_BLUE,
-                          animation: tabHovered
-                            ? "none"
-                            : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                          animation: tabHovered ? "none" : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
                           transform: tabHovered ? "scaleY(1)" : undefined,
                         }}
                       />
@@ -1359,26 +1226,25 @@ export default function ItsmMigrationTransformationSection() {
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="grid grid-cols-1 overflow-hidden rounded-2xl md:h-[340px] md:grid-cols-2"
+              className="grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
-              <div className="flex flex-col justify-center p-10">
-                <h3
-                  className="font-heading text-[22px] font-semibold leading-snug"
-                  style={{ color: CHAMPION_BLUE }}
-                >
+              <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
+                <h3 className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]" style={{ color: CHAMPION_BLUE }}>
                   {current.heading}
                 </h3>
-                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>
 
-              <div className="group h-[280px] overflow-hidden">
+              <div className="group relative min-h-[280px] overflow-hidden">
                 <img
                   src={current.image}
                   alt={current.label}
-                  className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
                 />
               </div>
             </motion.div>
@@ -1387,8 +1253,7 @@ export default function ItsmMigrationTransformationSection() {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS YOUR SERVICE MANAGEMENT ECOSYSTEM —
-          full-bleed dark section, expandable rows
+          IMPACT ACROSS YOUR SERVICE MANAGEMENT ECOSYSTEM (dark)
       ============================================================ */}
       <section
         className="relative overflow-hidden py-24"
@@ -1412,10 +1277,7 @@ export default function ItsmMigrationTransformationSection() {
       </section>
 
       {/* ============================================================
-          WHAT'S NEW IN ITSM MIGRATION — light section, 3-up insight
-          carousel with progress bar + arrow pagination. Blog images
-          zoom in on hover inside a fixed frame, so only the picture
-          grows, never the card.
+          WHAT'S NEW IN ITSM MIGRATION
       ============================================================ */}
       <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
         <div className={ALIGN}>
@@ -1448,9 +1310,7 @@ export default function ItsmMigrationTransformationSection() {
           >
             <motion.div
               ref={insightTrackRef}
-              animate={{
-                x: insightStepWidth ? -(insightPage * insightStepWidth) : 0,
-              }}
+              animate={{ x: insightStepWidth ? -(insightPage * insightStepWidth) : 0 }}
               transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
               className="flex gap-6"
             >
@@ -1465,38 +1325,25 @@ export default function ItsmMigrationTransformationSection() {
                     <div
                       className="relative flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-2xl p-1 transition-transform duration-300 hover:-translate-y-1"
                       style={{
-                        background:
-                          "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
+                        background: "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
                       }}
                     >
                       <div className="m-4 rounded-xl bg-white/95 p-6">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: ACCENT_INDIGO }}
-                        >
+                        <span className="font-body text-[12px] font-semibold tracking-wide" style={{ color: ACCENT_INDIGO }}>
                           BLOG
                         </span>
-                        <h3
-                          className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
+                        <h3 className="font-heading mt-2 text-[18px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
                           {post.title}
                         </h3>
                         <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
                           {post.body}
                         </p>
-                        <span
-                          className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                          style={{ color: ACCENT_INDIGO }}
-                        >
+                        <span className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold" style={{ color: ACCENT_INDIGO }}>
                           <span className="relative">
                             Read More
                             <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
                           </span>
-                          <ArrowUpRight
-                            size={15}
-                            className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          />
+                          <ArrowUpRight size={15} className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                       </div>
                     </div>
@@ -1510,33 +1357,21 @@ export default function ItsmMigrationTransformationSection() {
                         />
                       </div>
                       <div className="flex flex-1 flex-col p-6">
-                        <span
-                          className="font-body text-[12px] font-semibold tracking-wide"
-                          style={{ color: ACCENT_INDIGO }}
-                        >
+                        <span className="font-body text-[12px] font-semibold tracking-wide" style={{ color: ACCENT_INDIGO }}>
                           BLOG
                         </span>
-                        <h3
-                          className="font-heading mt-2 text-[18px] font-semibold leading-snug"
-                          style={{ color: CHAMPION_BLUE }}
-                        >
+                        <h3 className="font-heading mt-2 text-[18px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
                           {post.title}
                         </h3>
                         <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
                           {post.body}
                         </p>
-                        <span
-                          className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
-                          style={{ color: ACCENT_INDIGO }}
-                        >
+                        <span className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold" style={{ color: ACCENT_INDIGO }}>
                           <span className="relative">
                             Read More
                             <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
                           </span>
-                          <ArrowUpRight
-                            size={15}
-                            className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                          />
+                          <ArrowUpRight size={15} className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                         </span>
                       </div>
                     </div>
@@ -1546,15 +1381,11 @@ export default function ItsmMigrationTransformationSection() {
             </motion.div>
           </motion.div>
 
-          {/* Progress bar + pagination */}
           <div className="mt-10 flex items-center gap-6">
             <div className="h-[2px] flex-1 bg-slate-300">
               <div
                 className="h-full transition-all duration-500"
-                style={{
-                  backgroundColor: ACCENT_INDIGO,
-                  width: `${((insightPage + 1) / insightPages) * 100}%`,
-                }}
+                style={{ backgroundColor: ACCENT_INDIGO, width: `${((insightPage + 1) / insightPages) * 100}%` }}
               />
             </div>
             <div className="flex flex-none items-center gap-3">

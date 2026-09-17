@@ -5,26 +5,25 @@ import { useEffect, useRef, useState } from "react";
 const steps = [
   {
     title: "Discover Your AI Opportunity",
-    body: "Every engagement starts with an AI opportunity assessment. Starfii's team audits your product, data, and workflows to find exactly where AI can move the needle fastest, grounded in real business goals instead of hype.",
+    body: "Every engagement starts with an AI opportunity assessment, auditing your product, data, and workflows to find where AI moves the needle fastest.",
   },
   {
     title: "Design AI Driven Products",
-    body: "As an AI-driven product engineering company, we architect software and product experiences with AI built in from day one, not bolted on afterward, so intelligence becomes core to the user experience, not an add on feature.",
+    body: "We architect software with AI built in from day one, not bolted on afterward, so intelligence becomes core to the user experience.",
   },
   {
     title: "Engineer at Startup Speed",
-    body: "80+ skilled software engineers across 3+ global development locations give Starfii the bandwidth to ship production-grade software fast, without cutting corners on code quality, security, or scalability.",
+    body: "80+ skilled engineers across 3+ global locations give us the bandwidth to ship production grade software fast, without cutting corners.",
   },
   {
     title: "Scale Across Industries",
-    body: "E-commerce, travel, healthcare, fintech, ed-tech, and logistics businesses rely on Starfii's industry specific playbooks, proven software development frameworks tailored to each sector's compliance, scale, and customer needs.",
+    body: "E-commerce, travel, healthcare, fintech, ed-tech, and logistics businesses rely on our industry specific playbooks tailored to each sector's needs.",
   },
   {
     title: "Partner Beyond Launch",
-    body: "Backed by 5+ years of delivering enterprise grade solutions, Starfii stays engaged well past go live, monitoring performance, optimizing AI models, and evolving your product as your business grows.",
+    body: "Backed by 5+ years of enterprise delivery, we stay engaged past go live, monitoring performance and evolving your product as you grow.",
   },
 ];
-
 function StepRow({
   title,
   body,

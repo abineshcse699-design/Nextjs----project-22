@@ -1,79 +1,76 @@
+// Industry Page Template
+// -----------------------------------------------------------------
+// Changes from the previous version:
+//   1. REMOVED  -> Solutions section (StepCarousel case-study cards)
+//   2. REMOVED  -> Insights section ("What's New in ...")
+//   3. REMOVED  -> Final CTA section ("Ready to Build Better Software ...")
+//      ...plus every helper that only existed for them
+//      (Carousel, StepCarousel, useItemsPerPage, ChevronLeft import,
+//       ss-case-* / ss-zoom-img keyframes).
+//   4. ADDED    -> One image pool per industry slug, so /industries/finance
+//      and /industries/insurance render completely different, on-topic
+//      photography. To swap in your own assets, only edit IMAGE_POOLS.
+//   5. ADDED    -> <SafeImg>, so any broken/blocked image URL silently
+//      falls back instead of showing a torn-image icon.
+//
+// data.ts does NOT need to change. `solutions` and `insights` are still
+// part of the type, they are just no longer rendered.
+// -----------------------------------------------------------------
 
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Check,
+  useRef,
+  useState,
+  useEffect,
+  type ReactNode,
+  type Ref,
+  type ElementType,
+  type ReactElement,
+  type HTMLAttributes,
+  type ImgHTMLAttributes,
+} from "react";
+import {
+  ChevronRight,
   ChevronDown,
+  ArrowUpRight,
   Plus,
-  Sparkles,
-  Zap,
+  Minus,
+  Play,
 } from "lucide-react";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+
+// Contact form, rendered as the last section (right after the FAQ).
+// Adjust this path to wherever the file actually lives in your project,
+// e.g. "@/components/sections/ConnectFormSection".
+import ConnectFormSection from "@/components/Sections/ConnectFormSection";
 
 /* ===============================================================
-   THEME
+   BRAND TOKENS
 ================================================================ */
 
-const T = {
-  ink: "text-[#14163B]",
-  inkBg: "bg-[#0B0D27]",
-  primary: "text-[#3B2FE0]",
-  primaryBg: "bg-[#3B2FE0]",
-  muted: "text-[#686A82]",
-  border: "border-[#E6E6EF]",
-};
+const CHAMPION_BLUE = "#1B2560";
+const LAVENDER_ACCENT = "#A48FEA";
+const INDIGO_CTA = "#4F3FE0";
+
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+const TAB_AUTOPLAY_MS = 4000;
+
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 
 /* ===============================================================
-   LAYOUT
+   TYPES  (unchanged — data.ts stays as it is)
 ================================================================ */
 
-const ALIGN =
-  "mx-auto w-full max-w-[1480px] px-5 sm:px-8 lg:px-12 xl:px-16";
-
-/* ===============================================================
-   TYPES
-================================================================ */
-
-export type IndustryStat = {
-  value: string;
-  label: string;
-};
-
-export type IndustryCapability = {
-  title: string;
-  description: string;
-};
-
-export type IndustrySolution = {
-  title: string;
-  description: string;
-};
-
-export type IndustryFocusArea = {
-  title: string;
-  description: string;
-};
-
-export type IndustryImpactPoint = {
-  label: string;
-  body: string;
-};
-
-export type IndustryInsight = {
-  tag: string;
-  title: string;
-  blurb: string;
-};
-
-export type IndustryFaq = {
-  question: string;
-  answer: string;
-};
+export type IndustryStat = { value: string; label: string };
+export type IndustryCapability = { title: string; description: string };
+export type IndustrySolution = { title: string; description: string };
+export type IndustryFocusArea = { title: string; description: string };
+export type IndustryImpactPoint = { label: string; body: string };
+export type IndustryInsight = { tag: string; title: string; blurb: string };
+export type IndustryFaq = { question: string; answer: string };
 
 export type IndustryContent = {
   slug: string;
@@ -83,1190 +80,1012 @@ export type IndustryContent = {
   description: string;
   stats: IndustryStat[];
   keyTakeaway: string;
-  highlight: {
-    title: string;
-    body: string;
-  };
+  highlight: { title: string; body: string };
   focusAreas: IndustryFocusArea[];
   impactPoints: IndustryImpactPoint[];
   capabilities: IndustryCapability[];
-  solutions: IndustrySolution[];
+  solutions: IndustrySolution[]; // kept for type compatibility, not rendered
   techStack: string[];
-  insights: IndustryInsight[];
+  insights: IndustryInsight[]; // kept for type compatibility, not rendered
   faqs: IndustryFaq[];
 };
 
 /* ===============================================================
-   ANIMATION
+   IMAGES — one pool per industry
+   ---------------------------------------------------------------
+   Each pool = 6 URLs. They are mapped like this:
+     pool[0] -> hero (full-bleed banner)
+     pool[1] -> highlight (video block) + last impact tab
+     pool[2..5] -> impact tabs
+   So every industry page gets its own visual identity, and no two
+   slugs share a hero.
+
+   To use your own images, replace the strings with paths from
+   /public, e.g. "/industries/finance/hero.jpg". Nothing else needs
+   to change.
 ================================================================ */
 
-const reveal: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 36,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.75,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+const FALLBACK_IMAGE =
+  "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1600&q=80";
 
-const stagger: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.09,
-    },
-  },
-};
+const u = (id: string, w = 1600) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
-const cardReveal: Variants = {
-  hidden: {
-    opacity: 0,
-    y: 22,
-  },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.55,
-      ease: [0.22, 1, 0.36, 1],
-    },
-  },
-};
+const FALLBACK_POOL: string[] = [
+  u("1497366754035-f200968a6e72"),
+  u("1497366811353-6870744d04b2"),
+  u("1556761175-b413da4baf72"),
+  u("1521737711867-e3b97375f902"),
+  u("1460925895917-afdab827c52f"),
+  u("1517245386807-bb43f82c33c4"),
+];
 
-const inView = {
-  initial: "hidden" as const,
-  whileInView: "visible" as const,
-  viewport: {
-    once: true,
-    amount: 0.15,
-  },
-};
+const IMAGE_POOLS: Record<string, string[]> = {
+  /* ---------------- E-commerce & Retail ---------------- */
+  "ecommerce-retail": [
+    u("1556742049-0cfed4f6a45d"), // card payment
+    u("1441986300917-64674bd600d8"), // retail store front
+    u("1556740749-887f6717d7e4"), // online shopping
+    u("1472851294608-062f824d29cc"), // store shelves
+    u("1586528116311-ad8dd3c8310d"), // packed orders
+    u("1563013544-824ae1b704d3"), // shopping bags
+  ],
 
-/* ===============================================================
-   IMAGE TYPES
-================================================================ */
+  /* ---------------- Healthcare ---------------- */
+  healthcare: [
+    u("1576091160550-2173dba999ef"), // clinician with tablet
+    u("1538108149393-fbbd81895907"), // doctor consultation
+    u("1505751172876-fa1923c5c528"), // stethoscope / records
+    u("1516549655169-df83a0774514"), // lab & care team
+    u("1519494026892-80bbd2d6fd0d"), // hospital corridor
+    u("1579684385127-1ef15d508118"), // patient care
+  ],
+
+  /* ---------------- Ed-tech & E-learning ---------------- */
+  "edtech-elearning": [
+    u("1523240795612-9a054b0db644"), // online learning
+    u("1503676260728-1c00da094a0b"), // classroom
+    u("1522202176988-66273c2fd55f"), // students collaborating
+    u("1524178232363-1fb2b075b655"), // lecture hall
+    u("1501504905252-473c47e087f8"), // notebook study
+    u("1513258496099-48168024aec0"), // library
+  ],
+
+  /* ---------------- Finance / Banking & Finance ---------------- */
+  finance: [
+    u("1554224155-6726b3ff858f"), // calculator & statements
+    u("1559526324-593bc073d938"), // banking tower
+    u("1556157382-97eda2d62296"), // mobile payments
+    u("1450101499163-c8848c66ca85"), // advisory meeting
+    u("1601597111158-2fceff292cdc"), // contactless payment
+    u("1526304640581-d334cdbbf45e"), // currency / trading desk
+  ],
+
+  /* Alias, in case your route uses /industries/banking-finance */
+  "banking-finance": [
+    u("1554224155-6726b3ff858f"),
+    u("1559526324-593bc073d938"),
+    u("1556157382-97eda2d62296"),
+    u("1450101499163-c8848c66ca85"),
+    u("1601597111158-2fceff292cdc"),
+    u("1526304640581-d334cdbbf45e"),
+  ],
+
+  /* ---------------- Transportation & Logistics ---------------- */
+  "transportation-logistics": [
+    u("1494412574643-ff11b0a5c1c3"), // warehouse racking
+    u("1553413077-190dd305871c"), // delivery truck
+    u("1504384308090-c894fdcc538d"), // shipping containers
+    u("1566576912321-d58ddd7a6088"), // port logistics
+    u("1601584115197-04ecc0da31d7"), // fleet on the road
+    u("1586528116493-a029325540fa"), // parcel handling
+  ],
+
+  /* ---------------- Travel & Booking ---------------- */
+  "travel-booking": [
+    u("1436491865332-7a61a109cc05"), // aircraft wing
+    u("1566073771259-6a8506099945"), // hotel exterior
+    u("1488646953014-85cb44e25828"), // trip planning
+    u("1520250497591-112f2f40a3f4"), // hotel room
+    u("1507525428034-b723cf961d3e"), // destination beach
+    u("1469474968028-56623f02e42e"), // journey landscape
+  ],
+
+  /* ---------------- Consumer Goods ---------------- */
+  "consumer-goods": [
+    u("1578916171728-46686eac8d58"), // product flat lay
+    u("1534723452862-4c874018d66d"), // packaged goods
+    u("1542838132-92c53300491e"), // market stall
+    u("1584008604774-1b0bfb6b4d18"), // production line goods
+    u("1607083206869-4c7672e72a8a"), // shelf merchandising
+    u("1556740738-b6a63e27c4df"), // field sales / analytics
+  ],
+
+  /* ---------------- Education & Institutions ---------------- */
+  "education-institutions": [
+    u("1562774053-701939374585"), // campus building
+    u("1541339907198-e08756dedf3f"), // lecture theatre
+    u("1523050854058-8df90110c9f1"), // graduation
+    u("1498243691581-b145c3f54a5a"), // campus study
+    u("1519452575417-564c1401ecc0"), // admin office
+    u("1509062522246-3755977927d7"), // classroom desks
+  ],
+
+  /* ---------------- Financial Services ---------------- */
+  "financial-services": [
+    u("1611974789855-9c2a0a7236a3"), // trading screens
+    u("1590283603385-17ffb3a7f29f"), // advisor and client
+    u("1551288049-bebda4e38f71"), // performance dashboard
+    u("1579532537598-459ecdaf39cc"), // portfolio review
+    u("1460925895917-afdab827c52f"), // reporting laptop
+    u("1454165804606-c3d57bc86b40"), // boardroom
+  ],
+
+  /* ---------------- Energy & Utilities ---------------- */
+  "energy-utilities": [
+    u("1473341304170-971dccb5ac1e"), // transmission lines
+    u("1466611653911-95081537e5b7"), // solar array
+    u("1497435334941-8c899ee9e8e9"), // wind turbines
+    u("1509391366360-2e959784a276"), // rooftop solar
+    u("1581094794329-c8112a89af12"), // field engineer
+    u("1516937941344-00b4e0337589"), // substation
+  ],
+
+  /* ---------------- Insurance ---------------- */
+  insurance: [
+    u("1450101499163-c8848c66ca85"), // policy consultation
+    u("1521791136064-7986c2920216"), // agreement handshake
+    u("1554224154-26032ffc0d07"), // claims paperwork
+    u("1582719478250-c89cae4dc85b"), // property cover
+    u("1568992687947-868a62a9f521"), // risk review desk
+    u("1600880292089-90a7e086ee0c"), // broker meeting
+  ],
+
+  /* ---------------- Life Sciences ---------------- */
+  "life-sciences": [
+    u("1532187863486-abf9dbad1b69"), // laboratory bench
+    u("1579154204601-01588f351e67"), // scientist pipetting
+    u("1581093458791-9f3c3900df4b"), // research microscope
+    u("1576086213369-97a306d36557"), // sample vials
+    u("1554475901-4538ddfbccc2"), // clinical documentation
+    u("1583912268183-211f0c3a8e1f"), // quality control
+  ],
+
+  /* ---------------- Manufacturing ---------------- */
+  manufacturing: [
+    u("1565043666747-69f6646db940"), // factory floor
+    u("1581091226825-a6a2a5aee158"), // engineer with data
+    u("1504328345606-18bbc8c9d7d1"), // machinery detail
+    u("1518709268805-4e9042af2176"), // industrial robotics
+    u("1567789884554-0f76aa6c0b6a"), // assembly line
+    u("1581092160562-40aa08e78837"), // maintenance check
+  ],
+
+  /* ---------------- Private Equity ---------------- */
+  "private-equity": [
+    u("1600880292203-757bb62b4baf"), // deal discussion
+    u("1573164713988-8665fc963095"), // portfolio analysis
+    u("1507679799987-c73779587ccf"), // investment team
+    u("1444653614773-995cb1ef9efa"), // documents & diligence
+    u("1517048676732-d65bc937f952"), // partner meeting
+    u("1542744173-8e7e53415bb0"), // reporting review
+  ],
+
+  /* ---------------- Professional Services ---------------- */
+  "professional-services": [
+    u("1497215842964-222b430dc094"), // consulting office
+    u("1519389950473-47ba0277781c"), // project team
+    u("1542744094-3a31f272c490"), // planning board
+    u("1552581234-26160f608093"), // client workshop
+    u("1553877522-43269d4ea984"), // delivery review
+    u("1517245386807-bb43f82c33c4"), // workspace
+  ],
+
+  /* ---------------- Public Sector ---------------- */
+  "public-sector": [
+    u("1529107386315-e1a2ed48a620"), // civic building
+    u("1589391886645-d51941baf7fb"), // service counter
+    u("1573164574572-cb89e39749b4"), // case worker
+    u("1521791055366-0d553872125f"), // agency collaboration
+    u("1551836022-d5d88e9218df"), // records & permits
+    u("1486406146926-c627a92ad1ab"), // government district
+  ],
+
+  /* ---------------- Technology, Products & Platforms ---------------- */
+  "technology-products-platforms": [
+    u("1518770660439-4636190af475"), // circuitry
+    u("1531482615713-2afd69097998"), // engineers pairing
+    u("1555949963-aa79dcee981c"), // code on screen
+    u("1504384764586-bb4cdc1707b0"), // cloud infra
+    u("1522071820081-009f0129c71c"), // product team
+    u("1497366811353-6870744d04b2"), // studio office
+  ],
+
+  /* ---------------- SaaS ---------------- */
+  saas: [
+    u("1551434678-e076c223a692"), // product engineering
+    u("1460925895917-afdab827c52f"), // product analytics
+    u("1522202176988-66273c2fd55f"), // team planning
+    u("1587440871875-191322ee64b0"), // dashboard UI
+    u("1517180102446-f3ece451e9d8"), // release workflow
+    u("1499750310107-5fef28a66643"), // build session
+  ],
+
+  /* ---------------- Telecom ---------------- */
+  telecom: [
+    u("1516110833967-0b5716ca1387"), // network tower
+    u("1451187580459-43490279c0fa"), // global connectivity
+    u("1558494949-ef010cbdcc31"), // data centre
+    u("1544197150-b99a580bb7a8"), // fibre / infrastructure
+    u("1526628953301-3e589a6a8b74"), // subscriber experience
+    u("1581092918056-0c4c3acd3789"), // field technician
+  ],
+};
 
 type IndustryImages = {
   hero: string;
   highlight: string;
-  focus: string[];
   impact: string[];
-  solutions: string[];
-  insights: string[];
 };
-
-/* ===============================================================
-   FALLBACK IMAGES
-================================================================ */
-
-const fallbackImages: IndustryImages = {
-  hero:
-    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=80",
-
-  highlight:
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1200&q=80",
-
-  focus: [
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80",
-  ],
-
-  impact: [
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1000&q=80",
-  ],
-
-  solutions: [
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=80",
-  ],
-
-  insights: [
-    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1000&q=80",
-    "https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=80",
-  ],
-};
-
-/* ===============================================================
-   INDUSTRY IMAGES
-   Keep your existing large image map here.
-   This section can also be imported from a separate file later.
-================================================================ */
-
-const industryImages: Record<string, IndustryImages> = {
-  "ecommerce-retail": {
-    hero:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1563013544-824ae1b704d3?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742111-a301076d9d18?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-
-  healthcare: {
-    hero:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1516841273335-e39b37888115?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1538108149393-fbbd81895907?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-
-  "edtech-elearning": {
-    hero:
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-
-  finance: {
-    hero:
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1559526324-593bc073d938?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-
-  "transportation-logistics": {
-    hero:
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1586528116493-da8b3e6b9d9d?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-
-  "travel-booking": {
-    hero:
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1400&q=80",
-    highlight:
-      "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1200&q=80",
-    focus: [
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=80",
-    ],
-    impact: [
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=80",
-    ],
-    solutions: [
-      "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1000&q=80",
-    ],
-    insights: [
-      "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1530789253388-582c481c54b0?auto=format&fit=crop&w=1000&q=80",
-      "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1000&q=80",
-    ],
-  },
-};
-
-/* ===============================================================
-   GENERIC IMAGE FALLBACK
-================================================================ */
 
 function getImages(slug: string): IndustryImages {
-  return industryImages[slug] ?? fallbackImages;
+  const pool = IMAGE_POOLS[slug] ?? FALLBACK_POOL;
+  const at = (i: number) => pool[i % pool.length] ?? FALLBACK_IMAGE;
+
+  return {
+    hero: at(0),
+    highlight: at(1),
+    // five impact tabs in data.ts -> five distinct images
+    impact: [at(2), at(3), at(4), at(5), at(1)],
+  };
 }
 
 /* ===============================================================
-   IMAGE COMPONENT
+   SAFE IMAGE
+   Plain <img> with a graceful fallback, so a bad URL never breaks
+   the layout. Uses native lazy loading everywhere except the hero.
 ================================================================ */
 
-function IndustryImage({
-  src,
-  alt,
-  className = "",
-  priority = false,
-}: {
-  src?: string;
+type SafeImgProps = ImgHTMLAttributes<HTMLImageElement> & {
+  src: string;
   alt: string;
-  className?: string;
-  priority?: boolean;
-}) {
-  const fallback = fallbackImages.hero;
-  const [failed, setFailed] = useState(false);
+  eager?: boolean;
+};
 
-  const finalSrc = failed ? fallback : src || fallback;
+function SafeImg({ src, alt, eager = false, ...rest }: SafeImgProps): ReactElement {
+  const [current, setCurrent] = useState(src);
+
+  useEffect(() => {
+    setCurrent(src);
+  }, [src]);
 
   return (
-    <Image
-      src={finalSrc}
+    <img
+      {...rest}
+      src={current}
       alt={alt}
-      fill
-      priority={priority}
-      sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 800px"
-      quality={78}
-      onError={() => setFailed(true)}
-      className={`object-cover ${className}`}
+      loading={eager ? "eager" : "lazy"}
+      decoding="async"
+      onError={() => {
+        if (current !== FALLBACK_IMAGE) setCurrent(FALLBACK_IMAGE);
+      }}
     />
   );
 }
 
 /* ===============================================================
-   FOUR EXTRA INDUSTRY SECTIONS
-   Generated from the actual industry data.
-
-   This means ALL 18 industries automatically receive four
-   additional relevant content sections without changing data.ts.
+   GLOBAL KEYFRAMES / ANIMATION CLASSES
 ================================================================ */
 
-function getExtraSections(data: IndustryContent) {
-  const focusOne = data.focusAreas[0];
-  const focusTwo = data.focusAreas[1];
-  const focusThree = data.focusAreas[2];
-  const focusFour = data.focusAreas[3];
-
-  const capabilityOne = data.capabilities[0];
-  const capabilityTwo = data.capabilities[1];
-
-  const impactOne = data.impactPoints[0];
-  const impactTwo = data.impactPoints[1];
-
-  return [
-    {
-      number: "01",
-      eyebrow: "Industry challenge",
-      title: `Where ${data.name} teams lose time, visibility and momentum`,
-      body: `${data.highlight.body} The opportunity is to replace disconnected workflows with software that reflects the way your ${data.name.toLowerCase()} operation actually works.`,
-      points: [
-        focusOne?.title,
-        focusTwo?.title,
-        impactOne?.label,
-      ].filter(Boolean) as string[],
-    },
-
-    {
-      number: "02",
-      eyebrow: "Digital experience",
-      title: `Create better experiences across every ${data.name.toLowerCase()} touchpoint`,
-      body: `Modern ${data.name.toLowerCase()} products need to make complex workflows feel simple. We turn the core requirements of your business into clear user journeys, intuitive interfaces and connected digital experiences.`,
-      points: [
-        focusOne?.description,
-        focusThree?.description,
-      ].filter(Boolean) as string[],
-    },
-
-    {
-      number: "03",
-      eyebrow: "Connected technology",
-      title: `Connect the systems behind your ${data.name.toLowerCase()} business`,
-      body: `The strongest industry platforms are not isolated applications. They connect people, data and operational systems so teams can act on current information. Starfii brings application architecture, APIs, cloud infrastructure and integrations together around the business outcome.`,
-      points: [
-        capabilityOne?.title,
-        capabilityTwo?.title,
-        focusFour?.title,
-      ].filter(Boolean) as string[],
-    },
-
-    {
-      number: "04",
-      eyebrow: "Business impact",
-      title: `Turn ${data.name.toLowerCase()} technology into measurable business progress`,
-      body: `The goal is not simply to launch another application. It is to create a platform that improves the metrics your team cares about — whether that means faster operations, better customer experiences, stronger visibility, lower manual effort or greater scalability.`,
-      points: [
-        impactOne?.label,
-        impactTwo?.label,
-        data.impactPoints[2]?.label,
-      ].filter(Boolean) as string[],
-    },
-  ];
-}
-
-/* ===============================================================
-   SECTION HEADER
-================================================================ */
-
-function SectionHeader({
-  eyebrow,
-  title,
-  description,
-  dark = false,
-}: {
-  eyebrow: string;
-  title: string;
-  description?: string;
-  dark?: boolean;
-}) {
+function AnimationStyles(): ReactElement {
   return (
-    <motion.div {...inView} variants={reveal} className="max-w-3xl">
-      <div
-        className={`flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.18em] ${
-          dark ? "text-[#9AA8FF]" : T.primary
-        }`}
-      >
-        <span className="h-px w-7 bg-current" />
-        {eyebrow}
-      </div>
+    <style>{`
+      @keyframes ss-fade-up {
+        from { opacity: 0; transform: translateY(28px) scale(0.97); }
+        to   { opacity: 1; transform: translateY(0) scale(1); }
+      }
+      @keyframes ss-fade-in {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes ss-drift {
+        0%   { transform: translate3d(0, 0, 0) scale(1); }
+        50%  { transform: translate3d(-2%, 2%, 0) scale(1.06); }
+        100% { transform: translate3d(0, 0, 0) scale(1); }
+      }
+      @keyframes ss-tab-progress {
+        from { transform: scaleY(0); }
+        to   { transform: scaleY(1); }
+      }
+      @keyframes ss-caret-blink {
+        0%, 100% { opacity: 1; }
+        50%      { opacity: 0; }
+      }
 
-      <h2
-        className={`mt-5 text-[34px] font-bold leading-[1.08] tracking-[-0.035em] sm:text-[42px] lg:text-[52px] ${
-          dark ? "text-white" : T.ink
-        }`}
-      >
-        {title}
-      </h2>
+      .ss-reveal { opacity: 0; }
+      .ss-reveal.ss-in-view {
+        animation: ss-fade-up 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+      }
+      .ss-tab-panel { animation: ss-fade-in 0.45s ease-out; }
+      .ss-drift-slow { animation: ss-drift 16s ease-in-out infinite; }
+      .ss-drift-slower { animation: ss-drift 22s ease-in-out infinite reverse; }
+      .ss-caret { animation: ss-caret-blink 0.9s steps(1) infinite; }
 
-      {description && (
-        <p
-          className={`mt-5 max-w-2xl text-[16px] leading-[1.8] ${
-            dark ? "text-white/60" : T.muted
-          }`}
-        >
-          {description}
-        </p>
-      )}
-    </motion.div>
+      .ss-capability-card {
+        position: relative;
+        background-color: #EEF0F5;
+        border-radius: 20px;
+        transition:
+          background-color 0.35s ease,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.35s ease;
+      }
+      .ss-capability-card:hover {
+        background-color: #E4E7F3;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(27, 37, 96, 0.08);
+      }
+      .ss-capability-title { transition: color 0.3s ease; }
+
+      @media (prefers-reduced-motion: reduce) {
+        .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-caret {
+          animation: none !important;
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .ss-tab-progress-fill { animation: none !important; transform: scaleY(1) !important; }
+        .ss-eco-panel, .ss-capability-card, .ss-capability-title { transition: none !important; }
+      }
+    `}</style>
   );
 }
 
 /* ===============================================================
-   STAT STRIP
+   HOOKS
 ================================================================ */
 
-function StatsStrip({ stats }: { stats: IndustryStat[] }) {
-  return (
-    <div className="grid grid-cols-2 border-y border-[#E5E5EF] lg:grid-cols-4">
-      {stats.map((stat, index) => (
-        <motion.div
-          key={`${stat.value}-${stat.label}`}
-          {...inView}
-          variants={cardReveal}
-          className={`min-h-[145px] px-5 py-8 sm:px-8 lg:px-10 ${
-            index !== stats.length - 1
-              ? "border-r border-[#E5E5EF]"
-              : ""
-          } ${
-            index >= 2
-              ? "border-t border-[#E5E5EF] lg:border-t-0"
-              : ""
-          }`}
-        >
-          <div className="text-[35px] font-bold tracking-[-0.04em] text-[#14163B]">
-            {stat.value}
-          </div>
+function useReveal<T extends HTMLElement = HTMLElement>(
+  options?: IntersectionObserverInit
+): [React.RefObject<T | null>, boolean] {
+  const ref = useRef<T | null>(null);
+  const [inView, setInView] = useState(false);
 
-          <p className={`mt-2 max-w-[190px] text-[13px] leading-relaxed ${T.muted}`}>
-            {stat.label}
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry?.isIntersecting) {
+          setInView(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.15, ...options }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [options]);
+
+  return [ref, inView];
+}
+
+function useTypewriterList(
+  items: string[],
+  active: boolean,
+  speed: number = 16,
+  pauseBetween: number = 300
+): { displayed: string[]; typingIndex: number } {
+  const [displayed, setDisplayed] = useState<string[]>(() => items.map(() => ""));
+  const [typingIndex, setTypingIndex] = useState(-1);
+
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+
+  useEffect(() => {
+    if (!active) {
+      setDisplayed(itemsRef.current.map(() => ""));
+      setTypingIndex(-1);
+      return undefined;
+    }
+
+    let cancelled = false;
+    let itemIndex = 0;
+    let charIndex = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeStep = () => {
+      if (cancelled) return;
+      const currentItems = itemsRef.current;
+      if (itemIndex >= currentItems.length) return;
+
+      const currentLine = currentItems[itemIndex];
+      if (currentLine === undefined) return;
+
+      charIndex += 1;
+      setTypingIndex(itemIndex);
+      setDisplayed((prev) => {
+        const next = [...prev];
+        while (next.length < currentItems.length) next.push("");
+        next[itemIndex] = currentLine.slice(0, charIndex);
+        return next;
+      });
+
+      if (charIndex >= currentLine.length) {
+        itemIndex += 1;
+        charIndex = 0;
+        timeoutId = setTimeout(typeStep, pauseBetween);
+      } else {
+        timeoutId = setTimeout(typeStep, speed);
+      }
+    };
+
+    timeoutId = setTimeout(typeStep, pauseBetween);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, items.join("|"), speed, pauseBetween]);
+
+  return { displayed, typingIndex };
+}
+
+/* ===============================================================
+   REUSABLE
+================================================================ */
+
+type RevealProps = {
+  as?: ElementType;
+  delay?: number;
+  className?: string;
+  children: ReactNode;
+} & HTMLAttributes<HTMLElement>;
+
+function Reveal({ as, delay = 0, className = "", children, ...rest }: RevealProps): ReactElement {
+  const Tag = (as ?? "div") as ElementType;
+  const [ref, inView] = useReveal<HTMLElement>();
+
+  return (
+    <Tag
+      ref={ref as Ref<HTMLElement>}
+      className={`ss-reveal ${inView ? "ss-in-view" : ""} ${className}`}
+      style={{ animationDelay: inView ? `${delay}ms` : undefined }}
+      {...rest}
+    >
+      {children}
+    </Tag>
+  );
+}
+
+function Eyebrow({
+  children,
+  variant = "light",
+}: {
+  children: ReactNode;
+  variant?: "light" | "dark";
+}): ReactElement {
+  return (
+    <span
+      className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
+      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+    >
+      <span>{children}</span>
+    </span>
+  );
+}
+
+/* ===============================================================
+   1. HERO
+================================================================ */
+
+function Hero({ data, images }: { data: IndustryContent; images: IndustryImages }) {
+  return (
+    <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
+      <div className="absolute inset-0 -z-10">
+        <SafeImg
+          src={images.hero}
+          alt={data.name}
+          eager
+          fetchPriority="high"
+          className="h-full w-full object-cover object-[68%_center]"
+        />
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+          }}
+        />
+        <div
+          className="absolute inset-x-0 bottom-0 h-20"
+          style={{ background: "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)" }}
+        />
+      </div>
+
+      <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
+        <div className="w-full max-w-[760px] py-20 lg:py-28">
+          <nav
+            aria-label="Breadcrumb"
+            className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium opacity-0"
+            style={{
+              color: "rgba(255,255,255,0.92)",
+              animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+            }}
+          >
+            <Link href="/" className="transition-opacity hover:opacity-70">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link href="/industries" className="transition-opacity hover:opacity-70">
+              Industries
+            </Link>
+            <ChevronRight size={14} />
+            <span className="text-white/60">{data.name}</span>
+          </nav>
+
+          <h1
+            className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
+            style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+          >
+            {data.headline}
+          </h1>
+
+          <p
+            className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
+            style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+          >
+            {data.description}
           </p>
-        </motion.div>
-      ))}
+
+          <Link
+            href="/contact"
+            className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+            style={{ color: INDIGO_CTA, animation: "ss-fade-up 0.7s ease-out 0.4s forwards" }}
+          >
+            Connect Now
+            <ArrowUpRight size={17} />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ===============================================================
+   2. STAT STRIP
+================================================================ */
+
+function StatStrip({ data }: { data: IndustryContent }) {
+  if (!data.stats.length) return null;
+
+  return (
+    <section className={`${ALIGN} relative z-10 -mt-14`}>
+      <Reveal className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+        {data.stats.map((stat, i) => (
+          <Reveal
+            key={stat.label}
+            delay={i * 80}
+            className="ss-capability-card flex flex-col justify-center gap-1 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.10)]"
+          >
+            <span
+              className="font-heading text-[30px] font-bold leading-none sm:text-[34px]"
+              style={{ color: INDIGO_CTA }}
+            >
+              {stat.value}
+            </span>
+            <span className="font-body text-[13px] leading-snug text-slate-500 sm:text-[14px]">
+              {stat.label}
+            </span>
+          </Reveal>
+        ))}
+      </Reveal>
+    </section>
+  );
+}
+
+/* ===============================================================
+   3. KEY TAKEAWAYS ACCORDION
+================================================================ */
+
+function getKeyTakeawayBullets(data: IndustryContent): string[] {
+  return [
+    `${data.name} is one of Starfii's core areas of industry expertise.`,
+    [data.focusAreas[0]?.title, data.focusAreas[1]?.title].filter(Boolean).join(" and "),
+    data.capabilities.length
+      ? `Capabilities span ${data.capabilities
+          .slice(0, 3)
+          .map((c) => c.title.toLowerCase())
+          .join(", ")}.`
+      : "",
+    data.impactPoints[0]?.label
+      ? `Helps teams achieve ${data.impactPoints[0].label.toLowerCase()}.`
+      : "",
+  ].filter(Boolean) as string[];
+}
+
+function KeyTakeawaysAccordion({
+  data,
+  open,
+  setOpen,
+}: {
+  data: IndustryContent;
+  open: boolean;
+  setOpen: (updater: (prev: boolean) => boolean) => void;
+}): ReactElement {
+  const bullets = getKeyTakeawayBullets(data);
+  const { displayed, typingIndex } = useTypewriterList(bullets, open);
+
+  return (
+    <div
+      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
+      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex min-h-[104px] w-full items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        style={{ borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent" }}
+      >
+        <div className="flex items-center gap-3">
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-10 w-20 flex-shrink-0 object-contain"
+          />
+          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+            Key Takeaways
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span
+            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
+          >
+            {data.kicker}
+          </span>
+          <ChevronDown
+            size={20}
+            strokeWidth={2.2}
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{ color: INDIGO_CTA, transform: open ? "rotate(180deg)" : "rotate(0deg)" }}
+          />
+        </div>
+      </button>
+
+      <div
+        className="grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-5 px-8 py-10 lg:px-10">
+            {bullets.map((bullet, i) => {
+              const text = displayed[i] ?? "";
+              if (!text && i !== 0) return null;
+              const isTyping = i === typingIndex && text.length < bullet.length;
+
+              return (
+                <li
+                  key={bullet}
+                  className="font-body flex gap-2 text-[15px] leading-[1.8] text-slate-600"
+                >
+                  <span
+                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: INDIGO_CTA }}
+                  />
+                  <span>
+                    {text}
+                    {isTyping && (
+                      <span
+                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
+                        style={{ backgroundColor: INDIGO_CTA }}
+                      />
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 }
 
 /* ===============================================================
-   TAKEAWAY
+   4. HIGHLIGHT BLOCK
 ================================================================ */
 
-function Takeaway({ data }: { data: IndustryContent }) {
+function HighlightBlock({ data, images }: { data: IndustryContent; images: IndustryImages }) {
   return (
-    <section className={`${ALIGN} py-20 lg:py-28`}>
-      <motion.div
-        {...inView}
-        variants={reveal}
-        className="grid overflow-hidden rounded-[28px] border border-[#E5E5EF] bg-[#F7F7FB] lg:grid-cols-[0.72fr_1.28fr]"
-      >
-        <div className="relative min-h-[330px]">
-          <IndustryImage
-            src={getImages(data.slug).highlight}
-            alt={data.highlight.title}
-            className="transition-transform duration-1000 hover:scale-105"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D27]/70 via-transparent to-transparent" />
-
-          <div className="absolute bottom-6 left-6">
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-white backdrop-blur-md">
-              <Sparkles size={13} />
-              Key perspective
-            </span>
-          </div>
-        </div>
-
-        <div className="flex flex-col justify-center p-7 sm:p-10 lg:p-14">
-          <p className={`text-[11px] font-bold uppercase tracking-[0.18em] ${T.primary}`}>
-            Why it matters
-          </p>
-
-          <h2 className="mt-4 max-w-2xl text-[28px] font-bold leading-tight tracking-[-0.025em] sm:text-[36px]">
+    <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
+      <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+        <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
+          <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
             {data.highlight.title}
           </h2>
-
-          <p className={`mt-5 max-w-2xl text-[15px] leading-[1.85] ${T.muted}`}>
+          <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
             {data.keyTakeaway}
           </p>
-
-          <p className={`mt-4 max-w-2xl text-[15px] leading-[1.85] ${T.muted}`}>
-            {data.highlight.body}
-          </p>
         </div>
-      </motion.div>
-    </section>
-  );
-}
 
-/* ===============================================================
-   FOUR EXTRA SECTIONS
-================================================================ */
-
-function ExtraIndustrySections({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
-  const sections = getExtraSections(data);
-
-  return (
-    <section className="overflow-hidden bg-white">
-      {sections.map((section, index) => {
-        const image =
-          images.focus[index % Math.max(images.focus.length, 1)] ??
-          fallbackImages.hero;
-
-        const reverse = index % 2 === 1;
-
-        return (
-          <div
-            key={section.number}
-            className={`border-t border-[#E8E8F0] ${
-              index % 2 === 1 ? "bg-[#F8F8FB]" : "bg-white"
-            }`}
-          >
-            <div
-              className={`${ALIGN} grid min-h-[600px] grid-cols-1 items-center gap-12 py-20 lg:grid-cols-2 lg:gap-20 lg:py-28`}
-            >
-              <motion.div
-                {...inView}
-                variants={reveal}
-                className={reverse ? "lg:order-2" : ""}
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-[13px] font-bold text-[#A3A4B4]">
-                    {section.number}
-                  </span>
-
-                  <span className={`h-px w-9 ${T.primaryBg}`} />
-
-                  <span className={`text-[11px] font-bold uppercase tracking-[0.17em] ${T.primary}`}>
-                    {section.eyebrow}
-                  </span>
-                </div>
-
-                <h2 className="mt-6 max-w-2xl text-[34px] font-bold leading-[1.08] tracking-[-0.035em] sm:text-[42px]">
-                  {section.title}
-                </h2>
-
-                <p className={`mt-6 max-w-xl text-[15.5px] leading-[1.85] ${T.muted}`}>
-                  {section.body}
-                </p>
-
-                <div className="mt-8 space-y-3">
-                  {section.points.map((point) => (
-                    <div
-                      key={point}
-                      className="flex items-start gap-3"
-                    >
-                      <span className="mt-1 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ECEBFF] text-[#3B2FE0]">
-                        <Check size={12} strokeWidth={3} />
-                      </span>
-
-                      <span className="text-[14px] font-medium leading-relaxed text-[#2B2D4B]">
-                        {point}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-
-              <motion.div
-                {...inView}
-                variants={reveal}
-                className={`relative min-h-[420px] overflow-hidden rounded-[28px] ${
-                  reverse ? "lg:order-1" : ""
-                }`}
-              >
-                <IndustryImage
-                  src={image}
-                  alt={`${data.name} software`}
-                  className="transition-transform duration-[1200ms] hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D27]/65 via-transparent to-transparent" />
-
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-xl">
-                    <div className="flex items-center justify-between gap-4">
-                      <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white/70">
-                        {data.name}
-                      </span>
-
-                      <Zap size={17} className="text-white" />
-                    </div>
-
-                    <p className="mt-2 text-[14px] leading-relaxed text-white/85">
-                      Digital systems designed around real operational needs.
-                    </p>
-                  </div>
-                </div>
-              </motion.div>
-            </div>
-          </div>
-        );
-      })}
-    </section>
-  );
-}
-
-/* ===============================================================
-   FOCUS AREAS
-================================================================ */
-
-function FocusAreas({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
-  return (
-    <section className="bg-[#0B0D27] py-24 lg:py-32">
-      <div className={ALIGN}>
-        <SectionHeader
-          dark
-          eyebrow="Where we focus"
-          title={`Software built around ${data.name.toLowerCase()} workflows`}
-          description={`We translate the priorities of ${data.name.toLowerCase()} teams into focused digital products, platforms and operational tools.`}
-        />
-
-        <motion.div
-          {...inView}
-          variants={stagger}
-          className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-[24px] border border-white/10 bg-white/10 md:grid-cols-2"
+        <button
+          type="button"
+          className="group/play relative min-h-[320px] overflow-hidden"
+          aria-label={`Watch: ${data.highlight.title}`}
         >
-          {data.focusAreas.map((area, index) => (
-            <motion.article
-              key={area.title}
-              variants={cardReveal}
-              className="group relative min-h-[330px] overflow-hidden bg-[#11132F] p-7 sm:p-9"
+          <SafeImg
+            src={images.highlight}
+            alt={data.highlight.title}
+            className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
+          />
+          <span className="absolute inset-0 flex items-center justify-center">
+            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-xl transition-transform duration-300 group-hover/play:scale-110">
+              <Play size={22} className="ml-1" fill={INDIGO_CTA} color={INDIGO_CTA} />
+            </span>
+          </span>
+        </button>
+      </div>
+    </Reveal>
+  );
+}
+
+/* ===============================================================
+   5. FOCUS AREAS
+================================================================ */
+
+function FocusAreas({ data }: { data: IndustryContent }) {
+  if (!data.focusAreas.length) return null;
+
+  return (
+    <section className="relative overflow-hidden bg-white py-24 lg:py-28">
+      <div className={`relative ${ALIGN}`}>
+        <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+          <Reveal className="lg:sticky lg:top-28">
+            <Eyebrow>{data.name} Focus Areas</Eyebrow>
+            <h2
+              className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+              style={{ color: CHAMPION_BLUE }}
             >
-              <div className="absolute inset-0 opacity-0 transition-opacity duration-700 group-hover:opacity-100">
-                <IndustryImage
-                  src={images.focus[index % images.focus.length]}
-                  alt=""
-                  className="scale-110 opacity-20 transition-transform duration-1000 group-hover:scale-100"
-                />
+              Where We Focus
+            </h2>
+            <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+              Transforming {data.name.toLowerCase()} through targeted solutions and
+              customer-centric innovation.
+            </p>
+          </Reveal>
 
-                <div className="absolute inset-0 bg-[#0B0D27]/70" />
-              </div>
-
-              <div className="relative z-10 flex h-full flex-col">
-                <div className="flex items-center justify-between">
-                  <span className="text-[12px] font-bold text-white/35">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <ArrowUpRight
-                    size={19}
-                    className="text-white/30 transition-all duration-300 group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-white"
-                  />
-                </div>
-
-                <div className="mt-auto">
-                  <h3 className="max-w-md text-[24px] font-semibold leading-tight text-white">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+            {data.focusAreas.map((area, i) => (
+              <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
+                <div className="ss-capability-card flex h-full flex-col p-8">
+                  <h3
+                    className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
                     {area.title}
                   </h3>
-
-                  <p className="mt-4 max-w-md text-[14px] leading-[1.75] text-white/55 transition-colors group-hover:text-white/70">
+                  <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
                     {area.description}
                   </p>
                 </div>
-              </div>
-            </motion.article>
-          ))}
-        </motion.div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 }
 
 /* ===============================================================
-   IMPACT
+   6. IMPACT — autoplaying tabbed deep-dive
 ================================================================ */
 
-function ImpactSection({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
-  const [active, setActive] = useState(0);
+function ImpactSection({ data, images }: { data: IndustryContent; images: IndustryImages }) {
+  const [activeTab, setActiveTab] = useState(0);
+  const [tabHovered, setTabHovered] = useState(false);
 
   const points = data.impactPoints;
-
-  const safeIndex =
-    points.length > 0 ? Math.min(active, points.length - 1) : 0;
-
+  const safeIndex = points.length > 0 ? Math.min(activeTab, points.length - 1) : 0;
   const current = points[safeIndex];
-
   const currentImage =
-    images.impact[safeIndex % Math.max(images.impact.length, 1)] ??
-    fallbackImages.hero;
+    images.impact[safeIndex % Math.max(images.impact.length, 1)] ?? FALLBACK_IMAGE;
 
   useEffect(() => {
-    if (points.length <= 1) return;
-
-    const timer = window.setInterval(() => {
-      setActive((value) => (value + 1) % points.length);
-    }, 4500);
-
-    return () => window.clearInterval(timer);
-  }, [points.length]);
+    if (tabHovered || points.length <= 1) return undefined;
+    const id = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % points.length);
+    }, TAB_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [tabHovered, points.length]);
 
   if (!current) return null;
 
   return (
-    <section className={`${ALIGN} py-24 lg:py-32`}>
-      <SectionHeader
-        eyebrow="Business impact"
-        title={`What better ${data.name.toLowerCase()} software changes`}
-        description="Technology should create visible operational and commercial improvement. Explore the outcomes that matter most."
-      />
+    <div className={ALIGN}>
+      <Reveal as="section" className="mt-24 pb-28">
+        <Eyebrow>Business Impact</Eyebrow>
+        <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+          The Impact You Can Expect
+        </h2>
 
-      <div className="mt-14 grid grid-cols-1 gap-8 lg:grid-cols-[0.72fr_1.28fr]">
-        <div className="border-l border-[#E4E4EF]">
-          {points.map((point, index) => {
-            const isActive = index === safeIndex;
-
-            return (
-              <button
-                key={point.label}
-                type="button"
-                onClick={() => setActive(index)}
-                className={`relative flex min-h-[82px] w-full items-center px-6 text-left transition-all ${
-                  isActive
-                    ? "bg-[#F7F7FB] text-[#14163B]"
-                    : "text-[#8B8D9F] hover:bg-[#FAFAFC]"
-                }`}
-              >
-                {isActive && (
-                  <motion.span
-                    layoutId={`impact-indicator-${data.slug}`}
-                    className="absolute left-[-1px] top-0 h-full w-[3px] bg-[#3B2FE0]"
+        <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
+          <ul
+            className="space-y-1 border-l"
+            style={{ borderColor: "#E5E1F5" }}
+            onMouseEnter={() => setTabHovered(true)}
+            onMouseLeave={() => setTabHovered(false)}
+          >
+            {points.map((point, i) => {
+              const isActive = i === safeIndex;
+              return (
+                <li key={point.label} className="relative -ml-px">
+                  <span
+                    className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
+                    style={{ backgroundColor: "transparent" }}
                   />
-                )}
-
-                <span className="flex gap-4">
-                  <span className="text-[11px] font-bold text-[#A0A1B0]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-
-                  <span className="text-[15px] font-semibold">
+                  {isActive && (
+                    <span
+                      key={`${activeTab}-${tabHovered}`}
+                      className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                      style={{
+                        backgroundColor: CHAMPION_BLUE,
+                        animation: tabHovered
+                          ? "none"
+                          : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                        transform: tabHovered ? "scaleY(1)" : undefined,
+                      }}
+                    />
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab(i)}
+                    className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+                    style={{
+                      color: isActive ? CHAMPION_BLUE : "#94A3B8",
+                      fontWeight: isActive ? 700 : 500,
+                    }}
+                  >
                     {point.label}
-                  </span>
-                </span>
-              </button>
-            );
-          })}
-        </div>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
 
-        <div className="overflow-hidden rounded-[26px] border border-[#E5E5EF] bg-[#F7F7FB]">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={safeIndex}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -15 }}
-              transition={{ duration: 0.45 }}
-              className="grid min-h-[420px] grid-cols-1 md:grid-cols-[1fr_0.9fr]"
-            >
-              <div className="flex flex-col justify-center p-8 sm:p-10">
-                <span className={`text-[11px] font-bold uppercase tracking-[0.15em] ${T.primary}`}>
-                  Outcome
-                </span>
-
-                <h3 className="mt-4 text-[27px] font-bold leading-tight">
-                  {current.label}
-                </h3>
-
-                <p className={`mt-5 text-[15px] leading-[1.8] ${T.muted}`}>
-                  {current.body}
-                </p>
-              </div>
-
-              <div className="relative min-h-[300px]">
-                <IndustryImage
-                  src={currentImage}
-                  alt={current.label}
-                  className="transition-transform duration-[1000ms] hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D27]/30 via-transparent to-transparent" />
-
-                <div className="absolute bottom-5 left-5">
-                  <span className="rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.12em] text-[#3B2FE0]">
-                    {String(safeIndex + 1).padStart(2, "0")} /{" "}
-                    {String(points.length).padStart(2, "0")}
-                  </span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===============================================================
-   CAPABILITIES
-================================================================ */
-
-function Capabilities({
-  data,
-}: {
-  data: IndustryContent;
-}) {
-  return (
-    <section className="border-y border-[#E5E5EF] bg-[#F8F8FB] py-24 lg:py-32">
-      <div className={ALIGN}>
-        <SectionHeader
-          eyebrow="Capabilities"
-          title="From product strategy to production"
-          description="Bring product thinking, engineering and infrastructure together in one delivery team."
-        />
-
-        <motion.div
-          {...inView}
-          variants={stagger}
-          className="mt-14 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3"
-        >
-          {data.capabilities.map((capability, index) => (
-            <motion.article
-              key={capability.title}
-              variants={cardReveal}
-              whileHover={{ y: -5 }}
-              className="group min-h-[230px] rounded-[20px] border border-[#E3E3EC] bg-white p-7 transition-shadow duration-300 hover:shadow-[0_20px_60px_rgba(20,22,59,0.08)]"
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold text-[#A5A6B5]">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <ArrowUpRight
-                  size={17}
-                  className="text-[#C0C1CC] transition-all group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:text-[#3B2FE0]"
-                />
-              </div>
-
-              <h3 className="mt-12 text-[19px] font-semibold leading-snug">
-                {capability.title}
-              </h3>
-
-              <p className={`mt-3 text-[14px] leading-[1.75] ${T.muted}`}>
-                {capability.description}
-              </p>
-            </motion.article>
-          ))}
-        </motion.div>
-      </div>
-    </section>
-  );
-}
-
-/* ===============================================================
-   SOLUTIONS
-================================================================ */
-
-function Solutions({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
-  return (
-    <section className={`${ALIGN} py-24 lg:py-32`}>
-      <SectionHeader
-        eyebrow="Solutions"
-        title={`Purpose-built solutions for ${data.name.toLowerCase()}`}
-        description="Start with a focused business problem, then build the platform around it."
-      />
-
-      <motion.div
-        {...inView}
-        variants={stagger}
-        className="mt-14 grid grid-cols-1 gap-6 lg:grid-cols-2"
-      >
-        {data.solutions.map((solution, index) => (
-          <motion.article
-            key={solution.title}
-            variants={cardReveal}
-            className="group relative min-h-[450px] overflow-hidden rounded-[26px] bg-[#0B0D27]"
+          <div
+            key={activeTab}
+            className="ss-tab-panel isolate grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
+            style={{ backgroundColor: "#F5F3FC" }}
           >
-            <IndustryImage
-              src={images.solutions[index % Math.max(images.solutions.length, 1)]}
-              alt={solution.title}
-              className="opacity-55 transition-transform duration-[1200ms] group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-[#08091E] via-[#0B0D27]/45 to-transparent" />
-
-            <div className="absolute inset-x-0 bottom-0 p-7 sm:p-9">
-              <div className="flex items-center justify-between">
-                <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#9AA8FF]">
-                  Solution {String(index + 1).padStart(2, "0")}
-                </span>
-
-                <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-[#14163B] transition-transform duration-300 group-hover:rotate-45">
-                  <ArrowUpRight size={17} />
-                </span>
-              </div>
-
-              <h3 className="mt-5 max-w-xl text-[27px] font-semibold leading-tight text-white sm:text-[32px]">
-                {solution.title}
-              </h3>
-
-              <p className="mt-4 max-w-xl text-[14px] leading-[1.75] text-white/60">
-                {solution.description}
-              </p>
-            </div>
-          </motion.article>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
-
-/* ===============================================================
-   TECHNOLOGY
-================================================================ */
-
-function Technology({
-  data,
-}: {
-  data: IndustryContent;
-}) {
-  return (
-    <section className="bg-[#F8F8FB] py-24 lg:py-32">
-      <div className={ALIGN}>
-        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <SectionHeader
-            eyebrow="Technology"
-            title="A stack that supports the product, not the other way around"
-            description={`The right technology choices depend on the requirements of your ${data.name.toLowerCase()} platform, integrations and scale.`}
-          />
-
-          <motion.div
-            {...inView}
-            variants={reveal}
-            className="grid grid-cols-2 overflow-hidden rounded-[22px] border border-[#E3E3EC] bg-white sm:grid-cols-3"
-          >
-            {data.techStack.map((technology, index) => (
-              <div
-                key={technology}
-                className={`flex min-h-[100px] items-center justify-center border-[#E3E3EC] px-4 text-center text-[14px] font-semibold text-[#252744] ${
-                  index % 3 !== 2 ? "border-r" : ""
-                } ${
-                  index >= 3 ? "border-t" : ""
-                }`}
+            {/* Copy sits at the top of the panel, same as the
+                Software & Product Engineering tab panel. */}
+            <div className="flex flex-col justify-start self-start p-3 pt-2 lg:p-6 lg:pt-5">
+              <h3
+                className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
+                style={{ color: CHAMPION_BLUE }}
               >
-                {technology}
-              </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===============================================================
-   INSIGHTS
-================================================================ */
-
-function Insights({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
-  return (
-    <section className={`${ALIGN} py-24 lg:py-32`}>
-      <SectionHeader
-        eyebrow="Industry insights"
-        title="Ideas for building better digital products"
-        description={`Practical perspectives around technology, product development and ${data.name.toLowerCase()} operations.`}
-      />
-
-      <motion.div
-        {...inView}
-        variants={stagger}
-        className="mt-14 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
-      >
-        {data.insights.map((insight, index) => (
-          <motion.article
-            key={insight.title}
-            variants={cardReveal}
-            className="group overflow-hidden rounded-[22px] border border-[#E4E4ED] bg-white"
-          >
-            <div className="relative h-[230px] overflow-hidden">
-              <IndustryImage
-                src={
-                  images.insights[
-                    index % Math.max(images.insights.length, 1)
-                  ]
-                }
-                alt={insight.title}
-                className="transition-transform duration-1000 group-hover:scale-105"
-              />
-
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D27]/60 to-transparent" />
-
-              <div className="absolute left-5 top-5">
-                <span className="rounded-full bg-white/95 px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.1em] text-[#3B2FE0]">
-                  {insight.tag}
-                </span>
-              </div>
-            </div>
-
-            <div className="p-7">
-              <p className={`text-[10px] font-bold uppercase tracking-[0.15em] ${T.primary}`}>
-                {insight.tag}
-              </p>
-
-              <h3 className="mt-3 text-[19px] font-semibold leading-snug">
-                {insight.title}
+                {current.label}
               </h3>
-
-              <p className={`mt-3 text-[14px] leading-[1.75] ${T.muted}`}>
-                {insight.blurb}
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
+                {current.body}
               </p>
-
-              <div className={`mt-6 flex items-center gap-2 text-[13px] font-bold ${T.primary}`}>
-                Read insight
-                <ArrowUpRight size={15} />
-              </div>
             </div>
-          </motion.article>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
 
-/* ===============================================================
-   FAQ
-================================================================ */
-
-function FaqItem({
-  faq,
-  index,
-}: {
-  faq: IndustryFaq;
-  index: number;
-}) {
-  const [open, setOpen] = useState(index === 0);
-
-  return (
-    <div className="border-b border-[#E2E2EB]">
-      <button
-        type="button"
-        onClick={() => setOpen((value) => !value)}
-        aria-expanded={open}
-        className="flex w-full items-center justify-between gap-6 py-6 text-left"
-      >
-        <span className="flex gap-5">
-          <span className="pt-1 text-[11px] font-bold text-[#A2A3B1]">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
-          <span className="text-[16px] font-semibold leading-snug text-[#14163B] sm:text-[18px]">
-            {faq.question}
-          </span>
-        </span>
-
-        <span
-          className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#3B2FE0] text-white transition-transform duration-300 ${
-            open ? "rotate-45" : ""
-          }`}
-        >
-          <Plus size={16} />
-        </span>
-      </button>
-
-      <AnimatePresence initial={false}>
-        {open && (
-          <motion.div
-            initial={{
-              height: 0,
-              opacity: 0,
-            }}
-            animate={{
-              height: "auto",
-              opacity: 1,
-            }}
-            exit={{
-              height: 0,
-              opacity: 0,
-            }}
-            transition={{
-              duration: 0.3,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-          >
-            <p className="pb-7 pl-10 pr-10 text-[14.5px] leading-[1.8] text-[#686A82]">
-              {faq.answer}
-            </p>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="relative min-h-[280px] overflow-hidden">
+              <SafeImg
+                src={currentImage}
+                alt={current.label}
+                className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform hover:scale-105"
+              />
+            </div>
+          </div>
+        </div>
+      </Reveal>
     </div>
   );
 }
 
-function FAQ({
-  data,
-}: {
-  data: IndustryContent;
-}) {
-  return (
-    <section className="border-y border-[#E5E5EF] bg-[#F8F8FB] py-24 lg:py-32">
-      <div className={ALIGN}>
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[0.65fr_1.35fr]">
-          <SectionHeader
-            eyebrow="FAQ"
-            title="Questions before we start"
-            description={`A few answers about building software for ${data.name.toLowerCase()} teams.`}
-          />
+/* ===============================================================
+   7. CAPABILITIES — dark accordion
+================================================================ */
 
-          <motion.div {...inView} variants={stagger}>
-            {data.faqs.map((faq, index) => (
-              <motion.div
-                key={faq.question}
-                variants={cardReveal}
-              >
-                <FaqItem faq={faq} index={index} />
-              </motion.div>
-            ))}
-          </motion.div>
+function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  if (!data.capabilities.length) return null;
+
+  const columns: { item: IndustryCapability; index: number }[][] = [[], []];
+  data.capabilities.forEach((item, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ item, index });
+  });
+
+  return (
+    <section className="relative overflow-hidden bg-[#08070F] py-24">
+      <div
+        className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
+        style={{
+          background:
+            "radial-gradient(60% 90% at 100% 100%, rgba(232,110,90,0.55) 0%, rgba(164,143,234,0.35) 35%, rgba(8,7,15,0) 70%)",
+        }}
+      />
+      <div
+        className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
+        style={{
+          background:
+            "radial-gradient(60% 80% at 0% 100%, rgba(63,90,214,0.35) 0%, rgba(8,7,15,0) 70%)",
+        }}
+      />
+
+      <div className={`relative ${ALIGN}`}>
+        <Reveal>
+          <Eyebrow variant="dark">Capabilities</Eyebrow>
+          <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
+            Our {data.name} Capabilities
+          </h2>
+        </Reveal>
+
+        <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+          {columns.map((column, colIndex) => (
+            <div key={colIndex} className="flex flex-col gap-5">
+              {column.map(({ item, index }) => {
+                const isOpen = openIndex === index;
+                return (
+                  <Reveal key={item.title} delay={index * 80}>
+                    <div
+                      className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                      style={{ boxShadow: isOpen ? "0 18px 40px rgba(15,23,42,0.18)" : undefined }}
+                    >
+                      <button
+                        type="button"
+                        aria-expanded={isOpen}
+                        aria-controls={`capability-panel-${index}`}
+                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                      >
+                        <span
+                          className="font-heading text-[19px] font-medium leading-snug transition-colors duration-300"
+                          style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
+                        >
+                          {item.title}
+                        </span>
+                        <span
+                          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                          style={{
+                            backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
+                            color: isOpen ? "#8B93A7" : "#FFFFFF",
+                            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                          }}
+                        >
+                          {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                        </span>
+                      </button>
+
+                      <div
+                        id={`capability-panel-${index}`}
+                        className="ss-eco-panel grid transition-all duration-500 ease-out"
+                        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                      >
+                        <div className="overflow-hidden">
+                          <p
+                            className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                            style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                          >
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </Reveal>
+                );
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1274,59 +1093,130 @@ function FAQ({
 }
 
 /* ===============================================================
-   FINAL CTA
+   8. PARTNER / TECHNOLOGY ECOSYSTEM
 ================================================================ */
 
-function FinalCTA({
-  data,
-  images,
-}: {
-  data: IndustryContent;
-  images: IndustryImages;
-}) {
+function PartnerEcosystem({ data }: { data: IndustryContent }) {
+  if (!data.techStack.length) return null;
+
   return (
-    <section className={`${ALIGN} py-20 lg:py-28`}>
-      <motion.div
-        {...inView}
-        variants={reveal}
-        className="relative overflow-hidden rounded-[30px] bg-[#0B0D27] px-7 py-12 sm:px-10 sm:py-16 lg:px-16 lg:py-20"
-      >
-        <div className="absolute inset-0">
-          <IndustryImage
-            src={images.hero}
-            alt=""
-            className="opacity-20"
-          />
-
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0B0D27] via-[#0B0D27]/90 to-[#0B0D27]/50" />
-        </div>
-
-        <div className="relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.18em] text-[#9AA8FF]">
-              <span className="h-px w-8 bg-[#9AA8FF]" />
-              Let&apos;s build
-            </div>
-
-            <h2 className="mt-5 max-w-3xl text-[35px] font-bold leading-[1.06] tracking-[-0.035em] text-white sm:text-[45px] lg:text-[58px]">
-              Ready to build better software for {data.name.toLowerCase()}?
+    <section className="bg-[#EEF0F7] py-24">
+      <div className={ALIGN}>
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
+          <Reveal>
+            <Eyebrow>{data.name} Partnership Ecosystem</Eyebrow>
+            <h2
+              className="font-heading mt-4 text-[30px] font-bold leading-tight tracking-[-0.03em] sm:text-[36px]"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Joining Forces to Deliver Outcomes
             </h2>
-
-            <p className="mt-6 max-w-2xl text-[15px] leading-[1.8] text-white/60">
-              Tell us what you&apos;re trying to solve. We&apos;ll help you
-              shape the right product, architecture and delivery approach.
+            <p className="font-body mt-4 max-w-sm text-[15px] leading-[1.8] text-slate-600">
+              Leading technology partners embedded into every {data.name.toLowerCase()} engagement.
             </p>
-          </div>
+          </Reveal>
 
-          <Link
-            href="/contact"
-            className="inline-flex h-12 items-center justify-center gap-2 rounded-full bg-white px-7 text-[14px] font-bold text-[#14163B] transition-transform duration-300 hover:-translate-y-1"
-          >
-            Talk to us
-            <ArrowRight size={16} />
-          </Link>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+            {data.techStack.map((tech, i) => (
+              <Reveal
+                key={tech}
+                delay={i * 60}
+                className="ss-capability-card flex h-[90px] items-center justify-center px-4 text-center"
+              >
+                <span className="font-body text-[15px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+                  {tech}
+                </span>
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </motion.div>
+      </div>
+    </section>
+  );
+}
+
+/* ===============================================================
+   9. FAQ  (last section on the page)
+================================================================ */
+
+function FaqItem({ faq, index }: { faq: IndustryFaq; index: number }) {
+  const [open, setOpen] = useState(index === 0);
+
+  return (
+    <div
+      className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+      style={{ boxShadow: open ? "0 18px 40px rgba(15,23,42,0.10)" : undefined }}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+      >
+        <span
+          className="font-heading text-[17px] font-medium leading-snug transition-colors duration-300 sm:text-[18px]"
+          style={{ color: open ? INDIGO_CTA : CHAMPION_BLUE }}
+        >
+          {faq.question}
+        </span>
+        <span
+          className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+          style={{
+            backgroundColor: open ? "#E5E1F5" : INDIGO_CTA,
+            color: open ? "#8B93A7" : "#FFFFFF",
+            transform: open ? "rotate(180deg)" : "rotate(0deg)",
+          }}
+        >
+          {open ? <Minus size={18} /> : <Plus size={18} />}
+        </span>
+      </button>
+
+      <div
+        className="ss-eco-panel grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <div className="px-8 pb-8" style={{ opacity: open ? 1 : 0, transition: "opacity 0.5s ease" }}>
+            <p className="font-body text-[15px] leading-[1.8] text-slate-600">{faq.answer}</p>
+            <Link
+              href="/contact"
+              className="font-body mt-4 inline-flex items-center gap-2 text-[13px] font-bold"
+              style={{ color: INDIGO_CTA }}
+            >
+              Still have questions? Talk to us
+              <ArrowUpRight size={14} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function FAQ({ data }: { data: IndustryContent }) {
+  if (!data.faqs.length) return null;
+
+  return (
+    <section className="bg-[#F8F8FB] py-24">
+      <div className={ALIGN}>
+        <Reveal>
+          <Eyebrow>FAQ</Eyebrow>
+          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+            Frequently Asked Questions
+          </h2>
+          <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+            A few answers about building software for {data.name.toLowerCase()} teams.
+          </p>
+        </Reveal>
+
+        <div className="mt-12 space-y-4">
+          {data.faqs.map((faq, index) => (
+            <Reveal key={faq.question} delay={index * 70}>
+              <FaqItem faq={faq} index={index} />
+            </Reveal>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -1335,257 +1225,38 @@ function FinalCTA({
    MAIN TEMPLATE
 ================================================================ */
 
-export default function IndustryPageTemplate({
-  data,
-}: {
-  data: IndustryContent;
-}) {
-  const images = useMemo(
-    () => getImages(data.slug),
-    [data.slug]
-  );
+export default function IndustryPageTemplate({ data }: { data: IndustryContent }) {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
+  const images = getImages(data.slug);
 
   return (
-    <main className={`${T.ink} overflow-hidden bg-white`}>
-      {/* =========================================================
-          HERO
-      ========================================================= */}
+    <main className="bg-white">
+      <AnimationStyles />
 
-      <section className="relative bg-[#F8F8FB] pt-28 lg:pt-36">
-        <div className={ALIGN}>
-          <div className="mb-8 flex flex-wrap items-center gap-2 text-[12px] text-[#858697]">
-            <Link
-              href="/"
-              className="transition-colors hover:text-[#3B2FE0]"
-            >
-              Home
-            </Link>
+      <Hero data={data} images={images} />
+      <StatStrip data={data} />
 
-            <span>/</span>
+      <div className={ALIGN}>
+        <Reveal as="section" className="mt-16">
+          <KeyTakeawaysAccordion data={data} open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
-            <Link
-              href="/industries"
-              className="transition-colors hover:text-[#3B2FE0]"
-            >
-              Industries
-            </Link>
+          <p
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            {data.highlight.body}
+          </p>
+        </Reveal>
 
-            <span>/</span>
-
-            <span className="text-[#14163B]">{data.name}</span>
-          </div>
-
-          <div className="grid min-h-[680px] grid-cols-1 items-center gap-12 pb-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-20 lg:pb-24">
-            <motion.div
-              initial="hidden"
-              animate="visible"
-              variants={stagger}
-            >
-              <motion.div
-                variants={reveal}
-                className={`flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.18em] ${T.primary}`}
-              >
-                <span className="h-px w-8 bg-[#3B2FE0]" />
-                {data.kicker}
-              </motion.div>
-
-              <motion.h1
-                variants={reveal}
-                className="mt-6 max-w-3xl text-[43px] font-bold leading-[1.02] tracking-[-0.045em] sm:text-[55px] lg:text-[70px]"
-              >
-                {data.headline}
-              </motion.h1>
-
-              <motion.p
-                variants={reveal}
-                className={`mt-7 max-w-2xl text-[16px] leading-[1.8] ${T.muted}`}
-              >
-                {data.description}
-              </motion.p>
-
-              <motion.div
-                variants={reveal}
-                className="mt-9 flex flex-wrap gap-3"
-              >
-                <Link
-                  href="/contact"
-                  className="inline-flex h-12 items-center gap-2 rounded-full bg-[#3B2FE0] px-7 text-[14px] font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#2E24B8]"
-                >
-                  Start a conversation
-                  <ArrowRight size={16} />
-                </Link>
-
-                <a
-                  href="#solutions"
-                  className="inline-flex h-12 items-center gap-2 rounded-full border border-[#DADAE5] bg-white px-7 text-[14px] font-bold text-[#14163B] transition-all duration-300 hover:-translate-y-1"
-                >
-                  Explore solutions
-                  <ChevronDown size={16} />
-                </a>
-              </motion.div>
-
-              <motion.div
-                variants={reveal}
-                className="mt-12 flex items-center gap-4"
-              >
-                <div className="flex -space-x-2">
-                  {[0, 1, 2].map((item) => (
-                    <span
-                      key={item}
-                      className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-[#F8F8FB] bg-[#E8E8F2] text-[#3B2FE0]"
-                    >
-                      <Sparkles size={13} />
-                    </span>
-                  ))}
-                </div>
-
-                <p className="text-[12px] leading-relaxed text-[#77798B]">
-                  Product thinking + engineering + delivery
-                </p>
-              </motion.div>
-            </motion.div>
-
-            <motion.div
-              initial={{
-                opacity: 0,
-                scale: 0.94,
-                y: 25,
-              }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                y: 0,
-              }}
-              transition={{
-                duration: 1,
-                delay: 0.35,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="relative"
-            >
-              <div className="absolute -inset-5 rounded-[38px] bg-[#EAE9FF] blur-2xl" />
-
-              <div className="relative h-[500px] overflow-hidden rounded-[30px] border border-white bg-white shadow-[0_30px_100px_rgba(20,22,59,0.14)] sm:h-[600px]">
-                <IndustryImage
-                  src={images.hero}
-                  alt={data.name}
-                  priority
-                  className="transition-transform duration-[1400ms] hover:scale-105"
-                />
-
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0D27]/70 via-transparent to-transparent" />
-
-                <div className="absolute bottom-6 left-6 right-6">
-                  <div className="rounded-2xl border border-white/15 bg-[#0B0D27]/50 p-5 backdrop-blur-xl">
-                    <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#9AA8FF]">
-                      Built around your business
-                    </p>
-
-                    <p className="mt-2 text-[15px] font-medium leading-relaxed text-white">
-                      {data.keyTakeaway}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="absolute -bottom-7 -left-4 hidden rounded-2xl border border-[#E5E5EF] bg-white p-5 shadow-xl sm:block lg:-left-10">
-                <div className="text-[28px] font-bold tracking-tight text-[#14163B]">
-                  {data.stats[0]?.value ?? "5+"}
-                </div>
-
-                <div className="mt-1 max-w-[130px] text-[10px] font-semibold uppercase leading-relaxed tracking-[0.1em] text-[#77798B]">
-                  {data.stats[0]?.label ?? "Years delivering software"}
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        <div className={ALIGN}>
-          <StatsStrip stats={data.stats} />
-        </div>
-      </section>
-
-      {/* =========================================================
-          TAKEAWAY
-      ========================================================= */}
-
-      <Takeaway data={data} />
-
-      {/* =========================================================
-          FOUR NEW INDUSTRY-SPECIFIC SECTIONS
-      ========================================================= */}
-
-      <ExtraIndustrySections
-        data={data}
-        images={images}
-      />
-
-      {/* =========================================================
-          FOCUS
-      ========================================================= */}
-
-      <FocusAreas
-        data={data}
-        images={images}
-      />
-
-      {/* =========================================================
-          IMPACT
-      ========================================================= */}
-
-      <ImpactSection
-        data={data}
-        images={images}
-      />
-
-      {/* =========================================================
-          CAPABILITIES
-      ========================================================= */}
-
-      <Capabilities data={data} />
-
-      {/* =========================================================
-          SOLUTIONS
-      ========================================================= */}
-
-      <div id="solutions">
-        <Solutions
-          data={data}
-          images={images}
-        />
+        <HighlightBlock data={data} images={images} />
       </div>
 
-      {/* =========================================================
-          TECHNOLOGY
-      ========================================================= */}
-
-      <Technology data={data} />
-
-      {/* =========================================================
-          INSIGHTS
-      ========================================================= */}
-
-      <Insights
-        data={data}
-        images={images}
-      />
-
-      {/* =========================================================
-          FAQ
-      ========================================================= */}
-
+      <FocusAreas data={data} />
+      <ImpactSection data={data} images={images} />
+      <CapabilitiesAccordion data={data} />
+      <PartnerEcosystem data={data} />
       <FAQ data={data} />
-
-      {/* =========================================================
-          CTA
-      ========================================================= */}
-
-      <FinalCTA
-        data={data}
-        images={images}
-      />
+      <ConnectFormSection />
     </main>
   );
 }
-

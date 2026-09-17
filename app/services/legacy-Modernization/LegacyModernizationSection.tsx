@@ -18,17 +18,18 @@ import {
   ChevronRight,
   ChevronDown,
   ChevronLeft,
-  Sparkles,
   ArrowUpRight,
   Plus,
   Minus,
-  Trophy,
 } from "lucide-react";
 
 /* ===============================================================
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
    Secondary Lavender       #ECE7FB (surface) / #A48FEA (accent)
+
+   Kept byte-for-byte identical to the Software & Product
+   Engineering page so both service pages share one design system.
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
@@ -37,7 +38,6 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
-
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
 // Autoplay timing for the "Legacy Modernization" tab list
@@ -49,13 +49,7 @@ const HERO_BACKGROUND_IMAGE =
 
 /* ===============================================================
    TYPOGRAPHY TOKENS
-   Same scale used on the Data & Analytics Services page, so every
-   service page's Hero <h1> and big section <h2>s render at
-   identical sizes across the site.
 ================================================================ */
-
-const HERO_HEADING =
-  "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
 
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
@@ -64,50 +58,48 @@ const SECTION_HEADING =
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
    "Starfii offers..."), keyword rich but natural, no hyphens.
-
-   Headings/subheadings are aligned to the recommended section list:
-   93.  Legacy assessment          -> Hero + Key Takeaways
-   94.  Modernization strategy     -> Q&A section
-   95.  Application modernization  -> Focus area card
-   96.  Re-engineering             -> Focus area card
-   97.  Re-platforming             -> Focus area card
-   98.  Cloud migration            -> Focus area card
-   99.  Architecture modernization -> Focus area card
-   100. API modernization          -> Focus area card
-   101. Database modernization     -> Focus area card
-   102. Modernization roadmap      -> Focus area card
-   103. Case studies               -> Case Studies section
-   104. CTA                        -> Closing CTA section
 ================================================================ */
 
-// Small dash-led eyebrow, matching the "Legacy Modernization"
-// heading style used across the page.
 function Eyebrow({
   children,
   variant = "light",
 }: {
   children: ReactNode;
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "black";
 }): ReactElement {
   return (
     <span
       className="font-body inline-flex items-center gap-2 text-[16px] font-semibold sm:text-[18px]"
-      style={{ color: variant === "dark" ? "#FFFFFF" : CHAMPION_BLUE }}
+      style={{
+        color:
+          variant === "dark"
+            ? "#FFFFFF"
+            : variant === "black"
+              ? "#000000"
+              : CHAMPION_BLUE,
+      }}
     >
-      <span aria-hidden="true"></span>
       <span>{children}</span>
     </span>
   );
 }
 
-// Key Takeaways — same flat, typewriter-friendly string format used on
-// the Data & Analytics Services page's "Why Data & Analytics Matters"
-// accordion, so both pages share the identical open/close + typing
-// animation instead of two different interactions.
-const keyTakeaways: string[] = [
-  "Assess legacy applications, technical debt, and infrastructure risk to build a clear, prioritized picture of what to modernize first and why.",
-  "Modernize by re engineering, re platforming, or migrating legacy systems to modern, cloud ready architectures with minimal disruption to daily business operations.",
-  "Scale by modernizing APIs, databases, and application architecture so performance, security, and delivery speed hold up as the business grows.",
+// Key Takeaways — same {title, body} shape and typewriter accordion
+// used on the Software & Product Engineering page, so both pages
+// share the identical open/close + typing animation.
+const keyTakeaways: { title: string; body: string }[] = [
+  {
+    title: "Assess",
+    body: "Map legacy applications, technical debt, and infrastructure risk to build a clear, prioritized picture of what to modernize first and why.",
+  },
+  {
+    title: "Modernize",
+    body: "Re engineer, re platform, or migrate legacy systems to modern, cloud ready architectures with minimal disruption to daily business operations.",
+  },
+  {
+    title: "Scale",
+    body: "Modernize APIs, databases, and application architecture so performance, security, and delivery speed hold up as the business grows.",
+  },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
@@ -160,6 +152,15 @@ const focusAreas: FocusArea[] = [
   },
 ];
 
+// Turns a focus area title into a URL-friendly slug for its detail page,
+// e.g. "Re-platforming" -> "re-platforming".
+function slugify(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
 type ServiceTab = {
   label: string;
   heading: string;
@@ -205,12 +206,6 @@ const tabs: ServiceTab[] = [
   },
 ];
 
-/* ===============================================================
-   IMPACT ACROSS YOUR LEGACY MODERNIZATION ECOSYSTEM
-   Each item now carries a body so the section can expand in place
-   like the Software & Product Engineering ecosystem accordion.
-================================================================ */
-
 type EcosystemImpact = { title: string; body: string };
 
 const ecosystemImpact: EcosystemImpact[] = [
@@ -237,41 +232,6 @@ const ecosystemImpact: EcosystemImpact[] = [
   {
     title: "Re-engineering",
     body: "Rebuild outdated codebases around modern languages and frameworks while carrying forward the business rules embedded in them. Starfii improves performance and maintainability without losing the logic your operation has depended on for years.",
-  },
-];
-
-type IndustryAward = {
-  year: string;
-  category: string;
-  subcategory: string;
-  rank: string;
-  description: string;
-};
-
-const industryAwards: IndustryAward[] = [
-  {
-    year: "2026 Quadrant",
-    category: "Mainframes, Services and Solutions",
-    subcategory: "Application Modernization Services",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii named a Leader in Application Modernization Services in the ISG Provider Lens® Mainframes, Services and Solutions 2026 U.S. Quadrant Report, recognizing our legacy modernization expertise.",
-  },
-  {
-    year: "2025 Quadrant",
-    category: "Digital Engineering Services",
-    subcategory: "Design and Development",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii named a Leader in Design and Development (Products, Services and Experiences) in the ISG Provider Lens™ Digital Engineering Services 2025 US Quadrant Report, reflecting our modernization capability.",
-  },
-  {
-    year: "2025 Quadrant",
-    category: "Cloud and Data Engineering",
-    subcategory: "Migration and Modernization",
-    rank: "Leader, U.S.",
-    description:
-      "Starfii recognized as a Leader in Cloud and Data Engineering Migration and Modernization Services in the ISG Provider Lens™ 2025 US Quadrant Report, validating our cloud migration and re platforming services.",
   },
 ];
 
@@ -323,12 +283,6 @@ type InsightPost = {
   body: string;
 };
 
-// NOTE: previously these pointed at local /images/blog/*.jpg paths that
-// don't exist in the project, so the cards rendered broken images.
-// Swapped in real, high resolution (up to 4K wide) hosted images that
-// match each post's subject, using the same trusted Unsplash source
-// already used elsewhere on this page and on the Software & Product
-// Engineering page.
 const insights: InsightPost[] = [
   {
     slug: "legacy-modernization-with-generative-ai",
@@ -374,6 +328,9 @@ const insights: InsightPost[] = [
 
 /* ===============================================================
    GLOBAL KEYFRAMES
+   Identical to the Software & Product Engineering page, including
+   the light capability card treatment, so both pages render from
+   one shared visual system.
 ================================================================ */
 
 function AnimationStyles(): ReactElement {
@@ -401,7 +358,7 @@ function AnimationStyles(): ReactElement {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
-      /* Typewriter caret blink for the Key Takeaways accordion */
+      /* Typewriter cursor blink for Key Takeaways */
       @keyframes ss-caret-blink {
         0%, 100% { opacity: 1; }
         50%      { opacity: 0; }
@@ -429,220 +386,62 @@ function AnimationStyles(): ReactElement {
         animation: ss-caret-blink 0.9s steps(1) infinite;
       }
 
-      .ss-award-card {
-        transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-          box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-        box-shadow: 0 0 0 rgba(164, 143, 234, 0);
-      }
-      .ss-award-card:hover {
-        transform: translateY(-6px);
-        box-shadow: 0 22px 45px -18px rgba(79, 63, 224, 0.55),
-          0 0 0 1px rgba(164, 143, 234, 0.35);
-      }
-      .ss-award-card:hover .ss-trophy {
-        transform: rotate(-14deg) scale(1.15);
-      }
-      .ss-trophy {
-        transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      }
-
       /* =============================================================
-         PREMIUM CAPABILITIES GRID
-         Exact same animation language used on the Software &
-         Product Engineering capabilities cards.
+         LIGHT CAPABILITIES GRID
+         Soft lavender-grey panel, navy title, grey body copy and an
+         indigo "Learn More" link with a sliding underline — same
+         card language as the Software & Product Engineering page.
       ============================================================= */
-      .ss-capabilities-section {
-        isolation: isolate;
-      }
-
-      .ss-capabilities-grid {
-        position: relative;
-      }
-
-      .ss-capabilities-grid::before {
-        content: "";
-        position: absolute;
-        inset: -70px -40px;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0.42;
-        background-image:
-          linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-        background-size: 72px 72px;
-        mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
-        -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 78%);
-      }
-
       .ss-capability-card {
         position: relative;
-        min-height: 390px;
-        overflow: hidden;
-        isolation: isolate;
-        background:
-          linear-gradient(145deg, rgba(255,255,255,0.045), rgba(255,255,255,0.012) 42%, rgba(164,143,234,0.035)),
-          #0F0E18;
-        border: 1px solid rgba(255,255,255,0.10);
-        box-shadow: 0 20px 55px rgba(0,0,0,0.16);
-        transform: translateZ(0);
+        background-color: #EEF0F5;
+        border-radius: 20px;
         transition:
-          transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
-          border-color 0.4s ease,
-          box-shadow 0.55s ease,
-          background 0.45s ease;
-      }
-
-      .ss-capability-card::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: -1;
-        pointer-events: none;
-        opacity: 0;
-        background:
-          radial-gradient(260px 180px at 85% 8%, rgba(164,143,234,0.20), transparent 70%),
-          radial-gradient(220px 180px at 5% 100%, rgba(79,63,224,0.12), transparent 70%);
-        transition: opacity 0.5s ease;
-      }
-
-      .ss-capability-card::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        height: 1px;
-        opacity: 0;
-        transform: translateX(-105%);
-        background: linear-gradient(90deg, transparent, rgba(255,255,255,0.8), transparent);
-        transition: opacity 0.25s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-
-      .ss-capability-card:hover {
-        transform: translateY(-10px);
-        border-color: rgba(164,143,234,0.48);
-        box-shadow:
-          0 28px 75px rgba(0,0,0,0.28),
-          0 0 0 1px rgba(164,143,234,0.05),
-          0 0 55px rgba(79,63,224,0.12);
-        background:
-          linear-gradient(145deg, rgba(255,255,255,0.065), rgba(255,255,255,0.018) 42%, rgba(164,143,234,0.07)),
-          #11101B;
-      }
-
-      .ss-capability-card:hover::before {
-        opacity: 1;
-      }
-
-      .ss-capability-card:hover::after {
-        opacity: 1;
-        transform: translateX(105%);
-      }
-
-      .ss-capability-number {
-        position: absolute;
-        top: -18px;
-        right: 18px;
-        z-index: -1;
-        font-family: var(--font-heading, sans-serif);
-        font-size: 116px;
-        line-height: 1;
-        font-weight: 600;
-        letter-spacing: -0.08em;
-        color: rgba(255,255,255,0.025);
-        transition: color 0.45s ease, transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-
-      .ss-capability-card:hover .ss-capability-number {
-        color: rgba(164,143,234,0.065);
-        transform: translate(-8px, 4px);
-      }
-
-      .ss-capability-icon {
-        transition:
-          transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1),
           background-color 0.35s ease,
-          border-color 0.35s ease,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
           box-shadow 0.35s ease;
       }
 
-      .ss-capability-card:hover .ss-capability-icon {
-        transform: rotate(8deg) scale(1.08);
-        background-color: ${INDIGO_CTA};
-        border-color: ${INDIGO_CTA};
-        box-shadow: 0 10px 28px rgba(79,63,224,0.28);
+      .ss-capability-card:hover {
+        background-color: #E4E7F3;
+        transform: translateY(-4px);
+        box-shadow: 0 16px 40px rgba(27, 37, 96, 0.08);
       }
 
       .ss-capability-title {
-        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), color 0.3s ease;
-      }
-
-      .ss-capability-card:hover .ss-capability-title {
-        transform: translateX(4px);
-      }
-
-      .ss-capability-line {
-        position: relative;
-        height: 1px;
-        overflow: hidden;
-        background: rgba(255,255,255,0.10);
-      }
-
-      .ss-capability-line::after {
-        content: "";
-        position: absolute;
-        inset: 0 auto 0 0;
-        width: 42%;
-        background: linear-gradient(90deg, ${LAVENDER_ACCENT}, transparent);
-        transform: translateX(-120%);
-        transition: transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-
-      .ss-capability-card:hover .ss-capability-line::after {
-        transform: translateX(250%);
+        transition: color 0.3s ease;
       }
 
       .ss-capability-tag {
-        transition:
-          transform 0.3s ease,
-          color 0.3s ease,
-          border-color 0.3s ease,
-          background-color 0.3s ease;
+        transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
       }
 
       .ss-capability-card:hover .ss-capability-tag {
-        color: rgba(255,255,255,0.78);
-        border-color: rgba(164,143,234,0.28);
-        background-color: rgba(164,143,234,0.06);
+        border-color: rgba(79, 63, 224, 0.35);
+        background-color: rgba(79, 63, 224, 0.06);
+        color: ${INDIGO_CTA};
       }
 
-      .ss-capability-orb {
-        position: absolute;
-        width: 260px;
-        height: 260px;
-        right: -100px;
-        top: 12%;
-        border: 1px solid rgba(164,143,234,0.12);
-        border-radius: 9999px;
-        pointer-events: none;
-        animation: ss-capability-orbit 14s linear infinite;
+      .ss-capability-learn-more {
+        color: ${INDIGO_CTA};
       }
 
-      .ss-capability-orb::after {
-        content: "";
-        position: absolute;
-        width: 7px;
-        height: 7px;
-        top: 20px;
-        left: 50%;
-        border-radius: 9999px;
-        background: ${LAVENDER_ACCENT};
-        box-shadow: 0 0 18px rgba(164,143,234,0.75);
+      .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
-      @keyframes ss-capability-orbit {
-        from { transform: rotate(0deg); }
-        to   { transform: rotate(360deg); }
+      .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(1);
+      }
+
+      .ss-capability-card:hover .ss-capability-learn-more svg {
+        transform: translate(2px, -2px);
+      }
+
+      .ss-capability-learn-more svg {
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       .ss-clamp-2 {
@@ -658,20 +457,6 @@ function AnimationStyles(): ReactElement {
         overflow: hidden;
       }
 
-      @media (max-width: 639px) {
-        .ss-capability-card {
-          min-height: 350px;
-        }
-
-        .ss-capability-number {
-          font-size: 88px;
-        }
-
-        .ss-capabilities-grid::before {
-          background-size: 52px 52px;
-        }
-      }
-
       @media (prefers-reduced-motion: reduce) {
         .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-arrow-pulse, .ss-caret {
           animation: none !important;
@@ -682,19 +467,14 @@ function AnimationStyles(): ReactElement {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Card height / description reveal stays static for reduced motion */
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
         .ss-eco-panel,
         .ss-capability-card,
-        .ss-capability-icon,
         .ss-capability-title,
-        .ss-capability-tag {
+        .ss-capability-learn-more .ss-capability-underline {
           transition: none !important;
-        }
-        .ss-capability-orb {
-          animation: none !important;
         }
         .ss-case-desc {
           max-height: none !important;
@@ -739,13 +519,6 @@ function useReveal<T extends HTMLElement = HTMLElement>(
 
 /* ===============================================================
    HOOK: sequential typewriter for a list of lines
-   Types line 0 char-by-char, then line 1, then line 2...
-   Resets to empty whenever `active` becomes false. Guarded against
-   out-of-bounds reads so it can never crash if the list changes
-   shape while a typing loop is still running.
-
-   Same hook used on the Data & Analytics Services page's Key
-   Takeaways accordion, so both pages animate identically.
 ================================================================ */
 
 function useTypewriterList(
@@ -876,192 +649,6 @@ function Reveal({
 }
 
 /* ===============================================================
-   KEY TAKEAWAYS ACCORDION — "Legacy Modernization Roadmap"
-   Click the header to expand/collapse. While open, each line types
-   out letter by letter, one after another — identical interaction
-   to the Data & Analytics Services page's Key Takeaways block, so
-   both service pages feel like one consistent product.
-================================================================ */
-
-function TakeawaysAccordion({
-  open,
-  setOpen,
-}: {
-  open: boolean;
-  setOpen: (updater: (prev: boolean) => boolean) => void;
-}): ReactElement {
-  const { displayed, typingIndex } = useTypewriterList(keyTakeaways, open);
-
-  return (
-    <div
-      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
-      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
-    >
-      <button
-        type="button"
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
-        style={{
-          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
-        }}
-      >
-        <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Legacy Modernization Roadmap
-          </span>
-        </div>
-
-        <div className="flex items-center gap-4">
-          <span
-            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
-            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
-          >
-            ASSESS • MODERNIZE • SCALE
-          </span>
-
-          <ChevronDown
-            size={20}
-            strokeWidth={2.2}
-            className="flex-shrink-0 transition-transform duration-300"
-            style={{
-              color: INDIGO_CTA,
-              transform: open ? "rotate(180deg)" : "rotate(0deg)",
-            }}
-          />
-        </div>
-      </button>
-
-      <div
-        className="grid transition-all duration-500 ease-out"
-        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
-      >
-        <div className="overflow-hidden">
-          <ul className="space-y-5 px-8 py-10 lg:px-10">
-            {keyTakeaways.map((line, i) => {
-              const text = displayed[i];
-              if (!text && i !== 0) return null;
-
-              const isTyping = i === typingIndex && text.length < line.length;
-
-              return (
-                <li
-                  key={line}
-                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
-                >
-                  <span
-                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
-                    style={{ backgroundColor: INDIGO_CTA }}
-                  />
-                  <span>
-                    {text}
-                    {isTyping && (
-                      <span
-                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
-                        style={{ backgroundColor: INDIGO_CTA }}
-                      />
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ===============================================================
-   ECOSYSTEM ACCORDION
-   Click the "+" and the matching content expands in place.
-   Two independent columns, so opening a card on the left does not
-   stretch the card sitting next to it on the right.
-================================================================ */
-
-function EcosystemAccordion(): ReactElement {
-  // null = everything closed. 0 keeps the first card open by default.
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
-  ecosystemImpact.forEach((item, index) => {
-    const target = columns[index % 2];
-    if (target) target.push({ item, index });
-  });
-
-  return (
-    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
-      {columns.map((column, colIndex) => (
-        <div key={colIndex} className="flex flex-col gap-5">
-          {column.map(({ item, index }) => {
-            const isOpen = openIndex === index;
-
-            return (
-              <Reveal key={item.title} delay={index * 80}>
-                <div
-                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
-                  style={{
-                    boxShadow: isOpen
-                      ? "0 18px 40px rgba(15,23,42,0.18)"
-                      : undefined,
-                  }}
-                >
-                  <button
-                    type="button"
-                    aria-expanded={isOpen}
-                    aria-controls={`legacy-ecosystem-panel-${index}`}
-                    onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
-                  >
-                    <span
-                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
-                      style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
-                    >
-                      {item.title}
-                    </span>
-
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
-                  </button>
-
-                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
-                  <div
-                    id={`legacy-ecosystem-panel-${index}`}
-                    className="ss-eco-panel grid transition-all duration-500 ease-out"
-                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
-                  >
-                    <div className="overflow-hidden">
-                      <p
-                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
-                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
-                      >
-                        {item.body}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </Reveal>
-            );
-          })}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ===============================================================
    REUSABLE: Free-scroll Carousel
 ================================================================ */
 
@@ -1182,9 +769,7 @@ function Carousel({
 
 /* ===============================================================
    REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click. Supports a fractional
-   perPage (e.g. 1.15 for a "peek" card) and a configurable gap,
-   matching the Software & Product Engineering page.
+   Moves exactly ONE card per arrow click.
 ================================================================ */
 
 type StepCarouselProps<T> = {
@@ -1192,7 +777,7 @@ type StepCarouselProps<T> = {
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards
+  gap?: number;
 };
 
 function StepCarousel<T>({
@@ -1208,8 +793,6 @@ function StepCarousel<T>({
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
-  // Math.ceil so a fractional perPage still lands on a whole card
-  // instead of stopping mid-card at the end of the track.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
@@ -1346,6 +929,187 @@ function StepCarousel<T>({
 }
 
 /* ===============================================================
+   KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
+   Identical interaction to the Software & Product Engineering
+   page's accordion.
+================================================================ */
+
+function KeyTakeawaysAccordion({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (updater: (prev: boolean) => boolean) => void;
+}): ReactElement {
+  const lines = keyTakeaways.map((point) => `${point.title}. ${point.body}`);
+  const { displayed, typingIndex } = useTypewriterList(lines, open);
+
+  return (
+    <div
+      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
+      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        style={{
+          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-10 w-20 flex-shrink-0 object-contain"
+          />
+          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+            Legacy Modernization Roadmap
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span
+            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
+          >
+            ASSESS • MODERNIZE • SCALE
+          </span>
+
+          <ChevronDown
+            size={20}
+            strokeWidth={2.2}
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{
+              color: INDIGO_CTA,
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
+      </button>
+
+      <div
+        className="grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-5 px-8 py-10 lg:px-10">
+            {lines.map((line, i) => {
+              const text = displayed[i];
+              if (!text && i !== 0) return null;
+
+              const isTyping = i === typingIndex && text.length < line.length;
+
+              return (
+                <li
+                  key={line}
+                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
+                >
+                  <span
+                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: INDIGO_CTA }}
+                  />
+                  <span>
+                    {text}
+                    {isTyping && (
+                      <span
+                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
+                        style={{ backgroundColor: INDIGO_CTA }}
+                      />
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   ECOSYSTEM ACCORDION
+   Click the "+" and the matching content expands in place.
+================================================================ */
+
+function EcosystemAccordion(): ReactElement {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
+  ecosystemImpact.forEach((item, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ item, index });
+  });
+
+  return (
+    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="flex flex-col gap-5">
+          {column.map(({ item, index }) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <Reveal key={item.title} delay={index * 80}>
+                <div
+                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                  style={{
+                    boxShadow: isOpen
+                      ? "0 18px 40px rgba(15,23,42,0.18)"
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`legacy-ecosystem-panel-${index}`}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                  >
+                    <span
+                      className="font-heading text-[19px] font-medium leading-snug transition-colors duration-300"
+                      style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
+                    >
+                      {item.title}
+                    </span>
+
+                    <span
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
+                        color: isOpen ? "#8B93A7" : "#FFFFFF",
+                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                      }}
+                    >
+                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                    </span>
+                  </button>
+
+                  <div
+                    id={`legacy-ecosystem-panel-${index}`}
+                    className="ss-eco-panel grid transition-all duration-500 ease-out"
+                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                      >
+                        {item.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </Reveal>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ===============================================================
    SECTION
 ================================================================ */
 
@@ -1355,10 +1119,6 @@ export default function LegacyModernizationSection(): ReactElement {
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
 
-  // --- Autoplay for the left-side tab list ---
-  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
-  // Pausing on hover, and restarting the timer whenever the user
-  // manually clicks a tab, so it never fights with manual control.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -1373,249 +1133,228 @@ export default function LegacyModernizationSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
-          (93. Legacy assessment)
+          Full-bleed image with a dark left-side readability gradient,
+          matching the Software & Product Engineering page exactly.
       ============================================================ */}
-      <section className="relative isolate overflow-hidden">
+
+      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
         <div className="absolute inset-0 -z-10">
           <img
             src={HERO_BACKGROUND_IMAGE}
-            alt=""
+            alt="Legacy modernization team reviewing a system architecture diagram"
             loading="eager"
             decoding="async"
             fetchPriority="high"
-            className="h-full w-full object-cover"
+            className="h-full w-full object-cover object-[68%_center]"
+          />
+
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+
+          <div
+            className="absolute inset-x-0 bottom-0 h-20"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+            }}
           />
         </div>
 
-        <div className={`${ALIGN} py-24 lg:py-32`}>
-          <nav
-            aria-label="Breadcrumb"
-            className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.6s ease-out 0.05s forwards" }}
-          >
-            <a href="/" className="hover:underline">
-              Home
-            </a>
-            <ChevronRight size={14} />
-            <a href="/services" className="hover:underline">
-              Services
-            </a>
-            <ChevronRight size={14} />
-            <span className="text-white/80">Legacy Modernization</span>
-          </nav>
+        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
+          <div className="w-full max-w-[760px] py-20 lg:py-28">
+            <nav
+              aria-label="Breadcrumb"
+              className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium opacity-0"
+              style={{
+                color: "rgba(255,255,255,0.92)",
+                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+              }}
+            >
+              <a href="/" className="transition-opacity hover:opacity-70">
+                Home
+              </a>
+              <ChevronRight size={14} />
+              <a href="/services" className="transition-opacity hover:opacity-70">
+                Services
+              </a>
+              <ChevronRight size={14} />
+              <span className="text-white/60">Legacy Modernization</span>
+            </nav>
 
-          <div
-            className="mt-8 opacity-0"
-            style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-          >
-            <Eyebrow variant="dark">Legacy Modernization</Eyebrow>
-          </div>
+            <h1
+              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            >
+              Legacy Modernization for Secure, Scalable Digital Platforms
+            </h1>
 
-          <h1
-            className={`${HERO_HEADING} mt-4 max-w-40px opacity-0`}
-            style={{ color: "#FFFFFF", animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-          >
-            Legacy Modernization for Secure, Scalable Digital Platforms
-          </h1>
-
-          <p
-            className="font-body mt-6 max-w-lg text-[17px] leading-relaxed text-white opacity-0"
-            style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-          >
-            Starfii transforms legacy applications into secure, scalable and
-            modern digital platforms with a structured modernization
-            approach, from assessment through migration.
-          </p>
-
-          <a
-            href="#connect"
-            className="font-body mt-9 inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white opacity-0 transition-transform duration-300 hover:scale-[1.03]"
-            style={{
-              backgroundColor: CHAMPION_BLUE,
-              animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-            }}
-          >
-            Connect Now
-            <ArrowUpRight size={17} />
-          </a>
-        </div>
-      </section>
-
-<div className={ALIGN}>
-  {/* ============================================================
-      KEY TAKEAWAYS — collapsible, typewriter bullets
-      (93. Legacy assessment)
-  ============================================================ */}
-  <Reveal as="section" className="mt-16">
-    <TakeawaysAccordion
-      open={takeawaysOpen}
-      setOpen={setTakeawaysOpen}
-    />
-
-    <p
-      className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
-      style={{ color: CHAMPION_BLUE }}
-    >
-      A leader in legacy modernization, Starfii assesses complex
-      application portfolios and transitions them to secure, scalable
-      digital platforms with minimal disruption to daily business
-      operations.
-    </p>
-  </Reveal>
-
-  {/* ============================================================
-      Q&A BLOCK
-      (94. Modernization strategy)
-  ============================================================ */}
-  <Reveal as="section" className="mt-20">
-    <div
-      className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
-      style={{ backgroundColor: "#F5F3FC" }}
-    >
-      {/* Content */}
-      <div className="flex flex-col justify-center p-10 lg:p-14">
-        <Eyebrow>Modernization Strategy</Eyebrow>
-
-        <h2
-          className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
-          style={{ color: LAVENDER_ACCENT }}
-        >
-          How Do Enterprises Build a Modernization Strategy That
-          Sticks?
-        </h2>
-
-        <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-          Enterprises modernize successfully by sequencing legacy
-          assessment, migration, and re engineering work around business
-          priorities rather than technology alone. Starfii brings these
-          together into a structured modernization strategy that reduces
-          risk, controls cost, and delivers measurable value at every
-          phase of the transition.
-        </p>
-      </div>
-
-      {/* Image */}
-      <div className="relative min-h-[320px] lg:min-h-full">
-        <img
-          src="https://images.unsplash.com/photo-1758691736979-ff263c04b3d1?q=80&w=1200&auto=format&fit=crop"
-          alt="Two colleagues talking while walking through a modern office corridor"
-          loading="lazy"
-          decoding="async"
-          className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-        />
-      </div>
-    </div>
-  </Reveal>
-</div>
-
-      {/* ============================================================
-          FOCUS AREAS
-          (95-102. Application modernization through Modernization roadmap)
-      ============================================================ */}
-
-      <section className="relative overflow-hidden bg-[#0A0912] py-24">
-        <div
-          className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[45%]"
-          style={{
-            background:
-              "radial-gradient(55% 90% at 100% 0%, rgba(164,143,234,0.32) 0%, rgba(79,63,224,0.18) 40%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-        <div
-          className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
-          style={{
-            background:
-              "radial-gradient(55% 80% at 0% 100%, rgba(63,90,214,0.28) 0%, rgba(10,9,18,0) 70%)",
-          }}
-        />
-
-        <div className={`relative ${ALIGN}`}>
-          <Reveal className="max-w-20px">
-            <Eyebrow variant="dark">Legacy Modernization</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
-              Our Legacy Modernization Capabilities
-            </h2>
-            <p className="font-body mt-5 text-[15px] leading-relaxed text-white/60">
-              Starfii assesses, re engineers, and migrates legacy
-              applications, architectures, APIs, and databases into
-              secure, scalable platforms built for long term business
-              value.
+            <p
+              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+            >
+              Starfii transforms legacy applications into secure, scalable
+              and modern digital platforms with a structured modernization
+              approach, from assessment through migration.
             </p>
-          </Reveal>
 
-          <div className="ss-capabilities-grid mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {focusAreas.map((area, i) => (
-              <Reveal key={area.title} delay={(i % 3) * 90} className="h-full">
-                <div className="ss-capability-card flex h-full flex-col justify-between rounded-2xl p-8">
-                  <div
-                    aria-hidden="true"
-                    className="ss-capability-number"
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </div>
-
-                  <div className="relative z-10 flex items-start justify-between">
-                    <span className="font-body text-[13px] font-medium tracking-[0.08em] text-white/35">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-
-                    <span
-                      className="ss-capability-icon flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border"
-                      style={{
-                        borderColor: "rgba(255,255,255,0.18)",
-                        backgroundColor: "rgba(255,255,255,0.02)",
-                      }}
-                    >
-                      <ArrowUpRight size={17} className="text-white" />
-                    </span>
-                  </div>
-
-                  <div className="relative z-10 mt-14">
-                    <h3 className="ss-capability-title font-heading text-[21px] font-semibold leading-snug text-white">
-                      {area.title}
-                    </h3>
-
-                    <div className="ss-capability-line mt-5" />
-
-                    <p className="font-body mt-5 text-[14px] leading-[1.75] text-white/55">
-                      {area.body}
-                    </p>
-                  </div>
-
-                  <div className="relative z-10 mt-8 flex flex-wrap gap-2">
-                    {area.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="ss-capability-tag font-body rounded-full border px-3 py-1.5 text-[10px] font-medium tracking-[0.08em] text-white/50"
-                        style={{ borderColor: "rgba(255,255,255,0.16)" }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <span className="ss-capability-orb" aria-hidden="true" />
-                </div>
-              </Reveal>
-            ))}
+            <a
+              href="#connect"
+              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+              style={{
+                color: INDIGO_CTA,
+                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+              }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </a>
           </div>
         </div>
       </section>
 
       <div className={ALIGN}>
         {/* ============================================================
-            TABBED DEEP-DIVE auto-advancing tab list
-            (94-98. Modernization strategy through Cloud migration)
+            KEY TAKEAWAYS — collapsible, typewriter bullets
         ============================================================ */}
+        <Reveal as="section" className="mt-16">
+          <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
+          <p
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            A leader in legacy modernization, Starfii assesses complex
+            application portfolios and transitions them to secure, scalable
+            digital platforms with minimal disruption to daily business
+            operations.
+          </p>
+        </Reveal>
+
+        {/* ============================================================
+            Q&A BLOCK
+        ============================================================ */}
+        <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
+          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+            <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
+              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
+                How Do Enterprises Build a Modernization Strategy That
+                Sticks?
+              </h2>
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
+                Enterprises modernize successfully by sequencing legacy
+                assessment, migration, and re engineering work around
+                business priorities rather than technology alone. Starfii
+                brings these together into a structured modernization
+                strategy that reduces risk, controls cost, and delivers
+                measurable value at every phase of the transition.
+              </p>
+            </div>
+
+            <div className="relative min-h-[320px] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1758691736979-ff263c04b3d1?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues talking while walking through a modern office corridor"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
+              />
+            </div>
+          </div>
+        </Reveal>
+      </div>
+
+      {/* ============================================================
+          FOCUS AREAS — light capability grid, matching the Software
+          & Product Engineering page: sticky left intro, soft
+          lavender-grey cards, navy title, grey body copy, an indigo
+          "Learn More" link.
+      ============================================================ */}
+      <section className="relative bg-white py-24 lg:py-28">
+        <div className={`relative ${ALIGN}`}>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+            <Reveal className="self-start lg:sticky lg:top-28">
+              <Eyebrow variant="light">Legacy Modernization</Eyebrow>
+
+              <h2
+                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Our Legacy Modernization Capabilities
+              </h2>
+
+              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                Starfii assesses, re engineers, and migrates legacy
+                applications, architectures, APIs, and databases into
+                secure, scalable platforms built for long term business
+                value.
+              </p>
+            </Reveal>
+
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+              {focusAreas.map((area, i) => (
+                <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
+                  <Link
+                    href={`/services/legacy-modernization/capabilities/${slugify(area.title)}`}
+                    aria-label={`Learn more about ${area.title}`}
+                    className="ss-capability-card flex h-full flex-col p-8"
+                  >
+                    <h3
+                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </h3>
+
+                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
+                      {area.body}
+                    </p>
+
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {area.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="ss-capability-tag font-body rounded-full border px-3 py-1.5 text-[11px] font-medium tracking-[0.04em] text-slate-500"
+                          style={{ borderColor: "#DCD6F5" }}
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                      <span className="relative">
+                        Learn More
+                        <span
+                          className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                          style={{ backgroundColor: INDIGO_CTA }}
+                        />
+                      </span>
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </Link>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className={ALIGN}>
+        {/* ============================================================
+            TABBED DEEP-DIVE — auto-advancing tab list
+        ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
           <Eyebrow>Legacy Modernization</Eyebrow>
-          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+          <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             Legacy Modernization Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1626,13 +1365,10 @@ export default function LegacyModernizationSection(): ReactElement {
                 const isActive = i === activeTab;
                 return (
                   <li key={tab.label} className="relative -ml-px">
-                    {/* Static base line */}
                     <span
                       className="pointer-events-none absolute inset-y-0 left-0 w-[2px]"
                       style={{ backgroundColor: "transparent" }}
                     />
-                    {/* Animated progress fill only rendered on the active tab,
-                        remounted via key so the fill restarts from empty each time */}
                     {isActive && (
                       <span
                         key={`${activeTab}-${tabHovered}`}
@@ -1649,10 +1385,10 @@ export default function LegacyModernizationSection(): ReactElement {
                     <button
                       type="button"
                       onClick={() => setActiveTab(i)}
-                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
                       style={{
                         color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 600 : 500,
+                        fontWeight: isActive ? 700 : 500,
                       }}
                     >
                       {tab.label}
@@ -1662,31 +1398,30 @@ export default function LegacyModernizationSection(): ReactElement {
               })}
             </ul>
 
-            {/* Right panel */}
             <div
               key={activeTab}
-              className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:h-[420px]"
+              className="ss-tab-panel isolate grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
               style={{ backgroundColor: "#F5F3FC" }}
             >
-              <div className="flex flex-col justify-center p-10">
+              <div className="flex flex-col justify-start self-start p-3 pt-2 lg:p-6 lg:pt-5">
                 <h3
-                  className="font-heading text-[22px] font-semibold leading-snug"
+                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
                   style={{ color: CHAMPION_BLUE }}
                 >
                   {current.heading}
                 </h3>
-                <p className="font-body mt-4 text-[15px] leading-relaxed text-slate-600">
+                <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
               </div>
 
-              <div className="min-h-[280px] overflow-hidden">
+              <div className="relative min-h-[280px] overflow-hidden">
                 <img
                   src={current.image}
                   alt={current.label}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                  className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform hover:scale-105"
                 />
               </div>
             </div>
@@ -1695,10 +1430,7 @@ export default function LegacyModernizationSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark)
-          (99-102. Architecture modernization through Modernization roadmap)
-          Same accordion behaviour as the Software & Product
-          Engineering page: click "+" and the content expands in place.
+          IMPACT ACROSS ECOSYSTEM (dark) — click "+" to expand content
       ============================================================ */}
 
       <section className="relative overflow-hidden bg-[#08070F] py-24">
@@ -1720,7 +1452,7 @@ export default function LegacyModernizationSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <Reveal>
             <Eyebrow variant="dark">Architecture Modernization</Eyebrow>
-            <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl text-white`}>
+            <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your Legacy
               <br />
               Modernization Ecosystem
@@ -1733,12 +1465,6 @@ export default function LegacyModernizationSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
-          (103. Case studies)
-          Card sizing and hover behaviour now match the Software &
-          Product Engineering page: 500px fixed card height, 260px
-          image frame that collapses to 0 on hover, description
-          sliding into the space the image gives up, 4 per row on
-          desktop with a 32px gap and a peek card on mobile.
       ============================================================ */}
 
       <section
@@ -1779,12 +1505,11 @@ export default function LegacyModernizationSection(): ReactElement {
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/services/legacy-Modernization/casestudies/${study.slug}`}
+                    href={`/services/legacy-modernization/casestudies/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}
                   >
-                    {/* IMAGE FRAME — height animates 260px → 0 on hover */}
                     <div className="ss-case-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
                       <img
                         src={study.image}
@@ -1795,7 +1520,6 @@ export default function LegacyModernizationSection(): ReactElement {
                       />
                     </div>
 
-                    {/* CONTENT — flex-1 grows into the space the image gives up */}
                     <div className="flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
                       <div className="flex flex-1 flex-col gap-3.5 overflow-hidden">
                         <span
@@ -1812,13 +1536,11 @@ export default function LegacyModernizationSection(): ReactElement {
                           {study.title}
                         </h3>
 
-                        {/* DESCRIPTION — hidden at rest, fades + slides in on hover */}
                         <p className="ss-case-desc font-body max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
                           {study.body}
                         </p>
                       </div>
 
-                      {/* CTA — sliding underline reveal */}
                       <span
                         className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium"
                         style={{ color: INDIGO_CTA }}
@@ -1843,20 +1565,21 @@ export default function LegacyModernizationSection(): ReactElement {
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
+          Fixed-height frames, image zoom on hover only — matching the
+          Software & Product Engineering page's insights section.
       ============================================================ */}
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
               <Eyebrow>Legacy Modernization</Eyebrow>
-
-              <h2 className={`${SECTION_HEADING} mt-4 max-w-30px`} style={{ color: CHAMPION_BLUE }}>
+              <h2 className={`${SECTION_HEADING} mt-4 max-w-xl`} style={{ color: CHAMPION_BLUE }}>
                 {"What's New in Legacy Modernization"}
               </h2>
             </div>
 
             <Link
-              href="/services/legacy-Modernization/blogs"
+              href="/services/legacy-modernization/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
@@ -1877,18 +1600,18 @@ export default function LegacyModernizationSection(): ReactElement {
                   }`}
                 >
                   <Link
-                    href={`/services/legacy-Modernization/blogs/${post.slug}`}
+                    href={`/services/legacy-modernization/blogs/${post.slug}`}
                     className="block h-full"
                     aria-label={`Read ${post.title}`}
                   >
                     {post.large ? (
-                      <div className="group relative h-[420px] overflow-hidden rounded-2xl transition-[height] duration-500 ease-in-out hover:h-[460px]">
+                      <div className="group relative h-[420px] overflow-hidden rounded-2xl">
                         <img
                           src={post.image}
                           alt={post.title}
                           loading="lazy"
                           decoding="async"
-                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                          className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                         />
 
                         <div className="absolute inset-x-4 bottom-4 rounded-xl bg-white/85 p-6 backdrop-blur transition-all duration-300 group-hover:bg-white/95">
@@ -1900,7 +1623,7 @@ export default function LegacyModernizationSection(): ReactElement {
                           </span>
 
                           <h3
-                            className="font-heading ss-clamp-2 mt-2 text-[18px] font-semibold leading-snug"
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
                             style={{ color: CHAMPION_BLUE }}
                           >
                             {post.title}
@@ -1911,26 +1634,29 @@ export default function LegacyModernizationSection(): ReactElement {
                           </p>
 
                           <span
-                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            className="font-body mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            Read More
+                            <span className="relative">
+                              Read More
+                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                            </span>
                             <ArrowUpRight
                               size={14}
-                              className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                             />
                           </span>
                         </div>
                       </div>
                     ) : (
                       <div className="group">
-                        <div className="h-[220px] overflow-hidden rounded-2xl transition-[height] duration-500 ease-in-out group-hover:h-[260px]">
+                        <div className="h-[220px] overflow-hidden rounded-2xl">
                           <img
                             src={post.image}
                             alt={post.title}
                             loading="lazy"
                             decoding="async"
-                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                            className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                           />
                         </div>
 
@@ -1943,7 +1669,7 @@ export default function LegacyModernizationSection(): ReactElement {
                           </span>
 
                           <h3
-                            className="font-heading ss-clamp-2 mt-2 text-[18px] font-semibold leading-snug"
+                            className="font-heading ss-clamp-2 mt-2 text-[19px] font-semibold leading-snug"
                             style={{ color: CHAMPION_BLUE }}
                           >
                             {post.title}
@@ -1954,13 +1680,16 @@ export default function LegacyModernizationSection(): ReactElement {
                           </p>
 
                           <span
-                            className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                            className="font-body mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold"
                             style={{ color: INDIGO_CTA }}
                           >
-                            Read More
+                            <span className="relative">
+                              Read More
+                              <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                            </span>
                             <ArrowUpRight
                               size={14}
-                              className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                              className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                             />
                           </span>
                         </div>
@@ -1976,7 +1705,6 @@ export default function LegacyModernizationSection(): ReactElement {
 
       {/* ============================================================
           CLOSING CTA
-          (104. CTA)
       ============================================================ */}
       <section id="connect" className="bg-white py-24">
         <div className={ALIGN}>
@@ -1984,8 +1712,7 @@ export default function LegacyModernizationSection(): ReactElement {
             className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            {/* <Eyebrow variant="dark">CTA</Eyebrow> */}
-            <h2 className={`${SECTION_HEADING} mx-auto mt-4 max-w-2xl text-white`}>
+            <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
               Ready to Modernize Your Legacy Systems?
             </h2>
             <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">

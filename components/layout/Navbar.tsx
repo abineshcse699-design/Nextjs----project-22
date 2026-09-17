@@ -13,7 +13,7 @@ import {
 
 const navItems = [
   "Services",
-  "Platforms",
+  "Products",
   "Industries",
   "About",
   "Careers",
@@ -21,7 +21,7 @@ const navItems = [
 
 const MENUS_WITH_CONTENT = [
   "Services",
-  "Platforms",
+  "Products",
   "Industries",
   "About",
   "Careers",
@@ -149,7 +149,7 @@ export default function Navbar() {
 
                   const triggerClasses = `
                     group flex items-center gap-1.5 whitespace-nowrap
-                    rounded-md px-4 py-2.5 text-[17px] font-medium
+                    rounded-md px-4 py-2.5 text-[19px] font-medium
                     transition-colors duration-150
                     ${
                       isActive
@@ -160,7 +160,7 @@ export default function Navbar() {
 
                   const chevron = MENUS_WITH_CONTENT.includes(item) && (
                     <ChevronDown
-                      size={17}
+                      size={18}
                       strokeWidth={2.25}
                       className={`
                         transition-transform duration-200 ease-out
@@ -330,7 +330,7 @@ export default function Navbar() {
                               {item === "Services" && (
                                 <ServicesMenu onNavigate={closeAllMenus} />
                               )}
-                              {item === "Platforms" && (
+                              {item === "Products" && (
                                 <PlatformsMenu onNavigate={closeAllMenus} />
                               )}
                               {item === "Industries" && (
@@ -377,7 +377,7 @@ export default function Navbar() {
               {activeMenu === "Services" && (
                 <ServicesMenu onNavigate={closeAllMenus} />
               )}
-              {activeMenu === "Platforms" && (
+              {activeMenu === "Products" && (
                 <PlatformsMenu onNavigate={closeAllMenus} />
               )}
               {activeMenu === "Industries" && (
@@ -408,11 +408,10 @@ function Eyebrow({ children }: { children: React.ReactNode }) {
 }
 
 // `variant` prop:
-// - "default" (unchanged): uppercase, muted-gray heading — used by
-//   Platforms / Industries / About / Careers, exactly as before.
-// - "primary" (new): blue, sentence-case heading — used by the
-//   Services menu's "Services" / "Offerings" column titles to match
-//   the reference screenshot.
+// - "default": uppercase, muted-gray heading.
+// - "primary": blue, sentence-case heading — used by Services/Offerings,
+//   and now also by Products and Who We Are, to match the reference
+//   screenshot.
 function ColumnTitle({
   children,
   variant = "default",
@@ -652,7 +651,7 @@ function PlatformCard({
 ================================================================ */
 function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const services = [
-    { label: "Software & Product Engineering ", href: "/services/digital-software" },
+    { label: "Software & Product Engineering ", href: "/services/software-product" },
     { label: "Data & Analytics", href: "/services/data-analytics" },
     // { label: "Digital IT Operations", href: "/services/digital-it-operations" },
     { label: "Cloud & DevOps", href: "/services/cloud" },
@@ -738,27 +737,11 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
    PLATFORMS
 ================================================================ */
 
-// import Link from "next/link";
-// import { ArrowUpRight } from "lucide-react";
-
-// NOTE: ColumnTitle and T (theme tokens) are assumed to already be defined /
-// imported in this file, same as in your original snippet. If they live in a
-// separate file, import them the same way you were importing them before,
-// e.g.:
-// import { ColumnTitle } from "./ColumnTitle";
-// import { T } from "@/lib/theme";
-
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   // Only Turbodev and TurboDesk are shown now — Amaze and Agentverse
   // are removed per request. Each renders as an image-topped
   // PlatformCard (see component above), matching the reference
   // "Featured Insight" card layout.
-  //
-  // Images bumped to w=2400 / q=90 (near-4K, high quality) — Unsplash
-  // serves whatever width you ask for via the `w` param, so this pulls
-  // a noticeably crisper source image than the previous w=1200 version
-  // while still rendering into the same fixed-height card via
-  // object-cover in PlatformCard.
   const platforms = [
     {
       name: "Turbodev",
@@ -780,7 +763,8 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div>
-      <ColumnTitle>Platforms</ColumnTitle>
+      {/* FIX: Products heading now blue (variant="primary") to match reference */}
+      <ColumnTitle variant="primary">Products</ColumnTitle>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
         {platforms.map((p) => (
           <PlatformCard
@@ -794,31 +778,9 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
           />
         ))}
       </div>
-
-      {/* <div className={`mt-8 flex flex-col gap-4 rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}>
-        <div>
-          <h4 className="text-[18px] font-semibold">Zerovity™</h4>
-          <p className="mt-1.5 max-w-xl text-[13.5px] leading-relaxed text-white/70">
-            Captures how your applications actually work, then applies that
-            understanding across maintenance, modernization, and
-            transformation — the platform behind the Zero Friction
-            Enterprise™.
-          </p>
-        </div>
-        <Link
-          href="/platform/zerovity"
-          onClick={onNavigate}
-          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-white/10 px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-white/15"
-        >
-          Learn more
-          <ArrowUpRight size={16} />
-        </Link>
-      </div> */}
     </div>
   );
 }
-
-// export default PlatformsMenu;
 
 /* ===============================================================
    INDUSTRIES
@@ -844,7 +806,8 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.6fr_1fr]">
       <div>
-        <ColumnTitle>Industries</ColumnTitle>
+        {/* FIX: Industries heading now blue (variant="primary") to match reference */}
+        <ColumnTitle variant="primary">Industries</ColumnTitle>
         <div className="grid grid-cols-2 gap-x-10 gap-y-3.5">
           {industriesLeft.map((i) => (
             <LinkItem key={i.label} href={i.href} onClick={onNavigate}>{i.label}</LinkItem>
@@ -863,20 +826,9 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
+
 /* ===============================================================
    ABOUT
-   Routes now match the actual folder casing under /app/About/*
-   (About, About/leadership, About/partners, About/locations,
-   About/dei, About/esg, About/csr, About/newsroom, About/events,
-   About/awards — see the file tree). Since Next.js routes are
-   case-sensitive, "/about/dei" would 404 while the real page lives
-   at "/About/dei" — that mismatch is why those links weren't going
-   anywhere. Every item also opens in a new tab (newTab prop below).
-
-   Case Study and Blogs are dark panels (same inkBg treatment as the
-   "Zerovity" block in Platforms) sitting under the Who We Are cards:
-   heading, one descriptive paragraph, Learn more link — no eyebrow,
-   no list of items, matching the two reference screenshots exactly.
 ================================================================ */
 
 function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
@@ -895,7 +847,8 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
 
   return (
     <div>
-      <ColumnTitle>Who We Are</ColumnTitle>
+      {/* FIX: Who We Are heading now blue (variant="primary") to match reference */}
+      <ColumnTitle variant="primary">Who We Are</ColumnTitle>
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
         {aboutItems.map((item) => (
           <div key={item.name} className={`border-l-2 ${T.border} pl-4`}>
@@ -957,6 +910,7 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
     </div>
   );
 }
+
 /* ===============================================================
    CAREERS
 ================================================================ */

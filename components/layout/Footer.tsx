@@ -91,7 +91,7 @@ interface LegalLink {
 const legalLinks: LegalLink[] = [
   { label: "Privacy Policy", href: "/policy/privacy-policy" },
   { label: "Terms of Service", href: "/policy/TermsOfService" },
-  { label: "Cookie Policy", href: "/policy/Cookie-Policy" },
+  // { label: "Cookie Policy", href: "/policy/Cookie-Policy" },
 ];
 
 // Brand glyphs aren't part of lucide-react, so each social icon is drawn
@@ -193,7 +193,7 @@ export default function Footer() {
 
         <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
           <p className="text-sm text-slate-500">
-            © {new Date().getFullYear()} Starfii Technologies. All rights reserved.
+            © {new Date().getFullYear()} Starfii Technology . All rights reserved.
           </p>
 
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-slate-600">
