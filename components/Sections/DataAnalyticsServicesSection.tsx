@@ -480,6 +480,105 @@ function WhyMattersAccordion({
 }
 
 /* ===============================================================
+   ECOSYSTEM ACCORDION
+   Matches the Software page's EcosystemAccordion exactly:
+   - Two independent columns (opening a left card never stretches
+     the card sitting next to it on the right)
+   - Smooth 0fr -> 1fr grid-row expand (no sudden pop)
+   - Glow shadow on the open card
+   - Plus icon rotates 45deg into an "x" when open
+================================================================ */
+
+function EcosystemAccordion() {
+  // null = everything closed. 0 = first card open by default.
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const columns: { item: (typeof impactAreas)[number]; index: number }[][] = [[], []];
+  impactAreas.forEach((entry, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ item: entry, index });
+  });
+
+  return (
+    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="flex flex-col gap-5">
+          {column.map(({ item: area, index }) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <motion.div
+                key={area.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={item}
+              >
+                <div
+                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                  style={{
+                    boxShadow: isOpen
+                      ? "0 18px 40px rgba(15,23,42,0.18)"
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`da-ecosystem-panel-${index}`}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                  >
+                    <span
+                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
+                      style={{ color: isOpen ? ACCENT_INDIGO : CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </span>
+
+                    <span
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: isOpen ? "#E5E1F5" : ACCENT_INDIGO,
+                        color: isOpen ? "#8B93A7" : "#FFFFFF",
+                      }}
+                    >
+                      <Plus
+                        size={18}
+                        style={{
+                          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
+                          transition: "transform 0.3s ease",
+                        }}
+                      />
+                    </span>
+                  </button>
+
+                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
+                  <div
+                    id={`da-ecosystem-panel-${index}`}
+                    className="grid transition-all duration-500 ease-out"
+                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                      >
+                        {area.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ===============================================================
    REUSABLE: StepCarousel
    Moves exactly ONE card per arrow click. `gap` controls both the
    spacing between cards AND is baked into the per-card width calc,
@@ -660,7 +759,6 @@ export default function DataAnalyticsServicesSection() {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
-  const [openImpact, setOpenImpact] = useState<number | null>(null);
   const [insightPage, setInsightPage] = useState(0);
   const [insightStepWidth, setInsightStepWidth] = useState(0);
   const insightTrackRef = useRef<HTMLDivElement | null>(null);
@@ -903,10 +1001,10 @@ export default function DataAnalyticsServicesSection() {
           className="mt-20"
         >
           <div
-            className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
+            className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
           >
-            <div>
+            <div className="p-10 lg:p-14 flex flex-col justify-center">
               <h2
                 className="font-heading text-[26px] font-medium leading-snug lg:text-[30px]"
                 style={{ color: LAVENDER_ACCENT }}
@@ -923,11 +1021,11 @@ export default function DataAnalyticsServicesSection() {
               </p>
             </div>
 
-            <div className="group overflow-hidden rounded-2xl">
+            <div className="relative min-h-[320px] lg:min-h-full">
               <img
                 src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop"
                 alt="Analysts reviewing a data dashboard"
-                className="ss-zoom-img h-full w-full object-cover transition-transform duration-[800ms] ease-out group-hover:scale-105"
+                className="ss-zoom-img absolute inset-0 block h-full w-full object-cover transition-transform duration-[800ms] ease-out hover:scale-105"
               />
             </div>
           </div>
@@ -1106,9 +1204,7 @@ export default function DataAnalyticsServicesSection() {
             className="flex items-end justify-between"
           >
             <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-              Data &amp; Analytics
-              <br />
-              Case Studies
+              Data &amp; Analytics Case Studies
             </h2>
             <Link
               href="/services/data-analytics/casestudies"
@@ -1272,6 +1368,11 @@ export default function DataAnalyticsServicesSection() {
         </motion.section>
       </div>
 
+      {/* ============================================================
+          IMPACT ACROSS ECOSYSTEM (dark) — now uses the same
+          EcosystemAccordion pattern as the Software page: smooth
+          grid-row expand, glow shadow, two independent columns.
+      ============================================================ */}
       <section
         className="relative overflow-hidden py-24"
         style={{
@@ -1289,48 +1390,7 @@ export default function DataAnalyticsServicesSection() {
             Impact Across Your Data &amp; Analytics Ecosystem
           </motion.h2>
 
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.1 }}
-            variants={container}
-            className="mt-12 grid grid-cols-1 gap-4 lg:grid-cols-2"
-          >
-            {impactAreas.map((area, i) => {
-              const isOpen = openImpact === i;
-              return (
-                <motion.div key={area.title} variants={item}>
-                  <button
-                    type="button"
-                    onClick={() => setOpenImpact(isOpen ? null : i)}
-                    className="flex w-full items-center justify-between gap-6 rounded-2xl bg-white px-8 py-6 text-left"
-                  >
-                    <span
-                      className="font-body text-[16px] font-medium"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {area.title}
-                    </span>
-                    <span
-                      className="flex h-9 w-9 flex-none items-center justify-center rounded-full text-white transition-transform duration-300"
-                      style={{
-                        backgroundColor: ACCENT_INDIGO,
-                        transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      <Plus size={18} />
-                    </span>
-                  </button>
-
-                  {isOpen && (
-                    <p className="font-body mt-3 px-8 text-[14px] leading-relaxed text-slate-300">
-                      {area.body}
-                    </p>
-                  )}
-                </motion.div>
-              );
-            })}
-          </motion.div>
+          <EcosystemAccordion />
         </div>
       </section>
 

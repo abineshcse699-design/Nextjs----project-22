@@ -45,7 +45,7 @@ const TAB_AUTOPLAY_MS = 4000;
 
 // Hero background image — replace this URL with your new image when needed.
 const HERO_BACKGROUND_IMAGE =
-  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=80&w=1800&auto=format&fit=crop";
+  "https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=90&w=3840&auto=format&fit=crop";
 
 /* ===============================================================
    TYPOGRAPHY TOKENS
@@ -323,40 +323,51 @@ type InsightPost = {
   body: string;
 };
 
+// NOTE: previously these pointed at local /images/blog/*.jpg paths that
+// don't exist in the project, so the cards rendered broken images.
+// Swapped in real, high resolution (up to 4K wide) hosted images that
+// match each post's subject, using the same trusted Unsplash source
+// already used elsewhere on this page and on the Software & Product
+// Engineering page.
 const insights: InsightPost[] = [
   {
     slug: "legacy-modernization-with-generative-ai",
     title: "Legacy Modernization with Generative AI",
     body: "How generative AI can accelerate legacy assessment and modernization.",
-    image: "/images/blog/legacy-ai.jpg",
+    image:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=90&w=3840&auto=format&fit=crop",
     large: true,
   },
   {
     slug: "when-to-rearchitect-vs-replatform",
     title: "When to Re Architect vs Re Platform",
     body: "How to choose the right modernization path for legacy systems.",
-    image: "/images/blog/rearchitect-replatform.jpg",
+    image:
+      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=2400&auto=format&fit=crop",
     large: false,
   },
   {
     slug: "cloud-migration-without-downtime",
     title: "Cloud Migration Without Downtime",
     body: "A practical approach to moving legacy workloads to the cloud.",
-    image: "/images/blog/cloud-migration.jpg",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=90&w=2400&auto=format&fit=crop",
     large: false,
   },
   {
     slug: "database-modernization-strategies",
     title: "Database Modernization Strategies",
     body: "Modern approaches for legacy enterprise databases.",
-    image: "/images/blog/database-modernization.jpg",
+    image:
+      "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=2400&auto=format&fit=crop",
     large: false,
   },
   {
     slug: "building-a-modernization-roadmap",
     title: "Building a Modernization Roadmap",
     body: "How to create a practical roadmap for legacy transformation.",
-    image: "/images/blog/modernization-roadmap.jpg",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=2400&auto=format&fit=crop",
     large: false,
   },
 ];
@@ -1365,6 +1376,9 @@ export default function LegacyModernizationSection(): ReactElement {
           <img
             src={HERO_BACKGROUND_IMAGE}
             alt=""
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
             className="h-full w-full object-cover"
           />
         </div>
@@ -1449,10 +1463,10 @@ export default function LegacyModernizationSection(): ReactElement {
 
         <Reveal as="section" className="mt-20">
           <div
-            className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
+            className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
           >
-            <div>
+            <div className="p-10 lg:p-14 flex flex-col justify-center">
               <Eyebrow>Modernization Strategy</Eyebrow>
               <h2
                 className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
@@ -1471,11 +1485,13 @@ export default function LegacyModernizationSection(): ReactElement {
               </p>
             </div>
 
-            <div className="overflow-hidden rounded-2xl">
+            <div className="relative min-h-[320px] lg:min-h-full">
               <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a modernization strategy roadmap"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                src="https://images.unsplash.com/photo-1758691736979-ff263c04b3d1?q=80&w=1200&auto=format&fit=crop"
+                alt="Two colleagues talking while walking through a modern office corridor"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
           </div>
@@ -1658,6 +1674,8 @@ export default function LegacyModernizationSection(): ReactElement {
                 <img
                   src={current.image}
                   alt={current.label}
+                  loading="lazy"
+                  decoding="async"
                   className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
@@ -1761,6 +1779,8 @@ export default function LegacyModernizationSection(): ReactElement {
                       <img
                         src={study.image}
                         alt={study.title}
+                        loading="lazy"
+                        decoding="async"
                         className="h-full w-full object-cover"
                       />
                     </div>
@@ -1856,6 +1876,8 @@ export default function LegacyModernizationSection(): ReactElement {
                         <img
                           src={post.image}
                           alt={post.title}
+                          loading="lazy"
+                          decoding="async"
                           className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                         />
 
@@ -1896,6 +1918,8 @@ export default function LegacyModernizationSection(): ReactElement {
                           <img
                             src={post.image}
                             alt={post.title}
+                            loading="lazy"
+                            decoding="async"
                             className="ss-zoom-img h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                           />
                         </div>

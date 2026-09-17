@@ -43,6 +43,27 @@ const slugAliases: Record<string, string> = {
 
 /*
 |--------------------------------------------------------------------------
+| Favicon / tab icon
+|--------------------------------------------------------------------------
+|
+| Applied explicitly on every industry page's metadata so the browser
+| tab always shows the Starfii logo instead of falling back to a
+| generic/broken icon placeholder.
+|--------------------------------------------------------------------------
+*/
+
+const siteIcons: Metadata["icons"] = {
+  icon: [
+    {
+      url: "/starfii_logo_WHITE.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
+/*
+|--------------------------------------------------------------------------
 | Get industry data
 |--------------------------------------------------------------------------
 */
@@ -129,7 +150,9 @@ export async function generateMetadata({
   const data = getIndustryData(slug);
 
   if (!data) {
-    return {};
+    return {
+      icons: siteIcons,
+    };
   }
 
   const displayName = displayOverrides[slug]?.name ?? data.name;
@@ -137,6 +160,7 @@ export async function generateMetadata({
   return {
     title: `${displayName} Industry Solutions | Starfii`,
     description: data.description,
+    icons: siteIcons,
   };
 }
 

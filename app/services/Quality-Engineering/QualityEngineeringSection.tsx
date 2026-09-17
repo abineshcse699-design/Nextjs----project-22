@@ -43,6 +43,9 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Autoplay timing for the "Quality Engineering" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
+// Shared card gap, kept identical to the previous service pages.
+const CARD_GAP = 32;
+
 /* ===============================================================
    TYPOGRAPHY TOKENS
    Same scale used on the Cloud / Software & Product Engineering
@@ -1314,7 +1317,7 @@ export default function QualityEngineeringSection(): ReactElement {
             (90. Quality strategy)
         ============================================================ */}
 
-        <Reveal as="section" className="mt-20">
+        <Reveal as="section" className="mt-20 mb-20 lg:mb-[100px]">
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
@@ -1605,7 +1608,7 @@ export default function QualityEngineeringSection(): ReactElement {
                 tablet: 2,
                 desktop: 4,
               }}
-              gap={32}
+              gap={CARD_GAP}
               arrowVariant="light"
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">

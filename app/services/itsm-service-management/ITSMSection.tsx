@@ -1334,7 +1334,7 @@ export default function ITSMSection(): ReactElement {
             Q&A BLOCK
         ============================================================ */}
 
-        <Reveal as="section" className="mt-20">
+        <Reveal as="section" className="mt-20 mb-20 lg:mb-[100px]">
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}

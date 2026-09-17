@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   Sparkles,
   ArrowUpRight,
+  ChevronDown,
   Plus,
   Minus,
   Trophy,
@@ -51,6 +52,9 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Autoplay timing for the "Freshservice Implementation Journey" tab list
 const TAB_AUTOPLAY_MS = 4000;
 
+// Shared card gap, kept identical to the previous service pages.
+const CARD_GAP = 32;
+
 /* ===============================================================
    CONTENT
    SEO / AEO optimized: entity first statements ("Starfii is...",
@@ -78,14 +82,6 @@ const keyTakeaways = [
     title: "Optimize",
     body: "Migrate historical data, tune CMDB and asset records, and provide ongoing managed support so Freshservice keeps improving after go live.",
   },
-];
-
-type StatOutcome = { stat: string; label: string };
-
-const statOutcomes: StatOutcome[] = [
-  { stat: "30 to 50%", label: "Reduction in average ticket resolution time after implementation" },
-  { stat: "6 to 10 wks", label: "Typical timeline from kickoff to a live, configured Freshservice instance" },
-  { stat: "100%", label: "Historical ticket, asset, and CMDB data migrated without loss" },
 ];
 
 type FocusArea = { title: string; body: string; tags: string[] };
@@ -948,17 +944,203 @@ function EcosystemAccordion(): ReactElement {
   );
 }
 
+
+/* ===============================================================
+   HOOK: sequential typewriter for Key Steps
+   Uses the same open/close + typing interaction as the
+   Legacy Modernization service page.
+================================================================ */
+
+function useTypewriterList(
+  items: string[],
+  active: boolean,
+  speed: number = 16,
+  pauseBetween: number = 300
+): { displayed: string[]; typingIndex: number } {
+  const [displayed, setDisplayed] = useState<string[]>(() => items.map(() => ""));
+  const [typingIndex, setTypingIndex] = useState(-1);
+
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+
+  useEffect(() => {
+    if (!active) {
+      setDisplayed(items.map(() => ""));
+      setTypingIndex(-1);
+      return undefined;
+    }
+
+    let cancelled = false;
+    let itemIndex = 0;
+    let charIndex = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeStep = () => {
+      if (cancelled) return;
+
+      const currentItems = itemsRef.current;
+      if (itemIndex >= currentItems.length) return;
+
+      const currentLine = currentItems[itemIndex];
+      if (currentLine === undefined) return;
+
+      charIndex += 1;
+      setTypingIndex(itemIndex);
+      setDisplayed((prev) => {
+        const next = [...prev];
+        while (next.length < currentItems.length) next.push("");
+        next[itemIndex] = currentLine.slice(0, charIndex);
+        return next;
+      });
+
+      if (charIndex >= currentLine.length) {
+        itemIndex += 1;
+        charIndex = 0;
+        timeoutId = setTimeout(typeStep, pauseBetween);
+      } else {
+        timeoutId = setTimeout(typeStep, speed);
+      }
+    };
+
+    timeoutId = setTimeout(typeStep, pauseBetween);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, items.join("|"), speed, pauseBetween]);
+
+  return { displayed, typingIndex };
+}
+
+/* ===============================================================
+   KEY TAKEAWAYS ACCORDION
+   Same visual treatment as the Quality Engineering page.
+================================================================ */
+
+function TakeawaysAccordion({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (updater: (prev: boolean) => boolean) => void;
+}): ReactElement {
+  const keyStepLines = keyTakeaways.map(
+    (point) => `${point.title}: ${point.body}`
+  );
+  const { displayed, typingIndex } = useTypewriterList(keyStepLines, open);
+
+  return (
+    <div
+      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
+      style={{ borderColor: open ? INDIGO_CTA : LAVENDER_ACCENT }}
+    >
+      <button
+        type="button"
+        aria-expanded={open}
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        style={{
+          borderBottom: open
+            ? `1px solid ${LAVENDER_ACCENT}`
+            : "1px solid transparent",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <Sparkles
+            size={21}
+            strokeWidth={1.8}
+            style={{ color: LAVENDER_ACCENT }}
+          />
+          <span
+            className="font-body text-[17px] font-semibold"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            Freshservice Implementation at a Glance
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span
+            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+            style={{ backgroundColor: "#F1EEFC", color: INDIGO_CTA }}
+          >
+            IMPLEMENT • AUTOMATE • OPTIMIZE
+          </span>
+
+          <ChevronDown
+            size={20}
+            strokeWidth={2.2}
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{
+              color: INDIGO_CTA,
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
+      </button>
+
+      <div
+        className="grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-5 px-8 py-10 lg:px-10">
+            {keyStepLines.map((line, i) => {
+              const text = displayed[i];
+              if (!text && i !== 0) return null;
+
+              const isTyping =
+                i === typingIndex && text.length < line.length;
+
+              return (
+                <li
+                  key={line}
+                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
+                >
+                  <span
+                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: INDIGO_CTA }}
+                  />
+                  <span>
+                    <strong
+                      className="font-semibold"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {keyTakeaways[i]?.title}:
+                    </strong>{" "}
+                    {text.startsWith(`${keyTakeaways[i]?.title}: `)
+                      ? text.slice(`${keyTakeaways[i]?.title}: `.length)
+                      : text}
+                    {isTyping && (
+                      <span
+                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
+                        style={{ backgroundColor: INDIGO_CTA }}
+                      />
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 /* ===============================================================
    SECTION
 ================================================================ */
 
 export default function FreshserviceITSMSection(): ReactElement {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
 
 
-  
 
   // --- Autoplay for the left-side tab list ---
   // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
@@ -1038,86 +1220,13 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       <div className={ALIGN}>
         {/* ============================================================
-            OUTCOMES STRIP
-        ============================================================ */}
-        <Reveal
-          as="section"
-          className="mt-16 grid grid-cols-1 gap-8 border-y py-10 sm:grid-cols-3"
-          style={{ borderColor: LAVENDER_ACCENT }}
-        >
-          {statOutcomes.map((o) => (
-            <div key={o.label}>
-              <p
-                className="font-heading text-[32px] font-medium"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                {o.stat}
-              </p>
-              <p className="font-body mt-2 text-[14px] leading-relaxed text-slate-600">
-                {o.label}
-              </p>
-            </div>
-          ))}
-        </Reveal>
-
-        {/* ============================================================
-            FRESHSERVICE AT A GLANCE
-            Same reference-style three-column design
+            KEY TAKEAWAYS — same accordion treatment as Quality Engineering
         ============================================================ */}
         <Reveal as="section" className="mt-16">
-          <div
-            className="overflow-hidden rounded-[22px] border bg-white"
-            style={{ borderColor: LAVENDER_ACCENT }}
-          >
-            {/* Header */}
-            <div
-              className="flex min-h-[104px] items-center justify-between px-8 py-6 lg:px-10"
-              style={{
-                borderBottom: `1px solid ${LAVENDER_ACCENT}`,
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <Sparkles
-                  size={21}
-                  strokeWidth={1.8}
-                  style={{ color: LAVENDER_ACCENT }}
-                />
-                <span
-                  className="font-body text-[17px] font-semibold"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Freshservice Implementation at a Glance
-                </span>
-              </div>
-
-              <span
-                className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
-                style={{
-                  backgroundColor: "#F1EEFC",
-                  color: INDIGO_CTA,
-                }}
-              >
-                End to End ITSM Delivery
-              </span>
-            </div>
-
-            {/* Three-column content */}
-            <div className="grid grid-cols-1 gap-10 px-8 py-10 md:grid-cols-3 lg:px-10">
-              {keyTakeaways.map((point) => (
-                <div key={point.title}>
-                  <h3
-                    className="font-heading text-[23px] font-semibold"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {point.title}
-                  </h3>
-                  <p className="font-body mt-4 text-[15px] leading-[1.8] text-slate-600">
-                    {point.body}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
+          <TakeawaysAccordion
+            open={takeawaysOpen}
+            setOpen={setTakeawaysOpen}
+          />
 
           <p
             className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
@@ -1134,7 +1243,7 @@ export default function FreshserviceITSMSection(): ReactElement {
             Q&A BLOCK
         ============================================================ */}
 
-        <Reveal as="section" className="mt-20">
+        <Reveal as="section" className="mt-20 mb-20 lg:mb-[100px]">
           <div
             className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
@@ -1418,7 +1527,7 @@ export default function FreshserviceITSMSection(): ReactElement {
                 tablet: 2,
                 desktop: 4,
               }}
-              gap={32}
+              gap={CARD_GAP}
               arrowVariant="light"
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">

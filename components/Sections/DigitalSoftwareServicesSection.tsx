@@ -1387,43 +1387,44 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
         {/* ============================================================
             Q&A BLOCK
         ============================================================ */}
+<Reveal as="section" className="mt-20 mb-20 lg:mb-24">
+  <div
+    className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
+    style={{ backgroundColor: "#F5F3FC" }}
+  >
+    {/* LEFT — text with padding */}
+    <div className="p-10 lg:p-14 flex flex-col justify-center">
+      <Eyebrow>Product Strategy</Eyebrow>
+      <h2
+        className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
+        style={{ color: LAVENDER_ACCENT }}
+      >
+        How Do Enterprises Build Product Strategy Into Software
+        Engineering?
+      </h2>
+      <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
+        Enterprises scale and optimize software operations by
+        combining product strategy, AI led engineering, and
+        scalable architectures. Starfii brings these together to
+        accelerate software development, improve quality, and
+        modernize legacy systems, turning ideas into digital
+        experiences that users value and businesses depend on
+        every day.
+      </p>
+    </div>
 
-        <Reveal as="section" className="mt-20">
-          <div
-            className="grid grid-cols-1 items-center gap-10 rounded-2xl p-10 lg:grid-cols-2"
-            style={{ backgroundColor: "#F5F3FC" }}
-          >
-            <div>
-              <Eyebrow>Product Strategy</Eyebrow>
-              <h2
-                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
-                style={{ color: LAVENDER_ACCENT }}
-              >
-                How Do Enterprises Build Product Strategy Into Software
-                Engineering?
-              </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises scale and optimize software operations by
-                combining product strategy, AI led engineering, and
-                scalable architectures. Starfii brings these together to
-                accelerate software development, improve quality, and
-                modernize legacy systems, turning ideas into digital
-                experiences that users value and businesses depend on
-                every day.
-              </p>
-            </div>
-
-            <div className="overflow-hidden rounded-2xl">
-              <img
-                src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues reviewing a product strategy roadmap"
-                loading="lazy"
-                decoding="async"
-                className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-          </div>
-        </Reveal>
+    {/* RIGHT — image fills column completely, no gap, no padding */}
+    <div className="relative min-h-[320px] lg:min-h-full">
+      <img
+        src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop"
+        alt="Two colleagues reviewing a product strategy roadmap"
+        loading="lazy"
+        decoding="async"
+        className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+      />
+    </div>
+  </div>
+</Reveal>
       </div>
 
       {/* ============================================================
