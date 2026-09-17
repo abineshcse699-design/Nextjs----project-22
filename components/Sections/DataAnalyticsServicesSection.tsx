@@ -6,7 +6,6 @@ import {
   ChevronRight,
   ChevronLeft,
   ChevronDown,
-  Sparkles,
   ArrowUpRight,
   Plus,
 } from "lucide-react";
@@ -413,7 +412,11 @@ function WhyMattersAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-10 w-20 flex-shrink-0 object-contain"
+          />
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
             Why Data &amp; Analytics Matters
           </span>

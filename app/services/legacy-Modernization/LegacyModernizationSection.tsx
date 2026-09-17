@@ -906,7 +906,11 @@ function TakeawaysAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-10 w-20 flex-shrink-0 object-contain"
+          />
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
             Legacy Modernization Roadmap
           </span>
@@ -1437,66 +1441,72 @@ export default function LegacyModernizationSection(): ReactElement {
         </div>
       </section>
 
-      <div className={ALIGN}>
-        {/* ============================================================
-            KEY TAKEAWAYS — collapsible, typewriter bullets
-            (93. Legacy assessment)
-        ============================================================ */}
-        <Reveal as="section" className="mt-16">
-          <TakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+<div className={ALIGN}>
+  {/* ============================================================
+      KEY TAKEAWAYS — collapsible, typewriter bullets
+      (93. Legacy assessment)
+  ============================================================ */}
+  <Reveal as="section" className="mt-16">
+    <TakeawaysAccordion
+      open={takeawaysOpen}
+      setOpen={setTakeawaysOpen}
+    />
 
-          <p
-            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            A leader in legacy modernization, Starfii assesses complex
-            application portfolios and transitions them to secure,
-            scalable digital platforms with minimal disruption to daily
-            business operations.
-          </p>
-        </Reveal>
+    <p
+      className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
+      style={{ color: CHAMPION_BLUE }}
+    >
+      A leader in legacy modernization, Starfii assesses complex
+      application portfolios and transitions them to secure, scalable
+      digital platforms with minimal disruption to daily business
+      operations.
+    </p>
+  </Reveal>
 
-        {/* ============================================================
-            Q&A BLOCK
-            (94. Modernization strategy)
-        ============================================================ */}
+  {/* ============================================================
+      Q&A BLOCK
+      (94. Modernization strategy)
+  ============================================================ */}
+  <Reveal as="section" className="mt-20">
+    <div
+      className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
+      style={{ backgroundColor: "#F5F3FC" }}
+    >
+      {/* Content */}
+      <div className="flex flex-col justify-center p-10 lg:p-14">
+        <Eyebrow>Modernization Strategy</Eyebrow>
 
-        <Reveal as="section" className="mt-20">
-          <div
-            className="grid grid-cols-1 items-stretch overflow-hidden rounded-2xl lg:grid-cols-2"
-            style={{ backgroundColor: "#F5F3FC" }}
-          >
-            <div className="p-10 lg:p-14 flex flex-col justify-center">
-              <Eyebrow>Modernization Strategy</Eyebrow>
-              <h2
-                className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
-                style={{ color: LAVENDER_ACCENT }}
-              >
-                How Do Enterprises Build a Modernization Strategy That
-                Sticks?
-              </h2>
-              <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
-                Enterprises modernize successfully by sequencing legacy
-                assessment, migration, and re engineering work around
-                business priorities rather than technology alone. Starfii
-                brings these together into a structured modernization
-                strategy that reduces risk, controls cost, and delivers
-                measurable value at every phase of the transition.
-              </p>
-            </div>
+        <h2
+          className="font-heading mt-4 text-[26px] font-medium leading-snug lg:text-[30px]"
+          style={{ color: LAVENDER_ACCENT }}
+        >
+          How Do Enterprises Build a Modernization Strategy That
+          Sticks?
+        </h2>
 
-            <div className="relative min-h-[320px] lg:min-h-full">
-              <img
-                src="https://images.unsplash.com/photo-1758691736979-ff263c04b3d1?q=80&w=1200&auto=format&fit=crop"
-                alt="Two colleagues talking while walking through a modern office corridor"
-                loading="lazy"
-                decoding="async"
-                className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
-              />
-            </div>
-          </div>
-        </Reveal>
+        <p className="font-body mt-5 text-[15px] leading-relaxed text-slate-600">
+          Enterprises modernize successfully by sequencing legacy
+          assessment, migration, and re engineering work around business
+          priorities rather than technology alone. Starfii brings these
+          together into a structured modernization strategy that reduces
+          risk, controls cost, and delivers measurable value at every
+          phase of the transition.
+        </p>
       </div>
+
+      {/* Image */}
+      <div className="relative min-h-[320px] lg:min-h-full">
+        <img
+          src="https://images.unsplash.com/photo-1758691736979-ff263c04b3d1?q=80&w=1200&auto=format&fit=crop"
+          alt="Two colleagues talking while walking through a modern office corridor"
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 block h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+        />
+      </div>
+    </div>
+  </Reveal>
+</div>
 
       {/* ============================================================
           FOCUS AREAS
@@ -1974,7 +1984,7 @@ export default function LegacyModernizationSection(): ReactElement {
             className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            <Eyebrow variant="dark">CTA</Eyebrow>
+            {/* <Eyebrow variant="dark">CTA</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mx-auto mt-4 max-w-2xl text-white`}>
               Ready to Modernize Your Legacy Systems?
             </h2>

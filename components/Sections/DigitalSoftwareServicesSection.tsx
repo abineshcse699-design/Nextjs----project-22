@@ -18,7 +18,6 @@ import {
   ChevronRight,
   ChevronDown,
   ChevronLeft,
-  Sparkles,
   ArrowUpRight,
   Plus,
   Minus,
@@ -1087,7 +1086,11 @@ function KeyTakeawaysAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <Sparkles size={21} strokeWidth={1.8} style={{ color: LAVENDER_ACCENT }} />
+          <img
+            src="/starfii_logo_black.svg"
+            alt="Starfii"
+            className="h-10 w-20 flex-shrink-0 object-contain"
+          />
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
             Product Engineering Overview
           </span>
@@ -1923,7 +1926,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             className="overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16"
             style={{ backgroundColor: CHAMPION_BLUE }}
           >
-            <Eyebrow variant="dark">CTA</Eyebrow>
+            {/* <Eyebrow variant="dark">CTA</Eyebrow> */}
             <h2 className="font-heading mx-auto mt-4 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
               Ready to Build Your Next Software Product?
             </h2>
