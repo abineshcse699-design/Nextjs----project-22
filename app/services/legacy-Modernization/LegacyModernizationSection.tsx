@@ -168,43 +168,45 @@ type ServiceTab = {
   image: string;
 };
 
+
 const tabs: ServiceTab[] = [
   {
     label: "Modernization Strategy",
     heading: "A modernization strategy sequenced around real business priorities",
-    body: "Starfii builds modernization strategy and roadmaps that go beyond a technology audit to align every phase of the work with the outcomes the business actually needs, so investment lands where it matters first.",
+    body: "Starfii builds modernization strategy and roadmaps that go beyond a technology audit to align every phase of the work with the outcomes the business actually needs, so investment lands where it matters first. We assess applications, dependencies, data, infrastructure, and technical constraints to identify what should be modernized, re-platformed, refactored, or retired. The roadmap is then sequenced around business impact, technical risk, and practical delivery milestones, giving teams a clear path to modernize without taking on unnecessary disruption or cost.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Application Modernization",
     heading: "Application modernization that keeps what works and replaces what doesn't",
-    body: "Starfii's application modernization team rebuilds legacy software into maintainable, cloud ready systems, preserving proven business logic while removing the constraints that slow delivery down.",
+    body: "Starfii's application modernization team rebuilds legacy software into maintainable, cloud ready systems, preserving proven business logic while removing the constraints that slow delivery down. We evaluate application architecture, dependencies, code quality, integrations, and runtime environments to determine the right modernization approach for each system. By combining targeted refactoring with modern development practices and cloud capabilities, we create applications that are easier to maintain, enhance, integrate, and scale as business needs evolve.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Re-engineering",
     heading: "Re engineering legacy codebases without losing years of business logic",
-    body: "Starfii's re engineering practice modernizes outdated languages, frameworks, and workflows, improving performance and maintainability while carrying forward the rules the business depends on.",
+    body: "Starfii's re engineering practice modernizes outdated languages, frameworks, and workflows, improving performance and maintainability while carrying forward the rules the business depends on. We carefully analyze existing codebases and application behavior before restructuring critical components, reducing technical debt without throwing away valuable business knowledge. The result is a cleaner and more maintainable software foundation that supports faster development, better performance, and future enhancements without sacrificing the capabilities built into the legacy system.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Re-platforming",
     heading: "Re platforming that unlocks cloud scale faster than a full rebuild",
-    body: "Starfii re platforms legacy systems onto modern runtime environments with targeted, low risk code changes, so you get cloud scalability and lower operating costs without a ground up rewrite.",
+    body: "Starfii re platforms legacy systems onto modern runtime environments with targeted, low risk code changes, so you get cloud scalability and lower operating costs without a ground up rewrite. We identify the infrastructure and runtime components that can be moved with minimal application changes while addressing compatibility, performance, security, and deployment requirements along the way. This approach creates a practical bridge between legacy environments and modern platforms, helping organizations gain cloud capabilities while keeping migration effort and business disruption under control.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Cloud Migration",
     heading: "Cloud migration planned around uptime, not just infrastructure",
-    body: "Starfii plans and executes cloud migration for legacy workloads and data, minimizing downtime and business disruption while giving you a clear, tested rollback path at every stage.",
+    body: "Starfii plans and executes cloud migration for legacy workloads and data, minimizing downtime and business disruption while giving you a clear, tested rollback path at every stage. We map application and infrastructure dependencies, define migration waves, prepare the target cloud environment, and validate workloads before moving them into production. Each phase is designed around operational continuity, data integrity, performance, and security, giving your teams greater visibility and control throughout the transition to a modern cloud environment.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
 
 type EcosystemImpact = { title: string; body: string };
 
@@ -1258,9 +1260,9 @@ export default function LegacyModernizationSection(): ReactElement {
         <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                How Do Enterprises Build a Modernization Strategy That
-                Sticks?
+              
+                  <h2 className={`${SECTION_HEADING} mt-4 max-w-xl`} style={{ color: CHAMPION_BLUE }}>
+                {"How Do Enterprises Build a Modernization Strategy That Sticks"}
               </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises modernize successfully by sequencing legacy
@@ -1297,13 +1299,10 @@ export default function LegacyModernizationSection(): ReactElement {
             <Reveal className="self-start lg:sticky lg:top-28">
               <Eyebrow variant="light">Legacy Modernization</Eyebrow>
 
-              <h2
-                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                Our Legacy Modernization Capabilities
+            
+      <h2 className={`${SECTION_HEADING} mt-4 max-w-xl`} style={{ color: CHAMPION_BLUE }}>
+                {" Our Legacy Modernization Capabilities"}
               </h2>
-
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii assesses, re engineers, and migrates legacy
                 applications, architectures, APIs, and databases into

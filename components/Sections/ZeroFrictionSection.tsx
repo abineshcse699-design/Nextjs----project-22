@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 
@@ -18,32 +19,60 @@ const helveticaStyle = {
    CONTENT
    Body text for every card trimmed/balanced to roughly 6 lines
    each, so all cards in the grid line up at the same height.
+
+   href:
+   - Each card below routes ("Know More") to its matching service
+     page via the named constants underneath.
+   - Cards without a specific destination yet keep "#".
+   ⚠️ CONFIRM: these paths are best-guess slugs based on your file
+      names. Update any that don't match your real app/services/*
+      folder names.
 ================================================================ */
+
+// Enterprise Product Engineering + SaaS Product Engineering
+const DIGITAL_SOFTWARE_PAGE_HREF = "/services/digital-software";
+
+// DevOps & Quality Engineering -> Cloud & DevOps page
+// (matches the "/services/cloud/..." links used inside CloudServicesSection.tsx)
+const CLOUD_DEVOPS_PAGE_HREF = "/services/cloud";
+
+// Legacy Software Modernization -> Legacy Modernization page
+// (matches your app/services/legacy-Modernization/page.tsx)
+const LEGACY_PAGE_HREF = "/services/legacy-Modernization";
+
+// Data Engineering & Data Science -> Enterprise Data Analytics page
+const DATA_ANALYTICS_PAGE_HREF = "/services/data-analytics";
 
 const pillars = [
   {
     title: "Enterprise Product Engineering",
     body: "We design, build, and ship digital products end to end for global businesses, combining proven engineering with AI driven frameworks.",
+    href: DIGITAL_SOFTWARE_PAGE_HREF,
   },
   {
     title: "SaaS Product Engineering",
     body: "Starfii builds custom SaaS platforms for fintech, healthcare, e commerce, and enterprise teams that are secure, scalable, and cloud native.",
+    href: DIGITAL_SOFTWARE_PAGE_HREF,
   },
   {
     title: "Enterprise AI/ML, Gen AI & LLM Engineering",
     body: "We turn manual workflows into intelligent, automated systems through custom model integration and Gen AI powered automation.",
+    href: DATA_ANALYTICS_PAGE_HREF,
   },
   {
     title: "Data Engineering & Data Science",
     body: "Our certified data engineers build reliable infrastructure and advanced analytics that help enterprises make faster, data driven decisions.",
+    href: DIGITAL_SOFTWARE_PAGE_HREF,
   },
   {
     title: "Legacy Software Modernization",
     body: "We assess your existing systems and design a tailored roadmap to migrate your business onto a scalable, cloud ready platform.",
+    href: LEGACY_PAGE_HREF,
   },
   {
     title: "DevOps & Quality Engineering",
     body: "Our DevOps and QA practices accelerate delivery through seamless CI/CD and automated testing at enterprise grade quality.",
+    href: CLOUD_DEVOPS_PAGE_HREF,
   },
 ];
 
@@ -132,7 +161,17 @@ function HeadingBlock() {
    PILLAR CARD
 ================================================================ */
 
-function PillarCard({ title, body }: { title: string; body: string }) {
+function PillarCard({
+  title,
+  body,
+  href,
+  onNavigate,
+}: {
+  title: string;
+  body: string;
+  href: string;
+  onNavigate: (href: string) => void;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -182,8 +221,14 @@ function PillarCard({ title, body }: { title: string; body: string }) {
         </p>
       </div>
 
-      <a
-        href="#"
+      {/* Know More — instead of an instant route change, this
+          triggers the dark overlay to slide up over the page first
+          (see ZeroFrictionSection below), then navigates once the
+          slide finishes, so the click feels like a smooth
+          transition into the next page rather than a hard jump. */}
+      <button
+        type="button"
+        onClick={() => onNavigate(href)}
         className="mt-6 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#3B2FE0]"
       >
         Know More
@@ -192,7 +237,7 @@ function PillarCard({ title, body }: { title: string; body: string }) {
           strokeWidth={2.5}
           className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
         />
-      </a>
+      </button>
     </div>
   );
 }
@@ -202,6 +247,38 @@ function PillarCard({ title, body }: { title: string; body: string }) {
 ================================================================ */
 
 export default function ZeroFrictionSection() {
+  const router = useRouter();
+
+  const handleNavigate = (href: string) => {
+    // Cards that don't have a real destination yet ("#") just no-op
+    // instead of scrolling anywhere.
+    if (!href || href === "#") return;
+
+    // Step 1: smoothly scroll the current page back up to the Hero
+    // section at the top, instead of jumping straight to the next
+    // page from wherever the visitor happens to be scrolled to.
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+
+    // Step 2: poll until we've actually arrived back at the top (or a
+    // safety-net timeout fires, in case the smooth scroll gets
+    // interrupted), then navigate — no overlay animation in between,
+    // just scroll-to-Hero -> new page.
+    const startedAt = Date.now();
+
+    const waitUntilAtTop = () => {
+      const reachedTop = window.scrollY <= 2;
+      const timedOut = Date.now() - startedAt > 1200;
+
+      if (reachedTop || timedOut) {
+        router.push(href);
+      } else {
+        requestAnimationFrame(waitUntilAtTop);
+      }
+    };
+
+    requestAnimationFrame(waitUntilAtTop);
+  };
+
   return (
     // Reduced top padding on mobile (pt-8) so the heading sits close
     // to the top of the section instead of a big empty gap; desktop
@@ -262,7 +339,13 @@ export default function ZeroFrictionSection() {
         {/* RIGHT CARDS */}
         <div className="grid w-full grid-cols-1 items-stretch gap-6 sm:grid-cols-2">
           {pillars.map((p) => (
-            <PillarCard key={p.title} title={p.title} body={p.body} />
+            <PillarCard
+              key={p.title}
+              title={p.title}
+              body={p.body}
+              href={p.href}
+              onNavigate={handleNavigate}
+            />
           ))}
 
           <p className="mt-4 text-lg text-slate-200 sm:col-span-2">

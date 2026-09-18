@@ -1,6 +1,9 @@
 // Save this file as: app/services/servicenow/page.tsx
 // ServiceNow ITSM — rebuilt on the same design system as
 // "Software & Product Engineering" (Champion Blue / Lavender / Indigo).
+// FIXED: Key Takeaways now uses the same collapsible typewriter-bullet
+// accordion as the reference page (not separate icon cards), and the
+// hero heading spacing now matches exactly (spacer div + mt-5 on H1).
 
 "use client";
 
@@ -106,7 +109,10 @@ function Eyebrow({
   );
 }
 
-const keyTakeaways = [
+/* --- Key Takeaways: same shape as the reference page (title/body) --- */
+type KeyTakeaway = { title: string; body: string };
+
+const keyTakeaways: KeyTakeaway[] = [
   {
     title: "Assess",
     body: "Review your current ITSM workflows, licensing, and technical debt, then close with a prioritized ServiceNow roadmap backed by a clear business case.",
@@ -195,7 +201,7 @@ const tabs: ServiceTab[] = [
     id: "consulting",
     label: "ServiceNow Consulting",
     heading: "Start with a clear picture of where ITSM stands today",
-    body: "Our ServiceNow consulting engagement reviews your current workflows, licensing, and technical debt, runs a gap analysis against ServiceNow ITSM best practice, and closes with a prioritized roadmap. Every implementation decision is backed by a business case, including which modules to adopt first and in what order.",
+    body: "Our ServiceNow consulting engagement reviews your current workflows, licensing, and technical debt, runs a gap analysis against ServiceNow ITSM best practice, and closes with a prioritized roadmap. We assess how incidents, requests, problems, changes, assets, and service data are currently managed to identify process gaps and areas where the platform can create more value. Every implementation decision is backed by a business case, including which modules to adopt first and in what order. The result is a practical roadmap that connects ServiceNow capabilities to measurable operational priorities while avoiding unnecessary customization and complexity.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
@@ -203,7 +209,7 @@ const tabs: ServiceTab[] = [
     id: "implementation",
     label: "ServiceNow Implementation",
     heading: "A ServiceNow ITSM build that matches how your teams actually work",
-    body: "Certified engineers configure incident, problem, change, and request management, set up the service catalog, CMDB, and IT asset management against your real data, and integrate your identity provider, monitoring tools, and business systems. Admin and end user training plus hypercare carry the platform through go live, so it is adopted and not just switched on.",
+    body: "Certified engineers configure incident, problem, change, and request management, set up the service catalog, CMDB, and IT asset management against your real data, and integrate your identity provider, monitoring tools, and business systems. We configure workflows, assignment rules, approvals, notifications, SLAs, roles, and service experiences around your organization's operating model rather than relying on a generic setup. Admin and end user training plus hypercare carry the platform through go live, so it is adopted and not just switched on. This approach gives teams a structured ITSM foundation that can scale as processes, users, and service requirements evolve.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
   },
@@ -211,7 +217,7 @@ const tabs: ServiceTab[] = [
     id: "optimization",
     label: "Optimization",
     heading: "ITSM that keeps getting better after go live",
-    body: "A ServiceNow instance drifts out of shape as teams, ticket volumes, and priorities change. We run regular health checks against resolution time, escalations, and backlog age, tune workflows, optimize licences so you pay for what teams actually use, and plan release upgrades so the instance stays current without disruption.",
+    body: "A ServiceNow instance drifts out of shape as teams, ticket volumes, and priorities change. We run regular health checks against resolution time, escalations, and backlog age, tune workflows, optimize licences so you pay for what teams actually use, and plan release upgrades so the instance stays current without disruption. We also review configurations, automation, integrations, service catalog experiences, reporting, and platform usage to identify areas for continuous improvement. This ongoing optimization helps reduce unnecessary complexity, improve service performance, and ensure the platform continues to support changing business and IT requirements.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
   },
@@ -219,11 +225,13 @@ const tabs: ServiceTab[] = [
     id: "support",
     label: "Support & Managed Services",
     heading: "A team that knows your instance, on call when you need them",
-    body: "Our ServiceNow ITSM managed support covers day to day break fix, release upgrades, and platform governance with defined response times. You get a named team that knows your configuration rather than a rotating help desk, and support tiers that flex from break fix to fully managed operations.",
+    body: "Our ServiceNow ITSM managed support covers day to day break fix, release upgrades, and platform governance with defined response times. You get a named team that knows your configuration rather than a rotating help desk, and support tiers that flex from break fix to fully managed operations. We monitor platform health, troubleshoot workflow and integration issues, support configuration changes, and help maintain reliable day to day service operations. As your environment grows, the team can also support enhancements, automation improvements, governance activities, and ongoing platform maintenance so your ServiceNow investment continues to deliver value.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
+
 
 type EcosystemImpact = { title: string; body: string };
 
@@ -404,6 +412,7 @@ function AnimationStyles(): ReactElement {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
+      /* Typewriter cursor blink for Key Takeaways */
       @keyframes ss-caret-blink {
         0%, 100% { opacity: 1; }
         50%      { opacity: 0; }
@@ -419,7 +428,29 @@ function AnimationStyles(): ReactElement {
       .ss-arrow-pulse:not(:disabled):hover {
         animation: ss-pulse-soft 1.2s ease-in-out infinite;
       }
-      .ss-caret { animation: ss-caret-blink 0.9s steps(1) infinite; }
+      .ss-caret {
+        animation: ss-caret-blink 0.9s steps(1) infinite;
+      }
+
+      /* =============================================================
+         HERO — hardened stacking context so nothing (analytics
+         widgets, other fixed/absolute overlays elsewhere in the app)
+         can render on top of or bleed into the hero image + copy.
+      ============================================================= */
+      .ss-hero {
+        isolation: isolate;
+        position: relative;
+        z-index: 0;
+      }
+      .ss-hero-bg {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+      }
+      .ss-hero-content {
+        position: relative;
+        z-index: 10;
+      }
 
       /* =============================================================
          LIGHT CAPABILITIES GRID
@@ -567,6 +598,8 @@ function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
 
 /* ===============================================================
    HOOK: sequential typewriter for a list of lines
+   (identical to the reference page — powers the Key Takeaways
+   bullet-by-bullet reveal)
 ================================================================ */
 
 function useTypewriterList(
@@ -936,6 +969,7 @@ function StepCarousel<T>({
 
 /* ===============================================================
    KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
+   (this now matches the reference page's component exactly)
 ================================================================ */
 
 function KeyTakeawaysAccordion({
@@ -956,24 +990,36 @@ function KeyTakeawaysAccordion({
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className="flex min-h-[104px] w-full items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
         style={{
-          borderBottom: open
-            ? `1px solid ${LAVENDER_ACCENT}`
-            : "1px solid transparent",
+          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
         }}
       >
         <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
           <span
-            className="font-body text-[17px] font-semibold"
-            style={{ color: CHAMPION_BLUE }}
+            aria-hidden="true"
+            className="relative inline-flex h-7 w-7 flex-shrink-0 items-center justify-center"
+            style={{ color: INDIGO_CTA }}
           >
-            ServiceNow ITSM Overview
+            <svg
+              viewBox="0 0 32 32"
+              className="h-7 w-7"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M16 1.5 19.2 12.8 30.5 16l-11.3 3.2L16 30.5l-3.2-11.3L1.5 16l11.3-3.2L16 1.5Z" />
+            </svg>
+            <svg
+              viewBox="0 0 20 20"
+              className="absolute -bottom-1 -right-1 h-3.5 w-3.5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 1.5 11.35 8.65 18.5 10l-7.15 1.35L10 18.5l-1.35-7.15L1.5 10l7.15-1.35L10 1.5Z" />
+            </svg>
+          </span>
+          <span className="font-body text-[17px] font-semibold" style={{ color: INDIGO_CTA }}>
+            Key Takeaways
           </span>
         </div>
 
@@ -1012,7 +1058,7 @@ function KeyTakeawaysAccordion({
               return (
                 <li
                   key={line}
-                  className="font-body flex gap-2 text-[15px] leading-[1.8] text-slate-600"
+                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
                 >
                   <span
                     className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
@@ -1168,12 +1214,17 @@ export default function ServiceNowITSMPage(): ReactElement {
 
       {/* ============================================================
           139. HERO — breadcrumb + full-bleed image
+          `.ss-hero` establishes its own stacking context (isolation:
+          isolate) so nothing else in the app can render on top of or
+          bleed into this section. Spacing now matches the reference
+          page exactly: an empty spacer div (mt-10) followed by the
+          H1 with mt-5, instead of a single mt-10 on the H1.
       ============================================================ */}
       <section
         id="overview"
-        className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]"
+        className="ss-hero min-h-[680px] overflow-hidden lg:min-h-[760px]"
       >
-        <div className="absolute inset-0 -z-10">
+        <div className="ss-hero-bg">
           <img
             src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=3840&auto=format&fit=crop"
             alt="IT service management team reviewing ServiceNow dashboards"
@@ -1200,7 +1251,9 @@ export default function ServiceNowITSMPage(): ReactElement {
           />
         </div>
 
-        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
+        <div
+          className={`${ALIGN} ss-hero-content flex min-h-[680px] items-center lg:min-h-[760px]`}
+        >
           <div className="w-full max-w-[760px] py-20 lg:py-28">
             {/* Breadcrumb */}
             <nav
@@ -1222,8 +1275,18 @@ export default function ServiceNowITSMPage(): ReactElement {
               <span className="text-white/60">ServiceNow</span>
             </nav>
 
+            {/* Eyebrow spacer — kept as an empty slot for spacing parity
+                with the reference page (uncomment Eyebrow to use it) */}
+            <div
+              className="mt-10 opacity-0"
+              style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
+            >
+              {/* <Eyebrow variant="dark">ServiceNow ITSM</Eyebrow> */}
+            </div>
+
+            {/* Main heading */}
             <h1
-              className="font-heading mt-10 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
+              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
               style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
             >
               ServiceNow ITSM Services for Modern Enterprises
@@ -1257,6 +1320,7 @@ export default function ServiceNowITSMPage(): ReactElement {
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS — collapsible, typewriter bullets
+            (matches the reference page's component and sizing)
         ============================================================ */}
         <Reveal as="section" className="mt-16">
           <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
@@ -1278,9 +1342,13 @@ export default function ServiceNowITSMPage(): ReactElement {
         <Reveal as="section" className="mb-20 mt-20 lg:mb-24">
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                How Do Enterprises Modernize IT Service Management With
-                ServiceNow?
+            
+
+                <h2
+                className={`${SECTION_HEADING} mt-4 max-w-500`}
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {"How Do Enterprises Modernize IT Service Management With ServiceNow?"}
               </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 They consolidate scattered queues, spreadsheets, and inboxes
@@ -1314,23 +1382,27 @@ export default function ServiceNowITSMPage(): ReactElement {
       >
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-            <Reveal className="lg:sticky lg:top-28">
-              <Eyebrow variant="light">ITSM</Eyebrow>
+            <div className="relative">
+              <Reveal className="lg:sticky lg:top-28">
+                <Eyebrow variant="light">ITSM</Eyebrow>
 
-              <h2
-                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+              
+
+                 <h2
+                className={`${SECTION_HEADING} mt-4 max-w-500`}
                 style={{ color: CHAMPION_BLUE }}
               >
-                Our ServiceNow ITSM Capabilities
+                {"Our ServiceNow ITSM Capabilities"}
               </h2>
 
-              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                From incident and problem management through to CMDB, asset
-                tracking, and custom applications, every capability below is
-                delivered by the same certified ServiceNow team, on the same
-                platform conventions.
-              </p>
-            </Reveal>
+                <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                  From incident and problem management through to CMDB, asset
+                  tracking, and custom applications, every capability below is
+                  delivered by the same certified ServiceNow team, on the same
+                  platform conventions.
+                </p>
+              </Reveal>
+            </div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {capabilities.map((area, i) => (
@@ -1734,92 +1806,92 @@ export default function ServiceNowITSMPage(): ReactElement {
       {/* ============================================================
           156. CLOSING CTA
       ============================================================ */}
-    <section id="connect" className="scroll-mt-28 bg-white py-24">
-  <div className={ALIGN}>
-    <Reveal
-      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
-    >
-      {/* Decorative gradient blob, offset to one side */}
-      <div
-        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
-        }}
-      />
-      {/* Subtle diagonal lines */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
-        }}
-      />
-
-      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        {/* Left: heading + copy */}
-        <div>
-          <span
-            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
-            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
+      <section id="connect" className="scroll-mt-28 bg-white py-24">
+        <div className={ALIGN}>
+          <Reveal
+            className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
+            style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
           >
-            GET STARTED
-          </span>
+            {/* Decorative gradient blob, offset to one side */}
+            <div
+              className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
+              style={{
+                background:
+                  "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
+              }}
+            />
+            {/* Subtle diagonal lines */}
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.05]"
+              style={{
+                backgroundImage:
+                  "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
+              }}
+            />
 
-          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
-            Ready to Build a Quality Strategy That Scales?
-          </h2>
+            <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
+              {/* Left: heading + copy */}
+              <div>
+                <span
+                  className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
+                  style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
+                >
+                  GET STARTED
+                </span>
 
-          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
-            Talk to Starfii about manual testing, test automation, API
-            and performance testing, security testing, or embedding
-            continuous and AI assisted testing into your pipeline.
-          </p>
+                <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
+                  Ready to Build a Quality Strategy That Scales?
+                </h2>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/#form"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </Link>
+                <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
+                  Talk to Starfii about manual testing, test automation, API
+                  and performance testing, security testing, or embedding
+                  continuous and AI assisted testing into your pipeline.
+                </p>
 
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
-              style={{ borderColor: "rgba(0,0,0,0.15)" }}
-            >
-              Email Us
-            </a>
-          </div>
+                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                  <Link
+                    href="/#form"
+                    className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
+                    style={{ backgroundColor: CHAMPION_BLUE }}
+                  >
+                    Connect Now
+                    <ArrowUpRight size={17} />
+                  </Link>
+
+                  <a
+                    href="mailto:hello@starfii.com"
+                    className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
+                    style={{ borderColor: "rgba(0,0,0,0.15)" }}
+                  >
+                    Email Us
+                  </a>
+                </div>
+              </div>
+
+              {/* Right: floating contact card */}
+              <div
+                className="relative rounded-2xl p-7"
+                style={{
+                  backgroundColor: "rgba(29,53,87,0.04)",
+                  border: "1px solid rgba(0,0,0,0.08)",
+                }}
+              >
+                <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
+                  Prefer to talk directly?
+                </p>
+                <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
+                  hello@starfii.com
+                </p>
+                <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
+                <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
+                  Typical response time: within 24 hours on business days.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
-
-        {/* Right: floating contact card */}
-        <div
-          className="relative rounded-2xl p-7"
-          style={{
-            backgroundColor: "rgba(29,53,87,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
-            Prefer to talk directly?
-          </p>
-          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
-            hello@starfii.com
-          </p>
-          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
-          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
-            Typical response time: within 24 hours on business days.
-          </p>
-        </div>
-      </div>
-    </Reveal>
-  </div>
-</section>
+      </section>
     </main>
   );
 }

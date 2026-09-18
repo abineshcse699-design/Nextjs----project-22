@@ -178,12 +178,13 @@ type ServiceTab = {
   image: string;
 };
 
+
 const tabs: ServiceTab[] = [
   {
     id: "test-automation",
     label: "Test Automation",
     heading: "Test automation that keeps pace with every release",
-    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle. Frameworks, reporting, and CI integration come as part of the build, not as an afterthought.",
+    body: "Starfii builds maintainable automation suites across unit, integration, and end to end layers, so regression testing stops being the bottleneck in your release cycle. Frameworks, reporting, and CI integration come as part of the build, not as an afterthought. We identify the right scenarios for automation, prioritize high value regression coverage, and design reusable test components that can evolve with the application. Automated execution gives development teams faster feedback, improves release confidence, and reduces the repetitive manual effort required to validate every change.",
     image:
       "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=1200&auto=format&fit=crop",
   },
@@ -191,7 +192,7 @@ const tabs: ServiceTab[] = [
     id: "api-testing",
     label: "API Testing",
     heading: "API testing that protects every integration point",
-    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows. Breaking changes surface in the pipeline rather than in a partner's inbox.",
+    body: "Starfii validates request and response contracts, error handling, and edge cases across your API surface, so downstream services stay reliable as your platform grows. Breaking changes surface in the pipeline rather than in a partner's inbox. We test functional behavior, authentication, data validation, status codes, dependencies, and failure scenarios across critical APIs and integrations. This creates stronger confidence in service communication and helps teams identify contract or integration issues early, before they impact connected applications, customers, or business workflows.",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
   },
@@ -199,7 +200,7 @@ const tabs: ServiceTab[] = [
     id: "performance-testing",
     label: "Performance Testing",
     heading: "Performance testing built for real world traffic",
-    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most. Results come back as tuning actions, not just a graph of response times.",
+    body: "Starfii simulates peak load and failure conditions to expose bottlenecks early, so your platform holds up when usage spikes matter most. Results come back as tuning actions, not just a graph of response times. We evaluate response times, throughput, resource utilization, concurrency, scalability, and system behavior under sustained and peak workloads. Performance findings are translated into practical recommendations across application code, databases, APIs, infrastructure, and configuration, helping teams improve stability and prepare platforms for expected growth.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
@@ -207,7 +208,7 @@ const tabs: ServiceTab[] = [
     id: "security-testing",
     label: "Security Testing",
     heading: "Security testing that finds risk before attackers do",
-    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production and giving you evidence you can take to an audit.",
+    body: "Starfii's security testing practice probes applications and APIs for vulnerabilities, misconfigurations, and weak points, closing gaps before they reach production and giving you evidence you can take to an audit. We assess application behavior, authentication and authorization controls, input handling, exposed interfaces, and common security weaknesses across critical components. Findings are documented with clear remediation guidance and validation steps, helping engineering teams address vulnerabilities systematically while strengthening the overall security posture of the application.",
     image:
       "https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=1200&auto=format&fit=crop",
   },
@@ -215,11 +216,13 @@ const tabs: ServiceTab[] = [
     id: "continuous-testing",
     label: "Continuous Testing",
     heading: "Continuous testing wired into your delivery pipeline",
-    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day. Flaky tests get triaged instead of ignored, so the pipeline stays trusted.",
+    body: "Starfii embeds quality gates directly into CI/CD, so every commit is tested automatically and issues surface long before release day. Flaky tests get triaged instead of ignored, so the pipeline stays trusted. We define automated test stages and quality checks based on the application's release process, enabling teams to receive fast feedback throughout development. Test results become part of the delivery workflow, helping developers identify regressions earlier, maintain consistent quality standards, and release changes with greater confidence instead of relying on a final testing phase at the end of the cycle.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
+
 
 type EcosystemImpact = { title: string; body: string };
 
@@ -671,17 +674,31 @@ function KeyTakeawaysAccordion({
             : "1px solid transparent",
         }}
       >
-        <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
+       <div className="flex items-center gap-3">
           <span
-            className="font-body text-[17px] font-semibold"
-            style={{ color: CHAMPION_BLUE }}
+            aria-hidden="true"
+            className="relative inline-flex h-8 w-8 flex-shrink-0 items-center justify-center"
+            style={{ color: INDIGO_CTA }}
           >
-            Quality Engineering Overview
+            <svg
+              viewBox="0 0 32 32"
+              className="h-8 w-8"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M16 1.5C16.7 8.9 18.1 13.2 21.1 14.9C22.8 16 27.1 16 30.5 16C23.1 16.7 18.8 18.1 17.1 21.1C16 22.8 16 27.1 16 30.5C15.3 23.1 13.9 18.8 10.9 17.1C9.2 16 4.9 16 1.5 16C8.9 15.3 13.2 13.9 14.9 10.9C16 9.2 16 4.9 16 1.5Z" />
+            </svg>
+            <svg
+              viewBox="0 0 20 20"
+              className="absolute bottom-0 right-0 h-3.5 w-3.5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 1.5C10.35 6.15 11.15 8.1 12.9 9.05C13.85 9.55 15.8 9.65 18.5 10C15.8 10.35 13.85 10.45 12.9 10.95C11.15 11.9 10.35 13.85 10 18.5C9.65 13.85 8.85 11.9 7.1 10.95C6.15 10.45 4.2 10.35 1.5 10C4.2 9.65 6.15 9.55 7.1 9.05C8.85 8.1 9.65 6.15 10 1.5Z" />
+            </svg>
+          </span>
+          <span className="font-body text-[17px] font-semibold" style={{ color: INDIGO_CTA }}>
+            Key Takeaways
           </span>
         </div>
 
@@ -1277,9 +1294,17 @@ export default function QualityEngineeringSection(): ReactElement {
         <Reveal as="section" className="mb-20 mt-20 lg:mb-24">
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                How Do Enterprises Build a Quality Strategy That Scales?
+            
+                <h2
+                className={`${SECTION_HEADING} mt-4 max-w-500`}
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {"How Do Enterprises Build a Quality Strategy That Scales?"}
               </h2>
+
+
+
+
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 They combine manual testing, test automation, API and
                 performance testing, security testing, and continuous
@@ -1316,11 +1341,11 @@ export default function QualityEngineeringSection(): ReactElement {
             <Reveal className="self-start lg:sticky lg:top-28">
               <Eyebrow variant="light">Quality Engineering</Eyebrow>
 
-              <h2
-                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+                <h2
+                className={`${SECTION_HEADING} mt-4 max-w-500`}
                 style={{ color: CHAMPION_BLUE }}
               >
-                Our Quality Engineering &amp; Testing Capabilities
+                {"Our Quality Engineering & Testing Capabilities"}
               </h2>
 
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">

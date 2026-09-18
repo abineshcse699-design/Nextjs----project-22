@@ -98,43 +98,69 @@ type ServiceTab = {
   heading: string;
   body: string;
   image: string;
+  highlights: string[];
 };
 
 const tabs: ServiceTab[] = [
   {
     label: "Product Strategy",
     heading: "Product-led thinking to shape and realize your product vision",
-    body: "Craft product and experience roadmaps that go beyond planning to bring your vision into reality. Explore your product's full potential while defining both immediate and long-term steps toward your goals. Ensure every phase is clearly structured and strategically aligned, with digital solutions that support innovation and enable consistent progress.",
+    body: "Craft product and experience roadmaps that go beyond planning to bring your vision into reality. Explore your product's full potential while defining both immediate and long-term steps toward your goals. Ensure every phase is clearly structured and strategically aligned, with digital solutions that support innovation and enable consistent progress. Starfii's product strategists work closely with your stakeholders to validate assumptions, map user journeys, and prioritize features that deliver real business impact, so every release moves the product closer to measurable outcomes rather than just shipping features for their own sake.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
+    highlights: [
+      "Product vision and roadmap workshops",
+      "Market and competitive discovery",
+      "MVP definition and prioritization",
+    ],
   },
   {
     label: "Web Application Development",
     heading: "Web applications engineered for how digital markets actually move",
-    body: "Starfii's web application development team builds products that adapt to shifting user expectations and market conditions, so your software stays competitive long after launch instead of needing a rebuild every cycle.",
+    body: "Starfii's web application development team builds products that adapt to shifting user expectations and market conditions, so your software stays competitive long after launch instead of needing a rebuild every cycle. From responsive front ends to resilient back end services, every layer is engineered with scalability, security, and maintainability in mind, giving your team a codebase that's easy to extend as new features, integrations, and markets come into scope.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
+    highlights: [
+      "Modern frameworks: React, Next.js, Angular",
+      "Scalable, cloud native architecture",
+      "Performance and accessibility first builds",
+    ],
   },
   {
     label: "Mobile Application Development",
     heading: "Mobile applications built for engagement across every device",
-    body: "Starfii's mobile application development practice ships fast, reliable iOS, Android, and cross platform experiences that keep users coming back and support the business behind the app.",
+    body: "Starfii's mobile application development practice ships fast, reliable iOS, Android, and cross platform experiences that keep users coming back and support the business behind the app. Our engineers pair thoughtful UX with performant native and cross platform code, so apps launch quickly, run smoothly on real world devices, and are built to evolve as your user base and feature set grow over time.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=80&w=1200&auto=format&fit=crop",
+    highlights: [
+      "Native iOS and Android engineering",
+      "Cross platform with React Native / Flutter",
+      "App store optimization and release support",
+    ],
   },
   {
     label: "Backend Engineering",
     heading: "Backend engineering built to carry your product as it grows",
-    body: "Starfii's backend engineering teams design resilient services and data architectures, so performance and reliability hold up as usage, features, and integrations multiply.",
+    body: "Starfii's backend engineering teams design resilient services and data architectures, so performance and reliability hold up as usage, features, and integrations multiply. We build with observability, fault tolerance, and horizontal scalability from day one, ensuring your platform can absorb traffic spikes, new data sources, and evolving business logic without compromising uptime or response times.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200&auto=format&fit=crop",
+    highlights: [
+      "Microservices and API architecture",
+      "High availability data pipelines",
+      "Security and compliance built in",
+    ],
   },
   {
     label: "Product Modernization",
     heading: "Product modernization that clears the path for what comes next",
-    body: "Starfii assesses your legacy technology estate, builds a tailored product modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations.",
+    body: "Starfii assesses your legacy technology estate, builds a tailored product modernization roadmap, and transitions you to a scalable cloud platform with minimal disruption to daily business operations. We prioritize the highest risk and highest value systems first, sequence the migration to avoid downtime, and pair modernization with automated testing so your teams gain confidence with every phase of the transition.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200&auto=format&fit=crop",
+    highlights: [
+      "Legacy system assessment and audit",
+      "Cloud migration with zero downtime",
+      "Ongoing modernization roadmap",
+    ],
   },
 ];
 
@@ -1033,16 +1059,16 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                   <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: isOpen ? INDIGO_CTA : "#E5E1F5",
+    color: isOpen ? "#FFFFFF" : "#8B93A7",
+    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   {/* 0fr -> 1fr gives a smooth auto-height expand */}
@@ -1223,10 +1249,11 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
   <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
     {/* LEFT — text with padding, nudges right on hover */}
     <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-      <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-        How Do Enterprises Build Product Strategy Into Software
+     
+        <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+                  How Do Enterprises Build Product Strategy Into Software
         Engineering?
-      </h2>
+          </h2> 
       <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
         Enterprises scale and optimize software operations by
         combining product strategy, AI led engineering, and
@@ -1271,12 +1298,10 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             Software &amp; Product Engineering
           </Eyebrow>
 
-          <h2
-            className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-            style={{ color: CHAMPION_BLUE }}
-          >
-            Our Software &amp; Product Engineering Capabilities
-          </h2>
+
+  <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+             Software and Product Engineering Services
+          </h2> 
 
           <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
             Starfii plans, designs, and scales customer focused digital
@@ -1705,92 +1730,12 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
       {/* ============================================================
           CLOSING CTA
       ============================================================ */}
-<section id="connect" className="scroll-mt-28 bg-white py-24">
-  <div className={ALIGN}>
-    <Reveal
-      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
-    >
-      {/* Decorative gradient blob, offset to one side */}
-      <div
-        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
-        }}
-      />
-      {/* Subtle diagonal lines */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
-        }}
-      />
 
-      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        {/* Left: heading + copy */}
-        <div>
-          <span
-            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
-            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
-          >
-            GET STARTED
-          </span>
 
-          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
-            Ready to Build a Quality Strategy That Scales?
-          </h2>
 
-          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
-            Talk to Starfii about manual testing, test automation, API
-            and performance testing, security testing, or embedding
-            continuous and AI assisted testing into your pipeline.
-          </p>
 
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/#form"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </Link>
 
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
-              style={{ borderColor: "rgba(0,0,0,0.15)" }}
-            >
-              Email Us
-            </a>
-          </div>
-        </div>
 
-        {/* Right: floating contact card */}
-        <div
-          className="relative rounded-2xl p-7"
-          style={{
-            backgroundColor: "rgba(29,53,87,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
-            Prefer to talk directly?
-          </p>
-          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
-            hello@starfii.com
-          </p>
-          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
-          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
-            Typical response time: within 24 hours on business days.
-          </p>
-        </div>
-      </div>
-    </Reveal>
-  </div>
-</section>
 
 
     </main>

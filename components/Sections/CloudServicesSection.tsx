@@ -147,12 +147,13 @@ type ServiceTab = {
   image: string;
 };
 
+
 const tabs: ServiceTab[] = [
   {
     label: "Architecture: Design for Scale",
     heading:
       "Cloud architecture blueprints built for scale, security, and cost, before migration begins",
-    body: "Starfii designs landing zones, network topology, and account structure across AWS, Azure, and GCP up front, so every workload that moves in has a foundation built to last.",
+    body: "Starfii designs landing zones, network topology, and account structure across AWS, Azure, and GCP up front, so every workload that moves in has a foundation built to last. We define the right compute, storage, networking, identity, and governance patterns based on your workloads and growth plans. This gives teams a consistent cloud foundation that is easier to manage, secure, and scale as new applications and environments are added.",
     image:
       "https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1400&auto=format&fit=crop",
   },
@@ -160,7 +161,7 @@ const tabs: ServiceTab[] = [
     label: "Migration: Plan a Move That Fits",
     heading:
       "A cloud migration roadmap sequenced around business risk, not just technical ease",
-    body: "Starfii assesses your workloads and builds a cloud migration plan that moves the right systems in the right order, so the business keeps running while the cloud foundation gets built underneath it.",
+    body: "Starfii assesses your workloads and builds a cloud migration plan that moves the right systems in the right order, so the business keeps running while the cloud foundation gets built underneath it. We evaluate application dependencies, infrastructure requirements, data movement, security considerations, and operational constraints before defining the migration sequence. This helps reduce disruption, identify risks early, and create a practical path from legacy infrastructure to a scalable cloud environment.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1400&auto=format&fit=crop",
   },
@@ -168,7 +169,7 @@ const tabs: ServiceTab[] = [
     label: "Modernize: Cloud Native by Design",
     heading:
       "Applications modernized and engineered for the cloud, not just moved onto it",
-    body: "Starfii refactors legacy systems and builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer.",
+    body: "Starfii refactors legacy systems and builds with containers, microservices, and serverless architecture where they genuinely help, so you get the elasticity, scalability, and resilience the cloud is meant to offer. We identify which applications need deeper modernization and which can be migrated with minimal change, avoiding unnecessary rework. The result is an application environment that can scale with demand, recover more reliably, and evolve faster as business requirements change.",
     image:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=90&w=1400&auto=format&fit=crop",
   },
@@ -176,7 +177,7 @@ const tabs: ServiceTab[] = [
     label: "DevOps & CI/CD: Ship Faster, Safer",
     heading:
       "DevOps culture and CI/CD pipelines that get code to production faster, without sacrificing stability",
-    body: "Starfii aligns development and operations around automated pipelines, with testing, monitoring, and rollback built into every release, so teams ship more often with less risk.",
+    body: "Starfii aligns development and operations around automated pipelines, with testing, monitoring, and rollback built into every release, so teams ship more often with less risk. We automate build, test, deployment, and release processes while creating consistent environments across development, staging, and production. This reduces manual intervention, shortens release cycles, and gives engineering teams greater confidence when delivering new features and fixes.",
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1400&auto=format&fit=crop",
   },
@@ -184,7 +185,7 @@ const tabs: ServiceTab[] = [
     label: "Automation: Infrastructure as Code",
     heading:
       "Infrastructure provisioned as code, so environments stay consistent and repeatable",
-    body: "Starfii codifies infrastructure with Terraform and native tooling, replacing manual provisioning with version controlled environments that spin up the same way every time.",
+    body: "Starfii codifies infrastructure with Terraform and native tooling, replacing manual provisioning with version controlled environments that spin up the same way every time. Infrastructure changes can be reviewed, tracked, tested, and reused across environments, reducing configuration drift and deployment errors. This makes it easier to create new environments quickly, manage infrastructure at scale, and maintain a consistent operating model across your cloud estate.",
     image:
       "https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=90&w=1400&auto=format&fit=crop",
   },
@@ -192,14 +193,14 @@ const tabs: ServiceTab[] = [
     label: "Observability: See Issues Before Impact",
     heading:
       "Monitoring and observability that surfaces problems before they become incidents",
-    body: "Starfii unifies metrics, logs, and traces across your cloud estate into a single view, with alerting tuned to cut noise so on call teams act on what actually matters.",
+    body: "Starfii unifies metrics, logs, and traces across your cloud estate into a single view, with alerting tuned to cut noise so on call teams act on what actually matters. We establish meaningful service health indicators, performance visibility, and actionable alerts across applications and infrastructure. This helps teams understand what is happening in real time, identify emerging issues earlier, and troubleshoot incidents faster when something goes wrong.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=1400&auto=format&fit=crop",
   },
   {
     label: "Security: Secure by Design",
     heading: "Cloud security built into the architecture, not added after launch",
-    body: "Starfii embeds identity, network, and compliance controls into the cloud environment from the start, so security scales alongside the workloads it protects.",
+    body: "Starfii embeds identity, network, and compliance controls into the cloud environment from the start, so security scales alongside the workloads it protects. We establish access policies, network boundaries, encryption practices, and security controls around the way your applications and teams actually operate. By making security part of the architecture and deployment process, organizations can reduce exposure while maintaining the flexibility needed to scale cloud workloads.",
     image:
       "https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=90&w=1400&auto=format&fit=crop",
   },
@@ -207,11 +208,13 @@ const tabs: ServiceTab[] = [
     label: "Managed Services: Run With Confidence",
     heading:
       "Cloud operations and managed services that keep environments running around the clock",
-    body: "Starfii's managed services and SRE led operations team monitors, patches, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply.",
+    body: "Starfii's managed services and SRE led operations team monitors, patches, and responds to incidents across your AWS, Azure, and GCP estate, so reliability holds steady as workloads multiply. We support day to day cloud operations, infrastructure health, performance monitoring, incident response, and ongoing optimization. With continuous operational oversight and proactive maintenance, your internal teams can focus on product and business priorities while the cloud environment remains stable, secure, and ready to scale.",
     image:
       "https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=90&w=1400&auto=format&fit=crop",
   },
 ];
+
+
 
 /* ===============================================================
    IMPACT ACROSS YOUR CLOUD INFRASTRUCTURE
@@ -1343,11 +1346,11 @@ export default function CloudServicesSection(): ReactElement {
             className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2"
           >
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2
-                className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]"
-              >
+           
+
+               <h2 className={`${SECTION_HEADING} max-w-[620px]`} style={{ color: CHAMPION_BLUE }}>
                 How Do Enterprises Move to the Cloud Without Losing Control?
-              </h2>
+            </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises stay in control during cloud adoption by
                 sequencing migration around business risk, designing cloud
@@ -1379,9 +1382,11 @@ export default function CloudServicesSection(): ReactElement {
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             <Reveal className="self-start lg:sticky lg:top-28">
               {/* <Eyebrow variant="light">Cloud Engineering</Eyebrow> */}
-              <h2 className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]" style={{ color: CHAMPION_BLUE }}>
-                Our Cloud Engineering Capabilities
-              </h2>
+    
+
+               <h2 className={`${SECTION_HEADING} max-w-[620px]`} style={{ color: CHAMPION_BLUE }}>
+       Our Cloud Engineering Capabilities
+            </h2>
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii migrates, builds, and operates on AWS, Azure, and GCP
                 with architecture designed for scale, resilience, and
@@ -1433,7 +1438,7 @@ export default function CloudServicesSection(): ReactElement {
         <Reveal as="section" className="mt-24 pb-28">
           {/* <Eyebrow>Cloud Engineering</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
-            Cloud Services, Explained
+            Cloud Services
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
@@ -1761,13 +1766,13 @@ export default function CloudServicesSection(): ReactElement {
       {/* ============================================================
           CLOSING CTA
       ============================================================ */}
-  <section id="connect" className="scroll-mt-28 bg-white py-24">
+  {/* <section id="connect" className="scroll-mt-28 bg-white py-24">
   <div className={ALIGN}>
     <Reveal
       className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
       style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
     >
-      {/* Decorative gradient blob, offset to one side */}
+     
       <div
         className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
         style={{
@@ -1775,7 +1780,7 @@ export default function CloudServicesSection(): ReactElement {
             "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
         }}
       />
-      {/* Subtle diagonal lines */}
+ 
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.05]"
         style={{
@@ -1785,7 +1790,7 @@ export default function CloudServicesSection(): ReactElement {
       />
 
       <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        {/* Left: heading + copy */}
+
         <div>
           <span
             className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
@@ -1824,7 +1829,6 @@ export default function CloudServicesSection(): ReactElement {
           </div>
         </div>
 
-        {/* Right: floating contact card */}
         <div
           className="relative rounded-2xl p-7"
           style={{
@@ -1846,7 +1850,8 @@ export default function CloudServicesSection(): ReactElement {
       </div>
     </Reveal>
   </div>
-</section>
+</section> */}
+
       </section>
     </main>
   );

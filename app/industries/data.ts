@@ -108,27 +108,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Higher Commerce Conversion",
         body:
-          "Frictionless discovery and checkout experiences reduce unnecessary drop-off and create a clearer path from intent to purchase.",
+          "Frictionless discovery and checkout experiences reduce unnecessary drop-off and create a clearer path from intent to purchase. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Real-Time Inventory Confidence",
         body:
-          "Connected stock visibility helps teams maintain accurate availability across storefronts, warehouses, and marketplace channels.",
+          "Connected stock visibility helps teams maintain accurate availability across storefronts, warehouses, and marketplace channels. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Stronger Customer Retention",
         body:
-          "Personalized experiences, loyalty capabilities, and connected account journeys create stronger reasons for customers to return.",
+          "Personalized experiences, loyalty capabilities, and connected account journeys create stronger reasons for customers to return. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "More Efficient Fulfillment",
         body:
-          "Automated order routing and shipping workflows reduce manual intervention from purchase through dispatch.",
+          "Automated order routing and shipping workflows reduce manual intervention from purchase through dispatch. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Decision-Ready Commerce Intelligence",
         body:
-          "Connected reporting gives commercial and operational leaders a current view of sales, inventory, fulfillment, and customer behavior.",
+          "Connected reporting gives commercial and operational leaders a current view of sales, inventory, fulfillment, and customer behavior. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
     ],
     capabilities: [
@@ -282,27 +282,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Stronger Patient Engagement",
         body:
-          "Connected digital experiences help patients participate more actively in their care before, during, and after appointments.",
+          "Connected digital experiences help patients participate more actively in their care before, during, and after appointments. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Lower Administrative Friction",
         body:
-          "Self-service scheduling, records access, and communication reduce repetitive administrative work for healthcare teams.",
+          "Self-service scheduling, records access, and communication reduce repetitive administrative work for healthcare teams. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Expanded Access to Care",
         body:
-          "Virtual consultation and remote-care capabilities extend healthcare access beyond traditional physical settings.",
+          "Virtual consultation and remote-care capabilities extend healthcare access beyond traditional physical settings. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Better Continuity of Care",
         body:
-          "Connected patient information reduces gaps between digital experiences, providers, and operational systems.",
+          "Connected patient information reduces gaps between digital experiences, providers, and operational systems. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "More Efficient Care Operations",
         body:
-          "Purpose-built workflows help healthcare organizations reduce manual coordination and improve operational visibility.",
+          "Purpose-built workflows help healthcare organizations reduce manual coordination and improve operational visibility. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
     ],
     capabilities: [
@@ -456,27 +456,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Higher Learner Engagement",
         body:
-          "Thoughtful learning journeys, clear progression, and interactive experiences help learners stay engaged from enrollment to completion.",
+          "Thoughtful learning journeys, clear progression, and interactive experiences help learners stay engaged from enrollment to completion. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Scalable Knowledge Delivery",
         body:
-          "Digital learning infrastructure enables educators and organizations to deliver structured programs to growing audiences.",
+          "Digital learning infrastructure enables educators and organizations to deliver structured programs to growing audiences. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Measurable Learning Outcomes",
         body:
-          "Assessment and analytics capabilities make learner progress, completion, and performance more visible.",
+          "Assessment and analytics capabilities make learner progress, completion, and performance more visible. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Faster Workforce Development",
         body:
-          "Corporate learning workflows help organizations onboard and upskill teams through repeatable digital programs.",
+          "Corporate learning workflows help organizations onboard and upskill teams through repeatable digital programs. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Stronger Educator Economics",
         body:
-          "Course creation, commerce, analytics, and learner management give educators stronger foundations for building sustainable digital offerings.",
+          "Course creation, commerce, analytics, and learner management give educators stronger foundations for building sustainable digital offerings. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
     ],
     capabilities: [
@@ -630,27 +630,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Security by Architecture",
         body:
-          "Financial platforms are designed with isolation, access controls, data protection, and secure service boundaries from the beginning.",
+          "Financial platforms are designed with isolation, access controls, data protection, and secure service boundaries from the beginning. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
       {
         label: "Compliance-Aware Engineering",
         body:
-          "Regulatory and data-protection considerations are incorporated into product and architecture decisions rather than treated as late-stage additions.",
+          "Regulatory and data-protection considerations are incorporated into product and architecture decisions rather than treated as late-stage additions. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
       {
         label: "Independent Product Evolution",
         body:
-          "Modular services allow financial products to introduce new capabilities without forcing unnecessary changes across the entire platform.",
+          "Modular services allow financial products to introduce new capabilities without forcing unnecessary changes across the entire platform. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. A modular foundation also gives product and engineering teams room to introduce new capabilities incrementally rather than redesigning the entire platform. This creates a practical path for adding users, integrations, products, and functionality as business requirements develop.",
       },
       {
         label: "Scalable Transaction Infrastructure",
         body:
-          "Architecture is designed around transaction volume, reliability, performance, and future growth requirements.",
+          "Architecture is designed around transaction volume, reliability, performance, and future growth requirements. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. A modular foundation also gives product and engineering teams room to introduce new capabilities incrementally rather than redesigning the entire platform. This creates a practical path for adding users, integrations, products, and functionality as business requirements develop.",
       },
       {
         label: "Frictionless Financial Experiences",
         body:
-          "Clear digital journeys simplify banking, payments, financial management, and other high-value customer interactions.",
+          "Clear digital journeys simplify banking, payments, financial management, and other high-value customer interactions. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
     ],
     capabilities: [
@@ -804,27 +804,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Real-Time Operational Visibility",
         body:
-          "Live movement and operational data gives teams a clearer view of shipments, vehicles, inventory, and delivery activity.",
+          "Live movement and operational data gives teams a clearer view of shipments, vehicles, inventory, and delivery activity. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Dispatch Decisions",
         body:
-          "Connected location and operational data helps teams coordinate drivers, vehicles, and resources more efficiently.",
+          "Connected location and operational data helps teams coordinate drivers, vehicles, and resources more efficiently. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Improved Delivery Performance",
         body:
-          "Better routing, tracking, and exception visibility help reduce delays and improve delivery coordination.",
+          "Better routing, tracking, and exception visibility help reduce delays and improve delivery coordination. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Higher Warehouse Control",
         body:
-          "Connected inventory and warehouse workflows reduce manual reconciliation and improve fulfillment accuracy.",
+          "Connected inventory and warehouse workflows reduce manual reconciliation and improve fulfillment accuracy. A connected operational view helps teams identify issues earlier and coordinate the right people, resources, and systems around them. This can create a more predictable operating model while giving leaders better visibility into performance and exceptions. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Better Customer Visibility",
         body:
-          "Customer-facing tracking and communication provide greater transparency throughout the movement lifecycle.",
+          "Customer-facing tracking and communication provide greater transparency throughout the movement lifecycle. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
     ],
     capabilities: [
@@ -978,27 +978,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Higher Booking Conversion",
         body:
-          "Fast, clear search and booking journeys reduce friction between travel intent and confirmed reservations.",
+          "Fast, clear search and booking journeys reduce friction between travel intent and confirmed reservations. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Consistent Pricing & Availability",
         body:
-          "Shared data foundations help agencies and travelers work from the same current inventory and pricing information.",
+          "Shared data foundations help agencies and travelers work from the same current inventory and pricing information. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Stronger Agency Productivity",
         body:
-          "Connected agency workflows reduce manual coordination across bookings, clients, commissions, and travel operations.",
+          "Connected agency workflows reduce manual coordination across bookings, clients, commissions, and travel operations. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Better Guest Operations",
         body:
-          "Unified reservation and guest information gives hospitality teams greater control across the guest lifecycle.",
+          "Unified reservation and guest information gives hospitality teams greater control across the guest lifecycle. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "More Connected Journeys",
         body:
-          "Integrated itinerary experiences give travelers one clear view of bookings, activities, and trip details.",
+          "Integrated itinerary experiences give travelers one clear view of bookings, activities, and trip details. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
     ],
     capabilities: [
@@ -1152,27 +1152,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "More Confident Demand Planning",
         body:
-          "Connected sales, promotion, and market data gives planning teams a stronger foundation for forecasting and inventory decisions.",
+          "Connected sales, promotion, and market data gives planning teams a stronger foundation for forecasting and inventory decisions. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "More Measurable Trade Investment",
         body:
-          "Promotion management capabilities make commercial investment easier to track, evaluate, and optimize.",
+          "Promotion management capabilities make commercial investment easier to track, evaluate, and optimize. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. Connecting the surrounding workflows gives teams better continuity from the initial event through processing, reconciliation, reporting, and follow-up. It can also make important information easier to trace across systems, supporting more consistent operations and a clearer experience for users and teams.",
       },
       {
         label: "Stronger Channel Visibility",
         body:
-          "Connected distributor, retail, and direct channels provide a clearer view of demand and commercial performance.",
+          "Connected distributor, retail, and direct channels provide a clearer view of demand and commercial performance. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Field Execution",
         body:
-          "Mobile field tools help teams capture store-level information and act on operational signals faster.",
+          "Mobile field tools help teams capture store-level information and act on operational signals faster. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Direct Consumer Relationships",
         body:
-          "DTC platforms give brands greater ownership of customer experiences, data, and digital engagement.",
+          "DTC platforms give brands greater ownership of customer experiences, data, and digital engagement. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
     ],
     capabilities: [
@@ -1326,27 +1326,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Unified Student Information",
         body:
-          "Connected records reduce fragmentation across departments and create a more reliable institutional view of each student.",
+          "Connected records reduce fragmentation across departments and create a more reliable institutional view of each student. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "More Efficient Admissions",
         body:
-          "Structured application and review workflows reduce manual coordination and improve visibility throughout the admissions journey.",
+          "Structured application and review workflows reduce manual coordination and improve visibility throughout the admissions journey. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Stronger Digital Learning",
         body:
-          "Learning platforms designed around institutional workflows create more consistent experiences for students and educators.",
+          "Learning platforms designed around institutional workflows create more consistent experiences for students and educators. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Simplified Campus Operations",
         body:
-          "Connected scheduling and administrative systems reduce repetitive coordination and improve operational visibility.",
+          "Connected scheduling and administrative systems reduce repetitive coordination and improve operational visibility. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Decision-Ready Institutional Data",
         body:
-          "Connected reporting across enrollment, academics, and operations gives leadership a clearer basis for planning.",
+          "Connected reporting across enrollment, academics, and operations gives leadership a clearer basis for planning. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
     ],
     capabilities: [
@@ -1500,27 +1500,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Greater Financial Visibility",
         body:
-          "Connected financial data creates a clearer view of portfolios, clients, operations, and performance.",
+          "Connected financial data creates a clearer view of portfolios, clients, operations, and performance. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Decision Support",
         body:
-          "Structured information and reporting help financial teams move from manual data gathering toward faster decisions.",
+          "Structured information and reporting help financial teams move from manual data gathering toward faster decisions. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Stronger Client Experiences",
         body:
-          "Self-service portals and connected digital experiences give clients easier access to the information they need.",
+          "Self-service portals and connected digital experiences give clients easier access to the information they need. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Reduced Operational Friction",
         body:
-          "Automated workflows reduce repetitive reconciliation, reporting, and administrative coordination.",
+          "Automated workflows reduce repetitive reconciliation, reporting, and administrative coordination. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Scalable Financial Operations",
         body:
-          "Modular architecture supports growing client, transaction, asset, and data volumes without unnecessary platform rebuilds.",
+          "Modular architecture supports growing client, transaction, asset, and data volumes without unnecessary platform rebuilds. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. A modular foundation also gives product and engineering teams room to introduce new capabilities incrementally rather than redesigning the entire platform. This creates a practical path for adding users, integrations, products, and functionality as business requirements develop.",
       },
     ],
     capabilities: [
@@ -1674,27 +1674,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Real-Time Grid Visibility",
         body:
-          "Connected metering and infrastructure data provides operations teams with a clearer view of current conditions.",
+          "Connected metering and infrastructure data provides operations teams with a clearer view of current conditions. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Outage Response",
         body:
-          "Live operational and field information helps teams coordinate response resources more effectively.",
+          "Live operational and field information helps teams coordinate response resources more effectively. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "More Reliable Billing",
         body:
-          "Direct integration with usage data reduces manual reconciliation and billing discrepancies.",
+          "Direct integration with usage data reduces manual reconciliation and billing discrepancies. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. Connecting the surrounding workflows gives teams better continuity from the initial event through processing, reconciliation, reporting, and follow-up. It can also make important information easier to trace across systems, supporting more consistent operations and a clearer experience for users and teams.",
       },
       {
         label: "Stronger Energy Risk Visibility",
         body:
-          "Connected trading and operational data provides greater insight into pricing and exposure.",
+          "Connected trading and operational data provides greater insight into pricing and exposure. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
       {
         label: "Higher Customer Self-Service",
         body:
-          "Digital account experiences allow customers to access usage, billing, and service information without unnecessary support interactions.",
+          "Digital account experiences allow customers to access usage, billing, and service information without unnecessary support interactions. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
     ],
     capabilities: [
@@ -1848,27 +1848,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Faster Claims Resolution",
         body:
-          "Connected claims workflows reduce manual handoffs and improve visibility from intake through settlement.",
+          "Connected claims workflows reduce manual handoffs and improve visibility from intake through settlement. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "More Consistent Underwriting",
         body:
-          "Structured data and decision workflows help underwriting teams work from clearer information.",
+          "Structured data and decision workflows help underwriting teams work from clearer information. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Reduced Policy Administration",
         body:
-          "Automated issuance, servicing, and renewal workflows reduce repetitive manual activity.",
+          "Automated issuance, servicing, and renewal workflows reduce repetitive manual activity. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. Connecting the surrounding workflows gives teams better continuity from the initial event through processing, reconciliation, reporting, and follow-up. It can also make important information easier to trace across systems, supporting more consistent operations and a clearer experience for users and teams.",
       },
       {
         label: "Stronger Distribution Experiences",
         body:
-          "Agent and broker portals provide partners with faster access to quoting, policy, and account information.",
+          "Agent and broker portals provide partners with faster access to quoting, policy, and account information. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Improved Risk Intelligence",
         body:
-          "Connected claims and policy data creates a stronger foundation for identifying patterns and improving risk decisions.",
+          "Connected claims and policy data creates a stronger foundation for identifying patterns and improving risk decisions. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
     ],
     capabilities: [
@@ -2022,27 +2022,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Trusted Scientific Data",
         body:
-          "Structured systems preserve data consistency and traceability across complex scientific workflows.",
+          "Structured systems preserve data consistency and traceability across complex scientific workflows. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Laboratory Operations",
         body:
-          "Connected laboratory workflows reduce manual handoffs between sample intake, testing, and results reporting.",
+          "Connected laboratory workflows reduce manual handoffs between sample intake, testing, and results reporting. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Audit-Ready Processes",
         body:
-          "Quality and regulatory workflows are designed around controlled records, traceability, and review requirements.",
+          "Quality and regulatory workflows are designed around controlled records, traceability, and review requirements. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
       {
         label: "More Efficient Safety Reporting",
         body:
-          "Structured pharmacovigilance workflows help teams manage adverse-event information with greater consistency.",
+          "Structured pharmacovigilance workflows help teams manage adverse-event information with greater consistency. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Cross-Functional Visibility",
         body:
-          "Connected platforms give clinical, laboratory, quality, and regulatory teams access to a more consistent operational picture.",
+          "Connected platforms give clinical, laboratory, quality, and regulatory teams access to a more consistent operational picture. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
     ],
     capabilities: [
@@ -2196,27 +2196,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Real-Time Production Visibility",
         body:
-          "Connected manufacturing systems give planners and operators a clearer view of production activity while work is happening.",
+          "Connected manufacturing systems give planners and operators a clearer view of production activity while work is happening. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Reduced Unplanned Downtime",
         body:
-          "Equipment monitoring and predictive signals help teams identify potential maintenance issues earlier.",
+          "Equipment monitoring and predictive signals help teams identify potential maintenance issues earlier. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Stronger Quality Control",
         body:
-          "Structured inspection and defect workflows help organizations identify and manage quality issues closer to their source.",
+          "Structured inspection and defect workflows help organizations identify and manage quality issues closer to their source. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Better Supply Chain Coordination",
         body:
-          "Connected supplier, inventory, and production information improves planning and operational awareness.",
+          "Connected supplier, inventory, and production information improves planning and operational awareness. A connected operational view helps teams identify issues earlier and coordinate the right people, resources, and systems around them. This can create a more predictable operating model while giving leaders better visibility into performance and exceptions. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Faster Root-Cause Analysis",
         body:
-          "Connected production and quality data makes it easier to trace operational issues back to the relevant process or equipment.",
+          "Connected production and quality data makes it easier to trace operational issues back to the relevant process or equipment. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
     ],
     capabilities: [
@@ -2370,27 +2370,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Real-Time Portfolio Visibility",
         body:
-          "Connected portfolio information gives investment teams a more current view of operating and financial performance.",
+          "Connected portfolio information gives investment teams a more current view of operating and financial performance. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "More Structured Deal Flow",
         body:
-          "Centralized pipelines reduce the risk of important sourcing and diligence information becoming fragmented.",
+          "Centralized pipelines reduce the risk of important sourcing and diligence information becoming fragmented. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "More Efficient LP Reporting",
         body:
-          "Structured reporting workflows reduce repetitive manual work while improving consistency and transparency.",
+          "Structured reporting workflows reduce repetitive manual work while improving consistency and transparency. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Faster Investment Decisions",
         body:
-          "Decision-ready information helps teams spend less time assembling data and more time evaluating opportunities.",
+          "Decision-ready information helps teams spend less time assembling data and more time evaluating opportunities. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Controlled Sensitive Information",
         body:
-          "Permission structures and secure access workflows help protect sensitive investment and LP information.",
+          "Permission structures and secure access workflows help protect sensitive investment and LP information. These controls become part of the platform foundation rather than being added only after the product is built. This gives teams a more consistent way to manage access, information flows, operational controls, and changing requirements as the platform evolves. By making these considerations part of the core architecture, teams can apply consistent controls across applications, data, integrations, and user access. This also makes it easier to introduce new features while maintaining clear governance, traceability, and operational discipline as requirements change.",
       },
     ],
     capabilities: [
@@ -2544,27 +2544,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Real-Time Engagement Visibility",
         body:
-          "Connected project and resource information shows engagement health while work is underway rather than after the fact.",
+          "Connected project and resource information shows engagement health while work is underway rather than after the fact. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "More Accurate Billing",
         body:
-          "Integrated time and billing workflows reduce manual reconciliation and improve invoice accuracy.",
+          "Integrated time and billing workflows reduce manual reconciliation and improve invoice accuracy. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. Connecting the surrounding workflows gives teams better continuity from the initial event through processing, reconciliation, reporting, and follow-up. It can also make important information easier to trace across systems, supporting more consistent operations and a clearer experience for users and teams.",
       },
       {
         label: "Higher Resource Utilization",
         body:
-          "Better visibility into skills, availability, and demand helps firms allocate people more effectively.",
+          "Better visibility into skills, availability, and demand helps firms allocate people more effectively. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Stronger Client Transparency",
         body:
-          "Client collaboration environments create clearer visibility into deliverables, progress, documents, and communication.",
+          "Client collaboration environments create clearer visibility into deliverables, progress, documents, and communication. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
       {
         label: "Reusable Institutional Knowledge",
         body:
-          "Connected knowledge systems make valuable expertise and previous engagement work easier to find and reuse.",
+          "Connected knowledge systems make valuable expertise and previous engagement work easier to find and reuse. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
     ],
     capabilities: [
@@ -2718,27 +2718,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "More Accessible Public Services",
         body:
-          "Self-service digital experiences make it easier for residents to access information and complete government interactions.",
+          "Self-service digital experiences make it easier for residents to access information and complete government interactions. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Faster Permit & Service Workflows",
         body:
-          "Structured workflows reduce unnecessary back-and-forth between residents, applicants, reviewers, and agencies.",
+          "Structured workflows reduce unnecessary back-and-forth between residents, applicants, reviewers, and agencies. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Consistent Case Management",
         body:
-          "Centralized case workflows provide teams with clearer ownership, status, documentation, and history.",
+          "Centralized case workflows provide teams with clearer ownership, status, documentation, and history. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Secure Cross-Agency Collaboration",
         body:
-          "Interoperability platforms allow agencies to share information through controlled and secure data flows.",
+          "Interoperability platforms allow agencies to share information through controlled and secure data flows. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Greater Public Transparency",
         body:
-          "Reporting and transparency dashboards make service performance and operational information easier to understand.",
+          "Reporting and transparency dashboards make service performance and operational information easier to understand. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
     ],
     capabilities: [
@@ -2893,27 +2893,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Accelerated Product Delivery",
         body:
-          "Embedded engineering teams integrate directly with your product organization, reducing coordination overhead and increasing delivery capacity.",
+          "Embedded engineering teams integrate directly with your product organization, reducing coordination overhead and increasing delivery capacity. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Scalable Platform Foundations",
         body:
-          "API and platform architecture is designed around current requirements while creating room for future product expansion.",
+          "API and platform architecture is designed around current requirements while creating room for future product expansion. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. A modular foundation also gives product and engineering teams room to introduce new capabilities incrementally rather than redesigning the entire platform. This creates a practical path for adding users, integrations, products, and functionality as business requirements develop.",
       },
       {
         label: "Reliable Release Operations",
         body:
-          "Automated delivery pipelines and infrastructure practices reduce friction and risk across frequent product releases.",
+          "Automated delivery pipelines and infrastructure practices reduce friction and risk across frequent product releases. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Better Product Decisions",
         body:
-          "Analytics and experimentation connect feature usage with the product metrics leadership and teams actually care about.",
+          "Analytics and experimentation connect feature usage with the product metrics leadership and teams actually care about. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "More Efficient Infrastructure",
         body:
-          "Cloud architecture is aligned with real usage patterns, performance requirements, reliability needs, and cost considerations.",
+          "Cloud architecture is aligned with real usage patterns, performance requirements, reliability needs, and cost considerations. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
     ],
     capabilities: [
@@ -3067,27 +3067,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Faster Product Iteration",
         body:
-          "A disciplined product engineering foundation helps teams release, learn, and improve without unnecessary technical friction.",
+          "A disciplined product engineering foundation helps teams release, learn, and improve without unnecessary technical friction. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "Higher Product Adoption",
         body:
-          "Clear onboarding, intuitive experiences, and measurable user journeys create stronger paths to product value.",
+          "Clear onboarding, intuitive experiences, and measurable user journeys create stronger paths to product value. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Reliable Scale",
         body:
-          "Architecture and infrastructure evolve with customer, data, and workload growth while protecting product reliability.",
+          "Architecture and infrastructure evolve with customer, data, and workload growth while protecting product reliability. The underlying platform can be structured into clear, reusable services so new capabilities can be introduced without creating unnecessary dependencies. This provides a stronger foundation for future growth, integrations, and changing business requirements. A modular foundation also gives product and engineering teams room to introduce new capabilities incrementally rather than redesigning the entire platform. This creates a practical path for adding users, integrations, products, and functionality as business requirements develop.",
       },
       {
         label: "Data-Informed Roadmaps",
         body:
-          "Product analytics and experimentation give teams stronger evidence for prioritization and feature decisions.",
+          "Product analytics and experimentation give teams stronger evidence for prioritization and feature decisions. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Lower Technical Friction",
         body:
-          "Modern engineering practices reduce deployment risk, operational overhead, and avoidable complexity as the product grows.",
+          "Modern engineering practices reduce deployment risk, operational overhead, and avoidable complexity as the product grows. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
     ],
     capabilities: [
@@ -3241,27 +3241,27 @@ export const industries: Record<string, IndustryContent> = {
       {
         label: "Connected Network & Subscriber Data",
         body:
-          "OSS/BSS integration creates a more consistent information flow between infrastructure, operations, billing, and customer systems.",
+          "OSS/BSS integration creates a more consistent information flow between infrastructure, operations, billing, and customer systems. Bringing the relevant information together gives teams a clearer operating picture and reduces the need to reconcile fragmented sources manually. Over time, the same data foundation can support richer dashboards, alerts, automation, and decision-making workflows. With information available in a more connected environment, teams can spend less time collecting and reconciling data and more time interpreting what it means. The resulting foundation can support dashboards, alerts, trend analysis, workflow automation, and more informed planning across the organization.",
       },
       {
         label: "Lower Support Demand",
         body:
-          "Self-service experiences give subscribers direct access to common account, plan, usage, and billing actions.",
+          "Self-service experiences give subscribers direct access to common account, plan, usage, and billing actions. Connecting the relevant workflows and information creates a clearer operating model with fewer unnecessary handoffs. It also gives teams a stronger foundation for automation, reporting, integration, and future improvements. By connecting the relevant people, processes, and technology, teams gain a more consistent way to manage day-to-day activity and respond to changing requirements. The same foundation can be extended with integrations, automation, reporting, and new digital capabilities as the organization continues to evolve.",
       },
       {
         label: "Faster Network Response",
         body:
-          "Real-time monitoring surfaces operational issues earlier and gives teams better context for response.",
+          "Real-time monitoring surfaces operational issues earlier and gives teams better context for response. Connected workflows reduce unnecessary handoffs and give teams more time to focus on higher-value work instead of repetitive coordination. Automation and better system integration can also make these improvements repeatable as transaction volumes, users, and operational demands increase. The benefit extends beyond a single workflow because connected processes can standardize repetitive tasks and reduce unnecessary handoffs between teams. As activity grows, automation and integration can help maintain a consistent operating process without adding the same level of manual effort.",
       },
       {
         label: "More Accurate Billing",
         body:
-          "Connected usage and subscription data reduces manual reconciliation and improves billing consistency.",
+          "Connected usage and subscription data reduces manual reconciliation and improves billing consistency. Connecting these workflows reduces fragmented processing and gives teams a more consistent view of the information behind each transaction or business event. That foundation can support stronger controls, clearer reporting, and smoother experiences as operational volume grows. Connecting the surrounding workflows gives teams better continuity from the initial event through processing, reconciliation, reporting, and follow-up. It can also make important information easier to trace across systems, supporting more consistent operations and a clearer experience for users and teams.",
       },
       {
         label: "Simpler Subscriber Journeys",
         body:
-          "Integrated plan and account workflows make upgrades, changes, payments, and support interactions easier to complete.",
+          "Integrated plan and account workflows make upgrades, changes, payments, and support interactions easier to complete. A clearer digital journey also makes important interactions easier to understand and complete, helping users move from intent to action with fewer unnecessary steps. The same experience can be continuously improved through feedback, behavioral insights, and connected product data. This approach helps create a smoother experience across the most important customer touchpoints, from discovery and onboarding through ongoing usage and support. By connecting the experience with the systems behind it, teams can respond to changing customer expectations while keeping the product consistent across web, mobile, and other digital channels.",
       },
     ],
     capabilities: [

@@ -49,7 +49,6 @@ import {
   ArrowUpRight,
   Plus,
   Minus,
-  Play,
 } from "lucide-react";
 
 // Contact form, rendered as the last section (right after the FAQ).
@@ -439,8 +438,9 @@ function AnimationStyles(): ReactElement {
       }
       .ss-capability-title { transition: color 0.3s ease; }
 
-      /* Learn More link + underline reveal on hover — same treatment
-         as the Data & Analytics page's capability cards. */
+      /* Learn More link + hover underline reveal on Focus Area
+         cards — same treatment as the Data & Analytics page's
+         capability cards. */
       .ss-capability-learn-more { color: ${INDIGO_CTA}; }
       .ss-capability-learn-more .ss-capability-underline {
         transform: scaleX(0);
@@ -689,9 +689,6 @@ function Hero({ data, images }: { data: IndustryContent; images: IndustryImages 
 
 /* ===============================================================
    2. STAT STRIP
-   (Fixed: sits on a solid white rounded panel now, so the gaps
-   between cards / rounded corners never let the hero photo show
-   through — this is what was happening in the screenshot.)
 ================================================================ */
 
 function StatStrip({ data }: { data: IndustryContent }) {
@@ -699,12 +696,6 @@ function StatStrip({ data }: { data: IndustryContent }) {
 
   return (
     <section className={`${ALIGN} relative z-10 -mt-14`}>
-      {/* Relative wrapper holds a square (non-rounded) white backdrop that
-          exactly fills the same box as the rounded panel above it. Rounded
-          corners only clip the panel's own background, not its bounding
-          box, so without this square backdrop the very corner pixels would
-          reveal whatever sits behind (the hero photo). The backdrop makes
-          that impossible regardless of radius or overlap amount. */}
       <div className="relative">
         <div className="absolute inset-0 bg-white" />
         <Reveal className="relative rounded-[24px] bg-white p-3 shadow-[0_16px_40px_rgba(15,23,42,0.10)] sm:p-4">
@@ -777,7 +768,24 @@ function KeyTakeawaysAccordion({
         style={{ borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent" }}
       >
         <div className="flex items-center gap-3">
-          <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+          <span
+            aria-hidden="true"
+            className="relative inline-flex h-7 w-7 flex-shrink-0 items-center justify-center"
+            style={{ color: INDIGO_CTA }}
+          >
+            <svg viewBox="0 0 32 32" className="h-7 w-7" fill="currentColor" aria-hidden="true">
+              <path d="M16 1.5 19.2 12.8 30.5 16l-11.3 3.2L16 30.5l-3.2-11.3L1.5 16l11.3-3.2L16 1.5Z" />
+            </svg>
+            <svg
+              viewBox="0 0 20 20"
+              className="absolute -bottom-1 -right-1 h-3.5 w-3.5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 1.5 11.35 8.65 18.5 10l-7.15 1.35L10 18.5l-1.35-7.15L1.5 10l7.15-1.35L10 1.5Z" />
+            </svg>
+          </span>
+          <span className="font-body text-[17px] font-semibold" style={{ color: INDIGO_CTA }}>
             Key Takeaways
           </span>
         </div>
@@ -854,22 +862,13 @@ function HighlightBlock({ data, images }: { data: IndustryContent; images: Indus
           </p>
         </div>
 
-        <button
-          type="button"
-          className="group/play relative min-h-[320px] overflow-hidden"
-          aria-label={`Watch: ${data.highlight.title}`}
-        >
+        <div className="relative min-h-[320px] overflow-hidden">
           <SafeImg
             src={images.highlight}
             alt={data.highlight.title}
             className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
           />
-          <span className="absolute inset-0 flex items-center justify-center">
-            <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-xl transition-transform duration-300 group-hover/play:scale-110">
-              <Play size={22} className="ml-1" fill={INDIGO_CTA} color={INDIGO_CTA} />
-            </span>
-          </span>
-        </button>
+        </div>
       </div>
     </Reveal>
   );
@@ -877,19 +876,6 @@ function HighlightBlock({ data, images }: { data: IndustryContent; images: Indus
 
 /* ===============================================================
    5. FOCUS AREAS
-   Sticky left column (heading/description) + staggered right-side
-   card grid, matching the Data & Analytics page pattern.
-
-   IMPORTANT: this section must NOT have `overflow-hidden` on the
-   outer <section>. `position: sticky` sticks relative to the
-   nearest ancestor that is a scroll container (has overflow other
-   than `visible`) or the viewport if there is none. If this
-   section had `overflow-hidden`, IT would become that container —
-   but since the section's own height never scrolls independently,
-   the sticky child has nowhere to travel and just sits static.
-   Removing overflow-hidden here lets it fall through to the page's
-   normal scroll, so `lg:sticky lg:top-28` actually sticks while the
-   card grid on the right scrolls past it.
 ================================================================ */
 
 function FocusAreas({ data }: { data: IndustryContent }) {
@@ -899,23 +885,19 @@ function FocusAreas({ data }: { data: IndustryContent }) {
     <section className="relative bg-white py-24 lg:py-28">
       <div className={`relative ${ALIGN}`}>
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-          {/* LEFT — eyebrow, heading, description — sticks to top-left
-              and stays put while the card grid scrolls past it */}
           <Reveal className="self-start lg:sticky lg:top-28">
             <Eyebrow>{data.name} Focus Areas</Eyebrow>
-            <h2
-              className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Where We Focus
-            </h2>
+          
+
+                 <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+          Where We Focus
+          </h2>
             <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
               Transforming {data.name.toLowerCase()} through targeted solutions and
               customer-centric innovation.
             </p>
           </Reveal>
 
-          {/* RIGHT — capability card grid, staggers in on scroll */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {data.focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
@@ -1031,8 +1013,6 @@ function ImpactSection({ data, images }: { data: IndustryContent; images: Indust
             className="ss-tab-panel isolate grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
             style={{ backgroundColor: "#F5F3FC" }}
           >
-            {/* Copy sits at the top of the panel, same as the
-                Software & Product Engineering tab panel. */}
             <div className="flex flex-col justify-start self-start p-3 pt-2 lg:p-6 lg:pt-5">
               <h3
                 className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
@@ -1173,7 +1153,7 @@ function PartnerEcosystem({ data }: { data: IndustryContent }) {
       <div className={ALIGN}>
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
           <Reveal>
-            <Eyebrow>{data.name} Partnership Ecosystem</Eyebrow>
+            <Eyebrow>{data.name} Technology Partnership Ecosystem</Eyebrow>
             <h2
               className="font-heading mt-4 text-[30px] font-bold leading-tight tracking-[-0.03em] sm:text-[36px]"
               style={{ color: CHAMPION_BLUE }}

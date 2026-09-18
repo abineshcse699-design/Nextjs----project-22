@@ -148,64 +148,67 @@ const focusAreas = [
   },
 ];
 
+
 const tabs = [
   {
     label: "Architecture: Design the Foundation",
     heading: "A data architecture blueprint before a single pipeline gets built",
-    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl.",
+    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl. We define the right architecture across data sources, storage, processing, governance, and consumption layers, creating a foundation that can support both today's requirements and future growth. This gives teams a clear structure for scaling data without introducing unnecessary complexity, duplication, or disconnected systems.",
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Build a Single Source of Truth",
     heading: "One governed data foundation, not a dozen conflicting copies",
-    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts.",
+    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts. We bring data together across applications, databases, and business systems while establishing consistent definitions, ownership, quality rules, and access controls. The result is a reliable foundation where teams can find the right data quickly, reduce conflicting reports, and make decisions using a shared view of the business.",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Engineer Pipelines That Scale",
     heading: "Pipelines built for the data volumes you will have next year, not just today",
-    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch.",
+    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch. We build reliable workflows for batch and real-time data, automate repetitive processing, and create monitoring around pipeline health and data quality. Every pipeline is designed with performance, maintainability, and future data volumes in mind, helping your teams move faster as new sources and use cases are added.",
     image:
       "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Platforms: Pick the Right Cloud Fit",
     heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
-    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access.",
+    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access. We evaluate your existing workloads, data volumes, integrations, security requirements, and business priorities before shaping the right cloud architecture. The result is a platform that gives teams the flexibility to scale while keeping infrastructure efficient, governed, and aligned with the way your business actually uses data.",
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Turn Data into Decisions",
     heading: "Analytics and dashboards people actually open",
-    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute.",
+    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute. We connect trusted data to meaningful business questions and create dashboards that make important information easier to understand and act on. From executive reporting to operational analytics, we focus on clear metrics, intuitive experiences, and timely insights that help teams spend less time searching for answers and more time acting on them.",
     image:
       "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Data Science: Find the Pattern",
     heading: "Models that surface the pattern behind the decision, not just a dashboard number",
-    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production.",
+    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production. We work across the full data science lifecycle, from preparing and understanding the underlying data to developing models and integrating them into real business workflows. This helps organizations move beyond descriptive reporting and use their data to identify patterns, anticipate outcomes, and support better decisions.",
     image:
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Modernize Legacy Data Estates",
     heading: "A clear path off aging warehouses and brittle ETL",
-    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting.",
+    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting. Our approach helps identify outdated technologies, fragile dependencies, duplicated processes, and areas where maintenance is slowing down the business. We then prioritize modernization in practical stages, protecting critical reporting and workflows while creating a more scalable, maintainable, and future-ready data environment.",
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Apply AI to Your Own Data",
     heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
-    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork.",
+    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork. We help structure, clean, connect, and govern the data AI systems need while keeping access and usage aligned with enterprise requirements. This creates a stronger foundation for Gen AI and machine learning use cases, allowing teams to build intelligent experiences that are relevant to their business, based on trusted information, and ready to scale.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1800&auto=format&fit=crop",
   },
 ];
+
+
 
 const impactAreas = [
   {
@@ -1000,9 +1003,10 @@ export default function DataAnalyticsServicesSection() {
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             {/* LEFT — text with padding, nudges right on hover */}
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                How Do Enterprises Turn Raw Data Into a Trusted Asset?
-              </h2>
+              
+                    <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+          How Do Enterprises Turn Raw Data Into a Trusted Asset?
+            </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises build trust in their data by combining strong
                 governance, scalable data engineering, and analytics that
@@ -1055,8 +1059,12 @@ export default function DataAnalyticsServicesSection() {
                 className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
                 style={{ color: CHAMPION_BLUE }}
               >
-                Our Data &amp; Analytics Capabilities
+               
               </h2>
+
+                     <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+             Our Data &amp; Analytics Capabilities
+            </h2>
 
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii plans, engineers, and governs data platforms that
@@ -1523,96 +1531,7 @@ export default function DataAnalyticsServicesSection() {
 
 
 
-<section id="connect" className="scroll-mt-28 bg-white py-24">
-  <div className={ALIGN}>
-    <motion.div
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={fadeUp}
-      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
-    >
-      {/* Decorative gradient blob, offset to one side */}
-      <div
-        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
-        }}
-      />
-      {/* Subtle diagonal lines */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
-        }}
-      />
 
-      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        {/* Left: heading + copy */}
-        <div>
-          <span
-            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
-            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
-          >
-            GET STARTED
-          </span>
-
-          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
-            Ready to Build a Quality Strategy That Scales?
-          </h2>
-
-          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
-            Talk to Starfii about manual testing, test automation, API
-            and performance testing, security testing, or embedding
-            continuous and AI assisted testing into your pipeline.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/#form"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </Link>
-
-<a            
-              href="mailto:hello@starfii.com"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
-              style={{ borderColor: "rgba(0,0,0,0.15)" }}
-            >
-              Email Us
-            </a>
-          </div>
-        </div>
-
-        {/* Right: floating contact card */}
-        <div
-          className="relative rounded-2xl p-7"
-          style={{
-            backgroundColor: "rgba(29,53,87,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
-            Prefer to talk directly?
-          </p>
-          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
-            hello@starfii.com
-          </p>
-          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
-          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
-            Typical response time: within 24 hours on business days.
-          </p>
-        </div>
-      </div>
-    </motion.div>
-  </div>
-</section>
     </main>
   );
 }

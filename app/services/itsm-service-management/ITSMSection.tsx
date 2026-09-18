@@ -142,50 +142,52 @@ type ServiceTab = {
   image: string;
 };
 
+
 const tabs: ServiceTab[] = [
   {
     label: "AI Powered ITSM",
     heading: "AI powered ITSM for faster, smarter service operations",
-    body: "Starfii applies AI to service classification, knowledge discovery, agent assistance, request routing, summarization, and operational insights so service teams can resolve work with less friction.",
+    body: "Starfii applies AI to service classification, knowledge discovery, agent assistance, request routing, summarization, and operational insights so service teams can resolve work with less friction. AI helps identify the intent behind incoming requests, surface relevant knowledge, summarize complex tickets, and guide agents toward the right resolution. By bringing intelligence into everyday service workflows, teams can reduce repetitive work, improve response times, and deliver more consistent support while keeping service operations aligned with business needs.",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "ITSM Integrations",
     heading: "ITSM integrations that connect the enterprise",
-    body: "Starfii connects ITSM platforms with identity, monitoring, collaboration, cloud, business applications, and other enterprise systems to keep service workflows moving across teams.",
+    body: "Starfii connects ITSM platforms with identity, monitoring, collaboration, cloud, business applications, and other enterprise systems to keep service workflows moving across teams. These integrations bring relevant information into the service process, reduce manual data entry, and help teams coordinate work across different tools and departments. From automated alerts and identity workflows to collaboration and business application integrations, we create connected service experiences that improve visibility and reduce unnecessary handoffs.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Platform Expertise",
     heading: "Platform expertise built around your service management goals",
-    body: "Our platform specialists configure, extend, integrate, and optimize ITSM environments while keeping architecture, governance, usability, and long term maintainability in view.",
+    body: "Our platform specialists configure, extend, integrate, and optimize ITSM environments while keeping architecture, governance, usability, and long term maintainability in view. We align platform capabilities with your existing service processes and organizational requirements rather than forcing teams into unnecessary complexity. From platform configuration and custom workflows to integrations, service catalogs, and ongoing optimization, Starfii helps create an ITSM environment that can evolve as your service management needs grow.",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "ITSM Analytics",
     heading: "ITSM analytics that turn service data into better decisions",
-    body: "Starfii helps teams turn service data into actionable insights across SLAs, incidents, requests, workloads, service quality, and operational performance so leaders can continuously improve service delivery.",
+    body: "Starfii helps teams turn service data into actionable insights across SLAs, incidents, requests, workloads, service quality, and operational performance so leaders can continuously improve service delivery. We bring together service metrics and operational data to help teams understand where demand is increasing, where bottlenecks are appearing, and how effectively services are being delivered. With clearer reporting and meaningful performance indicators, service leaders can identify improvement opportunities, optimize workloads, and make better decisions based on how their service operations actually perform.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Workflow Automation",
     heading: "Workflow automation that removes repetitive service work",
-    body: "Starfii automates intake, approvals, routing, fulfillment, notifications, and cross team handoffs to reduce manual effort and create consistent service experiences at scale.",
+    body: "Starfii automates intake, approvals, routing, fulfillment, notifications, and cross team handoffs to reduce manual effort and create consistent service experiences at scale. We map existing service workflows, identify repetitive steps and bottlenecks, and introduce automation where it can create measurable operational value. Automated workflows help requests move to the right teams faster, approvals happen with less delay, and standard service processes are executed consistently across the organization.",
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Service Desk Transformation",
     heading: "Service desk transformation for faster employee support",
-    body: "Starfii redesigns service desk journeys with self service, knowledge, intelligent routing, escalation, and modern support experiences that help teams resolve requests faster.",
+    body: "Starfii redesigns service desk journeys with self service, knowledge, intelligent routing, escalation, and modern support experiences that help teams resolve requests faster. We focus on making it easier for employees to find answers, raise requests, track progress, and get the right support without unnecessary back and forth. By combining better service experiences with structured processes, automation, and actionable knowledge, organizations can create a service desk that is easier to use, more efficient to operate, and better equipped to support employees at scale.",
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
 
 /* ===============================================================
    CASE STUDIES
@@ -875,13 +877,28 @@ function TakeawaysAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
+          {/* FIX: replaced <img src="/starfii_logo_black.svg" .../> with an inline sparkle icon */}
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-7 w-7 flex-shrink-0"
+            aria-hidden="true"
+          >
+            <path
+              d="M11.5 1L13.2 8.3L20.5 10L13.2 11.7L11.5 19L9.8 11.7L2.5 10L9.8 8.3L11.5 1Z"
+              fill={INDIGO_CTA}
+            />
+            <path
+              d="M21.5 15L22.4 18.6L26 19.5L22.4 20.4L21.5 24L20.6 20.4L17 19.5L20.6 18.6L21.5 15Z"
+              fill={INDIGO_CTA}
+            />
+          </svg>
+          {/* FIX: label text changed to "Key Takeaways" */}
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            ITSM & Enterprise Service Management Overview
+            Key Takeaways
           </span>
         </div>
 
@@ -1160,9 +1177,12 @@ export default function ITSMSection(): ReactElement {
         <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
+             
+
+  <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 How Do Enterprises Build an ITSM Strategy That Scales?
               </h2>
+
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises build a scalable ITSM strategy by aligning service management
                 processes, platform capabilities, governance, integrations, and user
@@ -1196,13 +1216,10 @@ export default function ITSMSection(): ReactElement {
             <Reveal className="self-start lg:sticky lg:top-28">
               <Eyebrow variant="light">ITSM &amp; Enterprise Service Management</Eyebrow>
 
-              <h2
-                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-                style={{ color: CHAMPION_BLUE }}
-              >
+              
+  <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 Our ITSM &amp; Enterprise Service Management Capabilities
               </h2>
-
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii covers the core service management lifecycle, from service desk
                 transformation and incident management to change, requests,

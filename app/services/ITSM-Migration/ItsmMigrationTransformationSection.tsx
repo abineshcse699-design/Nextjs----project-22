@@ -126,43 +126,46 @@ const focusAreas: FocusArea[] = [
 
 type ServiceTab = { label: string; heading: string; body: string; image: string };
 
+
 const tabs: ServiceTab[] = [
   {
     label: "Migration Assessment",
     heading: "A migration assessment that removes guesswork from ITSM transformation",
-    body: "Starfii runs a structured migration assessment across your current ITSM platform, uncovering technical debt, data quality issues, and process gaps before migration planning begins.",
+    body: "Starfii runs a structured migration assessment across your current ITSM platform, uncovering technical debt, data quality issues, and process gaps before migration planning begins. We review existing workflows, service catalogs, integrations, configurations, historical data, user roles, and platform dependencies to understand what needs to move and what should be improved first. The assessment gives your team a clear view of migration complexity, potential risks, dependencies, and priorities, creating a practical foundation for a controlled ITSM transformation.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Testing and Validation",
     heading: "Testing and validation that confirm every migrated process actually works",
-    body: "Starfii's testing and validation team verifies data integrity, workflow logic, and integrations in the new environment, so nothing breaks quietly after go live.",
+    body: "Starfii's testing and validation team verifies data integrity, workflow logic, and integrations in the new environment, so nothing breaks quietly after go live. We validate migrated records, service requests, incidents, approvals, notifications, automations, integrations, and critical business workflows against the expected outcomes. Structured testing helps identify configuration issues and data inconsistencies early, giving teams the opportunity to resolve them before they affect service operations or end users.",
     image:
       "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "User Acceptance",
     heading: "User acceptance testing that keeps service desk teams confident and ready",
-    body: "Starfii runs structured user acceptance testing with real service desk scenarios, so agents and end users trust the new platform before it goes live.",
+    body: "Starfii runs structured user acceptance testing with real service desk scenarios, so agents and end users trust the new platform before it goes live. We involve key users in validating everyday activities such as ticket creation, assignment, escalation, approvals, knowledge access, service requests, and reporting. Feedback from these sessions is used to refine workflows, permissions, configurations, and user experiences, helping teams enter production with greater confidence and a clear understanding of how the new platform will support their daily work.",
     image:
       "https://images.unsplash.com/photo-1518186285589-2f7649de83e0?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Cutover",
     heading: "Cutover planning that protects service continuity during go live",
-    body: "Starfii manages cutover with detailed runbooks, rollback plans, and hypercare coverage, so the switch to your new ITSM platform happens with minimal disruption.",
+    body: "Starfii manages cutover with detailed runbooks, rollback plans, and hypercare coverage, so the switch to your new ITSM platform happens with minimal disruption. We coordinate final data migration, configuration checks, integration validation, user readiness, access verification, and production deployment as part of a controlled cutover plan. Clear ownership, defined checkpoints, and contingency procedures help the team respond quickly to unexpected issues while keeping critical service operations running throughout the transition.",
     image:
       "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=90&w=1800&auto=format&fit=crop",
   },
   {
     label: "Post Migration Support",
     heading: "Post migration support that keeps the new platform running smoothly",
-    body: "Starfii provides post migration support and managed services, resolving issues quickly and tuning the platform as usage patterns and business needs evolve.",
+    body: "Starfii provides post migration support and managed services, resolving issues quickly and tuning the platform as usage patterns and business needs evolve. During the initial stabilization period, we monitor workflows, integrations, user adoption, data quality, and platform performance to identify issues that may not appear during testing. We then make targeted improvements, optimize configurations, support users, and refine automation so the new ITSM environment continues to deliver reliable service as teams, processes, and operational requirements change.",
     image:
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop",
   },
 ];
+
+
 
 const impactAreas = [
   {
@@ -386,7 +389,8 @@ function useTypewriterList(
 
 /* ===============================================================
    "WHY ITSM MIGRATION MATTERS" ACCORDION — matches Data & Analytics
-   WhyMattersAccordion exactly (same logo icon, same font sizes)
+   WhyMattersAccordion exactly (same font sizes). Logo image replaced
+   with an inline sparkle icon (see fix below).
 ================================================================ */
 
 function OverviewAccordion({
@@ -412,13 +416,27 @@ function OverviewAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
+          {/* FIX: replaced <img src="/starfii_logo_black.svg" .../> with inline sparkle icon */}
+          <svg
+            width="28"
+            height="28"
+            viewBox="0 0 28 28"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-7 w-7 flex-shrink-0"
+            aria-hidden="true"
+          >
+            <path
+              d="M11.5 1L13.2 8.3L20.5 10L13.2 11.7L11.5 19L9.8 11.7L2.5 10L9.8 8.3L11.5 1Z"
+              fill={ACCENT_INDIGO}
+            />
+            <path
+              d="M21.5 15L22.4 18.6L26 19.5L22.4 20.4L21.5 24L20.6 20.4L17 19.5L20.6 18.6L21.5 15Z"
+              fill={ACCENT_INDIGO}
+            />
+          </svg>
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-            Why ITSM Migration Matters
+           Key Takeaways
           </span>
         </div>
 
@@ -939,9 +957,12 @@ export default function ItsmMigrationTransformationSection() {
         >
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                How Do Enterprises Assess Readiness for ITSM Migration?
-              </h2>
+             
+
+                 <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+        How Do Enterprises Assess Readiness for ITSM Migration?
+          </h2>
+
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises assess ITSM migration readiness by reviewing
                 current state processes, data quality, integrations, and
@@ -988,12 +1009,10 @@ export default function ItsmMigrationTransformationSection() {
                 ITSM Migration &amp; Transformation
               </span>
 
-              <h2
-                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                Our ITSM Migration &amp; Transformation Capabilities
-              </h2>
+            
+                   <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+            Our ITSM Migration &amp; Transformation Capabilities
+          </h2>
 
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii assesses, designs, and migrates ITSM platforms end

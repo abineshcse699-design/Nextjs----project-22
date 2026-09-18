@@ -28,16 +28,8 @@ import {
 import {
   ChevronRight,
   ChevronDown,
-  ArrowUpRight,
-  Plus,
-  Minus,
   Play,
-  Compass,
-  Eye,
-  Target,
-  Sparkles,
   ShieldCheck,
-  Users,
   Cpu,
   Globe2,
   Workflow,
@@ -77,7 +69,7 @@ const u = (id: string, w = 1600) =>
 
 const IMAGES = {
   hero: u("1522071820081-009f0129c71c"), // team working, studio office
-  introCard: u("1573497019940-1c28c88b4f3e"), // exec at window, skyline
+  introCard: "https://source.unsplash.com/1600x1000/?businesswoman,office,skyline,confident",
   principles: {
     purpose: u("1522202176988-66273c2fd55f"), // smiling colleague, laptop
     people: u("1521737711867-e3b97375f902"), // team conversation
@@ -326,13 +318,13 @@ const glance = [
   { value: "9+", body: "Years in product engineering, a track record built one shipped release at a time." },
   { value: "120+", body: "Products shipped for founders and enterprise teams across every stage of scale." },
   { value: "40+", body: "Enterprise and SaaS clients who keep coming back for the next roadmap." },
-  { value: "6", body: "Countries served by embedded pods working in-sprint, not over a handoff." },
+  { value: "6", body: "Countries served by embedded pods working in sprint, not over a handoff." },
 ];
 
 const keyTakeaways = [
-  "Starfii is a senior product engineering partner, AI-native across every engagement.",
-  "We embed directly into your roadmap and sprints, not a spec-and-disappear vendor.",
-  "Capabilities span AI & data engineering, cloud platforms, and full-stack product work.",
+  "Starfii is a senior product engineering partner, AI native across every engagement.",
+  "We embed directly into your roadmap and sprints, not a spec and disappear vendor.",
+  "Capabilities span AI & data engineering, cloud platforms, and full stack product work.",
   "120+ products shipped for 40+ enterprise and SaaS clients across 6 countries.",
 ];
 
@@ -341,48 +333,44 @@ const principles = [
     label: "Our Purpose",
     image: IMAGES.principles.purpose,
     body:
-      "Starfii engineers wake up with a singular purpose: turn ambiguous ideas into software people actually rely on. Every roadmap we join is judged by the outcome it moves, not the tickets it closes.",
+      "Starfii engineers wake up with a singular purpose: turn ambiguous ideas into software people actually rely on. Our mission goes beyond billable hours, it's about the outcomes we move for the founders and enterprise teams who trust us with their roadmap. We believe great engineering should make the hard things feel inevitable, not miraculous. Every roadmap we join is judged by the outcome it moves, not the tickets it closes. Let's build something worth relying on, together.",
   },
   {
     label: "Our People",
     image: IMAGES.principles.people,
     body:
-      "Every pod is staffed with senior engineers who've shipped at scale before, so you get judgment on hard, ambiguous problems, not just execution on a spec someone else wrote.",
+      "Every pod is staffed with senior engineers who've shipped at scale before, so you get judgment on hard, ambiguous problems, not just execution on a spec someone else wrote. We hire for people who've felt the weight of an on call pager and the pressure of a launch date, not just people who can pass a coding round. That experience shows up in how a pod runs, fewer surprises, faster unblocking, and decisions made with the bigger picture in view. It's why clients keep the same pod across releases instead of rotating through unfamiliar faces.",
   },
   {
     label: "Our Craft",
     image: IMAGES.principles.craft,
     body:
-      "We design with AI from the first architecture decision, not bolted on at the end, so automation compounds across the build instead of getting patched in after launch.",
+      "We design with AI from the first architecture decision, not bolted on at the end, so automation compounds across the build instead of getting patched in after launch. Craft, for us, means the boring parts get the same attention as the exciting ones, clean data models, sane error handling, tests that actually catch regressions. AI accelerates the work, but judgment decides what's worth building and what isn't. The result is software that holds up under real usage, not just a demo that impressed once.",
   },
   {
     label: "Our Accountability",
     image: IMAGES.principles.outcomes,
     body:
-      "Your roadmap risk is our roadmap risk. We plan for production from day one, monitoring, security, and on-call, not just a demo that only has to work once.",
+      "Your roadmap risk is our roadmap risk. We plan for production from day one, monitoring, security, and on call, not just a demo that only has to work once. We show up to the retro when something breaks, not just the launch party when it ships. Every engagement is measured against the outcome we committed to, and we'd rather flag a risk early than let it surface as an incident. That's what accountability looks like when it's more than a slide in a pitch deck.",
   },
 ];
 
 const values = [
   {
-    icon: Target,
     title: "Outcomes over output",
-    body: "We measure a sprint by the metric it moved, not the tickets it closed. Every engagement starts with the business result we're accountable for.",
+    body: "We measure a sprint by the metric it moved, not the tickets it closed. Every engagement starts with the business result we're accountable for, agreed upfront and revisited at every checkpoint. If a feature ships but the number doesn't move, we treat that as unfinished work, not a win to report.",
   },
   {
-    icon: Sparkles,
-    title: "AI-native by default",
-    body: "We don't bolt AI onto finished products, we design with it from the first architecture decision, so automation compounds instead of getting patched in later.",
+    title: "AI native by default",
+    body: "We don't bolt AI onto finished products, we design with it from the first architecture decision, so automation compounds instead of getting patched in later. That means faster iteration loops, leaner infrastructure, and teams that spend more time on judgment calls than repetitive work.",
   },
   {
-    icon: ShieldCheck,
     title: "Own it like it's ours",
-    body: "Your roadmap risk is our roadmap risk. We plan for production from day one: monitoring, security, and on-call, not just a demo that works once.",
+    body: "Your roadmap risk is our roadmap risk. We plan for production from day one: monitoring, security, and on call, not just a demo that works once. When something breaks at 2am, we're on the page, not waiting for a ticket to route to us the next morning.",
   },
   {
-    icon: Users,
     title: "Senior hands, not headcount",
-    body: "Every pod is staffed with engineers who've shipped at scale before, so you get judgment on ambiguous problems, not just execution on a spec.",
+    body: "Every pod is staffed with engineers who've shipped at scale before, so you get judgment on ambiguous problems, not just execution on a spec. We'd rather field a smaller, sharper team than pad a roster with junior hours billed at senior rates.",
   },
 ];
 
@@ -390,7 +378,7 @@ const expertise = [
   {
     icon: Cpu,
     title: "AI & data engineering",
-    body: "LLM-powered products, agentic workflows, data platforms, and MLOps built for production, not demos.",
+    body: "LLM powered products, agentic workflows, data platforms, and MLOps built for production, not demos.",
   },
   {
     icon: Globe2,
@@ -399,7 +387,7 @@ const expertise = [
   },
   {
     icon: ShieldCheck,
-    title: "Product & full-stack engineering",
+    title: "Product & full stack engineering",
     body: "Web, mobile, and backend systems built with the same rigor as an in-house senior team.",
   },
 ];
@@ -413,12 +401,12 @@ const delivery = [
   {
     icon: Rocket,
     title: "Ship in weeks, not quarters",
-    body: "AI-accelerated engineering and reusable platform pieces get a working product in front of users fast.",
+    body: "AI accelerated engineering and reusable platform pieces get a working product in front of users fast.",
   },
   {
     icon: ShieldCheck,
     title: "Built for what happens after launch",
-    body: "Monitoring, security, and on-call are part of the plan from day one, not an afterthought post-handoff.",
+    body: "Monitoring, security, and on call are part of the plan from day one, not an afterthought post handoff.",
   },
 ];
 
@@ -448,7 +436,7 @@ const responsibilities = [
     icon: HandHeart,
     image: IMAGES.responsibilities.csr,
     title: "To Our Communities: Giving Back",
-    body: "Putting people first means all people, including the communities around our hubs, through mentorship, fellowships, and pro-bono builds.",
+    body: "Putting people first means all people, including the communities around our hubs, through mentorship, fellowships, and pro bono builds.",
   },
 ];
 
@@ -509,7 +497,7 @@ function Hero(): ReactElement {
             className="font-body mt-6 max-w-[560px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Empowering clients with senior product engineering, AI-native
+            Empowering clients with senior product engineering, AI native
             delivery, and solutions that drive real digital outcomes.
           </p>
         </div>
@@ -617,18 +605,20 @@ function IntroStatement(): ReactElement {
         </h2>
       </Reveal>
 
-      <Reveal delay={100} className="mt-10 mb-20 grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-24">
-        <div className="flex flex-col justify-center p-10 lg:p-14">
-          <h3 className="font-heading text-[24px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
-            Senior-first. AI-powered. This Is What a Product Partner Looks
-            Like.
-          </h3>
+      <Reveal delay={100} className="mt-10 mb-10 grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-14">
+        <div className="flex flex-col justify-start p-7 lg:p-9">
+        
+             <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+          Product Engineering  Powered by AI 
+          </h2>
           <p className="font-body mt-5 text-[15.5px] leading-relaxed text-slate-600">
-            Every engagement is built on one belief: the right combination
-            of engineering judgment and AI-native tooling creates outcomes
-            neither could reach alone. Senior talent, embedded delivery, and
-            AI-accelerated platforms come together to help teams build,
-            ship, and run software at the speed the market demands.
+            Every engagement is built on one belief: that the right
+            combination of engineering judgment and AI native tooling
+            creates outcomes neither could reach alone. Senior talent,
+            embedded delivery, and AI accelerated platforms come together
+            to help enterprises and founders build, ship, and run software
+            at the speed the market demands and the care their product
+            deserves.
           </p>
         </div>
         <div className="relative min-h-[320px] overflow-hidden">
@@ -668,7 +658,7 @@ function GuidingPrinciples(): ReactElement {
   const goNext = () => setActive((prev) => (prev + 1) % principles.length);
 
   return (
-    <section className="py-4 lg:py-8">
+    <section className="py-2 lg:py-4">
       <div className={ALIGN}>
         <Reveal>
           <Eyebrow>Principles</Eyebrow>
@@ -679,7 +669,7 @@ function GuidingPrinciples(): ReactElement {
 
         <Reveal
           delay={100}
-          className="mt-10"
+          className="mt-6"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
         >
@@ -830,10 +820,7 @@ function Values(): ReactElement {
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 80}>
               <div className="rounded-2xl bg-white p-8 transition-shadow duration-300 hover:shadow-xl">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: INDIGO_CTA }}>
-                  <v.icon size={20} className="text-white" strokeWidth={2.25} />
-                </div>
-                <h3 className="font-heading mt-5 text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
+                <h3 className="font-heading text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
                   {v.title}
                 </h3>
                 <p className="font-body mt-3 text-[15px] leading-[1.75] text-slate-600">{v.body}</p>
@@ -963,38 +950,6 @@ function GlobalPresence(): ReactElement {
 }
 
 /* ===============================================================
-   10. LEADERSHIP STRIP
-================================================================ */
-
-function LeadershipStrip(): ReactElement {
-  return (
-    <section className="bg-[#F5F3FC] py-20 lg:py-24">
-      <div className={`flex flex-col items-start justify-between gap-8 lg:flex-row lg:items-center ${ALIGN}`}>
-        <Reveal>
-          <Eyebrow>Leadership</Eyebrow>
-          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-            Led by engineers who&apos;ve shipped at scale, not just managed it.
-          </h2>
-          <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600">
-            Meet the people setting the technical and delivery standard behind every Starfii engagement.
-          </p>
-        </Reveal>
-        <Reveal delay={100}>
-          <Link
-            href="/about/leadership"
-            className="font-body inline-flex shrink-0 items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:scale-[1.03]"
-            style={{ backgroundColor: INDIGO_CTA }}
-          >
-            Meet the leadership team
-            <ArrowUpRight size={17} />
-          </Link>
-        </Reveal>
-      </div>
-    </section>
-  );
-}
-
-/* ===============================================================
    MAIN PAGE
 ================================================================ */
 
@@ -1012,7 +967,6 @@ export default function AboutStarfiiPage(): ReactElement {
       <ExpertiseAndDelivery />
       <AtAGlance />
       <GlobalPresence />
-      <LeadershipStrip />
       <ConnectFormSection />
     </main>
   );

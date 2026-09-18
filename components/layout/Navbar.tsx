@@ -150,7 +150,7 @@ export default function Navbar() {
 
                   const triggerClasses = `
                     group flex items-center gap-1.5 whitespace-nowrap
-                    rounded-md px-4 py-2.5 text-[19px] font-medium
+                    rounded-md px-4 py-2.5 text-[15px] font-medium
                     transition-colors duration-150
                     ${
                       isActive
@@ -161,7 +161,7 @@ export default function Navbar() {
 
                   const chevron = MENUS_WITH_CONTENT.includes(item) && (
                     <ChevronDown
-                      size={18}
+                      size={16}
                       strokeWidth={2.25}
                       className={`
                         transition-transform duration-200 ease-out
@@ -194,13 +194,13 @@ export default function Navbar() {
   onClick={closeAllMenus}
   className={`
     flex h-11 items-center gap-2 rounded-md px-5
-    text-[15px] font-semibold text-white
+    text-[13px] font-semibold text-white
     transition-colors duration-150
-    lg:h-12 lg:px-6 lg:text-[16px]
+    lg:h-12 lg:px-6 lg:text-[14px]
     ${T.primaryBg} ${T.primaryHoverBg}
   `}
 >
-  <Phone size={18} strokeWidth={2.25} className="shrink-0" />
+  <Phone size={16} strokeWidth={2.25} className="shrink-0" />
   <span className="hidden sm:inline">Contact</span>
 </Link>
 
@@ -230,7 +230,7 @@ export default function Navbar() {
                     animate opacity/rotation/scale against each other. */}
                 <span className="relative flex h-5 w-5 items-center justify-center">
                   <Menu
-                    size={20}
+                    size={18}
                     strokeWidth={2.25}
                     className={`
                       absolute transition-all duration-300 ease-out
@@ -242,7 +242,7 @@ export default function Navbar() {
                     `}
                   />
                   <X
-                    size={20}
+                    size={18}
                     strokeWidth={2.25}
                     className={`
                       absolute transition-all duration-300 ease-out
@@ -294,14 +294,14 @@ export default function Navbar() {
                           }
                           className={`
                             flex w-full items-center justify-between
-                            rounded-md px-4 py-3.5 text-left text-[16px]
+                            rounded-md px-4 py-3.5 text-left text-[14px]
                             font-medium transition-colors duration-150
                             ${isOpen ? `${T.primary} bg-[#F2F1FD]` : `${T.ink}`}
                           `}
                         >
                           {item}
                           <ChevronDown
-                            size={18}
+                            size={16}
                             strokeWidth={2.25}
                             className={`
                               shrink-0 transition-transform duration-250 ease-out
@@ -402,7 +402,7 @@ export default function Navbar() {
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
+    <p className={`text-[10px] font-semibold uppercase tracking-[0.14em] ${T.primary}`}>
       {children}
     </p>
   );
@@ -422,13 +422,13 @@ function ColumnTitle({
 }) {
   if (variant === "primary") {
     return (
-      <h3 className={`mb-4 text-[22px] font-semibold ${T.primary}`}>
+      <h3 className={`mb-4 text-[19px] font-semibold ${T.primary}`}>
         {children}
       </h3>
     );
   }
   return (
-    <h3 className={`mb-4 text-[13.5px] font-semibold uppercase tracking-[0.06em] text-[#8A8CA6]`}>
+    <h3 className={`mb-4 text-[12px] font-semibold uppercase tracking-[0.06em] text-[#8A8CA6]`}>
       {children}
     </h3>
   );
@@ -459,7 +459,7 @@ function LinkItem({
       onClick={onClick}
       target={newTab ? "_blank" : undefined}
       rel={newTab ? "noopener noreferrer" : undefined}
-      className={`block text-[18px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
+      className={`block text-[15px] ${T.ink} opacity-80 transition-opacity duration-150 hover:opacity-100 hover:${T.primary}`}
     >
       {children}
     </Link>
@@ -512,13 +512,13 @@ function FeaturedCard({
         </>
       )}
 
-      <p className={`text-[11px] font-semibold uppercase tracking-[0.14em] ${dark ? "text-white/70" : T.muted}`}>
+      <p className={`text-[10px] font-semibold uppercase tracking-[0.14em] ${dark ? "text-white/70" : T.muted}`}>
         {eyebrow}
       </p>
-      <h4 className="mt-3 text-[19px] font-semibold leading-snug">{title}</h4>
+      <h4 className="mt-3 text-[16px] font-semibold leading-snug">{title}</h4>
 
       {blurb && (
-        <p className={`mt-3 text-[14px] leading-relaxed ${dark ? "text-white/80" : T.muted}`}>
+        <p className={`mt-3 text-[13px] leading-relaxed ${dark ? "text-white/80" : T.muted}`}>
           {blurb}
         </p>
       )}
@@ -527,10 +527,10 @@ function FeaturedCard({
         onClick={onClick}
         target={newTab ? "_blank" : undefined}
         rel={newTab ? "noopener noreferrer" : undefined}
-        className={`mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold ${dark ? "text-white" : T.primary}`}
+        className={`mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold ${dark ? "text-white" : T.primary}`}
       >
         Learn more
-        <ArrowUpRight size={15} />
+        <ArrowUpRight size={14} />
       </Link>
     </div>
   );
@@ -575,12 +575,12 @@ function ImagePanel({
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-black/75 via-transparent to-black/80" />
 
       <div>
-        <h4 className="text-[21px] font-semibold">{title}</h4>
-        <p className="mt-3 text-[16px] leading-relaxed text-white/80">{desc}</p>
+        <h4 className="text-[18px] font-semibold">{title}</h4>
+        <p className="mt-3 text-[14px] leading-relaxed text-white/80">{desc}</p>
       </div>
-      <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[15px] font-semibold text-white">
+      <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold text-white">
         {ctaLabel}
-        <ArrowUpRight size={16} />
+        <ArrowUpRight size={14} />
       </span>
     </Link>
   );
@@ -615,8 +615,8 @@ function PlatformCard({
         />
       </div>
       <div className="p-6">
-        <p className={`text-[14px] font-medium ${T.primary}`}>{eyebrow}</p>
-        <h4 className={`mt-2 text-[20px] font-semibold leading-snug ${T.ink}`}>
+        <p className={`text-[12px] font-medium ${T.primary}`}>{eyebrow}</p>
+        <h4 className={`mt-2 text-[17px] font-semibold leading-snug ${T.ink}`}>
           {title}
         </h4>
         <Link
@@ -624,13 +624,68 @@ function PlatformCard({
           onClick={onClick}
           target={newTab ? "_blank" : undefined}
           rel={newTab ? "noopener noreferrer" : undefined}
-          className={`mt-4 inline-flex items-center gap-1.5 text-[14px] font-semibold ${T.primary}`}
+          className={`mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold ${T.primary}`}
         >
           Learn More
-          <ArrowUpRight size={15} />
+          <ArrowUpRight size={14} />
         </Link>
       </div>
     </div>
+  );
+}
+
+// Blue-gradient card with overlapping circular avatars — matches the
+// "Jobs Portal" reference exactly. Solid gradient background instead of
+// a photo, with a row of overlapping profile photos above the CTA.
+function JobsPortalCard({
+  title,
+  desc,
+  avatars,
+  href,
+  onClick,
+  ctaLabel = "Know More",
+}: {
+  title: string;
+  desc: string;
+  avatars: string[];
+  href: string;
+  onClick?: () => void;
+  ctaLabel?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      onClick={onClick}
+      className="group relative isolate flex min-h-[230px] flex-col justify-between overflow-hidden rounded-2xl p-6 text-white transition-transform duration-300 hover:scale-[1.01]"
+      style={{
+        background: "linear-gradient(135deg, #4F3FF0 0%, #2F6BFF 100%)",
+      }}
+    >
+      <div>
+        <h4 className="text-[22px] font-semibold leading-snug">{title}</h4>
+        <p className="mt-3 text-[14px] leading-relaxed text-white/85">
+          {desc}
+        </p>
+      </div>
+
+      <div>
+        <div className="flex items-center">
+          {avatars.map((src, i) => (
+            <img
+              key={i}
+              src={src}
+              alt=""
+              className="h-12 w-12 rounded-full border-[2.5px] border-white object-cover shadow-sm"
+              style={{ marginLeft: i === 0 ? 0 : -14, zIndex: avatars.length - i }}
+            />
+          ))}
+        </div>
+        <span className="mt-5 inline-flex w-fit items-center gap-1.5 text-[13px] font-semibold text-white">
+          {ctaLabel}
+          <ArrowUpRight size={14} />
+        </span>
+      </div>
+    </Link>
   );
 }
 
@@ -673,7 +728,7 @@ function AnimatedInsightCard({
           className="ss-nav-ring h-[260px] w-[260px] rounded-full"
           style={{
             background:
-              "conic-gradient(from 0deg, #38BDF8 0deg, #60A5FA 90deg, transparent 180deg, #38BDF8 360deg)",
+              "conic-gradient(from 0deg, #7C3AED 0deg, #A78BFA 90deg, transparent 180deg, #7C3AED 360deg)",
             WebkitMaskImage:
               "radial-gradient(circle, transparent 60%, black 62%, black 68%, transparent 70%)",
             maskImage:
@@ -684,22 +739,22 @@ function AnimatedInsightCard({
         <div
           className="absolute h-[260px] w-[260px] rounded-full"
           style={{
-            boxShadow: "0 0 60px 10px rgba(56,189,248,0.25)",
+            boxShadow: "0 0 60px 10px rgba(124,58,237,0.25)",
           }}
         />
       </div>
 
-      <p className="relative text-[14px] font-medium text-white/70">
+      <p className="relative text-[12px] font-medium text-white/70">
         {eyebrow}
       </p>
 
       <div className="relative">
-        <h4 className="text-[28px] font-semibold leading-[1.2] text-white">
+        <h4 className="text-[23px] font-semibold leading-[1.2] text-white">
           {title}
         </h4>
-        <span className="mt-6 inline-flex w-fit items-center gap-1.5 text-[14px] font-semibold text-white">
+        <span className="mt-6 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold text-white">
           Learn More
-          <ArrowUpRight size={16} />
+          <ArrowUpRight size={14} />
         </span>
       </div>
     </Link>
@@ -735,7 +790,7 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
     { label: "Freshservice", href: "/services/freshService" },
     // { label: "Software & Product Engineering", href: "/services/Software & Product Engineering" },
        { label: "ITSM & Migration", href: "/services/ITSM-Migration" },
-        { label: "quality-engineering", href: "/services/Quality-Engineering" },
+        { label: "Quality-engineering", href: "/services/Quality-Engineering" },
 
     { label: "Service Now", href: "/services/servicenow" },
 
@@ -786,10 +841,10 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
         </div>
 
         <div className={`mt-6 flex items-center justify-between gap-4 rounded-lg ${T.panelBg} border ${T.border} p-4`}>
-          <p className={`text-[14px] font-medium ${T.ink}`}>
+          <p className={`text-[13px] font-medium ${T.ink}`}>
             Editor&apos;s pick: Who owns your AI&apos;s memory?
           </p>
-          <a href="#" className={`shrink-0 text-[13.5px] font-semibold ${T.primary}`}>
+          <a href="#" className={`shrink-0 text-[12px] font-semibold ${T.primary}`}>
             Read →
           </a>
         </div>
@@ -814,10 +869,14 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   // 3-card row matching the reference screenshot: an animated
   // "Insights Hub" card first, then Turbodev and Turbodesk as
   // image-topped Featured Insight cards.
+  //
+  // FIX: Turbodesk now has newTab: true (was false) so clicking it
+  // opens https://turbodesk.in/ in a new tab, same as Turbodev,
+  // instead of navigating away from the current site in-place.
   const platforms = [
     {
       name: "Turbodev",
-      title: "Turbodev — the revenue engine for Shopify brands",
+      title: "Turbodev  the revenue engine for Shopify brands",
       image:
         "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=2400&auto=format&fit=crop",
       href: "https://turbodev.ai/",
@@ -825,11 +884,11 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     },
     {
       name: "Turbodesk",
-      title: "Turbodesk — intelligent service and operations platform",
+      title: "Turbodesk  intelligent service and operations platform",
       image:
         "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?q=90&w=2400&auto=format&fit=crop",
       href: "https://turbodesk.in/",
-      newTab: false,
+      newTab: true,
     },
   ];
 
@@ -837,23 +896,23 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     <div>
       <ColumnTitle variant="primary">Products</ColumnTitle>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <AnimatedInsightCard
-          eyebrow="Insights Hub"
-          title="Discover What's Next in Your Sector"
-          href="/insights"
-          onClick={onNavigate}
-        />
         {platforms.map((p) => (
           <PlatformCard
             key={p.name}
             image={p.image}
-            eyebrow="Featured Insight"
+            eyebrow=""
             title={p.title}
             href={p.href}
             newTab={p.newTab}
             onClick={onNavigate}
           />
         ))}
+        <AnimatedInsightCard
+          eyebrow=""
+          title="Discover What's Next in Your Sector"
+          href="/insights"
+          onClick={onNavigate}
+        />
       </div>
     </div>
   );
@@ -909,16 +968,24 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
 ================================================================ */
 
 function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
-  const aboutItems = [
+  const aboutCards = [
     {
-      name: "About Starfii",
-      desc: "AI led software development company building custom products and platforms that move enterprises from idea to launch with zero friction.",
+      eyebrow: "About Starfii",
+      title: "AI led software development, from idea to launch",
+      image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=2400&auto=format&fit=crop",
       href: "/About",
     },
     {
-      name: "Leadership",
-      desc: "Meet the team steering Starfii's vision — driving innovation across software, data, and AI powered engineering.",
-      href: "/About/leadership",
+      eyebrow: "Case Study",
+      title: "A strategic digital transformation built for growth",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=90&w=2400&auto=format&fit=crop",
+      href: "/About/Case-study",
+    },
+    {
+      eyebrow: "Blogs",
+      title: "Insights and perspectives on modern technology",
+      image: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=90&w=2400&auto=format&fit=crop",
+      href: "/About/blogs",
     },
   ];
 
@@ -926,64 +993,18 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
     <div>
       {/* FIX: Who We Are heading now blue (variant="primary") to match reference */}
       <ColumnTitle variant="primary">Who We Are</ColumnTitle>
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-        {aboutItems.map((item) => (
-          <div key={item.name} className={`border-l-2 ${T.border} pl-4`}>
-            <h4 className={`text-[20px] font-semibold ${T.ink}`}>{item.name}</h4>
-            <p className={`mt-2 text-[16px] leading-relaxed ${T.muted}`}>{item.desc}</p>
-            <Link
-              href={item.href}
-              onClick={onNavigate}
-              className={`mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold ${T.primary}`}
-            >
-              Learn more
-              <ArrowUpRight size={15} />
-            </Link>
-          </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+        {aboutCards.map((card) => (
+          <PlatformCard
+            key={card.eyebrow}
+            image={card.image}
+            eyebrow={card.eyebrow}
+            title={card.title}
+            href={card.href}
+            onClick={onNavigate}
+          />
         ))}
       </div>
-
-      <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
-        <ImagePanel
-          title="Case Study"
-          desc="A strategic digital transformation that combines thoughtful design, innovative technology, and a seamless user experience to drive meaningful business growth."
-          image="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop"
-          href="/About/Case-study"
-          onClick={onNavigate}
-        />
-        <ImagePanel
-          title="Blogs"
-          desc="Explore insights, ideas, and industry perspectives on emerging technologies, digital innovation, and strategies that shape the future of modern businesses."
-          image="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=1200&auto=format&fit=crop"
-          href="/About/blogs"
-          onClick={onNavigate}
-        />
-      </div>
-
-      <Link
-        href="/About"
-        onClick={onNavigate}
-        className={`group relative mt-8 flex flex-col gap-4 overflow-hidden rounded-lg ${T.inkBg} p-6 text-white sm:flex-row sm:items-center sm:justify-between`}
-      >
-        <img
-          src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1200&auto=format&fit=crop"
-          alt="Starfii team"
-          className="absolute inset-0 h-full w-full object-cover opacity-30 transition-transform duration-500 ease-out group-hover:scale-105"
-        />
-        <div className="relative">
-          <h4 className="text-[18px] font-semibold">
-            Artificial Intelligence Led
-            <br />
-            <span className="text-[#8FA8FF]">Human Intelligence</span>
-            <br />
-            Perfected
-          </h4>
-        </div>
-        <span className="relative inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-md bg-white/10 px-4 py-2 text-[14px] font-semibold text-white transition-colors group-hover:bg-white/15">
-          Know more
-          <ArrowUpRight size={16} />
-        </span>
-      </Link>
     </div>
   );
 }
@@ -1005,32 +1026,39 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
     },
   ];
 
+  const jobsPortalAvatars = [
+    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?q=80&w=200&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+  ];
+
   return (
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
       {cards.map((card) => (
         <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
-          <h4 className={`text-[20px] font-semibold ${T.ink}`}>{card.title}</h4>
-          <p className={`mt-2.5 text-[16px] leading-relaxed ${T.muted}`}>{card.desc}</p>
+          <h4 className={`text-[17px] font-semibold ${T.ink}`}>{card.title}</h4>
+          <p className={`mt-2.5 text-[14px] leading-relaxed ${T.muted}`}>{card.desc}</p>
           <Link
             href={card.href}
             onClick={onNavigate}
-            className={`mt-6 inline-flex items-center gap-1.5 text-[15px] font-semibold ${T.primary}`}
+            className={`mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold ${T.primary}`}
           >
             Know more
-            <ArrowUpRight size={16} />
+            <ArrowUpRight size={14} />
           </Link>
         </div>
       ))}
 
-      <ImagePanel
+      <JobsPortalCard
         title="Jobs Portal"
-        desc="Ready to own your game with Starfii? Look for open positions now."
-        image="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop"
+        desc="Ready to own your game with Starfii? Look for open positions now!"
+        avatars={jobsPortalAvatars}
         href="/careers/jobs"
         onClick={onNavigate}
-        ctaLabel="Know more"
+        ctaLabel="Know More"
       />
     </div>
   );
-  
 }

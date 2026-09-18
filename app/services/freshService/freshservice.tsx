@@ -173,43 +173,46 @@ type ServiceTab = {
   image: string;
 };
 
+
 const tabs: ServiceTab[] = [
   {
     label: "Overview: Assess Current ITSM",
     heading: "A Freshservice overview built around how your IT team actually works today",
-    body: "Starfii reviews your current service desk, ticket volume, and ITSM maturity, then scopes a Freshservice configuration that fits your processes instead of forcing a generic template on your team.",
+    body: "Starfii reviews your current service desk, ticket volume, and ITSM maturity, then scopes a Freshservice configuration that fits your processes instead of forcing a generic template on your team. We assess how incidents, service requests, changes, approvals, assets, and escalations are handled today to identify gaps and opportunities for improvement. This gives your team a clear implementation approach that reflects existing workflows while creating room for better automation, visibility, self service, and operational efficiency.",
     image:
       "https://images.unsplash.com/photo-1519389950473-47ba0277781c?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Implement: Configure the Core",
     heading: "Service desk, incident, problem, and change configured as one connected setup",
-    body: "Starfii implements the Freshservice service desk alongside incident, problem, and change management, so ticket flow, escalation, and approvals work together from day one.",
+    body: "Starfii implements the Freshservice service desk alongside incident, problem, and change management, so ticket flow, escalation, and approvals work together from day one. We configure service categories, priorities, assignment rules, SLAs, escalation paths, and approval workflows around the way your IT teams operate. By connecting these core ITSM processes into one structured environment, teams gain better visibility into service operations while reducing disconnected processes and manual coordination.",
     image:
       "https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Migrate: Bring Your Data In",
     heading: "Historical tickets, assets, and CMDB data migrated without disruption",
-    body: "Starfii migrates existing ticket history, asset records, and CMDB relationships into Freshservice, validating data integrity before your team switches over.",
+    body: "Starfii migrates existing ticket history, asset records, and CMDB relationships into Freshservice, validating data integrity before your team switches over. We identify the data that needs to move, map it to the appropriate Freshservice structures, clean inconsistencies, and validate critical records before migration. A controlled migration approach helps preserve important service history and configuration information while reducing the risk of missing or inaccurate data during the transition.",
     image:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Automate: Catalog & Workflows",
     heading: "A service catalog and workflow automation that cuts manual ticket handling",
-    body: "Starfii builds out the service catalog, request forms, and workflow automation rules that route, assign, and escalate tickets automatically, reducing manual triage.",
+    body: "Starfii builds out the service catalog, request forms, and workflow automation rules that route, assign, and escalate tickets automatically, reducing manual triage. We structure service requests around clear categories, required information, approval steps, fulfillment activities, and ownership so requests can move through the organization with less intervention. Automation helps standardize repetitive processes, improve routing accuracy, shorten response times, and give employees a more consistent way to request IT services.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
   {
     label: "Optimize: Support & Improve",
     heading: "Ongoing optimization and managed support after go live",
-    body: "Starfii's managed support team monitors adoption, tunes automation rules, and keeps Freshservice optimized as ticket volume, integrations, and team structure change over time.",
+    body: "Starfii's managed support team monitors adoption, tunes automation rules, and keeps Freshservice optimized as ticket volume, integrations, and team structure change over time. We review service performance, identify workflow bottlenecks, refine configurations, and support ongoing improvements across the platform. As your IT environment evolves, we help adapt the service catalog, automation, integrations, reporting, and operational processes so Freshservice continues to support your team's changing requirements.",
     image:
       "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
   },
 ];
+
+
 
 type EcosystemImpact = { title: string; body: string };
 
@@ -1237,8 +1240,10 @@ export default function FreshserviceITSMSection(): ReactElement {
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             {/* LEFT — text with padding, nudges right on hover */}
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-              <h2 className="font-heading text-[30px] font-semibold leading-snug text-[#1B2560] transition-colors duration-500 ease-out group-hover:text-[#4F3FE0] lg:text-[36px]">
-                Why Does a Default Freshservice Setup Rarely Fit an IT Team?
+            
+
+                 <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+                {" Why Does a Default Freshservice Setup Rarely Fit an IT Team?"}
               </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 A default Freshservice setup rarely fits an IT team because
@@ -1278,12 +1283,10 @@ export default function FreshserviceITSMSection(): ReactElement {
               <Reveal className="lg:sticky lg:top-28">
                 <Eyebrow variant="light">Freshservice Implementation</Eyebrow>
 
-                <h2
-                  className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Our Freshservice Capabilities
-                </h2>
+           
+                     <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+                {" Our Freshservice Capabilities "}
+              </h2>
 
                 <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                   Starfii implements, customizes, migrates, and optimizes
