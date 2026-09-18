@@ -12,6 +12,18 @@
 //      photography. To swap in your own assets, only edit IMAGE_POOLS.
 //   5. ADDED    -> <SafeImg>, so any broken/blocked image URL silently
 //      falls back instead of showing a torn-image icon.
+//   6. FIXED    -> Stat strip no longer lets the hero photo peek through
+//      the card gaps/corners (was transparent before, now sits on a
+//      solid white rounded panel).
+//   7. ADDED    -> "Learn More" link + hover underline on Focus Area
+//      cards, matching the Data & Analytics page's capability cards.
+//   8. FIXED    -> Focus Areas section no longer has `overflow-hidden`
+//      on its outer <section>. That class turned the section into a
+//      scroll container, and `position: sticky` sticks relative to the
+//      nearest scroll container — so with overflow-hidden present, the
+//      sticky left column (heading/description) could never actually
+//      stick while the right-hand card grid scrolled past it. Removing
+//      it restores the sticky-left / scrolling-right behavior.
 //
 // data.ts does NOT need to change. `solutions` and `insights` are still
 // part of the type, they are just no longer rendered.
@@ -427,6 +439,24 @@ function AnimationStyles(): ReactElement {
       }
       .ss-capability-title { transition: color 0.3s ease; }
 
+      /* Learn More link + underline reveal on hover — same treatment
+         as the Data & Analytics page's capability cards. */
+      .ss-capability-learn-more { color: ${INDIGO_CTA}; }
+      .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+        transform: scaleX(1);
+      }
+      .ss-capability-card:hover .ss-capability-learn-more svg {
+        transform: translate(2px, -2px);
+      }
+      .ss-capability-learn-more svg {
+        transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
       @media (prefers-reduced-motion: reduce) {
         .ss-reveal, .ss-tab-panel, .ss-drift-slow, .ss-drift-slower, .ss-caret {
           animation: none !important;
@@ -434,7 +464,10 @@ function AnimationStyles(): ReactElement {
           transform: none !important;
         }
         .ss-tab-progress-fill { animation: none !important; transform: scaleY(1) !important; }
-        .ss-eco-panel, .ss-capability-card, .ss-capability-title { transition: none !important; }
+        .ss-eco-panel, .ss-capability-card, .ss-capability-title,
+        .ss-capability-learn-more .ss-capability-underline {
+          transition: none !important;
+        }
       }
     `}</style>
   );
@@ -656,6 +689,9 @@ function Hero({ data, images }: { data: IndustryContent; images: IndustryImages 
 
 /* ===============================================================
    2. STAT STRIP
+   (Fixed: sits on a solid white rounded panel now, so the gaps
+   between cards / rounded corners never let the hero photo show
+   through — this is what was happening in the screenshot.)
 ================================================================ */
 
 function StatStrip({ data }: { data: IndustryContent }) {
@@ -663,25 +699,36 @@ function StatStrip({ data }: { data: IndustryContent }) {
 
   return (
     <section className={`${ALIGN} relative z-10 -mt-14`}>
-      <Reveal className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        {data.stats.map((stat, i) => (
-          <Reveal
-            key={stat.label}
-            delay={i * 80}
-            className="ss-capability-card flex flex-col justify-center gap-1 bg-white p-6 shadow-[0_16px_40px_rgba(15,23,42,0.10)]"
-          >
-            <span
-              className="font-heading text-[30px] font-bold leading-none sm:text-[34px]"
-              style={{ color: INDIGO_CTA }}
-            >
-              {stat.value}
-            </span>
-            <span className="font-body text-[13px] leading-snug text-slate-500 sm:text-[14px]">
-              {stat.label}
-            </span>
-          </Reveal>
-        ))}
-      </Reveal>
+      {/* Relative wrapper holds a square (non-rounded) white backdrop that
+          exactly fills the same box as the rounded panel above it. Rounded
+          corners only clip the panel's own background, not its bounding
+          box, so without this square backdrop the very corner pixels would
+          reveal whatever sits behind (the hero photo). The backdrop makes
+          that impossible regardless of radius or overlap amount. */}
+      <div className="relative">
+        <div className="absolute inset-0 bg-white" />
+        <Reveal className="relative rounded-[24px] bg-white p-3 shadow-[0_16px_40px_rgba(15,23,42,0.10)] sm:p-4">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {data.stats.map((stat, i) => (
+              <Reveal
+                key={stat.label}
+                delay={i * 80}
+                className="ss-capability-card flex flex-col justify-center gap-1 bg-[#F7F8FB] p-6"
+              >
+                <span
+                  className="font-heading text-[30px] font-bold leading-none sm:text-[34px]"
+                  style={{ color: INDIGO_CTA }}
+                >
+                  {stat.value}
+                </span>
+                <span className="font-body text-[13px] leading-snug text-slate-500 sm:text-[14px]">
+                  {stat.label}
+                </span>
+              </Reveal>
+            ))}
+          </div>
+        </Reveal>
+      </div>
     </section>
   );
 }
@@ -730,11 +777,6 @@ function KeyTakeawaysAccordion({
         style={{ borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent" }}
       >
         <div className="flex items-center gap-3">
-          <img
-            src="/starfii_logo_black.svg"
-            alt="Starfii"
-            className="h-10 w-20 flex-shrink-0 object-contain"
-          />
           <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
             Key Takeaways
           </span>
@@ -835,16 +877,31 @@ function HighlightBlock({ data, images }: { data: IndustryContent; images: Indus
 
 /* ===============================================================
    5. FOCUS AREAS
+   Sticky left column (heading/description) + staggered right-side
+   card grid, matching the Data & Analytics page pattern.
+
+   IMPORTANT: this section must NOT have `overflow-hidden` on the
+   outer <section>. `position: sticky` sticks relative to the
+   nearest ancestor that is a scroll container (has overflow other
+   than `visible`) or the viewport if there is none. If this
+   section had `overflow-hidden`, IT would become that container —
+   but since the section's own height never scrolls independently,
+   the sticky child has nowhere to travel and just sits static.
+   Removing overflow-hidden here lets it fall through to the page's
+   normal scroll, so `lg:sticky lg:top-28` actually sticks while the
+   card grid on the right scrolls past it.
 ================================================================ */
 
 function FocusAreas({ data }: { data: IndustryContent }) {
   if (!data.focusAreas.length) return null;
 
   return (
-    <section className="relative overflow-hidden bg-white py-24 lg:py-28">
+    <section className="relative bg-white py-24 lg:py-28">
       <div className={`relative ${ALIGN}`}>
         <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-          <Reveal className="lg:sticky lg:top-28">
+          {/* LEFT — eyebrow, heading, description — sticks to top-left
+              and stays put while the card grid scrolls past it */}
+          <Reveal className="self-start lg:sticky lg:top-28">
             <Eyebrow>{data.name} Focus Areas</Eyebrow>
             <h2
               className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
@@ -858,6 +915,7 @@ function FocusAreas({ data }: { data: IndustryContent }) {
             </p>
           </Reveal>
 
+          {/* RIGHT — capability card grid, staggers in on scroll */}
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
             {data.focusAreas.map((area, i) => (
               <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
@@ -871,6 +929,17 @@ function FocusAreas({ data }: { data: IndustryContent }) {
                   <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
                     {area.description}
                   </p>
+
+                  <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                    <span className="relative">
+                      Learn More
+                      <span
+                        className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                        style={{ backgroundColor: INDIGO_CTA }}
+                      />
+                    </span>
+                    <ArrowUpRight size={16} />
+                  </span>
                 </div>
               </Reveal>
             ))}
@@ -1241,7 +1310,7 @@ export default function IndustryPageTemplate({ data }: { data: IndustryContent }
           <KeyTakeawaysAccordion data={data} open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 w-full text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             {data.highlight.body}

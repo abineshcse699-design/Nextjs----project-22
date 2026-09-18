@@ -1567,7 +1567,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
           Blog images zoom in on hover (scale 1 → 1.1) inside a fixed
           frame, so only the picture grows, never the card.
       ============================================================ */}
-      <section className="bg-[#EEF0F7] py-24">
+      {/* <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
@@ -1700,7 +1700,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             </Carousel>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ============================================================
           CLOSING CTA

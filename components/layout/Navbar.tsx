@@ -30,6 +30,7 @@ const MENUS_WITH_CONTENT = [
 /* ===============================================================
    DESIGN TOKENS
 ================================================================ */
+
 const T = {
   ink: "text-[#14163B]",
   inkBg: "bg-[#0C0E2A]",
@@ -1031,4 +1032,5 @@ function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
       />
     </div>
   );
+  
 }
