@@ -1155,7 +1155,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
     />
   </div>
 
-  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[520px]`}>
+  <div className={`${ALIGN} relative flex min-h-[560px] items-center lg:min-h-[620px]`}>
     <div className="w-full max-w-[760px] py-10 lg:py-12">
       {/* Breadcrumb */}
       <nav
@@ -1199,7 +1199,6 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
       {/* CTA */}
       <a
-      
         href="#connect"
         className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
         style={{

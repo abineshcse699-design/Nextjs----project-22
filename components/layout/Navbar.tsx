@@ -159,14 +159,13 @@ export default function Navbar() {
                     }
                   `;
 
+                  // Arrow no longer rotates on hover/open — it stays in
+                  // the same downward position at all times.
                   const chevron = MENUS_WITH_CONTENT.includes(item) && (
                     <ChevronDown
                       size={16}
                       strokeWidth={2.25}
-                      className={`
-                        transition-transform duration-200 ease-out
-                        ${isActive ? "rotate-180" : "text-[#8A8CA6]"}
-                      `}
+                      className={isActive ? "" : "text-[#8A8CA6]"}
                     />
                   );
 
