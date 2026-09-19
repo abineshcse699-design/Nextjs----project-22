@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
+import GetInTouch from "../../app/services/data-analytics/GetinTouch";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
@@ -508,7 +509,7 @@ function WhyMattersAccordion({
 ================================================================ */
 
 function EcosystemAccordion() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const columns: { item: (typeof impactAreas)[number]; index: number }[][] = [[], []];
   impactAreas.forEach((entry, index) => {
@@ -893,85 +894,85 @@ export default function DataAnalyticsServicesSection() {
         }
       `}</style>
 
-      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
-        {/* Full-bleed hero image: no white split, image covers the complete section */}
-        <div className="absolute inset-0 -z-10">
-          <motion.img
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-            src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop"
-            alt="Data analytics team collaborating on enterprise technology"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[68%_center]"
-          />
+<section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  {/* Full-bleed hero image: no white split, image covers the complete section */}
+  <div className="absolute inset-0 -z-10">
+    <motion.img
+      initial={{ opacity: 0, scale: 1.08 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop"
+      alt="Data analytics team collaborating on enterprise technology"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[68%_center]"
+    />
 
-          {/* Dark left-to-right gradient like the reference design */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
-            }}
-          />
-        </div>
+    {/* Dark left-to-right gradient like the reference design */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
+      }}
+    />
+  </div>
 
-        <motion.div
-          variants={heroContainer}
-          initial="hidden"
-          animate="visible"
-          className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}
-        >
-          <div className="w-full max-w-[760px] py-20 lg:py-28">
-            <motion.nav
-              variants={heroItem}
-              aria-label="Breadcrumb"
-              className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90 mt-8"
-            >
-              <a href="/" className="transition-colors hover:text-white">
-                Home
-              </a>
-              <ChevronRight size={14} />
-              <a href="/services" className="transition-colors hover:text-white">
-                Services
-              </a>
-              <ChevronRight size={14} />
-              <span className="text-white/70">Data &amp; Analytics</span>
-            </motion.nav>
+  <motion.div
+    variants={heroContainer}
+    initial="hidden"
+    animate="visible"
+    className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}
+  >
+    <div className="w-full max-w-[760px] py-10 lg:py-12">
+      <motion.nav
+        variants={heroItem}
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90"
+      >
+        <a href="/" className="transition-colors hover:text-white">
+          Home
+        </a>
+        <ChevronRight size={14} />
+        <a href="/services" className="transition-colors hover:text-white">
+          Services
+        </a>
+        <ChevronRight size={14} />
+        <span className="text-white/70">Data &amp; Analytics</span>
+      </motion.nav>
 
-            <motion.h1
-              variants={heroItem}
-              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
-            >
-              Data &amp; Analytics Services for Decisions You Can Trust
-            </motion.h1>
+      <motion.h1
+        variants={heroItem}
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+      >
+        Data &amp; Analytics Services for Decisions You Can Trust
+      </motion.h1>
 
-            <motion.p
-              variants={heroItem}
-              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px] lg:text-[18px]"
-            >
-              Starfii architects, engineers, and modernizes data platforms
-              and pipelines, turning scattered, siloed data into a governed,
-              AI-ready foundation that powers faster, more confident
-              decisions across the enterprise.
-            </motion.p>
+      <motion.p
+        variants={heroItem}
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px]"
+      >
+        Starfii architects, engineers, and modernizes data platforms
+        and pipelines, turning scattered, siloed data into a governed,
+        AI-ready foundation that powers faster, more confident
+        decisions across the enterprise.
+      </motion.p>
 
-            <motion.a
-              variants={heroItem}
-              href="#connect"
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.98 }}
-              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </motion.a>
-          </div>
-        </motion.div>
-      </section>
+      <motion.a
+        variants={heroItem}
+        href="#connect"
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.98 }}
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
+        style={{ color: CHAMPION_BLUE }}
+      >
+        Connect Now
+        <ArrowUpRight size={17} />
+      </motion.a>
+    </div>
+  </motion.div>
+</section>
 
       <div className={ALIGN}>
         <motion.section
@@ -1256,6 +1257,8 @@ export default function DataAnalyticsServicesSection() {
           </div>
         </section>
 
+
+
         <motion.section
           initial="hidden"
           whileInView="visible"
@@ -1291,17 +1294,17 @@ export default function DataAnalyticsServicesSection() {
                         }}
                       />
                     )}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab(i)}
-                      className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
-                      style={{
-                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 600 : 500,
-                      }}
-                    >
-                      {tab.label}
-                    </button>
+                 <button
+  type="button"
+  onClick={() => setActiveTab(i)}
+  className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+  style={{
+    color: isActive ? CHAMPION_BLUE : "#94A3B8",
+    fontWeight: isActive ? 600 : 400,
+  }}
+>
+  {tab.label}
+</button>
                   </li>
                 );
               })}
@@ -1316,12 +1319,12 @@ export default function DataAnalyticsServicesSection() {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-                <h3
-                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {current.heading}
-                </h3>
+             <h3
+  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+  style={{ color: CHAMPION_BLUE }}
+>
+  {current.heading}
+</h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1530,7 +1533,7 @@ export default function DataAnalyticsServicesSection() {
       </section>
 
 
-
+<GetInTouch />
 
     </main>
   );

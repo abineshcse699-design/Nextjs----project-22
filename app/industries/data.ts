@@ -3367,6 +3367,9 @@ export const industries: Record<string, IndustryContent> = {
         answer:
           "Yes. Architecture can be designed around subscriber scale, transaction volume, availability, integrations, and always-on service requirements.",
       },
+
     ],
+
   },
+
 };

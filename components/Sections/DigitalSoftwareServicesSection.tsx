@@ -2,7 +2,7 @@
 
 "use client";
 import Link from "next/link";
-
+import GetInTouch from "../../app/services/software-product/GetInTouch";
 import {
   useRef,
   useState,
@@ -1020,8 +1020,7 @@ function KeyTakeawaysAccordion({
 
 function EcosystemAccordion(): ReactElement {
   // null = everything closed. Use 0 to have the first card open by default.
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
   ecosystemImpact.forEach((item, index) => {
     const target = columns[index % 2];
@@ -1125,104 +1124,95 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
           matching the reference design.
       ============================================================ */}
 
-      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
-        {/* FULL-BLEED HERO IMAGE */}
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=3840&auto=format&fit=crop"
-            alt="Software engineering team collaborating on a digital product"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[68%_center]"
-          />
+<section className="relative isolate min-h-[560px] overflow-hidden lg:min-h-[620px]">
+  {/* FULL-BLEED HERO IMAGE */}
+  <div className="absolute inset-0 -z-10">
+    <img
+      src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=85&w=2000&auto=format&fit=crop"
+      alt="Software engineering team collaborating on a digital product"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[68%_center]"
+    />
 
-          {/* Dark readability gradient — image remains visible on the right */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
-            }}
-          />
+    {/* Dark readability gradient — image remains visible on the right */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+      }}
+    />
 
-          {/* Small bottom fade for a polished edge */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-20"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
-            }}
-          />
-        </div>
+    {/* Small bottom fade for a polished edge */}
+    <div
+      className="absolute inset-x-0 bottom-0 h-20"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+      }}
+    />
+  </div>
 
-        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
-          <div className="w-full max-w-[760px] py-20 lg:py-28">
-            {/* Breadcrumb */}
-          <nav
-  aria-label="Breadcrumb"
-  className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0 mt-8"
-              style={{
-                color: "rgba(255,255,255,0.92)",
-                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
-              }}
-            >
-              <a href="/" className="transition-opacity hover:opacity-70">
-                Home
-              </a>
-              <ChevronRight size={14} />
-              <a href="/services" className="transition-opacity hover:opacity-70">
-                Services
-              </a>
-              <ChevronRight size={14} />
-              <span className="text-white/60">
-                Software &amp; Product Engineering
-              </span>
-            </nav>
+  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[520px]`}>
+    <div className="w-full max-w-[760px] py-10 lg:py-12">
+      {/* Breadcrumb */}
+      <nav
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+        style={{
+          color: "rgba(255,255,255,0.92)",
+          animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+        }}
+      >
+        <a href="/" className="transition-opacity hover:opacity-70">
+          Home
+        </a>
+        <ChevronRight size={14} />
+        <a href="/services" className="transition-opacity hover:opacity-70">
+          Services
+        </a>
+        <ChevronRight size={14} />
+        <span className="text-white/60">
+          Software &amp; Product Engineering
+        </span>
+      </nav>
 
-            {/* Eyebrow */}
-            <div
-              className="mt-10 opacity-0"
-              style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-            >
-              {/* <Eyebrow variant="dark">
-                Software &amp; Product Engineering
-              </Eyebrow> */}
-            </div>
+      {/* Main heading */}
+      <h1
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+      >
+        Software and Product Engineering for Modern Enterprises
+      </h1>
 
-            {/* Main heading */}
- <h1
-  className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
-  style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
->
-  Software and Product Engineering for Modern Enterprises
-</h1>
+      {/* Description */}
+      <p
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+      >
+        Starfii turns ideas into scalable software products and modern
+        platforms with product strategy, AI driven engineering, and
+        faster delivery cycles.
+      </p>
 
-            {/* Description */}
-            <p
-              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-            >
-              Starfii turns ideas into scalable software products and modern
-              platforms with product strategy, AI driven engineering, and
-              faster delivery cycles.
-            </p>
-
-            {/* CTA */}
-            <a
-              href="#connect"
-              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
-              style={{
-                color: INDIGO_CTA,
-                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-              }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+      <a
+      
+        href="#connect"
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+        style={{
+          color: INDIGO_CTA,
+          animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+        }}
+      >
+        Connect Now
+        <ArrowUpRight size={17} />
+      </a>
+    </div>
+  </div>
+</section>
 
       <div className={ALIGN}>
         {/* ============================================================
@@ -1397,7 +1387,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                         }}
                       />
                     )}
-                    <button
+                <button
                       type="button"
                       onClick={() => setActiveTab(i)}
                       className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
@@ -1420,12 +1410,12 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-                <h3
-                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {current.heading}
-                </h3>
+             <h3
+  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+  style={{ color: CHAMPION_BLUE }}
+>
+  {current.heading}
+</h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1735,7 +1725,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
 
 
 
-
+ <GetInTouch />
 
 
     </main>

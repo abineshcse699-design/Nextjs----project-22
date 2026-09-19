@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import GetInTouch from "../freshService/GetinTouch";
 
 import {
   useRef,
@@ -1019,7 +1020,7 @@ function KeyTakeawaysAccordion({
 
 function EcosystemAccordion(): ReactElement {
   // null = everything closed. Use 0 to have the first card open by default.
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
   ecosystemImpact.forEach((item, index) => {
@@ -1126,94 +1127,93 @@ export default function FreshserviceITSMSection(): ReactElement {
           Full-bleed image with a dark left-side readability gradient,
           matching the Software & Product Engineering page.
       ============================================================ */}
+<section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  {/* FULL-BLEED HERO IMAGE */}
+  <div className="absolute inset-0 -z-10">
+    <img
+      src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=85&w=2000&auto=format&fit=crop"
+      alt="IT service desk team working in Freshservice"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[68%_center]"
+    />
 
-      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
-        {/* FULL-BLEED HERO IMAGE */}
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=3840&auto=format&fit=crop"
-            alt="IT service desk team working in Freshservice"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[68%_center]"
-          />
+    {/* Dark readability gradient — image remains visible on the right */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+      }}
+    />
 
-          {/* Dark readability gradient — image remains visible on the right */}
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
-            }}
-          />
+    {/* Small bottom fade for a polished edge */}
+    <div
+      className="absolute inset-x-0 bottom-0 h-20"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+      }}
+    />
+  </div>
 
-          {/* Small bottom fade for a polished edge */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-20"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
-            }}
-          />
-        </div>
+  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
+    <div className="w-full max-w-[760px] py-10 lg:py-12">
+      {/* Breadcrumb */}
+      <nav
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+        style={{
+          color: "rgba(255,255,255,0.92)",
+          animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+        }}
+      >
+        <a href="/" className="transition-opacity hover:opacity-70">
+          Home
+        </a>
+        <ChevronRight size={14} />
+        <a href="/services" className="transition-opacity hover:opacity-70">
+          Services
+        </a>
+        <ChevronRight size={14} />
+        <span className="text-white/60">Freshservice ITSM Services</span>
+      </nav>
 
-        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
-          <div className="w-full max-w-[760px] py-20 lg:py-28">
-            {/* Breadcrumb */}
-            <nav
-              aria-label="Breadcrumb"
-              className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0 mt-8"
-              style={{
-                color: "rgba(255,255,255,0.92)",
-                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
-              }}
-            >
-              <a href="/" className="transition-opacity hover:opacity-70">
-                Home
-              </a>
-              <ChevronRight size={14} />
-              <a href="/services" className="transition-opacity hover:opacity-70">
-                Services
-              </a>
-              <ChevronRight size={14} />
-              <span className="text-white/60">Freshservice ITSM Services</span>
-            </nav>
+      {/* Main heading */}
+      <h1
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+      >
+        Freshservice Implementation for Modern IT Operations
+      </h1>
 
-            {/* Main heading */}
-            <h1
-              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-            >
-              Freshservice Implementation for Modern IT Operations
-            </h1>
+      {/* Description */}
+      <p
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+      >
+        Implement, customize, migrate and optimize Freshservice for
+        modern, efficient and automated IT service operations, from
+        service desk setup through workflow automation and ongoing
+        managed support.
+      </p>
 
-            {/* Description */}
-            <p
-              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-            >
-              Implement, customize, migrate and optimize Freshservice for
-              modern, efficient and automated IT service operations, from
-              service desk setup through workflow automation and ongoing
-              managed support.
-            </p>
-
-            {/* CTA */}
-            <a
-              href="#connect"
-              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
-              style={{
-                color: INDIGO_CTA,
-                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-              }}
-            >
-              Talk to Us
-              <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </div>
-      </section>
+      {/* CTA */}
+      <a
+        href="#connect"
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+        style={{
+          color: INDIGO_CTA,
+          animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+        }}
+      >
+        Talk to Us
+        <ArrowUpRight size={17} />
+      </a>
+    </div>
+  </div>
+</section>
 
       <div className={ALIGN}>
         {/* ============================================================
@@ -1371,17 +1371,17 @@ export default function FreshserviceITSMSection(): ReactElement {
                         }}
                       />
                     )}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab(i)}
-                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
-                      style={{
-                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 700 : 500,
-                      }}
-                    >
-                      {tab.label}
-                    </button>
+                   <button
+  type="button"
+  onClick={() => setActiveTab(i)}
+  className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+  style={{
+    color: isActive ? CHAMPION_BLUE : "#94A3B8",
+    fontWeight: isActive ? 600 : 400,
+  }}
+>
+  {tab.label}
+</button>
                   </li>
                 );
               })}
@@ -1394,12 +1394,12 @@ export default function FreshserviceITSMSection(): ReactElement {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-                <h3
-                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {current.heading}
-                </h3>
+              <h3
+  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+  style={{ color: CHAMPION_BLUE }}
+>
+  {current.heading}
+</h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1702,73 +1702,11 @@ export default function FreshserviceITSMSection(): ReactElement {
         </div>
       </section>
 
-      {/* ============================================================
-          CLOSING CTA
-      ============================================================ */}
-      <section id="connect" className="scroll-mt-28 bg-white py-24">
-        <div className={ALIGN}>
-          <Reveal
-            className="relative overflow-hidden rounded-[28px] px-8 py-16 text-center sm:px-16 sm:py-20"
-            style={{ backgroundColor: CHAMPION_BLUE }}
-          >
-            {/* Decorative glow accents for a less flat, more premium feel */}
-            <div
-              className="pointer-events-none absolute -top-1/2 left-1/2 h-[140%] w-[70%] -translate-x-1/2"
-              style={{
-                background:
-                  "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.35) 0%, rgba(164,143,234,0) 70%)",
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-0 opacity-[0.06]"
-              style={{
-                backgroundImage:
-                  "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
-                backgroundSize: "40px 40px",
-              }}
-            />
+    
 
-            <div className="relative">
-              <span
-                className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
-                style={{ backgroundColor: "rgba(255,255,255,0.10)", color: "#C9BEF5" }}
-              >
-                GET STARTED
-              </span>
+<GetInTouch />
 
-              <h2 className="font-heading mx-auto mt-6 max-w-2xl text-[32px] font-medium leading-[1.2] text-white lg:text-[40px]">
-                Ready to Modernize Your IT Service Desk with Freshservice?
-              </h2>
 
-              <p className="font-body mx-auto mt-5 max-w-xl text-[15px] leading-relaxed text-white/70">
-                Talk to Starfii about Freshservice implementation, service
-                desk setup, workflow automation, data migration, or
-                embedding ongoing managed support into your IT service
-                operations.
-              </p>
-
-              <div className="mt-9 flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <Link
-                  href="../components/Sections/ConnectFormSection"
-                  className="font-body inline-flex items-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold transition-transform duration-300 hover:scale-[1.03]"
-                  style={{ backgroundColor: "#FFFFFF", color: CHAMPION_BLUE }}
-                >
-                  Talk to Us
-                  <ArrowUpRight size={17} />
-                </Link>
-
-                <a
-                  href="mailto:hello@starfii.com"
-                  className="font-body inline-flex items-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-white transition-colors duration-300 hover:bg-white/10"
-                  style={{ borderColor: "rgba(255,255,255,0.30)" }}
-                >
-                  Email Us
-                </a>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
     </main>
   );
 }

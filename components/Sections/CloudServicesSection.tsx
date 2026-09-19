@@ -3,7 +3,7 @@
 "use client";
 
 import Link from "next/link";
-
+import GetInTouch from "../../app/services/cloud/GetinTouch";
 import {
   useRef,
   useState,
@@ -1138,7 +1138,7 @@ function KeyTakeawaysAccordion({
 ================================================================ */
 
 function EcosystemAccordion(): ReactElement {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
   ecosystemImpact.forEach((item, index) => {
@@ -1239,84 +1239,77 @@ export default function CloudServicesSection(): ReactElement {
           HERO
       ============================================================ */}
 
-      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=90&w=2400&auto=format&fit=crop"
-            alt="Modern cloud infrastructure and technology environment"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[65%_center]"
-          />
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)",
-            }}
-          />
-        </div>
+   <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  <div className="absolute inset-0 -z-10">
+    <img
+      src="https://images.unsplash.com/photo-1518005020951-eccb494ad742?q=85&w=2000&auto=format&fit=crop"
+      alt="Modern cloud infrastructure and technology environment"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[65%_center]"
+    />
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)",
+      }}
+    />
+  </div>
 
-        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
-          <div className="w-full max-w-[760px] py-20 lg:py-28">
-            <nav
-              aria-label="Breadcrumb"
-              className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium opacity-0"
-              style={{
-                color: "rgba(255,255,255,0.92)",
-                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
-              }}
-            >
-              <Link href="/" className="transition-opacity hover:opacity-70">
-                Home
-              </Link>
-              <ChevronRight size={14} />
-              <Link href="/services" className="transition-opacity hover:opacity-70">
-                Services
-              </Link>
-              <ChevronRight size={14} />
-              <span className="text-white/60">Cloud Engineering</span>
-            </nav>
+  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
+    <div className="w-full max-w-[760px] py-10 lg:py-12">
+      <nav
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+        style={{
+          color: "rgba(255,255,255,0.92)",
+          animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+        }}
+      >
+        <Link href="/" className="transition-opacity hover:opacity-70">
+          Home
+        </Link>
+        <ChevronRight size={14} />
+        <Link href="/services" className="transition-opacity hover:opacity-70">
+          Services
+        </Link>
+        <ChevronRight size={14} />
+        <span className="text-white/60">Cloud Engineering</span>
+      </nav>
 
-            <div
-              className="mt-10 opacity-0"
-              style={{ animation: "ss-fade-up 0.65s ease-out 0.1s forwards" }}
-            >
-              {/* Cloud-specific eyebrow intentionally hidden, matching the Software page composition. */}
-            </div>
+      <h1
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+      >
+        Cloud Engineering Services on AWS, Azure &amp; GCP
+      </h1>
 
-            <h1
-              className="font-heading mt-5 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-            >
-              Cloud Engineering Services on AWS, Azure &amp; GCP
-            </h1>
+      <p
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+      >
+        Starfii architects, migrates, modernizes, and runs workloads on
+        AWS, Azure, and GCP, backed by DevOps, CI/CD, and infrastructure
+        automation built for performance, security, and cost control
+        from day one.
+      </p>
 
-            <p
-              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-            >
-              Starfii architects, migrates, modernizes, and runs workloads on
-              AWS, Azure, and GCP, backed by DevOps, CI/CD, and infrastructure
-              automation built for performance, security, and cost control
-              from day one.
-            </p>
-
-            <a
-              href="#connect"
-              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
-              style={{
-                color: INDIGO_CTA,
-                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-              }}
-            >
-              Request Your POC Now
-              <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </div>
-      </section>
+      <a
+        href="#connect"
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+        style={{
+          color: INDIGO_CTA,
+          animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+        }}
+      >
+        Request Your POC Now
+        <ArrowUpRight size={17} />
+      </a>
+    </div>
+  </div>
+</section>
 
       <div className={ALIGN}>
         {/* ============================================================
@@ -1466,19 +1459,19 @@ export default function CloudServicesSection(): ReactElement {
                       />
                     )}
 
-                    <button
-                      type="button"
-                      role="tab"
-                      aria-selected={isActive}
-                      onClick={() => setActiveTab(i)}
-                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
-                      style={{
-                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 700 : 500,
-                      }}
-                    >
-                      {tab.label}
-                    </button>
+                <button
+  type="button"
+  role="tab"
+  aria-selected={isActive}
+  onClick={() => setActiveTab(i)}
+  className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+  style={{
+    color: isActive ? CHAMPION_BLUE : "#94A3B8",
+    fontWeight: isActive ? 600 : 400,
+  }}
+>
+  {tab.label}
+</button>
                   </li>
                 );
               })}
@@ -1492,12 +1485,12 @@ export default function CloudServicesSection(): ReactElement {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-                <h3
-                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {current.heading}
-                </h3>
+         <h3
+  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+  style={{ color: CHAMPION_BLUE }}
+>
+  {current.heading}
+</h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1853,6 +1846,10 @@ export default function CloudServicesSection(): ReactElement {
 </section> */}
 
       </section>
+
+
+<GetInTouch />
+
     </main>
   );
 }

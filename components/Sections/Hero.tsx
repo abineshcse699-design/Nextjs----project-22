@@ -226,32 +226,24 @@ export default function Hero() {
 </motion.p>
 
         {/* CTAs */}
-        <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-4">
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="
-              flex w-fit items-center gap-2 rounded-xl bg-white
-              px-6 py-4 text-[15px] font-semibold text-[#3B2FE0]
-            "
-          >
-            Contact Us
-            <ArrowUpRight size={18} strokeWidth={2.5} />
-          </motion.a>
 
-          <motion.a
-            href="#work"
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.98 }}
-            className="
-              flex w-fit items-center gap-2 rounded-xl border border-white/25
-              px-6 py-4 text-[15px] font-semibold text-white
-            "
-          >
-            See Our Work
-          </motion.a>
-        </motion.div>
+        {/* CTA */}
+<motion.div variants={item} className="mt-8">
+  <motion.a
+    href="#contact"
+    whileHover={{ scale: 1.03 }}
+    whileTap={{ scale: 0.98 }}
+    className="
+      flex w-fit items-center gap-3 rounded-2xl bg-white
+      px-8 py-4 text-[18px] font-semibold text-[#3B2FE0]
+      sm:px-12 sm:py-6 sm:text-[20px]
+    "
+  >
+    Contact Us
+    <ArrowUpRight size={24} strokeWidth={2.5} />
+  </motion.a>
+</motion.div>
+
 
         {/* Proof stats row */}
         <motion.div variants={item} className="mt-6 flex flex-wrap gap-x-6 gap-y-2">

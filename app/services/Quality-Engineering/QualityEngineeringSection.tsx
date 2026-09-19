@@ -4,7 +4,7 @@
 
 "use client";
 import Link from "next/link";
-
+import GetInTouch from "../Quality-Engineering/GetTouch";
 import {
   useRef,
   useState,
@@ -767,7 +767,7 @@ function KeyTakeawaysAccordion({
 ================================================================ */
 
 function EcosystemAccordion(): ReactElement {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
   ecosystemImpact.forEach((item, index) => {
@@ -1189,86 +1189,86 @@ export default function QualityEngineeringSection(): ReactElement {
           BREADCRUMB + HERO  (80. Quality engineering overview)
           Full-bleed image with a dark left-side readability gradient.
       ============================================================ */}
-      <section className="relative isolate min-h-[680px] overflow-hidden lg:min-h-[760px]">
-        <div className="absolute inset-0 -z-10">
-          <img
-            src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=90&w=3840&auto=format&fit=crop"
-            alt="Quality engineering team reviewing automated test results"
-            loading="eager"
-            decoding="async"
-            fetchPriority="high"
-            className="h-full w-full object-cover object-[68%_center]"
-          />
+    <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  <div className="absolute inset-0 -z-10">
+    <img
+      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=85&w=2000&auto=format&fit=crop"
+      alt="Quality engineering team reviewing automated test results"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[68%_center]"
+    />
 
-          <div
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
-            }}
-          />
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
+      }}
+    />
 
-          <div
-            className="absolute inset-x-0 bottom-0 h-20"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
-            }}
-          />
-        </div>
+    <div
+      className="absolute inset-x-0 bottom-0 h-20"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
+      }}
+    />
+  </div>
 
-        <div className={`${ALIGN} relative flex min-h-[680px] items-center lg:min-h-[760px]`}>
-          <div className="w-full max-w-[760px] py-20 lg:py-28">
-            {/* Breadcrumb */}
-            <nav
-              aria-label="Breadcrumb"
-              className="font-body mt-8 flex items-center gap-2 text-[14px] font-medium opacity-0"
-              style={{
-                color: "rgba(255,255,255,0.92)",
-                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
-              }}
-            >
-              <a href="/" className="transition-opacity hover:opacity-70">
-                Home
-              </a>
-              <ChevronRight size={14} />
-              <a href="/services" className="transition-opacity hover:opacity-70">
-                Services
-              </a>
-              <ChevronRight size={14} />
-              <span className="text-white/60">Quality Engineering</span>
-            </nav>
+  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
+    <div className="w-full max-w-[760px] py-10 lg:py-12">
+      {/* Breadcrumb */}
+      <nav
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+        style={{
+          color: "rgba(255,255,255,0.92)",
+          animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+        }}
+      >
+        <a href="/" className="transition-opacity hover:opacity-70">
+          Home
+        </a>
+        <ChevronRight size={14} />
+        <a href="/services" className="transition-opacity hover:opacity-70">
+          Services
+        </a>
+        <ChevronRight size={14} />
+        <span className="text-white/60">Quality Engineering</span>
+      </nav>
 
-            <h1
-              className="font-heading mt-10 max-w-[720px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px] xl:text-[58px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-            >
-              Quality Engineering for Modern Enterprises
-            </h1>
+      <h1
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+      >
+        Quality Engineering for Modern Enterprises
+      </h1>
 
-            <p
-              className="font-body mt-7 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
-              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-            >
-              Starfii improves software reliability with intelligent testing,
-              automation, and continuous quality engineering built into every
-              stage of your delivery pipeline.
-            </p>
+      <p
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
+        style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+      >
+        Starfii improves software reliability with intelligent testing,
+        automation, and continuous quality engineering built into every
+        stage of your delivery pipeline.
+      </p>
 
-            <a
-              href="#connect"
-              className="font-body mt-10 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
-              style={{
-                color: INDIGO_CTA,
-                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-              }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </a>
-          </div>
-        </div>
-      </section>
+      <a
+        href="#connect"
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+        style={{
+          color: INDIGO_CTA,
+          animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+        }}
+      >
+        Connect Now
+        <ArrowUpRight size={17} />
+      </a>
+    </div>
+  </div>
+</section>
 
       <div className={ALIGN}>
         {/* ============================================================
@@ -1441,17 +1441,17 @@ export default function QualityEngineeringSection(): ReactElement {
                         }}
                       />
                     )}
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab(i)}
-                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
-                      style={{
-                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                        fontWeight: isActive ? 700 : 500,
-                      }}
-                    >
-                      {tab.label}
-                    </button>
+                 <button
+  type="button"
+  onClick={() => setActiveTab(i)}
+  className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+  style={{
+    color: isActive ? CHAMPION_BLUE : "#94A3B8",
+    fontWeight: isActive ? 600 : 400,
+  }}
+>
+  {tab.label}
+</button>
                   </li>
                 );
               })}
@@ -1464,12 +1464,12 @@ export default function QualityEngineeringSection(): ReactElement {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start self-start p-3 pt-2 lg:p-6 lg:pt-5">
-                <h3
-                  className="font-heading text-[26px] font-bold leading-snug sm:text-[28px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  {current.heading}
-                </h3>
+           <h3
+  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+  style={{ color: CHAMPION_BLUE }}
+>
+  {current.heading}
+</h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1776,95 +1776,10 @@ export default function QualityEngineeringSection(): ReactElement {
         </div>
       </section>
 
-      {/* ============================================================
-          CLOSING CTA  (92. CTA)
-      ============================================================ */}
-<section id="connect" className="scroll-mt-28 bg-white py-24">
-  <div className={ALIGN}>
-    <Reveal
-      className="relative overflow-hidden rounded-[28px] border px-8 py-14 sm:px-14 sm:py-16"
-      style={{ backgroundColor: "#FFFFFF", borderColor: "rgba(0,0,0,0.08)" }}
-    >
-      {/* Decorative gradient blob, offset to one side */}
-      <div
-        className="pointer-events-none absolute -right-24 -top-24 h-[420px] w-[420px] rounded-full"
-        style={{
-          background:
-            "radial-gradient(50% 50% at 50% 50%, rgba(164,143,234,0.25) 0%, rgba(164,143,234,0) 70%)",
-        }}
-      />
-      {/* Subtle diagonal lines */}
-      <div
-        className="pointer-events-none absolute inset-0 opacity-[0.05]"
-        style={{
-          backgroundImage:
-            "repeating-linear-gradient(135deg, rgba(0,0,0,0.6) 0px, rgba(0,0,0,0.6) 1px, transparent 1px, transparent 40px)",
-        }}
-      />
+ 
 
-      <div className="relative grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:items-center">
-        {/* Left: heading + copy */}
-        <div>
-          <span
-            className="font-body inline-flex items-center rounded-full px-4 py-1.5 text-[12px] font-semibold tracking-[0.08em]"
-            style={{ backgroundColor: "rgba(29,53,87,0.08)", color: CHAMPION_BLUE }}
-          >
-            GET STARTED
-          </span>
+<GetInTouch />
 
-          <h2 className="font-heading mt-6 max-w-xl text-[32px] font-medium leading-[1.2] text-slate-900 lg:text-[38px]">
-            Ready to Build a Quality Strategy That Scales?
-          </h2>
-
-          <p className="font-body mt-5 max-w-lg text-[15px] leading-relaxed text-slate-600">
-            Talk to Starfii about manual testing, test automation, API
-            and performance testing, security testing, or embedding
-            continuous and AI assisted testing into your pipeline.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-4 sm:flex-row">
-            <Link
-              href="/#form"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full px-7 py-4 text-[15px] font-semibold text-white transition-transform duration-300 hover:scale-[1.03]"
-              style={{ backgroundColor: CHAMPION_BLUE }}
-            >
-              Connect Now
-              <ArrowUpRight size={17} />
-            </Link>
-
-            <a
-              href="mailto:hello@starfii.com"
-              className="font-body inline-flex items-center justify-center gap-2 rounded-full border px-7 py-4 text-[15px] font-semibold text-slate-900 transition-colors duration-300 hover:bg-slate-50"
-              style={{ borderColor: "rgba(0,0,0,0.15)" }}
-            >
-              Email Us
-            </a>
-          </div>
-        </div>
-
-        {/* Right: floating contact card */}
-        <div
-          className="relative rounded-2xl p-7"
-          style={{
-            backgroundColor: "rgba(29,53,87,0.04)",
-            border: "1px solid rgba(0,0,0,0.08)",
-          }}
-        >
-          <p className="font-body text-[13px] uppercase tracking-[0.08em] text-slate-500">
-            Prefer to talk directly?
-          </p>
-          <p className="font-heading mt-3 text-[22px] font-medium text-slate-900">
-            hello@starfii.com
-          </p>
-          <div className="mt-6 h-px w-full" style={{ backgroundColor: "rgba(0,0,0,0.08)" }} />
-          <p className="font-body mt-6 text-[13px] leading-relaxed text-slate-500">
-            Typical response time: within 24 hours on business days.
-          </p>
-        </div>
-      </div>
-    </Reveal>
-  </div>
-</section>
     </main>
   );
 }

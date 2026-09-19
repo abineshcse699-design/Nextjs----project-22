@@ -30,7 +30,7 @@ const helveticaStyle = {
 ================================================================ */
 
 // Enterprise Product Engineering + SaaS Product Engineering
-const DIGITAL_SOFTWARE_PAGE_HREF = "/services/digital-software";
+const DIGITAL_SOFTWARE_PAGE_HREF = "/services/software-product";
 
 // DevOps & Quality Engineering -> Cloud & DevOps page
 // (matches the "/services/cloud/..." links used inside CloudServicesSection.tsx)

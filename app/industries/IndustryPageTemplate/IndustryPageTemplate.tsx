@@ -1044,14 +1044,21 @@ function ImpactSection({ data, images }: { data: IndustryContent; images: Indust
 ================================================================ */
 
 function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   if (!data.capabilities.length) return null;
 
   const columns: { item: IndustryCapability; index: number }[][] = [[], []];
+
   data.capabilities.forEach((item, index) => {
     const target = columns[index % 2];
-    if (target) target.push({ item, index });
+
+    if (target) {
+      target.push({
+        item,
+        index,
+      });
+    }
   });
 
   return (
@@ -1063,6 +1070,7 @@ function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
             "radial-gradient(60% 90% at 100% 100%, rgba(232,110,90,0.55) 0%, rgba(164,143,234,0.35) 35%, rgba(8,7,15,0) 70%)",
         }}
       />
+
       <div
         className="ss-drift-slower pointer-events-none absolute inset-y-0 left-0 w-[35%]"
         style={{
@@ -1074,6 +1082,7 @@ function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
       <div className={`relative ${ALIGN}`}>
         <Reveal>
           <Eyebrow variant="dark">Capabilities</Eyebrow>
+
           <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
             Our {data.name} Capabilities
           </h2>
@@ -1084,46 +1093,75 @@ function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
             <div key={colIndex} className="flex flex-col gap-5">
               {column.map(({ item, index }) => {
                 const isOpen = openIndex === index;
+
                 return (
                   <Reveal key={item.title} delay={index * 80}>
                     <div
                       className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
-                      style={{ boxShadow: isOpen ? "0 18px 40px rgba(15,23,42,0.18)" : undefined }}
+                      style={{
+                        boxShadow: isOpen
+                          ? "0 18px 40px rgba(15,23,42,0.18)"
+                          : undefined,
+                      }}
                     >
                       <button
                         type="button"
                         aria-expanded={isOpen}
                         aria-controls={`capability-panel-${index}`}
-                        onClick={() => setOpenIndex(isOpen ? null : index)}
+                        onClick={() =>
+                          setOpenIndex(isOpen ? null : index)
+                        }
                         className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
                       >
                         <span
                           className="font-heading text-[19px] font-medium leading-snug transition-colors duration-300"
-                          style={{ color: isOpen ? INDIGO_CTA : CHAMPION_BLUE }}
+                          style={{
+                            color: isOpen
+                              ? INDIGO_CTA
+                              : CHAMPION_BLUE,
+                          }}
                         >
                           {item.title}
                         </span>
+
                         <span
                           className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
                           style={{
-                            backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                            color: isOpen ? "#8B93A7" : "#FFFFFF",
-                            transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+                            backgroundColor: isOpen
+                              ? "#E5E1F5"
+                              : INDIGO_CTA,
+                            color: isOpen
+                              ? "#8B93A7"
+                              : "#FFFFFF",
+                            transform: isOpen
+                              ? "rotate(180deg)"
+                              : "rotate(0deg)",
                           }}
                         >
-                          {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                          {isOpen ? (
+                            <Minus size={18} />
+                          ) : (
+                            <Plus size={18} />
+                          )}
                         </span>
                       </button>
 
                       <div
                         id={`capability-panel-${index}`}
                         className="ss-eco-panel grid transition-all duration-500 ease-out"
-                        style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                        style={{
+                          gridTemplateRows: isOpen
+                            ? "1fr"
+                            : "0fr",
+                        }}
                       >
                         <div className="overflow-hidden">
                           <p
                             className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
-                            style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                            style={{
+                              color: CHAMPION_BLUE,
+                              opacity: isOpen ? 1 : 0,
+                            }}
                           >
                             {item.description}
                           </p>
@@ -1135,49 +1173,6 @@ function CapabilitiesAccordion({ data }: { data: IndustryContent }) {
               })}
             </div>
           ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ===============================================================
-   8. PARTNER / TECHNOLOGY ECOSYSTEM
-================================================================ */
-
-function PartnerEcosystem({ data }: { data: IndustryContent }) {
-  if (!data.techStack.length) return null;
-
-  return (
-    <section className="bg-[#EEF0F7] py-24">
-      <div className={ALIGN}>
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:items-center">
-          <Reveal>
-            <Eyebrow>{data.name} Technology Partnership Ecosystem</Eyebrow>
-            <h2
-              className="font-heading mt-4 text-[30px] font-bold leading-tight tracking-[-0.03em] sm:text-[36px]"
-              style={{ color: CHAMPION_BLUE }}
-            >
-              Joining Forces to Deliver Outcomes
-            </h2>
-            <p className="font-body mt-4 max-w-sm text-[15px] leading-[1.8] text-slate-600">
-              Leading technology partners embedded into every {data.name.toLowerCase()} engagement.
-            </p>
-          </Reveal>
-
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-            {data.techStack.map((tech, i) => (
-              <Reveal
-                key={tech}
-                delay={i * 60}
-                className="ss-capability-card flex h-[90px] items-center justify-center px-4 text-center"
-              >
-                <span className="font-body text-[15px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-                  {tech}
-                </span>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </div>
     </section>
@@ -1303,7 +1298,6 @@ export default function IndustryPageTemplate({ data }: { data: IndustryContent }
       <FocusAreas data={data} />
       <ImpactSection data={data} images={images} />
       <CapabilitiesAccordion data={data} />
-      <PartnerEcosystem data={data} />
       <FAQ data={data} />
       <ConnectFormSection />
     </main>

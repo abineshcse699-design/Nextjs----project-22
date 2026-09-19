@@ -870,23 +870,28 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   // "Insights Hub" card first, then Turbodev and Turbodesk as
   // image-topped Featured Insight cards.
   //
-  // FIX: Turbodesk now has newTab: true (was false) so clicking it
-  // opens https://turbodesk.in/ in a new tab, same as Turbodev,
-  // instead of navigating away from the current site in-place.
+  // FIX: Turbodev now uses your actual product cover image
+  // (/turbodev-cover.png) instead of a generic Unsplash photo.
+  // This matches the file already sitting at public/turbodev-cover.png
+  // in your project (Next.js serves anything in public/ from the root,
+  // so no "/images/" prefix is needed since the file isn't in a
+  // public/images/ subfolder).
+  //
+  // Turbodesk now uses its own dashboard screenshot
+  // (/turbodesk-cover.png). Same rule as Turbodev — place the file
+  // directly at public/turbodesk-cover.png (no subfolder).
   const platforms = [
     {
       name: "Turbodev",
       title: "Turbodev  the revenue engine for Shopify brands",
-      image:
-        "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=2400&auto=format&fit=crop",
+      image: "/turbodev-cover.png",
       href: "https://turbodev.ai/",
       newTab: true,
     },
     {
       name: "Turbodesk",
       title: "Turbodesk  intelligent service and operations platform",
-      image:
-        "https://images.unsplash.com/photo-1758873268745-dd2cf0d677b5?q=90&w=2400&auto=format&fit=crop",
+      image: "/turbodesk-cover.png",
       href: "https://turbodesk.in/",
       newTab: true,
     },
