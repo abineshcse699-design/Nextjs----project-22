@@ -1,13 +1,13 @@
-import Hero from "@/components/Sections/Hero";
-import ZeroFrictionSection from "@/components/Sections/ZeroFrictionSection";
-import AIJourneySection from "@/components/Sections/AIJourneySection";
-import ChallengeMissionSection from "@/components/Sections/ChallengeMissionSection";
-import AwardsSection from "@/components/Sections/AwardsSection";
-import GlanceSection from "@/components/Sections/GlanceSection";
-import CaseStudiesSection from "@/components/Sections/CaseStudiesSection";
-import HexawareNewsSection from "@/components/Sections/HexawareNewsSection";
-import ConnectFormSection from "@/components/Sections/ConnectFormSection";
-import TechnicalCompetenciesSection from "@/components/Sections/TechnicalCompetenciesSection";
+import Hero from "@/app/components/Sections/Hero";
+import ZeroFrictionSection from "@/app/components/Sections/ZeroFrictionSection";
+import AIJourneySection from "@/app/components/Sections/AIJourneySection";
+import ChallengeMissionSection from "@/app/components/Sections/ChallengeMissionSection";
+import AwardsSection from "@/app/components/Sections/AwardsSection";
+import GlanceSection from "@/app/components/Sections/GlanceSection";
+import CaseStudiesSection from "@/app/components/Sections/CaseStudiesSection";
+import HexawareNewsSection from "@/app/components/Sections/HexawareNewsSection";
+import ConnectFormSection from "@/app/components/Sections/ConnectFormSection";
+import TechnicalCompetenciesSection from "@/app/components/Sections/TechnicalCompetenciesSection";
 
 export default function Home() {
   

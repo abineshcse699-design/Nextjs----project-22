@@ -2,143 +2,67 @@
 
 import { useEffect, useState } from "react";
 
-const tabs = [
-  {
-    id: "client",
-    label: "Client",
-  },
-  {
-    id: "challenge",
-    label: "Challenge",
-  },
-  {
-    id: "solution",
-    label: "Modernization Solution",
-  },
-  {
-    id: "results",
-    label: "Impact",
-  },
-  {
-    id: "benefits",
-    label: "Benefits",
-  },
-  {
-    id: "technology",
-    label: "Technology",
-  },
+const TABS = [
+  { id: "client", label: "Client" },
+  { id: "challenge", label: "Challenge" },
+  { id: "solution", label: "The Starfii Solution" },
+  { id: "benefits", label: "Benefits" },
+  { id: "summary", label: "Summary" },
 ];
 
 export default function CaseStudyTabs() {
-  const [active, setActive] =
-    useState("client");
+  const [active, setActive] = useState("client");
 
   useEffect(() => {
-    const elements = tabs
-      .map((tab) =>
-        document.getElementById(tab.id)
-      )
-      .filter(
-        (element): element is HTMLElement =>
-          Boolean(element)
-      );
-
-    if (!elements.length) return;
-
-    const observer =
-      new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter(
-              (entry) =>
-                entry.isIntersecting
-            )
-            .sort(
-              (a, b) =>
-                b.intersectionRatio -
-                a.intersectionRatio
-            );
-
-          if (visible[0]) {
-            setActive(
-              visible[0].target.id
-            );
-          }
-        },
-        {
-          rootMargin:
-            "-20% 0px -60% 0px",
-          threshold: [
-            0.1,
-            0.25,
-            0.5,
-          ],
-        }
-      );
-
-    elements.forEach((element) =>
-      observer.observe(element)
+    const sections = TABS.map((t) => document.getElementById(t.id)).filter(
+      (el): el is HTMLElement => !!el
     );
 
-    return () =>
-      observer.disconnect();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
+      },
+      // a section becomes "active" when it crosses the upper part of the viewport
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+    );
+
+    sections.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  const scrollToSection = (
-    id: string
-  ) => {
-    const element =
-      document.getElementById(id);
-
-    if (!element) return;
-
-    const offset = 90;
-
-    const top =
-      element.getBoundingClientRect()
-        .top +
-      window.scrollY -
-      offset;
-
-    window.scrollTo({
-      top,
-      behavior: "smooth",
-    });
-
+  const handleClick = (id: string) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 104;
+    window.scrollTo({ top: y, behavior: "smooth" });
     setActive(id);
   };
 
   return (
-    <nav className="sticky top-0 z-40 border-b border-[#E5E1F5] bg-white/95 backdrop-blur-xl">
-      <div className="mx-auto flex max-w-[1520px] gap-1 overflow-x-auto px-6 sm:px-10 lg:px-16">
-        {tabs.map((tab) => {
-          const isActive =
-            active === tab.id;
-
+    // Solid grey strip so content never shows above the card while scrolling.
+    // -mt-4 + pt-4 keeps the card aligned with the sidebar at the top of the page.
+    <nav
+      aria-label="Case study sections"
+      className="sticky top-0 z-30 -mt-4 bg-[#eef0f5] pb-4 pt-4"
+    >
+      <div className="flex items-center gap-1 overflow-x-auto rounded-2xl bg-white p-2 [&::-webkit-scrollbar]:hidden md:justify-between">
+        {TABS.map((tab) => {
+          const isActive = active === tab.id;
           return (
             <button
               key={tab.id}
               type="button"
-              onClick={() =>
-                scrollToSection(
-                  tab.id
-                )
-              }
-              className={`relative shrink-0 px-4 py-4 text-sm font-semibold transition ${
+              onClick={() => handleClick(tab.id)}
+              aria-current={isActive ? "true" : undefined}
+              className={`font-body shrink-0 rounded-xl px-5 py-3 text-[16px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#4b4bf0] md:px-8 ${
                 isActive
-                  ? "text-[#4F3FE0]"
-                  : "text-slate-500 hover:text-[#1B2560]"
+                  ? "bg-[#ecedfa] font-semibold text-[#4b3fe0]"
+                  : "font-normal text-[#0b1747] hover:bg-slate-50"
               }`}
             >
               {tab.label}
-
-              <span
-                className={`absolute bottom-0 left-4 right-4 h-[2px] rounded-full bg-[#4F3FE0] transition ${
-                  isActive
-                    ? "opacity-100"
-                    : "opacity-0"
-                }`}
-              />
             </button>
           );
         })}

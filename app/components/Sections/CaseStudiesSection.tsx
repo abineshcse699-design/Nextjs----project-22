@@ -1,0 +1,203 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, A11y } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+import { caseStudies } from "../../casestudies/caseStudiesData";
+
+// Swiper core + navigation styles
+import "swiper/css";
+import "swiper/css/navigation";
+
+export default function CaseStudiesSection() {
+  const swiperRef = useRef<SwiperType | null>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const [canPrev, setCanPrev] = useState(false);
+  const [canNext, setCanNext] = useState(true);
+  const [progress, setProgress] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+
+  const updateState = (swiper: SwiperType) => {
+    setCanPrev(!swiper.isBeginning);
+    setCanNext(!swiper.isEnd);
+    setProgress(swiper.progress * 100);
+  };
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] py-20 lg:py-28">
+      <div
+  ref={sectionRef}
+  className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16"
+>
+        {/* copy — slides up + fades in once scrolled into view.
+            NOTE: removed `max-w-2xl` (672px) that used to sit here —
+            it was capping this whole wrapper's width, so the
+            paragraph's own `max-w-[1500px]` below could never take
+            effect (a child can't be wider than its constrained
+            parent). Each child now controls its own width instead:
+            the heading via its own max-w-[650px], the paragraph via
+            its own max-w-[1500px]. */}
+        <div
+          className={`mb-14 transition-all duration-[900ms] ease-out ${
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0"
+          }`}
+        >
+          <h2 className="  max-w-[800px]
+    font-medium
+    leading-[1.08]
+    tracking-[-0.025em]
+    text-[#0b1747]
+    text-[42px]
+    sm:text-[48px]
+    lg:text-[54px]">
+            Real Results and Real Impact
+          </h2>
+        <p className="mt-4 max-w-[1500px] text-lg leading-relaxed text-slate-600">
+  Starfii helps enterprises like yours unlock unparalleled value
+  through AI driven software development, enterprise product
+  engineering, and data engineering. Explore our case studies to
+  discover how Starfii delivers as a true end to end technology
+  transformation partner.
+</p>
+        </div>
+
+        {/* Swiper carousel — rises up + fades in on scroll, slightly after
+            the heading */}
+       <div
+  className={`overflow-hidden transition-all duration-[900ms] ease-out ${
+    isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0"
+  }`}
+  style={{ transitionDelay: isVisible ? "150ms" : "0ms" }}
+>
+          <Swiper
+            modules={[Navigation, A11y]}
+            onSwiper={(swiper) => {
+              swiperRef.current = swiper;
+              updateState(swiper);
+            }}
+            onSlideChange={updateState}
+            onProgress={updateState}
+            spaceBetween={32}
+            slidesPerView={1.15}
+            speed={700}
+            grabCursor
+            breakpoints={{
+              640: { slidesPerView: 2 },
+              1024: { slidesPerView: 4 },
+            }}
+            className="customSwiper !overflow-visible"
+          >
+            {caseStudies.map((study) => (
+              <SwiperSlide key={study.id} className="pb-2">
+                {/* FIXED height card — never changes size on hover */}
+                <Link
+                  href={`/casestudies/${study.slug}`}
+                  className="insight-card cta-card-hover group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                >
+                  {/* image frame — height animates from fixed → 0 */}
+                  <div className="insight-card-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
+                    <img
+                      src={study.image}
+                      alt={study.title}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+
+                  {/* content — flex-1 automatically grows to fill the
+                      space the image gives up, since the parent card
+                      height is fixed. Keeps every card the same size. */}
+                  <div className="insight-card-content flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
+                    <div className="insight-text flex flex-1 flex-col gap-3.5 overflow-hidden">
+                      <p className="fnt_14 shrink-0 text-xs font-semibold tracking-[0.08em] text-[#2f7dfa]">
+                        CASE STUDY
+                      </p>
+                      <p className="fnt_20 insight-title shrink-0 text-[20px] font-semibold leading-snug text-[#0b1747]">
+                        {study.title}
+                      </p>
+
+                      {/* description — hidden at rest, fades + slides in
+                          as the content area grows on hover. Synced to
+                          the same 800ms duration as the image collapse. */}
+                      <p className="insight-desc max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
+                        {study.cardDescription}
+                      </p>
+                    </div>
+
+                    {/* cta with sliding underline reveal */}
+                    <span className="cta cta-underline group/cta relative mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium text-[#4b5fed]">
+                      <span className="relative">
+                        Learn More
+                        <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                      </span>
+                      <ArrowUpRight className="h-4 w-4 transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </span>
+                  </div>
+                </Link>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+
+        {/* progress bar + nav arrows */}
+        <div className="mt-12 flex items-center gap-5">
+          <div className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-[#0b1747]/15">
+            <div
+              className="absolute left-0 top-0 h-full rounded-full bg-[#3a3ff0] transition-[width] duration-500 ease-out"
+              style={{ width: `${Math.max(progress, 3)}%` }}
+            />
+          </div>
+
+          <div className="flex shrink-0 items-center gap-3">
+            <button
+              type="button"
+              onClick={() => swiperRef.current?.slidePrev()}
+              disabled={!canPrev}
+              aria-label="Previous case studies"
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+                canPrev
+                  ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
+                  : "cursor-not-allowed bg-slate-200/70 text-slate-400"
+              }`}
+            >
+              <ChevronLeft className="h-5 w-5" strokeWidth={2.25} />
+            </button>
+            <button
+              type="button"
+              onClick={() => swiperRef.current?.slideNext()}
+              disabled={!canNext}
+              aria-label="Next case studies"
+              className={`flex h-11 w-11 items-center justify-center rounded-full transition-colors duration-300 ${
+                canNext
+                  ? "bg-[#3a3ff0] text-white hover:bg-[#2c30c9]"
+                  : "cursor-not-allowed bg-slate-200/70 text-slate-400"
+              }`}
+            >
+              <ChevronRight className="h-5 w-5" strokeWidth={2.25} />
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

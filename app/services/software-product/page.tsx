@@ -1,4 +1,4 @@
-import DigitalSoftwareServicesSection from "@/components/Sections/DigitalSoftwareServicesSection";
+import DigitalSoftwareServicesSection from "@/app/components/Sections/DigitalSoftwareServicesSection";
 
 export const metadata = {
   title: "Software & Product Engineering | Starfii",

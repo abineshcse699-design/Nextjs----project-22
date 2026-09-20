@@ -1,278 +1,327 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  CheckCircle2,
-  Database,
-  Layers3,
-  Network,
-  ServerCog,
-  ShieldCheck,
-  Target,
-  TrendingUp,
-  ChevronRight,
-} from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { caseStudies } from "../data/caseStudies";
-import CaseStudyTabs from "../CaseStudyTabs";
+import CaseStudyTabs from "../CaseStudyTabs"; // adjust path if it lives elsewhere
+
+type Study = (typeof caseStudies)[number];
+
+interface PageProps {
+  params: Promise<{ slug: string }>;
+}
+
+/* Same type scale as the Banking page and the software product case studies */
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#0b1747]";
+const SUB_HEADING =
+  "font-heading font-semibold leading-snug text-[20px] sm:text-[22px] text-[#0b1747]";
+const BODY =
+  "font-body text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]";
+
+const LEGACY_PATH = "/services/legacy-modernization";
 
 export function generateStaticParams() {
-  return caseStudies.map((study) => ({
-    slug: study.slug,
-  }));
+  return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
-export default async function CaseStudyPage({
+export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+}: PageProps): Promise<Metadata> {
   const { slug } = await params;
-
   const study = caseStudies.find((item) => item.slug === slug);
 
-  if (!study) {
-    notFound();
-  }
+  if (!study) return { title: "Case Study | Starfii" };
+
+  return {
+    title: `${study.title} | Starfii Legacy Modernization Case Study`,
+    description: study.body,
+  };
+}
+
+/* ---------- small building blocks ---------- */
+
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return <h2 className={SECTION_HEADING}>{children}</h2>;
+}
+
+function Paragraphs({ items }: { items: string[] }) {
+  return (
+    <div className="mt-6 space-y-5">
+      {items.map((p, i) => (
+        <p key={i} className={BODY}>
+          {p}
+        </p>
+      ))}
+    </div>
+  );
+}
+
+/** White rounded card with a list, no bullet dots */
+function BulletCard({ points }: { points: string[] }) {
+  return (
+    <div className="mt-3 rounded-2xl bg-white px-8 py-6">
+      <ul className="font-body list-none space-y-3 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+        {points.map((point, i) => (
+          <li key={i}>{point}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/* ---------- hero ---------- */
+
+function Breadcrumb({ title }: { title: string }) {
+  return (
+    <nav
+      aria-label="Breadcrumb"
+      className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#0b1747]"
+    >
+      <Link href="/" className="hover:text-[#3a3ff0]">
+        Home
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <Link href="/services" className="hover:text-[#3a3ff0]">
+        Services
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <Link href={LEGACY_PATH} className="hover:text-[#3a3ff0]">
+        Legacy Modernization
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <span aria-current="page">{title}</span>
+    </nav>
+  );
+}
+
+/* ---------- right sidebar ---------- */
+
+function Sidebar({ study }: { study: Study }) {
+  return (
+    <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
+      <div className="rounded-2xl bg-white p-6">
+        <h2 className={SUB_HEADING}>At a glance</h2>
+
+        <dl className="mt-5 space-y-4">
+          <div>
+            <dt className="font-body text-[14px] text-slate-500">Client</dt>
+            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
+              {study.client}
+            </dd>
+          </div>
+          <div>
+            <dt className="font-body text-[14px] text-slate-500">Industry</dt>
+            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
+              {study.industry}
+            </dd>
+          </div>
+          <div>
+            <dt className="font-body text-[14px] text-slate-500">Duration</dt>
+            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
+              {study.duration}
+            </dd>
+          </div>
+          <div>
+            <dt className="font-body text-[14px] text-slate-500">Technology</dt>
+            <dd className="mt-2 flex flex-wrap gap-2">
+              {study.technologies.map((t: string) => (
+                <span
+                  key={t}
+                  className="font-body rounded-full bg-[#ecedfa] px-3 py-1 text-[14px] font-medium text-[#4b3fe0]"
+                >
+                  {t}
+                </span>
+              ))}
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <div className="rounded-2xl bg-white p-6">
+        <h2 className={SUB_HEADING}>Headline results</h2>
+        <div className="mt-4 space-y-4">
+          {study.stats.slice(0, 3).map((r: { value: string; label: string }) => (
+            <div key={r.label} className="flex items-baseline gap-3">
+              <span className="font-heading min-w-[88px] text-[24px] font-medium text-[#3a3ff0]">
+                {r.value}
+              </span>
+              <span className="font-body text-[14px] leading-snug text-slate-600">
+                {r.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="rounded-2xl bg-[#0b1747] p-6">
+        <h2 className="font-heading text-[20px] font-semibold leading-snug text-white sm:text-[22px]">
+          Ready to modernize your legacy systems?
+        </h2>
+        <p className="font-body mt-1.5 text-[15px] text-slate-300">
+          Start with a clear modernization assessment and roadmap built around
+          your business priorities.
+        </p>
+        <Link
+          href={LEGACY_PATH}
+          className="font-body mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-5 py-3 text-[15px] font-semibold text-[#0b1747] transition-colors hover:bg-[#ecedfa]"
+        >
+          Explore Legacy Modernization
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+      </div>
+    </aside>
+  );
+}
+
+/* ---------- page ---------- */
+
+export default async function CaseStudyPage({ params }: PageProps) {
+  const { slug } = await params;
+  const study = caseStudies.find((item) => item.slug === slug);
+
+  if (!study) notFound();
 
   return (
-    <main className="min-h-screen bg-white">
-      {/* HERO */}
-      <section className="relative overflow-hidden">
-        <img
-          src={study.heroImage}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-white/40" />
-
-        <div className="relative mx-auto max-w-[1520px] px-6 py-28 sm:px-10 lg:px-16 lg:py-36">
-          <div className="flex items-center gap-2 text-sm text-[#1B2560]">
-            <Link href="/">Home</Link>
-            <ChevronRight size={15} />
-            <Link href="/services">Services</Link>
-            <ChevronRight size={15} />
-            <Link href="/services/legacy-modernization">
-              Legacy Modernization
-            </Link>
-            <ChevronRight size={15} />
-            <span className="text-slate-500">Case Study</span>
-          </div>
-
-          <div className="mt-8 inline-flex items-center gap-2 rounded-full bg-[#4F3FE0] px-4 py-2 text-xs font-bold uppercase tracking-wide text-white">
-            <Layers3 size={15} />
-            Legacy Modernization
-          </div>
-
-          <h1 className="mt-7 max-w-4xl text-4xl font-medium leading-tight tracking-tight text-[#1B2560] sm:text-5xl lg:text-6xl">
-            {study.title}
-          </h1>
-
-          <p className="mt-7 max-w-3xl text-lg leading-8 text-slate-600">
-            {study.body}
-          </p>
-
-          <Link
-            href="/services/legacy-modernization"
-            className="mt-9 inline-flex items-center gap-2 rounded-full bg-[#1B2560] px-7 py-4 text-sm font-semibold text-white"
-          >
-            <ArrowLeft size={17} />
-            Back to Case Studies
-          </Link>
-        </div>
-      </section>
-
-      {/* STICKY TABS — now actually rendered */}
-      <CaseStudyTabs />
-
-      {/* INFO */}
-      <section id="client" className="scroll-mt-28 py-20 lg:py-24">
+    <main className="bg-[#eef0f5]">
+      {/* HERO: breadcrumb + white card (text left, image right) */}
+      <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
         <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-            <div>
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-                01 / Client
+          <Breadcrumb title={study.title} />
+
+          <div className="mt-8 grid grid-cols-1 overflow-hidden rounded-3xl bg-white lg:grid-cols-[1fr_36%]">
+            <div className="p-8 sm:p-12">
+              <p className="font-body text-[16px] font-semibold text-[#1a7cff] sm:text-[18px]">
+                Case Study
               </p>
-              <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-                Modernization built around the business
-              </h2>
+
+              {/* Kept as the single h1 of the page for SEO. Change to h2 if you want it too. */}
+              <h1 className="font-heading mt-6 max-w-3xl text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#0b1747] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
+                {study.title}
+              </h1>
+
+              <p className="font-body mt-8 max-w-2xl text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
+                {study.body}
+              </p>
             </div>
-            <div>
-              <p className="text-lg leading-9 text-slate-600">
-                {study.overview}
-              </p>
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                <Info label="Client" value={study.client} />
-                <Info label="Industry" value={study.industry} />
-                <Info label="Duration" value={study.duration} />
-              </div>
+
+            <div className="relative min-h-[260px] lg:min-h-[520px]">
+              <img
+                src={study.heroImage}
+                alt={study.title}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      {/* CHALLENGE */}
-      <section id="challenge" className="scroll-mt-28 border-t py-20 lg:py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-            <div>
-              <Icon><Target size={22} /></Icon>
-              <p className="mt-7 text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-                02 / Challenge
-              </p>
-              <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-                Legacy complexity without disruption
-              </h2>
-            </div>
-            <div className="rounded-3xl bg-[#F5F3FC] p-8 lg:p-12">
-              <p className="text-lg leading-9 text-slate-600">
-                {study.challenge}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* BODY: tabs + content on the left, sidebar on the right */}
+      <div className="mx-auto max-w-[1520px] px-6 pb-24 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+          <div className="min-w-0">
+            <CaseStudyTabs />
 
-      {/* SOLUTION */}
-      <section id="solution" className="scroll-mt-28 border-t py-20 lg:py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-24">
-            <div>
-              <Icon><ServerCog size={22} /></Icon>
-              <p className="mt-7 text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-                03 / Modernization Solution
-              </p>
-              <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-                A phased modernization strategy
-              </h2>
-            </div>
-            <div>
-              <p className="text-lg leading-9 text-slate-600">
-                {study.solution}
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+            <div className="mt-10">
+              {/* Client */}
+              <section id="client" className="scroll-mt-28">
+                <SectionHeading>Client</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>
+                  Modernization built around the business
+                </h2>
+                <Paragraphs items={[study.overview]} />
 
-      {/* IMPACT */}
-      <section id="results" className="scroll-mt-28 border-t py-20 lg:py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-            04 / Impact
-          </p>
-          <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-            Measurable modernization outcomes
-          </h2>
-
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
-            {study.stats.map((stat) => (
-              <div key={stat.label} className="rounded-3xl border border-[#E5E1F5] p-8">
-                <p className="text-5xl font-semibold text-[#4F3FE0]">{stat.value}</p>
-                <p className="mt-4 text-sm text-slate-600">{stat.label}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 rounded-3xl bg-[#F5F3FC] p-8 lg:p-10">
-            <div className="flex gap-4">
-              <TrendingUp className="shrink-0 text-[#4F3FE0]" size={24} />
-              <p className="text-lg leading-8 text-slate-600">{study.results}</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* BENEFITS */}
-      <section id="benefits" className="scroll-mt-28 border-t py-20 lg:py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <Icon><ShieldCheck size={22} /></Icon>
-              <p className="mt-7 text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-                05 / Benefits
-              </p>
-              <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-                Business benefits beyond migration
-              </h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {study.benefits.map((benefit) => (
-                <div key={benefit} className="flex gap-3 rounded-2xl border border-[#E5E1F5] p-5">
-                  <CheckCircle2 size={19} className="mt-0.5 shrink-0 text-[#4F3FE0]" />
-                  <span className="text-sm leading-6 text-slate-600">{benefit}</span>
+                <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+                  {[
+                    { value: study.client, label: "Client" },
+                    { value: study.industry, label: "Industry" },
+                    { value: study.duration, label: "Duration" },
+                  ].map((tile) => (
+                    <div key={tile.label}>
+                      <p className="font-heading text-[28px] font-medium leading-tight text-[#3a3ff0] lg:text-[32px]">
+                        {tile.value}
+                      </p>
+                      <p className="font-body mt-2 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+                        {tile.label}
+                      </p>
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+              </section>
 
-      {/* TECHNOLOGY */}
-      <section id="technology" className="scroll-mt-28 border-t py-20 lg:py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <Icon><Network size={22} /></Icon>
-              <p className="mt-7 text-xs font-bold uppercase tracking-[0.18em] text-[#4F3FE0]">
-                06 / Technology
-              </p>
-              <h2 className="mt-4 text-4xl font-medium text-[#1B2560]">
-                Modern technology foundation
-              </h2>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              {study.technologies.map((technology) => (
-                <div key={technology} className="flex items-center gap-3 rounded-2xl bg-[#F5F3FC] p-5">
-                  <Database size={19} className="text-[#4F3FE0]" />
-                  <span className="text-sm font-semibold text-[#1B2560]">{technology}</span>
+              {/* Challenge */}
+              <section id="challenge" className="mt-20 scroll-mt-28">
+                <SectionHeading>Challenge</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>
+                  Legacy complexity without disruption
+                </h2>
+                <Paragraphs items={[study.challenge]} />
+              </section>
+
+              {/* Solution */}
+              <section id="solution" className="mt-20 scroll-mt-28">
+                <SectionHeading>The Starfii Solution</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>
+                  A phased modernization strategy
+                </h2>
+                <Paragraphs items={[study.solution]} />
+              </section>
+
+              {/* Benefits */}
+              <section id="benefits" className="mt-20 scroll-mt-28">
+                <SectionHeading>Benefits</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>
+                  Business benefits beyond migration
+                </h2>
+                <BulletCard points={study.benefits} />
+              </section>
+
+              {/* Summary */}
+              <section id="summary" className="mt-20 scroll-mt-28">
+                <SectionHeading>Summary</SectionHeading>
+                <Paragraphs items={[study.results]} />
+
+                <h2 className={`${SUB_HEADING} mt-10`}>
+                  Measurable modernization outcomes
+                </h2>
+                <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {study.stats.map(
+                    (r: { value: string; label: string }, i: number) => (
+                      <div
+                        key={`${r.label}-${i}`}
+                        className="rounded-2xl bg-white px-8 py-6"
+                      >
+                        <p className="font-heading text-[36px] font-medium leading-none text-[#3a3ff0]">
+                          {r.value}
+                        </p>
+                        <p className="font-body mt-3 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+                          {r.label}
+                        </p>
+                      </div>
+                    )
+                  )}
                 </div>
-              ))}
+
+                <h2 className={`${SUB_HEADING} mt-10`}>
+                  Modern technology foundation
+                </h2>
+                <div className="mt-3 flex flex-wrap gap-3">
+                  {study.technologies.map((tech: string) => (
+                    <span
+                      key={tech}
+                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-[#0b1747] lg:text-[18px]"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* CTA */}
-      <section className="py-24">
-        <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <div className="rounded-[32px] bg-[#1B2560] px-8 py-16 text-center sm:px-16">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
-              Legacy Modernization
-            </p>
-            <h2 className="mx-auto mt-4 max-w-3xl text-4xl font-medium text-white lg:text-5xl">
-              Ready to modernize your legacy systems?
-            </h2>
-            <p className="mx-auto mt-5 max-w-2xl leading-8 text-white/70">
-              Start with a clear modernization assessment and roadmap built around your business priorities.
-            </p>
-            <Link
-              href="/services/legacy-modernization"
-              className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#1B2560]"
-            >
-              Explore Legacy Modernization
-              <ArrowUpRight size={17} />
-            </Link>
-          </div>
+          <Sidebar study={study} />
         </div>
-      </section>
+      </div>
     </main>
-  );
-}
-
-function Icon({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#F5F3FC] text-[#4F3FE0]">
-      {children}
-    </div>
-  );
-}
-
-function Info({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-2xl border border-[#E5E1F5] p-5">
-      <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-slate-400">{label}</p>
-      <p className="mt-2 text-sm font-semibold leading-6 text-[#1B2560]">{value}</p>
-    </div>
   );
 }

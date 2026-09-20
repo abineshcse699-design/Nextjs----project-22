@@ -20,6 +20,11 @@ export default function GetInTouch() {
   const selectedCountry =
     countries.find((item) => item.name === country) ?? countries[0];
 
+    const CHAMPION_BLUE = "#1B2560";
+
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+
   return (
     <section
       id="connect"
@@ -56,21 +61,16 @@ export default function GetInTouch() {
             LEFT
         ===================================================== */}
         <div className="pt-1">
-          <h2
-            className="
-              font-heading
-              text-[46px]
-              font-medium
-              leading-[1.08]
-              tracking-[-0.025em]
-              text-[#1B2560]
-              sm:text-[54px]
-              lg:text-[58px]
-              xl:text-[62px]
-            "
-          >
-            Get in Touch
-          </h2>
+   <div className="pt-1">
+  <h2
+    className={`${SECTION_HEADING} mt-4`}
+    style={{ color: CHAMPION_BLUE }}
+  >
+    Get in Touch
+  </h2>
+
+
+</div>
 
           <p
             className="

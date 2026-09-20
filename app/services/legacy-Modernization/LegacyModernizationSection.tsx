@@ -1093,17 +1093,17 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+   <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
+
 
                   <div
                     id={`legacy-ecosystem-panel-${index}`}
@@ -1298,7 +1298,7 @@ export default function LegacyModernizationSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             <Reveal className="self-start lg:sticky lg:top-28">
-              <Eyebrow variant="light">Legacy Modernization</Eyebrow>
+              {/* <Eyebrow variant="light">Legacy Modernization</Eyebrow> */}
 
             
       <h2 className={`${SECTION_HEADING} mt-4 max-w-xl`} style={{ color: CHAMPION_BLUE }}>
@@ -1366,7 +1366,7 @@ export default function LegacyModernizationSection(): ReactElement {
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>Legacy Modernization</Eyebrow>
+          {/* <Eyebrow>Legacy Modernization</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             Legacy Modernization Services
           </h2>
@@ -1468,7 +1468,7 @@ export default function LegacyModernizationSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Architecture Modernization</Eyebrow>
+            {/* <Eyebrow variant="dark">Architecture Modernization</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your Legacy
               <br />
@@ -1494,7 +1494,7 @@ export default function LegacyModernizationSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Case Studies</Eyebrow>
+              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 Case Studies
               </h2>
@@ -1589,7 +1589,7 @@ export default function LegacyModernizationSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Legacy Modernization</Eyebrow>
+              {/* <Eyebrow>Legacy Modernization</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4 max-w-xl`} style={{ color: CHAMPION_BLUE }}>
                 {"What's New in Legacy Modernization"}
               </h2>

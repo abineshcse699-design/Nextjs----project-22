@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import {
-  ArrowLeft,
-  ArrowUpRight,
-  CheckCircle2,
-  AlertCircle,
-  TrendingUp,
-  Building2,
-} from "lucide-react";
+import { ArrowUpRight, ChevronRight } from "lucide-react";
 import { caseStudies, getCaseStudyBySlug } from "../data/case-studies";
 import CaseStudyTabs from "../CaseStudyTabs"; // adjust path if it lives elsewhere
+
+type Study = (typeof caseStudies)[number];
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
+
+/* Same type scale as the Banking page and the software product case studies */
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#0b1747]";
+const SUB_HEADING =
+  "font-heading font-semibold leading-snug text-[20px] sm:text-[22px] text-[#0b1747]";
+const BODY =
+  "font-body text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]";
+
+const ITSM_PATH = "/services/itsm-service-management";
+const CASE_STUDIES_PATH = `${ITSM_PATH}/casestudies`;
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
@@ -34,105 +40,94 @@ export async function generateMetadata({
   };
 }
 
-function splitLead(text: string): {
-  lead: string | null;
-  rest: string;
-} {
-  const idx = text.indexOf(":");
+/* ---------- small building blocks ---------- */
 
-  if (idx > -1 && idx < 48) {
-    return {
-      lead: text.slice(0, idx),
-      rest: text.slice(idx + 1).trim(),
-    };
-  }
-
-  return {
-    lead: null,
-    rest: text,
-  };
+function SectionHeading({ children }: { children: React.ReactNode }) {
+  return <h2 className={SECTION_HEADING}>{children}</h2>;
 }
 
-function PointCard({
-  text,
-  icon,
-  accent,
-}: {
-  text: string;
-  icon: React.ReactNode;
-  accent: string;
-}) {
-  const { lead, rest } = splitLead(text);
-
+function Paragraphs({ items }: { items: string[] }) {
   return (
-    <div className="relative rounded-xl border border-slate-200 bg-white p-6 pl-7">
-      <span
-        className="absolute bottom-6 left-0 top-6 w-[3px] rounded-full"
-        style={{ backgroundColor: accent }}
-      />
-
-      <div className="flex items-start gap-3">
-        <span className="mt-1 shrink-0">{icon}</span>
-
-        <div>
-          {lead && (
-            <p className="text-base font-semibold text-[#0b1747]">{lead}</p>
-          )}
-
-          <p className="mt-1 text-[15px] leading-relaxed text-slate-600">
-            {rest}
-          </p>
-        </div>
-      </div>
+    <div className="mt-6 space-y-5">
+      {items.map((p, i) => (
+        <p key={i} className={BODY}>
+          {p}
+        </p>
+      ))}
     </div>
   );
 }
 
-function SectionEyebrow({ children }: { children: React.ReactNode }) {
+/** White rounded card with a list, no bullet dots */
+function BulletCard({ points }: { points: string[] }) {
   return (
-    <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
-      {children}
-    </p>
+    <div className="mt-3 rounded-2xl bg-white px-8 py-6">
+      <ul className="font-body list-none space-y-3 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+        {points.map((point, i) => (
+          <li key={i}>{point}</li>
+        ))}
+      </ul>
+    </div>
   );
 }
 
-function AtAGlanceSidebar({
-  study,
-}: {
-  study: (typeof caseStudies)[number];
-}) {
+/* ---------- hero ---------- */
+
+function Breadcrumb({ title }: { title: string }) {
   return (
-    <aside className="lg:sticky lg:top-28">
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
-        <div className="flex items-center gap-2 text-[#0b1747]">
-          <Building2 className="h-4 w-4" />
-          <p className="text-sm font-semibold uppercase tracking-[0.08em]">
-            At a glance
-          </p>
-        </div>
+    <nav
+      aria-label="Breadcrumb"
+      className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#0b1747]"
+    >
+      <Link href="/" className="hover:text-[#3a3ff0]">
+        Home
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <Link href="/services" className="hover:text-[#3a3ff0]">
+        Services
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <Link href={ITSM_PATH} className="hover:text-[#3a3ff0]">
+        ITSM Service Management
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <Link href={CASE_STUDIES_PATH} className="hover:text-[#3a3ff0]">
+        Case Studies
+      </Link>
+      <ChevronRight className="h-3.5 w-3.5" />
+      <span aria-current="page">{title}</span>
+    </nav>
+  );
+}
+
+/* ---------- right sidebar ---------- */
+
+function Sidebar({ study }: { study: Study }) {
+  return (
+    <aside className="space-y-5 lg:sticky lg:top-6 lg:self-start">
+      <div className="rounded-2xl bg-white p-6">
+        <h2 className={SUB_HEADING}>At a glance</h2>
 
         <dl className="mt-5 space-y-4">
           <div>
-            <dt className="text-sm text-slate-400">Client</dt>
-            <dd className="mt-0.5 text-base font-medium text-[#0b1747]">
+            <dt className="font-body text-[14px] text-slate-500">Client</dt>
+            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
               {study.client}
             </dd>
           </div>
-
           <div>
-            <dt className="text-sm text-slate-400">Industry</dt>
-            <dd className="mt-0.5 text-base font-medium text-[#0b1747]">
+            <dt className="font-body text-[14px] text-slate-500">Industry</dt>
+            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
               {study.industry}
             </dd>
           </div>
-
           <div>
-            <dt className="text-sm text-slate-400">Services</dt>
-            <dd className="mt-1.5 flex flex-wrap gap-1.5">
-              {study.services.map((s) => (
+            <dt className="font-body text-[14px] text-slate-500">Services</dt>
+            <dd className="mt-2 flex flex-wrap gap-2">
+              {study.services.map((s: string) => (
                 <span
                   key={s}
-                  className="rounded-full bg-slate-100 px-2.5 py-1 text-sm font-medium text-slate-600"
+                  className="font-body rounded-full bg-[#ecedfa] px-3 py-1 text-[14px] font-medium text-[#4b3fe0]"
                 >
                   {s}
                 </span>
@@ -142,99 +137,44 @@ function AtAGlanceSidebar({
         </dl>
       </div>
 
-      <div className="mt-5 rounded-2xl border border-slate-200 bg-white p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
-          Headline results
-        </p>
-
+      <div className="rounded-2xl bg-white p-6">
+        <h2 className={SUB_HEADING}>Headline results</h2>
         <div className="mt-4 space-y-4">
-          {study.results.slice(0, 3).map((r, i) => (
-            <div key={i} className="flex items-baseline gap-3">
-              <span className="text-2xl font-semibold text-[#3a3ff0]">
-                {r.metric}
-              </span>
-              <span className="text-sm leading-snug text-slate-500">
-                {r.label}
-              </span>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-white">
-        <div
-          className="h-24 w-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${study.heroImage})` }}
-        />
-
-        <div className="p-6">
-          <p className="text-base font-semibold text-[#0b1747]">
-            Get results like these
-          </p>
-
-          <Link
-            href="/#contact"
-            className="mt-4 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-[#3a3ff0] px-5 py-2.5 text-base font-semibold text-white transition-colors hover:bg-[#2c30c9]"
-          >
-            Book a Meeting
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-function MoreCaseStudiesSidebar({ currentSlug }: { currentSlug: string }) {
-  const others = caseStudies
-    .filter((s) => s.slug !== currentSlug)
-    .slice(0, 3);
-
-  if (others.length === 0) return null;
-
-  return (
-    <aside className="lg:sticky lg:top-28">
-      <div className="rounded-2xl border border-slate-200 bg-white p-6">
-        <p className="text-sm font-semibold uppercase tracking-[0.08em] text-[#4b5fed]">
-          More case studies
-        </p>
-
-        <div className="mt-5 space-y-5">
-          {others.map((s) => (
-            <Link
-              key={s.slug}
-              href={`/services/itsm/casestudies/${s.slug}`}
-              className="group block"
-            >
-              <div className="overflow-hidden rounded-lg">
-                <div
-                  className="h-24 w-full bg-cover bg-center transition-transform duration-300 group-hover:scale-105"
-                  style={{ backgroundImage: `url(${s.image})` }}
-                />
+          {study.results
+            .slice(0, 3)
+            .map((r: { metric: string; label: string }) => (
+              <div key={r.label} className="flex items-baseline gap-3">
+                <span className="font-heading min-w-[88px] text-[24px] font-medium text-[#3a3ff0]">
+                  {r.metric}
+                </span>
+                <span className="font-body text-[14px] leading-snug text-slate-600">
+                  {r.label}
+                </span>
               </div>
-
-              <p className="mt-2.5 text-xs font-semibold uppercase tracking-[0.06em] text-[#4b5fed]">
-                {s.category}
-              </p>
-
-              <p className="mt-1 text-base font-medium leading-snug text-[#0b1747] transition-colors group-hover:text-[#3a3ff0]">
-                {s.title}
-              </p>
-            </Link>
-          ))}
+            ))}
         </div>
+      </div>
 
+      <div className="rounded-2xl bg-[#0b1747] p-6">
+        <h2 className="font-heading text-[20px] font-semibold leading-snug text-white sm:text-[22px]">
+          Get results like these
+        </h2>
+        <p className="font-body mt-1.5 text-[15px] text-slate-300">
+          Schedule some 1 on 1 time with our experts.
+        </p>
         <Link
-          href="/services/itsm-service-management/casestudies"
-          className="mt-6 inline-flex items-center gap-1.5 text-base font-semibold text-[#3a3ff0]"
+          href="/#contact"
+          className="font-body mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-5 py-3 text-[15px] font-semibold text-[#0b1747] transition-colors hover:bg-[#ecedfa]"
         >
-          View all case studies
-          <ArrowUpRight className="h-3.5 w-3.5" />
+          Book a Meeting
+          <ArrowUpRight className="h-4 w-4" />
         </Link>
       </div>
     </aside>
   );
 }
+
+/* ---------- page ---------- */
 
 export default async function CaseStudyDetailPage({ params }: PageProps) {
   const { slug } = await params;
@@ -243,319 +183,138 @@ export default async function CaseStudyDetailPage({ params }: PageProps) {
   if (!study) notFound();
 
   return (
-    <main className="bg-white">
-      {/* =========================================================
-          HERO — title, subtitle, hero image, and the booking card
-          all live here ONCE. (Previously this same title/subtitle
-          block was also repeated in the section below — removed.)
-          ========================================================= */}
-
-      <section className="relative overflow-hidden bg-gradient-to-br from-white via-[#eef0ff] to-[#c7ccfb] pb-16 pt-14 lg:pb-20 lg:pt-20">
+    <main className="bg-[#eef0f5]">
+      {/* HERO: breadcrumb + white card (text left, image right) */}
+      <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
         <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-          <Link
-            href="/services/itsm-service-management/casestudies"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-[#4b5fed] transition-colors hover:text-[#37409e]"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Back to case studies
-          </Link>
+          <Breadcrumb title={study.title} />
 
-          <div className="mt-8 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
-            {/* LEFT: BADGE + TITLE + META + IMAGE */}
-            <div>
-              <span className="inline-block rounded-full bg-[#4b5fed]/10 px-3 py-1 text-xs font-semibold tracking-[0.08em] text-[#4b5fed]">
-                {study.category}
-              </span>
+          <div className="mt-8 grid grid-cols-1 overflow-hidden rounded-3xl bg-white lg:grid-cols-[1fr_36%]">
+            <div className="p-8 sm:p-12">
+              <p className="font-body text-[16px] font-semibold text-[#1a7cff] sm:text-[18px]">
+                Case Study
+              </p>
 
-              <h1 className="mt-5 max-w-3xl text-3xl font-semibold leading-tight tracking-tight text-[#0b1747] md:text-5xl">
+              {/* Kept as the single h1 of the page for SEO. Change to h2 if you want it too. */}
+              <h1 className="font-heading mt-6 max-w-3xl text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#0b1747] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
                 {study.title}
               </h1>
 
-              <p className="mt-5 max-w-2xl text-lg leading-relaxed text-slate-600">
+              <p className="font-body mt-8 max-w-2xl text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 {study.subtitle}
               </p>
-
-              <div className="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-base text-slate-500">
-                <span className="font-medium text-[#0b1747]">
-                  {study.client}
-                </span>
-                <span className="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block" />
-                <span>{study.industry}</span>
-              </div>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                {study.services.map((service) => (
-                  <span
-                    key={service}
-                    className="rounded-full bg-white px-3.5 py-1.5 text-sm font-medium text-slate-600 shadow-[0_1px_2px_rgba(15,23,42,0.06)]"
-                  >
-                    {service}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mt-10 overflow-hidden rounded-2xl shadow-[0_18px_50px_rgba(15,23,42,0.14)]">
-                <img
-                  src={study.heroImage}
-                  alt={study.title}
-                  className="h-[280px] w-full object-cover object-center md:h-[420px]"
-                />
-              </div>
             </div>
 
-            {/* RIGHT: BOOKING CARD */}
-            <div className="w-full max-w-[360px] justify-self-start lg:justify-self-end">
-              <div className="rounded-2xl bg-white p-6 shadow-[0_18px_50px_rgba(15,23,42,0.10)] lg:sticky lg:top-24">
-                <h3 className="text-xl font-semibold text-[#0b1747]">
-                  Book a Meeting
-                </h3>
-                <p className="mt-1.5 text-sm text-slate-500">
-                  Schedule some 1 on 1 time with our experts
-                </p>
-
-                <form className="mt-6 flex flex-col gap-3">
-                  <input
-                    type="text"
-                    placeholder="Your name*"
-                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
-                  />
-                  <input
-                    type="email"
-                    placeholder="Email address*"
-                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
-                  />
-                  <select
-                    defaultValue=""
-                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-500 outline-none transition-colors focus:border-[#3a3ff0]"
-                  >
-                    <option value="" disabled>
-                      How did you hear about us?*
-                    </option>
-                    <option value="search">Search Engine</option>
-                    <option value="referral">Referral</option>
-                    <option value="social">Social Media</option>
-                    <option value="event">Event</option>
-                    <option value="other">Other</option>
-                  </select>
-
-                  {/* NOTE: this captcha is a static visual placeholder
-                      (hardcoded text, no real captcha library wired up).
-                      Swap in a real captcha provider before going live. */}
-                  <div className="mt-1 flex items-center justify-between gap-3 rounded-lg bg-[#c9dcfb] px-4 py-4">
-                    <span className="select-none text-2xl italic tracking-wide text-[#3a3ff0]">
-                      LDujDv
-                    </span>
-                    <div className="flex shrink-0 flex-col gap-2">
-                      <button
-                        type="button"
-                        aria-label="Refresh captcha"
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-[#3a3ff0] transition-colors hover:bg-white"
-                      >
-                        ↻
-                      </button>
-                      <button
-                        type="button"
-                        aria-label="Play captcha audio"
-                        className="flex h-8 w-8 items-center justify-center rounded-full bg-white/70 text-[#3a3ff0] transition-colors hover:bg-white"
-                      >
-                        🔊
-                      </button>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-slate-500">
-                    Type the characters to the left*
-                  </p>
-
-                  <input
-                    type="text"
-                    placeholder="Enter captcha*"
-                    className="rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-[#0b1747] outline-none transition-colors focus:border-[#3a3ff0]"
-                  />
-
-                  <button
-                    type="submit"
-                    className="mt-2 inline-flex items-center justify-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#2c30c9]"
-                  >
-                    Submit
-                    <ArrowUpRight className="h-4 w-4" />
-                  </button>
-                </form>
-              </div>
+            <div className="relative min-h-[260px] lg:min-h-[520px]">
+              <img
+                src={study.heroImage}
+                alt={study.title}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
             </div>
           </div>
         </div>
       </section>
 
-      <div className="h-20 bg-gradient-to-b from-[#c7ccfb] via-[#eef0ff] to-[#f6f7fb] sm:h-24 lg:h-28" />
+      {/* BODY: tabs + content on the left, sidebar on the right */}
+      <div className="mx-auto max-w-[1520px] px-6 pb-24 sm:px-10 lg:px-16">
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
+          <div className="min-w-0">
+            <CaseStudyTabs />
 
-      <CaseStudyTabs />
-
-      {/* =========================================================
-          CASE STUDY CONTENT
-          ========================================================= */}
-
-      <div className="bg-[#eef0f5]">
-        <div className="mx-auto max-w-[1520px] px-6 py-14 sm:px-10 lg:px-16">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
-            <div className="rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:p-12">
+            <div className="mt-10">
               {/* Client */}
-              <div id="client" className="max-w-3xl scroll-mt-24">
-                <SectionEyebrow>Client</SectionEyebrow>
-                <h2 className="mt-3 text-3xl font-semibold text-[#0b1747]">
-                  {study.overview}
-                </h2>
-                <p className="mt-5 text-base leading-relaxed text-slate-600">
-                  {study.clientOverview}
-                </p>
-              </div>
+              <section id="client" className="scroll-mt-28">
+                <SectionHeading>Client</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>{study.overview}</h2>
+                <Paragraphs items={[study.clientOverview]} />
+
+                <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
+                  {[
+                    { value: study.client, label: "Client" },
+                    { value: study.industry, label: "Industry" },
+                    { value: study.category, label: "Category" },
+                  ].map((tile) => (
+                    <div key={tile.label}>
+                      <p className="font-heading text-[28px] font-medium leading-tight text-[#3a3ff0] lg:text-[32px]">
+                        {tile.value}
+                      </p>
+                      <p className="font-body mt-2 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+                        {tile.label}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </section>
 
               {/* Challenge */}
-              <div id="challenge" className="mt-16 scroll-mt-24">
-                <SectionEyebrow>Challenge</SectionEyebrow>
-                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
-                  {study.challengeIntro}
-                </h2>
+              <section id="challenge" className="mt-20 scroll-mt-28">
+                <SectionHeading>Challenge</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>{study.challengeIntro}</h2>
 
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {study.challengePoints.map((point, i) => (
-                    <PointCard
-                      key={i}
-                      text={point}
-                      accent="#f59e0b"
-                      icon={<AlertCircle className="h-4 w-4 text-amber-500" />}
-                    />
-                  ))}
-                </div>
-              </div>
+                <h2 className={`${SUB_HEADING} mt-8`}>Major Challenges:</h2>
+                <BulletCard points={study.challengePoints} />
+              </section>
 
               {/* Solution */}
-              <div id="solution" className="mt-16 scroll-mt-24">
-                <SectionEyebrow>Solution</SectionEyebrow>
-                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
-                  {study.solutionIntro}
-                </h2>
-                <p className="mt-5 max-w-3xl text-base leading-relaxed text-slate-600">
-                  {study.solutionDetail}
-                </p>
-
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {study.solution.map((point, i) => (
-                    <PointCard
-                      key={i}
-                      text={point}
-                      accent="#4b5fed"
-                      icon={<CheckCircle2 className="h-4 w-4 text-[#4b5fed]" />}
-                    />
-                  ))}
+              <section id="solution" className="mt-20 scroll-mt-28">
+                <SectionHeading>The Starfii Solution</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>{study.solutionIntro}</h2>
+                <Paragraphs items={[study.solutionDetail]} />
+                <div className="mt-8">
+                  <BulletCard points={study.solution} />
                 </div>
-              </div>
-            </div>
+              </section>
 
-            <AtAGlanceSidebar study={study} />
-          </div>
-        </div>
-
-        {/* RESULTS */}
-        <section id="results" className="scroll-mt-24 bg-[#0b1747] py-16">
-          <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
-            <SectionEyebrow>
-              <span className="text-[#8ea1ff]">Results</span>
-            </SectionEyebrow>
-
-            <h2 className="mt-3 text-3xl font-semibold text-white">
-              Results That Matter
-            </h2>
-
-            <div className="mt-10 grid grid-cols-2 divide-x divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 md:grid-cols-4 md:divide-y-0">
-              {study.results.map((r, i) => (
-                <div key={i} className="p-6 sm:p-8">
-                  <p className="text-4xl font-semibold text-[#8ea1ff] md:text-5xl">
-                    {r.metric}
-                  </p>
-                  <p className="mt-2 text-base leading-snug text-slate-300">
-                    {r.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* BENEFITS / SUMMARY / TECHNOLOGY */}
-        <div className="mx-auto max-w-[1520px] px-6 py-14 sm:px-10 lg:px-16">
-          <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1fr_360px]">
-            <div className="rounded-2xl bg-white p-8 shadow-[0_1px_2px_rgba(15,23,42,0.04)] sm:p-10 lg:p-12">
               {/* Benefits */}
-              <div id="benefits" className="scroll-mt-24">
-                <SectionEyebrow>Benefits</SectionEyebrow>
-                <h2 className="mt-3 max-w-3xl text-3xl font-semibold text-[#0b1747]">
-                  {study.benefitsIntro}
-                </h2>
-
-                <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
-                  {study.benefits.map((benefit, i) => (
-                    <PointCard
-                      key={i}
-                      text={benefit}
-                      accent="#10b981"
-                      icon={<TrendingUp className="h-4 w-4 text-emerald-500" />}
-                    />
-                  ))}
-                </div>
-              </div>
+              <section id="benefits" className="mt-20 scroll-mt-28">
+                <SectionHeading>Benefits</SectionHeading>
+                <h2 className={`${SUB_HEADING} mt-6`}>{study.benefitsIntro}</h2>
+                <BulletCard points={study.benefits} />
+              </section>
 
               {/* Summary */}
-              <div id="summary" className="mt-16 max-w-3xl scroll-mt-24">
-                <SectionEyebrow>Summary</SectionEyebrow>
-                <p className="mt-4 text-2xl font-medium leading-relaxed text-[#0b1747]">
-                  {study.summary}
-                </p>
-              </div>
+              <section id="summary" className="mt-20 scroll-mt-28">
+                <SectionHeading>Summary</SectionHeading>
+                <Paragraphs items={[study.summary]} />
 
-              {/* Tech Stack */}
-              <div className="mt-14 max-w-3xl">
-                <h2 className="text-3xl font-semibold text-[#0b1747]">
-                  Technology Used
-                </h2>
+                <h2 className={`${SUB_HEADING} mt-10`}>Results</h2>
+                <div className="mt-3 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {study.results.map(
+                    (r: { metric: string; label: string }, i: number) => (
+                      <div
+                        key={`${r.label}-${i}`}
+                        className="rounded-2xl bg-white px-8 py-6"
+                      >
+                        <p className="font-heading text-[36px] font-medium leading-none text-[#3a3ff0]">
+                          {r.metric}
+                        </p>
+                        <p className="font-body mt-3 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
+                          {r.label}
+                        </p>
+                      </div>
+                    )
+                  )}
+                </div>
 
-                <div className="mt-5 flex flex-wrap gap-3">
-                  {study.techStack.map((tech) => (
+                <h2 className={`${SUB_HEADING} mt-10`}>Technology Used</h2>
+                <div className="mt-3 flex flex-wrap gap-3">
+                  {study.techStack.map((tech: string) => (
                     <span
                       key={tech}
-                      className="rounded-full border border-slate-200 px-4 py-1.5 text-base font-medium text-slate-600"
+                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-[#0b1747] lg:text-[18px]"
                     >
                       {tech}
                     </span>
                   ))}
                 </div>
-              </div>
+              </section>
             </div>
-
-            <MoreCaseStudiesSidebar currentSlug={study.slug} />
           </div>
+
+          <Sidebar study={study} />
         </div>
       </div>
-
-      {/* CTA */}
-      <section className="border-t border-slate-100 bg-slate-50 py-16">
-        <div className="mx-auto max-w-[1520px] px-6 text-center sm:px-10 lg:px-16">
-          <h2 className="text-3xl font-semibold text-[#0b1747] md:text-4xl">
-            Have a similar challenge?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-lg text-slate-600">
-            Let&apos;s discuss how Starfii can help your team achieve results
-            like these.
-          </p>
-          <Link
-            href="/#contact"
-            className="mt-7 inline-flex items-center gap-1.5 rounded-full bg-[#3a3ff0] px-6 py-3 text-base font-semibold text-white transition-colors hover:bg-[#2c30c9]"
-          >
-            Request Your POC Now
-            <ArrowUpRight className="h-4 w-4" />
-          </Link>
-        </div>
-      </section>
     </main>
   );
 }

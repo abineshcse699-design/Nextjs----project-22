@@ -1,4 +1,4 @@
-import CloudServicesSection from "@/components/Sections/CloudServicesSection";
+import CloudServicesSection from "@/app/components/Sections/CloudServicesSection";
 
 export const metadata = {
   title: "Cloud & DevOps",

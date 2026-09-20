@@ -3,95 +3,66 @@
 import { useEffect, useState } from "react";
 
 const TABS = [
-  { id: "overview", label: "Overview" },
+  { id: "client", label: "Client" },
   { id: "challenge", label: "Challenge" },
-  { id: "solution", label: "Solution" },
-  { id: "results", label: "Results" },
-  { id: "services", label: "Services" },
+  { id: "solution", label: "The Starfii Solution" },
+  { id: "benefits", label: "Benefits" },
+  { id: "summary", label: "Summary" },
 ];
 
 export default function CaseStudyTabs() {
-  const [active, setActive] = useState("overview");
+  const [active, setActive] = useState("client");
 
   useEffect(() => {
-    const sections = TABS.map((tab) =>
-      document.getElementById(tab.id)
-    ).filter((el): el is HTMLElement => Boolean(el));
-
-    if (!sections.length) return;
+    const sections = TABS.map((t) => document.getElementById(t.id)).filter(
+      (el): el is HTMLElement => !!el
+    );
 
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort(
-            (a, b) =>
-              b.intersectionRatio - a.intersectionRatio
-          );
-
-        if (visible[0]) {
-          setActive(visible[0].target.id);
-        }
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(entry.target.id);
+        });
       },
-      {
-        root: null,
-        rootMargin: "-18% 0px -62% 0px",
-        threshold: [0, 0.1, 0.25, 0.5],
-      }
+      // a section becomes "active" when it crosses the upper part of the viewport
+      { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
     );
 
-    sections.forEach((section) => observer.observe(section));
-
+    sections.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   const handleClick = (id: string) => {
-    const element = document.getElementById(id);
-    if (!element) return;
-
-    const headerOffset = 88;
-    const y =
-      element.getBoundingClientRect().top +
-      window.scrollY -
-      headerOffset;
-
-    window.scrollTo({
-      top: Math.max(0, y),
-      behavior: "smooth",
-    });
-
+    const el = document.getElementById(id);
+    if (!el) return;
+    const y = el.getBoundingClientRect().top + window.scrollY - 104;
+    window.scrollTo({ top: y, behavior: "smooth" });
     setActive(id);
   };
 
   return (
+    // Solid grey strip so content never shows above the card while scrolling.
+    // -mt-4 + pt-4 keeps the card aligned with the sidebar at the top of the page.
     <nav
       aria-label="Case study sections"
-      className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur-md"
+      className="sticky top-0 z-30 -mt-4 bg-[#eef0f5] pb-4 pt-4"
     >
-      <div className="mx-auto flex max-w-[1520px] gap-1 overflow-x-auto px-6 sm:px-10 lg:px-16">
+      <div className="flex items-center gap-1 overflow-x-auto rounded-2xl bg-white p-2 [&::-webkit-scrollbar]:hidden md:justify-between">
         {TABS.map((tab) => {
           const isActive = active === tab.id;
-
           return (
             <button
               key={tab.id}
               type="button"
               onClick={() => handleClick(tab.id)}
-              aria-current={isActive ? "page" : undefined}
-              className={`relative shrink-0 px-4 py-4 text-sm font-medium transition-colors duration-200 sm:px-5 ${
+              aria-current={isActive ? "true" : undefined}
+              className={`font-body shrink-0 rounded-xl px-5 py-3 text-[16px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#4b4bf0] md:px-8 ${
                 isActive
-                  ? "text-[#3a3ff0]"
-                  : "text-slate-500 hover:text-[#0b1747]"
+                  ? "bg-[#ecedfa] font-semibold text-[#4b3fe0]"
+                  : "font-normal text-[#0b1747] hover:bg-slate-50"
               }`}
             >
               {tab.label}
-
-              <span
-                aria-hidden="true"
-                className={`absolute inset-x-4 bottom-0 h-[2px] rounded-full bg-[#3a3ff0] transition-opacity duration-200 sm:inset-x-5 ${
-                  isActive ? "opacity-100" : "opacity-0"
-                }`}
-              />
             </button>
           );
         })}

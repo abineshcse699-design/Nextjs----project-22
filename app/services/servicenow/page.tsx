@@ -1127,16 +1127,15 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                 <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   <div
@@ -1377,7 +1376,7 @@ export default function ServiceNowITSMPage(): ReactElement {
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             <div className="relative">
               <Reveal className="lg:sticky lg:top-28">
-                <Eyebrow variant="light">ITSM</Eyebrow>
+                {/* <Eyebrow variant="light">ITSM</Eyebrow> */}
 
               
 
@@ -1440,7 +1439,7 @@ export default function ServiceNowITSMPage(): ReactElement {
             140, 141, 153, 154 — tabbed deep dive, auto-advancing
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>ServiceNow Services</Eyebrow>
+          {/* <Eyebrow>ServiceNow Services</Eyebrow> */}
           <h2
             className={`${SECTION_HEADING} mt-4 font-bold`}
             style={{ color: CHAMPION_BLUE }}
@@ -1546,7 +1545,7 @@ export default function ServiceNowITSMPage(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Enterprise Service Management</Eyebrow>
+            {/* <Eyebrow variant="dark">Enterprise Service Management</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your
               <br />
@@ -1572,7 +1571,7 @@ export default function ServiceNowITSMPage(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Case Studies</Eyebrow>
+              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 How teams put ServiceNow ITSM to work
               </h2>
@@ -1662,7 +1661,7 @@ export default function ServiceNowITSMPage(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>ServiceNow</Eyebrow>
+              {/* <Eyebrow>ServiceNow</Eyebrow> */}
               <h2
                 className={`${SECTION_HEADING} mt-4 max-w-500`}
                 style={{ color: CHAMPION_BLUE }}

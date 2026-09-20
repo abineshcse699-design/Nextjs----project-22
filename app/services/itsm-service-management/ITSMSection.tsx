@@ -1007,16 +1007,15 @@ function ITSMEcosystemAccordion(): ReactElement {
                     >
                       {item.title}
                     </span>
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                      <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   <div
@@ -1103,8 +1102,10 @@ export default function ITSMSection(): ReactElement {
     />
   </div>
 
-  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
-    <div className="w-full max-w-[760px] py-10 lg:py-12">
+  <div
+    className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}
+>
+  <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
       <nav
         aria-label="Breadcrumb"
         className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
@@ -1215,7 +1216,7 @@ export default function ITSMSection(): ReactElement {
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             <Reveal className="self-start lg:sticky lg:top-28">
-              <Eyebrow variant="light">ITSM &amp; Enterprise Service Management</Eyebrow>
+              {/* <Eyebrow variant="light">ITSM &amp; Enterprise Service Management</Eyebrow> */}
 
               
   <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
@@ -1255,7 +1256,7 @@ export default function ITSMSection(): ReactElement {
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>ITSM &amp; Enterprise Service Management</Eyebrow>
+          {/* <Eyebrow>ITSM &amp; Enterprise Service Management</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             ITSM & Enterprise Service Management Services
           </h2>
@@ -1357,7 +1358,7 @@ export default function ITSMSection(): ReactElement {
         />
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Service Management Ecosystem</Eyebrow>
+            {/* <Eyebrow variant="dark">Service Management Ecosystem</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl text-white`}>
               Impact Across Your ITSM
               <br />
@@ -1376,7 +1377,7 @@ export default function ITSMSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>ITSM &amp; Enterprise Service Management</Eyebrow>
+              {/* <Eyebrow>ITSM &amp; Enterprise Service Management</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4 max-w-2xl`} style={{ color: CHAMPION_BLUE }}>
                 {"Latest Insights & Blogs"}
               </h2>
@@ -1521,7 +1522,7 @@ export default function ITSMSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Case Studies</Eyebrow>
+              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 ITSM & Enterprise Service Management Case Studies
               </h2>

@@ -1,0 +1,1598 @@
+"use client";
+
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import Link from "next/link";
+import {
+  ChevronRight,
+  ChevronLeft,
+  ChevronDown,
+  ArrowUpRight,
+  Plus,
+  Minus,
+  TrendingUp,
+  ShieldAlert,
+  HeartPulse,
+  Wrench,
+  FileCheck2,
+  UserX,
+} from "lucide-react";
+import { motion, type Variants } from "framer-motion";
+import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
+import GetInTouch from "../../services/data-analytics/GetinTouch";
+
+const CHAMPION_BLUE = "#1B2560";
+const LAVENDER_ACCENT = "#A48FEA";
+
+const DARK_BG = "#0A0A18";
+const DARK_CARD = "rgba(255,255,255,0.04)";
+const DARK_BORDER = "rgba(255,255,255,0.09)";
+const ACCENT_INDIGO = "#6C5DD3";
+const INDIGO_CTA = "#4F3FE0";
+
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+const TAB_AUTOPLAY_MS = 4000;
+
+const HERO_HEADING =
+  "font-heading font-medium leading-[1.08] text-[46px] sm:text-[56px] lg:text-[66px]";
+
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+
+const heroContainer: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.3,
+      delayChildren: 0.4,
+    },
+  },
+};
+
+const heroItem: Variants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1.2, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const container: Variants = {
+  hidden: {},
+  visible: {
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const item: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 1, ease: [0.22, 1, 0.36, 1] },
+  },
+};
+
+const keyTakeaways: string[] = [
+  "Starfii helps enterprises turn fragmented, siloed data into a single governed platform that every team can trust and act on.",
+  "Our data engineering and cloud platform teams build resilient pipelines that scale with the business, so growth never means rebuilding your data stack.",
+  "We connect Generative AI and LLMs safely to your own enterprise data, so teams can query, summarize, and act on it in plain language.",
+  "Our approach combines data governance, quality checks, and stewardship with modern BI and analytics to deliver decisions your business can rely on.",
+];
+
+const focusAreas = [
+  {
+    title: "Data Engineering",
+    body: "Starfii's certified data engineers design and build resilient pipelines and data platforms, so every downstream system works from clean, timely, well governed data.",
+    tags: ["PIPELINES", "ETL", "ORCHESTRATION"],
+  },
+  {
+    title: "Data Architecture",
+    body: "Starfii designs the blueprints for how data flows, is stored, and is accessed across your organization, so every new source and pipeline fits a plan instead of adding to the sprawl.",
+    tags: ["ARCHITECTURE", "DATA MODELING", "SCHEMA DESIGN"],
+  },
+  {
+    title: "Data Pipelines & Orchestration",
+    body: "We build ingestion and transformation pipelines with automated orchestration and monitoring, so data lands where it is needed, on schedule, without manual babysitting.",
+    tags: ["ORCHESTRATION", "INGESTION", "ETL/ELT"],
+  },
+  {
+    title: "Cloud Data Platforms",
+    body: "Starfii architects and migrates data estates onto modern cloud data platforms on AWS, Azure, and GCP, built for scale, cost control, and near real time access.",
+    tags: ["AWS", "AZURE", "GCP"],
+  },
+  {
+    title: "Data Analytics",
+    body: "Starfii turns raw, siloed data into clear analysis, surfacing trends and answering the business questions teams actually ask.",
+    tags: ["ANALYTICS", "SELF-SERVICE", "INSIGHTS"],
+  },
+  {
+    title: "Business Intelligence & Dashboards",
+    body: "We turn raw data into actionable business intelligence using Tableau and Power BI, so decision makers see what matters without digging for it.",
+    tags: ["TABLEAU", "POWER BI", "DASHBOARDS"],
+  },
+  {
+    title: "Data Science & Advanced Analytics",
+    body: "Our data scientists build the models and surface the patterns behind better decisions, from demand forecasting to anomaly detection to product recommendation.",
+    tags: ["ML", "FORECASTING", "STATISTICAL MODELING"],
+  },
+  {
+    title: "AI-Ready Data",
+    body: "Starfii prepares and governs enterprise data so it is clean, contextual, and safe for AI and LLM consumption, turning raw records into something models can actually reason over.",
+    tags: ["AI-READY", "RAG", "DATA QUALITY"],
+  },
+  {
+    title: "Data Modernization",
+    body: "We move legacy warehouses and data marts onto modern cloud platforms with minimal disruption, closing the gap between old systems and new business demands.",
+    tags: ["MIGRATION", "MODERNIZATION", "CLOUD"],
+  },
+  {
+    title: "Data Governance & Quality",
+    body: "We put stewardship, lineage, and data quality checks in place so your enterprise data stays trustworthy as it moves across systems and teams.",
+    tags: ["GOVERNANCE", "LINEAGE", "QUALITY"],
+  },
+  {
+    title: "MDM & Data Integration",
+    body: "We consolidate fragmented sources into a single, reliable master data record, so every team works from the same version of the truth.",
+    tags: ["MDM", "INTEGRATION", "MASTER DATA"],
+  },
+  {
+    title: "Generative AI on Enterprise Data",
+    body: "Starfii connects Generative AI and LLMs to your own enterprise data safely, so teams can query, summarize, and act on it in plain language.",
+    tags: ["GENAI", "LLM", "RAG"],
+  },
+];
+
+
+const tabs = [
+  {
+    label: "Architecture: Design the Foundation",
+    heading: "A data architecture blueprint before a single pipeline gets built",
+    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl. We define the right architecture across data sources, storage, processing, governance, and consumption layers, creating a foundation that can support both today's requirements and future growth. This gives teams a clear structure for scaling data without introducing unnecessary complexity, duplication, or disconnected systems.",
+    image:
+      "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Build a Single Source of Truth",
+    heading: "One governed data foundation, not a dozen conflicting copies",
+    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts. We bring data together across applications, databases, and business systems while establishing consistent definitions, ownership, quality rules, and access controls. The result is a reliable foundation where teams can find the right data quickly, reduce conflicting reports, and make decisions using a shared view of the business.",
+    image:
+      "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Engineer Pipelines That Scale",
+    heading: "Pipelines built for the data volumes you will have next year, not just today",
+    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch. We build reliable workflows for batch and real-time data, automate repetitive processing, and create monitoring around pipeline health and data quality. Every pipeline is designed with performance, maintainability, and future data volumes in mind, helping your teams move faster as new sources and use cases are added.",
+    image:
+      "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Platforms: Pick the Right Cloud Fit",
+    heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
+    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access. We evaluate your existing workloads, data volumes, integrations, security requirements, and business priorities before shaping the right cloud architecture. The result is a platform that gives teams the flexibility to scale while keeping infrastructure efficient, governed, and aligned with the way your business actually uses data.",
+    image:
+      "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Turn Data into Decisions",
+    heading: "Analytics and dashboards people actually open",
+    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute. We connect trusted data to meaningful business questions and create dashboards that make important information easier to understand and act on. From executive reporting to operational analytics, we focus on clear metrics, intuitive experiences, and timely insights that help teams spend less time searching for answers and more time acting on them.",
+    image:
+      "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Data Science: Find the Pattern",
+    heading: "Models that surface the pattern behind the decision, not just a dashboard number",
+    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production. We work across the full data science lifecycle, from preparing and understanding the underlying data to developing models and integrating them into real business workflows. This helps organizations move beyond descriptive reporting and use their data to identify patterns, anticipate outcomes, and support better decisions.",
+    image:
+      "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Modernize Legacy Data Estates",
+    heading: "A clear path off aging warehouses and brittle ETL",
+    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting. Our approach helps identify outdated technologies, fragile dependencies, duplicated processes, and areas where maintenance is slowing down the business. We then prioritize modernization in practical stages, protecting critical reporting and workflows while creating a more scalable, maintainable, and future-ready data environment.",
+    image:
+      "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    label: "Apply AI to Your Own Data",
+    heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
+    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork. We help structure, clean, connect, and govern the data AI systems need while keeping access and usage aligned with enterprise requirements. This creates a stronger foundation for Gen AI and machine learning use cases, allowing teams to build intelligent experiences that are relevant to their business, based on trusted information, and ready to scale.",
+    image:
+      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1800&auto=format&fit=crop",
+  },
+];
+
+
+
+const impactAreas = [
+  {
+    title: "Unify Fragmented Data Sources",
+    body: "Bring scattered warehouses, marts, and spreadsheets into one governed platform so every team works from the same numbers.",
+  },
+  {
+    title: "Engineer Pipelines for Scale",
+    body: "Build ingestion and transformation pipelines that keep pace with data volume as the business grows, not just today's load.",
+  },
+  {
+    title: "Govern Data You Can Trust",
+    body: "Put stewardship, lineage, and quality checks in place so data stays trustworthy as it moves across systems and teams.",
+  },
+  {
+    title: "Apply AI to Enterprise Data",
+    body: "Connect Generative AI and LLMs safely to your own data, so teams can query and act on it in plain language.",
+  },
+  {
+    title: "Modernize Legacy Data Estates",
+    body: "Move aging warehouses and brittle ETL onto modern cloud platforms with a clear roadmap and minimal disruption.",
+  },
+  {
+    title: "Turn Analytics into Action",
+    body: "Design BI and reporting around the decisions teams make every day, not just the metrics that are easiest to compute.",
+  },
+];
+
+type Insight = {
+  slug: string;
+  title: string;
+  body: string;
+  image: string;
+  gradient?: boolean;
+};
+
+const insights: Insight[] = [
+  {
+    slug: "generative-ai-enterprise-data-warehouses-to-answers",
+    title: "Generative AI on Enterprise Data: From Warehouses to Answers",
+    body: "See how Starfii connects LLMs to governed data so teams get plain language answers, not just another dashboard to read.",
+    image:
+      "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=90&w=1800&auto=format&fit=crop",
+    gradient: false,
+  },
+  {
+    slug: "cloud-data-platforms-aws-azure-gcp",
+    title: "Cloud Data Platforms: Choosing Between AWS, Azure, and GCP",
+    body: "Compare cost, governance, and near real time access across the three major cloud data stacks and how Starfii picks the right ",
+    image:
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    slug: "data-governance-at-scale-trust-every-pipeline",
+    title: "Data Governance at Scale: Building Trust Into Every Pipeline",
+    body: "Explore how lineage, stewardship, and automated quality checks keep enterprise data trustworthy as it scales.",
+    image:
+      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    slug: "mdm-in-practice-one-customer-record",
+    title: "MDM in Practice: Getting Every Team to One Customer Record",
+    body: "A practical look at how master data management removes conflicting records across sales, support, and marketing systems.",
+    image:
+      "https://images.unsplash.com/photo-1551434678-e076c223a692?q=90&w=3840&auto=format&fit=crop",
+  },
+  {
+    slug: "legacy-warehouse-to-lakehouse-migration-playbook",
+    title: "From Legacy Warehouse to Lakehouse: A Migration Playbook",
+    body: "Starfii's phased approach to moving reporting off aging warehouses without breaking the dashboards teams rely on daily.",
+    image:
+      "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=90&w=1800&auto=format&fit=crop",
+  },
+  {
+    slug: "bi-dashboards-designed-around-decisions",
+    title: "BI That Gets Opened: Designing Dashboards Around Decisions",
+    body: "Why the best dashboards start from the decision a team needs to make, not the metrics that are easiest to compute.",
+    image:
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=90&w=1800&auto=format&fit=crop",
+  },
+];
+type UseCase = {
+  industry: string;
+  title: string;
+  body: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
+};
+
+const useCases: UseCase[] = [
+  {
+    industry: "Retail & E-Commerce",
+    title: "Real Time Demand Forecasting",
+    body: "Unify point-of-sale, inventory, and web data into one pipeline so merchandising teams forecast demand and avoid stockouts before they happen.",
+    icon: TrendingUp,
+  },
+  {
+    industry: "Financial Services",
+    title: "Fraud & Anomaly Detection",
+    body: "Apply data science models to transaction streams so unusual patterns get flagged in near real time, not after the fraud has already settled.",
+    icon: ShieldAlert,
+  },
+  {
+    industry: "Healthcare",
+    title: "Unified Patient Data Platform",
+    body: "Bring records from EHR, labs, and claims systems into a governed data platform, giving clinicians and analysts one trustworthy view of patient history.",
+    icon: HeartPulse,
+  },
+  {
+    industry: "Manufacturing",
+    title: "Predictive Maintenance Analytics",
+    body: "Pipe sensor and equipment telemetry into a cloud data platform so maintenance teams predict failures before they cause downtime.",
+    icon: Wrench,
+  },
+  {
+    industry: "Insurance",
+    title: "Claims Data Governance",
+    body: "Apply lineage, stewardship, and quality checks across claims data so audit and compliance teams trust every number they report on.",
+    icon: FileCheck2,
+  },
+  {
+    industry: "Telecom",
+    title: "Customer Churn Prediction",
+    body: "Combine usage, billing, and support data into AI-ready datasets so retention teams act on churn risk weeks before a customer cancels.",
+    icon: UserX,
+  },
+];
+
+function useTypewriterList(
+  items: string[],
+  active: boolean,
+  speed: number = 16,
+  pauseBetween: number = 300
+): { displayed: string[]; typingIndex: number } {
+  const [displayed, setDisplayed] = useState<string[]>(() => items.map(() => ""));
+  const [typingIndex, setTypingIndex] = useState(-1);
+
+  const itemsRef = useRef(items);
+  itemsRef.current = items;
+
+  useEffect(() => {
+    if (!active) {
+      setDisplayed(items.map(() => ""));
+      setTypingIndex(-1);
+      return undefined;
+    }
+
+    let cancelled = false;
+    let itemIndex = 0;
+    let charIndex = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeStep = () => {
+      if (cancelled) return;
+
+      const currentItems = itemsRef.current;
+      if (itemIndex >= currentItems.length) return;
+
+      const currentLine = currentItems[itemIndex];
+      if (currentLine === undefined) return;
+
+      charIndex += 1;
+      setTypingIndex(itemIndex);
+      setDisplayed((prev) => {
+        const next = [...prev];
+        while (next.length < currentItems.length) next.push("");
+        next[itemIndex] = currentLine.slice(0, charIndex);
+        return next;
+      });
+
+      if (charIndex >= currentLine.length) {
+        itemIndex += 1;
+        charIndex = 0;
+        timeoutId = setTimeout(typeStep, pauseBetween);
+      } else {
+        timeoutId = setTimeout(typeStep, speed);
+      }
+    };
+
+    timeoutId = setTimeout(typeStep, pauseBetween);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(timeoutId);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, items.join("|"), speed, pauseBetween]);
+
+  return { displayed, typingIndex };
+}
+
+function WhyMattersAccordion({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: (updater: (prev: boolean) => boolean) => void;
+}) {
+  const { displayed, typingIndex } = useTypewriterList(keyTakeaways, open);
+
+  return (
+    <div
+      className="overflow-hidden rounded-[22px] border bg-white transition-colors duration-300"
+      style={{ borderColor: open ? ACCENT_INDIGO : LAVENDER_ACCENT }}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((prev) => !prev)}
+        className="flex w-full min-h-[104px] items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
+        style={{
+          borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <span
+            aria-hidden="true"
+            className="relative inline-flex h-8 w-8 flex-shrink-0 items-center justify-center"
+            style={{ color: INDIGO_CTA }}
+          >
+            <svg
+              viewBox="0 0 32 32"
+              className="h-8 w-8"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M16 1.5C16.7 8.9 18.1 13.2 21.1 14.9C22.8 16 27.1 16 30.5 16C23.1 16.7 18.8 18.1 17.1 21.1C16 22.8 16 27.1 16 30.5C15.3 23.1 13.9 18.8 10.9 17.1C9.2 16 4.9 16 1.5 16C8.9 15.3 13.2 13.9 14.9 10.9C16 9.2 16 4.9 16 1.5Z" />
+            </svg>
+            <svg
+              viewBox="0 0 20 20"
+              className="absolute bottom-0 right-0 h-3.5 w-3.5"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M10 1.5C10.35 6.15 11.15 8.1 12.9 9.05C13.85 9.55 15.8 9.65 18.5 10C15.8 10.35 13.85 10.45 12.9 10.95C11.15 11.9 10.35 13.85 10 18.5C9.65 13.85 8.85 11.9 7.1 10.95C6.15 10.45 4.2 10.35 1.5 10C4.2 9.65 6.15 9.55 7.1 9.05C8.85 8.1 9.65 6.15 10 1.5Z" />
+            </svg>
+          </span>
+          <span className="font-body text-[17px] font-semibold" style={{ color: INDIGO_CTA }}>
+            Key Takeaways
+          </span>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <span
+            className="font-body hidden rounded-full px-5 py-2.5 text-[13px] font-semibold sm:inline-flex"
+            style={{ backgroundColor: "#F1EEFC", color: ACCENT_INDIGO }}
+          >
+            Trusted Data
+          </span>
+
+          <ChevronDown
+            size={20}
+            strokeWidth={2.2}
+            className="flex-shrink-0 transition-transform duration-300"
+            style={{
+              color: ACCENT_INDIGO,
+              transform: open ? "rotate(180deg)" : "rotate(0deg)",
+            }}
+          />
+        </div>
+      </button>
+
+      <div
+        className="grid transition-all duration-500 ease-out"
+        style={{ gridTemplateRows: open ? "1fr" : "0fr" }}
+      >
+        <div className="overflow-hidden">
+          <ul className="space-y-5 px-8 py-10 lg:px-10">
+            {keyTakeaways.map((line, i) => {
+              const text = displayed[i];
+              if (!text && i !== 0) return null;
+
+              const isTyping = i === typingIndex && text.length < line.length;
+
+              return (
+                <li
+                  key={line}
+                  className="flex gap-2 font-body text-[15px] leading-[1.8] text-slate-600"
+                >
+                  <span
+                    className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                    style={{ backgroundColor: ACCENT_INDIGO }}
+                  />
+                  <span>
+                    {text}
+                    {isTyping && (
+                      <span
+                        className="ss-caret ml-0.5 inline-block h-4 w-[2px] align-middle"
+                        style={{ backgroundColor: ACCENT_INDIGO }}
+                      />
+                    )}
+                  </span>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ===============================================================
+   ECOSYSTEM ACCORDION
+================================================================ */
+
+function EcosystemAccordion() {
+   const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const columns: { item: (typeof impactAreas)[number]; index: number }[][] = [[], []];
+  impactAreas.forEach((entry, index) => {
+    const target = columns[index % 2];
+    if (target) target.push({ item: entry, index });
+  });
+
+  return (
+    <div className="mt-14 grid grid-cols-1 items-start gap-5 sm:grid-cols-2">
+      {columns.map((column, colIndex) => (
+        <div key={colIndex} className="flex flex-col gap-5">
+          {column.map(({ item: area, index }) => {
+            const isOpen = openIndex === index;
+
+            return (
+              <motion.div
+                key={area.title}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.2 }}
+                variants={item}
+              >
+                <div
+                  className="overflow-hidden rounded-2xl bg-white transition-shadow duration-300 hover:shadow-xl"
+                  style={{
+                    boxShadow: isOpen
+                      ? "0 18px 40px rgba(15,23,42,0.18)"
+                      : undefined,
+                  }}
+                >
+                  <button
+                    type="button"
+                    aria-expanded={isOpen}
+                    aria-controls={`da-ecosystem-panel-${index}`}
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="flex w-full items-center justify-between gap-6 px-8 py-7 text-left"
+                  >
+                    <span
+                      className="font-body text-[19px] font-medium leading-snug transition-colors duration-300"
+                      style={{ color: isOpen ? ACCENT_INDIGO : CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </span>
+
+    <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: ACCENT_INDIGO,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
+                  </button>
+
+                  <div
+                    id={`da-ecosystem-panel-${index}`}
+                    className="grid transition-all duration-500 ease-out"
+                    style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
+                  >
+                    <div className="overflow-hidden">
+                      <p
+                        className="font-body px-8 pb-8 text-[15px] leading-[1.75] transition-opacity duration-500"
+                        style={{ color: CHAMPION_BLUE, opacity: isOpen ? 1 : 0 }}
+                      >
+                        {area.body}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/* ===============================================================
+   REUSABLE: StepCarousel
+================================================================ */
+
+type StepCarouselProps<T> = {
+  items: T[];
+  itemsPerPage: {
+    mobile: number;
+    tablet: number;
+    desktop: number;
+  };
+  renderItem: (item: T, index: number) => ReactNode;
+  dark?: boolean;
+  gap?: number;
+};
+
+function StepCarousel<T>({
+  items,
+  itemsPerPage,
+  renderItem,
+  dark = false,
+  gap = 24,
+}: StepCarouselProps<T>) {
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const [perPage, setPerPage] = useState(itemsPerPage.desktop);
+  const [position, setPosition] = useState(0);
+  const [stepWidth, setStepWidth] = useState(0);
+
+  const updatePerPage = useCallback(() => {
+    if (window.innerWidth <= 639) {
+      setPerPage(itemsPerPage.mobile);
+    } else if (window.innerWidth <= 1023) {
+      setPerPage(itemsPerPage.tablet);
+    } else {
+      setPerPage(itemsPerPage.desktop);
+    }
+  }, [itemsPerPage]);
+
+  const measure = useCallback(() => {
+    const track = trackRef.current;
+    const firstCard = track?.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+    setStepWidth(firstCard.getBoundingClientRect().width + gap);
+  }, [gap]);
+
+  useEffect(() => {
+    updatePerPage();
+    measure();
+
+    window.addEventListener("resize", updatePerPage);
+    window.addEventListener("resize", measure);
+
+    return () => {
+      window.removeEventListener("resize", updatePerPage);
+      window.removeEventListener("resize", measure);
+    };
+  }, [updatePerPage, measure]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const resizeObserver = new ResizeObserver(measure);
+    resizeObserver.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) resizeObserver.observe(firstCard);
+
+    return () => resizeObserver.disconnect();
+  }, [measure, perPage]);
+
+  const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
+  const totalPositions = Math.max(1, maxPosition + 1);
+
+  useEffect(() => {
+    setPosition((currentPosition) => Math.min(currentPosition, maxPosition));
+  }, [maxPosition]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track || !stepWidth) return;
+
+    track.scrollTo({
+      left: position * stepWidth,
+      behavior: "smooth",
+    });
+  }, [position, stepWidth]);
+
+  const progress = ((position + 1) / totalPositions) * 100;
+
+  return (
+    <div>
+      <div
+        ref={trackRef}
+        className="flex overflow-x-auto pb-2 snap-x snap-mandatory [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        style={{ scrollBehavior: "smooth", gap: `${gap}px` }}
+      >
+        {items.map((entry, index) => (
+          <div
+            key={index}
+            className="min-w-0 flex-shrink-0 snap-start"
+            style={{
+              width:
+                perPage === 1
+                  ? "100%"
+                  : `calc((100% - ${(perPage - 1) * gap}px) / ${perPage})`,
+            }}
+          >
+            {renderItem(entry, index)}
+          </div>
+        ))}
+      </div>
+
+      <div className="mt-8 flex items-center gap-6">
+        <div
+          className="h-[2px] flex-1 overflow-hidden rounded-full"
+          style={{
+            backgroundColor: dark ? "rgba(255,255,255,0.15)" : "#CBD5E1",
+          }}
+        >
+          <div
+            className="h-full transition-[width] duration-500 ease-out"
+            style={{
+              width: `${progress}%`,
+              backgroundColor: ACCENT_INDIGO,
+            }}
+          />
+        </div>
+
+        <span
+          className="font-body flex-none text-[14px] tabular-nums"
+          style={{
+            color: dark ? "rgba(255,255,255,0.55)" : "#94A3B8",
+          }}
+        >
+          {String(position + 1).padStart(2, "0")} /{" "}
+          {String(totalPositions).padStart(2, "0")}
+        </span>
+
+        <div className="flex flex-none items-center gap-3">
+          <button
+            type="button"
+            aria-label="Previous"
+            onClick={() => setPosition((p) => Math.max(0, p - 1))}
+            disabled={position === 0}
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+            style={{
+              backgroundColor: dark ? "rgba(255,255,255,0.10)" : "#E5E1F5",
+              color: dark ? "#fff" : CHAMPION_BLUE,
+            }}
+          >
+            <ChevronLeft size={18} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Next"
+            onClick={() => setPosition((p) => Math.min(maxPosition, p + 1))}
+            disabled={position === maxPosition}
+            className="flex h-11 w-11 items-center justify-center rounded-full text-white transition-all duration-200 hover:scale-105 disabled:opacity-40 disabled:hover:scale-100"
+            style={{ backgroundColor: ACCENT_INDIGO }}
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function DataAnalyticsServicesSection() {
+  const [takeawaysOpen, setTakeawaysOpen] = useState(true);
+  const [activeTab, setActiveTab] = useState(0);
+  const [tabHovered, setTabHovered] = useState(false);
+  const [insightPage, setInsightPage] = useState(0);
+  const [insightStepWidth, setInsightStepWidth] = useState(0);
+  const insightTrackRef = useRef<HTMLDivElement | null>(null);
+  const current = tabs[activeTab];
+
+  const INSIGHTS_PER_PAGE = 3;
+  const maxInsightPage = Math.max(0, insights.length - INSIGHTS_PER_PAGE);
+  const insightPages = maxInsightPage + 1;
+
+  const measureInsightStep = useCallback(() => {
+    const track = insightTrackRef.current;
+    const firstCard = track?.firstElementChild as HTMLElement | null;
+    if (!firstCard) return;
+    setInsightStepWidth(firstCard.getBoundingClientRect().width + 24);
+  }, []);
+
+  useEffect(() => {
+    measureInsightStep();
+
+    window.addEventListener("resize", measureInsightStep);
+    return () => window.removeEventListener("resize", measureInsightStep);
+  }, [measureInsightStep]);
+
+  useEffect(() => {
+    const track = insightTrackRef.current;
+    if (!track) return;
+
+    const resizeObserver = new ResizeObserver(measureInsightStep);
+    resizeObserver.observe(track);
+
+    const firstCard = track.firstElementChild as HTMLElement | null;
+    if (firstCard) resizeObserver.observe(firstCard);
+
+    return () => resizeObserver.disconnect();
+  }, [measureInsightStep]);
+
+  useEffect(() => {
+    setInsightPage((currentPage) => Math.min(currentPage, maxInsightPage));
+  }, [maxInsightPage]);
+
+  useEffect(() => {
+    if (tabHovered) return undefined;
+    const id = setInterval(() => {
+      setActiveTab((prev) => (prev + 1) % tabs.length);
+    }, TAB_AUTOPLAY_MS);
+    return () => clearInterval(id);
+  }, [tabHovered, activeTab]);
+
+  return (
+    <main className="bg-white">
+      <style>{`
+        @keyframes ss-tab-progress {
+          from { transform: scaleY(0); }
+          to   { transform: scaleY(1); }
+        }
+        @keyframes ss-caret-blink {
+          0%, 100% { opacity: 1; }
+          50%      { opacity: 0; }
+        }
+        .ss-caret {
+          animation: ss-caret-blink 0.9s steps(1) infinite;
+        }
+
+        /* =============================================================
+           LIGHT CAPABILITIES GRID — matched to the Software page
+        ============================================================= */
+        .ss-capability-card {
+          position: relative;
+          background-color: #EEF0F5;
+          border-radius: 20px;
+          transition:
+            background-color 0.35s ease,
+            transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+            box-shadow 0.35s ease;
+        }
+        .ss-capability-card:hover {
+          background-color: #E4E7F3;
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(27, 37, 96, 0.08);
+        }
+        .ss-capability-title {
+          transition: color 0.3s ease;
+        }
+        .ss-capability-learn-more {
+          color: ${INDIGO_CTA};
+        }
+        .ss-capability-learn-more .ss-capability-underline {
+          transform: scaleX(0);
+          transform-origin: left;
+          transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .ss-capability-card:hover .ss-capability-learn-more .ss-capability-underline {
+          transform: scaleX(1);
+        }
+        .ss-capability-card:hover .ss-capability-learn-more svg {
+          transform: translate(2px, -2px);
+        }
+        .ss-capability-learn-more svg {
+          transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .ss-tab-progress-fill {
+            animation: none !important;
+            transform: scaleY(1) !important;
+          }
+          .ss-caret {
+            animation: none !important;
+          }
+          .ss-case-image,
+          .ss-case-desc,
+          .ss-zoom-img,
+          .ss-capability-card,
+          .ss-capability-title,
+          .ss-capability-learn-more .ss-capability-underline {
+            transition: none !important;
+          }
+          .ss-case-desc {
+            max-height: none !important;
+            opacity: 1 !important;
+            transform: none !important;
+          }
+        }
+      `}</style>
+
+<section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  {/* Full-bleed hero image: no white split, image covers the complete section */}
+  <div className="absolute inset-0 -z-10">
+    <motion.img
+      initial={{ opacity: 0, scale: 1.08 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+      src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=90&w=1800&auto=format&fit=crop"
+      alt="Data analytics team collaborating on enterprise technology"
+      loading="eager"
+      decoding="async"
+      fetchPriority="high"
+      className="h-full w-full object-cover object-[68%_center]"
+    />
+
+    {/* Dark left-to-right gradient like the reference design */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
+      }}
+    />
+  </div>
+
+  <motion.div
+    variants={heroContainer}
+    initial="hidden"
+    animate="visible"
+   className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}
+  >
+    <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
+      <motion.nav
+        variants={heroItem}
+        aria-label="Breadcrumb"
+        className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90"
+      >
+        <a href="/" className="transition-colors hover:text-white">
+          Home
+        </a>
+        <ChevronRight size={14} />
+        <a href="/services" className="transition-colors hover:text-white">
+          Services
+        </a>
+        <ChevronRight size={14} />
+        <span className="text-white/70">Data &amp; Analytics</span>
+      </motion.nav>
+
+      <motion.h1
+        variants={heroItem}
+        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+      >
+        Data &amp; Analytics Services for Decisions You Can Trust
+      </motion.h1>
+
+      <motion.p
+        variants={heroItem}
+        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px]"
+      >
+        Starfii architects, engineers, and modernizes data platforms
+        and pipelines, turning scattered, siloed data into a governed,
+        AI-ready foundation that powers faster, more confident
+        decisions across the enterprise.
+      </motion.p>
+
+      <motion.a
+        variants={heroItem}
+        href="#connect"
+        whileHover={{ scale: 1.03 }}
+        whileTap={{ scale: 0.98 }}
+        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
+        style={{ color: CHAMPION_BLUE }}
+      >
+        Connect Now
+        <ArrowUpRight size={17} />
+      </motion.a>
+    </div>
+  </motion.div>
+</section>
+
+      <div className={ALIGN}>
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-16"
+        >
+          <WhyMattersAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
+
+          <p
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            A trusted data and analytics partner, Starfii builds governed
+            platforms and AI ready pipelines that turn scattered
+            enterprise data into decisions your business can rely on.
+          </p>
+        </motion.section>
+
+        <motion.section
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          variants={fadeUp}
+          className="mt-20 mb-20 lg:mb-24"
+        >
+          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+            {/* LEFT — text with padding, nudges right on hover */}
+            <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
+              
+                    <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+          How Do Enterprises Turn Raw Data Into a Trusted Asset?
+            </h2>
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
+                Enterprises build trust in their data by combining strong
+                governance, scalable data engineering, and analytics that
+                answer real business questions. Starfii brings these
+                together to reduce data silos, speed up reporting, and
+                give every team a foundation of numbers they do not have
+                to second guess.
+              </p>
+            </div>
+
+            {/* RIGHT — image fills column, zooms on hover of the WHOLE card */}
+            <div className="relative min-h-[320px] overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop"
+                alt="Analysts reviewing a data dashboard"
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-110"
+              />
+            </div>
+          </div>
+        </motion.section>
+      </div>
+
+      {/* ============================================================
+          FOCUS AREAS — light capability grid, matching the Software
+          page's reference design: soft lavender-grey panels, navy
+          title, grey body copy and an indigo "Learn More" link.
+      ============================================================ */}
+    {/* removed overflow-hidden from this section wrapper — that was blocking the sticky heading */}
+    <section className="relative bg-white py-24 lg:py-28">
+        <div className={`relative ${ALIGN}`}>
+          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+            {/* LEFT — eyebrow, heading, description — sticky, follows scroll */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeUp}
+              className="self-start lg:sticky lg:top-28"
+            >
+              <span
+                className="font-body inline-flex items-center text-[16px] font-semibold sm:text-[18px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                Data &amp; Analytics
+              </span>
+
+              <h2
+                className="font-heading mt-4 text-[34px] font-bold leading-[1.15] sm:text-[40px] lg:text-[46px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+               
+              </h2>
+
+                     <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+             Our Data &amp; Analytics Capabilities
+            </h2>
+
+              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+                Starfii plans, engineers, and governs data platforms that
+                scale with the business, so analytics and AI stay grounded
+                in data you can trust.
+              </p>
+            </motion.div>
+
+            {/* RIGHT — original capability card grid, colors unchanged */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.1 }}
+              variants={container}
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+            >
+              {focusAreas.map((area) => (
+                <motion.div key={area.title} variants={item} className="h-full">
+                  <div className="ss-capability-card flex h-full flex-col p-8">
+                    <h3
+                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                      style={{ color: CHAMPION_BLUE }}
+                    >
+                      {area.title}
+                    </h3>
+
+                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
+                      {area.body}
+                    </p>
+
+                    <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                      <span className="relative">
+                        Learn More
+                        <span
+                          className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+                          style={{ backgroundColor: INDIGO_CTA }}
+                        />
+                      </span>
+                      <ArrowUpRight size={16} />
+                    </span>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+
+
+
+<section className="relative overflow-hidden py-24 lg:py-28">
+  {/* Background image — z-0, sits behind content but still renders normally */}
+  <div className="absolute inset-0 z-0" style={{ backgroundColor: DARK_BG }}>
+    <img
+      src="/bluegray.png"
+      alt=""
+      aria-hidden="true"
+      className="h-full w-full object-cover"
+    />
+    {/* dark overlay on top of image — keeps white text readable everywhere */}
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(180deg, rgba(10,10,24,0.35) 0%, rgba(10,10,24,0.6) 100%)",
+      }}
+    />
+  </div>
+
+  {/* Content — z-10, sits above the background */}
+  <div className={`relative z-10 ${ALIGN}`}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+      variants={fadeUp}
+    >
+      <h2 className={`${SECTION_HEADING} text-white`}>
+        Data &amp; Analytics Use Cases
+      </h2>
+      <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-white/60 sm:text-[16px]">
+        A look at how these capabilities play out across industries,
+        from real time forecasting to governed claims reporting.
+      </p>
+    </motion.div>
+
+<motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.1 }}
+  variants={container}
+  className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+>
+  {useCases.map((useCase) => {
+    const Icon = useCase.icon;
+    return (
+      <motion.div
+        key={useCase.title}
+        variants={item}
+        className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border p-9 transition-all duration-300 hover:-translate-y-1"
+        style={{
+          backgroundColor: "rgba(255,255,255,0.035)",
+          borderColor: "rgba(255,255,255,0.12)",
+        }}
+      >
+        {/* soft glow behind the icon, like the reference card */}
+        <div
+          className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full opacity-70 blur-3xl transition-opacity duration-300 group-hover:opacity-90"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(140,110,240,0.55) 0%, rgba(90,60,200,0.15) 55%, transparent 75%)",
+          }}
+        />
+
+        <span
+          className="relative flex h-12 w-12 items-center justify-center"
+          style={{ color: "#FFFFFF" }}
+        >
+          <Icon size={30} strokeWidth={1.4} />
+        </span>
+
+        <h3 className="font-heading relative mt-7 text-[22px] font-semibold leading-[1.3] text-white">
+          {useCase.title}
+        </h3>
+
+        <p
+          className="font-body relative mt-4 flex-1 text-[15px] font-normal leading-[1.75]"
+          style={{ color: "rgba(255,255,255,0.78)" }}
+        >
+          {useCase.body}
+        </p>
+      </motion.div>
+    );
+  })}
+</motion.div>
+  </div>
+</section>
+
+
+<div className={ALIGN}>
+  <motion.section
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true, amount: 0.15 }}
+    variants={fadeUp}
+    className="mt-24 pb-28"
+  >
+    <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+      Data &amp; Analytics Services
+    </h2>
+
+    <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
+      <ul
+        className="space-y-1 border-l"
+        style={{ borderColor: "#E5E1F5" }}
+        onMouseEnter={() => setTabHovered(true)}
+        onMouseLeave={() => setTabHovered(false)}
+      >
+        {tabs.map((tab, i) => {
+          const isActive = i === activeTab;
+          return (
+            <li key={tab.label} className="relative -ml-px">
+              {isActive && (
+                <span
+                  key={`${activeTab}-${tabHovered}`}
+                  className="ss-tab-progress-fill pointer-events-none absolute inset-y-0 left-0 w-[2px] origin-top"
+                  style={{
+                    backgroundColor: CHAMPION_BLUE,
+                    animation: tabHovered
+                      ? "none"
+                      : `ss-tab-progress ${TAB_AUTOPLAY_MS}ms linear forwards`,
+                    transform: tabHovered ? "scaleY(1)" : undefined,
+                  }}
+                />
+              )}
+              <button
+                type="button"
+                onClick={() => setActiveTab(i)}
+                className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
+                style={{
+                  color: isActive ? CHAMPION_BLUE : "#94A3B8",
+                  fontWeight: isActive ? 600 : 400,
+                }}
+              >
+                {tab.label}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+
+      <motion.div
+        key={activeTab}
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        className="grid grid-cols-1 overflow-hidden rounded-2xl md:min-h-[420px] md:grid-cols-2"
+        style={{ backgroundColor: "#F5F3FC" }}
+      >
+        <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
+          <h3
+            className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+            style={{ color: CHAMPION_BLUE }}
+          >
+            {current.heading}
+          </h3>
+          <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
+            {current.body}
+          </p>
+        </div>
+
+        <div className="group relative min-h-[280px] overflow-hidden">
+          <img
+            src={current.image}
+            alt={current.label}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 h-full w-full transform-gpu object-cover transition-transform duration-700 will-change-transform group-hover:scale-105"
+          />
+        </div>
+      </motion.div>
+    </div>
+  </motion.section>
+</div>
+     
+
+
+
+
+      {/* ============================================================
+          IMPACT ACROSS ECOSYSTEM (dark)
+      ============================================================ */}
+      <section
+        className="relative overflow-hidden py-24"
+        style={{
+          background: `radial-gradient(110% 130% at 90% 100%, rgba(217,119,87,0.18), transparent 50%), ${DARK_BG}`,
+        }}
+      >
+        <div className={ALIGN}>
+          <motion.h2
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className={`${SECTION_HEADING} max-w-xl text-white`}
+          >
+            Impact Across Your Data &amp; Analytics Ecosystem
+          </motion.h2>
+
+          <EcosystemAccordion />
+        </div>
+      </section>
+
+<section
+  className="py-24"
+  style={{
+    background:
+      "linear-gradient(180deg, #FFFFFF 0%, #E9E4FB 45%, #C9BEF5 100%)",
+  }}
+>
+  <div className={ALIGN}>
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={fadeUp}
+      className="flex items-end justify-between"
+    >
+      <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+        Data &amp; Analytics Case Studies
+      </h2>
+      <Link
+        href="/services/data-analytics/casestudies"
+        className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+        style={{ color: LAVENDER_ACCENT }}
+      >
+        View All Case Studies
+        <ArrowUpRight size={16} />
+      </Link>
+    </motion.div>
+
+    <div className="mt-10">
+      <StepCarousel
+        items={sharedCaseStudies}
+        itemsPerPage={{ mobile: 1.15, tablet: 2, desktop: 4 }}
+        gap={32}
+        renderItem={(study) => (
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={item}
+            className="h-full"
+          >
+            <Link
+              href={`/services/data-analytics/casestudies/${study.slug}`}
+              aria-label={`Read case study: ${study.title}`}
+              className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+              style={{ border: "1px solid #EDEAFB" }}
+            >
+              <div className="ss-case-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
+                <img
+                  src={study.image}
+                  alt={study.title}
+                  className="h-full w-full object-cover"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
+                <div className="flex flex-1 flex-col gap-3.5 overflow-hidden">
+                  <span
+                    className="font-body shrink-0 text-[12px] font-semibold tracking-[0.08em]"
+                    style={{ color: LAVENDER_ACCENT }}
+                  >
+                    {study.industry.toUpperCase()}
+                  </span>
+
+                  <h3
+                    className="font-heading shrink-0 text-[20px] font-semibold leading-snug"
+                    style={{ color: CHAMPION_BLUE }}
+                  >
+                    {study.title}
+                  </h3>
+
+                  <p className="ss-case-desc font-body max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
+                    {study.body}
+                  </p>
+                </div>
+
+                <span
+                  className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium"
+                  style={{ color: LAVENDER_ACCENT }}
+                >
+                  <span className="relative">
+                    Learn More
+                    <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                  </span>
+                  <ArrowUpRight
+                    size={16}
+                    className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                  />
+                </span>
+              </div>
+            </Link>
+          </motion.div>
+        )}
+      />
+    </div>
+  </div>
+</section>
+
+
+      <section className="py-24" style={{ backgroundColor: "#EEF0FB" }}>
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={fadeUp}
+            className="flex items-end justify-between"
+          >
+            <h2 className={`${SECTION_HEADING} max-w-40px`} style={{ color: CHAMPION_BLUE }}>
+              What&apos;s New in Data
+              {/* <br />             */}
+               &amp; Analytics
+            </h2>
+            <Link
+              href="/services/data-analytics/blogs"
+              className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:flex"
+              style={{ color: ACCENT_INDIGO }}
+            >
+              View All Insights
+              <ArrowUpRight size={16} />
+            </Link>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 1, y: 0 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mt-14 overflow-hidden"
+          >
+            <motion.div
+              ref={insightTrackRef}
+              animate={{
+                x: insightStepWidth ? -(insightPage * insightStepWidth) : 0,
+              }}
+              transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+              className="flex gap-6"
+            >
+              {insights.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/services/data-analytics/blogs/${post.slug}`}
+                  aria-label={`Read ${post.title}`}
+                  className="group block h-full w-full flex-none md:w-[calc((100%_-_48px)/3)]"
+                >
+                  {post.gradient ? (
+                    <div
+                      className="relative flex min-h-[360px] h-full flex-col justify-end overflow-hidden rounded-2xl p-1 transition-transform duration-300 hover:-translate-y-1"
+                      style={{
+                        background:
+                          "radial-gradient(120% 120% at 20% 10%, #FFD36E 0%, #F97362 45%, #16131F 100%)",
+                      }}
+                    >
+                      <div className="m-4 rounded-xl bg-white/95 p-6">
+                        <span
+                          className="font-body text-[12px] font-semibold tracking-wide"
+                          style={{ color: ACCENT_INDIGO }}
+                        >
+                          BLOG
+                        </span>
+                        <h3
+                          className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                          style={{ color: CHAMPION_BLUE }}
+                        >
+                          {post.title}
+                        </h3>
+                        <p className="font-body mt-3 text-[14px] leading-relaxed text-slate-600">
+                          {post.body}
+                        </p>
+                        <span
+                          className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                          style={{ color: ACCENT_INDIGO }}
+                        >
+                          <span className="relative">
+                            Read More
+                            <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                          </span>
+                          <ArrowUpRight
+                            size={15}
+                            className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="flex min-h-[360px] h-full flex-col overflow-hidden rounded-2xl bg-white transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]">
+                      <div className="h-[220px] shrink-0 overflow-hidden bg-slate-900/90">
+                        <img
+                          src={post.image}
+                          alt={post.title}
+                          className="ss-zoom-img h-full w-full object-cover opacity-80 transition-transform duration-[800ms] ease-out group-hover:scale-110"
+                        />
+                      </div>
+                      <div className="flex flex-1 flex-col p-6">
+                        <span
+                          className="font-body text-[12px] font-semibold tracking-wide"
+                          style={{ color: ACCENT_INDIGO }}
+                        >
+                          BLOG
+                        </span>
+                        <h3
+                          className="font-heading mt-2 text-[18px] font-semibold leading-snug"
+                          style={{ color: CHAMPION_BLUE }}
+                        >
+                          {post.title}
+                        </h3>
+                        <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
+                          {post.body}
+                        </p>
+                        <span
+                          className="font-body mt-5 inline-flex items-center gap-1.5 text-[14px] font-semibold"
+                          style={{ color: ACCENT_INDIGO }}
+                        >
+                          <span className="relative">
+                            Read More
+                            <span className="absolute -bottom-0.5 left-0 h-[1.5px] w-0 bg-current transition-[width] duration-500 ease-out group-hover:w-full" />
+                          </span>
+                          <ArrowUpRight
+                            size={15}
+                            className="transition-transform duration-500 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                          />
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                </Link>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          <div className="mt-10 flex items-center gap-6">
+            <div className="h-[2px] flex-1 bg-slate-300">
+              <div
+                className="h-full transition-all duration-500"
+                style={{
+                  backgroundColor: ACCENT_INDIGO,
+                  width: `${((insightPage + 1) / insightPages) * 100}%`,
+                }}
+              />
+            </div>
+            <div className="flex flex-none items-center gap-3">
+              <button
+                type="button"
+                aria-label="Previous insights"
+                onClick={() => setInsightPage((p) => Math.max(0, p - 1))}
+                disabled={insightPage === 0}
+                className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-slate-400 transition-colors duration-300 hover:text-slate-600 disabled:opacity-40"
+              >
+                <ChevronLeft size={18} />
+              </button>
+              <button
+                type="button"
+                aria-label="Next insights"
+                onClick={() => setInsightPage((p) => Math.min(maxInsightPage, p + 1))}
+                disabled={insightPage === maxInsightPage}
+                className="flex h-11 w-11 items-center justify-center rounded-full text-white disabled:opacity-40"
+                style={{ backgroundColor: ACCENT_INDIGO }}
+              >
+                <ChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+<GetInTouch />
+
+    </main>
+  );
+}

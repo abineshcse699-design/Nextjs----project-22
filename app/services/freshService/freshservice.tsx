@@ -1059,16 +1059,15 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+        <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   {/* 0fr -> 1fr gives a smooth auto-height expand */}
@@ -1281,7 +1280,7 @@ export default function FreshserviceITSMSection(): ReactElement {
             {/* LEFT — sticky while right side scrolls */}
             <div className="relative">
               <Reveal className="lg:sticky lg:top-28">
-                <Eyebrow variant="light">Freshservice Implementation</Eyebrow>
+                {/* <Eyebrow variant="light">Freshservice Implementation</Eyebrow> */}
 
            
                      <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
@@ -1337,7 +1336,7 @@ export default function FreshserviceITSMSection(): ReactElement {
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>Freshservice Implementation</Eyebrow>
+          {/* <Eyebrow>Freshservice Implementation</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             Freshservice Implementation Journey
           </h2>
@@ -1441,7 +1440,7 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">IT Service Management</Eyebrow>
+            {/* <Eyebrow variant="dark">IT Service Management</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your IT
               <br />
@@ -1472,7 +1471,7 @@ export default function FreshserviceITSMSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Case Studies</Eyebrow>
+              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 Case Studies
               </h2>
@@ -1571,7 +1570,7 @@ export default function FreshserviceITSMSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Freshservice Implementation</Eyebrow>
+              {/* <Eyebrow>Freshservice Implementation</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
                 {"What's New in Freshservice ITSM"}
               </h2>

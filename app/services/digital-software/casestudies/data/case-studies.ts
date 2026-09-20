@@ -3,6 +3,16 @@ export type CaseStudyResult = {
   label: string;
 };
 
+export type PointGroup = {
+  title: string;
+  points: string[];
+};
+
+export type ClientStat = {
+  value: string;
+  label: string;
+};
+
 export type CaseStudy = {
   slug: string;
   category: string;
@@ -17,227 +27,152 @@ export type CaseStudy = {
   image: string;
   heroImage: string;
 
-  overview: string;
-  clientOverview: string;
+  // CLIENT section
+  clientParagraphs: string[];
+  clientStats: ClientStat[];
 
-  challengeIntro: string;
-  challengePoints: string[];
+  // CHALLENGE section
+  challengeParagraphs: string[];
+  challengePoints: string[]; // shown under "Major Challenges"
 
-  solutionIntro: string;
-  solutionDetail: string;
-  solution: string[];
+  // SOLUTION section
+  solutionParagraphs: string[];
+  solutionGroups: PointGroup[];
 
-  results: CaseStudyResult[];
+  // BENEFITS section
+  benefitsGroups: PointGroup[];
 
-  benefitsIntro: string;
-  benefits: string[];
-
+  // SUMMARY section
   summary: string;
+  results: CaseStudyResult[];
   techStack: string[];
 
-  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
-  // case study with the latest date always shows first, everywhere
-  // this data is used, regardless of where it sits in this array.
+  // Publish date "YYYY-MM-DD". Newest shows first everywhere.
   date: string;
 };
 
-// Raw list — order here does NOT matter for display, only `date` does.
+/*
+  NOTE: Slugs (URLs) and image links keep their hyphens because routes
+  need them. Every piece of text shown on the page is hyphen free.
+*/
+
 const rawCaseStudies: CaseStudy[] = [
   {
-    slug: "regional-bank-digital-banking-experience",
-    category: "Banking",
-
-    title: "Starfii Builds a Modern Digital Banking Experience for a Regional Bank",
+    slug: "ai-assistant-embedded-in-support-software",
+    category: "AI Product Engineering",
+    title: "Embedding an AI Assistant into a Customer Support Software Product",
     subtitle:
-      "A 38-branch retail bank was losing new customers to digital-first competitors because opening an account still meant a branch visit and a week of paperwork.",
+      "A help desk software vendor wanted AI powered replies inside its product without sending customer data to a third party or slowing agents down.",
     cardDescription:
-      "See how Starfii rebuilt a legacy banking front end into a fast, secure digital experience that cut onboarding time and lifted customer satisfaction.",
+      "See how Starfii shipped a production ready AI assistant inside an existing support product, cutting agent handling time while keeping customer data private.",
 
-    client: "38-branch regional retail bank, ~410,000 active customers",
-    industry: "Banking & Financial Services",
-    services: ["SaaS Product Engineering", "UX Consulting", "Cloud Engineering"],
+    client: "Help desk software vendor, 2,400 business customers",
+    industry: "Software & Technology",
+    services: ["AI Product Engineering", "Data Engineering", "Cloud Engineering"],
 
     image:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
     heroImage:
-      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2000&auto=format&fit=crop",
 
-    overview: "A bank whose digital front door was turning customers away",
-    clientOverview:
-      "New account applications were dropping off before completion in 61% of cases, mostly at the identity-verification step, which still required a printed form to be brought into a branch. The bank's core banking vendor released updates on a fixed quarterly schedule, so even small UI fixes had to wait months to ship.",
+    clientParagraphs: [
+      "The client builds a ticketing and help desk product used by customer support teams across retail, telecom, and SaaS companies. Their customers were increasingly asking for AI features, and two competitors had already announced assistants of their own.",
+      "The product team had a working prototype, but it called a public model API directly and had no way to guarantee that ticket content stayed inside each customer's own data boundary.",
 
-    challengeIntro: "A decade-old portal tightly wired to core banking",
+      "The product team also needed the assistant to feel like a natural part of the existing agent workflow, rather than another separate tool that agents had to open and manage.",    ],
+    clientStats: [
+      { value: "2,400", label: "Business customers on the platform" },
+      { value: "38,000", label: "Support agents using the product daily" },
+      { value: "1.2M", label: "Tickets handled every month" },
+    ],
+
+    challengeParagraphs: [
+      "The client needed to move from prototype to a production feature quickly, but the prototype could not be released as it was. Replies were slow, answers were sometimes wrong, and there was no record of which knowledge base article had informed a suggestion.",
+      "Enterprise customers also made it clear that they would not enable any AI feature until data isolation, opt out controls, and audit logs were in place.",
+
+      "The team therefore had to balance answer quality, response speed, privacy, and usability at the same time, while keeping the feature simple enough for support agents to trust during live conversations.",    ],
     challengePoints: [
-      "Locked release cycle: Every feature request, even copy changes, required a change ticket with the core banking vendor and a multi-week release window.",
-      "Batch identity checks: The KYC provider only returned results overnight, forcing applicants to wait a full day before funding an account.",
-      "No separation of concerns: The public site was a decade-old ASP.NET app with no boundary between presentation and core banking logic.",
+      "Data isolation: Ticket content from one customer could never be used to answer another customer's tickets.",
+      "Unreliable answers: The prototype produced confident replies even when the knowledge base had no relevant article.",
+      "Slow responses: Suggested replies took 8 to 12 seconds, which agents would not wait for.",
+      "No visibility: Product and support leads had no way to measure whether suggestions were actually being used.",
     ],
 
-    solutionIntro: "A decoupled experience layer with real-time verification",
-    solutionDetail:
-      "Starfii built a dedicated experience layer in Next.js sitting behind a GraphQL gateway, separating the customer-facing product from the core banking system entirely.",
-    solution: [
-      "Real-time KYC: Replaced the overnight batch identity check with a real-time document-verification and liveness-check provider.",
-      "One-session onboarding: ID capture, liveness check, and initial deposit combined into a single guided flow instead of separate steps.",
-      "Weekly release cadence: A feature-flagging system let the bank's product team ship UI and flow changes weekly, independent of the vendor's release calendar.",
+    solutionParagraphs: [
+      "Starfii designed the assistant as a retrieval based feature that sits inside the agent's ticket view. Suggestions are built only from that customer's own knowledge base and past resolved tickets, and every suggestion shows the sources behind it.",
+      "The feature was released in stages, starting with a small group of design partner customers, so the team could tune quality before opening it to everyone.",
+
+      "The experience was kept deliberately close to the existing support workflow, with relevant context available at the moment an agent needed it and without requiring agents to leave the ticket screen.",    ],
+    solutionGroups: [
+      {
+        title: "Retrieval & Answer Quality",
+        points: [
+          "Per customer vector indexes so each tenant's data stays separate",
+          "Answers are generated only when a relevant source is found; otherwise the agent sees a clear 'no suggestion' state",
+          "Every suggestion links to the article or ticket it came from",
+        ],
+      },
+      {
+        title: "Speed & Experience",
+        points: [
+          "Streaming responses so agents see the first words in under a second",
+          "One click insert, edit, or dismiss directly inside the reply editor",
+          "Caching of common questions to keep costs and latency low",
+        ],
+      },
+      {
+        title: "Governance & Analytics",
+        points: [
+          "Admin controls to enable or disable the assistant per team",
+          "Full audit log of prompts, sources, and agent actions",
+          "Dashboard showing acceptance rate, edits, and time saved",
+        ],
+      },
     ],
 
-    results: [
-      { metric: "9d → 40m", label: "Time to open and fund an account" },
-      { metric: "-54%", label: "Drop-off at identity verification" },
-      { metric: "14", label: "Onboarding experiments shipped in 6 months" },
-      { metric: "3x", label: "Faster feature releases" },
-    ],
-
-    benefitsIntro: "What changed for the bank's product team",
-    benefits: [
-      "Faster iteration: Product managers ship onboarding experiments weekly instead of waiting on a vendor release window.",
-      "Higher completion: More than half of applicants who used to abandon at identity verification now complete the flow.",
-      "Lower support load: Fewer customers call branches asking why their application is stuck overnight.",
+    benefitsGroups: [
+      {
+        title: "For Support Agents",
+        points: [
+          "Faster first replies with sources they can verify",
+          "Less time searching the knowledge base for repeat questions",
+        ],
+      },
+      {
+        title: "For the Product Team",
+        points: [
+          "A shippable AI feature that enterprise security teams approved",
+          "Usage data to guide the next set of AI improvements",
+          "A reusable retrieval layer for future features",
+        ],
+      },
     ],
 
     summary:
-      "The bank's real bottleneck wasn't the account-opening form — it was an overnight identity check and a vendor release calendar sitting behind it. Fixing both let a 9-day process become a 40-minute one, and let the product team start shipping on its own schedule.",
-
-    techStack: ["Next.js", "GraphQL", "Real-time KYC integration", "Feature flagging", "AWS"],
-
-    date: "2025-08-01",
-  },
-
-  {
-    slug: "utilities-digital-transformation-microsoft",
-    category: "Utilities",
-
-    title: "Digital Transformation in Utilities Powered by Microsoft Business Applications",
-    subtitle:
-      "Crews were dispatched by radio and filed paper work orders, so headquarters had no idea a job was finished until a technician drove back to file paperwork.",
-    cardDescription:
-      "Discover how Starfii used Microsoft Business Applications to modernize field operations and give teams real-time visibility across the grid.",
-
-    client: "Regional electric utility, 280 field technicians across 6 service districts",
-    industry: "Utilities & Energy",
-    services: ["Microsoft Business Applications", "Field Operations", "Data Engineering"],
-
-    image:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop",
-
-    overview: "A utility running field operations over radio and paper",
-    clientOverview:
-      "Crews received job assignments over radio and filled out paper work orders that were manually keyed into the billing system, typically 1-3 days after the work was finished. Outage maps in the control room were updated by phone call, so the public outage tracker was frequently hours behind reality.",
-
-    challengeIntro: "Rural connectivity and legacy on-prem systems",
-    challengePoints: [
-      "No mobile tooling: Many trucks had unreliable data connectivity in rural districts, so any solution had to work offline and sync later.",
-      "No API surface: Billing and asset-management ran on on-prem SQL Server databases with no existing integration layer.",
-      "Manual relay: Outage status moved from field to control room by phone call, with no direct link to the public outage map.",
-    ],
-
-    solutionIntro: "An offline-first field app connected to dispatch and BI",
-    solutionDetail:
-      "Starfii built an offline-capable Power Apps field application that queues work-order updates locally and syncs once connectivity returns, paired with Dynamics 365 Field Service for dispatch.",
-    solution: [
-      "Offline-first mobile: Field technicians close work orders even without signal; updates sync automatically once back in range.",
-      "Connected dispatch: Dynamics 365 Field Service gives dispatchers live crew location and job status instead of radio check-ins.",
-      "Live outage data: A new integration layer over the legacy SQL Server systems feeds the same outage data into the public-facing map.",
-    ],
+      "The prototype proved the idea, but trust was what made the feature sellable. Isolating each customer's data, showing sources, and giving admins control turned an AI demo into a product enterprise customers were willing to switch on.",
 
     results: [
-      { metric: "Days → min", label: "Time for job data to reach billing" },
-      { metric: "280", label: "Field technicians using the app daily" },
-      { metric: "6", label: "Service districts connected, incl. rural areas" },
-      { metric: "45%", label: "Faster outage response" },
+      { metric: "−31%", label: "Average ticket handling time" },
+      { metric: "<1s", label: "Time to first suggestion" },
+      { metric: "64%", label: "Suggestions accepted or lightly edited" },
+      { metric: "11 wks", label: "From prototype to general availability" },
     ],
+    techStack: ["Next.js", "Node.js", "Vector search", "LLM APIs", "PostgreSQL", "AWS"],
 
-    benefitsIntro: "What changed in day-to-day operations",
-    benefits: [
-      "Real-time visibility: Dispatchers see a job close the moment it's done, not after a truck drives back to the depot.",
-      "Accurate public outage map: The map reflects live field data instead of a manually updated phone relay.",
-      "Less rework: Fewer billing corrections from illegible or delayed paper work orders.",
-    ],
-
-    summary:
-      "The utility didn't need a bigger system — it needed the field and the office looking at the same data at the same time. An offline-first app closed that gap even in districts where connectivity itself was the obstacle.",
-
-    techStack: ["Power Apps", "Dynamics 365 Field Service", "Power BI", "SQL Server integration"],
-
-    date: "2025-07-01",
+    date: "2025-10-01",
   },
 
   {
-    slug: "digital-mortgage-automation",
-    category: "Mortgage Lending",
-
-    title: "Starfii Automates the Digital Mortgage Application Process",
+    slug: "legacy-erp-to-multi-tenant-saas",
+    category: "SaaS Product Engineering",
+    title: "Rearchitecting a Legacy ERP into a Multi Tenant SaaS Platform",
     subtitle:
-      "Underwriters were spending roughly 40% of their time manually re-keying figures from pay stubs and bank statements instead of evaluating risk.",
+      "An 18 year old on premise ERP product needed to become a cloud subscription product without breaking the customers who depended on it.",
     cardDescription:
-      "Learn how Starfii's intelligent automation shortened mortgage approval cycles from weeks to days while keeping every step compliant and fully auditable.",
+      "Learn how Starfii moved an on premise ERP product to a multi tenant SaaS platform, cutting onboarding from months to days.",
 
-    client: "National mortgage lender, ~1,900 loan applications processed monthly",
-    industry: "Financial Services",
-    services: ["Intelligent Automation", "Compliance Engineering", "Cloud Engineering"],
-
-    image:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2000&auto=format&fit=crop",
-
-    overview: "A lender caught between speed and compliance",
-    clientOverview:
-      "Regulatory requirements meant every calculation and decision needed a traceable audit trail, which had historically pushed the lender away from automation for fear of losing that traceability — even as manual document handling ate into underwriting capacity.",
-
-    challengeIntro: "Inconsistent documents and a batch-only loan system",
-    challengePoints: [
-      "Inconsistent formats: Documents arrived as scanned PDFs, phone photos, and faxes from three different origination channels.",
-      "No live integration: The loan origination system only supported a nightly batch import, not real-time updates.",
-      "Audit requirements: Every automated decision needed a full trail back to its source document for investor and regulatory review.",
-    ],
-
-    solutionIntro: "Automated extraction with a built-in audit trail",
-    solutionDetail:
-      "Starfii introduced an intelligent document processing pipeline that extracts and cross-checks income and asset figures automatically, flagging only exceptions for human review.",
-    solution: [
-      "Exception-based review: Underwriters review flagged discrepancies instead of re-keying every document.",
-      "Real-time LOS updates: A custom integration service replaced the nightly batch import with near real-time data flow.",
-      "Queryable audit store: Every automated decision and its source document are logged so compliance can trace it directly, without an engineering request.",
-    ],
-
-    results: [
-      { metric: "4wk → 9d", label: "Median underwriting decision time" },
-      { metric: "78%", label: "Documents processed with no manual re-keying" },
-      { metric: "100%", label: "Decisions traceable to source in the audit store" },
-      { metric: "35%", label: "Lower processing effort" },
-    ],
-
-    benefitsIntro: "What changed for underwriting and compliance",
-    benefits: [
-      "Faster decisions: Median time to a decision dropped from about 4 weeks to 9 days.",
-      "Preserved compliance: Every checkpoint required by investor and regulatory guidelines stayed in place.",
-      "Self-service audits: Compliance can trace any decision without waiting on engineering.",
-    ],
-
-    summary:
-      "Compliance was the reason the lender had avoided automation for years. Building the audit trail in from day one — not bolting it on after — was what made automation acceptable to the compliance team.",
-
-    techStack: ["Intelligent document processing (OCR)", "Workflow automation", "LOS integration", "Audit logging"],
-
-    date: "2025-06-01",
-  },
-
-  {
-    slug: "healthcare-saas-platform-scale",
-    category: "Healthcare",
-
-    title: "Starfii Scales a SaaS Platform for a Fortune 500 Healthcare Provider",
-    subtitle:
-      "A healthcare SaaS platform's Rails monolith took the entire product offline for up to 45 minutes on every release, and that maintenance window was starting to block enterprise deals.",
-    cardDescription:
-      "See how Starfii's composable architecture let a healthcare SaaS platform scale to millions of users without sacrificing reliability or HIPAA compliance.",
-
-    client: "Fortune 500 healthcare provider, patient-engagement SaaS product",
-    industry: "Healthcare",
+    client: "Mid size ERP software vendor, 600+ on premise customers",
+    industry: "Software & Technology",
     services: ["SaaS Product Engineering", "Composable Architecture", "Cloud Engineering"],
 
     image:
@@ -245,111 +180,404 @@ const rawCaseStudies: CaseStudy[] = [
     heroImage:
       "https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2000&auto=format&fit=crop",
 
-    overview: "A monolith that had outgrown its own release process",
-    clientOverview:
-      "The platform had grown from a single-tenant pilot to serving over a million patients, but the architecture hadn't changed: one Rails monolith, one PostgreSQL database, deployed during a nightly maintenance window. As enterprise health-system customers signed on, that downtime window and the compliance review overhead on every release became the two biggest blockers to closing new deals.",
+    clientParagraphs: [
+      "The client sells an ERP product covering finance, inventory, and purchasing to mid size manufacturers. For nearly two decades it was installed on each customer's own servers and customised for each deployment.",
+      "New prospects were asking for a hosted subscription option, and existing customers were tired of paying for upgrade projects every year.",
 
-    challengeIntro: "A tightly coupled codebase with manual compliance gates",
+      "The cloud version also needed to preserve the workflows that customers already understood, so the migration could improve the platform without forcing customers to relearn the entire product.",    ],
+    clientStats: [
+      { value: "600+", label: "On premise customer installations" },
+      { value: "18 yrs", label: "Product in the market" },
+      { value: "$42M", label: "Annual recurring revenue" },
+    ],
+
+    challengeParagraphs: [
+      "Each customer ran a slightly different version of the product, with custom fields, reports, and integrations built over the years. Upgrades were manual projects that took the vendor's services team weeks per customer.",
+      "The codebase assumed one company per database. Moving to a shared platform meant rethinking how data, configuration, and security worked, while continuing to support customers who were not ready to move.",
+
+      "The migration had to account for differences between customer environments while creating a common foundation that could be maintained and released consistently going forward.",    ],
     challengePoints: [
-      "Coupled modules: A roughly 400,000-line codebase meant a scheduling change could break billing in ways that were hard to catch pre-release.",
-      "Manual compliance checklist: HIPAA review ran as a checklist before every deploy, capping releases to roughly once every 6 weeks.",
-      "No tenant isolation: One shared database meant no way to isolate load or roll back a single feature without rolling back everything.",
+      "Single tenant design: The application and database were built for one company per install.",
+      "Heavy customisation: Hundreds of customer specific changes lived directly in the core code.",
+      "Slow upgrades: Every release required a separate rollout project for each customer.",
+      "Migration risk: Customers could not accept downtime or data loss during the move to the cloud.",
     ],
 
-    solutionIntro: "Service extraction with compliance built into the pipeline",
-    solutionDetail:
-      "Starfii extracted the highest-traffic domains — scheduling, messaging, and billing — into separate services behind an API gateway, each with its own datastore.",
-    solution: [
-      "Targeted extraction: The three highest-traffic domains moved to independent services first; lower-traffic modules stayed in the monolith for a later phase.",
-      "Automated compliance gates: HIPAA checks — encryption, access-log verification, PHI-field scanning — now run in CI/CD on every commit.",
-      "Zero-downtime deploys: Blue-green releases per service eliminated the maintenance window entirely.",
+    solutionParagraphs: [
+      "Starfii introduced a multi tenant core and moved customisation out of the code into a configuration layer, so customers could keep their own fields, workflows, and reports without forking the product.",
+      "Modules were migrated in a planned order, with the desktop and SaaS versions kept in sync during the transition.",
+
+      "The team separated customer specific behaviour from the shared application so the platform could evolve centrally while still supporting the configuration differences customers relied on.",    ],
+    solutionGroups: [
+      {
+        title: "Platform Architecture",
+        points: [
+          "Tenant aware data layer with row level isolation and per tenant encryption keys",
+          "Configuration engine for custom fields, workflows, and approval rules",
+          "API first services so integrations no longer depend on database access",
+        ],
+      },
+      {
+        title: "Migration & Onboarding",
+        points: [
+          "Automated import tooling that maps on premise data into the new schema",
+          "Parallel run period where customers compare results before switching",
+          "Self service setup wizard for new customers",
+        ],
+      },
+      {
+        title: "Operations",
+        points: [
+          "Single release stream with feature flags for gradual rollouts",
+          "Monitoring and usage metrics for every tenant",
+        ],
+      },
     ],
 
-    results: [
-      { metric: "1M → 5M+", label: "Active users supported" },
-      { metric: "45min → 0", label: "Deployment downtime window" },
-      { metric: "6wk → days", label: "Release cadence for extracted services" },
-      { metric: "99.99%", label: "Platform uptime" },
-    ],
-
-    benefitsIntro: "What changed for the engineering organization",
-    benefits: [
-      "Independent releases: The scheduling team ships without waiting on billing or messaging.",
-      "Faster compliance sign-off: Most HIPAA checks run automatically instead of requiring a manual pre-release review.",
-      "Room to grow: The platform absorbed 5x user growth without an incident tied to capacity.",
+    benefitsGroups: [
+      {
+        title: "Faster Delivery",
+        points: [
+          "New versions reach every customer at once instead of one rollout project at a time",
+          "Customer specific needs are handled through configuration, not code changes",
+        ],
+      },
+      {
+        title: "Business Growth",
+        points: [
+          "Subscription pricing opened the product to smaller manufacturers",
+          "Services team time shifted from upgrades to onboarding and customer success",
+          "Predictable recurring revenue replaced one off project income",
+        ],
+      },
     ],
 
     summary:
-      "The platform's growth wasn't the real risk — its release process was. Breaking the monolith apart one domain at a time, with compliance checks moved into the pipeline itself, let the team keep shipping while user count grew 5x.",
-
-    techStack: ["Service extraction", "API gateway", "HIPAA compliance automation", "Blue-green deployments", "Kubernetes"],
-
-    date: "2025-05-01",
-  },
-
-  {
-    slug: "insurance-claims-low-code-platform",
-    category: "Insurance",
-
-    title: "Starfii Transforms Reinsurance Claims Management with a Low Code Platform",
-    subtitle:
-      "Each regional office tracked claims in its own spreadsheet, so a large claim could exist in four different versions with four different statuses.",
-    cardDescription:
-      "Explore how Starfii transformed insurance claims management with a low code digital platform, automating workflows, improving efficiency, and enhancing service quality for a global reinsurer.",
-
-    client: "Global reinsurance provider, 14 regional claims offices",
-    industry: "Insurance",
-    services: ["Low Code Engineering", "Workflow Automation", "Claims Systems"],
-
-    image:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=1200&auto=format&fit=crop",
-    heroImage:
-      "https://images.unsplash.com/photo-1573497620053-ea5300f94f21?q=80&w=2000&auto=format&fit=crop",
-
-    overview: "A reinsurer reconciling spreadsheets instead of settling claims",
-    clientOverview:
-      "For claims involving multiple regions — common in large reinsurance treaties — there was no single source of truth, and reconciling conflicting statuses across offices could add a week or more to settlement.",
-
-    challengeIntro: "14 regions, 14 sets of rules, two disconnected legacy systems",
-    challengePoints: [
-      "Regional variation: Different local regulatory requirements and document types meant a single rigid workflow wouldn't fit every office.",
-      "No shared identifiers: Policy administration and finance ran on two separate legacy systems with no common ID linking a claim to its policy and payment.",
-      "Weekly reconciliation: Offices compared spreadsheets manually every week to catch conflicting claim statuses.",
-    ],
-
-    solutionIntro: "One configurable platform, one shared claim record",
-    solutionDetail:
-      "Starfii built the platform on Microsoft Power Platform with a configurable workflow engine, so each region could adjust intake steps and required documents within a shared framework.",
-    solution: [
-      "Configurable workflows: Each region adjusts its own intake steps and document requirements without forking the platform.",
-      "Cross-system matching: A matching service resolves policy and claim identifiers across the two legacy systems automatically.",
-      "Automated intake: OCR handles the most common claim-form types, routing anything unclear to a human reviewer.",
-    ],
+      "The real work was not moving servers to the cloud. It was removing the customisation that tied every customer to their own version. Once that lived in configuration, one product could serve all of them.",
 
     results: [
-      { metric: "62%", label: "Faster average claims cycle time" },
-      { metric: "14", label: "Regional offices on one shared platform" },
-      { metric: "40+", label: "Region-specific workflow variants configured" },
-      { metric: "99.9%", label: "Platform uptime" },
+      { metric: "3 mo → 5 d", label: "New customer onboarding time" },
+      { metric: "70%", label: "Reduction in upgrade services effort" },
+      { metric: "210", label: "Customers migrated in the first year" },
+      { metric: "99.95%", label: "Platform availability" },
     ],
-
-    benefitsIntro: "What changed for claims operations",
-    benefits: [
-      "One source of truth: Every region and head office see the same claim record and status in real time.",
-      "No more reconciliation cycle: The weekly spreadsheet comparison is gone entirely.",
-      "Faster multi-region claims: The claims that used to be slowest — spanning multiple offices — saw the largest improvement.",
-    ],
-
-    summary:
-      "The reinsurer's problem was never claims volume — it was 14 versions of the truth. A configurable platform let each region keep its own process while finally working from one shared record.",
-
-    techStack: ["Power Platform", "Configurable workflow engine", "Cross-system identity matching", "OCR document intake"],
+    techStack: ["React", ".NET Core", "PostgreSQL", "Kubernetes", "Azure", "Feature flags"],
 
     date: "2025-09-01",
   },
+
+  {
+    slug: "fintech-mvp-to-scale-payments-dashboard",
+    category: "Product Engineering",
+    title: "From MVP to Scale: Building a Payments Platform for a Fintech Startup",
+    subtitle:
+      "A seed stage fintech had an investor demo and a six month deadline. Starfii helped turn the idea into a live product that could handle real transactions.",
+    cardDescription:
+      "See how Starfii took a fintech payments product from idea to launch in five months and scaled it to millions of transactions.",
+
+    client: "Seed stage fintech startup, B2B payments for small businesses",
+    industry: "Fintech",
+    services: ["Product Strategy", "SaaS Product Engineering", "UX Consulting"],
+
+    image:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=1200&auto=format&fit=crop",
+    heroImage:
+      "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=2000&auto=format&fit=crop",
+
+    clientParagraphs: [
+      "The client is a young fintech building a payments and invoicing product for small businesses that need to collect money from other businesses without chasing invoices.",
+      "The founders had a clear vision and early investor interest, but no in house engineering team and a launch date tied to their next funding milestone.",
+
+      "Because the product would handle real financial workflows, the team also needed to make important actions clear and predictable for users from the first release.",    ],
+    clientStats: [
+      { value: "5 mo", label: "Idea to live product" },
+      { value: "1,800", label: "Businesses onboarded in year one" },
+      { value: "$96M", label: "Payment volume processed" },
+    ],
+
+    challengeParagraphs: [
+      "The founders needed a product that looked and felt credible to finance teams, and that could pass banking partner reviews, all with a small budget and no room for rework.",
+      "They also knew that the first version would change quickly once real customers started using it, so the foundation had to be simple to evolve.",
+
+      "Every feature had to justify its place in the first release, while the underlying architecture still needed enough flexibility to support the feedback that would arrive after launch.",    ],
+    challengePoints: [
+      "Tight timeline: A fixed launch date linked to investor commitments.",
+      "Regulated domain: Payments, identity checks, and audit trails had to be right from day one.",
+      "Unclear scope: Many ideas, limited budget, and no data yet on what customers valued most.",
+      "Future scale: The MVP needed to grow without a full rewrite after launch.",
+    ],
+
+    solutionParagraphs: [
+      "Starfii ran a two week discovery to reduce the scope to the smallest product that delivered value: send an invoice, accept a payment, and reconcile it automatically.",
+      "The product was built in short cycles with the founders reviewing a working version every week.",
+
+      "The team prioritised the core payment journey and kept supporting workflows modular so new requirements could be added without disrupting the primary customer experience.",    ],
+    solutionGroups: [
+      {
+        title: "Product & Design",
+        points: [
+          "Clickable prototype tested with 12 small business owners before development started",
+          "Simple dashboard focused on what is owed, what is paid, and what is late",
+        ],
+      },
+      {
+        title: "Engineering Foundation",
+        points: [
+          "Modular backend where payments, invoicing, and notifications are separate services",
+          "Integration with a licensed payments partner and an identity verification provider",
+          "Automated tests and deployment pipeline from the first sprint",
+        ],
+      },
+      {
+        title: "Growth Readiness",
+        points: [
+          "Event tracking to show which features customers actually used",
+          "Role based access for accountants and business owners",
+        ],
+      },
+    ],
+
+    benefitsGroups: [
+      {
+        title: "For the Founders",
+        points: [
+          "Launched on schedule and used the live product in the funding conversation",
+          "Clear product data to prioritise the next roadmap items",
+        ],
+      },
+      {
+        title: "For Customers",
+        points: [
+          "Invoices paid faster with automatic reminders",
+          "Payments matched to invoices without manual bookkeeping",
+        ],
+      },
+    ],
+
+    summary:
+      "Cutting scope early mattered more than adding features. A small, dependable product on a clean foundation gave the startup something real to show investors and customers, and room to grow.",
+
+    results: [
+      { metric: "5 mo", label: "From kickoff to live launch" },
+      { metric: "−42%", label: "Average days to get paid" },
+      { metric: "1,800", label: "Businesses onboarded in year one" },
+      { metric: "0", label: "Rewrites needed after launch" },
+    ],
+    techStack: ["Next.js", "Node.js", "PostgreSQL", "Stripe style payments API", "AWS"],
+
+    date: "2025-08-01",
+  },
+
+  {
+    slug: "devops-cicd-release-automation-product-company",
+    category: "DevOps & Cloud",
+    title: "Cutting Release Time by 5x with DevOps and CI/CD Automation",
+    subtitle:
+      "A software product company shipped once a month because every release depended on manual testing and a late night deployment.",
+    cardDescription:
+      "Discover how Starfii automated testing and deployment for a software product team, moving from monthly releases to several a week.",
+
+    client: "B2B software product company, 9 engineering teams",
+    industry: "Software & Technology",
+    services: ["DevOps Consulting", "Cloud Engineering", "Quality Engineering"],
+
+    image:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=1200&auto=format&fit=crop",
+    heroImage:
+      "https://images.unsplash.com/photo-1521791136064-7986c2920216?q=80&w=2000&auto=format&fit=crop",
+
+    clientParagraphs: [
+      "The client develops a workforce management product used by mid size enterprises. Nine engineering teams contribute to a shared platform with web, mobile, and API components.",
+      "As the team grew, releases became bigger, riskier, and slower, and customer requests waited weeks to reach production.",
+
+      "With multiple teams contributing to the same product, the release process needed to become predictable enough that teams could make smaller changes without coordinating every deployment manually.",    ],
+    clientStats: [
+      { value: "9", label: "Engineering teams" },
+      { value: "140", label: "Engineers contributing to the product" },
+      { value: "1 / month", label: "Release frequency before the project" },
+    ],
+
+    challengeParagraphs: [
+      "Releases were coordinated by a small group who ran regression tests by hand over a weekend. Any bug found late pushed the whole release back by another cycle.",
+      "Environments were set up manually, so what worked in testing often behaved differently in production, and rollbacks were slow and stressful.",
+
+      "The existing process made release risk visible only late in the cycle, so the new approach needed to move quality and deployment feedback much earlier in development.",    ],
+    challengePoints: [
+      "Manual regression: Around 900 test cases were executed by hand before each release.",
+      "Inconsistent environments: Staging and production configuration had drifted apart.",
+      "Big bang deployments: Changes from all nine teams shipped together, making failures hard to trace.",
+      "Slow recovery: Rolling back a bad release took several hours.",
+    ],
+
+    solutionParagraphs: [
+      "Starfii built a delivery pipeline that tests every change automatically and deploys it through the same steps every time, starting with the two teams that shipped most often.",
+      "Infrastructure was moved into code so any environment could be created, compared, or rebuilt on demand.",
+
+      "The pipeline standardised the path from code change to production and made deployment health visible throughout the process instead of relying on a final manual release check.",    ],
+    solutionGroups: [
+      {
+        title: "Automated Quality",
+        points: [
+          "Automated unit, API, and end to end test suites running on every pull request",
+          "Security and dependency scanning built into the pipeline",
+          "Test results and coverage visible to every team",
+        ],
+      },
+      {
+        title: "Reliable Deployments",
+        points: [
+          "Infrastructure as code so environments stay consistent",
+          "Blue green and canary releases with automatic rollback",
+          "Feature flags to separate deployment from release",
+        ],
+      },
+      {
+        title: "Visibility",
+        points: [
+          "Delivery dashboard tracking lead time, deploy frequency, and failure rate",
+          "Alerts tied to each release for faster diagnosis",
+        ],
+      },
+    ],
+
+    benefitsGroups: [
+      {
+        title: "Speed to Market",
+        points: [
+          "Customer requested changes reach production in days instead of weeks",
+          "Teams release independently without waiting for a shared date",
+        ],
+      },
+      {
+        title: "Quality & Confidence",
+        points: [
+          "Fewer defects found after release",
+          "Weekend release work eliminated for the engineering teams",
+          "Rollbacks completed in minutes",
+        ],
+      },
+    ],
+
+    summary:
+      "The bottleneck was not developer speed, it was the manual work around every release. Automating tests and deployments let each team ship small changes safely and often.",
+
+    results: [
+      { metric: "1/mo → 4/wk", label: "Release frequency" },
+      { metric: "−68%", label: "Post release defects" },
+      { metric: "4h → 6min", label: "Rollback time" },
+      { metric: "85%", label: "Regression tests automated" },
+    ],
+    techStack: ["GitHub Actions", "Terraform", "Kubernetes", "Playwright", "Datadog", "AWS"],
+
+    date: "2025-07-01",
+  },
+
+  {
+    slug: "b2b-analytics-product-ux-redesign",
+    category: "UX & Product Design",
+    title: "Redesigning a B2B Analytics Product for Adoption and Retention",
+    subtitle:
+      "An analytics product with powerful features was losing customers because new users could not find value in their first week.",
+    cardDescription:
+      "See how Starfii combined UX research and front end engineering to redesign an analytics product and lift activation and retention.",
+
+    client: "B2B analytics software company, 350 enterprise accounts",
+    industry: "Software & Technology",
+    services: ["UX Consulting", "SaaS Product Engineering", "Design Systems"],
+
+    image:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&auto=format&fit=crop",
+    heroImage:
+      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop",
+
+    clientParagraphs: [
+      "The client offers a dashboarding and reporting product used by operations and finance teams at large companies. The product had grown feature by feature over eight years.",
+      "Sales demos went well, but many customers struggled after purchase, and renewal conversations kept returning to the same complaint: the product was hard to learn.",
+
+      "The redesign also needed to work for experienced customers, who already had established workflows and could not simply be moved to an entirely unfamiliar interface.",    ],
+    clientStats: [
+      { value: "350", label: "Enterprise accounts" },
+      { value: "8 yrs", label: "Of feature growth" },
+      { value: "27%", label: "Of new users active after 30 days" },
+    ],
+
+    challengeParagraphs: [
+      "Usage data showed that most new users opened the product once or twice and never built their first dashboard. Interviews revealed that the navigation grew organically, and each screen followed different patterns.",
+      "The team wanted to improve the experience without pausing feature work or forcing existing customers to relearn everything at once.",
+
+      "The team had to improve the first time experience while preserving the productivity of existing users who depended on the product every day.",    ],
+    challengePoints: [
+      "Complex navigation: More than 60 menu items spread across five different areas.",
+      "Inconsistent interface: Similar actions looked and behaved differently from screen to screen.",
+      "Empty first experience: New accounts started with a blank workspace and no guidance.",
+      "Limited front end capacity: The codebase had no shared components, so every change took longer than it should.",
+    ],
+
+    solutionParagraphs: [
+      "Starfii started with research: 18 customer interviews and a review of session recordings to find where new users got stuck. The findings shaped a simplified structure built around the first tasks people actually needed to complete.",
+      "The redesign was delivered gradually behind feature flags, and every change was tested with a subset of accounts before wider release.",
+
+      "Changes were introduced incrementally so the product could improve its onboarding and navigation without requiring a disruptive all at once redesign.",    ],
+    solutionGroups: [
+      {
+        title: "Experience Design",
+        points: [
+          "New navigation built around jobs to be done instead of internal feature names",
+          "Guided first run flow that helps users create a useful dashboard from their own data",
+          "Template gallery for the most common reports",
+        ],
+      },
+      {
+        title: "Design System & Engineering",
+        points: [
+          "Shared component library used across all product areas",
+          "Accessibility improvements to meet WCAG 2.1 AA",
+          "Performance work on the heaviest dashboard screens",
+        ],
+      },
+      {
+        title: "Measurement",
+        points: [
+          "Activation and retention metrics defined before design started",
+          "A/B tests on onboarding steps to confirm improvements",
+        ],
+      },
+    ],
+
+    benefitsGroups: [
+      {
+        title: "For Customers",
+        points: [
+          "Faster time to the first useful dashboard",
+          "A consistent interface that is easier to learn and to train others on",
+        ],
+      },
+      {
+        title: "For the Product Team",
+        points: [
+          "New features built from ready made components in less time",
+          "Clear metrics linking design changes to retention",
+          "Fewer support tickets about basic navigation",
+        ],
+      },
+    ],
+
+    summary:
+      "The product did not need fewer features; it needed a clearer path to the first result. Redesigning around the first tasks users care about, and backing it with a shared design system, made the product easier to adopt and easier to build on.",
+
+    results: [
+      { metric: "27% → 58%", label: "Users active after 30 days" },
+      { metric: "−44%", label: "Time to first dashboard" },
+      { metric: "−36%", label: "Navigation related support tickets" },
+      { metric: "+12 pts", label: "Net revenue retention" },
+    ],
+    techStack: ["React", "TypeScript", "Storybook", "Figma", "GraphQL", "Amplitude"],
+
+    date: "2025-06-01",
+  },
 ];
 
-// Newest date first — this is what every page actually imports.
+// Newest date first. This is what every page actually imports.
 export const caseStudies: CaseStudy[] = [...rawCaseStudies].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );

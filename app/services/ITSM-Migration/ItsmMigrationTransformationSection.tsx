@@ -8,6 +8,13 @@ import {
   ChevronDown,
   ArrowUpRight,
   Plus,
+  Minus,
+  LogOut,
+  LayoutGrid,
+  GitMerge,
+  Workflow,
+  FileCheck2,
+  Plug,
 } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
 import GetInTouch from "../ITSM-Migration/GetTouch";
@@ -195,38 +202,49 @@ const impactAreas = [
   },
 ];
 
-type UseCase = { industry: string; title: string; body: string };
+type UseCase = {
+  industry: string;
+  title: string;
+  body: string;
+  icon: React.ComponentType<{ size?: number; strokeWidth?: number }>;
+};
 
 const useCases: UseCase[] = [
   {
     industry: "Insurance",
     title: "End of Life Platform Exit",
     body: "Move incidents, changes, and CMDB records off an unsupported ITSM platform on a phased schedule, without a single day of service desk downtime.",
+    icon: LogOut,
   },
   {
     industry: "Retail",
     title: "Self Service Catalog Rebuild",
     body: "Restructure a sprawling service catalog into a clean request experience, so employees resolve common asks without opening a ticket.",
+    icon: LayoutGrid,
   },
   {
     industry: "Manufacturing",
     title: "CMDB Consolidation",
     body: "Merge fragmented asset records from every plant into one CMDB with accurate dependency mapping for change impact analysis.",
+    icon: GitMerge,
   },
   {
     industry: "Healthcare",
     title: "Approval Workflow Automation",
     body: "Rebuild approval chains and escalation paths during migration, cutting manual handoffs and shortening incident resolution times.",
+    icon: Workflow,
   },
   {
     industry: "Banking",
     title: "Audit Ready Change Records",
     body: "Migrate change and approval history with full traceability, so compliance teams can evidence every control after go live.",
+    icon: FileCheck2,
   },
   {
     industry: "Technology",
     title: "Integration Re-Platforming",
     body: "Reconnect monitoring, identity, and HR systems to the new ITSM platform so automation keeps running through the cutover window.",
+    icon: Plug,
   },
 ];
 
@@ -673,22 +691,15 @@ function ImpactAccordion({ items }: { items: { title: string; body: string }[] }
                     >
                       {entry.title}
                     </span>
-
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : ACCENT_INDIGO,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                      }}
-                    >
-                      <Plus
-                        size={18}
-                        style={{
-                          transform: isOpen ? "rotate(45deg)" : "rotate(0deg)",
-                          transition: "transform 0.3s ease",
-                        }}
-                      />
-                    </span>
+  <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   <div
@@ -845,83 +856,86 @@ export default function ItsmMigrationTransformationSection() {
       {/* ============================================================
           HERO — full-bleed dark gradient hero, matches Data & Analytics
       ============================================================ */}
-<section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
-  <div className="absolute inset-0 -z-10">
-    <motion.img
-      initial={{ opacity: 0, scale: 1.08 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
-      src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1800&auto=format&fit=crop"
-      alt="ITSM migration and transformation team collaborating"
-      loading="eager"
-      decoding="async"
-      fetchPriority="high"
-      className="h-full w-full object-cover object-[68%_center]"
-    />
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
-      }}
-    />
-  </div>
+      <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+        <div className="absolute inset-0 -z-10">
+          <motion.img
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.8, ease: [0.22, 1, 0.36, 1] }}
+            src="https://images.unsplash.com/photo-1518770660439-4636190af475?q=90&w=1800&auto=format&fit=crop"
+            alt="ITSM migration and transformation team collaborating"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(5,7,20,0.94) 0%, rgba(5,7,20,0.84) 28%, rgba(5,7,20,0.58) 48%, rgba(5,7,20,0.18) 70%, rgba(5,7,20,0.02) 100%)",
+            }}
+          />
+        </div>
 
-  <motion.div
-    variants={heroContainer}
-    initial="hidden"
-    animate="visible"
-    className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}
-  >
-    <div className="w-full max-w-[760px] py-10 lg:py-12">
-      <motion.nav
-        variants={heroItem}
-        aria-label="Breadcrumb"
-        className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90"
-      >
-        <Link href="/" className="transition-colors hover:text-white">
-          Home
-        </Link>
-        <ChevronRight size={14} />
-        <Link href="/services" className="transition-colors hover:text-white">
-          Services
-        </Link>
-        <ChevronRight size={14} />
-        <span className="text-white/70">ITSM Migration &amp; Transformation</span>
-      </motion.nav>
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}
+        >
+          <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
+            <motion.nav
+              variants={heroItem}
+              aria-label="Breadcrumb"
+              className="font-body flex items-center gap-2 text-[14px] font-medium text-white/90"
+            >
+              <Link href="/" className="transition-colors hover:text-white">
+                Home
+              </Link>
+              <ChevronRight size={14} />
+              <Link href="/services" className="transition-colors hover:text-white">
+                Services
+              </Link>
+              <ChevronRight size={14} />
+              <span className="text-white/70">ITSM Migration &amp; Transformation</span>
+            </motion.nav>
 
-      <motion.h1
-        variants={heroItem}
-        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white sm:text-[38px] lg:text-[44px] xl:text-[48px]"
-      >
-        ITSM Migration and Transformation for Modern Service Management
-      </motion.h1>
+            <motion.h1
+              variants={heroItem}
+              className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+            >
+              ITSM Migration and Transformation for Modern Service Management
+            </motion.h1>
 
-      <motion.p
-        variants={heroItem}
-        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px]"
-      >
-        Starfii moves enterprises off legacy service management
-        platforms and onto modern environments, migrating data,
-        configurations, workflows, and integrations with a structured,
-        low risk approach that protects daily operations.
-      </motion.p>
+            <motion.p
+              variants={heroItem}
+              className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 sm:text-[17px]"
+            >
+              Starfii moves enterprises off legacy service management
+              platforms and onto modern environments, migrating data,
+              configurations, workflows, and integrations with a structured,
+              low risk approach that protects daily operations.
+            </motion.p>
 
-      <motion.a
-        variants={heroItem}
-        href="#connect"
-        whileHover={{ scale: 1.03 }}
-        whileTap={{ scale: 0.98 }}
-        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
-        style={{ color: CHAMPION_BLUE }}
-      >
-        Connect Now
-        <ArrowUpRight size={17} />
-      </motion.a>
-    </div>
-  </motion.div>
-</section>
+            <motion.a
+              variants={heroItem}
+              href="#connect"
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.98 }}
+              className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold"
+              style={{ color: CHAMPION_BLUE }}
+            >
+              Connect Now
+              <ArrowUpRight size={17} />
+            </motion.a>
+          </div>
+        </motion.div>
+      </section>
 
+      {/* ============================================================
+          ALIGN WRAPPER #1 — Why Matters + Q&A block only
+      ============================================================ */}
       <div className={ALIGN}>
         {/* ============================================================
             WHY ITSM MIGRATION MATTERS
@@ -936,7 +950,7 @@ export default function ItsmMigrationTransformationSection() {
           <OverviewAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A trusted ITSM migration and transformation partner, Starfii
@@ -958,11 +972,9 @@ export default function ItsmMigrationTransformationSection() {
         >
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-             
-
-                 <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-        How Do Enterprises Assess Readiness for ITSM Migration?
-          </h2>
+              <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+                How Do Enterprises Assess Readiness for ITSM Migration?
+              </h2>
 
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
                 Enterprises assess ITSM migration readiness by reviewing
@@ -987,13 +999,16 @@ export default function ItsmMigrationTransformationSection() {
           </div>
         </motion.section>
       </div>
+      {/* ============================================================
+          ⬆️ ALIGN WRAPPER #1 CLOSES HERE
+      ============================================================ */}
 
       {/* ============================================================
           OUR ITSM MIGRATION CAPABILITIES — light 2-col sticky layout,
           matches Data & Analytics "Our Data & Analytics Capabilities"
           section exactly (no dark bg, no numbering, no tags)
       ============================================================ */}
-   <section className="relative bg-white py-24 lg:py-28">
+      <section className="relative bg-white py-24 lg:py-28">
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             <motion.div
@@ -1003,17 +1018,16 @@ export default function ItsmMigrationTransformationSection() {
               variants={fadeUp}
               className="self-start lg:sticky lg:top-28"
             >
-              <span
+              {/* <span
                 className="font-body inline-flex items-center text-[16px] font-semibold sm:text-[18px]"
                 style={{ color: CHAMPION_BLUE }}
               >
                 ITSM Migration &amp; Transformation
-              </span>
+              </span> */}
 
-            
-                   <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-            Our ITSM Migration &amp; Transformation Capabilities
-          </h2>
+              <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+                Our ITSM Migration &amp; Transformation Capabilities
+              </h2>
 
               <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                 Starfii assesses, designs, and migrates ITSM platforms end
@@ -1062,53 +1076,108 @@ export default function ItsmMigrationTransformationSection() {
         </div>
       </section>
 
-      <div className={ALIGN}>
-        {/* ============================================================
-            USE CASES
-        ============================================================ */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={fadeUp}
-          className="mt-24"
-        >
-          <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
-            ITSM Migration Use Cases
-          </h2>
-          <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-slate-600">
-            A look at how these capabilities play out across industries,
-            from end of life platform exits to audit ready change records.
-          </p>
+      {/* ============================================================
+          USE CASES — FULL BLEED, deliberately OUTSIDE any ALIGN
+          wrapper so the /bluegray.png background covers the full
+          viewport width, exactly like the hero section above.
+      ============================================================ */}
+      <section className="relative isolate overflow-hidden py-24 lg:py-28">
+        <div className="absolute inset-0 -z-10" style={{ backgroundColor: DARK_BG }}>
+          <img
+            src="/bluegray.png"
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover object-center"
+          />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(10,10,24,0.35) 0%, rgba(10,10,24,0.65) 100%)",
+            }}
+          />
+        </div>
+
+        <div className={ALIGN}>
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={fadeUp}
+          >
+            <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
+              ITSM Migration Use Cases
+            </h2>
+            <p className="font-body mt-4 max-w-2xl text-[15px] leading-relaxed text-white/60 sm:text-[16px]">
+              A look at how these capabilities play out across industries,
+              from end of life platform exits to audit ready change records.
+            </p>
+          </motion.div>
 
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
             variants={container}
-            className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
+            className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"
           >
-            {useCases.map((useCase) => (
-              <motion.div
-                key={useCase.title}
-                variants={item}
-                className="flex h-full flex-col rounded-2xl border p-7 transition-colors duration-300 hover:bg-[#F8F7FD]"
-                style={{ borderColor: "#E5E1F5" }}
-              >
-                <span className="font-body text-[12px] font-semibold tracking-wide" style={{ color: LAVENDER_ACCENT }}>
-                  {useCase.industry.toUpperCase()}
-                </span>
-                <h3 className="font-heading mt-2 text-[18px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
-                  {useCase.title}
-                </h3>
-                <p className="font-body mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
-                  {useCase.body}
-                </p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
+            {useCases.map((useCase) => {
+              const Icon = useCase.icon;
+              return (
+                <motion.div
+                  key={useCase.title}
+                  variants={item}
+                  className="group relative flex h-full flex-col overflow-hidden rounded-[24px] border p-9 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1"
+                  style={{
+                    backgroundColor: "rgba(255,255,255,0.035)",
+                    borderColor: "rgba(255,255,255,0.12)",
+                  }}
+                >
+                  <div
+                    className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full opacity-70 blur-3xl transition-opacity duration-300 group-hover:opacity-90"
+                    style={{
+                      background:
+                        "radial-gradient(circle, rgba(140,110,240,0.55) 0%, rgba(90,60,200,0.15) 55%, transparent 75%)",
+                    }}
+                  />
 
+                  <span
+                    className="relative flex h-12 w-12 items-center justify-center"
+                    style={{ color: "#FFFFFF" }}
+                  >
+                    <Icon size={30} strokeWidth={1.4} />
+                  </span>
+
+                  <span
+                    className="font-body relative mt-6 text-[12px] font-semibold tracking-[0.08em]"
+                    style={{ color: LAVENDER_ACCENT }}
+                  >
+                    {useCase.industry.toUpperCase()}
+                  </span>
+
+                  <h3 className="font-heading relative mt-2 text-[22px] font-semibold leading-[1.3] text-white">
+                    {useCase.title}
+                  </h3>
+
+                  <p
+                    className="font-body relative mt-4 flex-1 text-[15px] font-normal leading-[1.75]"
+                    style={{ color: "rgba(255,255,255,0.78)" }}
+                  >
+                    {useCase.body}
+                  </p>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ============================================================
+          ALIGN WRAPPER #2 — Case Studies + Tabbed Deep-dive
+      ============================================================ */}
+      <div className={ALIGN}>
         {/* ============================================================
             CASE STUDIES
         ============================================================ */}
@@ -1120,7 +1189,7 @@ export default function ItsmMigrationTransformationSection() {
             variants={fadeUp}
             className="flex items-end justify-between"
           >
-            <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+            <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
               ITSM Migration
               <br />
               Case Studies
@@ -1199,7 +1268,7 @@ export default function ItsmMigrationTransformationSection() {
           variants={fadeUp}
           className="mt-24 pb-28"
         >
-          <h2 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+          <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             ITSM Migration Services
           </h2>
 
@@ -1225,17 +1294,17 @@ export default function ItsmMigrationTransformationSection() {
                         }}
                       />
                     )}
-                 <button
-  type="button"
-  onClick={() => setActiveTab(i)}
-  className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
-  style={{
-    color: isActive ? CHAMPION_BLUE : "#94A3B8",
-    fontWeight: isActive ? 600 : 400,
-  }}
->
-  {tab.label}
-</button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab(i)}
+                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+                      style={{
+                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
+                        fontWeight: isActive ? 700 : 500,
+                      }}
+                    >
+                      {tab.label}
+                    </button>
                   </li>
                 );
               })}
@@ -1250,12 +1319,12 @@ export default function ItsmMigrationTransformationSection() {
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-     <h3
-  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
-  style={{ color: CHAMPION_BLUE }}
->
-  {current.heading}
-</h3>
+                <h3
+                  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  {current.heading}
+                </h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1274,6 +1343,9 @@ export default function ItsmMigrationTransformationSection() {
           </div>
         </motion.section>
       </div>
+      {/* ============================================================
+          ⬆️ ALIGN WRAPPER #2 CLOSES HERE
+      ============================================================ */}
 
       {/* ============================================================
           IMPACT ACROSS YOUR SERVICE MANAGEMENT ECOSYSTEM (dark)
@@ -1290,7 +1362,7 @@ export default function ItsmMigrationTransformationSection() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={fadeUp}
-            className={`${SECTION_HEADING} max-w-xl text-white`}
+            className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}
           >
             Impact Across Your Service Management Ecosystem
           </motion.h2>
@@ -1311,7 +1383,7 @@ export default function ItsmMigrationTransformationSection() {
             variants={fadeUp}
             className="flex items-end justify-between"
           >
-            <h2 className={`${SECTION_HEADING} max-w-lg`} style={{ color: CHAMPION_BLUE }}>
+            <h2 className={`${SECTION_HEADING} mt-4 max-w-lg`} style={{ color: CHAMPION_BLUE }}>
               What&apos;s New in ITSM
               <br />
               Migration
@@ -1436,9 +1508,7 @@ export default function ItsmMigrationTransformationSection() {
         </div>
       </section>
 
-
-<GetInTouch />
-
+      <GetInTouch />
     </main>
   );
 }

@@ -804,16 +804,15 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                  <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    color: "#FFFFFF",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   {/* 0fr -> 1fr gives a smooth auto-height expand */}
@@ -1189,17 +1188,19 @@ export default function QualityEngineeringSection(): ReactElement {
           BREADCRUMB + HERO  (80. Quality engineering overview)
           Full-bleed image with a dark left-side readability gradient.
       ============================================================ */}
-    <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+ <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+  {/* FULL-BLEED HERO IMAGE */}
   <div className="absolute inset-0 -z-10">
     <img
-      src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=85&w=2000&auto=format&fit=crop"
-      alt="Quality engineering team reviewing automated test results"
+      src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=85&w=2000&auto=format&fit=crop"
+      alt="Software engineering team collaborating on a digital product"
       loading="eager"
       decoding="async"
       fetchPriority="high"
       className="h-full w-full object-cover object-[68%_center]"
     />
 
+    {/* Dark readability gradient */}
     <div
       className="absolute inset-0"
       style={{
@@ -1208,6 +1209,7 @@ export default function QualityEngineeringSection(): ReactElement {
       }}
     />
 
+    {/* Small bottom fade */}
     <div
       className="absolute inset-x-0 bottom-0 h-20"
       style={{
@@ -1217,8 +1219,9 @@ export default function QualityEngineeringSection(): ReactElement {
     />
   </div>
 
-  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
-    <div className="w-full max-w-[760px] py-10 lg:py-12">
+  <div className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}
+>
+  <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
       {/* Breadcrumb */}
       <nav
         aria-label="Breadcrumb"
@@ -1236,25 +1239,30 @@ export default function QualityEngineeringSection(): ReactElement {
           Services
         </a>
         <ChevronRight size={14} />
-        <span className="text-white/60">Quality Engineering</span>
+        <span className="text-white/60">
+          Software &amp; Product Engineering
+        </span>
       </nav>
 
+      {/* Main heading */}
       <h1
         className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
         style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
       >
-        Quality Engineering for Modern Enterprises
+        Software and Product Engineering for Modern Enterprises
       </h1>
 
+      {/* Description */}
       <p
         className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
         style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
       >
-        Starfii improves software reliability with intelligent testing,
-        automation, and continuous quality engineering built into every
-        stage of your delivery pipeline.
+        Starfii turns ideas into scalable software products and modern
+        platforms with product strategy, AI driven engineering, and
+        faster delivery cycles.
       </p>
 
+      {/* CTA */}
       <a
         href="#connect"
         className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
@@ -1339,7 +1347,7 @@ export default function QualityEngineeringSection(): ReactElement {
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
             {/* LEFT — eyebrow, heading, description */}
             <Reveal className="self-start lg:sticky lg:top-28">
-              <Eyebrow variant="light">Quality Engineering</Eyebrow>
+              {/* <Eyebrow variant="light">Quality Engineering</Eyebrow> */}
 
                 <h2
                 className={`${SECTION_HEADING} mt-4 max-w-500`}
@@ -1401,7 +1409,7 @@ export default function QualityEngineeringSection(): ReactElement {
             (82–87. Test automation through Continuous testing)
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          <Eyebrow>Quality Engineering</Eyebrow>
+          {/* <Eyebrow>Quality Engineering</Eyebrow> */}
           <h2
             className={`${SECTION_HEADING} mt-4 font-bold`}
             style={{ color: CHAMPION_BLUE }}
@@ -1510,7 +1518,7 @@ export default function QualityEngineeringSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            <Eyebrow variant="dark">Continuous Quality</Eyebrow>
+            {/* <Eyebrow variant="dark">Continuous Quality</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your Quality
               <br />
@@ -1536,7 +1544,7 @@ export default function QualityEngineeringSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Case Studies</Eyebrow>
+              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 Quality Engineering Case Studies
               </h2>
@@ -1642,7 +1650,7 @@ export default function QualityEngineeringSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              <Eyebrow>Quality Engineering</Eyebrow>
+              {/* <Eyebrow>Quality Engineering</Eyebrow> */}
               <h2
                 className={`${SECTION_HEADING} mt-4 max-w-500`}
                 style={{ color: CHAMPION_BLUE }}

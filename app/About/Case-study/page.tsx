@@ -2,32 +2,22 @@
 //
 // Make sure the folder is named "case-study" (hyphen, no space) —
 // not "Case study" — otherwise Next.js will 404 on this route.
+//
+// REMOVED on request: Artificial Intelligence, Digital IT Operations,
+// Business Process, Enterprise Platform, and Global Capability Centers
+// case study groups. Their imports, data-mapping blocks, and group
+// entries have all been deleted below — none of them appear on this
+// page anymore (not as pinned pills, not in the search dropdown).
 
 import type { ReactElement } from "react";
-import { caseStudies as itOperationsCaseStudies } from "@/app/services/digital-it-operations/casestudies/data.tsx/casestudies";
 import { caseStudies as dataAnalyticsCaseStudies_ } from "@/app/services/data-analytics/casestudies/data/casestudies";
-// Single source of truth for AI case studies — same file the AI
-// service page and its [slug] detail page read from. Add a new
-// case study there once and it appears everywhere, including here.
-import { caseStudies as aiCaseStudiesRaw } from "@/app/services/artificial-intelligence/data/case-studies";
 
 import { caseStudies as itsmServiceMgmtCaseStudiesRaw } from "@/app/services/itsm-service-management/casestudies/data/case-studies";
-// Single source of truth for Business Process case studies — same
-// file the business-process-services page and its [slug] detail
-// page read from. Add a new case study there once and it appears
-// everywhere, including here.
-import { caseStudies as bpCaseStudiesRaw } from "@/app/services/business-process-services/data/case-studies";
 import { caseStudies as digitalSoftwareCaseStudiesRaw } from "@/app/services/digital-software/casestudies/data/case-studies";
 import { caseStudies as aiVoiceCaseStudiesRaw } from "@/app/services/offerings/ai-native-contact-center/data/case-studies";
 import { caseStudies as medicalCodingCaseStudiesRaw } from "@/app/services/offerings/enterprise-automation/data/case-studies";
 import { caseStudies as aiChatCaseStudiesRaw } from "@/app/services/offerings/generative-ai/data/case-studies";
-// Single source of truth for Enterprise Platform case studies —
-// same file the enterprise-platform-services page and its [slug]
-// detail page read from. Add a new case study there once (with a
-// `date`) and it appears everywhere, including here.
-import { caseStudies as epCaseStudiesRaw } from "@/app/services/enterprise-platform-services/casestudies/data/case-studies";
 import CaseStudyFilters, { type CaseStudyGroup } from "../Case-study/CaseStudyFilters";
-import { caseStudies as gccCaseStudiesRaw } from "@/app/services/global-capability-centers/data/case-studies";
 import { caseStudies as cloudCaseStudiesRaw } from "@/app/services/cloud/casestudies/data.tsx/casestudies";
 import { caseStudies as aiFileStorageCaseStudiesRaw } from "@/app/services/offerings/sustainability-services/data/case-studies";
 import { caseStudies as aiMeetingAssistantCaseStudiesRaw } from "@/app/services/offerings/vibe-coding/data/case-studies";
@@ -85,19 +75,6 @@ const itsmMigrationCaseStudies = sortByDateDesc(
     date: study.date,
   }))
 );
-/* ===============================================================
-   DATA — Artificial Intelligence case studies (from shared source)
-================================================================ */
-const aiCaseStudies = sortByDateDesc(
-  aiCaseStudiesRaw.map((study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-    date: study.date,
-  }))
-);
 
 /* ===============================================================
    DATA — Digital and Software case studies
@@ -109,20 +86,6 @@ const digitalSoftwareCaseStudies = sortByDateDesc(digitalSoftwareCaseStudiesRaw)
   body: study.cardDescription, // was study.body
   category: study.industry?.toUpperCase(),
 }));
-
-/* ===============================================================
-   DATA — Digital IT Operations case studies (from shared source)
-================================================================ */
-const digitalItOperationsCaseStudies = sortByDateDesc(
-  itOperationsCaseStudies.map((study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-    date: study.date,
-  }))
-);
 
 /* ===============================================================
    DATA — Cloud Engineering case studies
@@ -143,58 +106,6 @@ const cloudCaseStudies = sortByDateDesc(
 ================================================================ */
 const dataAnalyticsCaseStudies = sortByDateDesc(
   dataAnalyticsCaseStudies_.map((study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-    date: study.date,
-  }))
-);
-
-/* ===============================================================
-   DATA — Business Process Services case studies (from shared source)
-   Single source of truth: app/services/business-process-services/
-   data/case-studies.tsx — the same file the business-process-services
-   page and its [slug] detail page read from. Add a new case study
-   there once (with a `date`) and it appears everywhere, including
-   here, automatically sorted newest first.
-================================================================ */
-const businessProcessCaseStudies = sortByDateDesc(
-  bpCaseStudiesRaw.map((study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.cardDescription,
-    category: study.industry?.toUpperCase(),
-    date: study.date,
-  }))
-);
-
-/* ===============================================================
-   DATA — Enterprise Platform Services case studies (from shared source)
-   Single source of truth: app/services/enterprise-platform-services/
-   data/case-studies.tsx — the same file the enterprise-platform-services
-   page and its [slug] detail page read from. Add a new case study
-   there once (with a `date`) and it appears everywhere, including
-   here, automatically sorted newest first.
-================================================================ */
-const enterprisePlatformCaseStudies = sortByDateDesc(
-  epCaseStudiesRaw.map((study) => ({
-    slug: study.slug,
-    image: study.image,
-    title: study.title,
-    body: study.body,
-    category: study.industry?.toUpperCase(),
-    date: study.date,
-  }))
-);
-
-/* ===============================================================
-   DATA — Global Capability Centers case studies
-================================================================ */
-const gccCaseStudies = sortByDateDesc(
-  gccCaseStudiesRaw.map((study) => ({
     slug: study.slug,
     image: study.image,
     title: study.title,
@@ -291,36 +202,27 @@ const qualityEngineeringCaseStudies = sortByDateDesc(
 export const metadata = {
   title: "Case Studies | Starfii",
   description:
-    "Explore how Starfii's Artificial Intelligence, Digital & Software Engineering, Digital IT Operations, Cloud Engineering, Data & Analytics, Business Process, Enterprise Platform, Global Capability Center, AI Voice Call, AI-Powered Medical Coding, AI Chat Box, AI File Storage, and AI Meeting Assistant practices help enterprises unlock measurable value.",
+    "Explore how Starfii's Digital & Software Engineering, Cloud Engineering, Data & Analytics, AI Voice Call, AI-Powered Medical Coding, AI Chat Box, AI File Storage, AI Meeting Assistant, ITSM Migration, ITSM Service Management, Legacy Modernization, and Quality Engineering practices help enterprises unlock measurable value.",
 };
 
 /* ===============================================================
    GROUPS — one entry per filter tab. basePath keeps each card's
    "Learn More" link pointing at the same route it used before.
    Each group's items are already sorted newest-first above.
+
+   REMOVED groups: ai, it-operations, business-process,
+   enterprise-platform, gcc — no longer shown on this page.
 ================================================================ */
 const groups: CaseStudyGroup[] = [
   {
-    key: "ai",
-    label: "Artificial Intelligence",
-    basePath: "/services/artificial-intelligence",
-    items: aiCaseStudies,
-  },
-  {
     key: "digital-software",
-    label: "Digital and Software",
+    label: "Software & Product",
     basePath: "/services/digital-software/casestudies",
     items: digitalSoftwareCaseStudies,
   },
   {
-    key: "it-operations",
-    label: "Digital IT Operations",
-    basePath: "/services/digital-it-operations/casestudies",
-    items: digitalItOperationsCaseStudies,
-  },
-  {
     key: "cloud",
-    label: "Cloud Engineering",
+    label: "Cloud & Devops",
     basePath: "/services/cloud/casestudies",
     items: cloudCaseStudies,
   },
@@ -329,24 +231,6 @@ const groups: CaseStudyGroup[] = [
     label: "Data & Analytics",
     basePath: "/services/data-analytics/casestudies",
     items: dataAnalyticsCaseStudies,
-  },
-  {
-    key: "business-process",
-    label: "Business Process",
-    basePath: "/services/business-process-services",
-    items: businessProcessCaseStudies,
-  },
-  {
-    key: "enterprise-platform",
-    label: "Enterprise Platform",
-    basePath: "/services/enterprise-platform-services/casestudies",
-    items: enterprisePlatformCaseStudies,
-  },
-  {
-    key: "gcc",
-    label: "Global Capability Centers",
-    basePath: "/services/global-capability-centers",
-    items: gccCaseStudies,
   },
   {
     key: "ai-voice",
@@ -366,12 +250,14 @@ const groups: CaseStudyGroup[] = [
     basePath: "/services/offerings/generative-ai",
     items: aiChatBoxCaseStudies,
   },
+
   {
     key: "ai-file-storage",
     label: "AI File Storage",
     basePath: "/services/offerings/sustainability-services",
     items: aiFileStorageCaseStudies,
   },
+  
   {
     key: "ai-meetings",
     label: "AI Meeting Assistant",
@@ -385,8 +271,9 @@ const groups: CaseStudyGroup[] = [
   basePath: "/services/ITSM-Migration/casestudies",
   items: itsmMigrationCaseStudies,
 },
+
 {
-  key: "legacy-modernization",
+  key: "legacy-Modernization",
   label: "Legacy Modernization",
   basePath: "/services/legacy-Modernization/casestudies",
   items: legacyModernizationCaseStudies,
@@ -411,4 +298,3 @@ const groups: CaseStudyGroup[] = [
 export default function CaseStudyPage(): ReactElement {
   return <CaseStudyFilters groups={groups} />;
 }
-

@@ -12,12 +12,10 @@ const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
 //
-// Added the 3 new ITSM / Legacy Modernization groups here so they
-// render as top-level clickable pills instead of being tucked away
-// in the search dropdown. These keys MUST exactly match the `key`
-// values used in the `groups` array passed in from page.tsx.
+// "ai" removed from here on request — Artificial Intelligence case
+// studies are no longer shown on this page at all (see page.tsx,
+// where the group entry itself was deleted from the groups array).
 const PINNED_KEYS = [
-  "ai",
   "digital-software",
   "cloud",
   "itsm-migration",
@@ -279,7 +277,10 @@ export default function CaseStudyFilters({
 
   return (
     <main className="bg-white">
-      <section className={`${ALIGN} py-20 lg:py-28`}>
+      {/* pt-32 / lg:pt-40 gives clear breathing room below the fixed
+          navbar before the "Case Studies" heading starts — this is
+          the requested gap fix. */}
+      <section className={`${ALIGN} pb-20 pt-32 lg:pb-28 lg:pt-40`}>
         {/* Page heading */}
         <h1
           className="font-heading text-[34px] font-medium leading-[1.15] lg:text-[44px]"

@@ -40,7 +40,7 @@ import {
   HandHeart,
 } from "lucide-react";
 
-import ConnectFormSection from "@/components/Sections/ConnectFormSection";
+import ConnectFormSection from "@/app/components/Sections/ConnectFormSection";
 
 /* ===============================================================
    BRAND TOKENS — identical to the industry template, on purpose.
@@ -447,7 +447,7 @@ const responsibilities = [
 
 function Hero(): ReactElement {
   return (
-    <section className="relative isolate min-h-[560px] overflow-hidden lg:min-h-[640px]">
+       <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
       <div className="absolute inset-0 -z-10">
         <SafeImg
           src={IMAGES.hero}
@@ -469,8 +469,8 @@ function Hero(): ReactElement {
         />
       </div>
 
-      <div className={`${ALIGN} relative flex min-h-[560px] items-center lg:min-h-[640px]`}>
-        <div className="w-full max-w-[720px] py-20 lg:py-24">
+      <div className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}>
+        <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
           <nav
             aria-label="Breadcrumb"
             className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
@@ -487,14 +487,14 @@ function Hero(): ReactElement {
           </nav>
 
           <h1
-            className="font-heading mt-5 max-w-[640px] text-[36px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[44px] lg:text-[52px]"
+            className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
           >
             About Starfii
           </h1>
 
           <p
-            className="font-body mt-6 max-w-[560px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px] lg:text-[18px]"
+            className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
             Empowering clients with senior product engineering, AI native
@@ -661,7 +661,7 @@ function GuidingPrinciples(): ReactElement {
     <section className="py-2 lg:py-4">
       <div className={ALIGN}>
         <Reveal>
-          <Eyebrow>Principles</Eyebrow>
+          {/* <Eyebrow>Principles</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Our Guiding Principles
           </h2>
@@ -810,7 +810,7 @@ function Values(): ReactElement {
 
       <div className={`relative ${ALIGN}`}>
         <Reveal>
-          <Eyebrow variant="dark">Values</Eyebrow>
+          {/* <Eyebrow variant="dark">Values</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
             Four principles every engagement is held to.
           </h2>
@@ -842,7 +842,7 @@ function ExpertiseAndDelivery(): ReactElement {
     <section className="py-24 lg:py-28">
       <div className={ALIGN}>
         <Reveal>
-          <Eyebrow>Technology Expertise</Eyebrow>
+          {/* <Eyebrow>Technology Expertise</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Deep enough in each stack to be trusted with the hard parts.
           </h2>
@@ -863,7 +863,7 @@ function ExpertiseAndDelivery(): ReactElement {
         </div>
 
         <Reveal className="mt-24">
-          <Eyebrow>Delivery Approach</Eyebrow>
+          {/* <Eyebrow>Delivery Approach</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             How an engagement actually runs, week to week.
           </h2>
@@ -925,7 +925,7 @@ function GlobalPresence(): ReactElement {
     <section className="py-24 lg:py-28">
       <div className={ALIGN}>
         <Reveal>
-          <Eyebrow>Global Presence</Eyebrow>
+          {/* <Eyebrow>Global Presence</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Serving clients across 6 countries and counting.
           </h2>

@@ -246,7 +246,7 @@ export default function BlogFilters({
 
   return (
     <main className="bg-white">
-      <section className={`${ALIGN} py-20 lg:py-28`}>
+     <section className={`${ALIGN} pb-20 pt-32 lg:pb-28 lg:pt-40`}>
         {/* Page heading */}
         <h1
           className="font-heading text-[34px] font-medium leading-[1.15] lg:text-[44px]"
