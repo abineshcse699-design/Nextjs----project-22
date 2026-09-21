@@ -24,6 +24,15 @@ export const metadata: Metadata = {
   title: "Insights | Discover What's Next in Your Sector | Starfii Technology",
   description:
     "AI driven software and product engineering for e commerce, healthcare, ed tech, travel, finance, and logistics. Explore how Starfii helps your sector build what's next.",
+      icons: {
+    icon: [
+      {
+        url: "/starfii_logo_WHITE.svg",
+        type: "image/svg+xml",
+        sizes: "32x32",
+      },
+    ],
+  },
 };
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";

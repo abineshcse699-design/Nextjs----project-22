@@ -156,65 +156,72 @@ const focusAreas = [
   },
 ];
 
-
 const tabs = [
   {
     label: "Architecture: Design the Foundation",
     heading: "A data architecture blueprint before a single pipeline gets built",
-    body: "Starfii maps how data should flow, where it should live, and who should access it, so every new source and pipeline fits a plan instead of adding to the sprawl. We define the right architecture across data sources, storage, processing, governance, and consumption layers, creating a foundation that can support both today's requirements and future growth. This gives teams a clear structure for scaling data without introducing unnecessary complexity, duplication, or disconnected systems.",
+    body: "Starfii maps how data should flow, where it should live, and who should access it, creating a clear foundation before pipelines are built. We define the right architecture across data sources, ingestion, storage, processing, governance, and analytics based on your business and growth requirements. We also plan for data quality, security, scalability, and future use cases, making it easier to add new sources without creating unnecessary complexity. This gives teams a structured data environment that is easier to manage, scale, and evolve as business needs grow.",
     image:
       "https://images.unsplash.com/photo-1497366754035-f200968a6e72?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Build a Single Source of Truth",
     heading: "One governed data foundation, not a dozen conflicting copies",
-    body: "Starfii consolidates fragmented data sources into a governed platform, so every team, from finance to product, works from numbers everyone trusts. We bring data together across applications, databases, and business systems while establishing consistent definitions, ownership, quality rules, and access controls. The result is a reliable foundation where teams can find the right data quickly, reduce conflicting reports, and make decisions using a shared view of the business.",
+    body: "Starfii brings fragmented data from applications, databases, and business systems into a governed foundation that teams can trust. We establish consistent definitions, ownership, quality rules, and access controls so everyone works from the same information. We identify duplicate sources, conflicting metrics, and data quality issues that can create inconsistent reporting across teams. Data lineage and governance make it easier to understand where information comes from and how it is used. This helps teams find reliable data faster, reduce duplicate reporting, and make decisions using a consistent view of the business.",
     image:
       "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Engineer Pipelines That Scale",
     heading: "Pipelines built for the data volumes you will have next year, not just today",
-    body: "Our data engineering teams design ingestion and transformation pipelines that scale with the business, so growth does not mean rebuilding your data stack from scratch. We build reliable workflows for batch and real-time data, automate repetitive processing, and create monitoring around pipeline health and data quality. Every pipeline is designed with performance, maintainability, and future data volumes in mind, helping your teams move faster as new sources and use cases are added.",
+    body: "Our data engineering teams build reliable ingestion and transformation pipelines that scale with your business and growing data volumes. We support batch, streaming, and near real-time workflows while automating data processing, validation, and transformation. Pipeline monitoring helps teams identify failures, performance issues, and data quality problems before they affect downstream systems. We also design for changing schemas, new data sources, retries, and recovery to keep workflows dependable. This creates a scalable and maintainable data pipeline environment that can support new sources, products, and analytical use cases as your business grows.",
     image:
       "https://images.unsplash.com/photo-1524758631624-e2822e304c36?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Platforms: Pick the Right Cloud Fit",
     heading: "A cloud data platform sized for your workloads, not a one-size-fits-all default",
-    body: "Starfii architects and migrates data estates onto AWS, Azure, or GCP data platforms built for scale, cost control, and near real time access. We evaluate your existing workloads, data volumes, integrations, security requirements, and business priorities before shaping the right cloud architecture. The result is a platform that gives teams the flexibility to scale while keeping infrastructure efficient, governed, and aligned with the way your business actually uses data.",
+    body: "Starfii designs and migrates data platforms across AWS, Azure, and GCP based on your workloads, data volumes, security requirements, and business priorities. We select the right combination of storage, processing, databases, warehouses, and analytics services for each environment. Cost, performance, governance, and scalability are considered together so the platform remains efficient as usage grows. We also create a foundation that can support future analytics, machine learning, and AI workloads without requiring major architectural changes. The result is a flexible cloud data platform built around how your organization actually works with data.",
     image:
       "https://images.unsplash.com/photo-1552664730-d307ca884978?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Turn Data into Decisions",
     heading: "Analytics and dashboards people actually open",
-    body: "Starfii designs reporting and BI experiences around the decisions your teams make every day, not just the metrics that are easy to compute. We connect trusted data to meaningful business questions and create dashboards that make important information easier to understand and act on. From executive reporting to operational analytics, we focus on clear metrics, intuitive experiences, and timely insights that help teams spend less time searching for answers and more time acting on them.",
+    body: "Starfii creates analytics and BI experiences around the decisions your teams need to make every day. We connect trusted data to clear business metrics and design dashboards that are simple to understand and easy to act on. From executive reporting to operational analytics, we focus on consistent definitions, relevant insights, and timely information. We can also support automated refreshes, filters, drill-downs, and role-based access where needed. This helps teams spend less time searching through reports and more time understanding performance, identifying opportunities, and making informed decisions.",
     image:
       "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Data Science: Find the Pattern",
     heading: "Models that surface the pattern behind the decision, not just a dashboard number",
-    body: "Starfii's data scientists build forecasting, anomaly detection, and recommendation models grounded in your governed data, so predictions hold up in production. We work across the full data science lifecycle, from preparing and understanding the underlying data to developing models and integrating them into real business workflows. This helps organizations move beyond descriptive reporting and use their data to identify patterns, anticipate outcomes, and support better decisions.",
+    body: "Starfii's data scientists build forecasting, anomaly detection, recommendation, and predictive models using your governed business data. We work across data preparation, model development, validation, and deployment to turn complex data into useful predictions and insights. Models are designed around practical business problems and measurable outcomes rather than technical experimentation alone. We also consider data quality and model performance over time as business conditions change. This helps organizations identify patterns, anticipate outcomes, improve planning, and make better decisions using the data they already have.",
     image:
       "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Modernize Legacy Data Estates",
     heading: "A clear path off aging warehouses and brittle ETL",
-    body: "We assess your existing data estate, build a data modernization roadmap, and migrate you to a cloud native platform with minimal disruption to reporting. Our approach helps identify outdated technologies, fragile dependencies, duplicated processes, and areas where maintenance is slowing down the business. We then prioritize modernization in practical stages, protecting critical reporting and workflows while creating a more scalable, maintainable, and future-ready data environment.",
+    body: "We assess your existing warehouses, databases, ETL processes, and reporting dependencies to identify where legacy technology is slowing down the business. Starfii then creates a practical modernization roadmap and moves workloads toward a scalable cloud-native data platform. Migration is planned in manageable stages to protect critical reporting and reduce disruption to existing operations. We also simplify outdated pipelines, remove unnecessary dependencies, and improve the way data is managed across the environment. The result is a more flexible, reliable, and future-ready data platform built for modern analytics and changing business requirements.",
     image:
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=90&w=1800&auto=format&fit=crop",
   },
+
   {
     label: "Apply AI to Your Own Data",
     heading: "AI-ready data that keeps Gen AI and machine learning grounded in what is true",
-    body: "Starfii prepares and connects AI models to your governed data safely, so predictions, summaries, and recommendations stay grounded in your enterprise data, not a generic model's guesswork. We help structure, clean, connect, and govern the data AI systems need while keeping access and usage aligned with enterprise requirements. This creates a stronger foundation for Gen AI and machine learning use cases, allowing teams to build intelligent experiences that are relevant to their business, based on trusted information, and ready to scale.",
+    body: "Starfii prepares and connects your enterprise data to AI and machine learning systems so results are grounded in information your business can trust. We help organize, clean, connect, and govern the data required for Gen AI, predictive models, and intelligent applications. Access controls and governance are built into the architecture so AI workloads can use business information responsibly. We also prepare the data pipelines needed to keep AI systems connected to current information as your business changes. This creates a strong foundation for relevant, secure, and scalable AI experiences built around your own enterprise data.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=90&w=1800&auto=format&fit=crop",
   },
 ];
+
 
 
 
@@ -1249,17 +1256,17 @@ export default function DataAnalyticsServicesSection() {
                   }}
                 />
               )}
-              <button
-                type="button"
-                onClick={() => setActiveTab(i)}
-                className="font-body block py-3 pl-5 text-left text-[16px] transition-colors duration-200"
-                style={{
-                  color: isActive ? CHAMPION_BLUE : "#94A3B8",
-                  fontWeight: isActive ? 600 : 400,
-                }}
-              >
-                {tab.label}
-              </button>
+    <button
+  type="button"
+  onClick={() => setActiveTab(i)}
+  className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+  style={{
+    color: isActive ? CHAMPION_BLUE : "#94A3B8",
+    fontWeight: isActive ? 700 : 500,
+  }}
+>
+  {tab.label}
+</button>
             </li>
           );
         })}
