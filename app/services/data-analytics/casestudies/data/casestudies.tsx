@@ -1,4 +1,6 @@
-// PLACE THIS FILE AT: app/services/data-analytics/casestudies/data/casestudies.tsx
+// PLACE THIS FILE AT:
+// app/services/data-analytics/casestudies/data/casestudies.tsx
+//
 // (this is already the path About/case-study/page.tsx imports from)
 
 export type CaseStudyStat = {
@@ -25,16 +27,13 @@ export type CaseStudyDetail = {
 
   stats: CaseStudyStat[];
 
-  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
-  // case study with the latest date always shows first, everywhere
-  // this data is used (data & analytics page carousel AND the
-  // /About/case-study all-case-studies filter page).
+  // Publish date, format "YYYY-MM-DD".
+  // Used only for ordering — newest case study always shows first.
   date: string;
 };
 
-// Raw list — order here does NOT matter for display, only `date`
-// controls what shows first. Add new entries anywhere with today's
-// date (or later) and it auto-appears first everywhere.
+// Raw list — order here does NOT matter for display.
+// Only `date` controls what shows first.
 const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "regional-insurance-data-modernization",

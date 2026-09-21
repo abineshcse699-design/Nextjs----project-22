@@ -10,10 +10,12 @@
 // page anymore (not as pinned pills, not in the search dropdown).
 
 import type { ReactElement } from "react";
+
+import { caseStudies as softwareProductCaseStudiesRaw } from "@/app/services/software-product/casestudies/data/case-studies";
 import { caseStudies as dataAnalyticsCaseStudies_ } from "@/app/services/data-analytics/casestudies/data/casestudies";
 
 import { caseStudies as itsmServiceMgmtCaseStudiesRaw } from "@/app/services/itsm-service-management/casestudies/data/case-studies";
-import { caseStudies as digitalSoftwareCaseStudiesRaw } from "@/app/services/digital-software/casestudies/data/case-studies";
+// import { caseStudies as digitalSoftwareCaseStudiesRaw } from "@/app/services/digital-software/casestudies/data/case-studies";
 import { caseStudies as aiVoiceCaseStudiesRaw } from "@/app/services/offerings/ai-native-contact-center/data/case-studies";
 import { caseStudies as medicalCodingCaseStudiesRaw } from "@/app/services/offerings/enterprise-automation/data/case-studies";
 import { caseStudies as aiChatCaseStudiesRaw } from "@/app/services/offerings/generative-ai/data/case-studies";
@@ -25,7 +27,7 @@ import { caseStudies as itsmMigrationCaseStudiesRaw } from "@/app/services/ITSM-
 import { caseStudies as legacyModernizationCaseStudiesRaw } from "@/app/services/legacy-Modernization/casestudies/data/caseStudies";
 
 import { caseStudies as qualityEngineeringCaseStudiesRaw } from "@/app/services/Quality-Engineering/casestudies/data/caseStudies";
-
+import { caseStudies as servicenowCaseStudiesRaw } from "@/app/services/servicenow/casestudies/data/casestudies";
 /* ===============================================================
    SORT HELPER — newest date first.
    Entries missing a valid `date` are treated as oldest (pushed to
@@ -76,16 +78,6 @@ const itsmMigrationCaseStudies = sortByDateDesc(
   }))
 );
 
-/* ===============================================================
-   DATA — Digital and Software case studies
-================================================================ */
-const digitalSoftwareCaseStudies = sortByDateDesc(digitalSoftwareCaseStudiesRaw).map((study) => ({
-  slug: study.slug,
-  image: study.image,
-  title: study.title,
-  body: study.cardDescription, // was study.body
-  category: study.industry?.toUpperCase(),
-}));
 
 /* ===============================================================
    DATA — Cloud Engineering case studies
@@ -199,10 +191,41 @@ const qualityEngineeringCaseStudies = sortByDateDesc(
   }))
 );
 
+const softwareProductCaseStudies = sortByDateDesc(
+  softwareProductCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.cardDescription,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
+
+const servicenowCaseStudies = sortByDateDesc(
+  servicenowCaseStudiesRaw.map((study) => ({
+    slug: study.slug,
+    image: study.image,
+    title: study.title,
+    body: study.cardDescription,
+    category: study.industry?.toUpperCase(),
+    date: study.date,
+  }))
+);
+
 export const metadata = {
   title: "Case Studies | Starfii",
   description:
-    "Explore how Starfii's Digital & Software Engineering, Cloud Engineering, Data & Analytics, AI Voice Call, AI-Powered Medical Coding, AI Chat Box, AI File Storage, AI Meeting Assistant, ITSM Migration, ITSM Service Management, Legacy Modernization, and Quality Engineering practices help enterprises unlock measurable value.",
+    "Explore how Starfii's Software & Product Engineering, Cloud Engineering, Data & Analytics, AI Voice Call, AI-Powered Medical Coding, AI Chat Box, AI File Storage, AI Meeting Assistant, ITSM Migration, ITSM Service Management, Legacy Modernization, and Quality Engineering practices help enterprises unlock measurable value.",
+      icons: {
+    icon: [
+      {
+        url: "/starfii_logo_WHITE.svg",
+        type: "image/svg+xml",
+        sizes: "32x32",
+      },
+    ],
+  },
 };
 
 /* ===============================================================
@@ -214,12 +237,7 @@ export const metadata = {
    enterprise-platform, gcc — no longer shown on this page.
 ================================================================ */
 const groups: CaseStudyGroup[] = [
-  {
-    key: "digital-software",
-    label: "Software & Product",
-    basePath: "/services/digital-software/casestudies",
-    items: digitalSoftwareCaseStudies,
-  },
+
   {
     key: "cloud",
     label: "Cloud & Devops",
@@ -238,6 +256,13 @@ const groups: CaseStudyGroup[] = [
     basePath: "/services/offerings/ai-native-contact-center",
     items: aiVoiceCallCaseStudies,
   },
+
+  {
+  key: "servicenow",
+  label: "ServiceNow",
+  basePath: "/services/servicenow/casestudies",
+  items: servicenowCaseStudies,
+},
   {
     key: "medical-coding",
     label: "AI Medical Coding",
@@ -250,6 +275,13 @@ const groups: CaseStudyGroup[] = [
     basePath: "/services/offerings/generative-ai",
     items: aiChatBoxCaseStudies,
   },
+
+  {
+  key: "software-product",
+  label: "Software & Product",
+  basePath: "/services/software-product/casestudies",
+  items: softwareProductCaseStudies,
+},
 
   {
     key: "ai-file-storage",

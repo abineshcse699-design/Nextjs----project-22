@@ -132,7 +132,7 @@ export default async function CapabilityDetailPage({
               </Link>
               <ChevronRight size={14} />
               <Link
-                href="/services/digital-software"
+                href="/services/software-product"
                 className="transition-opacity hover:opacity-70"
               >
                 Software &amp; Product Engineering

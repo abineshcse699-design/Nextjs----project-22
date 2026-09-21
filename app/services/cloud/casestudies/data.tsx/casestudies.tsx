@@ -1,6 +1,5 @@
-// PLACE THIS FILE AT: app/services/cloud/casestudies/data/casestudies.tsx
-// (adjust the path to match wherever your cloud page and About/case-study
-// page actually import this from — see instructions below)
+// PLACE THIS FILE AT:
+// app/services/cloud/casestudies/data/casestudies.tsx
 
 export type CaseStudyStat = {
   value: string;
@@ -14,6 +13,10 @@ export type CaseStudyDetail = {
   title: string;
   body: string;
 
+  // Extra content displayed below the title/body
+  extraHeading?: string;
+  extraContent?: string;
+
   client: string;
   industry: string;
   services: string[];
@@ -26,16 +29,10 @@ export type CaseStudyDetail = {
 
   stats: CaseStudyStat[];
 
-  // Publish date, format "YYYY-MM-DD". Used only for ordering — the
-  // case study with the latest date always shows first, everywhere
-  // this data is used (cloud engineering page carousel AND the
-  // /About/case-study all-case-studies filter page).
+  // Publish date, format "YYYY-MM-DD"
   date: string;
 };
 
-// Raw list — order here does NOT matter for display, only `date`
-// controls what shows first. Add new entries anywhere with today's
-// date (or later) and it auto-appears first everywhere.
 const rawCaseStudies: CaseStudyDetail[] = [
   {
     slug: "reinsurer-aws-core-systems-migration",
@@ -51,6 +48,12 @@ const rawCaseStudies: CaseStudyDetail[] = [
 
     body:
       "See how Starfii sequenced a zero downtime migration of core claims systems to AWS, cutting infrastructure cost while improving failover time for a global reinsurer.",
+
+    extraHeading:
+      "Modern Cloud Infrastructure Built for Scale",
+
+    extraContent:
+      "Starfii helped the organization transition from legacy infrastructure to a modern AWS environment designed for scalability, reliability, security, and operational efficiency. The new cloud foundation enables teams to deploy applications faster, improve resilience, and support future business growth.",
 
     client: "Global Reinsurance Provider",
 
@@ -99,6 +102,12 @@ const rawCaseStudies: CaseStudyDetail[] = [
 
     body:
       "Explore how Starfii's multi cloud architecture gave a regional bank vendor flexibility across AWS and Azure while meeting strict data residency and compliance requirements.",
+
+    extraHeading:
+      "Flexible Multi Cloud Architecture",
+
+    extraContent:
+      "The multi cloud foundation gives the bank greater flexibility to deploy workloads across AWS and Azure while maintaining centralized security, governance, compliance, and operational visibility. This architecture also provides a stronger foundation for future modernization initiatives.",
 
     client: "Regional Retail Bank",
 
@@ -149,6 +158,12 @@ const rawCaseStudies: CaseStudyDetail[] = [
     body:
       "Discover how Starfii's Kubernetes platform on GCP gave a utilities provider real time visibility across the grid while cutting deployment time from days to minutes.",
 
+    extraHeading:
+      "Modern Kubernetes Platform for Field Operations",
+
+    extraContent:
+      "The new Kubernetes platform provides a reliable foundation for containerized applications, automated deployments, real time monitoring, and scalable field operations across multiple regions. Engineering teams can now deliver application updates faster while maintaining consistent operational visibility.",
+
     client: "Regional Utilities Provider",
 
     industry: "Utilities & Energy",
@@ -196,6 +211,12 @@ const rawCaseStudies: CaseStudyDetail[] = [
 
     body:
       "Learn how Starfii's FinOps program right sized compute and storage across a healthcare SaaS platform without touching uptime or HIPAA compliance.",
+
+    extraHeading:
+      "Optimized Cloud Operations and FinOps",
+
+    extraContent:
+      "The FinOps approach created greater visibility into cloud usage and spending while helping engineering teams optimize infrastructure resources without compromising application performance, uptime, or compliance. The organization now has stronger cost governance across its cloud environment.",
 
     client: "Healthcare SaaS Provider",
 
@@ -245,6 +266,12 @@ const rawCaseStudies: CaseStudyDetail[] = [
     body:
       "See how Starfii's site reliability engineering practice reduced incident response time and lifted uptime during peak shopping seasons for a Fortune 500 retailer.",
 
+    extraHeading:
+      "Reliable Infrastructure for Peak Traffic",
+
+    extraContent:
+      "The SRE program established stronger observability, automated operations, and reliability practices that help engineering teams maintain consistent application performance during high traffic periods. Teams gained better visibility into production systems and could respond to incidents more efficiently.",
+
     client: "Fortune 500 Retailer",
 
     industry: "Retail & E Commerce",
@@ -280,7 +307,7 @@ const rawCaseStudies: CaseStudyDetail[] = [
   },
 ];
 
-// Newest date first — this is what every page actually imports.
+// Newest date first
 export const caseStudies: CaseStudyDetail[] = [...rawCaseStudies].sort(
   (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
 );

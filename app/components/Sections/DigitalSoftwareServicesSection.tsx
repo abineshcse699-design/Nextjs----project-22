@@ -22,7 +22,7 @@ import {
   Plus,
   Minus,
 } from "lucide-react";
-import { capabilities as focusAreas } from "../../services/digital-software/capabilities/data";
+import { capabilities as focusAreas } from "../../services/software-product/capabilities/data";
 
 /* ===============================================================
    BRAND TOKENS
@@ -1312,7 +1312,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             className="h-full"
           >
             <Link
-              href={`/services/digital-software/capabilities/${area.slug}`}
+              href={`/software-product/capabilities/${area.slug}`}
               aria-label={`Learn more about ${area.title}`}
               className="ss-capability-card flex h-full flex-col p-8"
             >
@@ -1516,7 +1516,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/services/digital-software/casestudies/${study.slug}`}
+                    href={`/services/software-product/casestudies/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}
@@ -1594,7 +1594,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             </div>
 
             <Link
-              href="/services/digital-software/blogs"
+              href="/services/software-product/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
@@ -1615,7 +1615,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
                   }`}
                 >
                   <Link
-                    href={`/services/digital-software/blogs/${post.slug}`}
+                    href={`/services/software-product/blogs/${post.slug}`}
                     className="block h-full"
                     aria-label={`Read ${post.title}`}
                   >

@@ -787,16 +787,15 @@ function UseCasesAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-                    <span
-                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: isOpen ? "#E5E1F5" : INDIGO_CTA,
-                        color: isOpen ? "#8B93A7" : "#FFFFFF",
-                        transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
-                      }}
-                    >
-                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-                    </span>
+                  <span
+  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full text-white transition-transform duration-300"
+  style={{
+    backgroundColor: INDIGO_CTA,
+    transform: isOpen ? "rotate(180deg)" : "rotate(0deg)",
+  }}
+>
+  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+</span>
                   </button>
 
                   <div
