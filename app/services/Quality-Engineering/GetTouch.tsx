@@ -82,7 +82,7 @@ const SECTION_HEADING =
               sm:text-[18px]
             "
           >
-            Bring Your Digital Vision to Life
+            Ready to Ship Quality Software with Confidence?
           </p>
         </div>
 

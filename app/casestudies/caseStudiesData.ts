@@ -30,7 +30,7 @@ export const caseStudies: CaseStudy[] = [
   id: 1,
   slug: "doodley",
 
-  title: "Doodley: Building a Pet Care Ecosystem MVP in Just 2 Months",
+  title: "Doodley : Building a Pet Care Ecosystem MVP in Just 2 Months",
 
   subtitle:
     "Building a connected pet-care ecosystem MVP across veterinary services and digital care experiences.",
@@ -74,7 +74,13 @@ export const caseStudies: CaseStudy[] = [
 
     "The MVP had to be delivered rapidly so Doodley could validate the product and take it to market within 2 months.",
 
-    "The platform needed to support different care journeys, including home visits, vaccination, online consultation, and access to hospital services."
+    "The platform needed to support different care journeys, including home visits, vaccination, online consultation, and access to hospital services.",
+
+    "Pet parents needed clearer guidance when choosing between different veterinary and pet care options.",
+
+    "The experience needed to remain simple enough for first time users while supporting multiple service types and care journeys.",
+
+    "The product foundation needed to accommodate future expansion without making the initial MVP unnecessarily complex."
   ],
 
   solutionIntro:
@@ -92,7 +98,17 @@ export const caseStudies: CaseStudy[] = [
 
     "Supported a hospital backed care model with access to qualified veterinary professionals and specialist care.",
 
-    "Designed the product foundation to support an expanding ecosystem of veterinary and everyday pet care services."
+    "Designed the product foundation to support an expanding ecosystem of veterinary and everyday pet care services.",
+
+    "Created a streamlined digital experience that reduces friction between identifying a pet health requirement and accessing the right veterinary service.",
+
+    "Designed flexible care journeys that allow pet parents to move between home based care, online consultation, vaccination, and hospital supported services based on their needs.",
+
+    "Built the product experience with scalability in mind so additional pet care categories can be introduced without disrupting the core veterinary journey.",
+
+    "Focused the MVP on essential user actions including pet profile management, service selection, health concern selection, appointment discovery, and booking.",
+
+    "Established a digital foundation that allows Doodley to continue expanding its pet care ecosystem while maintaining a simple experience for pet parents."
   ],
 
   results: [
@@ -114,6 +130,21 @@ export const caseStudies: CaseStudy[] = [
     {
       metric: "20+",
       label: "Expert vets supporting the care ecosystem"
+    },
+
+    {
+      metric: "Multi Service",
+      label: "Connected veterinary and pet care journeys"
+    },
+
+    {
+      metric: "Same Day",
+      label: "Home visit experience highlighted by Doodley"
+    },
+
+    {
+      metric: "App Based",
+      label: "Digital discovery and booking experience"
     }
   ],
 
@@ -129,11 +160,21 @@ export const caseStudies: CaseStudy[] = [
 
     "The platform creates a scalable foundation for expanding from individual veterinary services into a broader pet care ecosystem.",
 
-    "Hospital backed services and qualified veterinary professionals strengthen trust in the digital pet care experience."
+    "Hospital backed services and qualified veterinary professionals strengthen trust in the digital pet care experience.",
+
+    "Pet parents get a more convenient way to access veterinary support without making every care journey dependent on a physical clinic visit.",
+
+    "The digital booking experience reduces unnecessary steps and makes it easier for users to discover and schedule the appropriate service.",
+
+    "A connected service ecosystem allows Doodley to support pet parents across multiple stages of their pet's care journey.",
+
+    "The MVP architecture provides room for future integrations, new veterinary services, and additional pet care offerings as the platform grows.",
+
+    "By combining convenience with hospital backed veterinary care, the experience creates a stronger bridge between digital accessibility and professional pet healthcare."
   ],
 
   summary:
-    "Starfii helped Doodley move from product vision to a working MVP in just 2 months, creating a digital first pet care experience around convenient veterinary access. The solution supports home visits, vaccinations, online consultations, hospital backed care, and an expanding ecosystem of pet services, while Doodley's reported journey has reached more than 70,000 happy pet parents and a ₹30 crore achievement.",
+    "Starfii helped Doodley move from product vision to a working MVP in just 2 months, creating a digital first pet care experience around convenient veterinary access. The solution supports home visits, vaccinations, online consultations, hospital backed care, and an expanding ecosystem of pet services, while Doodley's reported journey has reached more than 70,000 happy pet parents and a ₹30 crore achievement.\n\nThe product was intentionally focused on the most important veterinary journeys first, allowing Doodley to launch a useful MVP quickly while keeping the experience straightforward for pet parents.\n\nThe digital journey brings together pet information, care requirements, service discovery, consultation choices, and appointment booking in one connected experience. This creates a practical foundation for reducing friction across everyday veterinary needs.\n\nThe platform was also designed with future growth in mind, giving Doodley a foundation that can extend beyond individual veterinary appointments into a broader ecosystem covering multiple pet care categories and services.",
 
   techStack: [
     "React",
@@ -243,7 +284,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "Third Biome's e commerce experience transforms a complex health category into a clear, credible, and conversion focused digital journey. By combining proprietary postbiotic technology, evidence led education, personalized product discovery, and the T3B Club protocol, the platform helps consumers move confidently from curiosity to understanding and from understanding to action. The result is a scalable digital ecosystem designed to build trust, drive product adoption, and establish Third Biome as a leading postbiotic brand.",
+    "Third Biome's e commerce experience transforms a complex health category into a clear, credible, and conversion focused digital journey. By combining proprietary postbiotic technology, evidence led education, personalized product discovery, and the T3B Club protocol, the platform helps consumers move confidently from curiosity to understanding and from understanding to action. The result is a scalable digital ecosystem designed to build trust, drive product adoption, and establish Third Biome as a leading postbiotic brand.\n\nThe experience was designed to make a complex health category easier to understand without removing the scientific depth behind the brand. Educational storytelling, product information, evidence, and guided discovery work together so visitors can move through the experience at their own pace.\n\nThe product journey connects awareness with action by helping users understand the role of postbiotics, explore the product, review supporting information, and continue into a structured purchase or subscription journey.\n\nThe resulting digital foundation gives Third Biome room to expand its content, product portfolio, community, and wellness programs while maintaining a consistent science-led brand experience.",
 
   techStack: [
     "E Commerce Platform",
@@ -376,7 +417,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "JETT AI Meeting Assistant transforms the way organizations capture, understand, and use meeting information. By combining intelligent transcription, AI generated summaries, action item extraction, decision tracking, searchable conversations, and conversational AI, JETT turns every meeting into a structured source of knowledge and action. Rather than allowing valuable conversations to disappear when a meeting ends, JETT preserves the context, surfaces the outcomes, and helps teams move work forward with greater clarity and efficiency.",
+    "JETT AI Meeting Assistant transforms the way organizations capture, understand, and use meeting information. By combining intelligent transcription, AI generated summaries, action item extraction, decision tracking, searchable conversations, and conversational AI, JETT turns every meeting into a structured source of knowledge and action. Rather than allowing valuable conversations to disappear when a meeting ends, JETT preserves the context, surfaces the outcomes, and helps teams move work forward with greater clarity and efficiency.\n\nJETT was designed around the idea that meetings should create reusable business knowledge rather than disappear once the conversation ends. The platform captures the conversation and organizes the most important information into a format that teams can understand and use.\n\nBy combining transcription, summarization, action extraction, decision tracking, search, and conversational AI, the experience reduces the effort required to revisit previous discussions. Users can move from a long conversation to the specific information they need without manually reviewing the entire recording.\n\nThe product also creates a foundation for connecting meeting intelligence with wider business workflows, allowing information from conversations to become useful inputs for collaboration, follow-up, reporting, and ongoing decision making.",
 
   techStack: [
     "Artificial Intelligence",
@@ -508,7 +549,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "AppMD represents a modern approach to healthcare delivery, connecting patients with qualified physicians across the United States and India through a virtual healthcare platform. By combining digital technology with access to medical expertise, AppMD helps reduce geographical barriers, simplify the consultation journey, and create a more convenient healthcare experience. The platform demonstrates how thoughtful healthcare technology can bring patients and physicians closer while supporting the continued evolution of connected and accessible care.",
+    "AppMD represents a modern approach to healthcare delivery, connecting patients with qualified physicians across the United States and India through a virtual healthcare platform. By combining digital technology with access to medical expertise, AppMD helps reduce geographical barriers, simplify the consultation journey, and create a more convenient healthcare experience. The platform demonstrates how thoughtful healthcare technology can bring patients and physicians closer while supporting the continued evolution of connected and accessible care.\n\nThe digital experience was structured around making remote healthcare interactions easier to access while maintaining a patient-focused journey. Instead of requiring every consultation to begin with a physical visit, the platform creates a digital route for connecting patients with medical professionals.\n\nThe cross-border physician model adds flexibility to the experience by connecting patients with healthcare expertise across the United States and India. The platform therefore acts as a technology layer that brings patients and physicians together through a connected virtual care journey.\n\nThe product foundation is designed to support continued growth in digital healthcare, giving AppMD a scalable base for expanding physician access, consultation experiences, and other connected healthcare capabilities.",
 
   techStack: [
     "React",
@@ -621,7 +662,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "KareerSity is redefining pharmaceutical education by bringing academic learning, industry knowledge, professional upskilling, recruitment, consulting, and leadership development into a connected career ecosystem. Instead of treating education as an end point, the platform positions learning as the foundation for long term professional growth — helping students become workforce ready, enabling professionals to advance their careers, and strengthening the connection between academia and industry.",
+    "KareerSity is redefining pharmaceutical education by bringing academic learning, industry knowledge, professional upskilling, recruitment, consulting, and leadership development into a connected career ecosystem. Instead of treating education as an end point, the platform positions learning as the foundation for long term professional growth — helping students become workforce ready, enabling professionals to advance their careers, and strengthening the connection between academia and industry.\n\nThe platform brings together learning and professional development so that education is connected to the practical expectations of the pharmaceutical industry. This creates a journey that can support learners at different stages, from entering the workforce to developing long-term professional capabilities.\n\nThe experience extends beyond individual courses by connecting learning with upskilling, recruitment, consulting, and leadership development. This broader ecosystem helps position digital learning as an ongoing part of professional growth rather than a one-time educational activity.\n\nThe resulting product foundation can evolve with changing industry requirements, allowing KareerSity to continue adding learning experiences, career pathways, and professional services while keeping the overall journey connected.",
 
   techStack: [
     "Responsive Web Platform",
@@ -739,7 +780,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "Starfii transformed Filecentral from the concept of a traditional file repository into an intelligent AI powered information workspace. By combining centralized file management, contextual search, conversational document interaction through Panda AI, document analysis, and secure access controls, Filecentral helps professionals spend less time searching for information and more time using it. The platform's MVP was delivered in one month, followed by the full product within approximately three to three and a half months, with reported improvements of 40% in search speed, 50% in file organization, and 30% in productivity.",
+    "Starfii transformed Filecentral from the concept of a traditional file repository into an intelligent AI powered information workspace. By combining centralized file management, contextual search, conversational document interaction through Panda AI, document analysis, and secure access controls, Filecentral helps professionals spend less time searching for information and more time using it. The platform's MVP was delivered in one month, followed by the full product within approximately three to three and a half months, with reported improvements of 40% in search speed, 50% in file organization, and 30% in productivity.\n\nThe product was designed to move users beyond the traditional folder-and-file model by making the information inside documents easier to access and understand. Search and AI interaction become part of the everyday file management experience rather than separate tools.\n\nPanda AI adds a conversational layer to the platform, allowing users to interact with their documents, retrieve information, summarize content, and explore relationships across files. This turns stored information into something users can actively work with.\n\nThe platform also provides a scalable foundation for organizations with growing information requirements, combining centralized storage, intelligent discovery, document intelligence, and permission-based access within one connected workspace.",
 
   techStack: [
     "AI/ML",
@@ -857,7 +898,7 @@ export const caseStudies: CaseStudy[] = [
   ],
 
   summary:
-    "Express Roadways is building a more connected approach to logistics by combining transportation expertise with technology driven supply chain operations. From freight and agile movement to warehousing, distribution, real time tracking, and cold chain logistics, the organization brings multiple capabilities together under one integrated ecosystem. With a pan India network, dedicated fleet, technology enabled operations, and a strong focus on reliability and transparency, Express Roadways helps businesses move products with greater confidence and control.",
+    "Express Roadways is building a more connected approach to logistics by combining transportation expertise with technology driven supply chain operations. From freight and agile movement to warehousing, distribution, real time tracking, and cold chain logistics, the organization brings multiple capabilities together under one integrated ecosystem. With a pan India network, dedicated fleet, technology enabled operations, and a strong focus on reliability and transparency, Express Roadways helps businesses move products with greater confidence and control.\n\nThe digital approach brings multiple logistics capabilities together so customers can understand and manage transportation, warehousing, distribution, and specialized supply chain requirements through a more connected operating model.\n\nReal-time visibility and technology-enabled processes help create greater transparency across shipment movement and operational activity. This is particularly valuable when logistics journeys involve multiple locations, service types, timelines, and customer requirements.\n\nThe resulting technology foundation supports Express Roadways as it continues to operate at scale, providing a base for stronger visibility, customized logistics services, operational reporting, and continued expansion across its supply chain ecosystem.",
 
   techStack: [
     "GPS & Real Time Tracking",
@@ -870,6 +911,7 @@ export const caseStudies: CaseStudy[] = [
     "Fleet Management"
   ],
 }
+
 ];
 
 export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {

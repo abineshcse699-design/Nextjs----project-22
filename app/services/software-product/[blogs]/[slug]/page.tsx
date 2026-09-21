@@ -33,6 +33,7 @@ export async function generateMetadata({
     return {
       title: "Blog Not Found | Starfii",
       description: "The requested Starfii blog could not be found.",
+      
     };
   }
 

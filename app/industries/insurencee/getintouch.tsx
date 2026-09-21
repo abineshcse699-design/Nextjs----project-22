@@ -75,7 +75,7 @@ export default function GetInTouch() {
               sm:text-[18px]
             "
           >
-            Bring Your Digital Vision to Life
+            Let's Make Insurance Simpler, Smarter, and Secure
           </p>
         </div>
 

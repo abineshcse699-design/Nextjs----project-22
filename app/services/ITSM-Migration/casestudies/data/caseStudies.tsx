@@ -63,16 +63,16 @@ export const caseStudies: CaseStudy[] = [
       "A global insurer relied on a legacy ITSM platform that had become difficult to maintain and expensive to evolve. The platform supported incidents, service requests, change management, configuration management, and critical service desk workflows across multiple business units.",
 
     challenge:
-      "The insurer needed to move away from its legacy ITSM environment without disrupting daily service desk operations. Years of historical incidents, service requests, changes, configuration records, workflows, business rules, and integrations had created a highly interconnected environment. A big bang migration would have introduced significant operational risk.",
+      "The insurer needed to move away from its legacy ITSM environment without disrupting daily service desk operations. Years of historical incidents, service requests, changes, configuration records, workflows, business rules, and integrations had created a highly interconnected environment. A big bang migration would have introduced significant operational risk. Service desk teams handled a steady flow of live tickets every day, so there was no convenient window to pause the platform and switch over. Years of customization meant that many workflows and business rules were poorly documented, and moving them without understanding how they worked risked breaking processes that business units depended on. The insurer needed a plan that protected daily operations at every step.",
 
     solution:
-      "Starfii assessed the existing ITSM environment, mapped business processes, workflows, data structures, integrations, CMDB relationships, service catalog items, and platform customizations. The team then designed a phased migration strategy that prioritized business continuity while progressively modernizing the platform.",
+      "Starfii assessed the existing ITSM environment, mapped business processes, workflows, data structures, integrations, CMDB relationships, service catalog items, and platform customizations. The team then designed a phased migration strategy that prioritized business continuity while progressively modernizing the platform. Each workflow, integration, and catalog item was reviewed with the people who use it, so the team could decide what to keep, what to redesign, and what to retire. Migration waves were sequenced by business risk and dependency, and clear success criteria were agreed with the insurer before each wave began. This let the program modernize the platform step by step instead of taking on the full risk in a single move.",
 
     migration:
-      "Historical data was extracted, cleansed, transformed, validated, and migrated through controlled migration waves. Critical workflows and configurations were rebuilt and optimized instead of being copied blindly. Service desk teams participated in testing and user acceptance activities before production cutover.",
+      "Historical data was extracted, cleansed, transformed, validated, and migrated through controlled migration waves. Critical workflows and configurations were rebuilt and optimized instead of being copied blindly. Service desk teams participated in testing and user acceptance activities before production cutover. Each migration wave was followed by data reconciliation to confirm that records, relationships, and attachments matched the source. Detailed runbooks and rollback plans were prepared before cutover so the team could act quickly if an issue appeared, and hypercare support stayed in place after go live to resolve questions from service desk teams.",
 
     results:
-      "The insurer successfully transitioned away from the legacy ITSM platform while maintaining service desk continuity. The organization gained a cleaner service management environment, improved integration capabilities, better data quality, and a stronger foundation for continued ITSM transformation.",
+      "The insurer successfully transitioned away from the legacy ITSM platform while maintaining service desk continuity. The organization gained a cleaner service management environment, improved integration capabilities, better data quality, and a stronger foundation for continued ITSM transformation. There were no days of planned service desk downtime, and every critical migration workflow was validated before it went live. The full program, from assessment to stabilization, was completed in 12 months. Service desk teams now work in a modern environment with rebuilt and optimized workflows rather than copies of old customizations, and historical incident and CMDB data is cleaner and easier to trust. The insurer no longer depends on an end of life platform, which removes a growing maintenance burden and lowers the risk of relying on aging technology. With a solid foundation in place, it can continue improving its service management, add new integrations, and extend automation across its business units at its own pace.",
 
     benefits: [
       "Migration from an end of life ITSM platform",
@@ -187,16 +187,16 @@ export const caseStudies: CaseStudy[] = [
       "A large retail organization had accumulated hundreds of service catalog items over several years. Different business units maintained overlapping offerings, inconsistent request forms, approval processes, and fulfillment workflows.",
 
     challenge:
-      "Employees struggled to identify the correct service request. Duplicate catalog items and inconsistent approval processes created unnecessary ticket volume and increased fulfillment effort for service desk teams.",
+      "Employees struggled to identify the correct service request. Duplicate catalog items and inconsistent approval processes created unnecessary ticket volume and increased fulfillment effort for service desk teams. Requests often landed with the wrong team or came back for clarification because forms asked for different information depending on the business unit. Service desk agents spent time redirecting tickets and chasing missing details instead of fulfilling requests, and there was no single owner who could say which services were still needed.",
 
     solution:
-      "Starfii reviewed the existing catalog structure, usage patterns, request forms, approval chains, fulfillment workflows, ownership models, and service definitions. Low value and duplicate services were identified while frequently used services were prioritized for redesign.",
+      "Starfii reviewed the existing catalog structure, usage patterns, request forms, approval chains, fulfillment workflows, ownership models, and service definitions. Low value and duplicate services were identified while frequently used services were prioritized for redesign. Ownership was assigned for each service so someone was accountable for its form, approvals, and fulfillment. The redesigned structure was organized around the way employees describe their needs, not around the internal teams that deliver them, which makes services easier to find and request.",
 
     migration:
-      "Existing catalog data and service definitions were mapped into the target structure. Request forms were simplified, approval rules were standardized, and fulfillment workflows were redesigned before being migrated into the modern service management environment.",
+      "Existing catalog data and service definitions were mapped into the target structure. Request forms were simplified, approval rules were standardized, and fulfillment workflows were redesigned before being migrated into the modern service management environment. Retired and duplicate services were archived rather than carried forward, so the new environment started clean. Each redesigned service was tested against real request scenarios before it was released, and service teams were briefed on the new forms and workflows ahead of launch.",
 
     results:
-      "The retailer gained a cleaner and easier to navigate service catalog. Employees could find services faster while service teams benefited from standardized forms, workflows, ownership, and fulfillment processes.",
+      "The retailer gained a cleaner and easier to navigate service catalog. Employees could find services faster while service teams benefited from standardized forms, workflows, ownership, and fulfillment processes. Requests are now fulfilled 45% faster, duplicate catalog items have been reduced by 35%, and self service adoption has doubled. Employees spend less time searching for the right service and less time waiting for approvals, because forms ask the right questions the first time and approval steps follow a consistent pattern. Service desk teams see fewer misdirected tickets and fewer follow up requests for missing information, which frees them to focus on work that needs their expertise. Clear service ownership means the catalog stays accurate as business needs change, and the retailer now has a solid structure for adding new services without letting the catalog grow out of control again.",
 
     benefits: [
       "Simplified service catalog structure",
@@ -305,16 +305,16 @@ export const caseStudies: CaseStudy[] = [
       "The manufacturer operated multiple plants and facilities with fragmented asset records maintained across different systems and teams. The lack of a consistent configuration model made it difficult to understand relationships between infrastructure, applications, and business services.",
 
     challenge:
-      "Asset records were duplicated, incomplete, and inconsistently structured. Different facilities followed different naming standards and ownership models, making enterprise wide dependency mapping difficult.",
+      "Asset records were duplicated, incomplete, and inconsistently structured. Different facilities followed different naming standards and ownership models, making enterprise wide dependency mapping difficult. Because each plant recorded assets in its own way, IT teams could not easily answer basic questions such as which applications depended on a given server or which services would be affected by a change. Incident investigations took longer than necessary, and the risk of unexpected impact from changes was hard to judge.",
 
     solution:
-      "Starfii assessed asset sources, configuration records, naming standards, ownership models, discovery processes, and relationships. A common CMDB model was designed to establish consistent data structures across facilities.",
+      "Starfii assessed asset sources, configuration records, naming standards, ownership models, discovery processes, and relationships. A common CMDB model was designed to establish consistent data structures across facilities. Sources were compared and ranked by reliability so the most trusted data could serve as the foundation for the CMDB. The team also defined ownership and update responsibilities for each class of configuration item, so the data would stay accurate after the initial cleanup.",
 
     migration:
-      "Fragmented asset and configuration records were cleansed, normalized, reconciled, and migrated into a structured CMDB. Relationships between configuration items were mapped to improve service dependency visibility.",
+      "Fragmented asset and configuration records were cleansed, normalized, reconciled, and migrated into a structured CMDB. Relationships between configuration items were mapped to improve service dependency visibility. Reconciliation rules matched records that described the same asset across different sources, and exceptions were reviewed with facility teams instead of being resolved by guesswork. The result was a CMDB that reflects how each plant actually operates, with consistent attributes and relationships across all facilities.",
 
     results:
-      "The manufacturer gained a more reliable configuration management foundation with improved visibility across infrastructure and service dependencies. IT teams could make better informed decisions during incidents, changes, and infrastructure planning.",
+      "The manufacturer gained a more reliable configuration management foundation with improved visibility across infrastructure and service dependencies. IT teams could make better informed decisions during incidents, changes, and infrastructure planning. Asset data quality has improved by 60%, duplicate records have been reduced by 40%, and dependency analysis is now 3x faster. When an incident occurs, teams can quickly see which applications and business services are affected and where to look first, which shortens investigation time. Change planning is more confident because the impact of a change on connected systems is visible before it is approved. Consistent naming, ownership, and attributes across plants mean that a record in one facility means the same thing as a record in another. With governance processes now in place, the CMDB will stay accurate over time instead of drifting back into the fragmented state it started from, giving the business a lasting base for service management and infrastructure planning.",
 
     benefits: [
       "Single source of truth for configuration data",
@@ -423,16 +423,16 @@ export const caseStudies: CaseStudy[] = [
       "A healthcare provider depended on highly customized ITSM workflows that had evolved over many years. Manual approvals, email based handoffs, and inconsistent escalation paths created delays for service desk and infrastructure teams.",
 
     challenge:
-      "The organization needed to modernize its ITSM platform while preserving critical healthcare support processes. Existing workflows contained complex business rules and manual exceptions that made a direct migration difficult.",
+      "The organization needed to modernize its ITSM platform while preserving critical healthcare support processes. Existing workflows contained complex business rules and manual exceptions that made a direct migration difficult. Many approvals depended on email threads and individual follow ups, which made it hard to see where a request was stuck or who was responsible. Escalation paths differed between teams, so urgent issues could sit longer than they should, and SLA performance was difficult to track consistently.",
 
     solution:
-      "Starfii mapped each workflow from request initiation through fulfillment or resolution. Approval chains, escalation rules, SLA policies, automation triggers, and exception paths were documented before redesign.",
+      "Starfii mapped each workflow from request initiation through fulfillment or resolution. Approval chains, escalation rules, SLA policies, automation triggers, and exception paths were documented before redesign. Working with service desk and infrastructure teams, the team separated the steps that truly required human judgment from those that could be handled automatically. Steps that existed only because of old tooling limits were flagged for removal, while controls that supported healthcare support requirements were kept and made explicit in the new design.",
 
     migration:
-      "Legacy workflows were rebuilt using modern automation patterns. Unnecessary manual approvals were removed, escalation rules were standardized, and service level policies were connected directly to workflow automation.",
+      "Legacy workflows were rebuilt using modern automation patterns. Unnecessary manual approvals were removed, escalation rules were standardized, and service level policies were connected directly to workflow automation. Rebuilt workflows were tested against normal, exception, and escalation scenarios before go live, so teams could trust that critical support processes behaved as expected. Notifications replaced many email based handoffs, giving everyone involved a clear view of request status.",
 
     results:
-      "The healthcare provider achieved faster workflow execution and reduced manual handoffs while maintaining the controls required for critical support processes.",
+      "The healthcare provider achieved faster workflow execution and reduced manual handoffs while maintaining the controls required for critical support processes. Manual handoffs are down 40%, incident escalation is 30% faster, and SLA compliance has improved by 25%. Approvals now move through consistent, automated paths, so requests no longer wait on an email reply or a manual reminder. Escalations follow the same rules across teams, which means urgent issues reach the right people sooner. Service desk agents spend less time chasing status and more time resolving issues, and managers can see where work is delayed and act on it. Because service level policies are tied directly to workflow automation, SLA performance is measured the same way every time. The provider now has a strong automation foundation that it can extend to more processes as its support needs evolve, without giving up the oversight that healthcare operations require.",
 
     benefits: [
       "Reduced manual workflow steps",
@@ -540,16 +540,16 @@ export const caseStudies: CaseStudy[] = [
       "After completing its ITSM migration, a regional bank wanted to avoid the common post go live problem where platform performance, workflows, configurations, and integrations gradually become difficult to manage.",
 
     challenge:
-      "The bank needed ongoing expertise to manage platform enhancements, operational issues, integrations, compliance requirements, service catalog changes, workflow tuning, and user support without building a large internal platform team.",
+      "The bank needed ongoing expertise to manage platform enhancements, operational issues, integrations, compliance requirements, service catalog changes, workflow tuning, and user support without building a large internal platform team. Without continued attention, a newly migrated platform tends to drift as new requests, quick fixes, and one-off changes pile up. The bank also operates under strict regulatory expectations, so every change to workflows or configurations had to be controlled and traceable.",
 
     solution:
-      "Starfii established a structured managed services model covering platform administration, incident support, enhancement delivery, workflow optimization, integration monitoring, release management, and continuous improvement.",
+      "Starfii established a structured managed services model covering platform administration, incident support, enhancement delivery, workflow optimization, integration monitoring, release management, and continuous improvement. Service levels and responsibilities were agreed upfront so the bank knew exactly what support to expect. A regular cadence of reviews connected platform performance, open enhancements, and upcoming business needs, keeping priorities aligned between the bank and Starfii.",
 
     migration:
-      "Post migration activities included hypercare, defect resolution, platform tuning, user support, workflow optimization, integration monitoring, and knowledge transfer to internal teams.",
+      "Post migration activities included hypercare, defect resolution, platform tuning, user support, workflow optimization, integration monitoring, and knowledge transfer to internal teams. As internal teams grew more familiar with the platform, knowledge was shared through documentation and working sessions so the bank keeps control of its environment and can choose how much support it wants over time.",
 
     results:
-      "The bank maintained a stable and well governed ITSM environment while continuing to evolve the platform as business, technology, and regulatory requirements changed.",
+      "The bank maintained a stable and well governed ITSM environment while continuing to evolve the platform as business, technology, and regulatory requirements changed. Issues are now resolved 35% faster, platform administration effort has fallen by 30%, and operations are monitored around the clock. Releases follow a controlled process, so changes reach production in an orderly and traceable way that supports the bank's compliance obligations. Integrations are monitored proactively, which means problems are usually found and fixed before users notice them. The bank's internal teams no longer need to spend their time on routine platform administration and can focus on higher value work for the business. Because the platform is tuned continuously, workflows and service catalogs keep pace with how the bank actually operates rather than slowly falling out of date. The result is an ITSM environment that stays reliable, secure, and ready to support new needs as the institution grows.",
 
     benefits: [
       "Reliable post migration support",

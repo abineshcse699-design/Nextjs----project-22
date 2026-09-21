@@ -1312,7 +1312,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             className="h-full"
           >
             <Link
-              href={`/software-product/capabilities/${area.slug}`}
+             href={`/services/software-product/capabilities/${area.slug}`}
               aria-label={`Learn more about ${area.title}`}
               className="ss-capability-card flex h-full flex-col p-8"
             >

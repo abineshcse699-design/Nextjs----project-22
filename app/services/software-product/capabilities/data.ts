@@ -1,7 +1,7 @@
 // Shared data source for Software & Product Engineering capabilities.
 // Used by:
-//   - app/services/digital-software/page.tsx        (the capability grid)
-//   - app/services/digital-software/capabilities/[slug]/page.tsx  (detail page)
+//   - app/services/software-product/page.tsx                      (the capability grid)
+//   - app/services/software-product/capabilities/[slug]/page.tsx  (detail page)
 //
 // Keeping one source of truth means the grid card and its "Learn More"
 // destination can never drift out of sync with each other.
@@ -58,24 +58,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "How long does a typical UI/UX engagement take?",
+        question: "What is the typical timeline for a UI/UX engagement?",
         answer:
           "Most engagements run 6 to 12 weeks depending on scope, covering research, wireframes, high fidelity design, and a design system handoff to engineering.",
       },
       {
-        question: "Do you work with our existing design system?",
+        question: "Can Starfii extend or build on our existing design system?",
         answer:
           "Yes. We can extend an existing design system or build a new one from scratch, whichever gets your product to market faster without rework.",
       },
       {
-        question: "Do you also build the front end, or only design it?",
+        question: "Does Starfii also handle front end development after the design phase?",
         answer:
-          "Both. Our UI/UX team typically pairs with our web and mobile application development teams so the final build matches the design pixel for pixel.",
+          "Yes. Our UI/UX team works alongside our web and mobile application development teams, so the final build matches the approved design closely.",
       },
       {
-        question: "Can you audit our current product's usability?",
+        question: "Does Starfii offer standalone UX audits for existing products?",
         answer:
-          "Yes, we offer standalone UX audits that surface friction points, accessibility gaps, and quick wins before committing to a full redesign.",
+          "Yes. A standalone UX audit surfaces friction points, accessibility gaps, and quick wins before you commit to a full redesign.",
+      },
+      {
+        question: "How does Starfii measure the success of a UI/UX redesign?",
+        answer:
+          "We agree on success metrics up front, such as task completion, conversion, drop off, and user satisfaction, and compare them before and after launch so the impact of the design work is visible and measurable.",
+      },
+      {
+        question: "How does Starfii involve stakeholders and end users during the design process?",
+        answer:
+          "We run discovery workshops with stakeholders, test prototypes with real users, and share progress at regular checkpoints, so feedback is captured early and decisions stay aligned with business goals.",
+      },
+      {
+        question: "Does Starfii design for both web and mobile experiences?",
+        answer:
+          "Yes. We design responsive web experiences and mobile interfaces, keeping patterns, components, and branding consistent across every screen and device.",
       },
     ],
   },
@@ -106,24 +121,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "What frameworks do you build with?",
+        question: "Which frameworks and technologies does Starfii use for web application development?",
         answer:
-          "We primarily build with React and Next.js, and adapt to your existing stack (Vue, Angular, or a legacy framework) when a rebuild isn't the right first step.",
+          "We primarily build with React and Next.js, and we adapt to your existing stack (Vue, Angular, or a legacy framework) when a rebuild is not the right first step.",
       },
       {
-        question: "Can you take over an existing web application?",
+        question: "Can Starfii take over and improve an existing web application?",
         answer:
-          "Yes. We regularly onboard onto existing codebases, run a technical audit first, then plan improvements alongside new feature delivery.",
+          "Yes. We regularly onboard onto existing codebases, run a technical audit first, and then plan improvements alongside new feature delivery.",
       },
       {
-        question: "Do you handle hosting and deployment?",
+        question: "How does Starfii manage hosting, deployment, and monitoring?",
         answer:
-          "We set up CI/CD pipelines and can deploy to your preferred cloud provider (AWS, Azure, GCP, or Vercel) with monitoring built in from day one.",
+          "We set up CI/CD pipelines and deploy to your preferred cloud provider (AWS, Azure, GCP, or Vercel), with monitoring built in from day one.",
       },
       {
-        question: "How do you ensure the app scales as traffic grows?",
+        question: "How does Starfii ensure a web application scales as traffic grows?",
         answer:
-          "We design with caching, code splitting, and horizontal scaling in mind from the start, and load test before major launches.",
+          "We design with caching, code splitting, and horizontal scaling in mind from the start, and we load test before major launches.",
+      },
+      {
+        question: "How does Starfii approach web application security?",
+        answer:
+          "Security is built in from the start, including secure authentication, input validation, dependency scanning, and protection against common web vulnerabilities such as those listed in the OWASP Top 10.",
+      },
+      {
+        question: "Can Starfii build web applications that are optimized for search engines?",
+        answer:
+          "Yes. Using frameworks like Next.js, we build with server rendering, clean semantic markup, and fast load times, so pages are easy for search engines to crawl and index.",
+      },
+      {
+        question: "How does Starfii structure the delivery of a web application project?",
+        answer:
+          "We deliver in short, visible increments with regular demos, so your team can review working software early, give feedback, and adjust priorities as the product takes shape.",
       },
     ],
   },
@@ -154,24 +184,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "Native or cross platform, which is right for us?",
+        question: "How should we choose between native and cross platform development?",
         answer:
-          "If your app needs deep hardware access or platform specific performance, native is worth it. Otherwise cross platform gets you to both stores faster at lower cost. We'll recommend based on your requirements.",
+          "If your app needs deep hardware access or platform specific performance, native is worth the investment. Otherwise, cross platform reaches both app stores faster and at lower cost. We recommend an approach based on your requirements.",
       },
       {
-        question: "Do you support push notifications and in app purchases?",
+        question: "Does Starfii support push notifications and in app purchases?",
         answer:
           "Yes, including Firebase Cloud Messaging, Apple Push Notification service, and subscription or one time purchase flows through both app stores.",
       },
       {
-        question: "Can you maintain an app after launch?",
+        question: "Does Starfii provide maintenance and support after launch?",
         answer:
-          "Yes, we offer ongoing maintenance plans covering OS updates, bug fixes, and new feature development post launch.",
+          "Yes. We offer ongoing maintenance plans covering OS updates, bug fixes, and new feature development after launch.",
       },
       {
-        question: "How do you handle app store rejections?",
+        question: "How does Starfii handle App Store and Play Store review requirements?",
         answer:
-          "We build against current App Store and Play Store guidelines from day one, and our release management process handles resubmissions quickly if they occur.",
+          "We build against current App Store and Play Store guidelines from day one, and our release management process handles any resubmission quickly.",
+      },
+      {
+        question: "Can Starfii build mobile apps that work offline?",
+        answer:
+          "Yes. We design offline first architectures where the app stays usable without a connection and syncs data cleanly once connectivity returns.",
+      },
+      {
+        question: "How does Starfii approach mobile app security and data protection?",
+        answer:
+          "We apply secure authentication, encrypted data storage and transport, and safe handling of tokens and user data, following the security guidelines of each platform.",
+      },
+      {
+        question: "Can Starfii migrate our existing app to a new platform or framework?",
+        answer:
+          "Yes. We assess the current app, recommend whether to refactor, rebuild, or move to a cross platform framework, and plan the transition so existing users are not disrupted.",
       },
     ],
   },
@@ -202,24 +247,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "What languages and frameworks do you use on the backend?",
+        question: "Which languages and frameworks does Starfii use for backend engineering?",
         answer:
-          "Most commonly Node.js, Python, and Java/Spring, chosen based on your team's existing stack and the performance profile the workload needs.",
+          "Most commonly Node.js, Python, and Java with Spring, chosen based on your team's existing stack and the performance profile the workload needs.",
       },
       {
-        question: "Can you help us move from a monolith to microservices?",
+        question: "Can Starfii help us migrate from a monolith to microservices?",
         answer:
           "Yes. We typically use the strangler fig pattern, carving out services incrementally so the monolith keeps running while we migrate.",
       },
       {
-        question: "How do you approach database scaling?",
+        question: "How does Starfii approach database performance and scaling?",
         answer:
           "We start with indexing and query optimization, then introduce read replicas, sharding, or caching layers only once the data justifies them.",
       },
       {
-        question: "Do you provide on call support after launch?",
+        question: "Does Starfii offer on call and production support after launch?",
         answer:
           "We can set up your team's on call rotation and runbooks, or provide managed support ourselves under a support retainer.",
+      },
+      {
+        question: "How does Starfii ensure backend reliability and uptime?",
+        answer:
+          "We build in observability from the start, with logging, tracing, and alerting, so issues are detected and addressed before customers are affected.",
+      },
+      {
+        question: "How does Starfii secure backend services and sensitive data?",
+        answer:
+          "Authentication, authorization, and encryption are designed in from the first sprint, with access controls and audit trails aligned to your compliance requirements.",
+      },
+      {
+        question: "Can Starfii design the data model for our product?",
+        answer:
+          "Yes. We design relational and NoSQL data models around the access patterns your product actually uses, and plan for growth so the model can evolve without major rework.",
       },
     ],
   },
@@ -250,24 +310,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "Can you integrate with our existing CRM or ERP?",
+        question: "Can Starfii integrate with our existing CRM or ERP systems?",
         answer:
-          "Yes, we've built integrations with Salesforce, HubSpot, SAP, and many other enterprise platforms, using their official APIs or middleware where needed.",
+          "Yes. We have built integrations with Salesforce, HubSpot, SAP, and many other enterprise platforms, using their official APIs or middleware where needed.",
       },
       {
-        question: "How do you handle API versioning?",
+        question: "How does Starfii manage API versioning?",
         answer:
           "We design a versioning strategy up front (usually URL or header based) so consumers can migrate on their own schedule without breaking changes.",
       },
       {
-        question: "What about API security?",
+        question: "How does Starfii secure the APIs it builds?",
         answer:
           "OAuth 2.0, API keys, rate limiting, and request validation are standard on every API layer we build.",
       },
       {
-        question: "Can you document APIs for external partners?",
+        question: "Does Starfii provide API documentation for external partners?",
         answer:
-          "Yes, we produce OpenAPI/Swagger specs and interactive documentation so partner teams can self serve integration without back and forth.",
+          "Yes. We produce OpenAPI/Swagger specifications and interactive documentation so partner teams can integrate on their own without back and forth.",
+      },
+      {
+        question: "Which types of APIs does Starfii build?",
+        answer:
+          "We build REST, GraphQL, and webhook based APIs, choosing the style that best fits how your consumers use the data.",
+      },
+      {
+        question: "How does Starfii keep integrations reliable when a third party system fails?",
+        answer:
+          "We design retries, timeouts, and failure handling into every integration, and use message queues and event driven patterns so one failing system does not take down the rest of the platform.",
+      },
+      {
+        question: "Can Starfii monitor and manage APIs after they go live?",
+        answer:
+          "Yes. We put an API gateway in place with throttling, authentication, and monitoring, so usage, performance, and errors stay visible after launch.",
       },
     ],
   },
@@ -298,24 +373,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "What's the difference between single tenant and multi tenant?",
+        question: "What is the difference between single tenant and multi tenant SaaS architecture?",
         answer:
-          "Multi tenant shares infrastructure across customers to reduce cost per customer; single tenant isolates each customer fully, often for compliance reasons. We help you choose based on your customer base and regulatory needs.",
+          "Multi tenant shares infrastructure across customers to reduce cost per customer, while single tenant isolates each customer fully, often for compliance reasons. We help you choose based on your customer base and regulatory needs.",
       },
       {
-        question: "Can you help us achieve SOC 2 or HIPAA compliance?",
+        question: "Can Starfii support SOC 2 or HIPAA compliance for our SaaS product?",
         answer:
-          "Yes, we design architecture with compliance controls built in and can support your audit process with the documentation and evidence auditors require.",
+          "Yes. We design architecture with compliance controls built in and can support your audit process with the documentation and evidence auditors require.",
       },
       {
-        question: "How do you handle SaaS pricing and billing logic?",
+        question: "How does Starfii implement SaaS pricing and billing logic?",
         answer:
           "We integrate metered and subscription billing through Stripe or Chargebee, handling trials, upgrades, downgrades, and dunning management.",
       },
       {
-        question: "Do you have experience with Fortune 500 scale SaaS?",
+        question: "Does Starfii have experience building SaaS platforms at Fortune 500 scale?",
         answer:
-          "Yes, our SaaS engineering team has shipped production SaaS platforms for Fortune 500 customers across fintech, healthcare, and e commerce.",
+          "Yes. Our SaaS engineering team has shipped production SaaS platforms for Fortune 500 customers across fintech, healthcare, and e commerce.",
+      },
+      {
+        question: "How does Starfii keep customer data isolated in a multi tenant platform?",
+        answer:
+          "We design tenant isolation and data partitioning so one customer's data and usage never affect another's, with access controls enforced at every layer.",
+      },
+      {
+        question: "Can Starfii add new tenants and features without re-architecting the platform?",
+        answer:
+          "Yes. We use modular, composable services so new tenants, features, and integrations can be added without rebuilding the core platform.",
+      },
+      {
+        question: "Does Starfii build SaaS products for regulated industries?",
+        answer:
+          "Yes. We have built SaaS products in healthcare and fintech, and we design architecture aligned with requirements such as HIPAA, SOC 2, and PCI DSS.",
       },
     ],
   },
@@ -346,24 +436,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "How do you manage enterprise scale projects?",
+        question: "How does Starfii manage large scale enterprise projects?",
         answer:
           "We use structured delivery frameworks with clear milestones, stakeholder checkpoints, and dedicated program management for every enterprise engagement.",
       },
       {
-        question: "Can you integrate with our existing enterprise systems?",
+        question: "Can Starfii integrate new applications with our existing enterprise systems?",
         answer:
-          "Yes, we regularly integrate with SAP, Oracle, Salesforce, and custom internal systems as part of enterprise application delivery.",
+          "Yes. We regularly integrate with SAP, Oracle, Salesforce, and custom internal systems as part of enterprise application delivery.",
       },
       {
-        question: "What does 'AI driven engineering' actually mean here?",
+        question: "What does AI driven engineering mean in practice at Starfii?",
         answer:
           "We use AI assisted coding, testing, and code review tools to speed up delivery, while senior engineers maintain full oversight of architecture and quality.",
       },
       {
-        question: "How do you handle enterprise security and compliance?",
+        question: "How does Starfii address enterprise security and compliance requirements?",
         answer:
-          "Enterprise SSO, RBAC, audit logging, and compliance requirements (SOC 2, ISO 27001, etc.) are scoped in during the discovery phase, not bolted on later.",
+          "Enterprise SSO, RBAC, audit logging, and compliance requirements (SOC 2, ISO 27001, and others) are scoped during the discovery phase, not added later.",
+      },
+      {
+        question: "How does Starfii control access and audit activity in enterprise applications?",
+        answer:
+          "We build in role based access control, audit trails, and enterprise SSO integration, so organizations with strict security requirements can control and review who does what.",
+      },
+      {
+        question: "Does Starfii support enterprise applications after launch?",
+        answer:
+          "Yes. One accountable team owns the outcome from ideation through launch and post launch support, so the application keeps improving after go live.",
+      },
+      {
+        question: "Can Starfii work alongside our internal IT and engineering teams?",
+        answer:
+          "Yes. We collaborate with your internal teams through shared planning, regular checkpoints, and clear ownership, so knowledge is shared and your team can operate the product with confidence.",
       },
     ],
   },
@@ -394,24 +499,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "How do you minimize disruption during modernization?",
+        question: "How does Starfii minimize business disruption during modernization?",
         answer:
           "We run the legacy and modernized systems in parallel where possible, migrating in phases so business operations are never interrupted for an extended period.",
       },
       {
-        question: "What if our legacy system has no documentation?",
+        question: "How does Starfii approach modernizing systems that lack documentation?",
         answer:
-          "Our assessment phase includes reverse engineering the existing system's behavior through code review and stakeholder interviews before planning the migration.",
+          "Our assessment phase includes reverse engineering the existing system's behavior through code review and stakeholder interviews before the migration is planned.",
       },
       {
-        question: "How long does a typical modernization project take?",
+        question: "How long does a typical product modernization project take?",
         answer:
           "It depends heavily on system complexity, but most engagements run from 3 months for a focused re-platform to 12+ months for a full enterprise modernization.",
       },
       {
-        question: "Do you migrate data as well as code?",
+        question: "Does Starfii migrate data as well as application code?",
         answer:
-          "Yes, data migration, validation, and reconciliation are built into every modernization roadmap to make sure nothing is lost in the transition.",
+          "Yes. Data migration, validation, and reconciliation are built into every modernization roadmap to make sure nothing is lost in the transition.",
+      },
+      {
+        question: "How does Starfii decide which parts of a legacy system to modernize first?",
+        answer:
+          "Our assessment identifies risk, technical debt, and quick wins, and we prioritize by business impact and risk to build a phased roadmap.",
+      },
+      {
+        question: "What does the process of moving on premise workloads to the cloud involve?",
+        answer:
+          "We assess your current workloads, plan the target cloud architecture, and migrate in phases, with validation at each step so the move is cost efficient, scalable, and low risk.",
+      },
+      {
+        question: "How does Starfii ensure a safe cutover to the new platform?",
+        answer:
+          "We plan data migration, dual writes, and rollback procedures in advance, so the cutover does not interrupt daily operations and we can revert quickly if needed.",
       },
     ],
   },
@@ -442,24 +562,39 @@ export const capabilities: Capability[] = [
     ],
     faqs: [
       {
-        question: "What testing tools do you use?",
+        question: "Which testing and CI/CD tools does Starfii work with?",
         answer:
           "We work with tools like Jest, Cypress, Playwright, and Selenium for automated testing, and Jenkins, GitHub Actions, or GitLab CI for pipelines, adapting to what your team already uses.",
       },
       {
-        question: "Can you improve our existing test coverage?",
+        question: "Can Starfii improve the test coverage of our existing product?",
         answer:
-          "Yes, we start with a coverage audit to find critical untested paths, then prioritize automation where it reduces the most risk first.",
+          "Yes. We start with a coverage audit to find critical untested paths, then prioritize automation where it reduces the most risk first.",
       },
       {
-        question: "How much can CI/CD automation cut our release time?",
+        question: "How much can CI/CD automation reduce our release cycle time?",
         answer:
-          "Teams typically see release cycles shrink significantly once manual testing and deployment steps are automated. Exact gains depend on your current process maturity.",
+          "Teams typically see release cycles shrink significantly once manual testing and deployment steps are automated. Exact gains depend on the maturity of your current process.",
       },
       {
-        question: "Do you support blue-green or canary deployments?",
+        question: "Does Starfii support blue green and canary deployment strategies?",
         answer:
-          "Yes, we design release strategies including blue-green, canary, and feature flag rollouts based on your risk tolerance and infrastructure.",
+          "Yes. We design release strategies including blue green, canary, and feature flag rollouts based on your risk tolerance and infrastructure.",
+      },
+      {
+        question: "Which types of testing does Starfii cover?",
+        answer:
+          "We cover unit, integration, end to end, and performance and load testing, so quality is checked at every level before release.",
+      },
+      {
+        question: "How does Starfii reduce risk during production releases?",
+        answer:
+          "We use feature flags, canary releases, and rollback plans so changes reach users gradually and can be reversed quickly if something goes wrong.",
+      },
+      {
+        question: "Can Starfii set up CI/CD pipelines for our team from scratch?",
+        answer:
+          "Yes. We build pipelines that run build, test, and deployment steps on every commit, giving your team fast, reliable feedback, and we integrate with the tools you already use.",
       },
     ],
   },

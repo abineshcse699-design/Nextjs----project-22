@@ -1,152 +1,287 @@
+// app/services/quality-engineering/blogs/BlogDetail.tsx
+
 "use client";
 
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { Poppins, Inter } from "next/font/google";
 import {
   ArrowLeft,
   ArrowUpRight,
-  Check,
   ChevronRight,
   Clock3,
-  Copy,
-  Mail,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
 import type { BlogPost } from "./blogData";
 
-type BlogDetailProps = {
-  post: BlogPost;
-  related: BlogPost[];
-};
+/* ============================================================
+   FONTS — loaded here so this page never falls back to Arial.
+   Heading = Poppins, Body = Inter (same as the other pages).
+============================================================ */
+
+const headingFont = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-heading",
+  display: "swap",
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-body",
+  display: "swap",
+});
+
+/* ============================================================
+   BRAND TOKENS + TYPE SCALE (identical to the Banking page)
+============================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const INDIGO_CTA = "#4F3FE0";
 
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+// 34 / 40 / 46, medium, 1.15
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#1B2560]";
+// 24 / 26, semibold, 1.2
+const SUB_HEADING =
+  "font-heading font-semibold leading-[1.2] text-[24px] sm:text-[26px] text-[#1B2560]";
+// 17 / 18, slate-600
+const BODY =
+  "font-body text-[17px] leading-relaxed text-slate-600 lg:text-[18px]";
+// 17, 1.7, slate-600 (card body)
+const CARD_BODY = "font-body text-[17px] leading-[1.7] text-slate-600";
+// 20, semibold (card titles)
+const CARD_TITLE =
+  "font-heading text-[20px] font-semibold leading-snug text-[#1B2560]";
+// 16 / 18, semibold (eyebrow)
+const EYEBROW = "font-body text-[16px] font-semibold sm:text-[18px]";
+
 // NOTE: this file is expected to live at
 // app/services/quality-engineering/blogs/BlogDetail.tsx
 // Keep BLOG_BASE / SERVICE_BASE in sync with the actual folder name
-// (lowercase, hyphenated) — Next.js routes are case-sensitive in
-// production even if they resolve locally on a case-insensitive OS.
+// (lowercase, hyphenated) — Next.js routes are case-sensitive in production.
 const BLOG_BASE = "/services/quality-engineering/blogs";
 const SERVICE_BASE = "/services/quality-engineering";
+
+type BlogDetailProps = {
+  post: BlogPost;
+  related: BlogPost[];
+};
 
 function getSectionId(index: number) {
   return `blog-section-${index + 1}`;
 }
 
-export default function BlogDetail({
-  post,
-  related,
-}: BlogDetailProps) {
-  const [copied, setCopied] = useState(false);
+/* ============================================================
+   SHARE ICONS (brand glyphs as inline SVG)
+============================================================ */
 
-  const pageUrl = useMemo(() => {
-    if (typeof window === "undefined") return "";
-    return window.location.href;
-  }, []);
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.29 19.494h2.039L6.486 3.24H4.298l13.313 17.407z" />
+    </svg>
+  );
+}
 
-  const shareText = encodeURIComponent(post.title);
-  const shareUrl = encodeURIComponent(pageUrl);
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
 
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(window.location.href);
-      setCopied(true);
-      window.setTimeout(() => setCopied(false), 1800);
-    } catch {
-      setCopied(false);
-    }
-  }
+function TelegramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  );
+}
 
-  function shareWindow(url: string) {
-    window.open(url, "_blank", "noopener,noreferrer,width=700,height=600");
+function ShareButton({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className="flex h-10 w-10 items-center justify-center transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ color: INDIGO_CTA }}
+    >
+      {children}
+    </button>
+  );
+}
+
+/* ============================================================
+   PAGE
+============================================================ */
+
+export default function BlogDetail({ post, related }: BlogDetailProps) {
+  function openShare(build: (url: string, text: string) => string) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(post.title);
+    window.open(
+      build(url, text),
+      "_blank",
+      "noopener,noreferrer,width=700,height=600"
+    );
   }
 
   return (
-    <main className="min-h-screen bg-white">
+    <main
+      className={`blog-page min-h-screen ${headingFont.variable} ${bodyFont.variable} bg-white`}
+    >
+      <style>{`
+        .blog-page .font-heading { font-family: var(--cs-font-heading), "Poppins", sans-serif; }
+        .blog-page .font-body { font-family: var(--cs-font-body), "Inter", sans-serif; }
+        .blog-page { font-family: var(--cs-font-body), "Inter", sans-serif; }
+      `}</style>
+
       {/* =====================================================
-          HERO
+          HERO — title, divider, meta + share, wide image
       ====================================================== */}
-      <section className="relative overflow-hidden bg-[#0A0912]">
-        <div className="absolute inset-0">
-          <img
-            src={post.heroImage}
-            alt={post.title}
-            className="h-full w-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#080711] via-[#11102A]/95 to-[#11102A]/60" />
-          <div
-            className="absolute -right-32 top-[-180px] h-[520px] w-[520px] rounded-full blur-3xl"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(164,143,234,0.35), rgba(79,63,224,0.08), transparent 70%)",
-            }}
-          />
-        </div>
-
-        <div className={`relative ${ALIGN}`}>
-          <div className="py-12 sm:py-16 lg:py-20">
-            {/* Breadcrumb */}
-            <nav
-              aria-label="Breadcrumb"
-              className="flex flex-wrap items-center gap-2 text-sm text-white/55"
-            >
-              <Link href="/" className="transition-colors hover:text-white">
-                Home
-              </Link>
-              <ChevronRight size={14} />
-              <Link
-                href={SERVICE_BASE}
-                className="transition-colors hover:text-white"
-              >
-                Quality Engineering
-              </Link>
-              <ChevronRight size={14} />
-              <Link
-                href={BLOG_BASE}
-                className="transition-colors hover:text-white"
-              >
-                Blogs
-              </Link>
-              <ChevronRight size={14} />
-              <span className="line-clamp-1 text-white/75">{post.title}</span>
-            </nav>
-
-            <Link
-              href={BLOG_BASE}
-              className="mt-6 inline-flex items-center gap-2 text-sm font-semibold transition-transform duration-200 hover:-translate-x-1"
-              style={{ color: "#A48FEA" }}
-            >
-              <ArrowLeft size={16} />
-              Back to Quality Engineering Blogs
+      <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
+        <div className={ALIGN}>
+          <nav
+            aria-label="Breadcrumb"
+            className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#1B2560]"
+          >
+            <Link href="/" className="hover:text-[#4F3FE0]">
+              Home
             </Link>
+            <ChevronRight size={14} />
+            <Link href={SERVICE_BASE} className="hover:text-[#4F3FE0]">
+              Quality Engineering
+            </Link>
+            <ChevronRight size={14} />
+            <Link href={BLOG_BASE} className="hover:text-[#4F3FE0]">
+              Blogs
+            </Link>
+            <ChevronRight size={14} />
+            <span aria-current="page" className="line-clamp-1">
+              {post.title}
+            </span>
+          </nav>
 
-            <div className="mt-8 max-w-5xl">
-              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
-                {post.category}
+          <Link
+            href={BLOG_BASE}
+            className="font-body mt-6 inline-flex items-center gap-2 text-[15px] font-semibold transition-transform duration-200 hover:-translate-x-1"
+            style={{ color: INDIGO_CTA }}
+          >
+            <ArrowLeft size={16} />
+            Back to Quality Engineering Blogs
+          </Link>
+
+          <p className={`${EYEBROW} mt-8`} style={{ color: CHAMPION_BLUE }}>
+            {post.category}
+          </p>
+
+          <h1 className="font-heading mt-4 max-w-[1100px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#1B2560] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
+            {post.title}
+          </h1>
+
+          <div className="mt-8 border-t border-slate-300" />
+
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="font-body flex flex-wrap items-center gap-x-4 gap-y-2 text-[16px] text-[#1B2560]">
+              <span>By {post.author}</span>
+              <span aria-hidden="true">•</span>
+              <span>{post.publishedAt}</span>
+              <span aria-hidden="true">•</span>
+              <span className="inline-flex items-center gap-2">
+                <Clock3 size={15} />
+                {post.readTime}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span
+                className="font-body mr-2 text-[16px]"
+                style={{ color: INDIGO_CTA }}
+              >
+                Share on
               </span>
 
-              <h1 className="mt-7 max-w-5xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[64px]">
-                {post.title}
-              </h1>
-
-              <p className="mt-7 max-w-3xl text-lg leading-8 text-white/65 sm:text-xl">
-                {post.excerpt}
-              </p>
-
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/55">
-                <span>By {post.author}</span>
-                <span className="hidden sm:inline">•</span>
-                <span>{post.publishedAt}</span>
-                <span className="hidden sm:inline">•</span>
-                <span className="inline-flex items-center gap-2">
-                  <Clock3 size={15} />
-                  {post.readTime}
+              <ShareButton
+                label="Share on LinkedIn"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.linkedin.com/sharing/share-offsite/?url=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[22px] font-bold leading-none">
+                  in
                 </span>
-              </div>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Facebook"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.facebook.com/sharer/sharer.php?u=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[24px] font-bold leading-none">
+                  f
+                </span>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on X"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://twitter.com/intent/tweet?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <XIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on WhatsApp"
+                onClick={() =>
+                  openShare((u, t) => `https://wa.me/?text=${t}%20${u}`)
+                }
+              >
+                <WhatsAppIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Telegram"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://t.me/share/url?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <TelegramIcon />
+              </ShareButton>
             </div>
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-xl bg-slate-900">
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              loading="eager"
+              decoding="async"
+              className="h-[240px] w-full object-cover object-center sm:h-[340px] lg:h-[410px]"
+            />
           </div>
         </div>
       </section>
@@ -156,91 +291,11 @@ export default function BlogDetail({
       ====================================================== */}
       <section className="relative">
         <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
+          <div className="grid grid-cols-1 gap-12 pt-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-16">
             {/* ================= ARTICLE ================= */}
             <article className="min-w-0">
-              {/* Hero image */}
-              <div className="-mt-8 overflow-hidden rounded-[28px] border border-white/20 bg-white shadow-2xl sm:-mt-12">
-                <img
-                  src={post.heroImage}
-                  alt={post.title}
-                  className="h-auto max-h-[560px] w-full object-cover"
-                />
-              </div>
-
-              {/* Share row */}
-              <div className="mt-7 flex flex-wrap items-center justify-between gap-5 border-b border-slate-200 pb-7">
-                <div>
-                  <p
-                    className="text-sm font-semibold"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
-                    {post.readTime}
-                  </p>
-                  <p className="mt-1 text-xs text-slate-500">
-                    Read, share and explore the full insight.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="mr-2 hidden text-sm font-medium text-slate-500 sm:inline">
-                    Share
-                  </span>
-
-                  <button
-                    type="button"
-                    aria-label="Share on LinkedIn"
-                    onClick={() =>
-                      shareWindow(
-                        `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`
-                      )
-                    }
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <span className="text-sm font-bold text-[#1B2560]">in</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Share on Facebook"
-                    onClick={() =>
-                      shareWindow(
-                        `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
-                      )
-                    }
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <span className="text-sm font-bold text-[#1B2560]">f</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Share via email"
-                    onClick={() => {
-                      window.location.href = `mailto:?subject=${shareText}&body=${shareUrl}`;
-                    }}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <Mail size={17} style={{ color: CHAMPION_BLUE }} />
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Copy link"
-                    onClick={copyLink}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    {copied ? (
-                      <Check size={17} className="text-green-600" />
-                    ) : (
-                      <Copy size={17} style={{ color: CHAMPION_BLUE }} />
-                    )}
-                  </button>
-                </div>
-              </div>
-
               {/* Lead paragraph */}
-              <p className="mt-10 font-heading text-xl font-medium leading-9 text-slate-700 sm:text-2xl">
+              <p className="font-heading text-[26px] leading-snug text-[#1B2560] lg:text-[30px]">
                 {post.body}
               </p>
 
@@ -248,23 +303,15 @@ export default function BlogDetail({
               <div className="mt-16 space-y-16">
                 {post.sections.map((section, index) => (
                   <section
-                    key={section.heading}
+                    key={`${section.heading}-${index}`}
                     id={getSectionId(index)}
                     className="scroll-mt-28"
                   >
-                    <h2
-                      className="text-2xl font-bold leading-tight sm:text-3xl"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {section.heading}
-                    </h2>
+                    <h2 className={SUB_HEADING}>{section.heading}</h2>
 
                     <div className="mt-6 space-y-5">
-                      {section.paragraphs.map((paragraph) => (
-                        <p
-                          key={paragraph}
-                          className="text-base leading-8 text-slate-600 sm:text-lg"
-                        >
+                      {section.paragraphs.map((paragraph, paragraphIndex) => (
+                        <p key={paragraphIndex} className={BODY}>
                           {paragraph}
                         </p>
                       ))}
@@ -272,16 +319,13 @@ export default function BlogDetail({
 
                     {section.bullets && section.bullets.length > 0 && (
                       <ul className="mt-7 space-y-4">
-                        {section.bullets.map((bullet) => (
-                          <li
-                            key={bullet}
-                            className="flex gap-3 text-base leading-7 text-slate-600"
-                          >
+                        {section.bullets.map((bullet, bulletIndex) => (
+                          <li key={bulletIndex} className="flex gap-3">
                             <span
-                              className="mt-2.5 h-1.5 w-1.5 flex-shrink-0 rounded-full"
+                              className="mt-3 h-1.5 w-1.5 flex-shrink-0 rounded-full"
                               style={{ backgroundColor: INDIGO_CTA }}
                             />
-                            <span>{bullet}</span>
+                            <span className={CARD_BODY}>{bullet}</span>
                           </li>
                         ))}
                       </ul>
@@ -291,31 +335,21 @@ export default function BlogDetail({
               </div>
 
               {/* CTA */}
-              <section className="mt-20 overflow-hidden rounded-[32px] bg-[#1B2560]">
-                <div className="relative p-8 sm:p-10 lg:p-12">
-                  <div
-                    className="pointer-events-none absolute -right-24 -top-32 h-[360px] w-[360px] rounded-full blur-3xl"
-                    style={{
-                      background:
-                        "radial-gradient(circle, rgba(164,143,234,0.35), transparent 70%)",
-                    }}
-                  />
-                  <div className="relative max-w-2xl">
-                    <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
-                      Continue the conversation
-                    </p>
-                    <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
+              <section className="mt-20 overflow-hidden rounded-2xl bg-[#1B2560]">
+                <div className="p-8 sm:p-10 lg:p-12">
+                  <div className="max-w-2xl">
+                    <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:text-[46px]">
                       Ready to Build a Better Quality Strategy?
                     </h2>
-                    <p className="mt-5 text-base leading-8 text-white/65">
+                    <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-300 lg:text-[18px]">
                       Talk to Starfii about quality engineering, test
-                      automation, AI assisted testing, API testing,
-                      performance testing, and continuous testing.
+                      automation, AI assisted testing, API testing, performance
+                      testing, and continuous testing.
                     </p>
                     <a
                       href="mailto:hello@starfii.com"
-                      className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                      style={{ color: CHAMPION_BLUE }}
+                      className="font-body mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold transition duration-300 hover:-translate-y-1 hover:bg-[#F1EEFC]"
+                      style={{ color: INDIGO_CTA }}
                     >
                       Connect Now
                       <ArrowUpRight size={17} />
@@ -330,25 +364,20 @@ export default function BlogDetail({
               <div className="space-y-6">
                 {/* Table of contents */}
                 {post.sections.length > 0 && (
-                  <div className="rounded-[28px] border border-slate-200 bg-[#F8F7FC] p-6">
-                    <p
-                      className="text-xs font-bold uppercase tracking-[0.16em]"
-                      style={{ color: INDIGO_CTA }}
-                    >
-                      On this page
-                    </p>
+                  <div className="rounded-2xl bg-[#F5F3FC] p-6">
+                    <h2 className={SUB_HEADING}>On this page</h2>
 
                     <div className="mt-5 space-y-1">
                       {post.sections.map((section, index) => (
                         <a
-                          key={section.heading}
+                          key={`${section.heading}-${index}`}
                           href={`#${getSectionId(index)}`}
-                          className="group flex gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
+                          className="font-body flex gap-3 rounded-xl px-3 py-2.5 text-[15px] leading-snug text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
                         >
-                          <span className="w-6 flex-shrink-0 text-xs font-semibold text-slate-400">
+                          <span className="w-6 flex-shrink-0 font-semibold text-slate-400">
                             {String(index + 1).padStart(2, "0")}
                           </span>
-                          <span className="leading-5">{section.heading}</span>
+                          <span>{section.heading}</span>
                         </a>
                       ))}
                     </div>
@@ -356,27 +385,27 @@ export default function BlogDetail({
                 )}
 
                 {/* Quality Engineering CTA */}
-                <div className="rounded-[28px] bg-[#F5F3FC] p-6">
+                <div className="rounded-2xl bg-[#F5F3FC] p-6">
                   <p
-                    className="text-xs font-bold uppercase tracking-[0.16em]"
+                    className="font-body text-[15px] font-semibold"
                     style={{ color: INDIGO_CTA }}
                   >
                     Quality Engineering
                   </p>
-                  <h2
-                    className="mt-3 text-xl font-bold leading-tight"
-                    style={{ color: CHAMPION_BLUE }}
-                  >
+
+                  <h2 className={`${SUB_HEADING} mt-3`}>
                     Ship faster with confidence
                   </h2>
-                  <p className="mt-4 text-sm leading-7 text-slate-600">
+
+                  <p className={`${CARD_BODY} mt-4`}>
                     Build a modern quality strategy with test automation, AI
-                    assisted testing, and continuous testing across your
-                    release pipeline.
+                    assisted testing, and continuous testing across your release
+                    pipeline.
                   </p>
+
                   <Link
                     href={`${SERVICE_BASE}#connect`}
-                    className="mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-bold text-white transition-transform hover:-translate-y-0.5"
+                    className="font-body mt-6 inline-flex items-center gap-2 rounded-full px-6 py-3.5 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
                     style={{ backgroundColor: CHAMPION_BLUE }}
                   >
                     Connect Now
@@ -386,18 +415,13 @@ export default function BlogDetail({
 
                 {/* Related (compact) */}
                 {related.length > 0 && (
-                  <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6">
                     <div className="flex items-center justify-between gap-4">
-                      <p
-                        className="text-xs font-bold uppercase tracking-[0.16em]"
-                        style={{ color: INDIGO_CTA }}
-                      >
-                        More insights
-                      </p>
+                      <h2 className={SUB_HEADING}>More insights</h2>
                       <Link
                         href={BLOG_BASE}
-                        className="text-xs font-semibold"
-                        style={{ color: CHAMPION_BLUE }}
+                        className="font-body text-[15px] font-semibold"
+                        style={{ color: INDIGO_CTA }}
                       >
                         View all
                       </Link>
@@ -408,31 +432,26 @@ export default function BlogDetail({
                         <Link
                           key={item.slug}
                           href={`${BLOG_BASE}/${item.slug}`}
-                          className="group block overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                          className="group block overflow-hidden rounded-2xl border border-slate-200 transition-shadow duration-300 hover:shadow-lg"
                         >
                           <div className="h-32 overflow-hidden">
                             <img
                               src={item.heroImage}
                               alt={item.title}
+                              loading="lazy"
                               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                             />
                           </div>
                           <div className="p-4">
-                            <p
-                              className="text-[11px] font-bold uppercase tracking-wider"
-                              style={{ color: INDIGO_CTA }}
-                            >
-                              {item.category}
-                            </p>
-                            <h3
-                              className="mt-2 line-clamp-3 text-sm font-semibold leading-6"
-                              style={{ color: CHAMPION_BLUE }}
-                            >
+                            <h3 className="font-heading line-clamp-3 text-[17px] font-semibold leading-snug text-[#1B2560]">
                               {item.title}
                             </h3>
-                            <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-slate-500 group-hover:text-[#4F3FE0]">
+                            <span
+                              className="font-body mt-3 inline-flex items-center gap-1 text-[15px] font-medium"
+                              style={{ color: INDIGO_CTA }}
+                            >
                               Read insight
-                              <ArrowUpRight size={13} />
+                              <ArrowUpRight size={15} />
                             </span>
                           </div>
                         </Link>
@@ -450,27 +469,16 @@ export default function BlogDetail({
           BOTTOM RELATED (full-width grid)
       ====================================================== */}
       {related.length > 0 && (
-        <section className="mt-24 border-t border-slate-200 bg-[#EEF0F7] py-20 lg:py-24">
+        <section className="mt-24 bg-[#EEF0F5] py-24">
           <div className={ALIGN}>
             <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-              <div>
-                <span
-                  className="text-xs font-bold uppercase tracking-[0.18em]"
-                  style={{ color: INDIGO_CTA }}
-                >
-                  More Insights
-                </span>
-                <h2
-                  className="mt-3 text-[32px] font-medium sm:text-[42px]"
-                  style={{ color: CHAMPION_BLUE }}
-                >
-                  Related Quality Engineering Blogs
-                </h2>
-              </div>
+              <h2 className={SECTION_HEADING}>
+                Related Quality Engineering Blogs
+              </h2>
 
               <Link
                 href={BLOG_BASE}
-                className="hidden items-center gap-1.5 text-[15px] font-semibold sm:inline-flex"
+                className="font-body hidden items-center gap-1.5 text-[15px] font-semibold sm:inline-flex"
                 style={{ color: INDIGO_CTA }}
               >
                 View All Blogs
@@ -483,43 +491,40 @@ export default function BlogDetail({
                 <Link
                   key={item.slug}
                   href={`${BLOG_BASE}/${item.slug}`}
-                  className="group overflow-hidden rounded-2xl bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                  className="group overflow-hidden rounded-2xl bg-white transition-shadow duration-500 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                  style={{ border: "1px solid #E5E1F5" }}
                 >
                   <div className="h-[220px] overflow-hidden">
                     <img
                       src={item.heroImage}
                       alt={item.title}
+                      loading="lazy"
                       className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
 
-                  <div className="p-6">
+                  <div className="p-7">
                     <span
-                      className="text-[12px] font-semibold uppercase tracking-wide"
+                      className="font-body text-[12px] font-semibold uppercase tracking-[0.08em]"
                       style={{ color: INDIGO_CTA }}
                     >
                       {item.category}
                     </span>
 
-                    <h3
-                      className="mt-2 text-[19px] font-semibold leading-snug"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {item.title}
-                    </h3>
+                    <h3 className={`${CARD_TITLE} mt-3`}>{item.title}</h3>
 
-                    <p className="mt-3 line-clamp-3 text-[14px] leading-relaxed text-slate-600">
+                    <p className="font-body mt-3 line-clamp-3 text-[15px] leading-relaxed text-slate-500">
                       {item.excerpt}
                     </p>
 
                     <span
-                      className="mt-5 inline-flex items-center gap-1.5 text-[13px] font-semibold"
+                      className="font-body mt-5 inline-flex items-center gap-1.5 text-[16px] font-medium"
                       style={{ color: INDIGO_CTA }}
                     >
                       Read More
                       <ArrowUpRight
-                        size={15}
-                        className="transition-transform duration-200 group-hover:translate-x-1 group-hover:-translate-y-1"
+                        size={16}
+                        className="transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                       />
                     </span>
                   </div>
@@ -530,7 +535,7 @@ export default function BlogDetail({
             <div className="mt-8 flex justify-center sm:hidden">
               <Link
                 href={BLOG_BASE}
-                className="inline-flex items-center gap-1.5 text-[15px] font-semibold"
+                className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
                 style={{ color: INDIGO_CTA }}
               >
                 View All Blogs

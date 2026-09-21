@@ -80,7 +80,7 @@ export default function GetInTouch() {
               sm:text-[18px]
             "
           >
-            Bring Your Digital Vision to Life
+        Modernize Your Bank with Secure, Scalable Technology
           </p>
         </div>
 

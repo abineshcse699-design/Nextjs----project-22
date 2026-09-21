@@ -1067,7 +1067,7 @@ export default function DataAnalyticsServicesSection() {
                 className="font-body inline-flex items-center text-[16px] font-semibold sm:text-[18px]"
                 style={{ color: CHAMPION_BLUE }}
               >
-                Data &amp; Analytics
+                {/* Data &amp; Analytics */}
               </span>
 
               <h2

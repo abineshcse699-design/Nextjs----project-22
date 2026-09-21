@@ -1,18 +1,5 @@
 "use client";
 
-// About Starfii — rebuilt on the Industry Page Template's design system,
-// and matched section-for-section to the Hexaware "About" reference:
-//   Hero -> Key Takeaways accordion -> intro statement + photo card ->
-//   Our Guiding Principles (autoplay carousel) -> Our Responsibilities ->
-//   ...Starfii-specific depth sections... -> Starfii at a Glance ->
-//   Get in Touch (ConnectFormSection)
-//
-// This file does NOT modify the industry template. It duplicates the small
-// set of shared visual primitives (tokens, Reveal, Eyebrow, SafeImg,
-// keyframes, typewriter hook) so this page is self-contained and matches
-// the template exactly.
-// -----------------------------------------------------------------------
-
 import Link from "next/link";
 import {
   useRef,
@@ -43,7 +30,7 @@ import {
 import ConnectFormSection from "@/app/components/Sections/ConnectFormSection";
 
 /* ===============================================================
-   BRAND TOKENS — identical to the industry template, on purpose.
+   BRAND TOKENS
 ================================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
@@ -68,13 +55,13 @@ const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=80`;
 
 const IMAGES = {
-  hero: u("1522071820081-009f0129c71c"), // team working, studio office
+  hero: u("1522071820081-009f0129c71c"),
   introCard: "https://source.unsplash.com/1600x1000/?businesswoman,office,skyline,confident",
   principles: {
-    purpose: u("1522202176988-66273c2fd55f"), // smiling colleague, laptop
-    people: u("1521737711867-e3b97375f902"), // team conversation
-    craft: u("1531482615713-2afd69097998"), // engineers pairing
-    outcomes: u("1460925895917-afdab827c52f"), // reporting laptop
+    purpose: u("1522202176988-66273c2fd55f"),
+    people: u("1521737711867-e3b97375f902"),
+    craft: u("1531482615713-2afd69097998"),
+    outcomes: u("1460925895917-afdab827c52f"),
   },
   responsibilities: {
     dei: u("1521737711867-e3b97375f902"),
@@ -84,8 +71,7 @@ const IMAGES = {
 };
 
 /* ===============================================================
-   GLOBAL KEYFRAMES / ANIMATION CLASSES — same names/behaviour as
-   the industry template so both pages feel like one product.
+   GLOBAL KEYFRAMES
 ================================================================ */
 
 function AnimationStyles(): ReactElement {
@@ -151,7 +137,7 @@ function AnimationStyles(): ReactElement {
 }
 
 /* ===============================================================
-   HOOKS + REUSABLES — copied 1:1 from the industry template.
+   HOOKS + REUSABLES
 ================================================================ */
 
 function useReveal<T extends HTMLElement = HTMLElement>(
@@ -441,13 +427,12 @@ const responsibilities = [
 ];
 
 /* ===============================================================
-   1. HERO — matches "About Hexaware": full-bleed photo, breadcrumb,
-      headline, one-line description.
+   1. HERO
 ================================================================ */
 
 function Hero(): ReactElement {
   return (
-       <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+    <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
       <div className="absolute inset-0 -z-10">
         <SafeImg
           src={IMAGES.hero}
@@ -507,8 +492,7 @@ function Hero(): ReactElement {
 }
 
 /* ===============================================================
-   2. KEY TAKEAWAYS — the exact accordion pattern from the industry
-      template (typewriter bullets, kicker chip, chevron toggle).
+   2. KEY TAKEAWAYS
 ================================================================ */
 
 function KeyTakeawaysAccordion(): ReactElement {
@@ -587,8 +571,7 @@ function KeyTakeawaysAccordion(): ReactElement {
 }
 
 /* ===============================================================
-   3. INTRO STATEMENT + PHOTO CARD — matches the "Hexaware is a
-      global IT services provider..." block with the split card.
+   3. INTRO STATEMENT + PHOTO CARD
 ================================================================ */
 
 function IntroStatement(): ReactElement {
@@ -596,7 +579,7 @@ function IntroStatement(): ReactElement {
     <div className={ALIGN}>
       <Reveal as="section" className="mt-16">
         <h2
-          className="font-heading text-[26px] leading-snug lg:text-[30px]"
+          className="font-heading max-w-6xl text-[26px] leading-snug lg:text-[30px]"
           style={{ color: CHAMPION_BLUE }}
         >
           Starfii Technologies is a product engineering partner, combining AI
@@ -607,11 +590,10 @@ function IntroStatement(): ReactElement {
 
       <Reveal delay={100} className="mt-10 mb-10 grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-14">
         <div className="flex flex-col justify-start p-7 lg:p-9">
-        
-             <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-          Product Engineering  Powered by AI 
+          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+            Product Engineering  Powered by AI
           </h2>
-          <p className="font-body mt-5 text-[15.5px] leading-relaxed text-slate-600">
+          <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
             Every engagement is built on one belief: that the right
             combination of engineering judgment and AI native tooling
             creates outcomes neither could reach alone. Senior talent,
@@ -634,9 +616,7 @@ function IntroStatement(): ReactElement {
 }
 
 /* ===============================================================
-   4. OUR GUIDING PRINCIPLES — autoplaying carousel with play button
-      and horizontal progress bar + prev/next, same visual family as
-      the industry template's tabbed Impact section.
+   4. OUR GUIDING PRINCIPLES
 ================================================================ */
 
 function GuidingPrinciples(): ReactElement {
@@ -661,7 +641,6 @@ function GuidingPrinciples(): ReactElement {
     <section className="py-2 lg:py-4">
       <div className={ALIGN}>
         <Reveal>
-          {/* <Eyebrow>Principles</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Our Guiding Principles
           </h2>
@@ -678,10 +657,13 @@ function GuidingPrinciples(): ReactElement {
             className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2"
           >
             <div className="flex flex-col justify-center p-10 lg:p-14">
-              <h3 className="font-heading text-[24px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
+              <h3
+                className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
                 {current.label}
               </h3>
-              <p className="font-body mt-5 text-[15.5px] leading-relaxed text-slate-600">{current.body}</p>
+              <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">{current.body}</p>
             </div>
 
             <button
@@ -741,7 +723,7 @@ function GuidingPrinciples(): ReactElement {
 }
 
 /* ===============================================================
-   5. OUR RESPONSIBILITIES — DEI / ESG / CSR photo cards
+   5. OUR RESPONSIBILITIES
 ================================================================ */
 
 function Responsibilities(): ReactElement {
@@ -776,7 +758,7 @@ function Responsibilities(): ReactElement {
                 <h3 className="font-heading mt-3 text-[20px] font-semibold leading-snug" style={{ color: CHAMPION_BLUE }}>
                   {r.title}
                 </h3>
-                <p className="font-body mt-3 text-[14.5px] leading-relaxed text-slate-600">{r.body}</p>
+                <p className="font-body mt-3 text-[15px] leading-relaxed text-slate-500">{r.body}</p>
               </div>
             </Reveal>
           ))}
@@ -787,8 +769,7 @@ function Responsibilities(): ReactElement {
 }
 
 /* ===============================================================
-   6. VALUES — dark, blob-lit section (same treatment as the
-      industry template's Capabilities accordion background).
+   6. VALUES
 ================================================================ */
 
 function Values(): ReactElement {
@@ -810,8 +791,7 @@ function Values(): ReactElement {
 
       <div className={`relative ${ALIGN}`}>
         <Reveal>
-          {/* <Eyebrow variant="dark">Values</Eyebrow> */}
-          <h2 className={`${SECTION_HEADING} mt-4 text-white`}>
+          <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
             Four principles every engagement is held to.
           </h2>
         </Reveal>
@@ -820,10 +800,12 @@ function Values(): ReactElement {
           {values.map((v, i) => (
             <Reveal key={v.title} delay={i * 80}>
               <div className="rounded-2xl bg-white p-8 transition-shadow duration-300 hover:shadow-xl">
-                <h3 className="font-heading text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
+                <h3 className="font-heading text-[19px] font-medium leading-snug" style={{ color: CHAMPION_BLUE }}>
                   {v.title}
                 </h3>
-                <p className="font-body mt-3 text-[15px] leading-[1.75] text-slate-600">{v.body}</p>
+                <p className="font-body mt-3 text-[15px] leading-[1.75]" style={{ color: CHAMPION_BLUE }}>
+                  {v.body}
+                </p>
               </div>
             </Reveal>
           ))}
@@ -842,7 +824,6 @@ function ExpertiseAndDelivery(): ReactElement {
     <section className="py-24 lg:py-28">
       <div className={ALIGN}>
         <Reveal>
-          {/* <Eyebrow>Technology Expertise</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Deep enough in each stack to be trusted with the hard parts.
           </h2>
@@ -854,16 +835,18 @@ function ExpertiseAndDelivery(): ReactElement {
               <div className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: INDIGO_CTA }}>
                 <e.icon size={20} className="text-white" strokeWidth={2.25} />
               </div>
-              <h3 className="font-heading mt-5 text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
+              <h3
+                className="font-heading mt-5 text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
                 {e.title}
               </h3>
-              <p className="font-body mt-3 text-[15px] leading-[1.75] text-slate-600">{e.body}</p>
+              <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">{e.body}</p>
             </Reveal>
           ))}
         </div>
 
         <Reveal className="mt-24">
-          {/* <Eyebrow>Delivery Approach</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             How an engagement actually runs, week to week.
           </h2>
@@ -875,10 +858,13 @@ function ExpertiseAndDelivery(): ReactElement {
               <div className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: INDIGO_CTA }}>
                 <d.icon size={20} className="text-white" strokeWidth={2.25} />
               </div>
-              <h3 className="font-heading mt-5 text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
+              <h3
+                className="font-heading mt-5 text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
                 {d.title}
               </h3>
-              <p className="font-body mt-3 text-[15px] leading-[1.75] text-slate-600">{d.body}</p>
+              <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">{d.body}</p>
             </Reveal>
           ))}
         </div>
@@ -888,7 +874,7 @@ function ExpertiseAndDelivery(): ReactElement {
 }
 
 /* ===============================================================
-   8. STARFII AT A GLANCE — plain big-number section
+   8. STARFII AT A GLANCE
 ================================================================ */
 
 function AtAGlance(): ReactElement {
@@ -904,15 +890,17 @@ function AtAGlance(): ReactElement {
         <div className="mt-14 grid grid-cols-2 gap-x-8 gap-y-14 lg:grid-cols-4">
           {glance.map((g, i) => (
             <Reveal key={g.value} delay={i * 90}>
-              <p className="font-heading text-[46px] font-bold leading-none sm:text-[54px]" style={{ color: CHAMPION_BLUE }}>
-                {g.value}
-              </p>
+            <p className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
+  {g.value}
+</p>
               <p className="font-body mt-4 max-w-[240px] text-[15px] leading-relaxed text-slate-600">{g.body}</p>
             </Reveal>
           ))}
         </div>
       </div>
     </section>
+
+    
   );
 }
 
@@ -920,34 +908,7 @@ function AtAGlance(): ReactElement {
    9. GLOBAL PRESENCE
 ================================================================ */
 
-function GlobalPresence(): ReactElement {
-  return (
-    <section className="py-24 lg:py-28">
-      <div className={ALIGN}>
-        <Reveal>
-          {/* <Eyebrow>Global Presence</Eyebrow> */}
-          <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-            Serving clients across 6 countries and counting.
-          </h2>
-        </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 sm:grid-cols-3">
-          {presence.map((p, i) => (
-            <Reveal key={p.region} delay={i * 90} className="ss-capability-card p-8">
-              <div className="flex h-11 w-11 items-center justify-center rounded-full" style={{ backgroundColor: INDIGO_CTA }}>
-                <MapPin size={20} className="text-white" strokeWidth={2.25} />
-              </div>
-              <h3 className="font-heading mt-5 text-[19px] font-medium" style={{ color: CHAMPION_BLUE }}>
-                {p.region}
-              </h3>
-              <p className="font-body mt-3 text-[15px] leading-[1.75] text-slate-600">{p.detail}</p>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ===============================================================
    MAIN PAGE
@@ -966,8 +927,16 @@ export default function AboutStarfiiPage(): ReactElement {
       <Values />
       <ExpertiseAndDelivery />
       <AtAGlance />
-      <GlobalPresence />
-      <ConnectFormSection />
+      {/* <GlobalPresence /> */}
+      <div
+  className="
+    [&_h1]:!font-medium [&_h1]:!leading-[1.15] [&_h1]:!text-[34px] sm:[&_h1]:!text-[40px] lg:[&_h1]:!text-[46px]
+    [&_h2]:!font-medium [&_h2]:!leading-[1.15] [&_h2]:!text-[34px] sm:[&_h2]:!text-[40px] lg:[&_h2]:!text-[46px]
+    [&_a]:!text-[15px]
+  "
+>
+  <ConnectFormSection />
+</div>
     </main>
   );
 }

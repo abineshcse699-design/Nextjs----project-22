@@ -9,6 +9,9 @@ const CHAMPION_BLUE = "#1B2560";
 const INDIGO_CTA = "#4F3FE0";
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
 //
@@ -117,9 +120,7 @@ export default function CaseStudyFilters({
 
   // Flat list of cards for the currently active, non-search view —
   // one continuous grid (no per-category headings), 5 rows a page.
-  // Sorted newest-first: this is what fixes "All" not floating new
-  // case studies to the top — previously this just concatenated
-  // group by group with no regard for date at all.
+  // Sorted newest-first.
   const visibleFlat: FlatCaseStudy[] = useMemo(() => {
     const list = active === "all" ? groups : groups.filter((g) => g.key === active);
     return list
@@ -146,10 +147,7 @@ export default function CaseStudyFilters({
     setPage(1);
   }, [active, query]);
 
-  // Click-outside-to-close: this is the ONLY thing that closes the
-  // dropdown besides selecting a group or pressing the X. No hover
-  // handlers anymore — hover doesn't exist on touch devices anyway,
-  // and mixing hover + click was causing the open/close to fight itself.
+  // Click-outside-to-close.
   useEffect(() => {
     if (!filterOpen) return;
 
@@ -190,15 +188,15 @@ export default function CaseStudyFilters({
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
         </div>
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex flex-1 flex-col p-7">
           <span
-            className="font-body text-[12px] font-semibold tracking-wide"
+            className="font-body text-[12px] font-semibold tracking-[0.08em]"
             style={{ color: INDIGO_CTA }}
           >
             {study.category ?? "CASE STUDY"}
           </span>
           <h3
-            className="font-heading mt-2 text-[19px] font-semibold leading-snug"
+            className="font-heading mt-3.5 text-[20px] font-semibold leading-snug"
             style={{
               color: CHAMPION_BLUE,
               display: "-webkit-box",
@@ -210,7 +208,7 @@ export default function CaseStudyFilters({
             {study.title}
           </h3>
           <p
-            className="font-body mt-3 text-[14px] leading-relaxed text-slate-600"
+            className="font-body mt-3.5 text-[15px] leading-relaxed text-slate-500"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: 3,
@@ -221,11 +219,11 @@ export default function CaseStudyFilters({
             {study.body}
           </p>
           <span
-            className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+            className="font-body mt-6 inline-flex items-center gap-1.5 text-[16px] font-medium transition-transform duration-200 group-hover:translate-x-0.5"
             style={{ color: INDIGO_CTA }}
           >
             Learn More
-            <ArrowUpRight size={15} />
+            <ArrowUpRight size={16} />
           </span>
         </div>
       </Link>
@@ -241,7 +239,7 @@ export default function CaseStudyFilters({
           type="button"
           onClick={() => goToPage(page - 1)}
           disabled={page === 1}
-          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          className="font-body rounded-full px-4 py-2 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
         >
           Prev
@@ -252,7 +250,7 @@ export default function CaseStudyFilters({
             type="button"
             onClick={() => goToPage(p)}
             aria-current={p === page ? "page" : undefined}
-            className="h-10 w-10 rounded-full text-[14px] font-semibold transition-colors"
+            className="font-body h-10 w-10 rounded-full text-[15px] font-semibold transition-colors"
             style={
               p === page
                 ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -266,7 +264,7 @@ export default function CaseStudyFilters({
           type="button"
           onClick={() => goToPage(page + 1)}
           disabled={page === totalPages}
-          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          className="font-body rounded-full px-4 py-2 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
         >
           Next
@@ -278,14 +276,10 @@ export default function CaseStudyFilters({
   return (
     <main className="bg-white">
       {/* pt-32 / lg:pt-40 gives clear breathing room below the fixed
-          navbar before the "Case Studies" heading starts — this is
-          the requested gap fix. */}
+          navbar before the "Case Studies" heading starts. */}
       <section className={`${ALIGN} pb-20 pt-32 lg:pb-28 lg:pt-40`}>
         {/* Page heading */}
-        <h1
-          className="font-heading text-[34px] font-medium leading-[1.15] lg:text-[44px]"
-          style={{ color: CHAMPION_BLUE }}
-        >
+        <h1 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
           Case Studies
         </h1>
 
@@ -294,7 +288,7 @@ export default function CaseStudyFilters({
           <button
             type="button"
             onClick={() => selectGroup("all")}
-            className="rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+            className="font-body rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
             style={
               active === "all" && !isSearching
                 ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -309,7 +303,7 @@ export default function CaseStudyFilters({
               key={g.key}
               type="button"
               onClick={() => selectGroup(g.key)}
-              className="rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+              className="font-body rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
               style={
                 active === g.key && !isSearching
                   ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -320,15 +314,14 @@ export default function CaseStudyFilters({
             </button>
           ))}
 
-          {/* Search & filter trigger — pushed to the end of the row.
-              Click-to-open/close only; no hover handlers. */}
+          {/* Search & filter trigger */}
           <div className="relative ml-auto" ref={filterRef}>
             <button
               type="button"
               onClick={() => setFilterOpen((v) => !v)}
               aria-label="Search and more filters"
               aria-expanded={filterOpen}
-              className="flex items-center gap-2 rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+              className="font-body flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
               style={
                 filterOpen ||
                 (isSearching && extraGroups.some((g) => g.key === active))
@@ -368,7 +361,7 @@ export default function CaseStudyFilters({
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search case studies..."
-                      className="w-full bg-transparent text-[14px] outline-none"
+                      className="font-body w-full bg-transparent text-[15px] outline-none"
                       style={{ color: CHAMPION_BLUE }}
                     />
                     {query && (
@@ -390,7 +383,7 @@ export default function CaseStudyFilters({
                         key={g.key}
                         type="button"
                         onClick={() => selectGroup(g.key)}
-                        className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors hover:bg-[#F3F1FD] hover:text-[#4F3FE0]"
+                        className="font-body rounded-lg px-3 py-2 text-left text-[15px] font-semibold transition-colors hover:bg-[#F3F1FD] hover:text-[#4F3FE0]"
                         style={
                           active === g.key && !isSearching
                             ? { backgroundColor: "#F3F1FD", color: INDIGO_CTA }
@@ -401,7 +394,7 @@ export default function CaseStudyFilters({
                       </button>
                     ))}
                     {extraGroupMatches.length === 0 && (
-                      <p className="px-3 py-2 text-[13px] text-slate-400">
+                      <p className="font-body px-3 py-2 text-[15px] text-slate-400">
                         No categories match.
                       </p>
                     )}
@@ -415,7 +408,7 @@ export default function CaseStudyFilters({
         {/* Heading: search results, or the selected category's name */}
         {isSearching ? (
           <h2
-            className="font-heading mt-14 text-[24px] font-medium leading-[1.15]"
+            className="font-heading mt-14 text-[26px] font-medium leading-snug sm:text-[28px]"
             style={{ color: CHAMPION_BLUE }}
           >
             {searchResults.length > 0
@@ -425,7 +418,7 @@ export default function CaseStudyFilters({
         ) : (
           active !== "all" && (
             <h2
-              className="font-heading mt-14 text-[26px] font-medium leading-[1.15] lg:text-[30px]"
+              className="font-heading mt-14 text-[26px] font-medium leading-snug sm:text-[28px]"
               style={{ color: CHAMPION_BLUE }}
             >
               {activeGroupLabel}

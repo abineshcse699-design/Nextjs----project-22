@@ -1596,7 +1596,7 @@ export default function LegacyModernizationSection(): ReactElement {
             </div>
 
             <Link
-              href="/services/legacy-modernization/blogs"
+              href="/services/legacy-Modernization/blogs"
               className="font-body hidden items-center gap-1.5 text-[15px] font-semibold transition-transform duration-200 hover:translate-x-1 sm:flex"
               style={{ color: INDIGO_CTA }}
             >
@@ -1617,7 +1617,7 @@ export default function LegacyModernizationSection(): ReactElement {
                   }`}
                 >
                   <Link
-                    href={`/services/legacy-modernization/blogs/${post.slug}`}
+                    href={`/services/legacy-Modernization/blogs/${post.slug}`}
                     className="block h-full"
                     aria-label={`Read ${post.title}`}
                   >

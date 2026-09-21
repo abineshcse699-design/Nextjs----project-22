@@ -99,31 +99,9 @@ const legalLinks: LegalLink[] = [
 
 // Brand glyphs aren't part of lucide-react, so each social icon is drawn
 // inline as a small SVG to keep the footer dependency-free.
-function FacebookIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M13.5 21v-7.9h2.65l.4-3.08H13.5V8.05c0-.89.25-1.5 1.52-1.5h1.63V3.8A21.8 21.8 0 0 0 14.3 3.7c-2.32 0-3.9 1.42-3.9 4.02v2.3H7.75v3.08h2.65V21z" />
-    </svg>
-  );
-}
 
-function YoutubeIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M21.58 7.19a2.75 2.75 0 0 0-1.94-1.95C17.9 4.75 12 4.75 12 4.75s-5.9 0-7.64.49a2.75 2.75 0 0 0-1.94 1.95A28.6 28.6 0 0 0 2 12a28.6 28.6 0 0 0 .42 4.81 2.75 2.75 0 0 0 1.94 1.95c1.74.49 7.64.49 7.64.49s5.9 0 7.64-.49a2.75 2.75 0 0 0 1.94-1.95c.3-1.58.44-3.2.42-4.81a28.6 28.6 0 0 0-.42-4.81ZM9.95 15.02V8.98L15.27 12Z" />
-    </svg>
-  );
-}
 
-function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-      <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none" />
-    </svg>
-  );
-}
+
 
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
@@ -144,9 +122,7 @@ function XIcon(props: React.SVGProps<SVGSVGElement>) {
 }
 
 const socials: { label: string; href: string; icon: React.ReactNode }[] = [
-  { label: "Facebook", href: "#", icon: <FacebookIcon className="h-4 w-4" /> },
-  { label: "YouTube", href: "#", icon: <YoutubeIcon className="h-4 w-4" /> },
-  { label: "Instagram", href: "#", icon: <InstagramIcon className="h-4 w-4" /> },
+
   { label: "LinkedIn", href: "#", icon: <LinkedinIcon className="h-4 w-4" /> },
   { label: "X", href: "#", icon: <XIcon className="h-4 w-4" /> },
 ];

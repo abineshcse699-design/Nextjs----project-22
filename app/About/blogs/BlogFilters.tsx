@@ -9,6 +9,9 @@ const CHAMPION_BLUE = "#1B2560";
 const INDIGO_CTA = "#4F3FE0";
 const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
 
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+
 // Keys of the groups that stay visible as pills. Everything else
 // moves into the search/filter dropdown.
 const PINNED_KEYS = ["digital-software", "cloud", "ai-chat"];
@@ -115,10 +118,7 @@ export default function BlogFilters({
     setPage(1);
   }, [active, query]);
 
-  // Click-outside-to-close: this is the ONLY thing that closes the
-  // dropdown besides selecting a group or pressing the X. No hover
-  // handlers anymore — hover doesn't exist on touch devices anyway,
-  // and mixing hover + click was causing the open/close to fight itself.
+  // Click-outside-to-close.
   useEffect(() => {
     if (!filterOpen) return;
 
@@ -159,15 +159,15 @@ export default function BlogFilters({
             className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
           />
         </div>
-        <div className="flex flex-1 flex-col p-6">
+        <div className="flex flex-1 flex-col p-7">
           <span
-            className="font-body text-[12px] font-semibold tracking-wide"
+            className="font-body text-[12px] font-semibold tracking-[0.08em]"
             style={{ color: INDIGO_CTA }}
           >
             BLOG
           </span>
           <h3
-            className="font-heading mt-2 text-[19px] font-semibold leading-snug"
+            className="font-heading mt-3.5 text-[20px] font-semibold leading-snug"
             style={{
               color: CHAMPION_BLUE,
               display: "-webkit-box",
@@ -179,7 +179,7 @@ export default function BlogFilters({
             {post.title}
           </h3>
           <p
-            className="font-body mt-3 text-[14px] leading-relaxed text-slate-600"
+            className="font-body mt-3.5 text-[15px] leading-relaxed text-slate-500"
             style={{
               display: "-webkit-box",
               WebkitLineClamp: 3,
@@ -190,11 +190,11 @@ export default function BlogFilters({
             {post.body}
           </p>
           <span
-            className="font-body mt-6 inline-flex items-center gap-1.5 text-[14px] font-semibold transition-transform duration-200 group-hover:translate-x-0.5"
+            className="font-body mt-6 inline-flex items-center gap-1.5 text-[16px] font-medium transition-transform duration-200 group-hover:translate-x-0.5"
             style={{ color: INDIGO_CTA }}
           >
             Read More
-            <ArrowUpRight size={15} />
+            <ArrowUpRight size={16} />
           </span>
         </div>
       </Link>
@@ -210,7 +210,7 @@ export default function BlogFilters({
           type="button"
           onClick={() => goToPage(page - 1)}
           disabled={page === 1}
-          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          className="font-body rounded-full px-4 py-2 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
         >
           Prev
@@ -221,7 +221,7 @@ export default function BlogFilters({
             type="button"
             onClick={() => goToPage(p)}
             aria-current={p === page ? "page" : undefined}
-            className="h-10 w-10 rounded-full text-[14px] font-semibold transition-colors"
+            className="font-body h-10 w-10 rounded-full text-[15px] font-semibold transition-colors"
             style={
               p === page
                 ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -235,7 +235,7 @@ export default function BlogFilters({
           type="button"
           onClick={() => goToPage(page + 1)}
           disabled={page === totalPages}
-          className="rounded-full px-4 py-2 text-[14px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
+          className="font-body rounded-full px-4 py-2 text-[15px] font-semibold transition-colors disabled:cursor-not-allowed disabled:opacity-40"
           style={{ backgroundColor: "#F3F1FD", color: CHAMPION_BLUE }}
         >
           Next
@@ -246,12 +246,9 @@ export default function BlogFilters({
 
   return (
     <main className="bg-white">
-     <section className={`${ALIGN} pb-20 pt-32 lg:pb-28 lg:pt-40`}>
+      <section className={`${ALIGN} pb-20 pt-32 lg:pb-28 lg:pt-40`}>
         {/* Page heading */}
-        <h1
-          className="font-heading text-[34px] font-medium leading-[1.15] lg:text-[44px]"
-          style={{ color: CHAMPION_BLUE }}
-        >
+        <h1 className={SECTION_HEADING} style={{ color: CHAMPION_BLUE }}>
           Blogs
         </h1>
 
@@ -260,7 +257,7 @@ export default function BlogFilters({
           <button
             type="button"
             onClick={() => selectGroup("all")}
-            className="rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+            className="font-body rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
             style={
               active === "all" && !isSearching
                 ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -275,7 +272,7 @@ export default function BlogFilters({
               key={g.key}
               type="button"
               onClick={() => selectGroup(g.key)}
-              className="rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+              className="font-body rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
               style={
                 active === g.key && !isSearching
                   ? { backgroundColor: INDIGO_CTA, color: "#fff" }
@@ -286,15 +283,14 @@ export default function BlogFilters({
             </button>
           ))}
 
-          {/* Search & filter trigger — pushed to the end of the row.
-              Click-to-open/close only; no hover handlers. */}
+          {/* Search & filter trigger */}
           <div className="relative ml-auto" ref={filterRef}>
             <button
               type="button"
               onClick={() => setFilterOpen((v) => !v)}
               aria-label="Search and more filters"
               aria-expanded={filterOpen}
-              className="flex items-center gap-2 rounded-full px-7 py-3 text-[16px] font-semibold transition-colors"
+              className="font-body flex items-center gap-2 rounded-full px-7 py-3 text-[15px] font-semibold transition-colors"
               style={
                 filterOpen ||
                 (isSearching && extraGroups.some((g) => g.key === active))
@@ -334,7 +330,7 @@ export default function BlogFilters({
                       value={query}
                       onChange={(e) => setQuery(e.target.value)}
                       placeholder="Search blogs..."
-                      className="w-full bg-transparent text-[14px] outline-none"
+                      className="font-body w-full bg-transparent text-[15px] outline-none"
                       style={{ color: CHAMPION_BLUE }}
                     />
                     {query && (
@@ -356,7 +352,7 @@ export default function BlogFilters({
                         key={g.key}
                         type="button"
                         onClick={() => selectGroup(g.key)}
-                        className="rounded-lg px-3 py-2 text-left text-[14px] font-semibold transition-colors hover:bg-[#F3F1FD] hover:text-[#4F3FE0]"
+                        className="font-body rounded-lg px-3 py-2 text-left text-[15px] font-semibold transition-colors hover:bg-[#F3F1FD] hover:text-[#4F3FE0]"
                         style={
                           active === g.key && !isSearching
                             ? { backgroundColor: "#F3F1FD", color: INDIGO_CTA }
@@ -367,7 +363,7 @@ export default function BlogFilters({
                       </button>
                     ))}
                     {extraGroupMatches.length === 0 && (
-                      <p className="px-3 py-2 text-[13px] text-slate-400">
+                      <p className="font-body px-3 py-2 text-[15px] text-slate-400">
                         No categories match.
                       </p>
                     )}
@@ -381,7 +377,7 @@ export default function BlogFilters({
         {/* Heading: search results, or the selected category's name */}
         {isSearching ? (
           <h2
-            className="font-heading mt-14 text-[24px] font-medium leading-[1.15]"
+            className="font-heading mt-14 text-[26px] font-medium leading-snug sm:text-[28px]"
             style={{ color: CHAMPION_BLUE }}
           >
             {searchResults.length > 0
@@ -391,7 +387,7 @@ export default function BlogFilters({
         ) : (
           active !== "all" && (
             <h2
-              className="font-heading mt-14 text-[26px] font-medium leading-[1.15] lg:text-[30px]"
+              className="font-heading mt-14 text-[26px] font-medium leading-snug sm:text-[28px]"
               style={{ color: CHAMPION_BLUE }}
             >
               {activeGroupLabel}

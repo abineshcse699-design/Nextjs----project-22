@@ -46,6 +46,7 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Data & Analytics blog could not be found.",
+        
     };
   }
 

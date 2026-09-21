@@ -3,31 +3,62 @@
 "use client";
 
 import Link from "next/link";
-
+import { Poppins, Inter } from "next/font/google";
 import {
   ArrowUpRight,
   Check,
   ChevronRight,
   Clock3,
-  Copy,
-  Mail,
-  Share2,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
-import {
-  useMemo,
-  useState,
-} from "react";
+import type { BlogPost } from "./blogsData";
 
-import type {
-  BlogPost,
-} from "./blogsData";
+/* ============================================================
+   FONTS — loaded here so this page never falls back to Arial.
+   Heading = Poppins, Body = Inter (same as CaseStudyTabs).
+============================================================ */
+
+const headingFont = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-heading",
+  display: "swap",
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-body",
+  display: "swap",
+});
+
+/* ============================================================
+   BRAND TOKENS + TYPE SCALE (identical to the Banking page)
+============================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const INDIGO_CTA = "#4F3FE0";
 
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+// 34 / 40 / 46, medium, 1.15
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#1B2560]";
+// 24 / 26, semibold, 1.2
+const SUB_HEADING =
+  "font-heading font-semibold leading-[1.2] text-[24px] sm:text-[26px] text-[#1B2560]";
+// 17 / 18, slate-600
+const BODY =
+  "font-body text-[17px] leading-relaxed text-slate-600 lg:text-[18px]";
+// 17, 1.7, slate-600 (card body)
+const CARD_BODY = "font-body text-[17px] leading-[1.7] text-slate-600";
+// 20, semibold (card titles)
+const CARD_TITLE =
+  "font-heading text-[20px] font-semibold leading-snug text-[#1B2560]";
+// 16 / 18, semibold (eyebrow)
+const EYEBROW =
+  "font-body text-[16px] font-semibold sm:text-[18px]";
 
 type BlogDetailProps = {
   post: BlogPost;
@@ -38,54 +69,85 @@ function getSectionId(index: number) {
   return `blog-section-${index + 1}`;
 }
 
-export default function BlogDetail({
-  post,
-  related,
-}: BlogDetailProps) {
-  const [copied, setCopied] = useState(false);
+function stripNumber(heading: string) {
+  return heading.replace(/^\d+\.\s*/, "");
+}
 
-  const pageUrl = useMemo(() => {
-    if (typeof window === "undefined") {
-      return "";
-    }
+/* ============================================================
+   SHARE ICONS (brand glyphs as inline SVG)
+============================================================ */
 
-    return window.location.href;
-  }, []);
-
-  const shareText = encodeURIComponent(
-    post.title
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.29 19.494h2.039L6.486 3.24H4.298l13.313 17.407z" />
+    </svg>
   );
+}
 
-  const shareUrl = encodeURIComponent(
-    pageUrl
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
   );
+}
 
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
+function TelegramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  );
+}
 
-      setCopied(true);
+function ShareButton({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className="flex h-10 w-10 items-center justify-center transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ color: INDIGO_CTA }}
+    >
+      {children}
+    </button>
+  );
+}
 
-      window.setTimeout(() => {
-        setCopied(false);
-      }, 1800);
-    } catch {
-      setCopied(false);
-    }
-  }
+/* ============================================================
+   PAGE
+============================================================ */
 
-  function shareWindow(url: string) {
+export default function BlogDetail({ post, related }: BlogDetailProps) {
+  function openShare(build: (url: string, text: string) => string) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(post.title);
     window.open(
-      url,
+      build(url, text),
       "_blank",
       "noopener,noreferrer,width=700,height=600"
     );
   }
 
   return (
-    <main className="bg-white">
+    <main
+      className={`blog-page ${headingFont.variable} ${bodyFont.variable} bg-white`}
+    >
+      <style>{`
+        .blog-page .font-heading { font-family: var(--cs-font-heading), "Poppins", sans-serif; }
+        .blog-page .font-body { font-family: var(--cs-font-body), "Inter", sans-serif; }
+        .blog-page { font-family: var(--cs-font-body), "Inter", sans-serif; }
+      `}</style>
+
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -95,107 +157,131 @@ export default function BlogDetail({
             headline: post.title,
             description: post.seo.description,
             dateModified: post.lastUpdated,
-            author: {
-              "@type": "Person",
-              name: post.author.name,
-            },
+            author: { "@type": "Person", name: post.author.name },
             image: [post.heroImage],
             articleSection: post.category,
             keywords: post.seo.keywords.join(", "),
           }),
         }}
       />
+
       {/* =====================================================
-          HERO
+          HERO — title, divider, meta + share, wide image
       ====================================================== */}
+      <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
+        <div className={ALIGN}>
+          <nav
+            aria-label="Breadcrumb"
+            className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#1B2560]"
+          >
+            <Link href="/" className="hover:text-[#4F3FE0]">
+              Home
+            </Link>
+            <ChevronRight size={14} />
+            <Link href="/services/cloud" className="hover:text-[#4F3FE0]">
+              Cloud Engineering
+            </Link>
+            <ChevronRight size={14} />
+            <span aria-current="page" className="line-clamp-1">
+              {post.title}
+            </span>
+          </nav>
 
-      <section className="relative overflow-hidden bg-[#0A0912]">
-        <div className="absolute inset-0">
-          <img
-            src={post.heroImage}
-            alt={post.title}
-            className="h-full w-full object-cover opacity-30"
-          />
+          <p className={`${EYEBROW} mt-10`} style={{ color: CHAMPION_BLUE }}>
+            {post.category}
+          </p>
 
-          <div className="absolute inset-0 bg-gradient-to-r from-[#080711] via-[#11102A]/95 to-[#11102A]/60" />
+          <h1 className="font-heading mt-4 max-w-[1100px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#1B2560] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
+            {post.title}
+          </h1>
 
-          <div
-            className="absolute -right-32 top-[-180px] h-[520px] w-[520px] rounded-full blur-3xl"
-            style={{
-              background:
-                "radial-gradient(circle, rgba(164,143,234,0.35), rgba(79,63,224,0.08), transparent 70%)",
-            }}
-          />
-        </div>
+          <div className="mt-8 border-t border-slate-300" />
 
-        <div
-          className={`relative ${ALIGN}`}
-        >
-          <div className="py-12 sm:py-16 lg:py-20">
-            <nav
-              aria-label="Breadcrumb"
-              className="flex flex-wrap items-center gap-2 text-sm text-white/55"
-            >
-              <Link
-                href="/"
-                className="transition-colors hover:text-white"
-              >
-                Home
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href="/services/cloud"
-                className="transition-colors hover:text-white"
-              >
-                Cloud Engineering
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <span className="line-clamp-1 text-white/75">
-                {post.title}
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="font-body flex flex-wrap items-center gap-x-4 gap-y-2 text-[16px] text-[#1B2560]">
+              <span>Last Updated: {post.lastUpdated}</span>
+              <span aria-hidden="true">•</span>
+              <span className="inline-flex items-center gap-2">
+                <Clock3 size={15} />
+                {post.readTime}
               </span>
-            </nav>
-
-            <div className="mt-12 max-w-5xl">
-              <span className="inline-flex rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-white">
-                {post.category}
-              </span>
-
-              <h1 className="mt-7 max-w-5xl text-4xl font-semibold leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-[68px]">
-                {post.title}
-              </h1>
-
-              <p className="mt-7 max-w-3xl text-lg leading-8 text-white/65 sm:text-xl">
-                {post.excerpt}
-              </p>
-
-              <div className="mt-9 flex flex-wrap items-center gap-x-7 gap-y-3 text-sm text-white/55">
-                <span>
-                  Last Updated:{" "}
-                  {post.lastUpdated}
-                </span>
-
-                <span className="hidden sm:inline">
-                  •
-                </span>
-
-                <span className="inline-flex items-center gap-2">
-                  <Clock3 size={15} />
-                  {post.readTime}
-                </span>
-
-                <span className="hidden sm:inline">
-                  •
-                </span>
-
-                <span>
-                  By {post.author.name}
-                </span>
-              </div>
             </div>
+
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span
+                className="font-body mr-2 text-[16px]"
+                style={{ color: INDIGO_CTA }}
+              >
+                Share on
+              </span>
+
+              <ShareButton
+                label="Share on LinkedIn"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.linkedin.com/sharing/share-offsite/?url=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[22px] font-bold leading-none">
+                  in
+                </span>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Facebook"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.facebook.com/sharer/sharer.php?u=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[24px] font-bold leading-none">
+                  f
+                </span>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on X"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://twitter.com/intent/tweet?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <XIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on WhatsApp"
+                onClick={() =>
+                  openShare((u, t) => `https://wa.me/?text=${t}%20${u}`)
+                }
+              >
+                <WhatsAppIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Telegram"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://t.me/share/url?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <TelegramIcon />
+              </ShareButton>
+            </div>
+          </div>
+
+          <div className="mt-6 overflow-hidden rounded-xl bg-slate-900">
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              loading="eager"
+              decoding="async"
+              className="h-[240px] w-full object-cover object-center sm:h-[340px] lg:h-[410px]"
+            />
           </div>
         </div>
       </section>
@@ -203,139 +289,24 @@ export default function BlogDetail({
       {/* =====================================================
           MAIN CONTENT
       ====================================================== */}
-
       <section className="relative">
-        <div
-          className={`relative ${ALIGN}`}
-        >
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-16">
-            {/* =================================================
-                ARTICLE
-            ================================================== */}
-
+        <div className={`relative ${ALIGN}`}>
+          <div className="grid grid-cols-1 gap-12 pt-14 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-16">
+            {/* ================= ARTICLE ================= */}
             <article className="min-w-0">
-              {/* Hero */}
-
-              <div className="-mt-8 overflow-hidden rounded-[28px] border border-white/20 bg-white shadow-2xl sm:-mt-12">
-                <img
-                  src={post.heroImage}
-                  alt={post.title}
-                  className="h-auto max-h-[680px] w-full object-cover"
-                />
-              </div>
-
-              {/* Share */}
-
-              <div className="mt-7 flex flex-wrap items-center justify-between gap-5 border-b border-slate-200 pb-7">
-                <div>
-                  <p
-                    className="text-sm font-semibold"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {post.readTime}
-                  </p>
-
-                  <p className="mt-1 text-xs text-slate-500">
-                    Read, share and explore the full insight.
-                  </p>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <span className="mr-2 hidden text-sm font-medium text-slate-500 sm:inline">
-                    Share
-                  </span>
-
-                  <button
-                    type="button"
-                    aria-label="Share on LinkedIn"
-                    onClick={() =>
-                      shareWindow(
-                        `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`
-                      )
-                    }
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <span className="text-sm font-bold text-[#1B2560]">
-                      in
-                    </span>
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Share on Facebook"
-                    onClick={() =>
-                      shareWindow(
-                        `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`
-                      )
-                    }
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <span className="text-sm font-bold text-[#1B2560]">
-                      f
-                    </span>
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Share via email"
-                    onClick={() => {
-                      window.location.href =
-                        `mailto:?subject=${shareText}&body=${shareUrl}`;
-                    }}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    <Mail
-                      size={17}
-                      style={{
-                        color: CHAMPION_BLUE,
-                      }}
-                    />
-                  </button>
-
-                  <button
-                    type="button"
-                    aria-label="Copy link"
-                    onClick={copyLink}
-                    className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white transition-all hover:-translate-y-1 hover:border-[#1B2560] hover:shadow-md"
-                  >
-                    {copied ? (
-                      <Check
-                        size={17}
-                        className="text-green-600"
-                      />
-                    ) : (
-                      <Copy
-                        size={17}
-                        style={{
-                          color: CHAMPION_BLUE,
-                        }}
-                      />
-                    )}
-                  </button>
-                </div>
-              </div>
-
-              {/* =================================================
-                  INTRO
-              ================================================== */}
-
+              {/* Intro */}
               {post.intro.length > 0 && (
-                <div className="mt-10 space-y-6">
-                  {post.intro.map(
-                    (
-                      paragraph,
-                      index
-                    ) => (
+                <div className="space-y-6">
+                  {post.intro.map((paragraph, index) =>
+                    index === 0 ? (
                       <p
                         key={index}
-                        className={
-                          index === 0
-                            ? "text-xl font-medium leading-9 text-slate-700 sm:text-2xl"
-                            : "text-lg leading-8 text-slate-600"
-                        }
+                        className="font-heading text-[26px] leading-snug text-[#1B2560] lg:text-[30px]"
                       >
+                        {paragraph}
+                      </p>
+                    ) : (
+                      <p key={index} className={BODY}>
                         {paragraph}
                       </p>
                     )
@@ -343,462 +314,187 @@ export default function BlogDetail({
                 </div>
               )}
 
-              {/* =================================================
-                  ARTICLE BODY
-              ================================================== */}
+              {/* Body */}
+              <div className="mt-16">
+                <h2 className={SECTION_HEADING}>{post.category} in Practice</h2>
 
-              <article className="mt-16" itemScope itemType="https://schema.org/Article">
-                <div className="mb-8">
-                  <p
-                    className="text-xs font-bold uppercase tracking-[0.18em]"
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    The complete insight
-                  </p>
+                <div className="mt-10 space-y-16">
+                  {post.sections.map((section, index) => (
+                    <section
+                      key={`${stripNumber(section.heading)}-${index}`}
+                      id={getSectionId(index)}
+                      className="scroll-mt-28"
+                    >
+                      <h3 className={SUB_HEADING}>
+                        {stripNumber(section.heading)}
+                      </h3>
 
-                  <h2
-                    className="mt-2 text-3xl font-semibold sm:text-4xl"
-                    style={{
-                      color: CHAMPION_BLUE,
-                    }}
-                  >
-                    {post.category} in Practice
-                  </h2>
-                </div>
+                      <div className="mt-6 space-y-5">
+                        {section.paragraphs.map((paragraph, paragraphIndex) => {
+                          const colonIndex = paragraph.indexOf(":");
+                          const hasLabel = colonIndex > 0 && colonIndex < 35;
 
-                <div className="space-y-16">
-                  {post.sections.map(
-                    (
-                      section,
-                      index
-                    ) => (
-                      <section
-                        key={`${section.heading.replace(/^\d+\.\s*/, "")}-${index}`}
-                        id={getSectionId(index)}
-                        className="scroll-mt-28"
-                      >
-                        <div>
-                          <div className="min-w-0 flex-1">
-                            <h2
-                              className="text-2xl font-bold leading-tight sm:text-3xl"
-                              style={{
-                                color:
-                                  CHAMPION_BLUE,
-                              }}
-                            >
-                              {section.heading.replace(/^\d+\.\s*/, "")}
-                            </h2>
-
-                            <div className="mt-6 space-y-5">
-                              {section.paragraphs.map(
-                                (
-                                  paragraph,
-                                  paragraphIndex
-                                ) => {
-                                  const colonIndex =
-                                    paragraph.indexOf(
-                                      ":"
-                                    );
-
-                                  const hasLabel =
-                                    colonIndex >
-                                      0 &&
-                                    colonIndex <
-                                      35;
-
-                                  if (
-                                    hasLabel
-                                  ) {
-                                    const label =
-                                      paragraph.slice(
-                                        0,
-                                        colonIndex +
-                                          1
-                                      );
-
-                                    const content =
-                                      paragraph.slice(
-                                        colonIndex +
-                                          1
-                                      );
-
-                                    return (
-                                      <p
-                                        key={
-                                          paragraphIndex
-                                        }
-                                        className="text-base leading-8 text-slate-600 sm:text-lg"
-                                      >
-                                        <strong
-                                          className="font-semibold"
-                                          style={{
-                                            color:
-                                              CHAMPION_BLUE,
-                                          }}
-                                        >
-                                          {
-                                            label
-                                          }
-                                        </strong>
-
-                                        {
-                                          content
-                                        }
-                                      </p>
-                                    );
-                                  }
-
-                                  return (
-                                    <p
-                                      key={
-                                        paragraphIndex
-                                      }
-                                      className="text-base leading-8 text-slate-600 sm:text-lg"
-                                    >
-                                      {
-                                        paragraph
-                                      }
-                                    </p>
-                                  );
-                                }
-                              )}
-                            </div>
-
-                            {/* Image */}
-
-                            {section.image && (
-                              <figure className="mt-8 overflow-hidden rounded-3xl bg-slate-100">
-                                <img
-                                  src={
-                                    section.image
-                                  }
-                                  alt={
-                                    section.imageAlt ||
-                                    section.heading
-                                  }
-                                  className="h-auto max-h-[560px] w-full object-cover transition-transform duration-700 hover:scale-[1.02]"
-                                />
-
-                                {section.imageAlt && (
-                                  <figcaption className="px-5 py-3 text-xs text-slate-500">
-                                    {
-                                      section.imageAlt
-                                    }
-                                  </figcaption>
-                                )}
-                              </figure>
-                            )}
-
-                            {/* Quote */}
-
-                            {section.quote && (
-                              <blockquote
-                                className="mt-8 rounded-3xl border-l-4 p-7 sm:p-8"
-                                style={{
-                                  borderColor:
-                                    INDIGO_CTA,
-                                  backgroundColor:
-                                    "#F6F3FF",
-                                }}
-                              >
-                                <div className="text-4xl leading-none text-[#A48FEA]">
-                                  “
-                                </div>
-
-                                <p
-                                  className="mt-2 text-xl font-medium leading-8"
-                                  style={{
-                                    color:
-                                      CHAMPION_BLUE,
-                                  }}
+                          if (hasLabel) {
+                            return (
+                              <p key={paragraphIndex} className={BODY}>
+                                <strong
+                                  className="font-semibold"
+                                  style={{ color: CHAMPION_BLUE }}
                                 >
-                                  {
-                                    section.quote
-                                  }
-                                </p>
-                              </blockquote>
-                            )}
-                          </div>
-                        </div>
-                      </section>
-                    )
-                  )}
-                </div>
-              </article>
+                                  {paragraph.slice(0, colonIndex + 1)}
+                                </strong>
+                                {paragraph.slice(colonIndex + 1)}
+                              </p>
+                            );
+                          }
 
-              {/* =================================================
-                  BENEFITS
-              ================================================== */}
-
-              {post.benefits &&
-                post.benefits.length > 0 && (
-                  <section className="mt-20 overflow-hidden rounded-[32px] bg-[#0A0912] p-7 sm:p-10 lg:p-12">
-                    <div className="max-w-2xl">
-                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
-                        Business value
-                      </p>
-
-                      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-                        Why {post.category} matters
-                      </h2>
-
-                      <p className="mt-5 text-base leading-8 text-white/60">
-                        Strong cloud engineering practices help organizations move faster, operate reliably, and scale infrastructure without losing control of cost or security.
-                      </p>
-                    </div>
-
-                    <div className="mt-10 grid gap-4 sm:grid-cols-2">
-                      {post.benefits.map(
-                        (
-                          benefit,
-                          index
-                        ) => (
-                          <div
-                            key={
-                              benefit.title
-                            }
-                            className="rounded-2xl border border-white/10 bg-white/[0.04] p-6 transition-all duration-300 hover:bg-white/[0.07]"
-                          >
-                            <div>
-                              <div>
-                                <h3 className="text-lg font-semibold text-white">
-                                  {
-                                    benefit.title
-                                  }
-                                </h3>
-
-                                <p className="mt-2 text-sm leading-7 text-white/55">
-                                  {
-                                    benefit.body
-                                  }
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </section>
-                )}
-
-              {/* =================================================
-                  PROCESS
-              ================================================== */}
-
-              {post.process &&
-                post.process.length > 0 && (
-                  <section className="mt-20">
-                    <div className="max-w-2xl">
-                      <p
-                        className="text-xs font-bold uppercase tracking-[0.18em]"
-                        style={{
-                          color: INDIGO_CTA,
-                        }}
-                      >
-                        From assessment to improvement
-                      </p>
-
-                      <h2
-                        className="mt-3 text-3xl font-semibold sm:text-4xl"
-                        style={{
-                          color: CHAMPION_BLUE,
-                        }}
-                      >
-                        A practical improvement journey
-                      </h2>
-                    </div>
-
-                    <div className="relative mt-10">
-                      <div className="space-y-7">
-                        {post.process.map(
-                          (step) => (
-                            <div
-                              key={step.title}
-                              className="relative"
-                            >
-
-                              <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
-                                <h3
-                                  className="text-xl font-semibold"
-                                  style={{
-                                    color:
-                                      CHAMPION_BLUE,
-                                  }}
-                                >
-                                  {
-                                    step.title
-                                  }
-                                </h3>
-
-                                <p className="mt-2 text-base leading-7 text-slate-600">
-                                  {
-                                    step.body
-                                  }
-                                </p>
-                              </div>
-                            </div>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  </section>
-                )}
-
-              {/* =================================================
-                  TAKEAWAYS
-              ================================================== */}
-
-              {post.keyTakeaways &&
-                post.keyTakeaways.length > 0 && (
-                  <section className="mt-20 rounded-[32px] border border-[#DDD8F3] bg-[#F7F5FD] p-7 sm:p-10">
-                    <div className="flex items-start gap-4">
-                      <div
-                        className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full text-white"
-                        style={{
-                          backgroundColor:
-                            INDIGO_CTA,
-                        }}
-                      >
-                        <Share2 size={19} />
-                      </div>
-
-                      <div>
-                        <p
-                          className="text-xs font-bold uppercase tracking-[0.18em]"
-                          style={{
-                            color:
-                              INDIGO_CTA,
-                          }}
-                        >
-                          Key takeaways
-                        </p>
-
-                        <h2
-                          className="mt-2 text-3xl font-semibold"
-                          style={{
-                            color:
-                              CHAMPION_BLUE,
-                          }}
-                        >
-                          What to remember
-                        </h2>
-                      </div>
-                    </div>
-
-                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                      {post.keyTakeaways.map(
-                        (
-                          takeaway,
-                          index
-                        ) => (
-                          <div
-                            key={index}
-                            className="flex gap-3 rounded-2xl bg-white p-5 shadow-sm"
-                          >
-                            <Check
-                              size={19}
-                              className="mt-0.5 flex-shrink-0 text-[#4F3FE0]"
-                            />
-
-                            <p className="text-sm leading-7 text-slate-600">
-                              {
-                                takeaway
-                              }
+                          return (
+                            <p key={paragraphIndex} className={BODY}>
+                              {paragraph}
                             </p>
-                          </div>
-                        )
+                          );
+                        })}
+                      </div>
+
+                      {section.image && (
+                        <figure className="mt-8 overflow-hidden rounded-xl bg-slate-100">
+                          <img
+                            src={section.image}
+                            alt={section.imageAlt || section.heading}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-auto max-h-[560px] w-full object-cover"
+                          />
+                          {section.imageAlt && (
+                            <figcaption className="font-body px-5 py-3 text-[15px] text-slate-500">
+                              {section.imageAlt}
+                            </figcaption>
+                          )}
+                        </figure>
                       )}
-                    </div>
-                  </section>
-                )}
 
-              {/* =================================================
-                  CONCLUSION
-              ================================================== */}
+                      {section.quote && (
+                        <blockquote
+                          className="mt-8 rounded-2xl border-l-4 p-7 sm:p-8"
+                          style={{
+                            borderColor: INDIGO_CTA,
+                            backgroundColor: "#F5F3FC",
+                          }}
+                        >
+                          <p className="font-heading text-[26px] leading-snug text-[#1B2560] lg:text-[30px]">
+                            “{section.quote}”
+                          </p>
+                        </blockquote>
+                      )}
+                    </section>
+                  ))}
+                </div>
+              </div>
 
-              {post.conclusion && (
-                <section className="mt-20">
-                  <div className="rounded-[32px] bg-[#ECE7FB] p-8 sm:p-10 lg:p-12">
-                    <p
-                      className="text-xs font-bold uppercase tracking-[0.18em]"
-                      style={{
-                        color:
-                          INDIGO_CTA,
-                      }}
-                    >
-                      Final perspective
+              {/* Benefits */}
+              {post.benefits && post.benefits.length > 0 && (
+                <section className="mt-20 overflow-hidden rounded-2xl bg-[#1B2560] p-7 sm:p-10 lg:p-12">
+                  <div className="max-w-2xl">
+                    <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:text-[46px]">
+                      Why {post.category} matters
+                    </h2>
+                    <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-300 lg:text-[18px]">
+                      Strong cloud engineering practices help organizations move
+                      faster, operate reliably, and scale infrastructure without
+                      losing control of cost or security.
                     </p>
+                  </div>
 
-                    <p
-                      className="mt-5 max-w-4xl text-2xl font-medium leading-10 sm:text-3xl"
-                      style={{
-                        color:
-                          CHAMPION_BLUE,
-                      }}
-                    >
-                      {
-                        post.conclusion
-                      }
-                    </p>
+                  <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                    {post.benefits.map((benefit) => (
+                      <div
+                        key={benefit.title}
+                        className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 transition-colors duration-300 hover:bg-white/[0.1]"
+                      >
+                        <h3 className="font-heading text-[20px] font-semibold leading-snug text-white">
+                          {benefit.title}
+                        </h3>
+                        <p className="font-body mt-2 text-[17px] leading-[1.7] text-slate-300">
+                          {benefit.body}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </section>
               )}
 
-              {/* =================================================
-                  CTA
-              ================================================== */}
+              {/* Process */}
+              {post.process && post.process.length > 0 && (
+                <section className="mt-20">
+                  <h2 className={`${SECTION_HEADING} max-w-2xl`}>
+                    A practical improvement journey
+                  </h2>
 
-              {post.cta && (
-                <section className="mt-12 overflow-hidden rounded-[32px] bg-[#1B2560]">
-                  <div className="relative p-8 sm:p-10 lg:p-12">
-                    <div
-                      className="pointer-events-none absolute -right-24 -top-32 h-[360px] w-[360px] rounded-full blur-3xl"
-                      style={{
-                        background:
-                          "radial-gradient(circle, rgba(164,143,234,0.35), transparent 70%)",
-                      }}
-                    />
-
-                    <div className="relative max-w-2xl">
-                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-[#A48FEA]">
-                        Continue the conversation
-                      </p>
-
-                      <h2 className="mt-3 text-3xl font-semibold text-white sm:text-4xl">
-                        {
-                          post.cta
-                            .title
-                        }
-                      </h2>
-
-                      <p className="mt-5 text-base leading-8 text-white/65">
-                        {
-                          post.cta
-                            .body
-                        }
-                      </p>
-
-                      <Link
-                        href={
-                          post.cta
-                            .buttonHref
-                        }
-                        className="mt-8 inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
+                  <div className="mt-10 space-y-5">
+                    {post.process.map((step) => (
+                      <div
+                        key={step.title}
+                        className="rounded-2xl border border-slate-200 bg-white p-6 transition-shadow duration-300 hover:shadow-lg"
                       >
-                        {
-                          post.cta
-                            .buttonText
-                        }
+                        <h3 className={CARD_TITLE}>{step.title}</h3>
+                        <p className={`${CARD_BODY} mt-2`}>{step.body}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-                        <ArrowUpRight
-                          size={17}
+              {/* Key takeaways */}
+              {post.keyTakeaways && post.keyTakeaways.length > 0 && (
+                <section className="mt-20 rounded-2xl bg-[#F5F3FC] p-7 sm:p-10">
+                  <h2 className={SECTION_HEADING}>What to remember</h2>
+
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {post.keyTakeaways.map((takeaway, index) => (
+                      <div
+                        key={index}
+                        className="flex gap-3 rounded-2xl bg-white p-5"
+                      >
+                        <Check
+                          size={20}
+                          className="mt-1 flex-shrink-0"
+                          style={{ color: INDIGO_CTA }}
                         />
+                        <p className={CARD_BODY}>{takeaway}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
+
+              {/* Conclusion */}
+              {post.conclusion && (
+                <section className="mt-20">
+                  <div className="rounded-2xl bg-[#EAE4FA] p-8 sm:p-10 lg:p-12">
+                    <h2 className={SECTION_HEADING}>Final perspective</h2>
+                    <p className={`${BODY} mt-6 max-w-4xl`}>{post.conclusion}</p>
+                  </div>
+                </section>
+              )}
+
+              {/* CTA */}
+              {post.cta && (
+                <section className="mt-12 overflow-hidden rounded-2xl bg-[#1B2560]">
+                  <div className="p-8 sm:p-10 lg:p-12">
+                    <div className="max-w-2xl">
+                      <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:text-[46px]">
+                        {post.cta.title}
+                      </h2>
+                      <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-300 lg:text-[18px]">
+                        {post.cta.body}
+                      </p>
+                      <Link
+                        href={post.cta.buttonHref}
+                        className="font-body mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold transition duration-300 hover:-translate-y-1 hover:bg-[#F1EEFC]"
+                        style={{ color: INDIGO_CTA }}
+                      >
+                        {post.cta.buttonText}
+                        <ArrowUpRight size={17} />
                       </Link>
                     </div>
                   </div>
@@ -806,194 +502,94 @@ export default function BlogDetail({
               )}
             </article>
 
-            {/* =================================================
-                SIDEBAR
-            ================================================== */}
-
+            {/* ================= SIDEBAR ================= */}
             <aside className="lg:sticky lg:top-24 lg:self-start">
               <div className="space-y-6">
                 {/* Author */}
-
-                <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
-                  <p
-                    className="text-xs font-bold uppercase tracking-[0.16em]"
-                    style={{
-                      color:
-                        INDIGO_CTA,
-                    }}
-                  >
-                    About the author
-                  </p>
+                <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <h2 className={SUB_HEADING}>About the author</h2>
 
                   <div className="mt-5 flex items-center gap-4">
                     <img
-                      src={
-                        post.author
-                          .photo
-                      }
-                      alt={
-                        post.author
-                          .name
-                      }
+                      src={post.author.photo}
+                      alt={post.author.name}
                       className="h-16 w-16 rounded-2xl object-cover"
                     />
-
                     <div className="min-w-0">
-                      <h3
-                        className="font-semibold"
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
-                      >
-                        {
-                          post.author
-                            .name
-                        }
-                      </h3>
-
-                      <p className="mt-1 text-xs leading-5 text-slate-500">
-                        {
-                          post.author
-                            .role
-                        }
+                      <p className="font-body text-[17px] font-semibold leading-snug text-[#1B2560]">
+                        {post.author.name}
+                      </p>
+                      <p className="font-body mt-1 text-[15px] text-slate-500">
+                        {post.author.role}
                       </p>
                     </div>
                   </div>
 
-                  <p className="mt-5 text-sm leading-7 text-slate-600">
-                    {
-                      post.author
-                        .bio
-                    }
-                  </p>
+                  <p className={`${CARD_BODY} mt-5`}>{post.author.bio}</p>
                 </div>
 
                 {/* Table of contents */}
-
-                {post.sections.length >
-                  0 && (
-                  <div className="rounded-[28px] border border-slate-200 bg-[#F8F7FC] p-6">
-                    <p
-                      className="text-xs font-bold uppercase tracking-[0.16em]"
-                      style={{
-                        color:
-                          INDIGO_CTA,
-                      }}
-                    >
-                      On this page
-                    </p>
+                {post.sections.length > 0 && (
+                  <div className="rounded-2xl bg-[#F5F3FC] p-6">
+                    <h2 className={SUB_HEADING}>On this page</h2>
 
                     <div className="mt-5 space-y-1">
-                      {post.sections.map(
-                        (
-                          section,
-                          index
-                        ) => (
-                          <a
-                            key={`${section.heading.replace(/^\d+\.\s*/, "")}-${index}`}
-                            href={`#${getSectionId(
-                              index
-                            )}`}
-                            className="group flex gap-3 rounded-xl px-3 py-2.5 text-sm text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
-                          >
-
-                            <span className="leading-5">
-                              {section.heading.replace(/^\d+\.\s*/, "")}
-                            </span>
-                          </a>
-                        )
-                      )}
+                      {post.sections.map((section, index) => (
+                        <a
+                          key={`${stripNumber(section.heading)}-${index}`}
+                          href={`#${getSectionId(index)}`}
+                          className="font-body block rounded-xl px-3 py-2.5 text-[15px] leading-snug text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
+                        >
+                          {stripNumber(section.heading)}
+                        </a>
+                      ))}
                     </div>
                   </div>
                 )}
 
                 {/* Related */}
-
                 {related.length > 0 && (
-                  <div className="rounded-[28px] border border-slate-200 bg-white p-6 shadow-sm">
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6">
                     <div className="flex items-center justify-between gap-4">
-                      <p
-                        className="text-xs font-bold uppercase tracking-[0.16em]"
-                        style={{
-                          color:
-                            INDIGO_CTA,
-                        }}
-                      >
-                        More insights
-                      </p>
-
+                      <h2 className={SUB_HEADING}>More insights</h2>
                       <Link
                         href="/services/cloud/blogs"
-                        className="text-xs font-semibold"
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
+                        className="font-body text-[15px] font-semibold"
+                        style={{ color: INDIGO_CTA }}
                       >
                         View all
                       </Link>
                     </div>
 
                     <div className="mt-5 space-y-4">
-                      {related.map(
-                        (item) => (
-                          <Link
-                            key={
-                              item.slug
-                            }
-                            href={`/services/cloud/blogs/${item.slug}`}
-                            className="group block overflow-hidden rounded-2xl border border-slate-200 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                          >
-                            <div className="h-32 overflow-hidden">
-                              <img
-                                src={
-                                  item.heroImage
-                                }
-                                alt={
-                                  item.title
-                                }
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                              />
-                            </div>
-
-                            <div className="p-4">
-                              <p
-                                className="text-[11px] font-bold uppercase tracking-wider"
-                                style={{
-                                  color:
-                                    INDIGO_CTA,
-                                }}
-                              >
-                                {
-                                  item.category
-                                }
-                              </p>
-
-                              <h3
-                                className="mt-2 line-clamp-3 text-sm font-semibold leading-6"
-                                style={{
-                                  color:
-                                    CHAMPION_BLUE,
-                                }}
-                              >
-                                {
-                                  item.title
-                                }
-                              </h3>
-
-                              <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-slate-500 group-hover:text-[#4F3FE0]">
-                                Read insight
-                                <ArrowUpRight
-                                  size={
-                                    13
-                                  }
-                                />
-                              </span>
-                            </div>
-                          </Link>
-                        )
-                      )}
+                      {related.map((item) => (
+                        <Link
+                          key={item.slug}
+                          href={`/services/cloud/blogs/${item.slug}`}
+                          className="group block overflow-hidden rounded-2xl border border-slate-200 transition-shadow duration-300 hover:shadow-lg"
+                        >
+                          <div className="h-32 overflow-hidden">
+                            <img
+                              src={item.heroImage}
+                              alt={item.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="p-4">
+                            <h3 className="font-heading line-clamp-3 text-[17px] font-semibold leading-snug text-[#1B2560]">
+                              {item.title}
+                            </h3>
+                            <span
+                              className="font-body mt-3 inline-flex items-center gap-1 text-[15px] font-medium"
+                              style={{ color: INDIGO_CTA }}
+                            >
+                              Read insight
+                              <ArrowUpRight size={15} />
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   </div>
                 )}
@@ -1006,127 +602,53 @@ export default function BlogDetail({
       {/* =====================================================
           BOTTOM RELATED
       ====================================================== */}
-
       {related.length > 0 && (
-        <section className="mt-24 border-t border-slate-200 bg-[#F8F7FC] py-20">
-          <div
-            className={ALIGN}
-          >
+        <section className="mt-24 bg-[#EEF0F5] py-24">
+          <div className={ALIGN}>
             <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
-              <div>
-                <p
-                  className="text-xs font-bold uppercase tracking-[0.18em]"
-                  style={{
-                    color:
-                      INDIGO_CTA,
-                  }}
-                >
-                  Continue reading
-                </p>
-
-                <h2
-                  className="mt-2 text-3xl font-semibold sm:text-4xl"
-                  style={{
-                    color:
-                      CHAMPION_BLUE,
-                  }}
-                >
-                  Explore more insights
-                </h2>
-              </div>
+              <h2 className={SECTION_HEADING}>Explore more insights</h2>
 
               <Link
                 href="/services/cloud/blogs"
-                className="inline-flex items-center gap-2 text-sm font-semibold"
-                style={{
-                  color:
-                    INDIGO_CTA,
-                }}
+                className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
+                style={{ color: INDIGO_CTA }}
               >
                 All blogs
-                <ArrowUpRight
-                  size={16}
-                />
+                <ArrowUpRight size={16} />
               </Link>
             </div>
 
             <div className="mt-10 grid gap-6 md:grid-cols-3">
-              {related.map(
-                (item) => (
-                  <Link
-                    key={
-                      item.slug
-                    }
-                    href={`/services/cloud/blogs/${item.slug}`}
-                    className="group overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
-                  >
-                    <div className="h-56 overflow-hidden">
-                      <img
-                        src={
-                          item.heroImage
-                        }
-                        alt={
-                          item.title
-                        }
-                        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                      />
+              {related.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`/services/cloud/blogs/${item.slug}`}
+                  className="group overflow-hidden rounded-2xl bg-white transition-shadow duration-500 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                  style={{ border: "1px solid #E5E1F5" }}
+                >
+                  <div className="h-56 overflow-hidden">
+                    <img
+                      src={item.heroImage}
+                      alt={item.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="p-7">
+                    <h3 className={CARD_TITLE}>{item.title}</h3>
+
+                    <p className="font-body mt-4 line-clamp-3 text-[15px] leading-relaxed text-slate-500">
+                      {item.excerpt}
+                    </p>
+
+                    <div className="font-body mt-6 flex items-center gap-2 text-[15px] text-slate-500">
+                      <Clock3 size={14} />
+                      {item.readTime}
                     </div>
-
-                    <div className="p-7">
-                      <div className="flex items-center justify-between gap-4">
-                        <span
-                          className="text-xs font-bold uppercase tracking-[0.15em]"
-                          style={{
-                            color:
-                              INDIGO_CTA,
-                          }}
-                        >
-                          {
-                            item.category
-                          }
-                        </span>
-
-                        <ArrowUpRight
-                          size={18}
-                          className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1"
-                          style={{
-                            color:
-                              CHAMPION_BLUE,
-                          }}
-                        />
-                      </div>
-
-                      <h3
-                        className="mt-4 text-xl font-semibold leading-7"
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
-                      >
-                        {
-                          item.title
-                        }
-                      </h3>
-
-                      <p className="mt-4 line-clamp-3 text-sm leading-7 text-slate-600">
-                        {
-                          item.excerpt
-                        }
-                      </p>
-
-                      <div className="mt-6 flex items-center gap-2 text-xs font-semibold text-slate-500">
-                        <Clock3
-                          size={14}
-                        />
-
-                        {
-                          item.readTime
-                        }
-                      </div>
-                    </div>
-                  </Link>
-                )
-              )}
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

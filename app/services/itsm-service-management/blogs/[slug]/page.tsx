@@ -1,3 +1,4 @@
+// app/services/itsm-migration/blogs/[slug]/page.tsx
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 
@@ -9,6 +10,8 @@ type PageProps = {
     slug: string;
   }>;
 };
+
+const BLOG_BASE = "/services/itsm-migration/blogs";
 
 export function generateStaticParams() {
   return blogPosts
@@ -31,10 +34,11 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Starfii ITSM Migration & Transformation blog could not be found.",
+        
     };
   }
 
-  const canonicalPath = `/services/itsm-service-management/blogs/${post.slug}`;
+  const canonicalPath = `${BLOG_BASE}/${post.slug}`;
 
   return {
     title: post.seoTitle,

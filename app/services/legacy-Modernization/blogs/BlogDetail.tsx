@@ -3,1244 +3,652 @@
 "use client";
 
 import Link from "next/link";
-
+import { Poppins, Inter } from "next/font/google";
 import {
   ArrowUpRight,
   Check,
   ChevronRight,
   Clock3,
-  Copy,
-  Mail,
-  Share2,
 } from "lucide-react";
+import type { ReactNode } from "react";
 
-import {
-  useMemo,
-  useState,
-} from "react";
+import type { BlogPost } from "../blogs/blogData";
 
-import type {
-  BlogPost,
-} from "../blogs/blogData";
+/* ============================================================
+   FONTS — loaded here so this page never falls back to Arial.
+   Heading = Poppins, Body = Inter (same as CaseStudyTabs).
+============================================================ */
+
+const headingFont = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-heading",
+  display: "swap",
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-body",
+  display: "swap",
+});
+
+/* ============================================================
+   BRAND TOKENS + TYPE SCALE (identical to the Banking page)
+============================================================ */
 
 const CHAMPION_BLUE = "#1B2560";
 const INDIGO_CTA = "#4F3FE0";
 
-const ALIGN =
-  "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+const ALIGN = "mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16";
+
+// 34 / 40 / 46, medium, 1.15
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#1B2560]";
+// 24 / 26, semibold, 1.2
+const SUB_HEADING =
+  "font-heading font-semibold leading-[1.2] text-[24px] sm:text-[26px] text-[#1B2560]";
+// 17 / 18, slate-600
+const BODY =
+  "font-body text-[17px] leading-relaxed text-slate-600 lg:text-[18px]";
+// 17, 1.7, slate-600 (card body)
+const CARD_BODY = "font-body text-[17px] leading-[1.7] text-slate-600";
+// 20, semibold (card titles)
+const CARD_TITLE =
+  "font-heading text-[20px] font-semibold leading-snug text-[#1B2560]";
+// 16 / 18, semibold (eyebrow)
+const EYEBROW =
+  "font-body text-[16px] font-semibold sm:text-[18px]";
+
+// Keep these in sync with the real folder names on disk (lowercase).
+const BLOG_BASE = "/services/legacy-modernization/blogs";
+const SERVICE_BASE = "/services/legacy-modernization";
 
 type BlogDetailProps = {
   post: BlogPost;
   related: BlogPost[];
 };
 
-function getSectionId(
-  index: number
-) {
+function getSectionId(index: number) {
   return `blog-section-${index + 1}`;
 }
 
-export default function BlogDetail({
-  post,
-  related,
-}: BlogDetailProps) {
-  const [copied, setCopied] =
-    useState(false);
+function stripNumber(heading: string) {
+  return heading.replace(/^\d+\.\s*/, "");
+}
 
-  const pageUrl = useMemo(() => {
-    if (
-      typeof window === "undefined"
-    ) {
-      return "";
-    }
+/* ============================================================
+   SHARE ICONS (brand glyphs as inline SVG)
+============================================================ */
 
-    return window.location.href;
-  }, []);
+function XIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden="true">
+      <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932 6.064-6.932zm-1.29 19.494h2.039L6.486 3.24H4.298l13.313 17.407z" />
+    </svg>
+  );
+}
 
-  const shareText =
-    encodeURIComponent(
-      post.title
-    );
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+    </svg>
+  );
+}
 
-  const shareUrl =
-    encodeURIComponent(
-      pageUrl
-    );
+function TelegramIcon() {
+  return (
+    <svg viewBox="0 0 24 24" className="h-[22px] w-[22px]" fill="currentColor" aria-hidden="true">
+      <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z" />
+    </svg>
+  );
+}
 
-  async function copyLink() {
-    try {
-      await navigator.clipboard.writeText(
-        window.location.href
-      );
+function ShareButton({
+  label,
+  onClick,
+  children,
+}: {
+  label: string;
+  onClick: () => void;
+  children: ReactNode;
+}) {
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      onClick={onClick}
+      className="flex h-10 w-10 items-center justify-center transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ color: INDIGO_CTA }}
+    >
+      {children}
+    </button>
+  );
+}
 
-      setCopied(true);
+/* ============================================================
+   PAGE
+============================================================ */
 
-      window.setTimeout(() => {
-        setCopied(false);
-      }, 1800);
-    } catch {
-      setCopied(false);
-    }
-  }
-
-  function shareWindow(
-    url: string
-  ) {
+export default function BlogDetail({ post, related }: BlogDetailProps) {
+  function openShare(build: (url: string, text: string) => string) {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(post.title);
     window.open(
-      url,
+      build(url, text),
       "_blank",
       "noopener,noreferrer,width=700,height=600"
     );
   }
 
   return (
-    <main className="bg-white">
+    <main
+      className={`blog-page ${headingFont.variable} ${bodyFont.variable} bg-white`}
+    >
+      <style>{`
+        .blog-page .font-heading { font-family: var(--cs-font-heading), "Poppins", sans-serif; }
+        .blog-page .font-body { font-family: var(--cs-font-body), "Inter", sans-serif; }
+        .blog-page { font-family: var(--cs-font-body), "Inter", sans-serif; }
+      `}</style>
 
-      {/* ================= HERO ================= */}
-
-      <section className="relative overflow-hidden bg-[#0A0912]">
-
-        <div className="absolute inset-0">
-
-          <img
-            src={post.heroImage}
-            alt={post.title}
-            className="
-              h-full
-              w-full
-              object-cover
-              opacity-30
-            "
-          />
-
-          <div className="
-            absolute
-            inset-0
-            bg-gradient-to-r
-            from-[#080711]
-            via-[#11102A]/95
-            to-[#11102A]/60
-          " />
-
-          <div
-            className="
-              absolute
-              -right-32
-              top-[-180px]
-              h-[520px]
-              w-[520px]
-              rounded-full
-              blur-3xl
-            "
-            style={{
-              background:
-                "radial-gradient(circle, rgba(164,143,234,0.35), rgba(79,63,224,0.08), transparent 70%)",
-            }}
-          />
-
-        </div>
-
-        <div
-          className={`relative ${ALIGN}`}
-        >
-
-          <div className="
-            py-12
-            sm:py-16
-            lg:py-20
-          ">
-
-            {/* BREADCRUMB */}
-
-            <nav
-              aria-label="Breadcrumb"
-              className="
-                flex
-                flex-wrap
-                items-center
-                gap-2
-                text-sm
-                text-white/55
-              "
-            >
-
-              <Link
-                href="/services"
-                className="hover:text-white"
-              >
-                Services
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href="/services/legacy-modernization"
-                className="hover:text-white"
-              >
-                Legacy Modernization
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <Link
-                href="/services/legacy-Modernization/blogs"
-                className="hover:text-white"
-              >
-                Insights
-              </Link>
-
-              <ChevronRight size={14} />
-
-              <span className="text-white/80">
-                {post.title}
-              </span>
-
-            </nav>
-
-            {/* CATEGORY */}
-
-            <div className="mt-10">
-
-              <span className="
-                inline-flex
-                rounded-full
-                border
-                border-white/15
-                bg-white/5
-                px-4
-                py-2
-                text-xs
-                font-bold
-                uppercase
-                tracking-[0.16em]
-                text-[#A48FEA]
-              ">
-                {post.category}
-              </span>
-
-            </div>
-
-            {/* TITLE */}
-
-            <h1 className="
-              mt-7
-              max-w-5xl
-              text-4xl
-              font-semibold
-              leading-[1.08]
-              tracking-tight
-              text-white
-              sm:text-5xl
-              lg:text-6xl
-            ">
+      {/* =====================================================
+          HERO — title, divider, meta + share, wide image
+      ====================================================== */}
+      <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
+        <div className={ALIGN}>
+          <nav
+            aria-label="Breadcrumb"
+            className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#1B2560]"
+          >
+            <Link href="/services" className="hover:text-[#4F3FE0]">
+              Services
+            </Link>
+            <ChevronRight size={14} />
+            <Link href={SERVICE_BASE} className="hover:text-[#4F3FE0]">
+              Legacy Modernization
+            </Link>
+            <ChevronRight size={14} />
+            <Link href={BLOG_BASE} className="hover:text-[#4F3FE0]">
+              Insights
+            </Link>
+            <ChevronRight size={14} />
+            <span aria-current="page" className="line-clamp-1">
               {post.title}
-            </h1>
+            </span>
+          </nav>
 
-            {/* EXCERPT */}
+          <p className={`${EYEBROW} mt-10`} style={{ color: CHAMPION_BLUE }}>
+            {post.category}
+          </p>
 
-            <p className="
-              mt-7
-              max-w-3xl
-              text-lg
-              leading-8
-              text-white/65
-              sm:text-xl
-            ">
-              {post.excerpt}
-            </p>
+          <h1 className="font-heading mt-4 max-w-[1100px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#1B2560] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
+            {post.title}
+          </h1>
 
-            {/* META */}
+          <div className="mt-8 border-t border-slate-300" />
 
-            <div className="
-              mt-8
-              flex
-              flex-wrap
-              items-center
-              gap-5
-              text-sm
-              text-white/55
-            ">
-
-              <span>
-                {post.lastUpdated}
-              </span>
-
-              <span className="
-                h-1
-                w-1
-                rounded-full
-                bg-white/30
-              " />
-
-              <span className="
-                inline-flex
-                items-center
-                gap-2
-              ">
+          <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div className="font-body flex flex-wrap items-center gap-x-4 gap-y-2 text-[16px] text-[#1B2560]">
+              <span>Last Updated: {post.lastUpdated}</span>
+              <span aria-hidden="true">•</span>
+              <span className="inline-flex items-center gap-2">
                 <Clock3 size={15} />
                 {post.readTime}
               </span>
-
             </div>
 
+            <div className="flex items-center gap-1 sm:gap-2">
+              <span
+                className="font-body mr-2 text-[16px]"
+                style={{ color: INDIGO_CTA }}
+              >
+                Share on
+              </span>
+
+              <ShareButton
+                label="Share on LinkedIn"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.linkedin.com/sharing/share-offsite/?url=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[22px] font-bold leading-none">
+                  in
+                </span>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Facebook"
+                onClick={() =>
+                  openShare(
+                    (u) => `https://www.facebook.com/sharer/sharer.php?u=${u}`
+                  )
+                }
+              >
+                <span className="font-body text-[24px] font-bold leading-none">
+                  f
+                </span>
+              </ShareButton>
+
+              <ShareButton
+                label="Share on X"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://twitter.com/intent/tweet?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <XIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on WhatsApp"
+                onClick={() =>
+                  openShare((u, t) => `https://wa.me/?text=${t}%20${u}`)
+                }
+              >
+                <WhatsAppIcon />
+              </ShareButton>
+
+              <ShareButton
+                label="Share on Telegram"
+                onClick={() =>
+                  openShare(
+                    (u, t) => `https://t.me/share/url?url=${u}&text=${t}`
+                  )
+                }
+              >
+                <TelegramIcon />
+              </ShareButton>
+            </div>
           </div>
 
+          <div className="mt-6 overflow-hidden rounded-xl bg-slate-900">
+            <img
+              src={post.heroImage}
+              alt={post.title}
+              loading="eager"
+              decoding="async"
+              className="h-[240px] w-full object-cover object-center sm:h-[340px] lg:h-[410px]"
+            />
+          </div>
         </div>
-
       </section>
 
-      {/* ================= ARTICLE ================= */}
-
-      <section className="
-        py-16
-        sm:py-20
-        lg:py-24
-      ">
-
-        <div className={ALIGN}>
-
-          <div className="
-            grid
-            gap-12
-            lg:grid-cols-[minmax(0,1fr)_340px]
-          ">
-
-            {/* MAIN */}
-
-            <article>
-
-              {/* SHARE */}
-
-              <div className="
-                flex
-                flex-wrap
-                items-center
-                justify-between
-                gap-4
-                border-b
-                border-slate-200
-                pb-6
-              ">
-
-                <div className="
-                  flex
-                  items-center
-                  gap-2
-                ">
-
-                  <button
-                    type="button"
-                    onClick={copyLink}
-                    className="
-                      inline-flex
-                      items-center
-                      gap-2
-                      rounded-full
-                      border
-                      border-slate-200
-                      px-4
-                      py-2
-                      text-sm
-                      font-semibold
-                      text-slate-600
-                      transition
-                      hover:border-[#4F3FE0]
-                      hover:text-[#4F3FE0]
-                    "
-                  >
-                    <Copy size={15} />
-
-                    {copied
-                      ? "Copied"
-                      : "Copy link"}
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() =>
-                      shareWindow(
-                        `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`
-                      )
-                    }
-                    className="
-                      inline-flex
-                      items-center
-                      gap-2
-                      rounded-full
-                      border
-                      border-slate-200
-                      px-4
-                      py-2
-                      text-sm
-                      font-semibold
-                      text-slate-600
-                      transition
-                      hover:border-[#4F3FE0]
-                      hover:text-[#4F3FE0]
-                    "
-                  >
-                    <Share2 size={15} />
-                    Share
-                  </button>
-
-                </div>
-
-                <a
-                  href={`mailto:?subject=${shareText}&body=${shareUrl}`}
-                  className="
-                    inline-flex
-                    items-center
-                    gap-2
-                    text-sm
-                    font-semibold
-                    text-slate-500
-                    hover:text-[#4F3FE0]
-                  "
-                >
-                  <Mail size={15} />
-                  Email
-                </a>
-
-              </div>
-
-              {/* INTRO */}
-
-              <div className="
-                mt-10
-                space-y-6
-              ">
-
-                {post.intro.map(
-                  (
-                    paragraph,
-                    index
-                  ) => (
-                    <p
-                      key={index}
-                      className={
-                        index === 0
-                          ? `
-                            text-xl
-                            font-medium
-                            leading-9
-                            text-slate-700
-                            sm:text-2xl
-                          `
-                          : `
-                            text-lg
-                            leading-8
-                            text-slate-600
-                          `
-                      }
-                    >
-                      {paragraph}
-                    </p>
-                  )
-                )}
-
-              </div>
-
-              {/* ARTICLE SECTIONS */}
-
-              <div className="mt-16">
-
-                <div className="mb-10">
-
-                  <p
-                    className="
-                      text-xs
-                      font-bold
-                      uppercase
-                      tracking-[0.18em]
-                    "
-                    style={{
-                      color: INDIGO_CTA,
-                    }}
-                  >
-                    The complete insight
-                  </p>
-
-                  <h2
-                    className="
-                      mt-3
-                      text-3xl
-                      font-semibold
-                      sm:text-4xl
-                    "
-                    style={{
-                      color:
-                        CHAMPION_BLUE,
-                    }}
-                  >
-                    Legacy Modernization
-                    in Practice
-                  </h2>
-
-                </div>
-
-                <div className="
-                  space-y-16
-                ">
-
-                  {post.sections.map(
-                    (
-                      section,
-                      index
-                    ) => (
-                      <section
-                        key={
-                          section.heading
-                        }
-                        id={getSectionId(
-                          index
-                        )}
-                        className="
-                          scroll-mt-28
-                        "
+      {/* =====================================================
+          MAIN CONTENT
+      ====================================================== */}
+      <section className="relative">
+        <div className={`relative ${ALIGN}`}>
+          <div className="grid grid-cols-1 gap-12 pt-14 lg:grid-cols-[minmax(0,1fr)_350px] lg:gap-16">
+            {/* ================= ARTICLE ================= */}
+            <article className="min-w-0">
+              {/* Intro */}
+              {post.intro.length > 0 && (
+                <div className="space-y-6">
+                  {post.intro.map((paragraph, index) =>
+                    index === 0 ? (
+                      <p
+                        key={index}
+                        className="font-heading text-[26px] leading-snug text-[#1B2560] lg:text-[30px]"
                       >
-
-                        <h2
-                          className="
-                            text-2xl
-                            font-bold
-                            leading-tight
-                            sm:text-3xl
-                          "
-                          style={{
-                            color:
-                              CHAMPION_BLUE,
-                          }}
-                        >
-                          {section.heading}
-                        </h2>
-
-                        <div className="
-                          mt-6
-                          space-y-5
-                        ">
-
-                          {section.paragraphs.map(
-                            (
-                              paragraph,
-                              paragraphIndex
-                            ) => (
-                              <p
-                                key={
-                                  paragraphIndex
-                                }
-                                className="
-                                  text-base
-                                  leading-8
-                                  text-slate-600
-                                  sm:text-lg
-                                "
-                              >
-                                {paragraph}
-                              </p>
-                            )
-                          )}
-
-                        </div>
-
-                        {section.image && (
-                          <figure className="
-                            mt-8
-                            overflow-hidden
-                            rounded-3xl
-                            bg-slate-100
-                          ">
-
-                            <img
-                              src={
-                                section.image
-                              }
-                              alt={
-                                section.imageAlt ||
-                                section.heading
-                              }
-                              className="
-                                h-auto
-                                max-h-[560px]
-                                w-full
-                                object-cover
-                              "
-                            />
-
-                            {section.imageAlt && (
-                              <figcaption className="
-                                px-5
-                                py-3
-                                text-xs
-                                text-slate-500
-                              ">
-                                {
-                                  section.imageAlt
-                                }
-                              </figcaption>
-                            )}
-
-                          </figure>
-                        )}
-
-                        {section.quote && (
-                          <blockquote
-                            className="
-                              mt-8
-                              rounded-3xl
-                              border-l-4
-                              bg-[#F6F3FF]
-                              p-7
-                              sm:p-8
-                            "
-                            style={{
-                              borderColor:
-                                INDIGO_CTA,
-                            }}
-                          >
-
-                            <div className="
-                              text-4xl
-                              leading-none
-                              text-[#A48FEA]
-                            ">
-                              “
-                            </div>
-
-                            <p
-                              className="
-                                mt-2
-                                text-xl
-                                font-medium
-                                leading-8
-                              "
-                              style={{
-                                color:
-                                  CHAMPION_BLUE,
-                              }}
-                            >
-                              {
-                                section.quote
-                              }
-                            </p>
-
-                          </blockquote>
-                        )}
-
-                      </section>
+                        {paragraph}
+                      </p>
+                    ) : (
+                      <p key={index} className={BODY}>
+                        {paragraph}
+                      </p>
                     )
                   )}
-
                 </div>
+              )}
 
+              {/* Body */}
+              <div className="mt-16">
+                <h2 className={SECTION_HEADING}>Legacy Modernization in Practice</h2>
+
+                <div className="mt-10 space-y-16">
+                  {post.sections.map((section, index) => (
+                    <section
+                      key={`${stripNumber(section.heading)}-${index}`}
+                      id={getSectionId(index)}
+                      className="scroll-mt-28"
+                    >
+                      <h3 className={SUB_HEADING}>
+                        {stripNumber(section.heading)}
+                      </h3>
+
+                      <div className="mt-6 space-y-5">
+                        {section.paragraphs.map((paragraph, paragraphIndex) => {
+                          const colonIndex = paragraph.indexOf(":");
+                          const hasLabel = colonIndex > 0 && colonIndex < 35;
+
+                          if (hasLabel) {
+                            return (
+                              <p key={paragraphIndex} className={BODY}>
+                                <strong
+                                  className="font-semibold"
+                                  style={{ color: CHAMPION_BLUE }}
+                                >
+                                  {paragraph.slice(0, colonIndex + 1)}
+                                </strong>
+                                {paragraph.slice(colonIndex + 1)}
+                              </p>
+                            );
+                          }
+
+                          return (
+                            <p key={paragraphIndex} className={BODY}>
+                              {paragraph}
+                            </p>
+                          );
+                        })}
+                      </div>
+
+                      {section.image && (
+                        <figure className="mt-8 overflow-hidden rounded-xl bg-slate-100">
+                          <img
+                            src={section.image}
+                            alt={section.imageAlt || section.heading}
+                            loading="lazy"
+                            decoding="async"
+                            className="h-auto max-h-[560px] w-full object-cover"
+                          />
+                          {section.imageAlt && (
+                            <figcaption className="font-body px-5 py-3 text-[15px] text-slate-500">
+                              {section.imageAlt}
+                            </figcaption>
+                          )}
+                        </figure>
+                      )}
+
+                      {section.quote && (
+                        <blockquote
+                          className="mt-8 rounded-2xl border-l-4 p-7 sm:p-8"
+                          style={{
+                            borderColor: INDIGO_CTA,
+                            backgroundColor: "#F5F3FC",
+                          }}
+                        >
+                          <p className="font-heading text-[26px] leading-snug text-[#1B2560] lg:text-[30px]">
+                            “{section.quote}”
+                          </p>
+                        </blockquote>
+                      )}
+                    </section>
+                  ))}
+                </div>
               </div>
 
-              {/* BENEFITS */}
+              {/* Benefits */}
+              {post.benefits && post.benefits.length > 0 && (
+                <section className="mt-20 overflow-hidden rounded-2xl bg-[#1B2560] p-7 sm:p-10 lg:p-12">
+                  <div className="max-w-2xl">
+                    <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:text-[46px]">
+                      Why modernization matters
+                    </h2>
+                  </div>
 
-              <section className="
-                mt-20
-                overflow-hidden
-                rounded-[32px]
-                bg-[#0A0912]
-                p-7
-                sm:p-10
-                lg:p-12
-              ">
-
-                <p className="
-                  text-xs
-                  font-bold
-                  uppercase
-                  tracking-[0.18em]
-                  text-[#A48FEA]
-                ">
-                  Business value
-                </p>
-
-                <h2 className="
-                  mt-3
-                  text-3xl
-                  font-semibold
-                  text-white
-                  sm:text-4xl
-                ">
-                  Why modernization matters
-                </h2>
-
-                <div className="
-                  mt-10
-                  grid
-                  gap-4
-                  sm:grid-cols-2
-                ">
-
-                  {post.benefits.map(
-                    (benefit) => (
+                  <div className="mt-10 grid gap-4 sm:grid-cols-2">
+                    {post.benefits.map((benefit) => (
                       <div
-                        key={
-                          benefit.title
-                        }
-                        className="
-                          rounded-2xl
-                          border
-                          border-white/10
-                          bg-white/[0.04]
-                          p-6
-                        "
+                        key={benefit.title}
+                        className="rounded-2xl border border-white/10 bg-white/[0.06] p-6 transition-colors duration-300 hover:bg-white/[0.1]"
                       >
-
-                        <h3 className="
-                          text-lg
-                          font-semibold
-                          text-white
-                        ">
-                          {
-                            benefit.title
-                          }
+                        <h3 className="font-heading text-[20px] font-semibold leading-snug text-white">
+                          {benefit.title}
                         </h3>
-
-                        <p className="
-                          mt-3
-                          text-sm
-                          leading-7
-                          text-white/60
-                        ">
+                        <p className="font-body mt-2 text-[17px] leading-[1.7] text-slate-300">
                           {benefit.body}
                         </p>
-
                       </div>
-                    )
-                  )}
+                    ))}
+                  </div>
+                </section>
+              )}
 
-                </div>
+              {/* Process */}
+              {post.process && post.process.length > 0 && (
+                <section className="mt-20">
+                  <h2 className={`${SECTION_HEADING} max-w-2xl`}>
+                    A practical modernization process
+                  </h2>
 
-              </section>
-
-              {/* PROCESS */}
-
-              <section className="mt-20">
-
-                <p
-                  className="
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-[0.18em]
-                  "
-                  style={{
-                    color:
-                      INDIGO_CTA,
-                  }}
-                >
-                  How to approach it
-                </p>
-
-                <h2
-                  className="
-                    mt-3
-                    text-3xl
-                    font-semibold
-                  "
-                  style={{
-                    color:
-                      CHAMPION_BLUE,
-                  }}
-                >
-                  A practical
-                  modernization process
-                </h2>
-
-                <div className="
-                  mt-8
-                  grid
-                  gap-4
-                  sm:grid-cols-2
-                  lg:grid-cols-5
-                ">
-
-                  {post.process.map(
-                    (step, index) => (
+                  <div className="mt-10 space-y-5">
+                    {post.process.map((step, index) => (
                       <div
-                        key={
-                          step.title
-                        }
-                        className="
-                          rounded-2xl
-                          border
-                          border-slate-200
-                          p-5
-                        "
+                        key={`${step.title}-${index}`}
+                        className="rounded-2xl border border-slate-200 bg-white p-6 transition-shadow duration-300 hover:shadow-lg"
                       >
-
-                        <span
-                          className="
-                            text-xs
-                            font-bold
-                          "
-                          style={{
-                            color:
-                              INDIGO_CTA,
-                          }}
-                        >
-                          {String(
-                            index + 1
-                          ).padStart(2, "0")}
-                        </span>
-
-                        <h3
-                          className="
-                            mt-3
-                            font-semibold
-                          "
-                          style={{
-                            color:
-                              CHAMPION_BLUE,
-                          }}
-                        >
-                          {step.title}
-                        </h3>
-
-                        <p className="
-                          mt-2
-                          text-sm
-                          leading-6
-                          text-slate-600
-                        ">
-                          {step.body}
-                        </p>
-
+                        <div className="flex items-start gap-4">
+                          <div
+                            className="font-body flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-[15px] font-semibold text-white"
+                            style={{ backgroundColor: CHAMPION_BLUE }}
+                          >
+                            {String(index + 1).padStart(2, "0")}
+                          </div>
+                          <div>
+                            <h3 className={CARD_TITLE}>{step.title}</h3>
+                            <p className={`${CARD_BODY} mt-2`}>{step.body}</p>
+                          </div>
+                        </div>
                       </div>
-                    )
-                  )}
+                    ))}
+                  </div>
+                </section>
+              )}
 
-                </div>
+              {/* Key takeaways */}
+              {post.keyTakeaways && post.keyTakeaways.length > 0 && (
+                <section className="mt-20 rounded-2xl bg-[#F5F3FC] p-7 sm:p-10">
+                  <h2 className={SECTION_HEADING}>What to remember</h2>
 
-              </section>
-
-              {/* KEY TAKEAWAYS */}
-
-              <section className="
-                mt-20
-                rounded-[32px]
-                border
-                border-slate-200
-                bg-[#F8F8FC]
-                p-7
-                sm:p-10
-              ">
-
-                <p
-                  className="
-                    text-xs
-                    font-bold
-                    uppercase
-                    tracking-[0.18em]
-                  "
-                  style={{
-                    color:
-                      INDIGO_CTA,
-                  }}
-                >
-                  Key takeaways
-                </p>
-
-                <h2
-                  className="
-                    mt-3
-                    text-3xl
-                    font-semibold
-                  "
-                  style={{
-                    color:
-                      CHAMPION_BLUE,
-                  }}
-                >
-                  What to remember
-                </h2>
-
-                <ul className="
-                  mt-7
-                  space-y-4
-                ">
-
-                  {post.keyTakeaways.map(
-                    (item) => (
-                      <li
-                        key={item}
-                        className="
-                          flex
-                          gap-3
-                          text-base
-                          leading-7
-                          text-slate-600
-                        "
+                  <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                    {post.keyTakeaways.map((takeaway, index) => (
+                      <div
+                        key={index}
+                        className="flex gap-3 rounded-2xl bg-white p-5"
                       >
-
                         <Check
-                          className="
-                            mt-1
-                            shrink-0
-                          "
-                          size={18}
-                          color={
-                            INDIGO_CTA
-                          }
+                          size={20}
+                          className="mt-1 flex-shrink-0"
+                          style={{ color: INDIGO_CTA }}
                         />
+                        <p className={CARD_BODY}>{takeaway}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              )}
 
-                        {item}
-
-                      </li>
-                    )
-                  )}
-
-                </ul>
-
-              </section>
-
-              {/* CONCLUSION */}
-
-              <section className="
-                mt-16
-                border-t
-                border-slate-200
-                pt-12
-              ">
-
-                <p className="
-                  text-lg
-                  leading-8
-                  text-slate-600
-                ">
-                  {post.conclusion}
-                </p>
-
-              </section>
+              {/* Conclusion */}
+              {post.conclusion && (
+                <section className="mt-20">
+                  <div className="rounded-2xl bg-[#EAE4FA] p-8 sm:p-10 lg:p-12">
+                    <h2 className={SECTION_HEADING}>Final perspective</h2>
+                    <p className={`${BODY} mt-6 max-w-4xl`}>{post.conclusion}</p>
+                  </div>
+                </section>
+              )}
 
               {/* CTA */}
-
-              <section className="
-                mt-16
-                overflow-hidden
-                rounded-[32px]
-                bg-[#1B2560]
-                p-8
-                sm:p-10
-                lg:p-12
-              ">
-
-                <h2 className="
-                  max-w-2xl
-                  text-3xl
-                  font-semibold
-                  text-white
-                  sm:text-4xl
-                ">
-                  {post.cta.title}
-                </h2>
-
-                <p className="
-                  mt-5
-                  max-w-2xl
-                  text-base
-                  leading-8
-                  text-white/65
-                ">
-                  {post.cta.body}
-                </p>
-
-                <Link
-                  href={
-                    post.cta.buttonHref
-                  }
-                  className="
-                    mt-8
-                    inline-flex
-                    items-center
-                    gap-2
-                    rounded-full
-                    bg-white
-                    px-6
-                    py-3
-                    text-sm
-                    font-semibold
-                    text-[#1B2560]
-                    transition
-                    hover:-translate-y-0.5
-                  "
-                >
-                  {post.cta.buttonText}
-
-                  <ArrowUpRight
-                    size={16}
-                  />
-                </Link>
-
-              </section>
-
+              {post.cta && (
+                <section className="mt-12 overflow-hidden rounded-2xl bg-[#1B2560]">
+                  <div className="p-8 sm:p-10 lg:p-12">
+                    <div className="max-w-2xl">
+                      <h2 className="font-heading text-[34px] font-medium leading-[1.15] text-white sm:text-[40px] lg:text-[46px]">
+                        {post.cta.title}
+                      </h2>
+                      <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-300 lg:text-[18px]">
+                        {post.cta.body}
+                      </p>
+                      <Link
+                        href={post.cta.buttonHref}
+                        className="font-body mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold transition duration-300 hover:-translate-y-1 hover:bg-[#F1EEFC]"
+                        style={{ color: INDIGO_CTA }}
+                      >
+                        {post.cta.buttonText}
+                        <ArrowUpRight size={17} />
+                      </Link>
+                    </div>
+                  </div>
+                </section>
+              )}
             </article>
 
             {/* ================= SIDEBAR ================= */}
+            <aside className="lg:sticky lg:top-24 lg:self-start">
+              <div className="space-y-6">
+                {/* Author */}
+                <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                  <h2 className={SUB_HEADING}>About the author</h2>
 
-            <aside className="lg:pt-12">
-
-              <div className="
-                lg:sticky
-                lg:top-8
-              ">
-
-                {/* AUTHOR */}
-
-                <div className="
-                  rounded-3xl
-                  border
-                  border-slate-200
-                  bg-white
-                  p-6
-                  shadow-sm
-                ">
-
-                  <p
-                    className="
-                      text-xs
-                      font-bold
-                      uppercase
-                      tracking-[0.18em]
-                    "
-                    style={{
-                      color:
-                        INDIGO_CTA,
-                    }}
-                  >
-                    About the author
-                  </p>
-
-                  <div className="
-                    mt-5
-                    flex
-                    items-center
-                    gap-4
-                  ">
-
+                  <div className="mt-5 flex items-center gap-4">
                     <img
-                      src={
-                        post.author.photo
-                      }
-                      alt={
-                        post.author.name
-                      }
-                      className="
-                        h-14
-                        w-14
-                        rounded-full
-                        object-cover
-                      "
+                      src={post.author.photo}
+                      alt={post.author.name}
+                      className="h-16 w-16 rounded-2xl object-cover"
                     />
-
-                    <div>
-
-                      <p
-                        className="
-                          font-semibold
-                        "
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
-                      >
-                        {
-                          post.author.name
-                        }
+                    <div className="min-w-0">
+                      <p className="font-body text-[17px] font-semibold leading-snug text-[#1B2560]">
+                        {post.author.name}
                       </p>
-
-                      <p className="
-                        text-xs
-                        text-slate-500
-                      ">
-                        {
-                          post.author.role
-                        }
+                      <p className="font-body mt-1 text-[15px] text-slate-500">
+                        {post.author.role}
                       </p>
-
                     </div>
-
                   </div>
 
-                  <p className="
-                    mt-4
-                    text-sm
-                    leading-7
-                    text-slate-600
-                  ">
-                    {post.author.bio}
-                  </p>
-
+                  <p className={`${CARD_BODY} mt-5`}>{post.author.bio}</p>
                 </div>
 
-                {/* RELATED */}
+                {/* Table of contents */}
+                {post.sections.length > 0 && (
+                  <div className="rounded-2xl bg-[#F5F3FC] p-6">
+                    <h2 className={SUB_HEADING}>On this page</h2>
 
-                {related.length > 0 && (
-                  <div className="mt-8">
-
-                    <div className="
-                      flex
-                      items-center
-                      justify-between
-                    ">
-
-                      <p
-                        className="
-                          text-xs
-                          font-bold
-                          uppercase
-                          tracking-[0.16em]
-                        "
-                        style={{
-                          color:
-                            INDIGO_CTA,
-                        }}
-                      >
-                        More insights
-                      </p>
-
-                      <Link
-                        href="/services/legacy-modernization/blogs"
-                        className="
-                          text-xs
-                          font-semibold
-                        "
-                        style={{
-                          color:
-                            CHAMPION_BLUE,
-                        }}
-                      >
-                        View all
-                      </Link>
-
+                    <div className="mt-5 space-y-1">
+                      {post.sections.map((section, index) => (
+                        <a
+                          key={`${stripNumber(section.heading)}-${index}`}
+                          href={`#${getSectionId(index)}`}
+                          className="font-body block rounded-xl px-3 py-2.5 text-[15px] leading-snug text-slate-600 transition-colors hover:bg-white hover:text-[#4F3FE0]"
+                        >
+                          {stripNumber(section.heading)}
+                        </a>
+                      ))}
                     </div>
-
-                    <div className="
-                      mt-5
-                      space-y-4
-                    ">
-
-                      {related.map(
-                        (item) => (
-                          <Link
-                            key={
-                              item.slug
-                            }
-                            href={`/services/legacy-modernization/blogs/${item.slug}`}
-                            className="
-                              group
-                              block
-                              overflow-hidden
-                              rounded-2xl
-                              border
-                              border-slate-200
-                              transition-all
-                              duration-300
-                              hover:-translate-y-1
-                              hover:shadow-lg
-                            "
-                          >
-
-                            <div className="
-                              h-32
-                              overflow-hidden
-                            ">
-
-                              <img
-                                src={
-                                  item.heroImage
-                                }
-                                alt={
-                                  item.title
-                                }
-                                className="
-                                  h-full
-                                  w-full
-                                  object-cover
-                                  transition-transform
-                                  duration-500
-                                  group-hover:scale-105
-                                "
-                              />
-
-                            </div>
-
-                            <div className="p-4">
-
-                              <p
-                                className="
-                                  text-[11px]
-                                  font-bold
-                                  uppercase
-                                  tracking-wider
-                                "
-                                style={{
-                                  color:
-                                    INDIGO_CTA,
-                                }}
-                              >
-                                {
-                                  item.category
-                                }
-                              </p>
-
-                              <h3
-                                className="
-                                  mt-2
-                                  line-clamp-3
-                                  text-sm
-                                  font-semibold
-                                  leading-6
-                                "
-                                style={{
-                                  color:
-                                    CHAMPION_BLUE,
-                                }}
-                              >
-                                {
-                                  item.title
-                                }
-                              </h3>
-
-                              <span className="
-                                mt-3
-                                inline-flex
-                                items-center
-                                gap-1
-                                text-xs
-                                font-semibold
-                                text-slate-500
-                              ">
-                                Read insight
-
-                                <ArrowUpRight
-                                  size={13}
-                                />
-                              </span>
-
-                            </div>
-
-                          </Link>
-                        )
-                      )}
-
-                    </div>
-
                   </div>
                 )}
 
+                {/* Related */}
+                {related.length > 0 && (
+                  <div className="rounded-2xl border border-slate-200 bg-white p-6">
+                    <div className="flex items-center justify-between gap-4">
+                      <h2 className={SUB_HEADING}>More insights</h2>
+                      <Link
+                        href={BLOG_BASE}
+                        className="font-body text-[15px] font-semibold"
+                        style={{ color: INDIGO_CTA }}
+                      >
+                        View all
+                      </Link>
+                    </div>
+
+                    <div className="mt-5 space-y-4">
+                      {related.map((item) => (
+                        <Link
+                          key={item.slug}
+                          href={`${BLOG_BASE}/${item.slug}`}
+                          className="group block overflow-hidden rounded-2xl border border-slate-200 transition-shadow duration-300 hover:shadow-lg"
+                        >
+                          <div className="h-32 overflow-hidden">
+                            <img
+                              src={item.heroImage}
+                              alt={item.title}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                            />
+                          </div>
+                          <div className="p-4">
+                            <h3 className="font-heading line-clamp-3 text-[17px] font-semibold leading-snug text-[#1B2560]">
+                              {item.title}
+                            </h3>
+                            <span
+                              className="font-body mt-3 inline-flex items-center gap-1 text-[15px] font-medium"
+                              style={{ color: INDIGO_CTA }}
+                            >
+                              Read insight
+                              <ArrowUpRight size={15} />
+                            </span>
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
-
             </aside>
-
           </div>
-
         </div>
-
       </section>
 
+      {/* =====================================================
+          BOTTOM RELATED
+      ====================================================== */}
+      {related.length > 0 && (
+        <section className="mt-24 bg-[#EEF0F5] py-24">
+          <div className={ALIGN}>
+            <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
+              <h2 className={SECTION_HEADING}>Explore more insights</h2>
+
+              <Link
+                href={BLOG_BASE}
+                className="font-body inline-flex items-center gap-1.5 text-[15px] font-semibold"
+                style={{ color: INDIGO_CTA }}
+              >
+                All blogs
+                <ArrowUpRight size={16} />
+              </Link>
+            </div>
+
+            <div className="mt-10 grid gap-6 md:grid-cols-3">
+              {related.map((item) => (
+                <Link
+                  key={item.slug}
+                  href={`${BLOG_BASE}/${item.slug}`}
+                  className="group overflow-hidden rounded-2xl bg-white transition-shadow duration-500 hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
+                  style={{ border: "1px solid #E5E1F5" }}
+                >
+                  <div className="h-56 overflow-hidden">
+                    <img
+                      src={item.heroImage}
+                      alt={item.title}
+                      loading="lazy"
+                      className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    />
+                  </div>
+
+                  <div className="p-7">
+                    <h3 className={CARD_TITLE}>{item.title}</h3>
+
+                    <p className="font-body mt-4 line-clamp-3 text-[15px] leading-relaxed text-slate-500">
+                      {item.excerpt}
+                    </p>
+
+                    <div className="font-body mt-6 flex items-center gap-2 text-[15px] text-slate-500">
+                      <Clock3 size={14} />
+                      {item.readTime}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </main>
   );
 }

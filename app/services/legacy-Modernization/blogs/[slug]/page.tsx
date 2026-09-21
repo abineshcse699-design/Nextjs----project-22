@@ -43,6 +43,7 @@ export async function generateMetadata({
 
       description:
         "The requested legacy modernization insight could not be found.",
+        
     };
   }
 

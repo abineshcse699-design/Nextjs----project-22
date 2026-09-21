@@ -75,7 +75,7 @@ export default function GetInTouch() {
               sm:text-[18px]
             "
           >
-            Bring Your Digital Vision to Life
+            Let's Build Seamless Retail Experiences Together
           </p>
         </div>
 

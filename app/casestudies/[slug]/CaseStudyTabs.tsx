@@ -3,8 +3,29 @@
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronRight } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
+import { Poppins, Inter } from "next/font/google";
 
 import type { CaseStudy } from "../caseStudiesData";
+
+/* ============================================================
+   FONTS — loaded here so this page never falls back to Arial.
+   Heading = Poppins, Body = Inter (change here if Banking uses
+   a different body font).
+============================================================ */
+
+const headingFont = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-heading",
+  display: "swap",
+});
+
+const bodyFont = Inter({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--cs-font-body",
+  display: "swap",
+});
 
 type CaseStudyTabsProps = {
   study: CaseStudy;
@@ -20,14 +41,27 @@ type CaseStudyTabsProps = {
 const CASE_STUDY_BASE = "/casestudies";
 
 /* ============================================================
-   TYPE SCALE (same as Cloud / Data & Analytics)
+   BRAND TOKENS (identical to the Banking page)
 ============================================================ */
 
+const CHAMPION_BLUE = "#1B2560";
+const INDIGO_CTA = "#4F3FE0";
+
+/* ============================================================
+   TYPE SCALE (identical to the Banking page)
+============================================================ */
+
+// Section headings: 34 / 40 / 46, medium, 1.15
 const SECTION_HEADING =
-  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#0b1747]";
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#1B2560]";
+// Card / sub headings: 24 / 26, semibold, 1.2
 const SUB_HEADING =
-  "font-heading font-semibold leading-snug text-[20px] sm:text-[22px] text-[#0b1747]";
-const BODY = "font-body text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]";
+  "font-heading font-semibold leading-[1.2] text-[24px] sm:text-[26px] text-[#1B2560]";
+// Body copy: 17 / 18, slate-600 (same as Banking Q&A + capability cards)
+const BODY =
+  "font-body text-[17px] leading-relaxed text-slate-600 lg:text-[18px]";
+// Card body copy: 17, 1.7, slate-600 (same as Banking capability cards)
+const CARD_BODY = "font-body text-[17px] leading-[1.7] text-slate-600";
 
 const TABS = [
   { id: "client", label: "Client" },
@@ -90,17 +124,11 @@ function PointCard({ text }: { text: string }) {
   return (
     <div className="rounded-2xl bg-white px-6 py-4">
       {lead && (
-        <p className="font-body text-[16px] font-semibold leading-snug text-[#0b1747]">
+        <p className="font-body text-[17px] font-semibold leading-[1.7] text-[#1B2560]">
           {lead}
         </p>
       )}
-      <p
-        className={`font-body text-[16px] leading-relaxed text-[#0b1747] ${
-          lead ? "mt-1" : "font-medium"
-        }`}
-      >
-        {rest}
-      </p>
+      <p className={`${CARD_BODY} ${lead ? "mt-1" : "font-medium"}`}>{rest}</p>
     </div>
   );
 }
@@ -119,17 +147,17 @@ function Breadcrumb({ title }: { title: string }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#0b1747]"
+      className="font-body flex flex-wrap items-center gap-2 text-[14px] font-medium text-[#1B2560]"
     >
-      <Link href="/" className="hover:text-[#3a3ff0]">
+      <Link href="/" className="hover:text-[#4F3FE0]">
         Home
       </Link>
       <ChevronRight className="h-3.5 w-3.5" />
-      <Link href="/insights" className="hover:text-[#3a3ff0]">
+      <Link href="/insights" className="hover:text-[#4F3FE0]">
         Insights Hub
       </Link>
       <ChevronRight className="h-3.5 w-3.5" />
-      <Link href="/#case-studies" className="hover:text-[#3a3ff0]">
+      <Link href="/#case-studies" className="hover:text-[#4F3FE0]">
         Case Studies
       </Link>
       <ChevronRight className="h-3.5 w-3.5" />
@@ -146,24 +174,24 @@ function Sidebar({ study }: { study: CaseStudy }) {
 
         <dl className="mt-5 space-y-4">
           <div>
-            <dt className="font-body text-[14px] text-slate-500">Client</dt>
-            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
+            <dt className="font-body text-[15px] text-slate-500">Client</dt>
+            <dd className="font-body mt-0.5 text-[17px] font-medium leading-[1.7] text-[#1B2560]">
               {study.client}
             </dd>
           </div>
           <div>
-            <dt className="font-body text-[14px] text-slate-500">Industry</dt>
-            <dd className="font-body mt-0.5 text-[16px] font-medium text-[#0b1747]">
+            <dt className="font-body text-[15px] text-slate-500">Industry</dt>
+            <dd className="font-body mt-0.5 text-[17px] font-medium leading-[1.7] text-[#1B2560]">
               {study.industry}
             </dd>
           </div>
           <div>
-            <dt className="font-body text-[14px] text-slate-500">Services</dt>
+            <dt className="font-body text-[15px] text-slate-500">Services</dt>
             <dd className="mt-2 flex flex-wrap gap-2">
               {study.services.map((s) => (
                 <span
                   key={s}
-                  className="font-body rounded-full bg-[#ecedfa] px-3 py-1 text-[14px] font-medium text-[#4b3fe0]"
+                  className="font-body rounded-full bg-[#F1EEFC] px-3 py-1 text-[13px] font-semibold text-[#4F3FE0]"
                 >
                   {s}
                 </span>
@@ -178,10 +206,10 @@ function Sidebar({ study }: { study: CaseStudy }) {
         <div className="mt-4 space-y-4">
           {study.results.slice(0, 3).map((r, i) => (
             <div key={`${r.metric}-${i}`}>
-              <p className="font-heading text-[24px] font-medium leading-tight text-[#3a3ff0]">
+              <p className="font-heading text-[24px] font-medium leading-[1.2] text-[#4F3FE0] sm:text-[26px]">
                 {r.metric}
               </p>
-              <p className="font-body mt-0.5 text-[14px] leading-snug text-slate-600">
+              <p className="font-body mt-0.5 text-[15px] leading-relaxed text-slate-600">
                 {r.label}
               </p>
             </div>
@@ -189,16 +217,16 @@ function Sidebar({ study }: { study: CaseStudy }) {
         </div>
       </div>
 
-      <div className="rounded-2xl bg-[#0b1747] p-6">
-        <h2 className="font-heading text-[20px] font-semibold leading-snug text-white sm:text-[22px]">
+      <div className="rounded-2xl bg-[#1B2560] p-6">
+        <h2 className="font-heading text-[24px] font-semibold leading-[1.2] text-white sm:text-[26px]">
           Want results like these?
         </h2>
-        <p className="font-body mt-1.5 text-[15px] text-slate-300">
+        <p className="font-body mt-1.5 text-[15px] leading-relaxed text-slate-300">
           Schedule some 1 on 1 time with our experts.
         </p>
         <Link
           href="/#contact"
-          className="font-body mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-5 py-3 text-[15px] font-semibold text-[#0b1747] transition-colors hover:bg-[#ecedfa]"
+          className="font-body mt-5 inline-flex w-full items-center justify-center gap-1.5 rounded-full bg-white px-5 py-3 text-[15px] font-semibold text-[#4F3FE0] transition-colors hover:bg-[#F1EEFC]"
         >
           Book a Meeting
           <ArrowUpRight className="h-4 w-4" />
@@ -227,10 +255,10 @@ function TabsNav({ active, onClick }: { active: string; onClick: (id: string) =>
               type="button"
               onClick={() => onClick(tab.id)}
               aria-current={isActive ? "true" : undefined}
-              className={`font-body shrink-0 rounded-xl px-5 py-3 text-[16px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#4b4bf0] md:px-8 ${
+              className={`font-body shrink-0 rounded-xl px-5 py-3 text-[19px] transition-colors duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#4F3FE0] sm:text-[20px] md:px-8 ${
                 isActive
-                  ? "bg-[#ecedfa] font-semibold text-[#4b3fe0]"
-                  : "font-normal text-[#0b1747] hover:bg-slate-50"
+                  ? "bg-[#F1EEFC] font-semibold text-[#4F3FE0]"
+                  : "font-normal text-[#1B2560] hover:bg-slate-50"
               }`}
             >
               {tab.label}
@@ -280,7 +308,15 @@ export default function CaseStudyTabs({
   };
 
   return (
-    <main className="bg-[#eef0f5]">
+    <main
+      className={`cs-page ${headingFont.variable} ${bodyFont.variable} bg-[#eef0f5]`}
+    >
+      <style>{`
+        .cs-page .font-heading { font-family: var(--cs-font-heading), "Poppins", sans-serif; }
+        .cs-page .font-body { font-family: var(--cs-font-body), "Inter", sans-serif; }
+        .cs-page { font-family: var(--cs-font-body), "Inter", sans-serif; }
+      `}</style>
+
       {/* HERO */}
       <section className="bg-gradient-to-b from-[#cfe3f2] via-[#e1ecf6] to-[#eef0f5] pb-10 pt-28 sm:pt-32">
         <div className="mx-auto max-w-[1520px] px-6 sm:px-10 lg:px-16">
@@ -294,11 +330,11 @@ export default function CaseStudyTabs({
                 <span className="text-slate-500">{study.category}</span>
               </p>
 
-              <h1 className="font-heading mt-6 max-w-3xl whitespace-pre-line text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#0b1747] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
+              <h1 className="font-heading mt-6 max-w-3xl whitespace-pre-line text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-[#1B2560] sm:text-[38px] lg:text-[44px] xl:text-[48px]">
                 {study.title}
               </h1>
 
-              <p className="font-body mt-8 max-w-2xl text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
+              <p className="font-body mt-8 max-w-2xl text-[16px] leading-[1.7] text-slate-600 sm:text-[17px]">
                 {study.subtitle}
               </p>
             </div>
@@ -328,30 +364,24 @@ export default function CaseStudyTabs({
 
                 <div className="mt-10 grid grid-cols-1 gap-8 sm:grid-cols-3">
                   <div>
-                    <p className="font-heading text-[22px] font-medium leading-tight text-[#3a3ff0] lg:text-[24px]">
+                    <p className="font-heading text-[24px] font-medium leading-[1.2] text-[#4F3FE0] sm:text-[26px]">
                       {study.industry}
                     </p>
-                    <p className="font-body mt-2 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
-                      Industry
-                    </p>
+                    <p className={`${BODY} mt-2`}>Industry</p>
                   </div>
 
                   <div>
-                    <p className="font-heading text-[22px] font-medium leading-tight text-[#3a3ff0] lg:text-[24px]">
+                    <p className="font-heading text-[24px] font-medium leading-[1.2] text-[#4F3FE0] sm:text-[26px]">
                       {study.category}
                     </p>
-                    <p className="font-body mt-2 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
-                      Category
-                    </p>
+                    <p className={`${BODY} mt-2`}>Category</p>
                   </div>
 
                   <div>
-                    <p className="font-heading text-[22px] font-medium leading-tight text-[#3a3ff0] lg:text-[24px]">
+                    <p className="font-heading text-[24px] font-medium leading-[1.2] text-[#4F3FE0] sm:text-[26px]">
                       {study.services.length} services
                     </p>
-                    <p className="font-body mt-2 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
-                      Delivered
-                    </p>
+                    <p className={`${BODY} mt-2`}>Delivered</p>
                   </div>
                 </div>
               </section>
@@ -390,12 +420,10 @@ export default function CaseStudyTabs({
                       key={`${r.metric}-${i}`}
                       className="rounded-2xl bg-white px-8 py-6"
                     >
-                      <p className="font-heading text-[36px] font-medium leading-none text-[#3a3ff0]">
+                      <p className="font-heading text-[34px] font-medium leading-[1.15] text-[#4F3FE0] sm:text-[40px] lg:text-[46px]">
                         {r.metric}
                       </p>
-                      <p className="font-body mt-3 text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]">
-                        {r.label}
-                      </p>
+                      <p className={`${BODY} mt-3`}>{r.label}</p>
                     </div>
                   ))}
                 </div>
@@ -405,7 +433,7 @@ export default function CaseStudyTabs({
                   {study.services.map((service) => (
                     <span
                       key={service}
-                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-[#0b1747] lg:text-[18px]"
+                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-slate-600 lg:text-[18px]"
                     >
                       {service}
                     </span>
@@ -417,7 +445,7 @@ export default function CaseStudyTabs({
                   {study.techStack.map((technology) => (
                     <span
                       key={technology}
-                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-[#0b1747] lg:text-[18px]"
+                      className="font-body rounded-full bg-white px-5 py-2 text-[17px] text-slate-600 lg:text-[18px]"
                     >
                       {technology}
                     </span>
@@ -433,14 +461,14 @@ export default function CaseStudyTabs({
                   href={`${CASE_STUDY_BASE}/${previousStudy.slug}`}
                   className="group rounded-2xl bg-white p-7 transition duration-300 hover:-translate-y-1 hover:shadow-lg"
                 >
-                  <div className="font-body flex items-center gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[#4b3fe0]">
+                  <div className="font-body flex items-center gap-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#4F3FE0]">
                     <ArrowLeft size={15} />
                     Previous Case Study
                   </div>
-                  <h3 className="font-heading mt-4 text-xl font-semibold leading-snug text-[#0b1747]">
+                  <h3 className="font-heading mt-4 text-[20px] font-semibold leading-snug text-[#1B2560]">
                     {flat(previousStudy.title)}
                   </h3>
-                  <span className="font-body mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#3a3ff0]">
+                  <span className="font-body mt-5 inline-flex items-center gap-2 text-[16px] font-medium text-[#4F3FE0]">
                     View Case Study
                     <ArrowUpRight
                       size={16}
@@ -457,14 +485,14 @@ export default function CaseStudyTabs({
                   href={`${CASE_STUDY_BASE}/${nextStudy.slug}`}
                   className="group rounded-2xl bg-white p-7 text-left transition duration-300 hover:-translate-y-1 hover:shadow-lg md:text-right"
                 >
-                  <div className="font-body flex items-center justify-start gap-2 text-xs font-bold uppercase tracking-[0.15em] text-[#4b3fe0] md:justify-end">
+                  <div className="font-body flex items-center justify-start gap-2 text-[12px] font-semibold uppercase tracking-[0.08em] text-[#4F3FE0] md:justify-end">
                     Next Case Study
                     <ArrowRight size={15} />
                   </div>
-                  <h3 className="font-heading mt-4 text-xl font-semibold leading-snug text-[#0b1747]">
+                  <h3 className="font-heading mt-4 text-[20px] font-semibold leading-snug text-[#1B2560]">
                     {flat(nextStudy.title)}
                   </h3>
-                  <span className="font-body mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#3a3ff0]">
+                  <span className="font-body mt-5 inline-flex items-center gap-2 text-[16px] font-medium text-[#4F3FE0]">
                     View Case Study
                     <ArrowUpRight
                       size={16}
@@ -483,18 +511,18 @@ export default function CaseStudyTabs({
       </div>
 
       {/* CLOSING CTA */}
-      <section className="bg-[#0b1747] py-20">
+      <section className="bg-[#1B2560] py-20">
         <div className="mx-auto max-w-[1000px] px-6 text-center sm:px-10">
-          <h2 className="font-heading mt-2 text-[34px] font-medium leading-tight tracking-[-0.02em] text-white sm:text-[42px]">
+          <h2 className="font-heading mt-2 text-[34px] font-medium leading-[1.15] tracking-[-0.02em] text-white sm:text-[40px] lg:text-[46px]">
             Have a similar challenge?
           </h2>
-          <p className="font-body mx-auto mt-5 max-w-2xl text-[17px] leading-8 text-slate-300">
+          <p className="font-body mx-auto mt-5 max-w-2xl text-[17px] leading-relaxed text-slate-300 lg:text-[18px]">
             Let&apos;s discuss how Starfii can help your team achieve results
             like these.
           </p>
           <Link
             href="/#contact"
-            className="font-body mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-sm font-semibold text-[#0b1747] transition duration-300 hover:-translate-y-1 hover:bg-[#ecedfa]"
+            className="font-body mt-8 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold text-[#4F3FE0] transition duration-300 hover:-translate-y-1 hover:bg-[#F1EEFC]"
           >
             Request Your POC Now
             <ArrowUpRight size={17} />

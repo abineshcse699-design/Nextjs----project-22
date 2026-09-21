@@ -28,7 +28,7 @@ export function ProcessSteps() {
   const [active, setActive] = useState(0);
   return (
     <div>
-      <p className="max-w-[62ch] text-[17px] leading-relaxed text-slate-600">
+      <p className="font-body max-w-[62ch] text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
         A structured, low risk path from first idea to launched product, aligned with your existing processes, security needs, and
         delivery timelines.
       </p>
@@ -53,9 +53,9 @@ export function ProcessSteps() {
               >
                 <span className="font-mono text-[28px] font-bold leading-none text-[#FF7A4D]">{String(i + 1).padStart(2, "0")}</span>
                 <span>
-                  <span className="font-heading block text-[22px] font-semibold leading-tight text-[#1B2560]">{s.title}</span>
+                  <span className="font-heading block text-[24px] font-semibold leading-[1.2] text-[#1B2560] sm:text-[26px]">{s.title}</span>
                   <span className="mt-2 block h-[3px] w-4 bg-[#1E88F0]" />
-                  <span className="mt-3 block text-[16px] leading-[1.75] text-slate-600">{s.text}</span>
+                  <span className="font-body mt-4 block text-[17px] leading-[1.7] text-slate-600">{s.text}</span>
                 </span>
               </button>
             </li>
@@ -125,14 +125,14 @@ export function IndustryTimeline() {
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span className={`transition-opacity duration-300 motion-reduce:transition-none ${on ? "opacity-100" : "opacity-45"}`}>
-                <span className="font-heading block text-[24px] font-semibold leading-tight text-[#1B2560] sm:text-[26px]">{it.title}</span>
-                <span className="mt-2 block max-w-[54ch] text-[16px] leading-[1.75] text-slate-600">{it.text}</span>
+                <span className="font-heading block text-[24px] font-semibold leading-[1.2] text-[#1B2560] sm:text-[26px]">{it.title}</span>
+                <span className="font-body mt-4 block max-w-[54ch] text-[17px] leading-[1.7] text-slate-600">{it.text}</span>
               </span>
             </button>
             {on && (
               <Link
                 href={it.href}
-                className="ml-[68px] mt-3 inline-flex items-center gap-1.5 text-[15px] font-semibold text-[#E8500F] hover:underline"
+                className="font-body ml-[68px] mt-3 inline-flex items-center gap-1.5 text-[15px] font-medium text-[#E8500F] hover:underline"
               >
                 Explore {it.title} <ArrowRight size={16} />
               </Link>

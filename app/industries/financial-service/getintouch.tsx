@@ -76,7 +76,7 @@ export default function GetInTouch() {
               sm:text-[18px]
             "
           >
-            Bring Your Digital Vision to Life
+            Build Secure, Intelligent Financial Platforms with Us
           </p>
         </div>
 

@@ -58,13 +58,15 @@ export type BlogPost = {
   };
 };
 
+const CATEGORY = "Software & Product";
+
 const AUTHOR = {
   name: "Sanjay Salunkhe",
-  role: "President and Global Head of Digital and Software Services",
+  role: "President and Global Head of Software and Product Services",
   photo:
     "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=300&auto=format&fit=crop",
   bio:
-    "Sanjay Salunkhe is the President and Global Head of Digital and Software Services of our Company.",
+    "Sanjay Salunkhe is the President and Global Head of Software and Product Services of our Company.",
 };
 
 export const blogPosts: BlogPost[] = [
@@ -74,13 +76,14 @@ export const blogPosts: BlogPost[] = [
     title:
       "Generative AI for Software Development: Smarter Builds, Faster Delivery, Future Ready Systems",
 
-    category: "Digital & Software",
+    category: CATEGORY,
 
     lastUpdated: "Nov 17, 2025",
 
     readTime: "13 min read",
 
-     heroImage: "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1600&auto=format&fit=crop", // ← இங்க change (w=1600 for hero, bigger size)
+    heroImage:
+      "https://images.unsplash.com/photo-1555949963-ff9fe0c870eb?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
       "Explore how Starfii uses generative AI to revolutionize software development, accelerating builds, simplifying maintenance, and modernizing legacy systems with intelligent automation.",
@@ -310,7 +313,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "11. AI Assisted User Experience Design",
         paragraphs: [
-          "User experience remains a critical part of digital product success. AI can help UX teams analyze customer behavior, identify friction points, explore user journeys, and generate early design concepts.",
+          "User experience remains a critical part of software product success. AI can help UX teams analyze customer behavior, identify friction points, explore user journeys, and generate early design concepts.",
 
           "AI can also help teams create prototypes that can be tested before significant engineering investment is made.",
 
@@ -331,7 +334,7 @@ export const blogPosts: BlogPost[] = [
 
         image:
           "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "UX designers working on a digital product",
+        imageAlt: "UX designers working on a software product",
       },
 
       {
@@ -357,7 +360,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "13. AI for Application Performance",
         paragraphs: [
-          "Digital products need to remain responsive as traffic, data volumes, and user expectations increase.",
+          "Software products need to remain responsive as traffic, data volumes, and user expectations increase.",
 
           "AI can help engineering teams analyze application telemetry and identify patterns that may not be obvious through manual analysis.",
 
@@ -381,7 +384,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "14. AI and Cloud Native Product Engineering",
         paragraphs: [
-          "Cloud native platforms provide the scalability and flexibility required by modern digital products.",
+          "Cloud native platforms provide the scalability and flexibility required by modern software products.",
 
           "AI can complement cloud native engineering by improving development workflows, testing, monitoring, deployment, and operational decision making.",
 
@@ -399,7 +402,7 @@ export const blogPosts: BlogPost[] = [
       },
 
       {
-        heading: "15. Responsible AI in Digital Products",
+        heading: "15. Responsible AI in Software Products",
         paragraphs: [
           "As AI becomes part of customer facing products, organizations need to consider responsible AI from the beginning of product development.",
 
@@ -418,7 +421,7 @@ export const blogPosts: BlogPost[] = [
         ],
 
         quote:
-          "Responsible AI is not separate from product engineering. It is part of building trustworthy digital products.",
+          "Responsible AI is not separate from product engineering. It is part of building trustworthy software products.",
       },
 
       {
@@ -462,13 +465,13 @@ export const blogPosts: BlogPost[] = [
 
         image:
           "https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Engineering team collaborating on digital products",
+        imageAlt: "Engineering team collaborating on software products",
       },
 
       {
-        heading: "18. The Next Generation of Digital Product Engineering",
+        heading: "18. The Next Generation of Software Product Engineering",
         paragraphs: [
-          "The future of digital product engineering will increasingly combine human creativity with AI assisted development.",
+          "The future of software product engineering will increasingly combine human creativity with AI assisted development.",
 
           "Product managers, designers, architects, developers, testers, and operations teams will work with intelligent systems throughout the product lifecycle.",
 
@@ -476,7 +479,7 @@ export const blogPosts: BlogPost[] = [
 
           "However, successful products will continue to depend on human understanding of customers, business strategy, ethics, and technology.",
 
-          "Organizations that build the right balance between AI capabilities and human expertise can create digital products that are faster to build, easier to improve, and better aligned with customer needs.",
+          "Organizations that build the right balance between AI capabilities and human expertise can create software products that are faster to build, easier to improve, and better aligned with customer needs.",
           "AI is likely to become increasingly embedded in the everyday tools used by product and engineering teams.",
 
           "Development workflows may become more conversational, allowing teams to move between requirements, code, testing, and operational analysis with less friction.",
@@ -509,7 +512,7 @@ export const blogPosts: BlogPost[] = [
       {
         title: "Better UX Decisions",
         body:
-          "AI assisted analysis can help teams understand customer behavior and identify opportunities to improve digital journeys and experiences.",
+          "AI assisted analysis can help teams understand customer behavior and identify opportunities to improve product journeys and experiences.",
       },
       {
         title: "Proactive Performance",
@@ -557,7 +560,7 @@ export const blogPosts: BlogPost[] = [
     ],
 
     keyTakeaways: [
-      "AI can improve digital product engineering from discovery through production.",
+      "AI can improve software product engineering from discovery through production.",
       "AI assisted requirements engineering can reduce ambiguity and improve collaboration.",
       "AI can accelerate UX exploration while human designers remain responsible for customer empathy and experience quality.",
       "AI assisted code review can provide an additional layer of quality and security analysis.",
@@ -570,12 +573,12 @@ export const blogPosts: BlogPost[] = [
     ],
 
     conclusion:
-      "AI led engineering represents a shift in how digital products are imagined, designed, built, tested, and improved. The opportunity is not to replace engineering expertise, but to augment it with intelligent capabilities that reduce repetitive work, improve decision making, and accelerate learning. Organizations that combine AI with strong product thinking, modern architecture, quality engineering, responsible governance, and human expertise can build digital products that evolve faster and create lasting business value.",
+      "AI led engineering represents a shift in how software products are imagined, designed, built, tested, and improved. The opportunity is not to replace engineering expertise, but to augment it with intelligent capabilities that reduce repetitive work, improve decision making, and accelerate learning. Organizations that combine AI with strong product thinking, modern architecture, quality engineering, responsible governance, and human expertise can build software products that evolve faster and create lasting business value.",
 
     cta: {
-      title: "Ready to Build a Smarter Digital Product?",
+      title: "Ready to Build a Smarter Software Product?",
       body:
-        "Explore how AI led engineering can help your organization accelerate product development, improve software quality, modernize technology, and create better digital experiences.",
+        "Explore how AI led engineering can help your organization accelerate product development, improve software quality, modernize technology, and create better product experiences.",
       buttonText: "Talk to Starfii",
       buttonHref: "/contact",
     },
@@ -587,7 +590,7 @@ export const blogPosts: BlogPost[] = [
     title:
       "AI Powered Automation: Transforming Enterprise Software Delivery",
 
-    category: "Digital & Software",
+    category: CATEGORY,
 
     lastUpdated: "Nov 10, 2025",
 
@@ -978,7 +981,7 @@ export const blogPosts: BlogPost[] = [
     title:
       "Driving ROI Through Agile Product Engineering and MACH Technologies",
 
-    category: "Digital & Software",
+    category: CATEGORY,
 
     lastUpdated: "Nov 3, 2025",
 
@@ -994,23 +997,23 @@ export const blogPosts: BlogPost[] = [
       title:
         "Driving ROI Through Agile Product Engineering and MACH Technologies",
       description:
-        "Learn how agile product engineering combined with MACH architecture helps enterprises build modular, scalable digital products with lower total cost of ownership.",
+        "Learn how agile product engineering combined with MACH architecture helps enterprises build modular, scalable software products with lower total cost of ownership.",
       keywords: [
         "agile product engineering",
         "MACH architecture",
         "composable architecture",
         "microservices API first",
         "headless commerce",
-        "enterprise digital platform",
+        "enterprise software platform",
       ],
     },
 
     author: AUTHOR,
 
     intro: [
-      "Modern enterprises need digital products that can evolve quickly as customer expectations, technology, and business models change. Rebuilding platforms from scratch every time a new channel or capability is needed is no longer a viable strategy.",
+      "Modern enterprises need software products that can evolve quickly as customer expectations, technology, and business models change. Rebuilding platforms from scratch every time a new channel or capability is needed is no longer a viable strategy.",
 
-      "Agile product engineering and MACH principles, Microservices, API first, Cloud native, and Headless, provide a foundation for building modular and adaptable digital experiences that can grow with the business rather than against it.",
+      "Agile product engineering and MACH principles, Microservices, API first, Cloud native, and Headless, provide a foundation for building modular and adaptable software products that can grow with the business rather than against it.",
 
       "Together, these approaches give enterprises a practical path to lower total cost of ownership, faster time to market, and technology investments that remain relevant even as the underlying stack continues to evolve.",
     ],
@@ -1040,7 +1043,7 @@ export const blogPosts: BlogPost[] = [
           "MACH stands for Microservices, API first, Cloud native, and Headless. Each principle addresses a specific limitation of traditional monolithic platforms.",
 
           "Microservices break large applications into independently deployable components. API first ensures every capability is accessible through well defined interfaces. Cloud native takes advantage of elastic infrastructure. Headless separates the front end experience from back end logic, allowing multiple channels to share the same core capabilities.",
-          "Each MACH principle contributes to a broader goal of making digital platforms easier to change and evolve.",
+          "Each MACH principle contributes to a broader goal of making software platforms easier to change and evolve.",
 
           "Microservices support independent ownership, while APIs create consistent ways for capabilities to communicate.",
 
@@ -1137,15 +1140,15 @@ export const blogPosts: BlogPost[] = [
 
           "This can make it easier to experiment with new interfaces while maintaining consistent underlying capabilities.",
 
-          "Shared APIs also support more consistent behavior across web, mobile, and other digital touchpoints.",
+          "Shared APIs also support more consistent behavior across web, mobile, and other customer touchpoints.",
 
           "Teams can prioritize channel-specific experience design without rebuilding core services for every new interface.",
 
-          "Headless architecture is therefore particularly useful for organizations expecting their digital channels to continue expanding.",
+          "Headless architecture is therefore particularly useful for organizations expecting their customer channels to continue expanding.",
         ],
         image:
           "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Digital product team designing multi-channel experiences",
+        imageAlt: "Software product team designing multi-channel experiences",
       },
 
       {
@@ -1234,7 +1237,7 @@ export const blogPosts: BlogPost[] = [
 
           "Operational measures can reveal whether modularity improves reliability or introduces unnecessary complexity.",
 
-          "Customer-facing outcomes are also important because architecture investment ultimately supports better digital experiences.",
+          "Customer-facing outcomes are also important because architecture investment ultimately supports better product experiences.",
 
           "A balanced scorecard helps leadership evaluate technology transformation through both technical and business results.",
         ],
@@ -1343,7 +1346,7 @@ export const blogPosts: BlogPost[] = [
 
     keyTakeaways: [
       "Agile product engineering keeps delivery aligned with customer needs through continuous feedback.",
-      "MACH principles support modular and flexible digital architecture across channels.",
+      "MACH principles support modular and flexible software architecture across channels.",
       "Composable technology reduces dependency on large monolithic platforms and expensive rebuilds.",
       "API first design allows new channels and integrations to be added without duplicating logic.",
       "Governance is essential to prevent composable architecture from becoming fragmented.",
@@ -1353,10 +1356,10 @@ export const blogPosts: BlogPost[] = [
     ],
 
     conclusion:
-      "Agile product engineering combined with MACH principles gives enterprises a practical foundation for building digital products that can adapt to changing markets, customer expectations, and technology requirements. Organizations that pair modular architecture with the right governance, team structure, and delivery practices consistently see faster time to market and lower long term technology cost.",
+      "Agile product engineering combined with MACH principles gives enterprises a practical foundation for building software products that can adapt to changing markets, customer expectations, and technology requirements. Organizations that pair modular architecture with the right governance, team structure, and delivery practices consistently see faster time to market and lower long term technology cost.",
 
     cta: {
-      title: "Build a More Flexible Digital Product",
+      title: "Build a More Flexible Software Product",
       body:
         "Explore how agile product engineering and modern MACH architecture can support your next product initiative.",
       buttonText: "Talk to Starfii",
@@ -1367,9 +1370,9 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "ai-led-engineering-digital-products",
 
-    title: "Building Smarter Digital Products with AI Led Engineering",
+    title: "Building Smarter Software Products with AI Led Engineering",
 
-    category: "Digital & Software",
+    category: CATEGORY,
 
     lastUpdated: "Oct 28, 2025",
 
@@ -1382,12 +1385,12 @@ export const blogPosts: BlogPost[] = [
       "Discover how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
 
     seo: {
-      title: "Building Smarter Digital Products with AI Led Engineering",
+      title: "Building Smarter Software Products with AI Led Engineering",
       description:
         "Explore how AI led engineering helps product teams move from idea to production faster while improving software quality, scalability, and customer experience.",
       keywords: [
         "AI led engineering",
-        "digital product engineering",
+        "software product engineering",
         "AI assisted development",
         "AI product discovery",
         "AI testing",
@@ -1398,7 +1401,7 @@ export const blogPosts: BlogPost[] = [
     author: AUTHOR,
 
     intro: [
-      "Building a great digital product has always required balancing speed, quality, and customer experience. Teams that move fast often sacrifice polish, while teams that focus on polish often lose momentum against competitors.",
+      "Building a great software product has always required balancing speed, quality, and customer experience. Teams that move fast often sacrifice polish, while teams that focus on polish often lose momentum against competitors.",
 
       "AI led engineering changes that balance. By embedding intelligent assistance across discovery, design, development, testing, and operations, product teams can move from idea to production faster without treating quality as an afterthought.",
 
@@ -1427,7 +1430,7 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "2. Starting with Better Discovery",
         paragraphs: [
-          "Every strong digital product starts with a clear understanding of the customer problem. AI can help product teams analyze customer feedback, support tickets, and usage data to surface patterns that might otherwise take weeks to identify manually.",
+          "Every strong software product starts with a clear understanding of the customer problem. AI can help product teams analyze customer feedback, support tickets, and usage data to surface patterns that might otherwise take weeks to identify manually.",
 
           "This gives product managers a stronger evidence base for prioritization decisions before any engineering work begins.",
           "Customer feedback often contains repeated problems that are difficult to identify when reviewed one item at a time.",
@@ -1460,7 +1463,7 @@ export const blogPosts: BlogPost[] = [
         ],
         image:
           "https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop",
-        imageAlt: "Product team prototyping a digital experience",
+        imageAlt: "Product team prototyping a software experience",
       },
 
       {
@@ -1538,7 +1541,7 @@ export const blogPosts: BlogPost[] = [
         ],
 
         quote:
-          "The best digital products are shaped by what customers actually do, not just what they say they want.",
+          "The best software products are shaped by what customers actually do, not just what they say they want.",
       },
 
       {
@@ -1604,7 +1607,7 @@ export const blogPosts: BlogPost[] = [
           "Beyond accelerating how products are built, AI can also become part of the product experience itself, powering personalization, recommendations, and intelligent assistance that improve customer engagement.",
 
           "Teams should design these features with the same rigor around data quality, fairness, and transparency as any other AI powered capability.",
-          "AI features can make digital products more responsive to individual customer needs and usage patterns.",
+          "AI features can make software products more responsive to individual customer needs and usage patterns.",
 
           "Personalization should be designed around clear customer value rather than added simply because AI is available.",
 
@@ -1728,7 +1731,7 @@ export const blogPosts: BlogPost[] = [
     ],
 
     conclusion:
-      "AI led engineering gives product teams a genuine opportunity to move faster without treating speed and quality as opposing goals. By embedding intelligent assistance across discovery, development, testing, and operations, while keeping human judgment at the center of key decisions, organizations can build digital products that reach customers faster and continue to improve after launch.",
+      "AI led engineering gives product teams a genuine opportunity to move faster without treating speed and quality as opposing goals. By embedding intelligent assistance across discovery, development, testing, and operations, while keeping human judgment at the center of key decisions, organizations can build software products that reach customers faster and continue to improve after launch.",
 
     cta: {
       title: "Build Your Next Product with AI Led Engineering",
@@ -1744,7 +1747,7 @@ export const blogPosts: BlogPost[] = [
 
     title: "Modern Software Delivery for Enterprise Growth",
 
-    category: "Digital & Software",
+    category: CATEGORY,
 
     lastUpdated: "Oct 20, 2025",
 
@@ -1754,12 +1757,12 @@ export const blogPosts: BlogPost[] = [
       "https://images.unsplash.com/photo-1556761175-b413da4baf72?q=80&w=1600&auto=format&fit=crop",
 
     excerpt:
-      "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+      "Learn how modern engineering practices, cloud platforms, and automation help enterprises deliver reliable software products faster and scale with confidence.",
 
     seo: {
       title: "Modern Software Delivery for Enterprise Growth",
       description:
-        "Learn how modern engineering practices, cloud platforms, DevOps, and automation help enterprises deliver reliable digital products faster and scale with confidence.",
+        "Learn how modern engineering practices, cloud platforms, DevOps, and automation help enterprises deliver reliable software products faster and scale with confidence.",
       keywords: [
         "modern software delivery",
         "enterprise DevOps",

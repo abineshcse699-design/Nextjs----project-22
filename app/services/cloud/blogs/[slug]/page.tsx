@@ -35,6 +35,7 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Cloud Engineering blog could not be found.",
+        
     };
   }
 

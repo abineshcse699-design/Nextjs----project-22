@@ -35,7 +35,9 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Quality Engineering blog could not be found.",
+        
     };
+    
   }
 
   return {
