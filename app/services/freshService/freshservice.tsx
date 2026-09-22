@@ -1139,20 +1139,20 @@ export default function FreshserviceITSMSection(): ReactElement {
       <section className="relative bg-white py-24 lg:py-28">
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-            <div className="relative">
-              <Reveal className="lg:sticky lg:top-28">
-                <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
-                  {" Our Freshservice Capabilities "}
-                </h2>
+<div className="relative self-start lg:sticky lg:top-28">
+  <Reveal className="lg:sticky lg:top-28">
+    <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+      {" Our Freshservice Capabilities "}
+    </h2>
 
-                <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                  Starfii implements, customizes, migrates, and optimizes
-                  Freshservice across service desk, ITSM processes, asset
-                  management, and automation, backed by ongoing managed
-                  support after go live.
-                </p>
-              </Reveal>
-            </div>
+    <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+      Starfii implements, customizes, migrates, and optimizes
+      Freshservice across service desk, ITSM processes, asset
+      management, and automation, backed by ongoing managed
+      support after go live.
+    </p>
+  </Reveal>
+</div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {focusAreas.map((area, i) => (

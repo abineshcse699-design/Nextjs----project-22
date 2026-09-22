@@ -52,6 +52,53 @@ const EYE_FALLBACK =
     </svg>`
   );
 
+/* Fallback illustrations for the Products cards, used if a live URL ever fails to load */
+const TURBODEV_FALLBACK =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+      <rect width="400" height="220" fill="#EDEBFF"/>
+      <circle cx="330" cy="40" r="70" fill="#DCD8FF"/>
+      <rect x="40" y="60" width="180" height="120" rx="14" fill="#FFFFFF" stroke="#D8D5F5"/>
+      <rect x="60" y="82" width="120" height="10" rx="5" fill="#3B2FE0"/>
+      <rect x="60" y="102" width="90" height="8" rx="4" fill="#C9C6EE"/>
+      <rect x="60" y="120" width="100" height="8" rx="4" fill="#C9C6EE"/>
+      <circle cx="330" cy="150" r="34" fill="#25D366"/>
+      <path d="M315 150l10 10 18-20" stroke="#fff" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`
+  );
+
+const TURBODESK_FALLBACK =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+      <rect width="400" height="220" fill="#EAF2FF"/>
+      <rect x="30" y="40" width="220" height="140" rx="14" fill="#FFFFFF" stroke="#D6E4FA"/>
+      <rect x="50" y="60" width="140" height="10" rx="5" fill="#2088FF"/>
+      <rect x="50" y="82" width="180" height="8" rx="4" fill="#C7DBF7"/>
+      <rect x="50" y="100" width="150" height="8" rx="4" fill="#C7DBF7"/>
+      <rect x="270" y="60" width="100" height="120" rx="12" fill="#2088FF"/>
+      <circle cx="320" cy="100" r="18" fill="#fff"/>
+      <rect x="290" y="130" width="60" height="8" rx="4" fill="#BFDCFF"/>
+      <rect x="290" y="146" width="40" height="8" rx="4" fill="#BFDCFF"/>
+    </svg>`
+  );
+
+/* Fallback illustration for the Blogs card, used if the live photo ever fails to load */
+const BLOGS_FALLBACK =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220">
+      <rect width="400" height="220" fill="#14163B"/>
+      <rect x="40" y="50" width="220" height="14" rx="7" fill="#FFFFFF" opacity="0.9"/>
+      <rect x="40" y="80" width="170" height="10" rx="5" fill="#8A8CA6"/>
+      <rect x="40" y="100" width="190" height="10" rx="5" fill="#8A8CA6"/>
+      <rect x="40" y="120" width="130" height="10" rx="5" fill="#8A8CA6"/>
+      <circle cx="330" cy="90" r="46" fill="#3B2FE0"/>
+      <path d="M312 90h36M330 72v36" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+    </svg>`
+  );
+
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -529,8 +576,14 @@ function PublicationCard({
   );
 }
 
+/*
+ * Product card (Turbodev / Turbodesk / etc).
+ * The WHOLE card is now a Link, and it lifts + scales on hover so it
+ * reads as clickable the moment the mouse moves over it.
+ */
 function PlatformCard({
   image,
+  fallbackImage,
   eyebrow,
   title,
   href = "#",
@@ -538,6 +591,7 @@ function PlatformCard({
   newTab = false,
 }: {
   image: string;
+  fallbackImage?: string;
   eyebrow: string;
   title: string;
   href?: string;
@@ -545,9 +599,27 @@ function PlatformCard({
   newTab?: boolean;
 }) {
   return (
-    <div className="overflow-hidden rounded-2xl bg-white shadow-[0_1px_3px_rgba(10,14,40,0.08)]">
+    <Link
+      href={href}
+      onClick={onClick}
+      target={newTab ? "_blank" : undefined}
+      rel={newTab ? "noopener noreferrer" : undefined}
+      className="group block overflow-hidden rounded-2xl bg-white shadow-[0_1px_3px_rgba(10,14,40,0.08)] transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_34px_rgba(10,14,40,0.16)]"
+    >
       <div className="h-[190px] w-full overflow-hidden bg-[#F5F5F9]">
-        <img src={image} alt="" className="h-full w-full object-cover object-center" />
+        <img
+          src={image}
+          alt={title}
+          onError={
+            fallbackImage
+              ? (e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = fallbackImage;
+                }
+              : undefined
+          }
+          className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.06]"
+        />
       </div>
       <div className="p-6">
         {eyebrow && (
@@ -556,18 +628,17 @@ function PlatformCard({
         <h4 className={`mt-2 text-[17px] font-semibold leading-snug ${T.ink}`}>
           {title}
         </h4>
-        <Link
-          href={href}
-          onClick={onClick}
-          target={newTab ? "_blank" : undefined}
-          rel={newTab ? "noopener noreferrer" : undefined}
+        <span
           className={`mt-4 inline-flex items-center gap-1.5 text-[12px] font-semibold ${T.primary}`}
         >
           Learn More
-          <ArrowUpRight size={14} />
-        </Link>
+          <ArrowUpRight
+            size={14}
+            className="transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5"
+          />
+        </span>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -634,7 +705,7 @@ function AnimatedInsightCard({
     <Link
       href={href}
       onClick={onClick}
-      className="group relative flex h-full min-h-[330px] flex-col justify-between overflow-hidden rounded-2xl bg-[#0A0B26] p-7"
+      className="group relative flex h-full min-h-[330px] flex-col justify-between overflow-hidden rounded-2xl bg-[#0A0B26] p-7 transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-[0_18px_34px_rgba(10,14,40,0.35)]"
     >
       <style>{`
         @keyframes ss-ring-spin {
@@ -675,7 +746,10 @@ function AnimatedInsightCard({
         <h4 className="text-[23px] font-semibold leading-[1.2] text-white">{title}</h4>
         <span className="mt-6 inline-flex w-fit items-center gap-1.5 text-[12px] font-semibold text-white">
           Learn More
-          <ArrowUpRight size={14} />
+          <ArrowUpRight
+            size={14}
+            className="transition-transform duration-300 ease-out group-hover:translate-x-1 group-hover:-translate-y-0.5"
+          />
         </span>
       </div>
     </Link>
@@ -772,14 +846,17 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     {
       name: "Turbodev",
       title: "Turbodev the revenue engine for Shopify brands",
-      image: "/turbodev-cover.png",
+      image:
+        "https://turbodev.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fshopify_hero.49ab5374.svg&w=1440&q=75",
+      fallbackImage: TURBODEV_FALLBACK,
       href: "https://turbodev.ai/",
       newTab: true,
     },
     {
       name: "Turbodesk",
       title: "Turbodesk intelligent service and operations platform",
-      image: "/turbodesk-cover.png",
+      image: "https://turbodesk.in/og-image.png",
+      fallbackImage: TURBODESK_FALLBACK,
       href: "https://turbodesk.in/",
       newTab: true,
     },
@@ -793,6 +870,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
           <PlatformCard
             key={p.name}
             image={p.image}
+            fallbackImage={p.fallbackImage}
             eyebrow=""
             title={p.title}
             href={p.href}
@@ -871,7 +949,8 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
     {
       eyebrow: "Blogs",
       title: "Insights and perspectives on modern technology",
-      image: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=90&w=2400&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?q=90&w=2400&auto=format&fit=crop",
+      fallbackImage: BLOGS_FALLBACK,
       href: "/About/blogs",
     },
   ];
@@ -884,6 +963,7 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
           <PlatformCard
             key={card.eyebrow}
             image={card.image}
+            fallbackImage={(card as { fallbackImage?: string }).fallbackImage}
             eyebrow={card.eyebrow}
             title={card.title}
             href={card.href}

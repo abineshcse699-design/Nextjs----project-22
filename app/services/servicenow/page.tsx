@@ -6,7 +6,7 @@
 // hero heading spacing now matches exactly (spacer div + mt-5 on H1).
 
 "use client";
-
+import { motion, type Variants } from "framer-motion";
 import Link from "next/link";
 import {
   useRef,
@@ -1368,33 +1368,27 @@ export default function ServiceNowITSMPage(): ReactElement {
       {/* ============================================================
           142. ITSM + 143–152. The ten capabilities
       ============================================================ */}
-      <section
-        id="itsm"
-        className="relative scroll-mt-28 overflow-hidden bg-white py-24 lg:py-28"
-      >
+
+
+<section
+  id="itsm"
+  className="relative scroll-mt-28 bg-white py-24 lg:py-28"
+>
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-            <div className="relative">
-              <Reveal className="lg:sticky lg:top-28">
-                {/* <Eyebrow variant="light">ITSM</Eyebrow> */}
-
-              
-
-                 <h2
-                className={`${SECTION_HEADING} mt-4 max-w-500`}
-                style={{ color: CHAMPION_BLUE }}
-              >
-                {"Our ServiceNow ITSM Capabilities"}
-              </h2>
-
-                <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                  From incident and problem management through to CMDB, asset
-                  tracking, and custom applications, every capability below is
-                  delivered by the same certified ServiceNow team, on the same
-                  platform conventions.
-                </p>
-              </Reveal>
-            </div>
+<div className="relative self-start lg:sticky lg:top-28">
+  <Reveal>
+    <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+      {"Our ServiceNow ITSM Capabilities"}
+    </h2>
+    <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+      From incident and problem management through to CMDB, asset
+      tracking, and custom applications, every capability below is
+      delivered by the same certified ServiceNow team, on the same
+      platform conventions.
+    </p>
+  </Reveal>
+</div>
 
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {capabilities.map((area, i) => (

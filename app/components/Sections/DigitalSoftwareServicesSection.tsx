@@ -23,7 +23,7 @@ import {
   Minus,
 } from "lucide-react";
 import { capabilities as focusAreas } from "../../services/software-product/capabilities/data";
-
+import { motion, type Variants } from "framer-motion";
 /* ===============================================================
    BRAND TOKENS
    Primary   Champion Blue  #1B2560
@@ -1215,6 +1215,9 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
     </div>
   </div>
 </section>
+
+
+
       <div className={ALIGN}>
         {/* ============================================================
             KEY TAKEAWAYS — collapsible, typewriter bullets
@@ -1283,25 +1286,25 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
     <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
 
       {/* LEFT — sticky while right side scrolls */}
-      <div className="relative">
-        <Reveal className="lg:sticky lg:top-28">
-          {/* <Eyebrow variant="light">
-            Software &amp; Product Engineering
-          </Eyebrow> */}
+     {/* LEFT — sticky while right side scrolls */}
+<div className="relative self-start lg:sticky lg:top-28">
+  <Reveal>
+    {/* <Eyebrow variant="light">
+      Software &amp; Product Engineering
+    </Eyebrow> */}
 
+    <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
+       Software and Product Engineering Services
+    </h2> 
 
-  <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
-             Software and Product Engineering Services
-          </h2> 
-
-          <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-            Starfii plans, designs, and scales customer focused digital
-            products and platforms with AI led engineering, seamless
-            experiences, and modernization strategies that drive speed,
-            efficiency, and long term business value.
-          </p>
-        </Reveal>
-      </div>
+    <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+      Starfii plans, designs, and scales customer focused digital
+      products and platforms with AI led engineering, seamless
+      experiences, and modernization strategies that drive speed,
+      efficiency, and long term business value.
+    </p>
+  </Reveal>
+</div>
 
       {/* RIGHT — cards scroll normally */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
