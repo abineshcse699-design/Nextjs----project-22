@@ -63,13 +63,13 @@ const hearAboutOptions = [
 // TODO: replace with your real office details.
 const offices = [
   {
-    city: "Bengaluru, India",
+    city: "Chennai, India",
     tag: "Headquarters",
-    address: ["Add your street address,", "Area, Bengaluru,", "Karnataka 560001"],
+    address: ["No, 27 Kumaran street,", "Nandavana Mettur, avadi,", "Chennai, Tamil Nadu 600071"],
     phone: "+91 00000 00000",
     email: "hello@starfii.com",
     hours: "Mon – Fri, 9:30 AM – 6:30 PM IST",
-    mapUrl: "https://www.google.com/maps/search/?api=1&query=Bengaluru",
+    mapUrl: "https://www.google.com/maps/search/?api=1&query=No+27+Kumaran+street+Nandavana+Mettur+Avadi+Chennai+Tamil+Nadu+600071",
   },
 ];
 

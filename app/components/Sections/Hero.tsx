@@ -30,7 +30,7 @@ const SERVICE_TICKER = [
 
 const PROOF_STATS: { value: string; label: string }[] = [
   { value: "60+", label: "products shipped" },
-  { value: "3.5x", label: "faster time-to-market" },
+  { value: "100+", label: "entrance trust page " },
   { value: "24/7", label: "engineering support" },
 ];
 

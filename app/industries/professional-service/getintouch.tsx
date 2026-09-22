@@ -141,7 +141,9 @@ export default function GetInTouch() {
               sm:text-[18px]
             "
           >
-  Let's Build Smarter Client Experiences Together
+            
+
+ Let's Build Smarter, Connected Manufacturing
           </p>
         </div>
 
@@ -548,6 +550,7 @@ export default function GetInTouch() {
     </section>
   );
 }
+
 
 
 
