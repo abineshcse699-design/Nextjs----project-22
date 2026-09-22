@@ -315,7 +315,7 @@ export default function Navbar() {
                               {item === "Products" && <PlatformsMenu onNavigate={closeAllMenus} />}
                               {item === "Industries" && <IndustriesMenu onNavigate={closeAllMenus} />}
                               {item === "About" && <AboutMenu onNavigate={closeAllMenus} />}
-                              {item === "Careers" && <CareersMenu onNavigate={closeAllMenus} />}
+                              {/* {item === "Careers" && <CareersMenu onNavigate={closeAllMenus} />} */}
                             </div>
                           </div>
                         </div>
@@ -349,7 +349,7 @@ export default function Navbar() {
               {activeMenu === "Products" && <PlatformsMenu onNavigate={closeAllMenus} />}
               {activeMenu === "Industries" && <IndustriesMenu onNavigate={closeAllMenus} />}
               {activeMenu === "About" && <AboutMenu onNavigate={closeAllMenus} />}
-              {activeMenu === "Careers" && <CareersMenu onNavigate={closeAllMenus} />}
+              {/* {activeMenu === "Careers" && <CareersMenu onNavigate={closeAllMenus} />} */}
             </div>
           </div>
         </nav>
@@ -897,53 +897,53 @@ function AboutMenu({ onNavigate }: { onNavigate?: () => void }) {
 /* ===============================================================
    CAREERS
 ================================================================ */
-function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
-  const cards = [
-    {
-      title: "Why Join Starfii?",
-      desc: "Build your career with opportunities to learn, grow, and contribute.",
-      href: "/careers/why-join-starfii",
-    },
-    {
-      title: "Programs & Learning",
-      desc: "Empowering growth through learning and development.",
-      href: "/careers/programs-learning",
-    },
-  ];
+// function CareersMenu({ onNavigate }: { onNavigate?: () => void }) {
+//   const cards = [
+//     {
+//       title: "Why Join Starfii?",
+//       desc: "Build your career with opportunities to learn, grow, and contribute.",
+//       href: "/careers/why-join-starfii",
+//     },
+//     {
+//       title: "Programs & Learning",
+//       desc: "Empowering growth through learning and development.",
+//       href: "/careers/programs-learning",
+//     },
+//   ];
 
-  const jobsPortalAvatars = [
-    "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?q=80&w=200&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
-  ];
+//   const jobsPortalAvatars = [
+//     "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop",
+//     "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop",
+//     "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop",
+//     "https://images.unsplash.com/photo-1500485035595-cbe6f645feb1?q=80&w=200&auto=format&fit=crop",
+//     "https://images.unsplash.com/photo-1517841905240-472988babdf9?q=80&w=200&auto=format&fit=crop",
+//   ];
 
-  return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-      {cards.map((card) => (
-        <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
-          <h4 className={`text-[17px] font-semibold ${T.ink}`}>{card.title}</h4>
-          <p className={`mt-2.5 text-[14px] leading-relaxed ${T.muted}`}>{card.desc}</p>
-          <Link
-            href={card.href}
-            onClick={onNavigate}
-            className={`mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold ${T.primary}`}
-          >
-            Know more
-            <ArrowUpRight size={14} />
-          </Link>
-        </div>
-      ))}
+//   return (
+//     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+//       {cards.map((card) => (
+//         <div key={card.title} className={`rounded-lg border ${T.border} p-6`}>
+//           <h4 className={`text-[17px] font-semibold ${T.ink}`}>{card.title}</h4>
+//           <p className={`mt-2.5 text-[14px] leading-relaxed ${T.muted}`}>{card.desc}</p>
+//           <Link
+//             href={card.href}
+//             onClick={onNavigate}
+//             className={`mt-6 inline-flex items-center gap-1.5 text-[13px] font-semibold ${T.primary}`}
+//           >
+//             Know more
+//             <ArrowUpRight size={14} />
+//           </Link>
+//         </div>
+//       ))}
 
-      <JobsPortalCard
-        title="Jobs Portal"
-        desc="Ready to own your game with Starfii? Look for open positions now!"
-        avatars={jobsPortalAvatars}
-        href="/careers/jobs"
-        onClick={onNavigate}
-        ctaLabel="Know More"
-      />
-    </div>
-  );
-}
+//       <JobsPortalCard
+//         title="Jobs Portal"
+//         desc="Ready to own your game with Starfii? Look for open positions now!"
+//         avatars={jobsPortalAvatars}
+//         href="/careers/jobs"
+//         onClick={onNavigate}
+//         ctaLabel="Know More"
+//       />
+//     </div>
+//   );
+// }
