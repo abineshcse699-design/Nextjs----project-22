@@ -4,8 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ChevronDown, Phone, ArrowUpRight, Menu, X } from "lucide-react";
 
-const navItems = ["Services", "Products", "Industries", "About", "Careers"];
-const MENUS_WITH_CONTENT = ["Services", "Products", "Industries", "About", "Careers"];
+const navItems = ["Services", "Products", "Industries", "About", /* , "Careers" */];
+const MENUS_WITH_CONTENT = ["Services", "Products", "Industries", "About", /* , "Careers" */];
 
 /* ===============================================================
    DESIGN TOKENS
