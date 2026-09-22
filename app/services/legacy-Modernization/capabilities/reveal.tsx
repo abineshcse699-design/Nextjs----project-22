@@ -1,8 +1,9 @@
 "use client";
 
-// app/services/software-product/capabilities/Reveal.tsx
-// Same reveal-on-scroll behaviour as the Banking page.
-// Needs the .ss-reveal / .ss-in-view CSS from the page's <style> block.
+// app/services/data-analytics/capabilities/reveal.tsx
+// Same reveal-on-scroll behaviour as the Software & Product Engineering
+// capability pages. Needs the .ss-reveal / .ss-in-view CSS that ships in
+// this route's own <AnimationStyles /> block (see [slug]/page.tsx).
 
 import {
   useRef,

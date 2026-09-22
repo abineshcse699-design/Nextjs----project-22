@@ -1315,7 +1315,7 @@ export default function LegacyModernizationSection(): ReactElement {
               {focusAreas.map((area, i) => (
                 <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
                   <Link
-                    href={`/services/legacy-modernization/capabilities/${slugify(area.title)}`}
+                    href={`/services/legacy-Modernization/capabilities/${slugify(area.title)}`}
                     aria-label={`Learn more about ${area.title}`}
                     className="ss-capability-card flex h-full flex-col p-8"
                   >

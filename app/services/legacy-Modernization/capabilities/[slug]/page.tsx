@@ -28,9 +28,9 @@ const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 
 const SERVICES_BASE = "/services";
-const SERVICE_BASE = "/services/legacy-modernization";
+const SERVICE_BASE = "/services/legacy-Modernization";
 const CAPABILITY_BASE =
-  "/services/legacy-modernization/capabilities";
+  "/services/legacy-Modernization/capabilities";
 
 const processSteps = [
   {

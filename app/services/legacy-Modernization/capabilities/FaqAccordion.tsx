@@ -1,5 +1,9 @@
 "use client";
 
+// app/services/data-analytics/capabilities/FaqAccordion.tsx
+// Same accordion, tokens and type scale as the Software & Product
+// Engineering capability FAQ.
+
 import { useState, type ReactElement } from "react";
 import { Plus, Minus } from "lucide-react";
 import type { Faq } from "./data";
