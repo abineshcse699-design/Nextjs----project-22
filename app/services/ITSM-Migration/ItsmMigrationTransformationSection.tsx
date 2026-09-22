@@ -91,49 +91,60 @@ const keyTakeaways: string[] = [
   "Starfii manages cutover with runbooks and rollback plans, then stays on through post migration support and managed services.",
 ];
 
-type FocusArea = { title: string; body: string };
+// FIX: added `slug` so each capability card can link to its detail page
+// at /services/ITSM-Migration/capabilities/[slug]. Slugs match exactly
+// what's used in capabilities/data.ts.
+type FocusArea = { slug: string; title: string; body: string };
 
 const focusAreas: FocusArea[] = [
   {
+    slug: "current-state-analysis",
     title: "Current State Analysis",
     body: "Starfii's ITSM migration team audits your existing service management platform, workflows, and technical debt, so every migration decision is grounded in how the platform is actually used today.",
   },
   {
+    slug: "target-state-design",
     title: "Target State Design",
     body: "Starfii designs the target ITSM environment around your future operating model, mapping processes, roles, and platform capabilities before a single record is moved.",
   },
   {
+    slug: "migration-strategy",
     title: "Migration Strategy",
     body: "Starfii builds a phased migration strategy that sequences data, configuration, and workflow moves to minimize risk and keep service desks running throughout the transition.",
   },
   {
+    slug: "data-migration",
     title: "Data Migration",
     body: "Starfii's data migration practice extracts, cleanses, and transforms incidents, requests, problems, and change records so historical service data arrives accurate and query ready.",
   },
   {
+    slug: "configuration-migration",
     title: "Configuration Migration",
     body: "Starfii migrates forms, business rules, SLAs, and platform configurations from legacy ITSM tools, preserving the logic teams depend on while modernizing the underlying platform.",
   },
   {
+    slug: "workflow-migration",
     title: "Workflow Migration",
     body: "Starfii rebuilds and optimizes approval chains, escalation paths, and automation workflows in the new environment instead of copying legacy limitations forward.",
   },
   {
+    slug: "service-catalog-migration",
     title: "Service Catalog Migration",
     body: "Starfii restructures and migrates your service catalog, so end users find the right service requests quickly and IT can manage offerings from a single source of truth.",
   },
   {
+    slug: "cmdb-and-asset-migration",
     title: "CMDB and Asset Migration",
     body: "Starfii migrates configuration items, asset records, and relationship maps into a clean CMDB, giving teams accurate visibility into infrastructure and service dependencies.",
   },
   {
+    slug: "integration-migration",
     title: "Integration Migration",
     body: "Starfii re-establishes integrations with monitoring, identity, HR, and collaboration tools, so the new ITSM platform connects to your broader technology ecosystem from day one.",
   },
 ];
 
 type ServiceTab = { label: string; heading: string; body: string; image: string };
-
 
 const tabs: ServiceTab[] = [
   {
@@ -172,8 +183,6 @@ const tabs: ServiceTab[] = [
       "https://images.unsplash.com/photo-1531482615713-2afd69097998?q=90&w=1800&auto=format&fit=crop",
   },
 ];
-
-
 
 const impactAreas = [
   {
@@ -435,7 +444,6 @@ function OverviewAccordion({
         }}
       >
         <div className="flex items-center gap-3">
-          {/* FIX: replaced <img src="/starfii_logo_black.svg" .../> with inline sparkle icon */}
           <svg
             width="28"
             height="28"
@@ -1007,6 +1015,10 @@ export default function ItsmMigrationTransformationSection() {
           OUR ITSM MIGRATION CAPABILITIES — light 2-col sticky layout,
           matches Data & Analytics "Our Data & Analytics Capabilities"
           section exactly (no dark bg, no numbering, no tags)
+          FIX: each card is now wrapped in a <Link> to
+          /services/ITSM-Migration/capabilities/[slug], so both the
+          card and the "Learn More" text navigate to the capability
+          detail page.
       ============================================================ */}
       <section className="relative bg-white py-24 lg:py-28">
         <div className={`relative ${ALIGN}`}>
@@ -1018,13 +1030,6 @@ export default function ItsmMigrationTransformationSection() {
               variants={fadeUp}
               className="self-start lg:sticky lg:top-28"
             >
-              {/* <span
-                className="font-body inline-flex items-center text-[16px] font-semibold sm:text-[18px]"
-                style={{ color: CHAMPION_BLUE }}
-              >
-                ITSM Migration &amp; Transformation
-              </span> */}
-
               <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
                 Our ITSM Migration &amp; Transformation Capabilities
               </h2>
@@ -1046,7 +1051,11 @@ export default function ItsmMigrationTransformationSection() {
             >
               {focusAreas.map((area) => (
                 <motion.div key={area.title} variants={item} className="h-full">
-                  <div className="ss-capability-card flex h-full flex-col p-8">
+                  <Link
+                    href={`${BASE_PATH}/capabilities/${area.slug}`}
+                    aria-label={`Learn more about ${area.title}`}
+                    className="ss-capability-card flex h-full flex-col p-8"
+                  >
                     <h3
                       className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
                       style={{ color: CHAMPION_BLUE }}
@@ -1068,7 +1077,7 @@ export default function ItsmMigrationTransformationSection() {
                       </span>
                       <ArrowUpRight size={16} />
                     </span>
-                  </div>
+                  </Link>
                 </motion.div>
               ))}
             </motion.div>

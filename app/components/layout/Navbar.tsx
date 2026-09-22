@@ -12,6 +12,7 @@ const MENUS_WITH_CONTENT = ["Services", "Products", "Industries", "About", /* , 
 ================================================================ */
 
 const T = {
+ 
   ink: "text-[#14163B]",
   inkBg: "bg-[#0C0E2A]",
   primary: "text-[#3B2FE0]",
@@ -20,6 +21,7 @@ const T = {
   muted: "text-[#5B5D78]",
   border: "border-[#E4E4EF]",
   panelBg: "bg-[#FAFAFD]",
+ 
 };
 
 /* Featured Publication image (Unsplash, blue eye close-up) */

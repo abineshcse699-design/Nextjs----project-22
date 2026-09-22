@@ -1212,44 +1212,61 @@ export default function ITSMSection(): ReactElement {
           & Product Engineering page's grid exactly (card style,
           typography, hover).
       ============================================================ */}
-    <section className="relative bg-white py-24 lg:py-28">
-        <div className={`relative ${ALIGN}`}>
-          <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-            <Reveal className="self-start lg:sticky lg:top-28">
-              {/* <Eyebrow variant="light">ITSM &amp; Enterprise Service Management</Eyebrow> */}
+ <section className="relative bg-white py-24 lg:py-28">
+  <div className={`relative ${ALIGN}`}>
+    <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
+      <Reveal className="self-start lg:sticky lg:top-28">
+        {/* <Eyebrow variant="light">ITSM &amp; Enterprise Service Management</Eyebrow> */}
 
-              
-  <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
-                Our ITSM &amp; Enterprise Service Management Capabilities
-              </h2>
-              <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
-                Starfii covers the core service management lifecycle, from service desk
-                transformation and incident management to change, requests,
-                configuration, automation, and AI powered ITSM.
+        <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
+          Our ITSM &amp; Enterprise Service Management Capabilities
+        </h2>
+        <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
+          Starfii covers the core service management lifecycle, from service desk
+          transformation and incident management to change, requests,
+          configuration, automation, and AI powered ITSM.
+        </p>
+      </Reveal>
+
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+        {focusAreas.map((area, i) => (
+          <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
+            <Link
+              href={`/services/itsm-service-management/capabilities/${area.title
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, "-")
+                .replace(/(^-|-$)/g, "")}`}
+              aria-label={`Learn more about ${area.title}`}
+              className="ss-capability-card flex h-full flex-col p-8"
+            >
+              <h3
+                className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+                style={{ color: CHAMPION_BLUE }}
+              >
+                {area.title}
+              </h3>
+
+              <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
+                {area.body}
               </p>
-            </Reveal>
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
-              {focusAreas.map((area, i) => (
-                <Reveal key={area.title} delay={(i % 4) * 90} className="h-full">
-                  <div className="ss-capability-card flex h-full flex-col p-8">
-                    <h3
-                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {area.title}
-                    </h3>
-
-                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
-                      {area.body}
-                    </p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+              <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+                <span className="relative">
+                  Learn More
+                  <span
+                    className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-0"
+                    style={{ backgroundColor: INDIGO_CTA }}
+                  />
+                </span>
+                <ArrowUpRight size={16} />
+              </span>
+            </Link>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       <div className={ALIGN}>
         {/* ============================================================
