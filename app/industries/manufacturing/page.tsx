@@ -1070,7 +1070,7 @@ export default function ManufacturingSection(): ReactElement {
       <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1565514020179-026b92b84bb6?q=85&w=2000&auto=format&fit=crop"
+                       src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=90&w=2000&auto=format&fit=crop"
             alt="Modern manufacturing facility"
             loading="eager"
             decoding="async"

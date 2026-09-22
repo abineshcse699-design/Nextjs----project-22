@@ -1247,7 +1247,7 @@ export default function TravelHospitalityPage(): ReactElement {
       <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=85&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?q=85&w=2000&auto=format&fit=crop"
             alt="Traveler checking in for a seamless digital journey"
             loading="eager"
             decoding="async"

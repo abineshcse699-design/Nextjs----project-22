@@ -1,5 +1,5 @@
 "use client";
-
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { motion, type Variants } from "framer-motion";
@@ -231,7 +231,7 @@ export default function Hero() {
 {/* CTA */}
 <motion.div variants={item} className="mt-8">
   <motion.a
-    href="#contact"
+    href="/contactpage"
     whileHover={{ scale: 1.03 }}
     whileTap={{ scale: 0.98 }}
     className="

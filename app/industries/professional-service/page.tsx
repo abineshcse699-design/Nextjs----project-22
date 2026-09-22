@@ -1054,7 +1054,7 @@ export default function ProfessionalServicesSection(): ReactElement {
       <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
         <div className="absolute inset-0 -z-10">
           <img
-            src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?q=85&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=85&w=2000&auto=format&fit=crop"
             alt="Professional services team working in a modern office"
             loading="eager"
             decoding="async"
