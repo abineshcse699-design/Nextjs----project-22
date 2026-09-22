@@ -19,6 +19,7 @@ import {
 import { motion, type Variants } from "framer-motion";
 import { caseStudies as sharedCaseStudies } from "@/app/services/data-analytics/casestudies/data/casestudies";
 import GetInTouch from "../../services/data-analytics/GetinTouch";
+import { capabilities } from "@/app/services/data-analytics/capabilities/data";
 
 const CHAMPION_BLUE = "#1B2560";
 const LAVENDER_ACCENT = "#A48FEA";
@@ -1089,41 +1090,44 @@ export default function DataAnalyticsServicesSection() {
             </motion.div>
 
             {/* RIGHT — original capability card grid, colors unchanged */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, amount: 0.1 }}
-              variants={container}
-              className="grid grid-cols-1 gap-6 sm:grid-cols-2"
-            >
-              {focusAreas.map((area) => (
-                <motion.div key={area.title} variants={item} className="h-full">
-                  <div className="ss-capability-card flex h-full flex-col p-8">
-                    <h3
-                      className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
-                      style={{ color: CHAMPION_BLUE }}
-                    >
-                      {area.title}
-                    </h3>
+          <motion.div
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true, amount: 0.1 }}
+  variants={container}
+  className="grid grid-cols-1 gap-6 sm:grid-cols-2"
+>
+  {capabilities.map((area) => (
+    <motion.div key={area.slug} variants={item} className="h-full">
+      <Link
+        href={`/services/data-analytics/capabilities/${area.slug}`}
+        className="ss-capability-card flex h-full flex-col p-8"
+      >
+        <h3
+          className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
+          style={{ color: CHAMPION_BLUE }}
+        >
+          {area.title}
+        </h3>
 
-                    <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
-                      {area.body}
-                    </p>
+        <p className="font-body mt-4 text-[17px] leading-[1.7] text-slate-600">
+          {area.body}
+        </p>
 
-                    <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
-                      <span className="relative">
-                        Learn More
-                        <span
-                          className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
-                          style={{ backgroundColor: INDIGO_CTA }}
-                        />
-                      </span>
-                      <ArrowUpRight size={16} />
-                    </span>
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
+        <span className="ss-capability-learn-more font-body mt-6 inline-flex w-fit items-center gap-1.5 text-[15px] font-medium">
+          <span className="relative">
+            Learn More
+            <span
+              className="ss-capability-underline absolute -bottom-0.5 left-0 h-[1.5px] w-full"
+              style={{ backgroundColor: INDIGO_CTA }}
+            />
+          </span>
+          <ArrowUpRight size={16} />
+        </span>
+      </Link>
+    </motion.div>
+  ))}
+</motion.div>
           </div>
         </div>
       </section>

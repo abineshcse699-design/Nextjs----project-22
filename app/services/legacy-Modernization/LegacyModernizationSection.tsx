@@ -1184,9 +1184,8 @@ export default function LegacyModernizationSection(): ReactElement {
       }}
     />
   </div>
-
-  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
-    <div className="w-full max-w-[760px] py-10 lg:py-12">
+<div className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}>
+  <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
       <nav
         aria-label="Breadcrumb"
         className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"

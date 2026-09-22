@@ -1,6 +1,5 @@
 "use client";
 import Link from "next/link";
-import GetInTouch from "../freshService/GetinTouch";
 
 import {
   useRef,
@@ -23,6 +22,7 @@ import {
 } from "lucide-react";
 
 import { caseStudies } from "./data/case-studies";
+import { capabilities as focusAreas } from "./capbilities/data";
 
 /* ===============================================================
    BRAND TOKENS
@@ -42,6 +42,7 @@ const INDIGO_CTA = "#4F3FE0"; // circular "+" / arrow buttons on dark sections
 // built from this constant so the case-study hrefs can never
 // silently point at the wrong service folder again.
 const BASE_PATH = "/services/freshService";
+const CAPABILITY_BASE = "/services/freshService/capbilities";
 
 // Shared page width wrapper, kept in sync with the navbar's own
 // max width/padding so every section lines up with it exactly.
@@ -66,16 +67,6 @@ const SECTION_HEADING =
 
 /* ===============================================================
    CONTENT
-   SEO / AEO optimized: entity first statements ("Starfii is...",
-   "Starfii offers..."), keyword rich but natural, no hyphens.
-   Primary keyword targets: Freshservice implementation, Freshservice
-   ITSM, IT service desk, incident management, problem management,
-   change management, service catalog, CMDB, workflow automation,
-   Freshservice migration.
-
-   Page 10 spec: /services/freshservice
-   Subtitle: Implement, customize, migrate and optimize Freshservice
-   for modern, efficient and automated IT service operations.
 ================================================================ */
 
 function Eyebrow({
@@ -117,63 +108,12 @@ const keyTakeaways = [
   },
 ];
 
-type FocusArea = { slug: string; title: string; body: string };
-
-const focusAreas: FocusArea[] = [
-  {
-    slug: "implementation",
-    title: "Freshservice Implementation",
-    body: "Starfii configures Freshservice end to end, service desk, workflows, roles, and SLAs, matched to your existing ITSM processes instead of a generic default setup.",
-  },
-  {
-    slug: "service-desk",
-    title: "Service Desk Setup",
-    body: "Starfii builds a Freshservice service desk with structured queues, ticket categorization, and self service options that reduce inbound volume on IT teams.",
-  },
-  {
-    slug: "incident-management",
-    title: "Incident Management",
-    body: "Starfii configures Freshservice incident management with clear priority matrices, escalation paths, and major incident workflows to cut resolution time.",
-  },
-  {
-    slug: "problem-change-management",
-    title: "Problem & Change Management",
-    body: "Starfii sets up problem management for root cause tracking and change management with approval workflows, so changes roll out with less risk.",
-  },
-  {
-    slug: "service-catalog",
-    title: "Service Catalog & Requests",
-    body: "Starfii builds a Freshservice service catalog and request forms that let employees raise the right request the first time, with automatic routing.",
-  },
-  {
-    slug: "asset-management-cmdb",
-    title: "Asset Management & CMDB",
-    body: "Starfii configures Freshservice asset management and CMDB to track hardware, software, and configuration items with accurate relationships and lifecycle data.",
-  },
-  {
-    slug: "workflow-automation",
-    title: "Workflow Automation",
-    body: "Starfii builds Freshservice workflow automation that assigns, escalates, and closes tickets automatically based on rules, cutting manual triage work.",
-  },
-  {
-    slug: "integrations-customization",
-    title: "Integrations & Customization",
-    body: "Starfii integrates Freshservice with your existing tools, directory, monitoring, and collaboration platforms, and customizes fields, forms, and views to match your operation.",
-  },
-  {
-    slug: "data-migration-optimization",
-    title: "Data Migration & Optimization",
-    body: "Starfii migrates historical tickets, assets, and CMDB data into Freshservice, then continuously optimizes configuration as ticket volume and team structure evolve.",
-  },
-];
-
 type ServiceTab = {
   label: string;
   heading: string;
   body: string;
   image: string;
 };
-
 
 const tabs: ServiceTab[] = [
   {
@@ -212,8 +152,6 @@ const tabs: ServiceTab[] = [
       "https://images.unsplash.com/photo-1521737711867-e3b97375f902?q=80&w=1200&auto=format&fit=crop",
   },
 ];
-
-
 
 type EcosystemImpact = { title: string; body: string };
 
@@ -296,14 +234,6 @@ const insights: InsightPost[] = [
   },
 ];
 
-// Case studies are pulled from the real data file that backs the
-// [slug] detail routes — NOT hardcoded here. A hardcoded list with
-// invented slugs will always 404, because generateStaticParams() on
-// the [slug] pages only ever knows about slugs that exist in this
-// file. If you add a new case study, add it to data/case-studies.ts
-// and it will automatically show up here with a working link — never
-// add it only to this page.
-
 /* ===============================================================
    GLOBAL KEYFRAMES
 ================================================================ */
@@ -328,12 +258,10 @@ function AnimationStyles(): ReactElement {
         0%, 100% { opacity: 0.55; }
         50%      { opacity: 1; }
       }
-      /* Autoplay progress fill for the tab list's active indicator line */
       @keyframes ss-tab-progress {
         from { transform: scaleY(0); }
         to   { transform: scaleY(1); }
       }
-      /* Typewriter cursor blink for Key Takeaways */
       @keyframes ss-caret-blink {
         0%, 100% { opacity: 1; }
         50%      { opacity: 0; }
@@ -361,12 +289,6 @@ function AnimationStyles(): ReactElement {
         animation: ss-caret-blink 0.9s steps(1) infinite;
       }
 
-      /* =============================================================
-         LIGHT CAPABILITIES GRID
-         Simple, light card style matching the reference design:
-         soft lavender-grey panel, navy title, grey body copy and
-         an indigo "Learn More" link with a sliding underline.
-      ============================================================= */
       .ss-capability-card {
         position: relative;
         background-color: #EEF0F5;
@@ -432,7 +354,6 @@ function AnimationStyles(): ReactElement {
           animation: none !important;
           transform: scaleY(1) !important;
         }
-        /* Card height/description reveal stays static for reduced motion */
         .ss-case-image,
         .ss-case-desc,
         .ss-zoom-img,
@@ -451,10 +372,6 @@ function AnimationStyles(): ReactElement {
     `}</style>
   );
 }
-
-/* ===============================================================
-   HOOK: reveal-on-scroll
-================================================================ */
 
 function useReveal<T extends HTMLElement = HTMLElement>(
   options?: IntersectionObserverInit
@@ -483,10 +400,6 @@ function useReveal<T extends HTMLElement = HTMLElement>(
   return [ref, inView];
 }
 
-/* ===============================================================
-   HOOK: responsive items-per-page
-================================================================ */
-
 type Breakpoints = { mobile: number; tablet: number; desktop: number };
 
 function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
@@ -513,10 +426,6 @@ function useItemsPerPage({ mobile, tablet, desktop }: Breakpoints): number {
 
   return count;
 }
-
-/* ===============================================================
-   HOOK: sequential typewriter for a list of lines
-================================================================ */
 
 function useTypewriterList(
   items: string[],
@@ -581,10 +490,6 @@ function useTypewriterList(
   return { displayed, typingIndex };
 }
 
-/* ===============================================================
-   REUSABLE: Reveal wrapper
-================================================================ */
-
 type RevealProps = {
   as?: ElementType;
   delay?: number;
@@ -613,10 +518,6 @@ function Reveal({
     </Tag>
   );
 }
-
-/* ===============================================================
-   REUSABLE: Free-scroll Carousel
-================================================================ */
 
 type CarouselProps = {
   children: ReactNode;
@@ -733,17 +634,12 @@ function Carousel({
   );
 }
 
-/* ===============================================================
-   REUSABLE: StepCarousel
-   Moves exactly ONE card per arrow click.
-================================================================ */
-
 type StepCarouselProps<T> = {
   items: T[];
   itemsPerPage: Breakpoints;
   renderItem: (item: T, index: number) => ReactNode;
   arrowVariant?: "light" | "dark";
-  gap?: number; // px gap between cards
+  gap?: number;
 };
 
 function StepCarousel<T>({
@@ -759,8 +655,6 @@ function StepCarousel<T>({
   const [position, setPosition] = useState(0);
   const [stepWidth, setStepWidth] = useState(0);
 
-  // Math.ceil so a fractional perPage (e.g. 1.15 for a "peek" card) still
-  // lands on a whole card instead of stopping mid-card.
   const maxPosition = Math.max(0, Math.ceil(items.length - perPage));
   const totalPositions = Math.max(1, maxPosition + 1);
   const isDark = arrowVariant === "dark";
@@ -896,10 +790,6 @@ function StepCarousel<T>({
   );
 }
 
-/* ===============================================================
-   KEY TAKEAWAYS ACCORDION — collapsible + typewriter reveal
-================================================================ */
-
 function KeyTakeawaysAccordion({
   open,
   setOpen,
@@ -1011,16 +901,8 @@ function KeyTakeawaysAccordion({
   );
 }
 
-/* ===============================================================
-   ECOSYSTEM ACCORDION
-   Click the "+" and the matching content expands in place.
-   Two independent columns, so opening a card on the left does not
-   stretch the card sitting next to it on the right.
-================================================================ */
-
 function EcosystemAccordion(): ReactElement {
-  // null = everything closed. Use 0 to have the first card open by default.
-   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const columns: { item: EcosystemImpact; index: number }[][] = [[], []];
   ecosystemImpact.forEach((item, index) => {
@@ -1059,18 +941,17 @@ function EcosystemAccordion(): ReactElement {
                       {item.title}
                     </span>
 
-        <span
-  className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
-  style={{
-    backgroundColor: INDIGO_CTA,
-    color: "#FFFFFF",
-  }}
->
-  {isOpen ? <Minus size={18} /> : <Plus size={18} />}
-</span>
+                    <span
+                      className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: INDIGO_CTA,
+                        color: "#FFFFFF",
+                      }}
+                    >
+                      {isOpen ? <Minus size={18} /> : <Plus size={18} />}
+                    </span>
                   </button>
 
-                  {/* 0fr -> 1fr gives a smooth auto-height expand */}
                   <div
                     id={`itsm-ecosystem-panel-${index}`}
                     className="ss-eco-panel grid transition-all duration-500 ease-out"
@@ -1095,20 +976,12 @@ function EcosystemAccordion(): ReactElement {
   );
 }
 
-/* ===============================================================
-   SECTION
-================================================================ */
-
 export default function FreshserviceITSMSection(): ReactElement {
   const [takeawaysOpen, setTakeawaysOpen] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
   const [tabHovered, setTabHovered] = useState(false);
   const current = tabs[activeTab];
 
-  // --- Autoplay for the left-side tab list ---
-  // Advances to the next tab automatically every TAB_AUTOPLAY_MS.
-  // Pausing on hover, and restarting the timer whenever the user
-  // manually clicks a tab, so it never fights with manual control.
   useEffect(() => {
     if (tabHovered) return undefined;
     const id = setInterval(() => {
@@ -1123,96 +996,91 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           BREADCRUMB + HERO
-          Full-bleed image with a dark left-side readability gradient,
-          matching the Software & Product Engineering page.
+          Full-bleed image with a dark left-side readability gradient.
+          Layout now matches the Cloud Engineering page's hero: content
+          is top-anchored with pt-[130px] / lg:pt-[150px] instead of
+          being vertically centered, so it sits clear of the navbar.
       ============================================================ */}
-<section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
-  {/* FULL-BLEED HERO IMAGE */}
-  <div className="absolute inset-0 -z-10">
-    <img
-      src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=85&w=2000&auto=format&fit=crop"
-      alt="IT service desk team working in Freshservice"
-      loading="eager"
-      decoding="async"
-      fetchPriority="high"
-      className="h-full w-full object-cover object-[68%_center]"
-    />
+      <section className="relative isolate min-h-[460px] overflow-hidden lg:min-h-[620px]">
+        {/* FULL-BLEED HERO IMAGE */}
+        <div className="absolute inset-0 -z-10">
+          <img
+            src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=85&w=2000&auto=format&fit=crop"
+            alt="IT service desk team working in Freshservice"
+            loading="eager"
+            decoding="async"
+            fetchPriority="high"
+            className="h-full w-full object-cover object-[68%_center]"
+          />
 
-    {/* Dark readability gradient — image remains visible on the right */}
-    <div
-      className="absolute inset-0"
-      style={{
-        background:
-          "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.70) 32%, rgba(0,0,0,0.30) 55%, rgba(0,0,0,0.04) 78%, rgba(0,0,0,0) 100%)",
-      }}
-    />
+          {/* Dark readability gradient — image remains visible on the right */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.72) 30%, rgba(0,0,0,0.38) 55%, rgba(0,0,0,0.08) 78%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+        </div>
 
-    {/* Small bottom fade for a polished edge */}
-    <div
-      className="absolute inset-x-0 bottom-0 h-20"
-      style={{
-        background:
-          "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.16) 100%)",
-      }}
-    />
-  </div>
+        <div
+          className={`${ALIGN} relative flex min-h-[460px] items-start lg:min-h-[620px]`}
+        >
+          <div className="w-full max-w-[760px] pb-12 pt-[130px] lg:pb-16 lg:pt-[150px]">
+            {/* Breadcrumb */}
+            <nav
+              aria-label="Breadcrumb"
+              className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
+              style={{
+                color: "rgba(255,255,255,0.92)",
+                animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
+              }}
+            >
+              <Link href="/" className="transition-opacity hover:opacity-70">
+                Home
+              </Link>
+              <ChevronRight size={14} />
+              <Link href="/services" className="transition-opacity hover:opacity-70">
+                Services
+              </Link>
+              <ChevronRight size={14} />
+              <span className="text-white/60">Freshservice ITSM Services</span>
+            </nav>
 
-  <div className={`${ALIGN} relative flex min-h-[460px] items-center lg:min-h-[620px]`}>
-    <div className="w-full max-w-[760px] py-10 lg:py-12">
-      {/* Breadcrumb */}
-      <nav
-        aria-label="Breadcrumb"
-        className="font-body flex items-center gap-2 text-[14px] font-medium opacity-0"
-        style={{
-          color: "rgba(255,255,255,0.92)",
-          animation: "ss-fade-up 0.6s ease-out 0.05s forwards",
-        }}
-      >
-        <a href="/" className="transition-opacity hover:opacity-70">
-          Home
-        </a>
-        <ChevronRight size={14} />
-        <a href="/services" className="transition-opacity hover:opacity-70">
-          Services
-        </a>
-        <ChevronRight size={14} />
-        <span className="text-white/60">Freshservice ITSM Services</span>
-      </nav>
+            {/* Main heading */}
+            <h1
+              className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
+            >
+              Freshservice Implementation for Modern IT Operations
+            </h1>
 
-      {/* Main heading */}
-      <h1
-        className="font-heading mt-5 max-w-[760px] text-[32px] font-medium leading-[1.1] tracking-[-0.025em] text-white opacity-0 sm:text-[38px] lg:text-[44px] xl:text-[48px]"
-        style={{ animation: "ss-fade-up 0.7s ease-out 0.15s forwards" }}
-      >
-        Freshservice Implementation for Modern IT Operations
-      </h1>
+            {/* Description */}
+            <p
+              className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
+              style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
+            >
+              Implement, customize, migrate and optimize Freshservice for
+              modern, efficient and automated IT service operations, from
+              service desk setup through workflow automation and ongoing
+              managed support.
+            </p>
 
-      {/* Description */}
-      <p
-        className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
-        style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
-      >
-        Implement, customize, migrate and optimize Freshservice for
-        modern, efficient and automated IT service operations, from
-        service desk setup through workflow automation and ongoing
-        managed support.
-      </p>
-
-      {/* CTA */}
-      <a
-        href="#connect"
-        className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
-        style={{
-          color: INDIGO_CTA,
-          animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
-        }}
-      >
-        Talk to Us
-        <ArrowUpRight size={17} />
-      </a>
-    </div>
-  </div>
-</section>
+            {/* CTA */}
+            <a
+              href="#connect"
+              className="font-body mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-4 text-[15px] font-semibold opacity-0 transition-all duration-300 hover:scale-[1.03] hover:bg-white/90"
+              style={{
+                color: INDIGO_CTA,
+                animation: "ss-fade-up 0.7s ease-out 0.4s forwards",
+              }}
+            >
+              Talk to Us
+              <ArrowUpRight size={17} />
+            </a>
+          </div>
+        </div>
+      </section>
 
       <div className={ALIGN}>
         {/* ============================================================
@@ -1237,11 +1105,8 @@ export default function FreshserviceITSMSection(): ReactElement {
         ============================================================ */}
         <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
           <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
-            {/* LEFT — text with padding, nudges right on hover */}
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
-            
-
-                 <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+              <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
                 {" Why Does a Default Freshservice Setup Rarely Fit an IT Team?"}
               </h2>
               <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600 lg:text-[18px]">
@@ -1255,7 +1120,6 @@ export default function FreshserviceITSMSection(): ReactElement {
               </p>
             </div>
 
-            {/* RIGHT — image fills column, zooms on hover of the WHOLE card */}
             <div className="relative min-h-[320px] overflow-hidden">
               <img
                 src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=1200&auto=format&fit=crop"
@@ -1270,22 +1134,16 @@ export default function FreshserviceITSMSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          FOCUS AREAS — light capability grid, sticky left column,
-          matching the Software & Product Engineering page exactly.
+          FOCUS AREAS — light capability grid, sticky left column
       ============================================================ */}
-
       <section className="relative bg-white py-24 lg:py-28">
         <div className={`relative ${ALIGN}`}>
           <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[380px_1fr] lg:gap-14 xl:grid-cols-[420px_1fr]">
-            {/* LEFT — sticky while right side scrolls */}
             <div className="relative">
               <Reveal className="lg:sticky lg:top-28">
-                {/* <Eyebrow variant="light">Freshservice Implementation</Eyebrow> */}
-
-           
-                     <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
-                {" Our Freshservice Capabilities "}
-              </h2>
+                <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
+                  {" Our Freshservice Capabilities "}
+                </h2>
 
                 <p className="font-body mt-5 max-w-md text-[15px] leading-relaxed text-slate-600 sm:text-[16px]">
                   Starfii implements, customizes, migrates, and optimizes
@@ -1296,11 +1154,14 @@ export default function FreshserviceITSMSection(): ReactElement {
               </Reveal>
             </div>
 
-            {/* RIGHT — cards scroll normally */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
               {focusAreas.map((area, i) => (
                 <Reveal key={area.slug} delay={(i % 4) * 90} className="h-full">
-                  <div className="ss-capability-card flex h-full flex-col p-8">
+                  <Link
+                    href={`${CAPABILITY_BASE}/${area.slug}`}
+                    aria-label={`Learn more about ${area.title}`}
+                    className="ss-capability-card flex h-full flex-col p-8"
+                  >
                     <h3
                       className="ss-capability-title font-heading text-[24px] font-semibold leading-[1.2] sm:text-[26px]"
                       style={{ color: CHAMPION_BLUE }}
@@ -1323,7 +1184,7 @@ export default function FreshserviceITSMSection(): ReactElement {
 
                       <ArrowUpRight size={16} />
                     </span>
-                  </div>
+                  </Link>
                 </Reveal>
               ))}
             </div>
@@ -1336,13 +1197,11 @@ export default function FreshserviceITSMSection(): ReactElement {
             TABBED DEEP-DIVE — auto-advancing tab list
         ============================================================ */}
         <Reveal as="section" className="mt-24 pb-28">
-          {/* <Eyebrow>Freshservice Implementation</Eyebrow> */}
           <h2 className={`${SECTION_HEADING} mt-4 font-bold`} style={{ color: CHAMPION_BLUE }}>
             Freshservice Implementation Journey
           </h2>
 
           <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[320px_1fr]">
-            {/* Left nav — autoplaying */}
             <ul
               className="space-y-1 border-l"
               style={{ borderColor: "#E5E1F5" }}
@@ -1370,35 +1229,34 @@ export default function FreshserviceITSMSection(): ReactElement {
                         }}
                       />
                     )}
-                   <button
-  type="button"
-  onClick={() => setActiveTab(i)}
-  className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
-  style={{
-    color: isActive ? CHAMPION_BLUE : "#94A3B8",
-    fontWeight: isActive ? 600 : 400,
-  }}
->
-  {tab.label}
-</button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab(i)}
+                      className="font-body block py-4 pl-5 text-left text-[19px] transition-colors duration-200 sm:text-[20px]"
+                      style={{
+                        color: isActive ? CHAMPION_BLUE : "#94A3B8",
+                        fontWeight: isActive ? 600 : 400,
+                      }}
+                    >
+                      {tab.label}
+                    </button>
                   </li>
                 );
               })}
             </ul>
 
-            {/* Right panel */}
             <div
               key={activeTab}
               className="ss-tab-panel grid grid-cols-1 overflow-hidden rounded-2xl md:grid-cols-2 md:min-h-[420px] isolate"
               style={{ backgroundColor: "#F5F3FC" }}
             >
               <div className="flex flex-col justify-start p-3 pt-2 lg:p-6 lg:pt-5 self-start">
-              <h3
-  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
-  style={{ color: CHAMPION_BLUE }}
->
-  {current.heading}
-</h3>
+                <h3
+                  className="font-heading text-[26px] font-medium leading-snug sm:text-[28px]"
+                  style={{ color: CHAMPION_BLUE }}
+                >
+                  {current.heading}
+                </h3>
                 <p className="font-body mt-5 text-[17px] leading-relaxed text-slate-600">
                   {current.body}
                 </p>
@@ -1419,9 +1277,8 @@ export default function FreshserviceITSMSection(): ReactElement {
       </div>
 
       {/* ============================================================
-          IMPACT ACROSS ECOSYSTEM (dark) — click "+" to expand content
+          IMPACT ACROSS ECOSYSTEM (dark)
       ============================================================ */}
-
       <section className="relative overflow-hidden bg-[#08070F] py-24">
         <div
           className="ss-drift-slow pointer-events-none absolute inset-y-0 right-0 w-[55%]"
@@ -1440,7 +1297,6 @@ export default function FreshserviceITSMSection(): ReactElement {
 
         <div className={`relative ${ALIGN}`}>
           <Reveal>
-            {/* <Eyebrow variant="dark">IT Service Management</Eyebrow> */}
             <h2 className={`${SECTION_HEADING} mt-4 max-w-6xl text-white`}>
               Impact Across Your IT
               <br />
@@ -1454,13 +1310,7 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           CASE STUDIES
-          Card sizing and hover behaviour match the Software &
-          Product Engineering page: 500px fixed card height, 260px
-          image frame that collapses to 0 on hover, description
-          sliding into the space the image gives up, 4 per row on
-          desktop with a 32px gap and a peek card on mobile.
       ============================================================ */}
-
       <section
         className="py-24"
         style={{
@@ -1471,7 +1321,6 @@ export default function FreshserviceITSMSection(): ReactElement {
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              {/* <Eyebrow>Case Studies</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
                 Case Studies
               </h2>
@@ -1504,7 +1353,6 @@ export default function FreshserviceITSMSection(): ReactElement {
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}
                   >
-                    {/* IMAGE FRAME — height animates 260px → 0 on hover */}
                     <div className="ss-case-image h-[260px] w-full shrink-0 overflow-hidden bg-slate-900 transition-[height] duration-[800ms] ease-in-out group-hover:h-0">
                       <img
                         src={study.image}
@@ -1515,7 +1363,6 @@ export default function FreshserviceITSMSection(): ReactElement {
                       />
                     </div>
 
-                    {/* CONTENT — flex-1 grows into the space the image gives up */}
                     <div className="flex flex-1 flex-col gap-3.5 overflow-hidden p-7">
                       <div className="flex flex-1 flex-col gap-3.5 overflow-hidden">
                         <span
@@ -1532,13 +1379,11 @@ export default function FreshserviceITSMSection(): ReactElement {
                           {study.title}
                         </h3>
 
-                        {/* DESCRIPTION — hidden at rest, fades + slides in on hover */}
                         <p className="ss-case-desc font-body max-h-0 -translate-y-2 text-[15px] leading-relaxed text-slate-500 opacity-0 transition-all duration-[800ms] ease-in-out group-hover:max-h-40 group-hover:translate-y-0 group-hover:opacity-100">
                           {study.body}
                         </p>
                       </div>
 
-                      {/* CTA — sliding underline reveal */}
                       <span
                         className="font-body mt-auto inline-flex w-fit shrink-0 items-center gap-1.5 pt-2 text-[16px] font-medium"
                         style={{ color: INDIGO_CTA }}
@@ -1563,14 +1408,11 @@ export default function FreshserviceITSMSection(): ReactElement {
 
       {/* ============================================================
           INSIGHTS / WHAT'S NEW
-          Blog images zoom in on hover (scale 1 → 1.1) inside a fixed
-          frame, so only the picture grows, never the card.
       ============================================================ */}
       <section className="bg-[#EEF0F7] py-24">
         <div className={ALIGN}>
           <Reveal className="flex items-center justify-between">
             <div>
-              {/* <Eyebrow>Freshservice Implementation</Eyebrow> */}
               <h2 className={`${SECTION_HEADING} mt-4 max-w-500`} style={{ color: CHAMPION_BLUE }}>
                 {"What's New in Freshservice ITSM"}
               </h2>
@@ -1700,12 +1542,6 @@ export default function FreshserviceITSMSection(): ReactElement {
           </div>
         </div>
       </section>
-
-    
-
-<GetInTouch />
-
-
     </main>
   );
 }

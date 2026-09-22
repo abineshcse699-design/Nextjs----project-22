@@ -262,7 +262,7 @@ export default function Hero() {
       {/* Service ticker — sits directly under the content in normal flow now
           (no more absolute-bottom-of-a-tall-section), so the gap above it
           is just this one `mt`, not however tall the section happens to be. */}
-      <div className="relative z-10 mt-14 overflow-hidden border-t border-white/10 bg-[#08051c]/60 backdrop-blur-sm lg:mt-16">
+      {/* <div className="relative z-10 mt-14 overflow-hidden border-t border-white/10 bg-[#08051c]/60 backdrop-blur-sm lg:mt-16">
         <div className="starfii-marquee-track flex w-max items-center whitespace-nowrap py-3">
           {tickerLoop.map((label, i) => (
             <span key={`${label}-${i}`} className="flex items-center">
@@ -278,8 +278,8 @@ export default function Hero() {
             </span>
           ))}
         </div>
-      </div>
-
+      </div> */}
+{/* 
       <style>{`
         .starfii-marquee-track {
           animation: starfii-marquee 28s linear infinite;
@@ -294,7 +294,7 @@ export default function Hero() {
         @media (prefers-reduced-motion: reduce) {
           .starfii-marquee-track { animation: none; }
         }
-      `}</style>
+      `}</style> */}
     </section>
   );
 }

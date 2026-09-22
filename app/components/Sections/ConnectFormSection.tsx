@@ -219,6 +219,7 @@ export default function ConnectFormSection() {
     "idle"
   );
 
+  const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [countryTouched, setCountryTouched] = useState(false);
 
@@ -279,10 +280,14 @@ export default function ConnectFormSection() {
 
   /* =========================================================
      SUBMIT
+     Sends the brief to /api/contact, which emails the team and
+     (if configured) appends a row to the Google Sheet.
   ========================================================= */
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (submitting) return;
 
     setStatus("idle");
     setErrorMessage("");
@@ -300,25 +305,49 @@ export default function ConnectFormSection() {
       return;
     }
 
-    /*
-      Connect your real API here.
+    setSubmitting(true);
 
-      Example:
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: `${country.code} ${form.phone.trim()}`,
+          company: form.company.trim(),
+          message: form.opportunity.trim(),
+          hear: form.hearAbout,
+        }),
+      });
 
-      const body = new FormData();
-      body.append("name", form.name);
-      body.append("email", form.email);
-      body.append("phone", form.phone);
-      body.append("company", form.company);
-      body.append("opportunity", form.opportunity);
-      body.append("hearAbout", form.hearAbout);
-      body.append("countryCode", country.code);
-      if (file) body.append("attachment", file);
+      const json = await res.json();
 
-      await fetch("/api/lead", { method: "POST", body });
-    */
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Something went wrong.");
+      }
 
-    setStatus("success");
+      setStatus("success");
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        opportunity: "",
+        hearAbout: "",
+        consent: false,
+      });
+      setCountry(null);
+      setCountryTouched(false);
+      setFile(null);
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+      setStatus("error");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -701,6 +730,7 @@ export default function ConnectFormSection() {
               <div className="pt-1">
                 <button
                   type="submit"
+                  disabled={submitting}
                   className={`
                     group
                     inline-flex
@@ -715,22 +745,28 @@ export default function ConnectFormSection() {
                     text-white
                     transition-colors
                     duration-150
+                    disabled:cursor-not-allowed
+                    disabled:opacity-60
                     ${geist.className}
                   `}
                   style={{ backgroundColor: SUBMIT_BG }}
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = SUBMIT_HOVER)
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = SUBMIT_BG)
-                  }
+                  onMouseEnter={(e) => {
+                    if (!submitting)
+                      e.currentTarget.style.backgroundColor = SUBMIT_HOVER;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!submitting)
+                      e.currentTarget.style.backgroundColor = SUBMIT_BG;
+                  }}
                 >
-                  Submit
-                  <ArrowUpRight
-                    size={18}
-                    strokeWidth={2.5}
-                    className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                  />
+                  {submitting ? "Sending..." : "Submit"}
+                  {!submitting && (
+                    <ArrowUpRight
+                      size={18}
+                      strokeWidth={2.5}
+                      className="transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    />
+                  )}
                 </button>
               </div>
             </form>
@@ -742,4 +778,3 @@ export default function ConnectFormSection() {
   );
 
 }
-

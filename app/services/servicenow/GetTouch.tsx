@@ -1,8 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronDown, Upload, ArrowUpRight } from "lucide-react";
+import { ChevronDown, Upload, ArrowUpRight, Check } from "lucide-react";
 
+const CHAMPION_BLUE = "#1B2560";
+const SECTION_HEADING =
+  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
 const countries = [
   { name: "India", code: "+91" },
   { name: "USA", code: "+1" },
@@ -17,13 +20,73 @@ export default function GetInTouch() {
   const [country, setCountry] = useState("India");
   const [fileName, setFileName] = useState("");
 
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    opportunity: "",
+    source: "",
+  });
+
+  const [consent, setConsent] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
+
   const selectedCountry =
     countries.find((item) => item.name === country) ?? countries[0];
 
-    const CHAMPION_BLUE = "#1B2560";
+  const setField = (key: keyof typeof form, value: string) =>
+    setForm((f) => ({ ...f, [key]: value }));
 
-const SECTION_HEADING =
-  "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px]";
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (submitting) return;
+
+    setSubmitting(true);
+    setStatus("idle");
+    setErrorMessage("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: `${selectedCountry.code} ${form.phone.trim()}`,
+          company: form.company.trim(),
+          message: form.opportunity.trim(),
+          hear: form.source,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Something went wrong.");
+      }
+
+      setStatus("success");
+      setForm({
+        name: "",
+        email: "",
+        phone: "",
+        company: "",
+        opportunity: "",
+        source: "",
+      });
+      setConsent(false);
+      setCountry("India");
+    } catch (err) {
+      setErrorMessage(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+      setStatus("error");
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <section
@@ -61,16 +124,12 @@ const SECTION_HEADING =
             LEFT
         ===================================================== */}
         <div className="pt-1">
-     <div className="pt-1">
-  <h2
-    className={`${SECTION_HEADING} mt-4`}
-    style={{ color: CHAMPION_BLUE }}
-  >
-    Get in Touch
-  </h2>
-
-  
-</div>
+          <h2
+            className={`${SECTION_HEADING} mt-4`}
+            style={{ color: CHAMPION_BLUE }}
+          >
+            Get in Touch
+          </h2>
 
           <p
             className="
@@ -82,14 +141,14 @@ const SECTION_HEADING =
               sm:text-[18px]
             "
           >
-            Ready to Modernize Your IT Service Management with ServiceNow?
+             Ready to Modernize Your IT Service Management with ServiceNow?
           </p>
         </div>
 
         {/* =====================================================
             RIGHT FORM
         ===================================================== */}
-        <form className="w-full">
+        <form className="w-full" onSubmit={handleSubmit}>
           {/* NAME + EMAIL */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <input
@@ -97,6 +156,8 @@ const SECTION_HEADING =
               name="name"
               placeholder="Name*"
               required
+              value={form.name}
+              onChange={(e) => setField("name", e.target.value)}
               className="
                 h-[60px]
                 w-full
@@ -125,6 +186,8 @@ const SECTION_HEADING =
               name="email"
               placeholder="Email address*"
               required
+              value={form.email}
+              onChange={(e) => setField("email", e.target.value)}
               className="
                 h-[60px]
                 w-full
@@ -220,6 +283,8 @@ const SECTION_HEADING =
               name="phone"
               required
               placeholder={`Phone number*`}
+              value={form.phone}
+              onChange={(e) => setField("phone", e.target.value)}
               className="
                 h-[60px]
                 w-full
@@ -249,6 +314,8 @@ const SECTION_HEADING =
             name="company"
             required
             placeholder="Company*"
+            value={form.company}
+            onChange={(e) => setField("company", e.target.value)}
             className="
               mt-5
               h-[60px]
@@ -277,6 +344,8 @@ const SECTION_HEADING =
             name="opportunity"
             required
             placeholder="Tell us about your opportunity*"
+            value={form.opportunity}
+            onChange={(e) => setField("opportunity", e.target.value)}
             className="
               mt-6
               min-h-[110px]
@@ -307,7 +376,8 @@ const SECTION_HEADING =
           <div className="relative mt-6">
             <select
               required
-              defaultValue=""
+              value={form.source}
+              onChange={(e) => setField("source", e.target.value)}
               name="source"
               className="
                 h-[60px]
@@ -355,33 +425,50 @@ const SECTION_HEADING =
             />
           </div>
 
-      
-
           {/* =====================================================
               PRIVACY CHECKBOX
           ===================================================== */}
           <label className="mt-7 flex cursor-pointer items-start gap-3">
-            <input
-              type="checkbox"
-              required
-              className="
-                mt-1
-                h-6
-                w-6
-                flex-shrink-0
-                cursor-pointer
-                appearance-none
-                rounded-[2px]
-                border
-                border-[#CBD2E2]
-                bg-white
-                checked:border-[#4F3FE0]
-                checked:bg-[#4F3FE0]
-                checked:ring-4
-                checked:ring-inset
-                checked:ring-white
-              "
-            />
+            <span className="relative mt-1 h-6 w-6 flex-shrink-0">
+              <input
+                type="checkbox"
+                required
+                checked={consent}
+                onChange={(e) => setConsent(e.target.checked)}
+                className="
+                  peer
+                  h-6
+                  w-6
+                  cursor-pointer
+                  appearance-none
+                  rounded-[4px]
+                  border
+                  border-[#CBD2E2]
+                  bg-white
+                  transition-colors
+                  duration-150
+                  checked:border-[#4F3FE0]
+                  checked:bg-[#4F3FE0]
+                "
+              />
+              <Check
+                size={16}
+                strokeWidth={3}
+                className="
+                  pointer-events-none
+                  absolute
+                  left-1/2
+                  top-1/2
+                  -translate-x-1/2
+                  -translate-y-1/2
+                  text-white
+                  opacity-0
+                  transition-opacity
+                  duration-150
+                  peer-checked:opacity-100
+                "
+              />
+            </span>
 
             <span
               className="
@@ -404,11 +491,25 @@ const SECTION_HEADING =
             </span>
           </label>
 
+          {/* STATUS MESSAGE */}
+          {status === "error" && (
+            <div className="mt-5 rounded-[13px] border border-red-100 bg-red-50 px-5 py-3 font-body text-[13px] font-medium text-red-600">
+              {errorMessage}
+            </div>
+          )}
+
+          {status === "success" && (
+            <div className="mt-5 rounded-[13px] border border-emerald-100 bg-emerald-50 px-5 py-3 font-body text-[13px] font-medium text-emerald-600">
+              Thanks — your message has been received. We'll get back to you within one business day.
+            </div>
+          )}
+
           {/* =====================================================
               SUBMIT
           ===================================================== */}
           <button
             type="submit"
+            disabled={submitting}
             className="
               mt-7
               inline-flex
@@ -428,17 +529,26 @@ const SECTION_HEADING =
               hover:bg-[#8275DC]
               hover:shadow-lg
               active:translate-y-0
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+              disabled:hover:translate-y-0
             "
           >
-            Submit
+            {submitting ? "Sending..." : "Submit"}
 
-            <ArrowUpRight
-              size={20}
-              strokeWidth={1.8}
-            />
+            {!submitting && (
+              <ArrowUpRight
+                size={20}
+                strokeWidth={1.8}
+              />
+            )}
           </button>
         </form>
       </div>
     </section>
   );
 }
+
+ 
+
+

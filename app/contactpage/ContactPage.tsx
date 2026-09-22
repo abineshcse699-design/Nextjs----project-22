@@ -71,7 +71,6 @@ const offices = [
     hours: "Mon – Fri, 9:30 AM – 6:30 PM IST",
     mapUrl: "https://www.google.com/maps/search/?api=1&query=Bengaluru",
   },
-
 ];
 
 /* ===============================================================
@@ -237,6 +236,8 @@ function GetInTouchForm(): ReactElement {
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const firstErrorRef = useRef<HTMLFormElement | null>(null);
 
   const setValue = (key: keyof FormValues, value: string) => {
@@ -245,8 +246,9 @@ function GetInTouchForm(): ReactElement {
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (submitting) return;
 
     const nextErrors: FormErrors = {};
     FIELD_KEYS.forEach((key) => {
@@ -257,14 +259,40 @@ function GetInTouchForm(): ReactElement {
 
     const firstKey = FIELD_KEYS.find((k) => nextErrors[k]);
     if (firstKey) {
-      // Scroll to and focus the first invalid field.
-      const el = firstErrorRef.current?.querySelector<HTMLElement>(`[data-field="${firstKey}"]`);
-      el?.focus();
+      // Focus the first invalid field.
+      firstErrorRef.current
+        ?.querySelector<HTMLElement>(`[data-field="${firstKey}"]`)
+        ?.focus();
       return;
     }
 
-    // TODO: wire this up to your actual form endpoint / API route.
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError("");
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: values.name.trim(),
+          email: values.email.trim(),
+          phone: `${countryCode} ${values.phone.trim()}`,
+          company: values.company.trim(),
+          message: values.message.trim(),
+          hear: values.hear,
+        }),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Something went wrong.");
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError(
+        err instanceof Error ? err.message : "Something went wrong. Please try again."
+      );
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const fieldClass = (key: FieldKey, extra = "") =>
@@ -454,14 +482,23 @@ function GetInTouchForm(): ReactElement {
         <FieldError id="err-consent" message={errors.consent} />
       </div>
 
-      <button
-        type="submit"
-        className="cp-submit font-body col-span-1 mt-2 inline-flex w-fit items-center gap-2 rounded-full px-8 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:scale-[1.03] sm:col-span-2"
-        style={{ backgroundColor: INDIGO_CTA }}
-      >
-        Submit
-        <ArrowUpRight size={17} />
-      </button>
+      {/* Submit */}
+      <div className="col-span-1 sm:col-span-2">
+        {submitError && (
+          <p role="alert" className="cp-error font-heading mb-3 text-[16px]">
+            {submitError}
+          </p>
+        )}
+        <button
+          type="submit"
+          disabled={submitting}
+          className="cp-submit font-body mt-2 inline-flex w-fit items-center gap-2 rounded-full px-8 py-4 text-[15px] font-semibold text-white transition-all duration-300 hover:scale-[1.03] disabled:cursor-not-allowed disabled:opacity-60"
+          style={{ backgroundColor: INDIGO_CTA }}
+        >
+          {submitting ? "Sending..." : "Submit"}
+          {!submitting && <ArrowUpRight size={17} />}
+        </button>
+      </div>
     </form>
   );
 }
@@ -527,7 +564,7 @@ export default function ContactPage(): ReactElement {
                 </dt>
                 <dd className="mt-1 text-slate-600">hello@starfii.com</dd>
               </div>
-       
+
               <div>
                 <dt className="text-[14px] font-semibold" style={{ color: CHAMPION_BLUE }}>
                   Careers

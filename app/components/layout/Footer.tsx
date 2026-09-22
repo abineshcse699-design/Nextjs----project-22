@@ -100,9 +100,6 @@ const legalLinks: LegalLink[] = [
 // Brand glyphs aren't part of lucide-react, so each social icon is drawn
 // inline as a small SVG to keep the footer dependency-free.
 
-
-
-
 function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -111,20 +108,29 @@ function LinkedinIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
-// lucide-react doesn't ship the current X (formerly Twitter) glyph, so it's
-// drawn inline to match the rest of the icon set.
-function XIcon(props: React.SVGProps<SVGSVGElement>) {
+// lucide-react's Instagram glyph doesn't match the brand mark closely enough,
+// so it's drawn inline to match the rest of the icon set.
+function InstagramIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
-      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="5" ry="5" />
+      <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+      <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
     </svg>
   );
 }
 
 const socials: { label: string; href: string; icon: React.ReactNode }[] = [
-
-  { label: "LinkedIn", href: "#", icon: <LinkedinIcon className="h-4 w-4" /> },
-  { label: "X", href: "#", icon: <XIcon className="h-4 w-4" /> },
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/company/starfii-technology/",
+    icon: <LinkedinIcon className="h-4 w-4" />,
+  },
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/starfii_technology?stkn=MWVpcW1mMmV0OHFuYg==",
+    icon: <InstagramIcon className="h-4 w-4" />,
+  },
 ];
 
 export default function Footer() {
@@ -191,6 +197,8 @@ export default function Footer() {
               <a
                 key={s.label}
                 href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={s.label}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-[#3a3ff0] text-white transition-colors duration-200 hover:bg-[#2c30c9]"
               >
