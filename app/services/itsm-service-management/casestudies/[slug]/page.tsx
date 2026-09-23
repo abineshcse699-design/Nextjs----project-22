@@ -26,20 +26,37 @@ export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
 
+
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudyBySlug(slug);
 
-  if (!study) return { title: "Case Study | Starfii" };
+  if (!study) {
+    return {
+      title: "Case Study | Starfii",
+      icons: ICONS,
+    };
+  }
 
   return {
     title: `${study.title} | Starfii Case Study`,
     description: study.cardDescription,
+    icons: ICONS,
   };
 }
-
 /* ---------- small building blocks ---------- */
 
 function SectionHeading({ children }: { children: React.ReactNode }) {

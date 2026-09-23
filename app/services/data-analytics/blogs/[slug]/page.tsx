@@ -15,6 +15,16 @@ type PageProps = {
   }>;
 };
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 /* ============================================================
    STATIC BLOG SLUGS
 ============================================================ */
@@ -46,13 +56,15 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Data & Analytics blog could not be found.",
-        
+      icons: ICONS,
     };
   }
 
   return {
     title: `${post.title} | Starfii`,
     description: post.excerpt,
+
+    icons: ICONS,
 
     openGraph: {
       title: post.title,

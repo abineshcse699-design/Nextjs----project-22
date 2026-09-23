@@ -21,24 +21,41 @@ const SUB_HEADING =
 const BODY =
   "font-body text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]";
 
+/* Shared favicon config — same icon used across every route */
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+ 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
-
+ 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { slug } = await params;
   const study = getCaseStudyBySlug(slug);
-
-  if (!study) return { title: "Case Study | Starfii" };
-
+ 
+  if (!study) {
+    return {
+      title: "Case Study | Starfii",
+      icons: ICONS,
+    };
+  }
+ 
   return {
     title: `${study.title} | Starfii Data Analytics Case Study`,
     description: study.body,
+    icons: ICONS,
   };
 }
-
+ 
 /* ---------- small building blocks ---------- */
 
 function SectionHeading({ children }: { children: React.ReactNode }) {

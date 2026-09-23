@@ -13,6 +13,16 @@ type PageProps = {
 
 const BLOG_BASE = "/services/itsm-migration/blogs";
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 export function generateStaticParams() {
   return blogPosts
     .filter((post) => post.service === "itsm-migration")
@@ -34,7 +44,7 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Starfii ITSM Migration & Transformation blog could not be found.",
-        
+      icons: ICONS,
     };
   }
 
@@ -44,6 +54,7 @@ export async function generateMetadata({
     title: post.seoTitle,
     description: post.seoDescription,
     keywords: post.seoKeywords,
+    icons: ICONS,
     alternates: {
       canonical: canonicalPath,
     },

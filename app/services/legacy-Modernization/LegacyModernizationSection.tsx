@@ -1521,7 +1521,7 @@ export default function LegacyModernizationSection(): ReactElement {
               renderItem={(study, i) => (
                 <Reveal delay={(i % 3) * 90} className="h-full">
                   <Link
-                    href={`/services/legacy-modernization/casestudies/${study.slug}`}
+                    href={`/services/legacy-Modernization/casestudies/${study.slug}`}
                     aria-label={`Read case study: ${study.title}`}
                     className="group flex h-[500px] flex-col overflow-hidden rounded-2xl bg-white shadow-[0_1px_2px_rgba(15,23,42,0.06)] transition-shadow duration-500 ease-out hover:shadow-[0_18px_40px_rgba(15,23,42,0.14)]"
                     style={{ border: "1px solid #E5E1F5" }}

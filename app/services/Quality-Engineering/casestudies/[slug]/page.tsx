@@ -11,6 +11,16 @@ type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 /* Same type scale as the Banking page and the software product case studies */
 const SECTION_HEADING =
   "font-heading font-medium leading-[1.15] text-[34px] sm:text-[40px] lg:text-[46px] text-[#0b1747]";
@@ -63,6 +73,7 @@ export function generateStaticParams() {
    METADATA
 ============================================================ */
 
+
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
@@ -74,12 +85,14 @@ export async function generateMetadata({
     return {
       title: "Case Study | Starfii",
       description: "Starfii Quality Engineering case study.",
+      icons: ICONS,
     };
   }
 
   return {
     title: `${study.title} | Starfii`,
     description: study.body,
+    icons: ICONS,
 
     openGraph: {
       title: study.title,

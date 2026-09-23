@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       {
-        url: "/starfii_logo_WHITE.svg",
+          url: "/starfii_star_flat.svg",
         type: "image/svg+xml",
         sizes: "32x32",
       },

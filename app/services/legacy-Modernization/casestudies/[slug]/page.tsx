@@ -19,11 +19,23 @@ const SUB_HEADING =
 const BODY =
   "font-body text-[17px] leading-relaxed text-[#0b1747] lg:text-[18px]";
 
-const LEGACY_PATH = "/services/legacy-modernization";
+const LEGACY_PATH = "/services/legacy-Modernization";
+
 
 export function generateStaticParams() {
   return caseStudies.map((study) => ({ slug: study.slug }));
 }
+
+
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
 
 export async function generateMetadata({
   params,
@@ -31,11 +43,17 @@ export async function generateMetadata({
   const { slug } = await params;
   const study = caseStudies.find((item) => item.slug === slug);
 
-  if (!study) return { title: "Case Study | Starfii" };
+  if (!study) {
+    return {
+      title: "Case Study | Starfii",
+      icons: ICONS,
+    };
+  }
 
   return {
     title: `${study.title} | Starfii Legacy Modernization Case Study`,
     description: study.body,
+    icons: ICONS,
   };
 }
 

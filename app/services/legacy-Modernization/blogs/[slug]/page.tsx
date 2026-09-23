@@ -18,6 +18,16 @@ type PageProps = {
   }>;
 };
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 export function generateStaticParams() {
   return blogPosts.map(
     (post) => ({
@@ -43,7 +53,8 @@ export async function generateMetadata({
 
       description:
         "The requested legacy modernization insight could not be found.",
-        
+
+      icons: ICONS,
     };
   }
 
@@ -62,6 +73,8 @@ export async function generateMetadata({
           post.author.name,
       },
     ],
+
+    icons: ICONS,
 
     openGraph: {
       title:

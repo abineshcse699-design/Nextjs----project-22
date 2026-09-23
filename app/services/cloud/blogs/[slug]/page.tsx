@@ -15,6 +15,16 @@ type PageProps = {
   }>;
 };
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 export function generateStaticParams() {
   return blogPosts.map((post) => ({
     slug: post.slug,
@@ -35,13 +45,15 @@ export async function generateMetadata({
       title: "Blog Not Found | Starfii",
       description:
         "The requested Cloud Engineering blog could not be found.",
-        
+      icons: ICONS,
     };
   }
 
   return {
     title: `${post.title} | Starfii`,
     description: post.excerpt,
+
+    icons: ICONS,
 
     openGraph: {
       title: post.title,

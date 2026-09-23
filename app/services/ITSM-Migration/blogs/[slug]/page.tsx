@@ -23,6 +23,16 @@ type PageProps = {
   }>;
 };
 
+const ICONS = {
+  icon: [
+    {
+      url: "/starfii_star_flat.svg",
+      type: "image/svg+xml",
+      sizes: "32x32",
+    },
+  ],
+};
+
 /* ============================================================
    STATIC BLOG SLUGS
 ============================================================ */
@@ -61,16 +71,18 @@ export async function generateMetadata({
         "ITSM Migration Blog Not Found | Starfii",
       description:
         "The requested Starfii ITSM Migration & Transformation blog could not be found.",
-        
+      icons: ICONS,
     };
   }
 
   const canonicalPath =
-    `/services/itsm-migration/blogs/${post.slug}`;
+    `/services/itsm-Migration/blogs/${post.slug}`;
 
   return {
     title: `${post.title} | Starfii`,
     description: post.excerpt,
+
+    icons: ICONS,
 
     alternates: {
       canonical: canonicalPath,
