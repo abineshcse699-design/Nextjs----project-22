@@ -482,11 +482,17 @@ function Hero(): ReactElement {
             className="font-body mt-5 max-w-[650px] text-[16px] leading-[1.7] text-white/90 opacity-0 sm:text-[17px]"
             style={{ animation: "ss-fade-up 0.7s ease-out 0.28s forwards" }}
           >
-            Empowering clients with senior product engineering, AI native
-            delivery, and solutions that drive real digital outcomes.
+           
+  Empowering clients with senior product engineering, AI native
+  delivery, and solutions that drive real digital outcomes. From the
+  first architecture decision to production support, our embedded pods
+  help enterprises and founders build, ship, and scale software that
+  lasts.
           </p>
         </div>
+
       </div>
+
     </section>
   );
 }
@@ -512,9 +518,29 @@ function KeyTakeawaysAccordion(): ReactElement {
             className="flex min-h-[104px] w-full items-center justify-between gap-4 px-8 py-6 text-left lg:px-10"
             style={{ borderBottom: open ? `1px solid ${LAVENDER_ACCENT}` : "1px solid transparent" }}
           >
-            <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
-              Key Takeaways
-            </span>
+          <div className="flex items-center gap-3">
+  <svg
+    width="28"
+    height="28"
+    viewBox="0 0 28 28"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className="h-7 w-7 flex-shrink-0"
+    aria-hidden="true"
+  >
+    <path
+      d="M11.5 1L13.2 8.3L20.5 10L13.2 11.7L11.5 19L9.8 11.7L2.5 10L9.8 8.3L11.5 1Z"
+      fill={INDIGO_CTA}
+    />
+    <path
+      d="M21.5 15L22.4 18.6L26 19.5L22.4 20.4L21.5 24L20.6 20.4L17 19.5L20.6 18.6L21.5 15Z"
+      fill={INDIGO_CTA}
+    />
+  </svg>
+  <span className="font-body text-[17px] font-semibold" style={{ color: CHAMPION_BLUE }}>
+    Key Takeaways
+  </span>
+</div>
 
             <div className="flex items-center gap-4">
               <span
@@ -579,7 +605,7 @@ function IntroStatement(): ReactElement {
     <div className={ALIGN}>
       <Reveal as="section" className="mt-16">
         <h2
-          className="font-heading max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+          className="font-heading max-w-8xl text-[26px] leading-snug lg:text-[30px]"
           style={{ color: CHAMPION_BLUE }}
         >
           Starfii Technologies is a product engineering partner, combining AI
@@ -588,7 +614,8 @@ function IntroStatement(): ReactElement {
         </h2>
       </Reveal>
 
-      <Reveal delay={100} className="mt-10 mb-10 grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-14">
+      {/* <Reveal delay={100} className="mt-10 mb-10 grid grid-cols-1 overflow-hidden rounded-lg bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-14"> */}
+      <Reveal delay={100} className="mt-10 mb-10 grid grid-cols-1 overflow-hidden rounded-[20px] bg-white shadow-[0_16px_40px_rgba(15,23,42,0.08)] lg:grid-cols-2 lg:mb-14">
         <div className="flex flex-col justify-start p-7 lg:p-9">
           <h2 className={`${SECTION_HEADING} mt-4`} style={{ color: CHAMPION_BLUE }}>
             Product Engineering  Powered by AI

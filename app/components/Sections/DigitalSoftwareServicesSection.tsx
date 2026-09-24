@@ -1240,7 +1240,7 @@ export default function SoftwareProductEngineeringSection(): ReactElement {
             Q&A BLOCK
         ============================================================ */}
 <Reveal as="section" className="mt-20 mb-20 lg:mb-24">
-  <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+  <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-[20px] bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
     {/* LEFT — text with padding, nudges right on hover */}
     <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
      

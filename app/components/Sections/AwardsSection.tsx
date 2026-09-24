@@ -57,7 +57,7 @@ export default function GrowthSection() {
         <div className="flex flex-col justify-start lg:sticky lg:top-28 lg:self-start">
          <h2
   className="
-    max-w-[600px]
+    max-w-[640px]
     font-medium
     leading-[1.08]
     tracking-[-0.025em]
@@ -67,7 +67,7 @@ export default function GrowthSection() {
     lg:text-[54px]
   "
 >
-  AI-Driven Software and Product Engineering, Built to Scale With
+  AI-Driven Software and Product Engineering Built to Scale With
   You
 </h2>
           <p
@@ -158,7 +158,7 @@ export default function GrowthSection() {
                 </div>
 
                 {/* Arrow */}
-                <ArrowRight
+                {/* <ArrowRight
                   className="
                     mt-1
                     h-5
@@ -170,7 +170,7 @@ export default function GrowthSection() {
                     group-hover:translate-x-1
                   "
                   strokeWidth={1.75}
-                />
+                /> */}
               </a>
             );
           })}

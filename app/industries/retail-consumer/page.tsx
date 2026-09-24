@@ -1154,7 +1154,7 @@ export default function RetailConsumerSection(): ReactElement {
           <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Starfii helps retail and consumer businesses connect commerce,
@@ -1168,7 +1168,8 @@ export default function RetailConsumerSection(): ReactElement {
             Q&A BLOCK  (270. Retail challenges)
         ============================================================ */}
         <Reveal as="section" className="mb-20 mt-20 lg:mb-24">
-          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
+          {/* <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-lg bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2"> */}
+          <div className="group grid grid-cols-1 items-stretch overflow-hidden rounded-[20px] bg-[#F5F3FC] transition-colors duration-500 ease-out hover:bg-[#EAE4FA] lg:grid-cols-2">
             <div className="flex flex-col justify-center p-10 transition-transform duration-500 ease-out group-hover:translate-x-2 lg:p-14">
               <h2
                 className={`${SECTION_HEADING} mt-4 max-w-500`}

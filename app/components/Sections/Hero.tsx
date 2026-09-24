@@ -8,9 +8,6 @@ import { motion, type Variants } from "framer-motion";
 /*  Config — edit these to change copy without touching the JSX below  */
 /* ------------------------------------------------------------------ */
 
-// Rotating tail of the headline. "AI-Driven" stays fixed on line 1,
-// these phrases type in / delete out on line 2 — same rhythm as the
-// reference site's "We build / software that ships." rotator.
 const ROTATING_WORDS = [
   "Software Engineering.",
   "Product Engineering.",
@@ -30,12 +27,26 @@ const SERVICE_TICKER = [
 
 const PROOF_STATS: { value: string; label: string }[] = [
   { value: "60+", label: "products shipped" },
-  { value: "100+", label: "entrance trust page " },
+  { value: "100+", label: "entrance trust page" },
   { value: "24/7", label: "engineering support" },
 ];
 
 /* ------------------------------------------------------------------ */
-/*  Entrance animation variants (unchanged from the original hero)     */
+/*  SPACING — inga mattum maathina podhum                              */
+/*                                                                     */
+/*  NAVBAR_H = unga navbar height (px)                                 */
+/*  GAP      = navbar-ku keela irukura gap == stats-ku keela irukura   */
+/*             gap. Rendu edathulayum idhe value dhaan use aagum.      */
+/*                                                                     */
+/*  Tailwind dynamic class work aagaadhu, adhunaala inline style       */
+/*  use pannirukken.                                                   */
+/* ------------------------------------------------------------------ */
+
+const NAVBAR_H = 90; // <-- unga navbar height
+const GAP = 100; // <-- top & bottom equal gap
+
+/* ------------------------------------------------------------------ */
+/*  Entrance animation variants                                        */
 /* ------------------------------------------------------------------ */
 
 const container: Variants = {
@@ -65,9 +76,7 @@ const helveticaStyle = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Typewriter hook — types a word, pauses, deletes, moves to next.    */
-/*  Timings match the reference site (55–100ms type / 32ms delete /    */
-/*  1600ms hold / 320ms gap) and it fully respects reduced-motion.     */
+/*  Typewriter hook                                                    */
 /* ------------------------------------------------------------------ */
 
 function useTypewriter(words: string[]) {
@@ -129,7 +138,7 @@ function useTypewriter(words: string[]) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  Hero                                                                */
+/*  Hero                                                               */
 /* ------------------------------------------------------------------ */
 
 export default function Hero() {
@@ -171,18 +180,22 @@ export default function Hero() {
         />
       </div>
 
-      {/* Hero Content — top-aligned, so the block sits right where it lands
-          instead of being centered in a tall box (that centering is what
-          was pushing a big empty gap in between this and the ticker). */}
+      {/* Hero Content
+          paddingTop    = NAVBAR_H + GAP  → navbar-ku keela GAP px
+          paddingBottom = GAP             → stats-ku keela GAP px
+          Rendu gap um exact equal. */}
       <motion.div
         variants={container}
         initial="hidden"
         animate="visible"
-        style={helveticaStyle}
+        style={{
+          ...helveticaStyle,
+          paddingTop: NAVBAR_H + GAP,
+          paddingBottom: GAP,
+        }}
         className="
           relative z-10 mx-auto max-w-[1520px]
-          px-6 pb-6 pt-[170px]
-          sm:px-10 lg:px-16 lg:pt-[190px]
+          px-6 sm:px-10 lg:px-16
         "
       >
         {/* Small Label */}
@@ -193,7 +206,7 @@ export default function Hero() {
           AI Led Software Development Company
         </motion.p>
 
-        {/* Main Heading — line 1 fixed, line 2 typewriter-rotates */}
+        {/* Main Heading */}
         <motion.h1
           variants={item}
           className="
@@ -215,36 +228,31 @@ export default function Hero() {
         </motion.h1>
 
         {/* Description */}
-  {/* Description */}
-<motion.p
-  variants={item}
-  className="mt-6 max-w-[900px] text-[17px] font-normal leading-[1.7] text-slate-200/85"
->
-     Starfii designs, builds, and scales high performance web, mobile,
+        <motion.p
+          variants={item}
+          className="mt-6 max-w-[900px] text-[17px] font-normal leading-[1.7] text-slate-200/85"
+        >
+          Starfii designs, builds, and scales high performance web, mobile,
           and AI powered products for enterprises, so your business moves
           from idea to launch with zero friction and unstoppable momentum.
-</motion.p>
-
-        {/* CTAs */}
+        </motion.p>
 
         {/* CTA */}
-{/* CTA */}
-<motion.div variants={item} className="mt-8">
-  <motion.a
-    href="/contactpage"
-    whileHover={{ scale: 1.03 }}
-    whileTap={{ scale: 0.98 }}
-    className="
-      flex w-fit items-center gap-2.5 rounded-xl bg-white
-      px-5 py-3 text-[10px] font-bold leading-none text-[#3B2FE0]
-      sm:px-8 sm:py-3.5 sm:text-[20px]
-    "
-  >
-    Contact Us
-    <ArrowUpRight size={26} strokeWidth={2.75} />
-  </motion.a>
-</motion.div>
-
+        <motion.div variants={item} className="mt-8">
+          <motion.a
+            href="/contactpage"
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.98 }}
+            className="
+              flex w-fit items-center gap-2.5 rounded-xl bg-white
+              px-5 py-3 text-[10px] font-bold leading-none text-[#3B2FE0]
+              sm:px-8 sm:py-3.5 sm:text-[20px]
+            "
+          >
+            Contact Us
+            <ArrowUpRight size={26} strokeWidth={2.75} />
+          </motion.a>
+        </motion.div>
 
         {/* Proof stats row */}
         <motion.div variants={item} className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
@@ -259,10 +267,8 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      {/* Service ticker — sits directly under the content in normal flow now
-          (no more absolute-bottom-of-a-tall-section), so the gap above it
-          is just this one `mt`, not however tall the section happens to be. */}
-      {/* <div className="relative z-10 mt-14 overflow-hidden border-t border-white/10 bg-[#08051c]/60 backdrop-blur-sm lg:mt-16">
+      {/* Service ticker (disabled)
+      <div className="relative z-10 overflow-hidden border-t border-white/10 bg-[#08051c]/60 backdrop-blur-sm">
         <div className="starfii-marquee-track flex w-max items-center whitespace-nowrap py-3">
           {tickerLoop.map((label, i) => (
             <span key={`${label}-${i}`} className="flex items-center">
@@ -272,29 +278,12 @@ export default function Hero() {
               >
                 {label}
               </span>
-              <span className="mx-4 text-white/30" aria-hidden="true">
-                ·
-              </span>
+              <span className="mx-4 text-white/30" aria-hidden="true">·</span>
             </span>
           ))}
         </div>
-      </div> */}
-{/* 
-      <style>{`
-        .starfii-marquee-track {
-          animation: starfii-marquee 28s linear infinite;
-        }
-        .starfii-marquee-track:hover {
-          animation-play-state: paused;
-        }
-        @keyframes starfii-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .starfii-marquee-track { animation: none; }
-        }
-      `}</style> */}
+      </div>
+      */}
     </section>
   );
 }

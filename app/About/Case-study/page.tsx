@@ -19,7 +19,7 @@ import { caseStudies as itsmServiceMgmtCaseStudiesRaw } from "@/app/services/its
 import { caseStudies as aiVoiceCaseStudiesRaw } from "@/app/services/offerings/ai-native-contact-center/data/case-studies";
 import { caseStudies as medicalCodingCaseStudiesRaw } from "@/app/services/offerings/enterprise-automation/data/case-studies";
 import { caseStudies as aiChatCaseStudiesRaw } from "@/app/services/offerings/generative-ai/data/case-studies";
-import CaseStudyFilters, { type CaseStudyGroup } from "../Case-study/CaseStudyFilters";
+import CaseStudyFilters, { type CaseStudyGroup } from "./CaseStudyFilters";
 import { caseStudies as cloudCaseStudiesRaw } from "@/app/services/cloud/casestudies/data.tsx/casestudies";
 import { caseStudies as aiFileStorageCaseStudiesRaw } from "@/app/services/offerings/sustainability-services/data/case-studies";
 import { caseStudies as aiMeetingAssistantCaseStudiesRaw } from "@/app/services/offerings/vibe-coding/data/case-studies";

@@ -28,6 +28,42 @@ const T = {
 const EYE_IMAGE =
   "https://unsplash.com/photos/fuBj4vkp4-g/download?force=true&w=900";
 
+/* Industries card: one industry (factory / manufacturing) photo */
+const INDUSTRY_IMAGE =
+  "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?q=90&w=2400&auto=format&fit=crop";
+
+/* Drawn-in-code factory illustration, shown only if the photo above ever fails to load */
+const INDUSTRY_FALLBACK =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 200" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#1B2A5C"/>
+          <stop offset="1" stop-color="#5FA8FF"/>
+        </linearGradient>
+      </defs>
+      <rect width="400" height="200" fill="url(#sky)"/>
+      <circle cx="320" cy="50" r="22" fill="#FFE9B0" opacity="0.9"/>
+      <rect x="0" y="150" width="400" height="50" fill="#0B1233"/>
+      <rect x="40" y="95" width="120" height="55" fill="#14204F"/>
+      <polygon points="40,95 70,70 70,95 100,70 100,95 130,70 130,95 160,95" fill="#14204F"/>
+      <rect x="55" y="112" width="14" height="14" fill="#FFD36B"/>
+      <rect x="80" y="112" width="14" height="14" fill="#FFD36B"/>
+      <rect x="105" y="112" width="14" height="14" fill="#FFD36B"/>
+      <rect x="130" y="112" width="14" height="14" fill="#FFD36B"/>
+      <rect x="185" y="60" width="22" height="90" fill="#1A2760"/>
+      <rect x="181" y="54" width="30" height="8" fill="#26356F"/>
+      <rect x="228" y="80" width="18" height="70" fill="#1A2760"/>
+      <rect x="224" y="74" width="26" height="8" fill="#26356F"/>
+      <circle cx="196" cy="42" r="10" fill="#fff" opacity="0.35"/>
+      <circle cx="208" cy="28" r="14" fill="#fff" opacity="0.25"/>
+      <circle cx="238" cy="60" r="8" fill="#fff" opacity="0.3"/>
+      <rect x="270" y="110" width="90" height="40" fill="#14204F"/>
+      <rect x="282" y="122" width="16" height="28" fill="#FFD36B" opacity="0.85"/>
+    </svg>`
+  );
+
 /* Inline fallback — shows a blue eye illustration if the URL ever fails to load */
 const EYE_FALLBACK =
   "data:image/svg+xml;utf8," +
@@ -101,6 +137,91 @@ const BLOGS_FALLBACK =
     </svg>`
   );
 
+/* Dashboard-style product images (drawn in code, so they always load) */
+const TURBODEV_IMG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" font-family="Arial, Helvetica, sans-serif">
+      <rect width="400" height="220" fill="#07122B"/>
+      <circle cx="380" cy="10" r="90" fill="#0A84FF" opacity="0.10"/>
+      <text x="16" y="22" font-size="11" font-weight="700" fill="#FFFFFF">Revenue Turbodev made you</text>
+      <text x="16" y="33" font-size="7" fill="#8A93C4">Every rupee attributed to a workflow</text>
+
+      <rect x="16" y="44" width="170" height="70" rx="10" fill="#0F1C42" stroke="#24356B"/>
+      <text x="28" y="62" font-size="7.5" fill="#8A93C4">This month</text>
+      <text x="28" y="88" font-size="20" font-weight="700" fill="#FFFFFF">Rs.1,38,000</text>
+      <text x="28" y="104" font-size="7.5" font-weight="700" fill="#25D366">+40% lead conversion</text>
+
+      <rect x="194" y="44" width="190" height="70" rx="10" fill="#0F1C42" stroke="#24356B"/>
+      <text x="206" y="60" font-size="7" fill="#C9D2F5">Abandoned cart recovery</text>
+      <text x="372" y="60" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="end">Rs.70,000</text>
+      <rect x="206" y="64" width="166" height="5" rx="2.5" fill="#1B2A5C"/><rect x="206" y="64" width="166" height="5" rx="2.5" fill="#25D366"/>
+      <text x="206" y="82" font-size="7" fill="#C9D2F5">COD confirmations</text>
+      <text x="372" y="82" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="end">Rs.45,000</text>
+      <rect x="206" y="86" width="166" height="5" rx="2.5" fill="#1B2A5C"/><rect x="206" y="86" width="107" height="5" rx="2.5" fill="#0A84FF"/>
+      <text x="206" y="104" font-size="7" fill="#C9D2F5">Win-backs &amp; retention</text>
+      <text x="372" y="104" font-size="7" font-weight="700" fill="#FFFFFF" text-anchor="end">Rs.23,000</text>
+      <rect x="206" y="108" width="166" height="4" rx="2" fill="#1B2A5C"/><rect x="206" y="108" width="55" height="4" rx="2" fill="#7C6BFF"/>
+
+      <rect x="16" y="124" width="200" height="82" rx="10" fill="#0F1C42" stroke="#24356B"/>
+      <text x="28" y="139" font-size="8" font-weight="700" fill="#FFFFFF">Revenue growth</text>
+      <polygon points="28,196 28,180 60,174 92,176 124,160 156,156 188,142 204,136 204,196" fill="#0A84FF" opacity="0.55"/>
+      <polyline points="28,180 60,174 92,176 124,160 156,156 188,142 204,136" fill="none" stroke="#6DB8FF" stroke-width="2"/>
+
+      <rect x="224" y="124" width="160" height="82" rx="10" fill="#0F1C42" stroke="#24356B"/>
+      <text x="236" y="139" font-size="8" font-weight="700" fill="#FFFFFF">WhatsApp automation</text>
+      <rect x="236" y="148" width="98" height="18" rx="8" fill="#1B2A5C"/>
+      <text x="245" y="160" font-size="7" fill="#FFFFFF">Your cart is waiting</text>
+      <rect x="290" y="172" width="84" height="18" rx="8" fill="#25D366"/>
+      <text x="299" y="184" font-size="7" font-weight="700" fill="#07122B">Order confirmed</text>
+    </svg>`
+  );
+
+const TURBODESK_IMG =
+  "data:image/svg+xml;utf8," +
+  encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" font-family="Arial, Helvetica, sans-serif">
+      <rect width="400" height="220" fill="#0A1030"/>
+      <circle cx="390" cy="0" r="100" fill="#3B2FE0" opacity="0.14"/>
+      <text x="16" y="22" font-size="11" font-weight="700" fill="#FFFFFF">Customer support dashboard</text>
+      <text x="16" y="33" font-size="7" fill="#8A93C4">AI-powered ticket resolution</text>
+
+      <rect x="16" y="44" width="86" height="44" rx="9" fill="#111A44" stroke="#26305F"/>
+      <text x="26" y="58" font-size="7" fill="#8A93C4">Total tickets</text><text x="26" y="78" font-size="16" font-weight="700" fill="#FFFFFF">16k</text>
+      <rect x="110" y="44" width="86" height="44" rx="9" fill="#111A44" stroke="#26305F"/>
+      <text x="120" y="58" font-size="7" fill="#8A93C4">Resolved</text><text x="120" y="78" font-size="16" font-weight="700" fill="#4DA3FF">11k</text>
+      <rect x="204" y="44" width="86" height="44" rx="9" fill="#111A44" stroke="#26305F"/>
+      <text x="214" y="58" font-size="7" fill="#8A93C4">SLA compliant</text><text x="214" y="78" font-size="16" font-weight="700" fill="#FFFFFF">98.2%</text>
+      <rect x="298" y="44" width="86" height="44" rx="9" fill="#111A44" stroke="#26305F"/>
+      <text x="308" y="58" font-size="7" fill="#8A93C4">Avg. CSAT</text><text x="308" y="78" font-size="16" font-weight="700" fill="#3DDC97">4.6</text>
+
+      <rect x="16" y="98" width="110" height="108" rx="10" fill="#111A44" stroke="#26305F"/>
+      <text x="71" y="113" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">Case priority</text>
+      <circle cx="71" cy="154" r="26" fill="none" stroke="#26305F" stroke-width="9"/>
+      <circle cx="71" cy="154" r="26" fill="none" stroke="#2088FF" stroke-width="9" stroke-dasharray="154 163.4" transform="rotate(-90 71 154)"/>
+      <text x="71" y="158" font-size="11" font-weight="700" fill="#FFFFFF" text-anchor="middle">16k</text>
+      <text x="71" y="196" font-size="6.5" fill="#8A93C4" text-anchor="middle">94.1% resolved by AI</text>
+
+      <rect x="134" y="98" width="120" height="108" rx="10" fill="#111A44" stroke="#26305F"/>
+      <text x="194" y="113" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">Case channel</text>
+      <rect x="146" y="130" width="14" height="60" rx="2" fill="#3B2FE0"/>
+      <rect x="168" y="150" width="14" height="40" rx="2" fill="#2088FF"/>
+      <rect x="190" y="146" width="14" height="44" rx="2" fill="#3B2FE0"/>
+      <rect x="212" y="172" width="14" height="18" rx="2" fill="#2088FF"/>
+      <rect x="234" y="176" width="14" height="14" rx="2" fill="#3B2FE0"/>
+      <text x="153" y="200" font-size="5.5" fill="#8A93C4" text-anchor="middle">Phone</text>
+      <text x="175" y="200" font-size="5.5" fill="#8A93C4" text-anchor="middle">Email</text>
+      <text x="197" y="200" font-size="5.5" fill="#8A93C4" text-anchor="middle">Web</text>
+      <text x="219" y="200" font-size="5.5" fill="#8A93C4" text-anchor="middle">Chat</text>
+      <text x="241" y="200" font-size="5.5" fill="#8A93C4" text-anchor="middle">Social</text>
+
+      <rect x="262" y="98" width="122" height="108" rx="10" fill="#111A44" stroke="#26305F"/>
+      <text x="323" y="113" font-size="8" font-weight="700" fill="#FFFFFF" text-anchor="middle">Case tracking</text>
+      <polygon points="272,196 272,170 284,152 296,174 308,146 320,160 332,134 344,154 356,140 374,150 374,196" fill="#2088FF" opacity="0.6"/>
+      <polyline points="272,170 284,152 296,174 308,146 320,160 332,134 344,154 356,140 374,150" fill="none" stroke="#7CC0FF" stroke-width="2"/>
+    </svg>`
+  );
+
 export default function Navbar() {
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -162,8 +283,9 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", closeOnDesktop);
   }, []);
 
-  // Services menu uses its own gray canvas + white panels (no default padding)
-  const isServices = activeMenu === "Services";
+  // Services + Industries use the gray canvas + white panels (no default padding)
+  const isServices =
+    activeMenu === "Services" || activeMenu === "Industries";
 
   return (
     <header
@@ -525,12 +647,13 @@ function FeaturedCard({
   );
 }
 
-/* Blue gradient publication card (used in Services menu) */
+/* Blue gradient publication card (used in Services + Industries menus) */
 function PublicationCard({
   eyebrow,
   title,
   blurb,
   image,
+  fallbackImage = EYE_FALLBACK,
   href = "#",
   onClick,
   ctaLabel = "Know More",
@@ -539,6 +662,7 @@ function PublicationCard({
   title: string;
   blurb?: string;
   image: string;
+  fallbackImage?: string;
   href?: string;
   onClick?: () => void;
   ctaLabel?: string;
@@ -560,7 +684,7 @@ function PublicationCard({
           referrerPolicy="no-referrer"
           onError={(e) => {
             e.currentTarget.onerror = null;
-            e.currentTarget.src = EYE_FALLBACK;
+            e.currentTarget.src = fallbackImage;
           }}
           className="h-full w-full object-cover object-center transition-transform duration-500 ease-out group-hover:scale-105"
         />
@@ -842,14 +966,15 @@ function ServicesMenu({ onNavigate }: { onNavigate?: () => void }) {
 
 /* ===============================================================
    PLATFORMS
+   Images = live screenshots of the real websites
+   (turbodev.ai / turbodesk.in), with the SVG fallbacks kept.
 ================================================================ */
 function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
   const platforms = [
     {
       name: "Turbodev",
       title: "Turbodev the revenue engine for Shopify brands",
-      image:
-        "https://turbodev.ai/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fshopify_hero.49ab5374.svg&w=1440&q=75",
+      image: TURBODEV_IMG,
       fallbackImage: TURBODEV_FALLBACK,
       href: "https://turbodev.ai/",
       newTab: true,
@@ -857,7 +982,7 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
     {
       name: "Turbodesk",
       title: "Turbodesk intelligent service and operations platform",
-      image: "https://turbodesk.in/og-image.png",
+      image: TURBODESK_IMG,
       fallbackImage: TURBODESK_FALLBACK,
       href: "https://turbodesk.in/",
       newTab: true,
@@ -893,6 +1018,8 @@ function PlatformsMenu({ onNavigate }: { onNavigate?: () => void }) {
 
 /* ===============================================================
    INDUSTRIES
+   Same layout as Services: gray canvas + white panel (two columns
+   with a divider) + gray highlight box + blue gradient card.
 ================================================================ */
 function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
   const industries = [
@@ -904,6 +1031,9 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
     { label: "Retail & Consumer", href: "/industries/retail-consumer" },
     { label: "Education & Institutions", href: "/industries/education-institute" },
     { label: "Professional Services", href: "/industries/professional-service" },
+  ];
+
+  const moreIndustries = [
     { label: "Technology, Products & Platforms", href: "/industries/technology-products" },
     { label: "Telecom & Utilities", href: "/industries/telecom-utilties" },
     { label: "Transportation & Logistics", href: "/industries/transport" },
@@ -911,26 +1041,61 @@ function IndustriesMenu({ onNavigate }: { onNavigate?: () => void }) {
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-[1.6fr_1fr] lg:gap-12">
-      <div>
-        <ColumnTitle variant="primary">Industries</ColumnTitle>
-        <div className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
-          {industries.map((i) => (
-            <LinkItem key={i.href} href={i.href} onClick={onNavigate}>
-              <span className="block leading-snug">{i.label}</span>
-            </LinkItem>
-          ))}
+    <div className="grid grid-cols-1 gap-4 lg:grid-cols-[2.7fr_0.9fr]">
+      {/* Left + middle: one white panel with a divider */}
+      <div className="grid grid-cols-1 overflow-hidden rounded-2xl bg-white lg:grid-cols-[1.05fr_1.65fr]">
+        {/* Industries */}
+        <div className={`p-8 lg:border-r ${T.border}`}>
+          <h3 className={`mb-6 text-[22px] font-normal ${T.primary}`}>Industries</h3>
+          <div className="space-y-4">
+            {industries.map((i) => (
+              <LinkItem key={i.href} href={i.href} onClick={onNavigate}>
+                {i.label}
+              </LinkItem>
+            ))}
+          </div>
+        </div>
+
+        {/* More industries */}
+        <div className="p-8">
+          <h3 className={`mb-6 text-[22px] font-normal ${T.primary}`}>More Industries</h3>
+          <div className="grid grid-cols-1 gap-x-10 gap-y-4 sm:grid-cols-2">
+            {moreIndustries.map((i) => (
+              <LinkItem key={i.href} href={i.href} onClick={onNavigate}>
+                {i.label}
+              </LinkItem>
+            ))}
+          </div>
+
+          {/* Featured insight */}
+          <div className="mt-10 flex min-h-[150px] items-center justify-between gap-6 rounded-2xl bg-[#EEEEF4] px-8 py-8">
+            <p className={`max-w-[360px] text-[20px] font-medium leading-[1.4] ${T.ink}`}>
+              Featured insight: How gen AI makes supply chains decide faster.
+            </p>
+            <Link
+              href="#"
+              onClick={onNavigate}
+              className={`shrink-0 rounded-xl px-8 py-[18px] text-[18px] font-medium text-white transition-colors duration-150 ${T.primaryBg} ${T.primaryHoverBg}`}
+            >
+              Know More
+            </Link>
+          </div>
         </div>
       </div>
-      <FeaturedCard
+
+      {/* Right: gradient publication card */}
+      <PublicationCard
         eyebrow="Featured Insight"
-        title="How gen AI makes supply chains decide faster."
-        image="https://images.unsplash.com/photo-1580674285054-bed31e145f59?q=80&w=1200&auto=format&fit=crop"
+        title="Gen AI in Supply Chains, Faster Decisions"
+        blurb="See how industries use gen AI to cut delays and decide faster."
+        image={INDUSTRY_IMAGE}
+        fallbackImage={INDUSTRY_FALLBACK}
         onClick={onNavigate}
       />
     </div>
   );
 }
+
 /* ===============================================================
    ABOUT
 ================================================================ */
