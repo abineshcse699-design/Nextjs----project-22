@@ -1244,7 +1244,7 @@ export default function LegacyModernizationSection(): ReactElement {
           <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             A leader in legacy modernization, Starfii assesses complex

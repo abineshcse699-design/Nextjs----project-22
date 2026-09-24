@@ -201,7 +201,7 @@ const tabs: ServiceTab[] = [
     id: "digital-learning",
     label: "Digital Learning",
     heading: "Digital learning experiences built for connected education",
-    body: "Starfii helps education organizations create accessible and engaging digital learning experiences across web, mobile, virtual classrooms, content, assessments, and supporting services. Experience design and engineering work together to make learning technology easier to use and manage.",
+    body: "Starfii helps education organizations create accessible and engaging digital learning experiences across web, mobile, virtual classrooms, content, assessments, and supporting services. Experience design and engineering work together to make learning technology easier to use and manage. From interactive course content and online assessments to live classes and collaboration tools, every experience is built to keep learners engaged, support different learning styles, and perform consistently across devices and locations. Accessibility standards are considered from the start, so every student and faculty member can take part fully.",
     image:
       "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop",
   },
@@ -209,7 +209,7 @@ const tabs: ServiceTab[] = [
     id: "education-platforms",
     label: "Education Platforms",
     heading: "Education platforms that connect learning and administration",
-    body: "We build and modernize platforms that connect students, faculty, administrators, content, workflows, and institutional systems. Modular architecture, secure integrations, and scalable applications create a stronger technology foundation for education organizations.",
+    body: "We build and modernize platforms that connect students, faculty, administrators, content, workflows, and institutional systems. Modular architecture, secure integrations, and scalable applications create a stronger technology foundation for education organizations. By bringing learning management, student records, admissions, finance, and campus services together, these platforms remove data silos and duplicate effort. Institutions can add new services, tools, and channels over time without rebuilding, and every user gets one consistent, dependable place to get their work done.",
     image:
       "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1200&auto=format&fit=crop",
   },
@@ -217,7 +217,7 @@ const tabs: ServiceTab[] = [
     id: "student-experience",
     label: "Student Experience",
     heading: "Student experiences designed around the complete journey",
-    body: "Starfii creates connected student experiences across discovery, admissions, onboarding, learning, campus services, communication, payments, and alumni engagement. Digital journeys are designed to reduce friction and make important information easier to find and act on.",
+    body: "Starfii creates connected student experiences across discovery, admissions, onboarding, learning, campus services, communication, payments, and alumni engagement. Digital journeys are designed to reduce friction and make important information easier to find and act on. Clear navigation, timely notifications, and self-service tools help students feel supported from their first inquiry to long after graduation, while reducing the load on admissions, registrar, and support teams. Every touchpoint is designed to work smoothly on mobile, where most students prefer to engage.",
     image:
       "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=1200&auto=format&fit=crop",
   },
@@ -225,7 +225,7 @@ const tabs: ServiceTab[] = [
     id: "data-and-analytics",
     label: "Data and Analytics",
     heading: "Data and analytics for stronger institutional decisions",
-    body: "We bring institutional, student, learning, and operational data together through governed platforms, reporting, dashboards, and analytics. Education teams gain clearer visibility into performance, engagement, operations, and outcomes while maintaining appropriate data controls.",
+    body: "We bring institutional, student, learning, and operational data together through governed platforms, reporting, dashboards, and analytics. Education teams gain clearer visibility into performance, engagement, operations, and outcomes while maintaining appropriate data controls. With a trusted, single view of information, institutions can identify at-risk students earlier, plan faculty and resources with confidence, track enrollment and retention trends, and measure which programs and initiatives are actually delivering results.",
     image:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=1200&auto=format&fit=crop",
   },
@@ -233,7 +233,7 @@ const tabs: ServiceTab[] = [
     id: "ai",
     label: "AI",
     heading: "AI that supports learning, administration, and student services",
-    body: "Starfii applies AI to practical education workflows such as knowledge assistance, content support, administrative automation, student communication, document processing, and decision support. Solutions are designed around responsible use, security, governance, and human oversight.",
+    body: "Starfii applies AI to practical education workflows such as knowledge assistance, content support, administrative automation, student communication, document processing, and decision support. Solutions are designed around responsible use, security, governance, and human oversight. Whether it is answering common student questions, processing application documents, or helping faculty prepare learning content, AI takes on repetitive work so people can focus on teaching, mentoring, and higher-value decisions. Institutions can start small, build trust, and expand as confidence grows.",
     image:
       "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1200&auto=format&fit=crop",
   },
@@ -241,7 +241,7 @@ const tabs: ServiceTab[] = [
     id: "application-development",
     label: "Application Development",
     heading: "Application development for modern education organizations",
-    body: "We design and engineer web and mobile applications for learning, administration, student services, faculty workflows, and institutional operations. Scalable architecture, APIs, testing, accessibility, and security are built into the delivery approach.",
+    body: "We design and engineer web and mobile applications for learning, administration, student services, faculty workflows, and institutional operations. Scalable architecture, APIs, testing, accessibility, and security are built into the delivery approach. Legacy applications can be modernized in stages, so daily operations continue without disruption while the technology improves. The result is a faster, more reliable portfolio of applications that is easier to maintain, easier to extend, and easier for students, faculty, and staff to use.",
     image:
       "https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=1200&auto=format&fit=crop",
   },
@@ -249,7 +249,7 @@ const tabs: ServiceTab[] = [
     id: "cloud",
     label: "Cloud",
     heading: "Cloud technology for scalable and resilient education services",
-    body: "Starfii helps education organizations modernize workloads and applications in secure cloud environments. Architecture, resilience, observability, data controls, integrations, and governance are considered together to support reliable digital services.",
+    body: "Starfii helps education organizations modernize workloads and applications in secure cloud environments. Architecture, resilience, observability, data controls, integrations, and governance are considered together to support reliable digital services. Staged migrations begin with the workloads that benefit most, so services stay dependable during peak periods such as admissions, registration, and examinations. Institutions gain the flexibility to scale up or down as needed while keeping performance, security, and costs under control.",
     image:
       "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=1200&auto=format&fit=crop",
   },
@@ -1133,7 +1133,7 @@ export default function EducationPage(): ReactElement {
           <KeyTakeawaysAccordion open={takeawaysOpen} setOpen={setTakeawaysOpen} />
 
           <p
-            className="font-heading mt-10 max-w-8xl text-[26px] leading-snug lg:text-[30px]"
+            className="font-heading mt-10 max-w-6xl text-[26px] leading-snug lg:text-[30px]"
             style={{ color: CHAMPION_BLUE }}
           >
             Starfii helps education organizations modernize digital learning,
